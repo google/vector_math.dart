@@ -21,11 +21,11 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-class mat3x4Gen {
+class mat3x4 {
   vec4 col0;
   vec4 col1;
   vec4 col2;
-  mat3x4Gen([Dynamic col0_, Dynamic col1_, Dynamic col2_]) {
+  mat3x4([Dynamic col0_, Dynamic col1_, Dynamic col2_]) {
     col0 = new vec4();
     col1 = new vec4();
     col2 = new vec4();
@@ -99,7 +99,7 @@ class mat3x4Gen {
   }
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
-      mat3x4Gen r = new mat3x4Gen();
+      mat3x4 r = new mat3x4();
       r[0][0] = this[0][0] * arg;
       r[0][1] = this[0][1] * arg;
       r[0][2] = this[0][2] * arg;
@@ -125,13 +125,13 @@ class mat3x4Gen {
     if (4 == arg.cols) {
       Dynamic r = null;
       if (arg.rows == 2) {
-        r = new mat3x2Gen();
+        r = new mat3x2();
       }
       if (arg.rows == 3) {
-        r = new mat3x3Gen();
+        r = new mat3x3();
       }
       if (arg.rows == 4) {
-        r = new mat3x4Gen();
+        r = new mat3x4();
       }
       for (int j = 0; j < arg.rows; j++) {
         r[0][j] = dot(this.getRow(0), arg.getColumn(j));
@@ -146,8 +146,8 @@ class mat3x4Gen {
     }
     throw new IllegalArgumentException(arg);
   }
-  mat3x4Gen operator+(mat3x4 arg) {
-    mat3x4Gen r = new mat3x4Gen();
+  mat3x4 operator+(mat3x4 arg) {
+    mat3x4 r = new mat3x4();
     r[0][0] = this[0][0] + arg[0][0];
     r[0][1] = this[0][1] + arg[0][1];
     r[0][2] = this[0][2] + arg[0][2];
@@ -162,8 +162,8 @@ class mat3x4Gen {
     r[2][3] = this[2][3] + arg[2][3];
     return r;
   }
-  mat3x4Gen operator-(mat3x4 arg) {
-    mat3x4Gen r = new mat3x4Gen();
+  mat3x4 operator-(mat3x4 arg) {
+    mat3x4 r = new mat3x4();
     r[0][0] = this[0][0] - arg[0][0];
     r[0][1] = this[0][1] - arg[0][1];
     r[0][2] = this[0][2] - arg[0][2];
@@ -178,8 +178,8 @@ class mat3x4Gen {
     r[2][3] = this[2][3] - arg[2][3];
     return r;
   }
-  mat4x3Gen transposed() {
-    mat4x3Gen r = new mat4x3Gen();
+  mat4x3 transposed() {
+    mat4x3 r = new mat4x3();
     r[0][0] = this[0][0];
     r[1][0] = this[0][1];
     r[2][0] = this[0][2];
@@ -194,8 +194,8 @@ class mat3x4Gen {
     r[2][3] = this[3][2];
     return r;
   }
-  mat3x4Gen absolute() {
-    mat3x4Gen r = new mat3x4Gen();
+  mat3x4 absolute() {
+    mat3x4 r = new mat3x4();
     r[0][0] = this[0][0].abs();
     r[0][1] = this[0][1].abs();
     r[0][2] = this[0][2].abs();

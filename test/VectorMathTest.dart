@@ -27,4 +27,10 @@ void main() {
     vec4 v = new vec4(99, 22, 11, 1.0);
     print('${m * v}');
   }
+  {
+    mat3x3 m = new mat3x3();
+    print('det(m) = ${m.determinant()}');
+    m = m * 5.0;
+    print('2x det(m) = ${m.determinant()}');
+  }
 }

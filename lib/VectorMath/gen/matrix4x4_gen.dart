@@ -21,12 +21,12 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-class mat4x4Gen {
+class mat4x4 {
   vec4 col0;
   vec4 col1;
   vec4 col2;
   vec4 col3;
-  mat4x4Gen([Dynamic col0_, Dynamic col1_, Dynamic col2_, Dynamic col3_]) {
+  mat4x4([Dynamic col0_, Dynamic col1_, Dynamic col2_, Dynamic col3_]) {
     col0 = new vec4();
     col1 = new vec4();
     col2 = new vec4();
@@ -107,7 +107,7 @@ class mat4x4Gen {
   }
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
-      mat4x4Gen r = new mat4x4Gen();
+      mat4x4 r = new mat4x4();
       r[0][0] = this[0][0] * arg;
       r[0][1] = this[0][1] * arg;
       r[0][2] = this[0][2] * arg;
@@ -137,13 +137,13 @@ class mat4x4Gen {
     if (4 == arg.cols) {
       Dynamic r = null;
       if (arg.rows == 2) {
-        r = new mat4x2Gen();
+        r = new mat4x2();
       }
       if (arg.rows == 3) {
-        r = new mat4x3Gen();
+        r = new mat4x3();
       }
       if (arg.rows == 4) {
-        r = new mat4x4Gen();
+        r = new mat4x4();
       }
       for (int j = 0; j < arg.rows; j++) {
         r[0][j] = dot(this.getRow(0), arg.getColumn(j));
@@ -161,8 +161,8 @@ class mat4x4Gen {
     }
     throw new IllegalArgumentException(arg);
   }
-  mat4x4Gen operator+(mat4x4 arg) {
-    mat4x4Gen r = new mat4x4Gen();
+  mat4x4 operator+(mat4x4 arg) {
+    mat4x4 r = new mat4x4();
     r[0][0] = this[0][0] + arg[0][0];
     r[0][1] = this[0][1] + arg[0][1];
     r[0][2] = this[0][2] + arg[0][2];
@@ -181,8 +181,8 @@ class mat4x4Gen {
     r[3][3] = this[3][3] + arg[3][3];
     return r;
   }
-  mat4x4Gen operator-(mat4x4 arg) {
-    mat4x4Gen r = new mat4x4Gen();
+  mat4x4 operator-(mat4x4 arg) {
+    mat4x4 r = new mat4x4();
     r[0][0] = this[0][0] - arg[0][0];
     r[0][1] = this[0][1] - arg[0][1];
     r[0][2] = this[0][2] - arg[0][2];
@@ -201,8 +201,8 @@ class mat4x4Gen {
     r[3][3] = this[3][3] - arg[3][3];
     return r;
   }
-  mat4x4Gen transposed() {
-    mat4x4Gen r = new mat4x4Gen();
+  mat4x4 transposed() {
+    mat4x4 r = new mat4x4();
     r[0][0] = this[0][0];
     r[1][0] = this[0][1];
     r[2][0] = this[0][2];
@@ -221,8 +221,8 @@ class mat4x4Gen {
     r[3][3] = this[3][3];
     return r;
   }
-  mat4x4Gen absolute() {
-    mat4x4Gen r = new mat4x4Gen();
+  mat4x4 absolute() {
+    mat4x4 r = new mat4x4();
     r[0][0] = this[0][0].abs();
     r[0][1] = this[0][1].abs();
     r[0][2] = this[0][2].abs();
@@ -241,4 +241,10 @@ class mat4x4Gen {
     r[3][3] = this[3][3].abs();
     return r;
   }
+  num determinant() {
+        num x = 0;
+        num y = 0;
+        num z = 0;
+        num w = 0;
+      }
 }

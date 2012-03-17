@@ -91,7 +91,7 @@ class MatrixGen {
   }
   
   void generatePrologue() {
-    iPrint('class ${matType}Gen {');
+    iPrint('class ${matType} {');
     iPush();
     for (int i = 0; i < cols; i++) {
       iPrint('$colVecType col$i;');  
@@ -109,7 +109,7 @@ class MatrixGen {
   }
   
   void generateConstructors() {   
-    iPrint('${matType}Gen([${joinStrings(matrixComponents, 'Dynamic ', '_')}]) {');
+    iPrint('${matType}([${joinStrings(matrixComponents, 'Dynamic ', '_')}]) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       iPrint('col$i = new $colVecType();');
@@ -249,17 +249,17 @@ class MatrixGen {
     iPrint('Dynamic r = null;');
     iPrint('if (arg.rows == 2) {');
     iPush();
-    iPrint('r = new mat${cols}x2Gen();');
+    iPrint('r = new mat${cols}x2();');
     iPop();
     iPrint('}');
     iPrint('if (arg.rows == 3) {');
     iPush();
-    iPrint('r = new mat${cols}x3Gen();');
+    iPrint('r = new mat${cols}x3();');
     iPop();
     iPrint('}');
     iPrint('if (arg.rows == 4) {');
     iPush();
-    iPrint('r = new mat${cols}x4Gen();');
+    iPrint('r = new mat${cols}x4();');
     iPop();
     iPrint('}');
     for (int i = 0; i < cols; i++) {
@@ -273,7 +273,7 @@ class MatrixGen {
   }
   
   void generateMatrixScale() {
-    iPrint('${matType}Gen r = new ${matType}Gen();');
+    iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('r[$i][$j] = this[$i][$j] * arg;');
@@ -306,9 +306,9 @@ class MatrixGen {
   }
   
   void generateOp(String op) {
-    iPrint('${matType}Gen operator$op(${matType} arg) {');
+    iPrint('${matType} operator$op(${matType} arg) {');
     iPush();
-    iPrint('${matType}Gen r = new ${matType}Gen();');
+    iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('r[$i][$j] = this[$i][$j] $op arg[$i][$j];');
@@ -320,9 +320,9 @@ class MatrixGen {
   }
   
   void generateTranspose() {
-    iPrint('${matTypeTransposed()}Gen transposed() {');
+    iPrint('${matTypeTransposed()} transposed() {');
     iPush();
-    iPrint('${matTypeTransposed()}Gen r = new ${matTypeTransposed()}Gen();');
+    iPrint('${matTypeTransposed()} r = new ${matTypeTransposed()}();');
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         iPrint('r[$j][$i] = this[$i][$j];');
@@ -334,9 +334,9 @@ class MatrixGen {
   }
   
   void generateAbsolute() {
-    iPrint('${matType}Gen absolute() {');
+    iPrint('${matType} absolute() {');
     iPush();
-    iPrint('${matType}Gen r = new ${matType}Gen();');
+    iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('r[$i][$j] = this[$i][$j].abs();');
@@ -345,6 +345,32 @@ class MatrixGen {
     iPrint('return r;');
     iPop();
     iPrint('}');
+  }
+  
+  void generateDeterminant() {
+    if (matType == 'mat2x2') {
+      iPrint('''num determinant() {
+    return (this[0][0] * this[1][1]) - (this[0][1]*this[1][0]); 
+  }''');
+    }
+    
+    if (matType == 'mat3x3') {
+      iPrint('''num determinant() {
+        num x = this[0][0]*((this[2][2]*this[1][1])-(this[2][1]*this[1][2]));
+        num y = this[1][0]*((this[2][2]*this[0][1])-(this[2][1]*this[0][2]));
+        num z = this[2][0]*((this[1][2]*this[0][1])-(this[1][1]*this[0][2]));
+        return x - y + z;
+      }''');
+    }
+    
+    if (matType == 'mat4x4') {
+      iPrint('''num determinant() {
+        num x = 0;
+        num y = 0;
+        num z = 0;
+        num w = 0;
+      }''');
+    }
   }
   
   void generate() {
@@ -363,6 +389,7 @@ class MatrixGen {
     generateOp('-');
     generateTranspose();
     generateAbsolute();
+    generateDeterminant();
     generateEpilogue();
   }
 }

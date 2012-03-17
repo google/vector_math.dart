@@ -21,10 +21,10 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-class mat2x2Gen {
+class mat2x2 {
   vec2 col0;
   vec2 col1;
-  mat2x2Gen([Dynamic col0_, Dynamic col1_]) {
+  mat2x2([Dynamic col0_, Dynamic col1_]) {
     col0 = new vec2();
     col1 = new vec2();
     col0[0] = 1.0;
@@ -85,7 +85,7 @@ class mat2x2Gen {
   }
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
-      mat2x2Gen r = new mat2x2Gen();
+      mat2x2 r = new mat2x2();
       r[0][0] = this[0][0] * arg;
       r[0][1] = this[0][1] * arg;
       r[1][0] = this[1][0] * arg;
@@ -101,13 +101,13 @@ class mat2x2Gen {
     if (2 == arg.cols) {
       Dynamic r = null;
       if (arg.rows == 2) {
-        r = new mat2x2Gen();
+        r = new mat2x2();
       }
       if (arg.rows == 3) {
-        r = new mat2x3Gen();
+        r = new mat2x3();
       }
       if (arg.rows == 4) {
-        r = new mat2x4Gen();
+        r = new mat2x4();
       }
       for (int j = 0; j < arg.rows; j++) {
         r[0][j] = dot(this.getRow(0), arg.getColumn(j));
@@ -119,36 +119,39 @@ class mat2x2Gen {
     }
     throw new IllegalArgumentException(arg);
   }
-  mat2x2Gen operator+(mat2x2 arg) {
-    mat2x2Gen r = new mat2x2Gen();
+  mat2x2 operator+(mat2x2 arg) {
+    mat2x2 r = new mat2x2();
     r[0][0] = this[0][0] + arg[0][0];
     r[0][1] = this[0][1] + arg[0][1];
     r[1][0] = this[1][0] + arg[1][0];
     r[1][1] = this[1][1] + arg[1][1];
     return r;
   }
-  mat2x2Gen operator-(mat2x2 arg) {
-    mat2x2Gen r = new mat2x2Gen();
+  mat2x2 operator-(mat2x2 arg) {
+    mat2x2 r = new mat2x2();
     r[0][0] = this[0][0] - arg[0][0];
     r[0][1] = this[0][1] - arg[0][1];
     r[1][0] = this[1][0] - arg[1][0];
     r[1][1] = this[1][1] - arg[1][1];
     return r;
   }
-  mat2x2Gen transposed() {
-    mat2x2Gen r = new mat2x2Gen();
+  mat2x2 transposed() {
+    mat2x2 r = new mat2x2();
     r[0][0] = this[0][0];
     r[1][0] = this[0][1];
     r[0][1] = this[1][0];
     r[1][1] = this[1][1];
     return r;
   }
-  mat2x2Gen absolute() {
-    mat2x2Gen r = new mat2x2Gen();
+  mat2x2 absolute() {
+    mat2x2 r = new mat2x2();
     r[0][0] = this[0][0].abs();
     r[0][1] = this[0][1].abs();
     r[1][0] = this[1][0].abs();
     r[1][1] = this[1][1].abs();
     return r;
+  }
+  num determinant() {
+    return (this[0][0] * this[1][1]) - (this[0][1]*this[1][0]); 
   }
 }
