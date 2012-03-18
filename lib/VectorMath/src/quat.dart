@@ -210,8 +210,8 @@ class quat {
     }
     if (other is quat) {
       return new quat(w * other.x + x * other.w + y * other.z - z * other.y,
-                      w * other.y + y * other.w + z * other.x() - x * other.z,
-                      w * other.z + z * other.w + x * other.y() - y * other.x,
+                      w * other.y + y * other.w + z * other.x - x * other.z,
+                      w * other.z + z * other.w + x * other.y - y * other.x,
                       w * other.w - x * other.x - y * other.y - z * other.z);
     }
   }
@@ -271,6 +271,10 @@ class quat {
       xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
       xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
       );
+  }
+  
+  String toString() {
+    return '$x, $y, $z @ $w';
   }
   
   num relativeError(quat correct) {
