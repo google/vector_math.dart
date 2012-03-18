@@ -519,6 +519,11 @@ class VectorGenerator {
     iPrint('void normalize() {');
     iPush();
     iPrint('num l = length;');
+    iPrint('if (l == 0.0) {');
+    iPush();
+    iPrint('return;');
+    iPop();
+    iPrint('}');
     vectorComponents.forEach((comp) {
       iPrint('$comp /= l;');
     });
@@ -546,6 +551,25 @@ class VectorGenerator {
     iPrint('}');
   }
   
+  void generateError() {
+    iPrint('num relativeError($generatedName correct) {');
+    iPush();
+    iPrint('num this_norm = length;');
+    iPrint('num correct_norm = correct.length;');
+    iPrint('num diff_norm = (this_norm - correct_norm).abs();');
+    iPrint('return diff_norm/correct_norm;');
+    iPop();
+    iPrint('}');
+    
+    iPrint('num absoluteError($generatedName correct) {');
+    iPush();
+    iPrint('num this_norm = length;');
+    iPrint('num correct_norm = correct.length;');
+    iPrint('num diff_norm = (this_norm - correct_norm).abs();');
+    iPrint('return diff_norm;');
+    iPop();
+    iPrint('}');
+  }
   void generateEpilogue() {
     iPop();
     iPrint('}');
@@ -583,6 +607,7 @@ class VectorGenerator {
       generateCross();
     }
     generateDefaultConstructor();
+    generateError();
     generateEpilogue();
   }
 }

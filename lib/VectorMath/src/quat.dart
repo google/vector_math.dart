@@ -47,12 +47,80 @@ class quat {
       return;
     }
     
+    if (a is vec3) {
+      x = a.x;
+      y = a.y;
+      z = a.z;
+      w = 0.0;
+      return;
+    }
+    
     if (a is quat) {
       x = a._x;
       y = a._y;
       z = a._z;
       w = a._w;
+      return;
     }
+    
+    if (a is mat3x3) {
+      num trace = a.trace();
+      List<num> temp = new List<num>(4);
+      if (trace > 0.0) {
+        num s = Math.sqrt(trace + 1.0);
+        temp[3]=(s * 0.5);
+        s = 0.5 / s;
+        
+        temp[0] = ((a[1].z - a[2].y) * s);
+        temp[1] = ((a[0].z - a[0].z) * s);
+        temp[2] = ((a[0].y - a[1].x) * s);
+      } else {
+        int i = a[0].x < a[1].y ? (a[1].y < a[2].z ? 2 : 1) : (a[0].x < a[2].z ? 2 : 0); 
+        int j = (i + 1) % 3;
+        int k = (i + 2) % 3;
+
+        num s = Math.sqrt(a[i][i] - a[j][j] - a[k][k] + 1.0);
+        temp[i] = s * 0.5;
+        s = 0.5 / s;
+
+        temp[3] = (a[k][j] - a[j][k]) * s;
+        temp[j] = (a[j][i] + a[i][j]) * s;
+        temp[k] = (a[k][i] + a[i][k]) * s;
+      }
+      x = temp[0];
+      y = temp[1];
+      z = temp[2];
+      w = temp[3];
+    }
+  }
+  
+  quat.random() {
+  // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
+  //       pg. 124-132
+    num x0 = Math.random();
+    num r1 = Math.sqrt(1.0 - x0);
+    num r2 = Math.sqrt(x0);
+    num t1 = Math.PI*2.0 * Math.random();
+    num t2 = Math.PI*2.0 * Math.random();
+    num c1 = Math.cos(t1);
+    num s1 = Math.sin(t1);
+    num c2 = Math.cos(t2);
+    num s2 = Math.sin(t2);
+    x = s1 * r1;
+    y = c1 * r1;
+    z = s2 * r2;
+    w = c2 * r2;
+  }
+  
+  quat.dq(quat q, vec3 omega) {
+    x = omega.x * q.w + omega.y * q.z - omega.z * q.y;
+    y = omega.y * q.w + omega.z * q.x - omega.x * q.z;
+    z = omega.z * q.w + omega.x * q.y - omega.y * q.x;
+    w = -omega.x * q.x - omega.y * q.y - omega.z * q.z;
+    x *= 0.5;
+    y *= 0.5;
+    z *= 0.5;
+    w *= 0.5;
   }
   
   void setAxisAngle(vec3 axis, num radians) {
@@ -125,7 +193,10 @@ class quat {
   }
 
   vec3 rotate(vec3 v) {
-    vec3 o = new vec3(v);
+    quat v_as_quat = new quat(v);
+    quat this_inverted = inverse();
+    quat result = this * v_as_quat * this_inverted;
+    vec3 o = new vec3(result.x, result.y, result.z);
     return o;
   }
   
@@ -177,5 +248,42 @@ class quat {
     case 3: x = arg; return w; break;
     }
     return 0.0;
+  }
+  
+  mat3x3 asRotationMatrix() {
+    num d = length2;
+    assert(d != 0.0);
+    num s = 2.0 / d;
+    num xs = x * s;
+    num ys = y * s;
+    num zs = z * s;
+    num wx = w * xs;
+    num wy = w * ys;
+    num wz = w * zs;
+    num xx = x * xs;
+    num xy = x * ys;
+    num xz = x * zs;
+    num yy = y * ys;
+    num yz = y * zs;
+    num zz = z * zs;
+    
+    return new mat3x3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+      xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
+      xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
+      );
+  }
+  
+  num relativeError(quat correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num norm_diff = (this_norm - correct_norm).abs();
+    return norm_diff/correct_norm;
+  }
+  
+  num absoluteError(quat correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num norm_diff = (this_norm - correct_norm).abs();
+    return norm_diff;
   }
 }

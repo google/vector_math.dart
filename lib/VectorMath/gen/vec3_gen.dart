@@ -610,6 +610,9 @@ class vec3 {
   }
   void normalize() {
     num l = length;
+    if (l == 0.0) {
+      return;
+    }
     x /= l;
     y /= l;
     z /= l;
@@ -652,5 +655,17 @@ class vec3 {
       x = y = z = x_;
       return;
     }
+  }
+  num relativeError(vec3 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  num absoluteError(vec3 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
 }

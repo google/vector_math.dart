@@ -43,3 +43,19 @@
 #source("gen/matrix4x4_gen.dart");
 #source("src/matrix.dart");
 #source("src/quat.dart");
+
+num relativeError(Dynamic calculated, Dynamic correct) {
+  if (calculated is num && correct is num) {
+    num diff = (calculated - correct).abs();
+    return diff/correct;
+  }
+  return calculated.relativeError(correct);
+}
+
+num absoluteError(Dynamic calculated, Dynamic correct) {
+  if (calculated is num && correct is num) {
+    num diff = (calculated - correct).abs();
+    return diff;
+  }
+  return calculated.absoluteError(correct);
+}

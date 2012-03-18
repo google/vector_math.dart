@@ -2051,6 +2051,9 @@ class vec4 {
   }
   void normalize() {
     num l = length;
+    if (l == 0.0) {
+      return;
+    }
     x /= l;
     y /= l;
     z /= l;
@@ -2097,5 +2100,17 @@ class vec4 {
       x = y = z = w = x_;
       return;
     }
+  }
+  num relativeError(vec4 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  num absoluteError(vec4 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
 }

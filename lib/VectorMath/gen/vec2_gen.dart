@@ -195,6 +195,9 @@ class vec2 {
   }
   void normalize() {
     num l = length;
+    if (l == 0.0) {
+      return;
+    }
     x /= l;
     y /= l;
   }
@@ -219,5 +222,17 @@ class vec2 {
       x = y = x_;
       return;
     }
+  }
+  num relativeError(vec2 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  num absoluteError(vec2 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
 }

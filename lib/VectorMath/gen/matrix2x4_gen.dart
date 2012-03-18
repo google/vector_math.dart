@@ -24,16 +24,6 @@
 class mat2x4 {
   vec4 col0;
   vec4 col1;
-  mat2x4([Dynamic col0_, Dynamic col1_]) {
-    col0 = new vec4();
-    col1 = new vec4();
-    col0[0] = 1.0;
-    col1[1] = 1.0;
-    if (col0_ is vec4 && col1_ is vec4) {
-      col0 = col0_;
-      col1 = col1_;
-    }
-  }
   num get rows() => 4;
   num get cols() => 2;
   num get length() => 2;
@@ -155,6 +145,12 @@ class mat2x4 {
     r[1][3] = this[1][3] - arg[1][3];
     return r;
   }
+  mat2x4 operator negate() {
+    mat2x4 r = new mat2x4();
+    r[0] = -this[0];
+    r[1] = -this[1];
+    return r;
+  }
   mat4x2 transposed() {
     mat4x2 r = new mat4x2();
     r[0][0] = this[0][0];
@@ -178,5 +174,110 @@ class mat2x4 {
     r[1][2] = this[1][2].abs();
     r[1][3] = this[1][3].abs();
     return r;
+  }
+  num infinityNorm() {
+    num norm = 0.0;
+    {
+      num row_norm = 0.0;
+      row_norm += this[0][0].abs();
+      row_norm += this[0][1].abs();
+      row_norm += this[0][2].abs();
+      row_norm += this[0][3].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[1][0].abs();
+      row_norm += this[1][1].abs();
+      row_norm += this[1][2].abs();
+      row_norm += this[1][3].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    return norm;
+  }
+  num relativeError(mat2x4 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  num absoluteError(mat2x4 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
+  }
+  mat2x4([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7]) {
+    //Initialize the matrix as the identity matrix
+    col0 = new vec4();
+    col1 = new vec4();
+    col0[0] = 1.0;
+    col1[1] = 1.0;
+    if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num && arg6 is num && arg7 is num) {
+      col0[0] = arg0;
+      col0[1] = arg1;
+      col0[2] = arg2;
+      col0[3] = arg3;
+      col1[0] = arg2;
+      col1[1] = arg3;
+      col1[2] = arg4;
+      col1[3] = arg5;
+      return;
+    }
+    if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null) {
+      col0[0] = arg0;
+      col1[1] = arg0;
+      return;
+    }
+    if (arg0 is vec2 && arg1 is vec2) {
+      col0 = arg0;
+      col1 = arg1;
+      return;
+    }
+    if (arg0 is mat2x4) {
+      col0 = arg0.col0;
+      col1 = arg0.col1;
+      return;
+    }
+    if (arg0 is mat2x3) {
+      col0[0] = arg0.col0[0];
+      col0[1] = arg0.col0[1];
+      col0[2] = arg0.col0[2];
+      col1[0] = arg0.col1[0];
+      col1[1] = arg0.col1[1];
+      col1[2] = arg0.col1[2];
+      return;
+    }
+    if (arg0 is mat2x2) {
+      col0[0] = arg0.col0[0];
+      col0[1] = arg0.col0[1];
+      col1[0] = arg0.col1[0];
+      col1[1] = arg0.col1[1];
+      return;
+    }
+    if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null) {
+      col0[0] = arg0[0];
+      col1[1] = arg0[1];
+    }
+  }
+  mat2x4.outer(vec2 u, vec4 v) {
+    col0[0] = u[0] * v[0];
+    col0[1] = u[0] * v[1];
+    col0[2] = u[0] * v[2];
+    col0[3] = u[0] * v[3];
+    col1[0] = u[1] * v[0];
+    col1[1] = u[1] * v[1];
+    col1[2] = u[1] * v[2];
+    col1[3] = u[1] * v[3];
+  }
+  mat2x4.zero() {
+    col0[0] = 0.0;
+    col0[1] = 0.0;
+    col0[2] = 0.0;
+    col0[3] = 0.0;
+    col1[0] = 0.0;
+    col1[1] = 0.0;
+    col1[2] = 0.0;
+    col1[3] = 0.0;
   }
 }

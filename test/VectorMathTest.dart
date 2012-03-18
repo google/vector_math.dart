@@ -1,6 +1,9 @@
 #import('dart:builtin');
 #import('../lib/VectorMath/VectorMath.dart');
 
+class QuaternionTest {
+}
+
 void main() {
   var r = new Options();
   print('${r.script}');

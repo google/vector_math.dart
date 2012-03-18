@@ -25,18 +25,6 @@ class mat3x2 {
   vec2 col0;
   vec2 col1;
   vec2 col2;
-  mat3x2([Dynamic col0_, Dynamic col1_, Dynamic col2_]) {
-    col0 = new vec2();
-    col1 = new vec2();
-    col2 = new vec2();
-    col0[0] = 1.0;
-    col1[1] = 1.0;
-    if (col0_ is vec2 && col1_ is vec2 && col2_ is vec2) {
-      col0 = col0_;
-      col1 = col1_;
-      col2 = col2_;
-    }
-  }
   num get rows() => 2;
   num get cols() => 3;
   num get length() => 3;
@@ -151,6 +139,13 @@ class mat3x2 {
     r[2][1] = this[2][1] - arg[2][1];
     return r;
   }
+  mat3x2 operator negate() {
+    mat3x2 r = new mat3x2();
+    r[0] = -this[0];
+    r[1] = -this[1];
+    r[2] = -this[2];
+    return r;
+  }
   mat2x3 transposed() {
     mat2x3 r = new mat2x3();
     r[0][0] = this[0][0];
@@ -170,5 +165,100 @@ class mat3x2 {
     r[2][0] = this[2][0].abs();
     r[2][1] = this[2][1].abs();
     return r;
+  }
+  num infinityNorm() {
+    num norm = 0.0;
+    {
+      num row_norm = 0.0;
+      row_norm += this[0][0].abs();
+      row_norm += this[0][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[1][0].abs();
+      row_norm += this[1][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[2][0].abs();
+      row_norm += this[2][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    return norm;
+  }
+  num relativeError(mat3x2 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  num absoluteError(mat3x2 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
+  }
+  mat3x2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5]) {
+    //Initialize the matrix as the identity matrix
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
+    col0[0] = 1.0;
+    col1[1] = 1.0;
+    if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num) {
+      col0[0] = arg0;
+      col0[1] = arg1;
+      col1[0] = arg3;
+      col1[1] = arg4;
+      col2[0] = arg6;
+      col2[1] = arg7;
+      return;
+    }
+    if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null) {
+      col0[0] = arg0;
+      col1[1] = arg0;
+      return;
+    }
+    if (arg0 is vec3 && arg1 is vec3 && arg2 is vec3) {
+      col0 = arg0;
+      col1 = arg1;
+      col2 = arg2;
+      return;
+    }
+    if (arg0 is mat3x2) {
+      col0 = arg0.col0;
+      col1 = arg0.col1;
+      col2 = arg0.col2;
+      return;
+    }
+    if (arg0 is mat2x2) {
+      col0[0] = arg0.col0[0];
+      col0[1] = arg0.col0[1];
+      col1[0] = arg0.col1[0];
+      col1[1] = arg0.col1[1];
+      return;
+    }
+    if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null) {
+      col0[0] = arg0[0];
+      col1[1] = arg0[1];
+    }
+  }
+  mat3x2.outer(vec3 u, vec2 v) {
+    col0[0] = u[0] * v[0];
+    col0[1] = u[0] * v[1];
+    col1[0] = u[1] * v[0];
+    col1[1] = u[1] * v[1];
+    col2[0] = u[2] * v[0];
+    col2[1] = u[2] * v[1];
+  }
+  mat3x2.zero() {
+    col0[0] = 0.0;
+    col0[1] = 0.0;
+    col1[0] = 0.0;
+    col1[1] = 0.0;
+    col2[0] = 0.0;
+    col2[1] = 0.0;
   }
 }
