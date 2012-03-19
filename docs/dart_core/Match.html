@@ -1,0 +1,220 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Library dart:core / Interface Match</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <script src="../client-static.js"></script>
+        
+        </head>
+        <body data-library="dart:core" data-type="Match">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../dart_core.html">dart:core</a> &rsaquo; <a href="../dart_core/Match.html">Match</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../dart_core.html">dart:core</a></h2><ul class="icon">
+<li><a href="../dart_core/void.html"><div class="icon-interface"></div>void</a></li>
+<li><a href="../dart_core/Dynamic.html"><div class="icon-interface"></div>Dynamic</a></li>
+<li><a href="../dart_core/Object.html"><div class="icon-class"></div>Object</a></li>
+<li><a href="../dart_core/num.html"><div class="icon-interface"></div>num</a></li>
+<li><a href="../dart_core/int.html"><div class="icon-interface"></div>int</a></li>
+<li><a href="../dart_core/double.html"><div class="icon-interface"></div>double</a></li>
+<li><a href="../dart_core/bool.html"><div class="icon-interface"></div>bool</a></li>
+<li><a href="../dart_core/String.html"><div class="icon-interface"></div>String</a></li>
+<li><a href="../dart_core/List.html"><div class="icon-interface"></div>List&lt;E&gt;</a></li>
+<li><a href="../dart_core/Map.html"><div class="icon-interface"></div>Map&lt;K, V&gt;</a></li>
+<li><a href="../dart_core/Function.html"><div class="icon-interface"></div>Function</a></li>
+<li><a href="../dart_core/TypeError.html"><div class="icon-class"></div>TypeError</a></li>
+<li><a href="../dart_core/Clock.html"><div class="icon-class"></div>Clock</a></li>
+<li><a href="../dart_core/AssertionError.html"><div class="icon-class"></div>AssertionError</a></li>
+<li><a href="../dart_core/FallThroughError.html"><div class="icon-class"></div>FallThroughError</a></li>
+<li><a href="../dart_core/Collection.html"><div class="icon-interface"></div>Collection&lt;E&gt;</a></li>
+<li><a href="../dart_core/Comparable.html"><div class="icon-interface"></div>Comparable</a></li>
+<li><a href="../dart_core/Date.html"><div class="icon-interface"></div>Date</a></li>
+<li><a href="../dart_core/Duration.html"><div class="icon-interface"></div>Duration</a></li>
+<li><a href="../dart_core/Expect.html"><div class="icon-class"></div>Expect</a></li>
+<li><a href="../dart_core/Future.html"><div class="icon-interface"></div>Future&lt;T&gt;</a></li>
+<li><a href="../dart_core/Completer.html"><div class="icon-interface"></div>Completer&lt;T&gt;</a></li>
+<li><a href="../dart_core/Futures.html"><div class="icon-class"></div>Futures</a></li>
+<li><a href="../dart_core/Hashable.html"><div class="icon-interface"></div>Hashable</a></li>
+<li><a href="../dart_core/Iterable.html"><div class="icon-interface"></div>Iterable&lt;E&gt;</a></li>
+<li><a href="../dart_core/Iterator.html"><div class="icon-interface"></div>Iterator&lt;E&gt;</a></li>
+<li><a href="../dart_core/HashMap.html"><div class="icon-interface"></div>HashMap&lt;K, V&gt;</a></li>
+<li><a href="../dart_core/LinkedHashMap.html"><div class="icon-interface"></div>LinkedHashMap&lt;K, V&gt;</a></li>
+<li><a href="../dart_core/Math.html"><div class="icon-class"></div>Math</a></li>
+<li><a href="../dart_core/Options.html"><div class="icon-interface"></div>Options</a></li>
+<li><a href="../dart_core/Pattern.html"><div class="icon-interface"></div>Pattern</a></li>
+<li><a href="../dart_core/Queue.html"><div class="icon-interface"></div>Queue&lt;E&gt;</a></li>
+<li><div class="icon-interface"></div><strong>Match</strong></li>
+<li><a href="../dart_core/RegExp.html"><div class="icon-interface"></div>RegExp</a></li>
+<li><a href="../dart_core/Set.html"><div class="icon-interface"></div>Set&lt;E&gt;</a></li>
+<li><a href="../dart_core/HashSet.html"><div class="icon-interface"></div>HashSet&lt;E&gt;</a></li>
+<li><a href="../dart_core/Stopwatch.html"><div class="icon-interface"></div>Stopwatch</a></li>
+<li><a href="../dart_core/Strings.html"><div class="icon-class"></div>Strings</a></li>
+<li><a href="../dart_core/StringBuffer.html"><div class="icon-interface"></div>StringBuffer</a></li>
+<li><a href="../dart_core/TimeZone.html"><div class="icon-interface"></div>TimeZone</a></li>
+<li><a href="../dart_core/Exception.html"><div class="icon-exception"></div>Exception</a></li>
+<li><a href="../dart_core/IndexOutOfRangeException.html"><div class="icon-exception"></div>IndexOutOfRangeException</a></li>
+<li><a href="../dart_core/IllegalAccessException.html"><div class="icon-exception"></div>IllegalAccessException</a></li>
+<li><a href="../dart_core/NoSuchMethodException.html"><div class="icon-exception"></div>NoSuchMethodException</a></li>
+<li><a href="../dart_core/ClosureArgumentMismatchException.html"><div class="icon-exception"></div>ClosureArgumentMismatchException</a></li>
+<li><a href="../dart_core/ObjectNotClosureException.html"><div class="icon-exception"></div>ObjectNotClosureException</a></li>
+<li><a href="../dart_core/IllegalArgumentException.html"><div class="icon-exception"></div>IllegalArgumentException</a></li>
+<li><a href="../dart_core/OutOfMemoryException.html"><div class="icon-exception"></div>OutOfMemoryException</a></li>
+<li><a href="../dart_core/StackOverflowException.html"><div class="icon-exception"></div>StackOverflowException</a></li>
+<li><a href="../dart_core/BadNumberFormatException.html"><div class="icon-exception"></div>BadNumberFormatException</a></li>
+<li><a href="../dart_core/WrongArgumentCountException.html"><div class="icon-exception"></div>WrongArgumentCountException</a></li>
+<li><a href="../dart_core/NullPointerException.html"><div class="icon-exception"></div>NullPointerException</a></li>
+<li><a href="../dart_core/NoMoreElementsException.html"><div class="icon-exception"></div>NoMoreElementsException</a></li>
+<li><a href="../dart_core/EmptyQueueException.html"><div class="icon-exception"></div>EmptyQueueException</a></li>
+<li><a href="../dart_core/UnsupportedOperationException.html"><div class="icon-exception"></div>UnsupportedOperationException</a></li>
+<li><a href="../dart_core/NotImplementedException.html"><div class="icon-exception"></div>NotImplementedException</a></li>
+<li><a href="../dart_core/IllegalJSRegExpException.html"><div class="icon-exception"></div>IllegalJSRegExpException</a></li>
+<li><a href="../dart_core/IntegerDivisionByZeroException.html"><div class="icon-exception"></div>IntegerDivisionByZeroException</a></li>
+<li><a href="../dart_core/ExpectException.html"><div class="icon-exception"></div>ExpectException</a></li>
+<li><a href="../dart_core/FutureNotCompleteException.html"><div class="icon-exception"></div>FutureNotCompleteException</a></li>
+<li><a href="../dart_core/FutureAlreadyCompleteException.html"><div class="icon-exception"></div>FutureAlreadyCompleteException</a></li>
+</ul>
+<h2><div class="icon-library"></div><a href="../dart_coreimpl.html">dart:coreimpl</a></h2><h2><div class="icon-library"></div><a href="../VectorMath.html">VectorMath</a></h2></div>
+<div class="content">
+        <h2>Interface
+            <strong>Match</strong></h2>
+        
+<div class="doc">
+<p><a class="crossref" href="../dart_core/Match.html">Match</a> contains methods to manipulate a regular expression match.</p>
+<p>Iterables of <a class="crossref" href="../dart_core/Match.html">Match</a> objects are returned from <a class="crossref" href="../dart_core/RegExp.html">RegExp</a> matching methods.</p>
+<p>The following example finds all matches of a <a class="crossref" href="../dart_core/RegExp.html">RegExp</a> in a <a class="crossref" href="../dart_core/String.html">String</a>
+and iterates through the returned iterable of <a class="crossref" href="../dart_core/Match.html">Match</a> objects.</p>
+<p>[:
+   RegExp exp = const RegExp(@"(\w+)");
+   String str = "Parse my string";
+   Iterable&lt;Match> matches = exp.allMatches(str);
+   for (Match m in matches) {</p>
+<pre><code> String match = m.group(0);
+ print(match);
+</code></pre>
+<p>   };
+:]</p>
+<p>The output of the example is:</p>
+<p><code>
+   Parse
+   my
+   string
+</code></p>
+</div>
+<h3>Implemented by</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_coreimpl/MatchImplementation.html">MatchImplementation</a></span></p>
+<h3>Methods</h3>
+<div class="method"><h4 id="start">
+<span class="show-code">Code</span>
+<a href="../dart_core/int.html">int</a> <strong>start</strong>() <a class="anchor-link" href="#start"
+              title="Permalink to Match.start">#</a></h4>
+<div class="doc">
+<p>Returns the index in the string where the match starts.</p>
+<pre class="source">
+int start();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="end">
+<span class="show-code">Code</span>
+<a href="../dart_core/int.html">int</a> <strong>end</strong>() <a class="anchor-link" href="#end"
+              title="Permalink to Match.end">#</a></h4>
+<div class="doc">
+<p>Returns the index in the string after the last character of the
+match.</p>
+<pre class="source">
+int end();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="group">
+<span class="show-code">Code</span>
+<a href="../dart_core/String.html">String</a> <strong>group</strong>(<a href="../dart_core/int.html">int</a> group) <a class="anchor-link" href="#group"
+              title="Permalink to Match.group">#</a></h4>
+<div class="doc">
+<p>Returns the string matched by the given 
+<span class="param">group</span>. If 
+<span class="param">group</span> is 0,
+returns the match of the regular expression.</p>
+<pre class="source">
+String group(int group);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":index">
+<span class="show-code">Code</span>
+<a href="../dart_core/String.html">String</a> <strong>operator []</strong>(<a href="../dart_core/int.html">int</a> group) <a class="anchor-link" href="#:index"
+              title="Permalink to Match.operator []">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+String operator [](int group);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="groups">
+<span class="show-code">Code</span>
+<a href="../dart_core/List.html">List</a> <strong>groups</strong>(<a href="../dart_core/List.html">List</a> groups) <a class="anchor-link" href="#groups"
+              title="Permalink to Match.groups">#</a></h4>
+<div class="doc">
+<p>Returns the strings matched by 
+<span class="param">groups</span>. The order in the
+returned string follows the order in 
+<span class="param">groups</span>.</p>
+<pre class="source">
+List&lt;String&gt; groups(List&lt;int&gt; groups);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="groupCount">
+<span class="show-code">Code</span>
+<a href="../dart_core/int.html">int</a> <strong>groupCount</strong>() <a class="anchor-link" href="#groupCount"
+              title="Permalink to Match.groupCount">#</a></h4>
+<div class="doc">
+<p>Returns the number of groups in the regular expression.</p>
+<pre class="source">
+int groupCount();
+</pre>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="str">
+<span class="show-code">Code</span>
+final <a href="../dart_core/String.html">String</a>         <strong>str</strong> <a class="anchor-link"
+            href="#str"
+            title="Permalink to Match.str">#</a>
+        </h4>
+        <div class="doc">
+<p>The string on which this matcher was computed.</p>
+<pre class="source">
+final String str;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="pattern">
+<span class="show-code">Code</span>
+final <a href="../dart_core/Pattern.html">Pattern</a>         <strong>pattern</strong> <a class="anchor-link"
+            href="#pattern"
+            title="Permalink to Match.pattern">#</a>
+        </h4>
+        <div class="doc">
+<p>The pattern to search for in <a class="crossref" href="../dart_core/Match.html#str">str</a>.</p>
+<pre class="source">
+final Pattern pattern;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer"></div>
+        </body></html>
+        

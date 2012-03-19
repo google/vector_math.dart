@@ -72,32 +72,32 @@ Dynamic log(Dynamic arg) {
 /// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
 Dynamic exp2(Dynamic arg) {
   if (arg is num) {
-    return ScalarMath.exp2(arg);
+    return _ScalerHelpers.exp2(arg);
   }
   if (arg is vec2) {
-    return new vec2(ScalarMath.exp2(arg.x), ScalarMath.exp2(arg.y));
+    return new vec2(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y));
   }
   if (arg is vec3) {
-    return new vec3(ScalarMath.exp2(arg.x), ScalarMath.exp2(arg.y), ScalarMath.exp2(arg.z));
+    return new vec3(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y), _ScalerHelpers.exp2(arg.z));
   }
   if (arg is vec4) {
-    return new vec4(ScalarMath.exp2(arg.x), ScalarMath.exp2(arg.y), ScalarMath.exp2(arg.z), ScalarMath.exp2(arg.w));
+    return new vec4(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y), _ScalerHelpers.exp2(arg.z), _ScalerHelpers.exp2(arg.w));
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
 Dynamic log2(Dynamic arg) {
   if (arg is num) {
-    return ScalarMath.log2(arg);
+    return _ScalerHelpers.log2(arg);
   }
   if (arg is vec2) {
-    return new vec2(ScalarMath.log2(arg.x), ScalarMath.log2(arg.y));
+    return new vec2(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y));
   }
   if (arg is vec3) {
-    return new vec3(ScalarMath.log2(arg.x), ScalarMath.log2(arg.y), ScalarMath.log2(arg.z));
+    return new vec3(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y), _ScalerHelpers.log2(arg.z));
   }
   if (arg is vec4) {
-    return new vec4(ScalarMath.log2(arg.x), ScalarMath.log2(arg.y), ScalarMath.log2(arg.z), ScalarMath.log2(arg.w));
+    return new vec4(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y), _ScalerHelpers.log2(arg.z), _ScalerHelpers.log2(arg.w));
   }
   throw new IllegalArgumentException(arg);
 }
@@ -120,16 +120,16 @@ Dynamic sqrt(Dynamic arg) {
 /// Returns the inverse square root of [arg]. Supports vectors and numbers.
 Dynamic inversesqrt(Dynamic arg) {
   if (arg is num) {
-    return ScalarMath.inversesqrt(arg);
+    return _ScalerHelpers.inversesqrt(arg);
   }
   if (arg is vec2) {
-    return new vec2(ScalarMath.inversesqrt(arg.x), ScalarMath.inversesqrt(arg.y));
+    return new vec2(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y));
   }
   if (arg is vec3) {
-    return new vec3(ScalarMath.inversesqrt(arg.x), ScalarMath.inversesqrt(arg.y), ScalarMath.inversesqrt(arg.z));
+    return new vec3(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y), _ScalerHelpers.inversesqrt(arg.z));
   }
   if (arg is vec4) {
-    return new vec4(ScalarMath.inversesqrt(arg.x), ScalarMath.inversesqrt(arg.y), ScalarMath.inversesqrt(arg.z), ScalarMath.inversesqrt(arg.w));
+    return new vec4(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y), _ScalerHelpers.inversesqrt(arg.z), _ScalerHelpers.inversesqrt(arg.w));
   }
   throw new IllegalArgumentException(arg);
 }

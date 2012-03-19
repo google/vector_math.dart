@@ -1,0 +1,4889 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Library VectorMath / Class vec3</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <script src="../client-static.js"></script>
+        
+        </head>
+        <body data-library="VectorMath" data-type="vec3">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../VectorMath.html">VectorMath</a> &rsaquo; <a href="../VectorMath/vec3.html">vec3</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../dart_core.html">dart:core</a></h2><h2><div class="icon-library"></div><a href="../dart_coreimpl.html">dart:coreimpl</a></h2><h2><div class="icon-library"></div><a href="../VectorMath.html">VectorMath</a></h2><ul class="icon">
+<li><a href="../VectorMath/vec2.html"><div class="icon-class"></div>vec2</a></li>
+<li><div class="icon-class"></div><strong>vec3</strong></li>
+<li><a href="../VectorMath/vec4.html"><div class="icon-class"></div>vec4</a></li>
+<li><a href="../VectorMath/mat2x2.html"><div class="icon-class"></div>mat2x2</a></li>
+<li><a href="../VectorMath/mat2x3.html"><div class="icon-class"></div>mat2x3</a></li>
+<li><a href="../VectorMath/mat2x4.html"><div class="icon-class"></div>mat2x4</a></li>
+<li><a href="../VectorMath/mat3x2.html"><div class="icon-class"></div>mat3x2</a></li>
+<li><a href="../VectorMath/mat3x3.html"><div class="icon-class"></div>mat3x3</a></li>
+<li><a href="../VectorMath/mat3x4.html"><div class="icon-class"></div>mat3x4</a></li>
+<li><a href="../VectorMath/mat4x2.html"><div class="icon-class"></div>mat4x2</a></li>
+<li><a href="../VectorMath/mat4x3.html"><div class="icon-class"></div>mat4x3</a></li>
+<li><a href="../VectorMath/mat4x4.html"><div class="icon-class"></div>mat4x4</a></li>
+<li><a href="../VectorMath/quat.html"><div class="icon-class"></div>quat</a></li>
+</ul>
+</div>
+<div class="content">
+        <h2>Class
+            <strong>vec3</strong></h2>
+        
+<div class="doc">
+
+</div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="vec3">
+<span class="show-code">Code</span>
+new <strong>vec3</strong>([x_, y_, z_]) <a class="anchor-link" href="#vec3"
+              title="Permalink to vec3.vec3">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../VectorMath/vec3.html">vec3</a>. Follows GLSL constructor syntax so many combinations are possible</p>
+<pre class="source">
+vec3([Dynamic x_, Dynamic y_, Dynamic z_]) {
+  x = y = z = 0.0;
+  if (x_ is vec2 &amp;&amp; y_ is num) {
+    this.xy = x_.xy;
+    this.z = y_;
+  }
+  if (x_ is num &amp;&amp; y_ is vec2) {
+    this.x = x_.x;
+    this.yz = y_.xy;
+  }
+  if (x_ is vec2 &amp;&amp; y_ == null) {
+    this.xy = x_.xy;
+    this.z = 0;
+  }
+  if (x_ is vec3) {
+    xyz = x_.xyz;
+    return;
+  }
+  if (x_ is num &amp;&amp; y_ is num &amp;&amp; z_ is num) {
+    x = x_;
+    y = y_;
+    z = z_;
+    return;
+  }
+  if (x_ is num) {
+    x = y = z = x_;
+    return;
+  }
+}
+</pre>
+</div>
+</div>
+<h3>Methods</h3>
+<div class="method"><h4 id="toString">
+<span class="show-code">Code</span>
+<a href="../dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to vec3.toString">#</a></h4>
+<div class="doc">
+<p>Returns a printable string</p>
+<pre class="source">
+String toString() =&gt; '$x,$y,$z';
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":negate">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>operator negate</strong>() <a class="anchor-link" href="#:negate"
+              title="Permalink to vec3.operator negate">#</a></h4>
+<div class="doc">
+<p>Returns a new vec3 from -this</p>
+<pre class="source">
+vec3 operator negate() =&gt; new vec3(-x, -y, -z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":sub">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>operator -</strong>(<a href="../VectorMath/vec3.html">vec3</a> other) <a class="anchor-link" href="#:sub"
+              title="Permalink to vec3.operator -">#</a></h4>
+<div class="doc">
+<p>Returns a new vec3 from this - 
+<span class="param">other</span></p>
+<pre class="source">
+vec3 operator-(vec3 other) =&gt; new vec3(x - other.x, y - other.y, z - other.z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":add">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>operator +</strong>(<a href="../VectorMath/vec3.html">vec3</a> other) <a class="anchor-link" href="#:add"
+              title="Permalink to vec3.operator +">#</a></h4>
+<div class="doc">
+<p>Returns a new vec3 from this + 
+<span class="param">other</span></p>
+<pre class="source">
+vec3 operator+(vec3 other) =&gt; new vec3(x + other.x, y + other.y, z + other.z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":div">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>operator /</strong>(other) <a class="anchor-link" href="#:div"
+              title="Permalink to vec3.operator /">#</a></h4>
+<div class="doc">
+<p>Returns a new vec3 divided by 
+<span class="param">other</span></p>
+<pre class="source">
+vec3 operator/(Dynamic other) {
+  if (other is num) {
+    return new vec3(x / other, y / other, z / other);
+  }
+  if (other is vec3) {
+    return new vec3(x / other.x, y / other.y, z / other.z);
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":mul">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>operator *</strong>(other) <a class="anchor-link" href="#:mul"
+              title="Permalink to vec3.operator *">#</a></h4>
+<div class="doc">
+<p>Returns a new vec3 scaled by 
+<span class="param">other</span></p>
+<pre class="source">
+vec3 operator*(Dynamic other) {
+  if (other is num) {
+    return new vec3(x * other, y * other, z * other);
+  }
+  if (other is vec3) {
+    return new vec3(x * other.x, y * other.y, z * other.z);
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":index">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>operator []</strong>(<a href="../dart_core/int.html">int</a> i) <a class="anchor-link" href="#:index"
+              title="Permalink to vec3.operator []">#</a></h4>
+<div class="doc">
+<p>Returns a component from vec3. This is indexed as an array with 
+<span class="param">i</span></p>
+<pre class="source">
+num operator[](int i) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 3);
+  switch (i) {
+    case 0: return x; break;
+    case 1: return y; break;
+    case 2: return z; break;
+  };
+  return 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":setindex">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>operator []=</strong>(<a href="../dart_core/int.html">int</a> i, <a href="../dart_core/num.html">num</a> v) <a class="anchor-link" href="#:setindex"
+              title="Permalink to vec3.operator []=">#</a></h4>
+<div class="doc">
+<p>Assigns a component in vec3 the value in 
+<span class="param">v</span>. This is indexed as an array with 
+<span class="param">i</span></p>
+<pre class="source">
+num operator[]=(int i, num v) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 3);
+  switch (i) {
+    case 0: x = v; return x; break;
+    case 1: y = v; return y; break;
+    case 2: z = v; return z; break;
+  };
+  return 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:length">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get length</strong>() <a class="anchor-link" href="#get:length"
+              title="Permalink to vec3.get length">#</a></h4>
+<div class="doc">
+<p>Returns length of this</p>
+<pre class="source">
+num get length() {
+  num sum = 0.0;
+  sum += (x * x);
+  sum += (y * y);
+  sum += (z * z);
+  return Math.sqrt(sum);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:length2">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get length2</strong>() <a class="anchor-link" href="#get:length2"
+              title="Permalink to vec3.get length2">#</a></h4>
+<div class="doc">
+<p>Returns squared length of this</p>
+<pre class="source">
+num get length2() {
+  num sum = 0.0;
+  sum += (x * x);
+  sum += (y * y);
+  sum += (z * z);
+  return sum;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="normalize">
+<span class="show-code">Code</span>
+<a href="../dart_core/void.html">void</a> <strong>normalize</strong>() <a class="anchor-link" href="#normalize"
+              title="Permalink to vec3.normalize">#</a></h4>
+<div class="doc">
+<p>Normalizes this</p>
+<pre class="source">
+void normalize() {
+  num l = length;
+  if (l == 0.0) {
+    return;
+  }
+  x /= l;
+  y /= l;
+  z /= l;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="dot">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>dot</strong>(<a href="../VectorMath/vec3.html">vec3</a> other) <a class="anchor-link" href="#dot"
+              title="Permalink to vec3.dot">#</a></h4>
+<div class="doc">
+<p>Returns the dot product of <code>this</code> and 
+<span class="param">other</span></p>
+<pre class="source">
+num dot(vec3 other) {
+  num sum = 0.0;
+  sum += (x * other.x);
+  sum += (y * other.y);
+  sum += (z * other.z);
+  return sum;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="cross">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>cross</strong>(<a href="../VectorMath/vec3.html">vec3</a> other) <a class="anchor-link" href="#cross"
+              title="Permalink to vec3.cross">#</a></h4>
+<div class="doc">
+<p>Returns the cross product of <code>this</code> and 
+<span class="param">other</span></p>
+<pre class="source">
+vec3 cross(vec3 other) {
+  return new vec3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="relativeError">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>relativeError</strong>(<a href="../VectorMath/vec3.html">vec3</a> correct) <a class="anchor-link" href="#relativeError"
+              title="Permalink to vec3.relativeError">#</a></h4>
+<div class="doc">
+<p>Returns the relative error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num relativeError(vec3 correct) {
+  num this_norm = length;
+  num correct_norm = correct.length;
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm/correct_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="absoluteError">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>absoluteError</strong>(<a href="../VectorMath/vec3.html">vec3</a> correct) <a class="anchor-link" href="#absoluteError"
+              title="Permalink to vec3.absoluteError">#</a></h4>
+<div class="doc">
+<p>Returns the absolute error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num absoluteError(vec3 correct) {
+  num this_norm = length;
+  num correct_norm = correct.length;
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get xy</strong>() <a class="anchor-link" href="#get:xy"
+              title="Permalink to vec3.get xy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get xy() =&gt; new vec2(x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:xy">
+<span class="show-code">Code</span>
+<strong>set xy</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:xy"
+              title="Permalink to vec3.set xy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set xy(vec2 arg) {
+  x = arg.x;
+  y = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get xz</strong>() <a class="anchor-link" href="#get:xz"
+              title="Permalink to vec3.get xz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get xz() =&gt; new vec2(x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:xz">
+<span class="show-code">Code</span>
+<strong>set xz</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:xz"
+              title="Permalink to vec3.set xz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set xz(vec2 arg) {
+  x = arg.x;
+  z = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get yx</strong>() <a class="anchor-link" href="#get:yx"
+              title="Permalink to vec3.get yx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get yx() =&gt; new vec2(y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:yx">
+<span class="show-code">Code</span>
+<strong>set yx</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:yx"
+              title="Permalink to vec3.set yx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set yx(vec2 arg) {
+  y = arg.x;
+  x = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get yz</strong>() <a class="anchor-link" href="#get:yz"
+              title="Permalink to vec3.get yz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get yz() =&gt; new vec2(y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:yz">
+<span class="show-code">Code</span>
+<strong>set yz</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:yz"
+              title="Permalink to vec3.set yz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set yz(vec2 arg) {
+  y = arg.x;
+  z = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get zx</strong>() <a class="anchor-link" href="#get:zx"
+              title="Permalink to vec3.get zx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get zx() =&gt; new vec2(z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:zx">
+<span class="show-code">Code</span>
+<strong>set zx</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:zx"
+              title="Permalink to vec3.set zx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set zx(vec2 arg) {
+  z = arg.x;
+  x = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get zy</strong>() <a class="anchor-link" href="#get:zy"
+              title="Permalink to vec3.get zy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get zy() =&gt; new vec2(z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:zy">
+<span class="show-code">Code</span>
+<strong>set zy</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:zy"
+              title="Permalink to vec3.set zy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set zy(vec2 arg) {
+  z = arg.x;
+  y = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xyz</strong>() <a class="anchor-link" href="#get:xyz"
+              title="Permalink to vec3.get xyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xyz() =&gt; new vec3(x, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:xyz">
+<span class="show-code">Code</span>
+<strong>set xyz</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:xyz"
+              title="Permalink to vec3.set xyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set xyz(vec3 arg) {
+  x = arg.x;
+  y = arg.y;
+  z = arg.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xzy</strong>() <a class="anchor-link" href="#get:xzy"
+              title="Permalink to vec3.get xzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xzy() =&gt; new vec3(x, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:xzy">
+<span class="show-code">Code</span>
+<strong>set xzy</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:xzy"
+              title="Permalink to vec3.set xzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set xzy(vec3 arg) {
+  x = arg.x;
+  z = arg.y;
+  y = arg.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yxz</strong>() <a class="anchor-link" href="#get:yxz"
+              title="Permalink to vec3.get yxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yxz() =&gt; new vec3(y, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:yxz">
+<span class="show-code">Code</span>
+<strong>set yxz</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:yxz"
+              title="Permalink to vec3.set yxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set yxz(vec3 arg) {
+  y = arg.x;
+  x = arg.y;
+  z = arg.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yzx</strong>() <a class="anchor-link" href="#get:yzx"
+              title="Permalink to vec3.get yzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yzx() =&gt; new vec3(y, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:yzx">
+<span class="show-code">Code</span>
+<strong>set yzx</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:yzx"
+              title="Permalink to vec3.set yzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set yzx(vec3 arg) {
+  y = arg.x;
+  z = arg.y;
+  x = arg.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zxy</strong>() <a class="anchor-link" href="#get:zxy"
+              title="Permalink to vec3.get zxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zxy() =&gt; new vec3(z, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:zxy">
+<span class="show-code">Code</span>
+<strong>set zxy</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:zxy"
+              title="Permalink to vec3.set zxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set zxy(vec3 arg) {
+  z = arg.x;
+  x = arg.y;
+  y = arg.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zyx</strong>() <a class="anchor-link" href="#get:zyx"
+              title="Permalink to vec3.get zyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zyx() =&gt; new vec3(z, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:zyx">
+<span class="show-code">Code</span>
+<strong>set zyx</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:zyx"
+              title="Permalink to vec3.set zyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set zyx(vec3 arg) {
+  z = arg.x;
+  y = arg.y;
+  x = arg.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:r">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get r</strong>() <a class="anchor-link" href="#get:r"
+              title="Permalink to vec3.get r">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get r() =&gt; x;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:r">
+<span class="show-code">Code</span>
+<strong>set r</strong>(<a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#set:r"
+              title="Permalink to vec3.set r">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set r(num arg) =&gt; x = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:g">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get g</strong>() <a class="anchor-link" href="#get:g"
+              title="Permalink to vec3.get g">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get g() =&gt; y;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:g">
+<span class="show-code">Code</span>
+<strong>set g</strong>(<a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#set:g"
+              title="Permalink to vec3.set g">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set g(num arg) =&gt; y = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:b">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get b</strong>() <a class="anchor-link" href="#get:b"
+              title="Permalink to vec3.get b">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get b() =&gt; z;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:b">
+<span class="show-code">Code</span>
+<strong>set b</strong>(<a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#set:b"
+              title="Permalink to vec3.set b">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set b(num arg) =&gt; z = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:s">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get s</strong>() <a class="anchor-link" href="#get:s"
+              title="Permalink to vec3.get s">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get s() =&gt; x;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:s">
+<span class="show-code">Code</span>
+<strong>set s</strong>(<a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#set:s"
+              title="Permalink to vec3.set s">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set s(num arg) =&gt; x = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:t">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get t</strong>() <a class="anchor-link" href="#get:t"
+              title="Permalink to vec3.get t">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get t() =&gt; y;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:t">
+<span class="show-code">Code</span>
+<strong>set t</strong>(<a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#set:t"
+              title="Permalink to vec3.set t">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set t(num arg) =&gt; y = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:p">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get p</strong>() <a class="anchor-link" href="#get:p"
+              title="Permalink to vec3.get p">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get p() =&gt; z;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:p">
+<span class="show-code">Code</span>
+<strong>set p</strong>(<a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#set:p"
+              title="Permalink to vec3.set p">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set p(num arg) =&gt; z = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get rg</strong>() <a class="anchor-link" href="#get:rg"
+              title="Permalink to vec3.get rg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get rg() =&gt; new vec2(r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:rg">
+<span class="show-code">Code</span>
+<strong>set rg</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:rg"
+              title="Permalink to vec3.set rg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set rg(vec2 arg) {
+  r = arg.r;
+  g = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get rb</strong>() <a class="anchor-link" href="#get:rb"
+              title="Permalink to vec3.get rb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get rb() =&gt; new vec2(r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:rb">
+<span class="show-code">Code</span>
+<strong>set rb</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:rb"
+              title="Permalink to vec3.set rb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set rb(vec2 arg) {
+  r = arg.r;
+  b = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get gr</strong>() <a class="anchor-link" href="#get:gr"
+              title="Permalink to vec3.get gr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get gr() =&gt; new vec2(g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:gr">
+<span class="show-code">Code</span>
+<strong>set gr</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:gr"
+              title="Permalink to vec3.set gr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set gr(vec2 arg) {
+  g = arg.r;
+  r = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get gb</strong>() <a class="anchor-link" href="#get:gb"
+              title="Permalink to vec3.get gb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get gb() =&gt; new vec2(g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:gb">
+<span class="show-code">Code</span>
+<strong>set gb</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:gb"
+              title="Permalink to vec3.set gb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set gb(vec2 arg) {
+  g = arg.r;
+  b = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:br">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get br</strong>() <a class="anchor-link" href="#get:br"
+              title="Permalink to vec3.get br">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get br() =&gt; new vec2(b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:br">
+<span class="show-code">Code</span>
+<strong>set br</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:br"
+              title="Permalink to vec3.set br">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set br(vec2 arg) {
+  b = arg.r;
+  r = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get bg</strong>() <a class="anchor-link" href="#get:bg"
+              title="Permalink to vec3.get bg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get bg() =&gt; new vec2(b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:bg">
+<span class="show-code">Code</span>
+<strong>set bg</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:bg"
+              title="Permalink to vec3.set bg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set bg(vec2 arg) {
+  b = arg.r;
+  g = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rgb</strong>() <a class="anchor-link" href="#get:rgb"
+              title="Permalink to vec3.get rgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rgb() =&gt; new vec3(r, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:rgb">
+<span class="show-code">Code</span>
+<strong>set rgb</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:rgb"
+              title="Permalink to vec3.set rgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set rgb(vec3 arg) {
+  r = arg.r;
+  g = arg.g;
+  b = arg.b;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rbg</strong>() <a class="anchor-link" href="#get:rbg"
+              title="Permalink to vec3.get rbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rbg() =&gt; new vec3(r, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:rbg">
+<span class="show-code">Code</span>
+<strong>set rbg</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:rbg"
+              title="Permalink to vec3.set rbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set rbg(vec3 arg) {
+  r = arg.r;
+  b = arg.g;
+  g = arg.b;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get grb</strong>() <a class="anchor-link" href="#get:grb"
+              title="Permalink to vec3.get grb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get grb() =&gt; new vec3(g, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:grb">
+<span class="show-code">Code</span>
+<strong>set grb</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:grb"
+              title="Permalink to vec3.set grb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set grb(vec3 arg) {
+  g = arg.r;
+  r = arg.g;
+  b = arg.b;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get gbr</strong>() <a class="anchor-link" href="#get:gbr"
+              title="Permalink to vec3.get gbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get gbr() =&gt; new vec3(g, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:gbr">
+<span class="show-code">Code</span>
+<strong>set gbr</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:gbr"
+              title="Permalink to vec3.set gbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set gbr(vec3 arg) {
+  g = arg.r;
+  b = arg.g;
+  r = arg.b;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get brg</strong>() <a class="anchor-link" href="#get:brg"
+              title="Permalink to vec3.get brg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get brg() =&gt; new vec3(b, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:brg">
+<span class="show-code">Code</span>
+<strong>set brg</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:brg"
+              title="Permalink to vec3.set brg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set brg(vec3 arg) {
+  b = arg.r;
+  r = arg.g;
+  g = arg.b;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get bgr</strong>() <a class="anchor-link" href="#get:bgr"
+              title="Permalink to vec3.get bgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get bgr() =&gt; new vec3(b, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:bgr">
+<span class="show-code">Code</span>
+<strong>set bgr</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:bgr"
+              title="Permalink to vec3.set bgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set bgr(vec3 arg) {
+  b = arg.r;
+  g = arg.g;
+  r = arg.b;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:st">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get st</strong>() <a class="anchor-link" href="#get:st"
+              title="Permalink to vec3.get st">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get st() =&gt; new vec2(s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:st">
+<span class="show-code">Code</span>
+<strong>set st</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:st"
+              title="Permalink to vec3.set st">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set st(vec2 arg) {
+  s = arg.s;
+  t = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get sp</strong>() <a class="anchor-link" href="#get:sp"
+              title="Permalink to vec3.get sp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get sp() =&gt; new vec2(s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:sp">
+<span class="show-code">Code</span>
+<strong>set sp</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:sp"
+              title="Permalink to vec3.set sp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set sp(vec2 arg) {
+  s = arg.s;
+  p = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get ts</strong>() <a class="anchor-link" href="#get:ts"
+              title="Permalink to vec3.get ts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get ts() =&gt; new vec2(t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:ts">
+<span class="show-code">Code</span>
+<strong>set ts</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:ts"
+              title="Permalink to vec3.set ts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set ts(vec2 arg) {
+  t = arg.s;
+  s = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get tp</strong>() <a class="anchor-link" href="#get:tp"
+              title="Permalink to vec3.get tp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get tp() =&gt; new vec2(t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:tp">
+<span class="show-code">Code</span>
+<strong>set tp</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:tp"
+              title="Permalink to vec3.set tp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set tp(vec2 arg) {
+  t = arg.s;
+  p = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get ps</strong>() <a class="anchor-link" href="#get:ps"
+              title="Permalink to vec3.get ps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get ps() =&gt; new vec2(p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:ps">
+<span class="show-code">Code</span>
+<strong>set ps</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:ps"
+              title="Permalink to vec3.set ps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set ps(vec2 arg) {
+  p = arg.s;
+  s = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get pt</strong>() <a class="anchor-link" href="#get:pt"
+              title="Permalink to vec3.get pt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get pt() =&gt; new vec2(p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:pt">
+<span class="show-code">Code</span>
+<strong>set pt</strong>(<a href="../VectorMath/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set:pt"
+              title="Permalink to vec3.set pt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set pt(vec2 arg) {
+  p = arg.s;
+  t = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get stp</strong>() <a class="anchor-link" href="#get:stp"
+              title="Permalink to vec3.get stp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get stp() =&gt; new vec3(s, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:stp">
+<span class="show-code">Code</span>
+<strong>set stp</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:stp"
+              title="Permalink to vec3.set stp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set stp(vec3 arg) {
+  s = arg.s;
+  t = arg.t;
+  p = arg.p;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get spt</strong>() <a class="anchor-link" href="#get:spt"
+              title="Permalink to vec3.get spt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get spt() =&gt; new vec3(s, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:spt">
+<span class="show-code">Code</span>
+<strong>set spt</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:spt"
+              title="Permalink to vec3.set spt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set spt(vec3 arg) {
+  s = arg.s;
+  p = arg.t;
+  t = arg.p;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tsp</strong>() <a class="anchor-link" href="#get:tsp"
+              title="Permalink to vec3.get tsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tsp() =&gt; new vec3(t, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:tsp">
+<span class="show-code">Code</span>
+<strong>set tsp</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:tsp"
+              title="Permalink to vec3.set tsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set tsp(vec3 arg) {
+  t = arg.s;
+  s = arg.t;
+  p = arg.p;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tps</strong>() <a class="anchor-link" href="#get:tps"
+              title="Permalink to vec3.get tps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tps() =&gt; new vec3(t, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:tps">
+<span class="show-code">Code</span>
+<strong>set tps</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:tps"
+              title="Permalink to vec3.set tps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set tps(vec3 arg) {
+  t = arg.s;
+  p = arg.t;
+  s = arg.p;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get pst</strong>() <a class="anchor-link" href="#get:pst"
+              title="Permalink to vec3.get pst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get pst() =&gt; new vec3(p, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:pst">
+<span class="show-code">Code</span>
+<strong>set pst</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:pst"
+              title="Permalink to vec3.set pst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set pst(vec3 arg) {
+  p = arg.s;
+  s = arg.t;
+  t = arg.p;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get pts</strong>() <a class="anchor-link" href="#get:pts"
+              title="Permalink to vec3.get pts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get pts() =&gt; new vec3(p, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set:pts">
+<span class="show-code">Code</span>
+<strong>set pts</strong>(<a href="../VectorMath/vec3.html">vec3</a> arg) <a class="anchor-link" href="#set:pts"
+              title="Permalink to vec3.set pts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set pts(vec3 arg) {
+  p = arg.s;
+  t = arg.t;
+  s = arg.p;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get xx</strong>() <a class="anchor-link" href="#get:xx"
+              title="Permalink to vec3.get xx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get xx() =&gt; new vec2(x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get yy</strong>() <a class="anchor-link" href="#get:yy"
+              title="Permalink to vec3.get yy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get yy() =&gt; new vec2(y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get zz</strong>() <a class="anchor-link" href="#get:zz"
+              title="Permalink to vec3.get zz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get zz() =&gt; new vec2(z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xxx</strong>() <a class="anchor-link" href="#get:xxx"
+              title="Permalink to vec3.get xxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xxx() =&gt; new vec3(x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xxy</strong>() <a class="anchor-link" href="#get:xxy"
+              title="Permalink to vec3.get xxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xxy() =&gt; new vec3(x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xxz</strong>() <a class="anchor-link" href="#get:xxz"
+              title="Permalink to vec3.get xxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xxz() =&gt; new vec3(x, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xyx</strong>() <a class="anchor-link" href="#get:xyx"
+              title="Permalink to vec3.get xyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xyx() =&gt; new vec3(x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xyy</strong>() <a class="anchor-link" href="#get:xyy"
+              title="Permalink to vec3.get xyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xyy() =&gt; new vec3(x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xzx</strong>() <a class="anchor-link" href="#get:xzx"
+              title="Permalink to vec3.get xzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xzx() =&gt; new vec3(x, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get xzz</strong>() <a class="anchor-link" href="#get:xzz"
+              title="Permalink to vec3.get xzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xzz() =&gt; new vec3(x, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yxx</strong>() <a class="anchor-link" href="#get:yxx"
+              title="Permalink to vec3.get yxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yxx() =&gt; new vec3(y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yxy</strong>() <a class="anchor-link" href="#get:yxy"
+              title="Permalink to vec3.get yxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yxy() =&gt; new vec3(y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yyx</strong>() <a class="anchor-link" href="#get:yyx"
+              title="Permalink to vec3.get yyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yyx() =&gt; new vec3(y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yyy</strong>() <a class="anchor-link" href="#get:yyy"
+              title="Permalink to vec3.get yyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yyy() =&gt; new vec3(y, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yyz</strong>() <a class="anchor-link" href="#get:yyz"
+              title="Permalink to vec3.get yyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yyz() =&gt; new vec3(y, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yzy</strong>() <a class="anchor-link" href="#get:yzy"
+              title="Permalink to vec3.get yzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yzy() =&gt; new vec3(y, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get yzz</strong>() <a class="anchor-link" href="#get:yzz"
+              title="Permalink to vec3.get yzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yzz() =&gt; new vec3(y, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zxx</strong>() <a class="anchor-link" href="#get:zxx"
+              title="Permalink to vec3.get zxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zxx() =&gt; new vec3(z, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zxz</strong>() <a class="anchor-link" href="#get:zxz"
+              title="Permalink to vec3.get zxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zxz() =&gt; new vec3(z, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zyy</strong>() <a class="anchor-link" href="#get:zyy"
+              title="Permalink to vec3.get zyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zyy() =&gt; new vec3(z, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zyz</strong>() <a class="anchor-link" href="#get:zyz"
+              title="Permalink to vec3.get zyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zyz() =&gt; new vec3(z, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zzx</strong>() <a class="anchor-link" href="#get:zzx"
+              title="Permalink to vec3.get zzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zzx() =&gt; new vec3(z, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zzy</strong>() <a class="anchor-link" href="#get:zzy"
+              title="Permalink to vec3.get zzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zzy() =&gt; new vec3(z, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get zzz</strong>() <a class="anchor-link" href="#get:zzz"
+              title="Permalink to vec3.get zzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get zzz() =&gt; new vec3(z, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxxx</strong>() <a class="anchor-link" href="#get:xxxx"
+              title="Permalink to vec3.get xxxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxxx() =&gt; new vec4(x, x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxxy</strong>() <a class="anchor-link" href="#get:xxxy"
+              title="Permalink to vec3.get xxxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxxy() =&gt; new vec4(x, x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxxz</strong>() <a class="anchor-link" href="#get:xxxz"
+              title="Permalink to vec3.get xxxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxxz() =&gt; new vec4(x, x, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxyx</strong>() <a class="anchor-link" href="#get:xxyx"
+              title="Permalink to vec3.get xxyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxyx() =&gt; new vec4(x, x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxyy</strong>() <a class="anchor-link" href="#get:xxyy"
+              title="Permalink to vec3.get xxyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxyy() =&gt; new vec4(x, x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxyz</strong>() <a class="anchor-link" href="#get:xxyz"
+              title="Permalink to vec3.get xxyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxyz() =&gt; new vec4(x, x, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxzx</strong>() <a class="anchor-link" href="#get:xxzx"
+              title="Permalink to vec3.get xxzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxzx() =&gt; new vec4(x, x, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxzy</strong>() <a class="anchor-link" href="#get:xxzy"
+              title="Permalink to vec3.get xxzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxzy() =&gt; new vec4(x, x, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xxzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xxzz</strong>() <a class="anchor-link" href="#get:xxzz"
+              title="Permalink to vec3.get xxzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxzz() =&gt; new vec4(x, x, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyxx</strong>() <a class="anchor-link" href="#get:xyxx"
+              title="Permalink to vec3.get xyxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyxx() =&gt; new vec4(x, y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyxy</strong>() <a class="anchor-link" href="#get:xyxy"
+              title="Permalink to vec3.get xyxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyxy() =&gt; new vec4(x, y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyxz</strong>() <a class="anchor-link" href="#get:xyxz"
+              title="Permalink to vec3.get xyxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyxz() =&gt; new vec4(x, y, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyyx</strong>() <a class="anchor-link" href="#get:xyyx"
+              title="Permalink to vec3.get xyyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyyx() =&gt; new vec4(x, y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyyy</strong>() <a class="anchor-link" href="#get:xyyy"
+              title="Permalink to vec3.get xyyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyyy() =&gt; new vec4(x, y, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyyz</strong>() <a class="anchor-link" href="#get:xyyz"
+              title="Permalink to vec3.get xyyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyyz() =&gt; new vec4(x, y, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyzx</strong>() <a class="anchor-link" href="#get:xyzx"
+              title="Permalink to vec3.get xyzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyzx() =&gt; new vec4(x, y, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyzy</strong>() <a class="anchor-link" href="#get:xyzy"
+              title="Permalink to vec3.get xyzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyzy() =&gt; new vec4(x, y, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xyzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xyzz</strong>() <a class="anchor-link" href="#get:xyzz"
+              title="Permalink to vec3.get xyzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyzz() =&gt; new vec4(x, y, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzxx</strong>() <a class="anchor-link" href="#get:xzxx"
+              title="Permalink to vec3.get xzxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzxx() =&gt; new vec4(x, z, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzxy</strong>() <a class="anchor-link" href="#get:xzxy"
+              title="Permalink to vec3.get xzxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzxy() =&gt; new vec4(x, z, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzxz</strong>() <a class="anchor-link" href="#get:xzxz"
+              title="Permalink to vec3.get xzxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzxz() =&gt; new vec4(x, z, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzyx</strong>() <a class="anchor-link" href="#get:xzyx"
+              title="Permalink to vec3.get xzyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzyx() =&gt; new vec4(x, z, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzyy</strong>() <a class="anchor-link" href="#get:xzyy"
+              title="Permalink to vec3.get xzyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzyy() =&gt; new vec4(x, z, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzyz</strong>() <a class="anchor-link" href="#get:xzyz"
+              title="Permalink to vec3.get xzyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzyz() =&gt; new vec4(x, z, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzzx</strong>() <a class="anchor-link" href="#get:xzzx"
+              title="Permalink to vec3.get xzzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzzx() =&gt; new vec4(x, z, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzzy</strong>() <a class="anchor-link" href="#get:xzzy"
+              title="Permalink to vec3.get xzzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzzy() =&gt; new vec4(x, z, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:xzzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get xzzz</strong>() <a class="anchor-link" href="#get:xzzz"
+              title="Permalink to vec3.get xzzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xzzz() =&gt; new vec4(x, z, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxxx</strong>() <a class="anchor-link" href="#get:yxxx"
+              title="Permalink to vec3.get yxxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxxx() =&gt; new vec4(y, x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxxy</strong>() <a class="anchor-link" href="#get:yxxy"
+              title="Permalink to vec3.get yxxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxxy() =&gt; new vec4(y, x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxxz</strong>() <a class="anchor-link" href="#get:yxxz"
+              title="Permalink to vec3.get yxxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxxz() =&gt; new vec4(y, x, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxyx</strong>() <a class="anchor-link" href="#get:yxyx"
+              title="Permalink to vec3.get yxyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxyx() =&gt; new vec4(y, x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxyy</strong>() <a class="anchor-link" href="#get:yxyy"
+              title="Permalink to vec3.get yxyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxyy() =&gt; new vec4(y, x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxyz</strong>() <a class="anchor-link" href="#get:yxyz"
+              title="Permalink to vec3.get yxyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxyz() =&gt; new vec4(y, x, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxzx</strong>() <a class="anchor-link" href="#get:yxzx"
+              title="Permalink to vec3.get yxzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxzx() =&gt; new vec4(y, x, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxzy</strong>() <a class="anchor-link" href="#get:yxzy"
+              title="Permalink to vec3.get yxzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxzy() =&gt; new vec4(y, x, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yxzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yxzz</strong>() <a class="anchor-link" href="#get:yxzz"
+              title="Permalink to vec3.get yxzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxzz() =&gt; new vec4(y, x, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyxx</strong>() <a class="anchor-link" href="#get:yyxx"
+              title="Permalink to vec3.get yyxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyxx() =&gt; new vec4(y, y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyxy</strong>() <a class="anchor-link" href="#get:yyxy"
+              title="Permalink to vec3.get yyxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyxy() =&gt; new vec4(y, y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyxz</strong>() <a class="anchor-link" href="#get:yyxz"
+              title="Permalink to vec3.get yyxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyxz() =&gt; new vec4(y, y, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyyx</strong>() <a class="anchor-link" href="#get:yyyx"
+              title="Permalink to vec3.get yyyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyyx() =&gt; new vec4(y, y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyyy</strong>() <a class="anchor-link" href="#get:yyyy"
+              title="Permalink to vec3.get yyyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyyy() =&gt; new vec4(y, y, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyyz</strong>() <a class="anchor-link" href="#get:yyyz"
+              title="Permalink to vec3.get yyyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyyz() =&gt; new vec4(y, y, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyzx</strong>() <a class="anchor-link" href="#get:yyzx"
+              title="Permalink to vec3.get yyzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyzx() =&gt; new vec4(y, y, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyzy</strong>() <a class="anchor-link" href="#get:yyzy"
+              title="Permalink to vec3.get yyzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyzy() =&gt; new vec4(y, y, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yyzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yyzz</strong>() <a class="anchor-link" href="#get:yyzz"
+              title="Permalink to vec3.get yyzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyzz() =&gt; new vec4(y, y, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzxx</strong>() <a class="anchor-link" href="#get:yzxx"
+              title="Permalink to vec3.get yzxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzxx() =&gt; new vec4(y, z, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzxy</strong>() <a class="anchor-link" href="#get:yzxy"
+              title="Permalink to vec3.get yzxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzxy() =&gt; new vec4(y, z, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzxz</strong>() <a class="anchor-link" href="#get:yzxz"
+              title="Permalink to vec3.get yzxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzxz() =&gt; new vec4(y, z, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzyx</strong>() <a class="anchor-link" href="#get:yzyx"
+              title="Permalink to vec3.get yzyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzyx() =&gt; new vec4(y, z, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzyy</strong>() <a class="anchor-link" href="#get:yzyy"
+              title="Permalink to vec3.get yzyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzyy() =&gt; new vec4(y, z, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzyz</strong>() <a class="anchor-link" href="#get:yzyz"
+              title="Permalink to vec3.get yzyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzyz() =&gt; new vec4(y, z, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzzx</strong>() <a class="anchor-link" href="#get:yzzx"
+              title="Permalink to vec3.get yzzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzzx() =&gt; new vec4(y, z, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzzy</strong>() <a class="anchor-link" href="#get:yzzy"
+              title="Permalink to vec3.get yzzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzzy() =&gt; new vec4(y, z, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:yzzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get yzzz</strong>() <a class="anchor-link" href="#get:yzzz"
+              title="Permalink to vec3.get yzzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yzzz() =&gt; new vec4(y, z, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxxx</strong>() <a class="anchor-link" href="#get:zxxx"
+              title="Permalink to vec3.get zxxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxxx() =&gt; new vec4(z, x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxxy</strong>() <a class="anchor-link" href="#get:zxxy"
+              title="Permalink to vec3.get zxxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxxy() =&gt; new vec4(z, x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxxz</strong>() <a class="anchor-link" href="#get:zxxz"
+              title="Permalink to vec3.get zxxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxxz() =&gt; new vec4(z, x, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxyx</strong>() <a class="anchor-link" href="#get:zxyx"
+              title="Permalink to vec3.get zxyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxyx() =&gt; new vec4(z, x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxyy</strong>() <a class="anchor-link" href="#get:zxyy"
+              title="Permalink to vec3.get zxyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxyy() =&gt; new vec4(z, x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxyz</strong>() <a class="anchor-link" href="#get:zxyz"
+              title="Permalink to vec3.get zxyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxyz() =&gt; new vec4(z, x, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxzx</strong>() <a class="anchor-link" href="#get:zxzx"
+              title="Permalink to vec3.get zxzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxzx() =&gt; new vec4(z, x, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxzy</strong>() <a class="anchor-link" href="#get:zxzy"
+              title="Permalink to vec3.get zxzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxzy() =&gt; new vec4(z, x, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zxzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zxzz</strong>() <a class="anchor-link" href="#get:zxzz"
+              title="Permalink to vec3.get zxzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zxzz() =&gt; new vec4(z, x, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyxx</strong>() <a class="anchor-link" href="#get:zyxx"
+              title="Permalink to vec3.get zyxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyxx() =&gt; new vec4(z, y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyxy</strong>() <a class="anchor-link" href="#get:zyxy"
+              title="Permalink to vec3.get zyxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyxy() =&gt; new vec4(z, y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyxz</strong>() <a class="anchor-link" href="#get:zyxz"
+              title="Permalink to vec3.get zyxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyxz() =&gt; new vec4(z, y, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyyx</strong>() <a class="anchor-link" href="#get:zyyx"
+              title="Permalink to vec3.get zyyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyyx() =&gt; new vec4(z, y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyyy</strong>() <a class="anchor-link" href="#get:zyyy"
+              title="Permalink to vec3.get zyyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyyy() =&gt; new vec4(z, y, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyyz</strong>() <a class="anchor-link" href="#get:zyyz"
+              title="Permalink to vec3.get zyyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyyz() =&gt; new vec4(z, y, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyzx</strong>() <a class="anchor-link" href="#get:zyzx"
+              title="Permalink to vec3.get zyzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyzx() =&gt; new vec4(z, y, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyzy</strong>() <a class="anchor-link" href="#get:zyzy"
+              title="Permalink to vec3.get zyzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyzy() =&gt; new vec4(z, y, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zyzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zyzz</strong>() <a class="anchor-link" href="#get:zyzz"
+              title="Permalink to vec3.get zyzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zyzz() =&gt; new vec4(z, y, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzxx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzxx</strong>() <a class="anchor-link" href="#get:zzxx"
+              title="Permalink to vec3.get zzxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzxx() =&gt; new vec4(z, z, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzxy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzxy</strong>() <a class="anchor-link" href="#get:zzxy"
+              title="Permalink to vec3.get zzxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzxy() =&gt; new vec4(z, z, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzxz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzxz</strong>() <a class="anchor-link" href="#get:zzxz"
+              title="Permalink to vec3.get zzxz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzxz() =&gt; new vec4(z, z, x, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzyx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzyx</strong>() <a class="anchor-link" href="#get:zzyx"
+              title="Permalink to vec3.get zzyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzyx() =&gt; new vec4(z, z, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzyy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzyy</strong>() <a class="anchor-link" href="#get:zzyy"
+              title="Permalink to vec3.get zzyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzyy() =&gt; new vec4(z, z, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzyz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzyz</strong>() <a class="anchor-link" href="#get:zzyz"
+              title="Permalink to vec3.get zzyz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzyz() =&gt; new vec4(z, z, y, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzzx">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzzx</strong>() <a class="anchor-link" href="#get:zzzx"
+              title="Permalink to vec3.get zzzx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzzx() =&gt; new vec4(z, z, z, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzzy">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzzy</strong>() <a class="anchor-link" href="#get:zzzy"
+              title="Permalink to vec3.get zzzy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzzy() =&gt; new vec4(z, z, z, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:zzzz">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get zzzz</strong>() <a class="anchor-link" href="#get:zzzz"
+              title="Permalink to vec3.get zzzz">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get zzzz() =&gt; new vec4(z, z, z, z);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get rr</strong>() <a class="anchor-link" href="#get:rr"
+              title="Permalink to vec3.get rr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get rr() =&gt; new vec2(r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get gg</strong>() <a class="anchor-link" href="#get:gg"
+              title="Permalink to vec3.get gg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get gg() =&gt; new vec2(g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get bb</strong>() <a class="anchor-link" href="#get:bb"
+              title="Permalink to vec3.get bb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get bb() =&gt; new vec2(b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rrr</strong>() <a class="anchor-link" href="#get:rrr"
+              title="Permalink to vec3.get rrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rrr() =&gt; new vec3(r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rrg</strong>() <a class="anchor-link" href="#get:rrg"
+              title="Permalink to vec3.get rrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rrg() =&gt; new vec3(r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rrb</strong>() <a class="anchor-link" href="#get:rrb"
+              title="Permalink to vec3.get rrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rrb() =&gt; new vec3(r, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rgr</strong>() <a class="anchor-link" href="#get:rgr"
+              title="Permalink to vec3.get rgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rgr() =&gt; new vec3(r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rgg</strong>() <a class="anchor-link" href="#get:rgg"
+              title="Permalink to vec3.get rgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rgg() =&gt; new vec3(r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rbr</strong>() <a class="anchor-link" href="#get:rbr"
+              title="Permalink to vec3.get rbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rbr() =&gt; new vec3(r, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get rbb</strong>() <a class="anchor-link" href="#get:rbb"
+              title="Permalink to vec3.get rbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rbb() =&gt; new vec3(r, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get grr</strong>() <a class="anchor-link" href="#get:grr"
+              title="Permalink to vec3.get grr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get grr() =&gt; new vec3(g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get grg</strong>() <a class="anchor-link" href="#get:grg"
+              title="Permalink to vec3.get grg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get grg() =&gt; new vec3(g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ggr</strong>() <a class="anchor-link" href="#get:ggr"
+              title="Permalink to vec3.get ggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ggr() =&gt; new vec3(g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ggg</strong>() <a class="anchor-link" href="#get:ggg"
+              title="Permalink to vec3.get ggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ggg() =&gt; new vec3(g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ggb</strong>() <a class="anchor-link" href="#get:ggb"
+              title="Permalink to vec3.get ggb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ggb() =&gt; new vec3(g, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get gbg</strong>() <a class="anchor-link" href="#get:gbg"
+              title="Permalink to vec3.get gbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get gbg() =&gt; new vec3(g, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get gbb</strong>() <a class="anchor-link" href="#get:gbb"
+              title="Permalink to vec3.get gbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get gbb() =&gt; new vec3(g, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get brr</strong>() <a class="anchor-link" href="#get:brr"
+              title="Permalink to vec3.get brr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get brr() =&gt; new vec3(b, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get brb</strong>() <a class="anchor-link" href="#get:brb"
+              title="Permalink to vec3.get brb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get brb() =&gt; new vec3(b, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get bgg</strong>() <a class="anchor-link" href="#get:bgg"
+              title="Permalink to vec3.get bgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get bgg() =&gt; new vec3(b, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get bgb</strong>() <a class="anchor-link" href="#get:bgb"
+              title="Permalink to vec3.get bgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get bgb() =&gt; new vec3(b, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get bbr</strong>() <a class="anchor-link" href="#get:bbr"
+              title="Permalink to vec3.get bbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get bbr() =&gt; new vec3(b, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get bbg</strong>() <a class="anchor-link" href="#get:bbg"
+              title="Permalink to vec3.get bbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get bbg() =&gt; new vec3(b, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get bbb</strong>() <a class="anchor-link" href="#get:bbb"
+              title="Permalink to vec3.get bbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get bbb() =&gt; new vec3(b, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrrr</strong>() <a class="anchor-link" href="#get:rrrr"
+              title="Permalink to vec3.get rrrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrrr() =&gt; new vec4(r, r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrrg</strong>() <a class="anchor-link" href="#get:rrrg"
+              title="Permalink to vec3.get rrrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrrg() =&gt; new vec4(r, r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrrb</strong>() <a class="anchor-link" href="#get:rrrb"
+              title="Permalink to vec3.get rrrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrrb() =&gt; new vec4(r, r, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrgr</strong>() <a class="anchor-link" href="#get:rrgr"
+              title="Permalink to vec3.get rrgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrgr() =&gt; new vec4(r, r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrgg</strong>() <a class="anchor-link" href="#get:rrgg"
+              title="Permalink to vec3.get rrgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrgg() =&gt; new vec4(r, r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrgb</strong>() <a class="anchor-link" href="#get:rrgb"
+              title="Permalink to vec3.get rrgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrgb() =&gt; new vec4(r, r, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrbr</strong>() <a class="anchor-link" href="#get:rrbr"
+              title="Permalink to vec3.get rrbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrbr() =&gt; new vec4(r, r, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrbg</strong>() <a class="anchor-link" href="#get:rrbg"
+              title="Permalink to vec3.get rrbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrbg() =&gt; new vec4(r, r, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rrbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rrbb</strong>() <a class="anchor-link" href="#get:rrbb"
+              title="Permalink to vec3.get rrbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrbb() =&gt; new vec4(r, r, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rgrr</strong>() <a class="anchor-link" href="#get:rgrr"
+              title="Permalink to vec3.get rgrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgrr() =&gt; new vec4(r, g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rgrg</strong>() <a class="anchor-link" href="#get:rgrg"
+              title="Permalink to vec3.get rgrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgrg() =&gt; new vec4(r, g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rgrb</strong>() <a class="anchor-link" href="#get:rgrb"
+              title="Permalink to vec3.get rgrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgrb() =&gt; new vec4(r, g, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rggr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rggr</strong>() <a class="anchor-link" href="#get:rggr"
+              title="Permalink to vec3.get rggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rggr() =&gt; new vec4(r, g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rggg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rggg</strong>() <a class="anchor-link" href="#get:rggg"
+              title="Permalink to vec3.get rggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rggg() =&gt; new vec4(r, g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rggb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rggb</strong>() <a class="anchor-link" href="#get:rggb"
+              title="Permalink to vec3.get rggb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rggb() =&gt; new vec4(r, g, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rgbr</strong>() <a class="anchor-link" href="#get:rgbr"
+              title="Permalink to vec3.get rgbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgbr() =&gt; new vec4(r, g, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rgbg</strong>() <a class="anchor-link" href="#get:rgbg"
+              title="Permalink to vec3.get rgbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgbg() =&gt; new vec4(r, g, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rgbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rgbb</strong>() <a class="anchor-link" href="#get:rgbb"
+              title="Permalink to vec3.get rgbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgbb() =&gt; new vec4(r, g, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbrr</strong>() <a class="anchor-link" href="#get:rbrr"
+              title="Permalink to vec3.get rbrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbrr() =&gt; new vec4(r, b, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbrg</strong>() <a class="anchor-link" href="#get:rbrg"
+              title="Permalink to vec3.get rbrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbrg() =&gt; new vec4(r, b, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbrb</strong>() <a class="anchor-link" href="#get:rbrb"
+              title="Permalink to vec3.get rbrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbrb() =&gt; new vec4(r, b, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbgr</strong>() <a class="anchor-link" href="#get:rbgr"
+              title="Permalink to vec3.get rbgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbgr() =&gt; new vec4(r, b, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbgg</strong>() <a class="anchor-link" href="#get:rbgg"
+              title="Permalink to vec3.get rbgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbgg() =&gt; new vec4(r, b, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbgb</strong>() <a class="anchor-link" href="#get:rbgb"
+              title="Permalink to vec3.get rbgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbgb() =&gt; new vec4(r, b, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbbr</strong>() <a class="anchor-link" href="#get:rbbr"
+              title="Permalink to vec3.get rbbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbbr() =&gt; new vec4(r, b, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbbg</strong>() <a class="anchor-link" href="#get:rbbg"
+              title="Permalink to vec3.get rbbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbbg() =&gt; new vec4(r, b, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:rbbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get rbbb</strong>() <a class="anchor-link" href="#get:rbbb"
+              title="Permalink to vec3.get rbbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rbbb() =&gt; new vec4(r, b, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grrr</strong>() <a class="anchor-link" href="#get:grrr"
+              title="Permalink to vec3.get grrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grrr() =&gt; new vec4(g, r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grrg</strong>() <a class="anchor-link" href="#get:grrg"
+              title="Permalink to vec3.get grrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grrg() =&gt; new vec4(g, r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grrb</strong>() <a class="anchor-link" href="#get:grrb"
+              title="Permalink to vec3.get grrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grrb() =&gt; new vec4(g, r, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grgr</strong>() <a class="anchor-link" href="#get:grgr"
+              title="Permalink to vec3.get grgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grgr() =&gt; new vec4(g, r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grgg</strong>() <a class="anchor-link" href="#get:grgg"
+              title="Permalink to vec3.get grgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grgg() =&gt; new vec4(g, r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grgb</strong>() <a class="anchor-link" href="#get:grgb"
+              title="Permalink to vec3.get grgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grgb() =&gt; new vec4(g, r, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grbr</strong>() <a class="anchor-link" href="#get:grbr"
+              title="Permalink to vec3.get grbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grbr() =&gt; new vec4(g, r, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grbg</strong>() <a class="anchor-link" href="#get:grbg"
+              title="Permalink to vec3.get grbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grbg() =&gt; new vec4(g, r, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:grbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get grbb</strong>() <a class="anchor-link" href="#get:grbb"
+              title="Permalink to vec3.get grbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grbb() =&gt; new vec4(g, r, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ggrr</strong>() <a class="anchor-link" href="#get:ggrr"
+              title="Permalink to vec3.get ggrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggrr() =&gt; new vec4(g, g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ggrg</strong>() <a class="anchor-link" href="#get:ggrg"
+              title="Permalink to vec3.get ggrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggrg() =&gt; new vec4(g, g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ggrb</strong>() <a class="anchor-link" href="#get:ggrb"
+              title="Permalink to vec3.get ggrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggrb() =&gt; new vec4(g, g, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gggr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gggr</strong>() <a class="anchor-link" href="#get:gggr"
+              title="Permalink to vec3.get gggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gggr() =&gt; new vec4(g, g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gggg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gggg</strong>() <a class="anchor-link" href="#get:gggg"
+              title="Permalink to vec3.get gggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gggg() =&gt; new vec4(g, g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gggb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gggb</strong>() <a class="anchor-link" href="#get:gggb"
+              title="Permalink to vec3.get gggb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gggb() =&gt; new vec4(g, g, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ggbr</strong>() <a class="anchor-link" href="#get:ggbr"
+              title="Permalink to vec3.get ggbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggbr() =&gt; new vec4(g, g, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ggbg</strong>() <a class="anchor-link" href="#get:ggbg"
+              title="Permalink to vec3.get ggbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggbg() =&gt; new vec4(g, g, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ggbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ggbb</strong>() <a class="anchor-link" href="#get:ggbb"
+              title="Permalink to vec3.get ggbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggbb() =&gt; new vec4(g, g, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbrr</strong>() <a class="anchor-link" href="#get:gbrr"
+              title="Permalink to vec3.get gbrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbrr() =&gt; new vec4(g, b, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbrg</strong>() <a class="anchor-link" href="#get:gbrg"
+              title="Permalink to vec3.get gbrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbrg() =&gt; new vec4(g, b, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbrb</strong>() <a class="anchor-link" href="#get:gbrb"
+              title="Permalink to vec3.get gbrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbrb() =&gt; new vec4(g, b, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbgr</strong>() <a class="anchor-link" href="#get:gbgr"
+              title="Permalink to vec3.get gbgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbgr() =&gt; new vec4(g, b, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbgg</strong>() <a class="anchor-link" href="#get:gbgg"
+              title="Permalink to vec3.get gbgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbgg() =&gt; new vec4(g, b, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbgb</strong>() <a class="anchor-link" href="#get:gbgb"
+              title="Permalink to vec3.get gbgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbgb() =&gt; new vec4(g, b, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbbr</strong>() <a class="anchor-link" href="#get:gbbr"
+              title="Permalink to vec3.get gbbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbbr() =&gt; new vec4(g, b, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbbg</strong>() <a class="anchor-link" href="#get:gbbg"
+              title="Permalink to vec3.get gbbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbbg() =&gt; new vec4(g, b, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:gbbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get gbbb</strong>() <a class="anchor-link" href="#get:gbbb"
+              title="Permalink to vec3.get gbbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gbbb() =&gt; new vec4(g, b, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brrr</strong>() <a class="anchor-link" href="#get:brrr"
+              title="Permalink to vec3.get brrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brrr() =&gt; new vec4(b, r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brrg</strong>() <a class="anchor-link" href="#get:brrg"
+              title="Permalink to vec3.get brrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brrg() =&gt; new vec4(b, r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brrb</strong>() <a class="anchor-link" href="#get:brrb"
+              title="Permalink to vec3.get brrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brrb() =&gt; new vec4(b, r, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brgr</strong>() <a class="anchor-link" href="#get:brgr"
+              title="Permalink to vec3.get brgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brgr() =&gt; new vec4(b, r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brgg</strong>() <a class="anchor-link" href="#get:brgg"
+              title="Permalink to vec3.get brgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brgg() =&gt; new vec4(b, r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brgb</strong>() <a class="anchor-link" href="#get:brgb"
+              title="Permalink to vec3.get brgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brgb() =&gt; new vec4(b, r, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brbr</strong>() <a class="anchor-link" href="#get:brbr"
+              title="Permalink to vec3.get brbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brbr() =&gt; new vec4(b, r, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brbg</strong>() <a class="anchor-link" href="#get:brbg"
+              title="Permalink to vec3.get brbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brbg() =&gt; new vec4(b, r, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:brbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get brbb</strong>() <a class="anchor-link" href="#get:brbb"
+              title="Permalink to vec3.get brbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get brbb() =&gt; new vec4(b, r, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bgrr</strong>() <a class="anchor-link" href="#get:bgrr"
+              title="Permalink to vec3.get bgrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bgrr() =&gt; new vec4(b, g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bgrg</strong>() <a class="anchor-link" href="#get:bgrg"
+              title="Permalink to vec3.get bgrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bgrg() =&gt; new vec4(b, g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bgrb</strong>() <a class="anchor-link" href="#get:bgrb"
+              title="Permalink to vec3.get bgrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bgrb() =&gt; new vec4(b, g, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bggr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bggr</strong>() <a class="anchor-link" href="#get:bggr"
+              title="Permalink to vec3.get bggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bggr() =&gt; new vec4(b, g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bggg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bggg</strong>() <a class="anchor-link" href="#get:bggg"
+              title="Permalink to vec3.get bggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bggg() =&gt; new vec4(b, g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bggb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bggb</strong>() <a class="anchor-link" href="#get:bggb"
+              title="Permalink to vec3.get bggb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bggb() =&gt; new vec4(b, g, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bgbr</strong>() <a class="anchor-link" href="#get:bgbr"
+              title="Permalink to vec3.get bgbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bgbr() =&gt; new vec4(b, g, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bgbg</strong>() <a class="anchor-link" href="#get:bgbg"
+              title="Permalink to vec3.get bgbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bgbg() =&gt; new vec4(b, g, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bgbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bgbb</strong>() <a class="anchor-link" href="#get:bgbb"
+              title="Permalink to vec3.get bgbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bgbb() =&gt; new vec4(b, g, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbrr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbrr</strong>() <a class="anchor-link" href="#get:bbrr"
+              title="Permalink to vec3.get bbrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbrr() =&gt; new vec4(b, b, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbrg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbrg</strong>() <a class="anchor-link" href="#get:bbrg"
+              title="Permalink to vec3.get bbrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbrg() =&gt; new vec4(b, b, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbrb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbrb</strong>() <a class="anchor-link" href="#get:bbrb"
+              title="Permalink to vec3.get bbrb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbrb() =&gt; new vec4(b, b, r, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbgr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbgr</strong>() <a class="anchor-link" href="#get:bbgr"
+              title="Permalink to vec3.get bbgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbgr() =&gt; new vec4(b, b, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbgg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbgg</strong>() <a class="anchor-link" href="#get:bbgg"
+              title="Permalink to vec3.get bbgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbgg() =&gt; new vec4(b, b, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbgb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbgb</strong>() <a class="anchor-link" href="#get:bbgb"
+              title="Permalink to vec3.get bbgb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbgb() =&gt; new vec4(b, b, g, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbbr">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbbr</strong>() <a class="anchor-link" href="#get:bbbr"
+              title="Permalink to vec3.get bbbr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbbr() =&gt; new vec4(b, b, b, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbbg">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbbg</strong>() <a class="anchor-link" href="#get:bbbg"
+              title="Permalink to vec3.get bbbg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbbg() =&gt; new vec4(b, b, b, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:bbbb">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get bbbb</strong>() <a class="anchor-link" href="#get:bbbb"
+              title="Permalink to vec3.get bbbb">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get bbbb() =&gt; new vec4(b, b, b, b);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get ss</strong>() <a class="anchor-link" href="#get:ss"
+              title="Permalink to vec3.get ss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get ss() =&gt; new vec2(s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get tt</strong>() <a class="anchor-link" href="#get:tt"
+              title="Permalink to vec3.get tt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get tt() =&gt; new vec2(t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec2.html">vec2</a> <strong>get pp</strong>() <a class="anchor-link" href="#get:pp"
+              title="Permalink to vec3.get pp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get pp() =&gt; new vec2(p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get sss</strong>() <a class="anchor-link" href="#get:sss"
+              title="Permalink to vec3.get sss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sss() =&gt; new vec3(s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get sst</strong>() <a class="anchor-link" href="#get:sst"
+              title="Permalink to vec3.get sst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sst() =&gt; new vec3(s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ssp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ssp</strong>() <a class="anchor-link" href="#get:ssp"
+              title="Permalink to vec3.get ssp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ssp() =&gt; new vec3(s, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get sts</strong>() <a class="anchor-link" href="#get:sts"
+              title="Permalink to vec3.get sts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sts() =&gt; new vec3(s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get stt</strong>() <a class="anchor-link" href="#get:stt"
+              title="Permalink to vec3.get stt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get stt() =&gt; new vec3(s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get sps</strong>() <a class="anchor-link" href="#get:sps"
+              title="Permalink to vec3.get sps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sps() =&gt; new vec3(s, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get spp</strong>() <a class="anchor-link" href="#get:spp"
+              title="Permalink to vec3.get spp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get spp() =&gt; new vec3(s, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tss</strong>() <a class="anchor-link" href="#get:tss"
+              title="Permalink to vec3.get tss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tss() =&gt; new vec3(t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tst</strong>() <a class="anchor-link" href="#get:tst"
+              title="Permalink to vec3.get tst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tst() =&gt; new vec3(t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tts</strong>() <a class="anchor-link" href="#get:tts"
+              title="Permalink to vec3.get tts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tts() =&gt; new vec3(t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ttt</strong>() <a class="anchor-link" href="#get:ttt"
+              title="Permalink to vec3.get ttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ttt() =&gt; new vec3(t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ttp</strong>() <a class="anchor-link" href="#get:ttp"
+              title="Permalink to vec3.get ttp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ttp() =&gt; new vec3(t, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tpt</strong>() <a class="anchor-link" href="#get:tpt"
+              title="Permalink to vec3.get tpt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tpt() =&gt; new vec3(t, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get tpp</strong>() <a class="anchor-link" href="#get:tpp"
+              title="Permalink to vec3.get tpp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tpp() =&gt; new vec3(t, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get pss</strong>() <a class="anchor-link" href="#get:pss"
+              title="Permalink to vec3.get pss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get pss() =&gt; new vec3(p, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:psp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get psp</strong>() <a class="anchor-link" href="#get:psp"
+              title="Permalink to vec3.get psp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get psp() =&gt; new vec3(p, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ptt</strong>() <a class="anchor-link" href="#get:ptt"
+              title="Permalink to vec3.get ptt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ptt() =&gt; new vec3(p, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ptp</strong>() <a class="anchor-link" href="#get:ptp"
+              title="Permalink to vec3.get ptp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ptp() =&gt; new vec3(p, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get pps</strong>() <a class="anchor-link" href="#get:pps"
+              title="Permalink to vec3.get pps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get pps() =&gt; new vec3(p, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ppt</strong>() <a class="anchor-link" href="#get:ppt"
+              title="Permalink to vec3.get ppt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ppt() =&gt; new vec3(p, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get ppp</strong>() <a class="anchor-link" href="#get:ppp"
+              title="Permalink to vec3.get ppp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ppp() =&gt; new vec3(p, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ssss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ssss</strong>() <a class="anchor-link" href="#get:ssss"
+              title="Permalink to vec3.get ssss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssss() =&gt; new vec4(s, s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ssst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ssst</strong>() <a class="anchor-link" href="#get:ssst"
+              title="Permalink to vec3.get ssst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssst() =&gt; new vec4(s, s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sssp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sssp</strong>() <a class="anchor-link" href="#get:sssp"
+              title="Permalink to vec3.get sssp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sssp() =&gt; new vec4(s, s, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ssts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ssts</strong>() <a class="anchor-link" href="#get:ssts"
+              title="Permalink to vec3.get ssts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssts() =&gt; new vec4(s, s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sstt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sstt</strong>() <a class="anchor-link" href="#get:sstt"
+              title="Permalink to vec3.get sstt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sstt() =&gt; new vec4(s, s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sstp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sstp</strong>() <a class="anchor-link" href="#get:sstp"
+              title="Permalink to vec3.get sstp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sstp() =&gt; new vec4(s, s, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ssps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ssps</strong>() <a class="anchor-link" href="#get:ssps"
+              title="Permalink to vec3.get ssps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssps() =&gt; new vec4(s, s, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sspt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sspt</strong>() <a class="anchor-link" href="#get:sspt"
+              title="Permalink to vec3.get sspt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sspt() =&gt; new vec4(s, s, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sspp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sspp</strong>() <a class="anchor-link" href="#get:sspp"
+              title="Permalink to vec3.get sspp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sspp() =&gt; new vec4(s, s, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stss</strong>() <a class="anchor-link" href="#get:stss"
+              title="Permalink to vec3.get stss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stss() =&gt; new vec4(s, t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stst</strong>() <a class="anchor-link" href="#get:stst"
+              title="Permalink to vec3.get stst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stst() =&gt; new vec4(s, t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stsp</strong>() <a class="anchor-link" href="#get:stsp"
+              title="Permalink to vec3.get stsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stsp() =&gt; new vec4(s, t, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stts</strong>() <a class="anchor-link" href="#get:stts"
+              title="Permalink to vec3.get stts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stts() =&gt; new vec4(s, t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sttt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sttt</strong>() <a class="anchor-link" href="#get:sttt"
+              title="Permalink to vec3.get sttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sttt() =&gt; new vec4(s, t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sttp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sttp</strong>() <a class="anchor-link" href="#get:sttp"
+              title="Permalink to vec3.get sttp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sttp() =&gt; new vec4(s, t, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stps</strong>() <a class="anchor-link" href="#get:stps"
+              title="Permalink to vec3.get stps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stps() =&gt; new vec4(s, t, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stpt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stpt</strong>() <a class="anchor-link" href="#get:stpt"
+              title="Permalink to vec3.get stpt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stpt() =&gt; new vec4(s, t, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:stpp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get stpp</strong>() <a class="anchor-link" href="#get:stpp"
+              title="Permalink to vec3.get stpp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stpp() =&gt; new vec4(s, t, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get spss</strong>() <a class="anchor-link" href="#get:spss"
+              title="Permalink to vec3.get spss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get spss() =&gt; new vec4(s, p, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get spst</strong>() <a class="anchor-link" href="#get:spst"
+              title="Permalink to vec3.get spst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get spst() =&gt; new vec4(s, p, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get spsp</strong>() <a class="anchor-link" href="#get:spsp"
+              title="Permalink to vec3.get spsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get spsp() =&gt; new vec4(s, p, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get spts</strong>() <a class="anchor-link" href="#get:spts"
+              title="Permalink to vec3.get spts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get spts() =&gt; new vec4(s, p, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sptt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sptt</strong>() <a class="anchor-link" href="#get:sptt"
+              title="Permalink to vec3.get sptt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sptt() =&gt; new vec4(s, p, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sptp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sptp</strong>() <a class="anchor-link" href="#get:sptp"
+              title="Permalink to vec3.get sptp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sptp() =&gt; new vec4(s, p, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:spps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get spps</strong>() <a class="anchor-link" href="#get:spps"
+              title="Permalink to vec3.get spps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get spps() =&gt; new vec4(s, p, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sppt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sppt</strong>() <a class="anchor-link" href="#get:sppt"
+              title="Permalink to vec3.get sppt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sppt() =&gt; new vec4(s, p, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:sppp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get sppp</strong>() <a class="anchor-link" href="#get:sppp"
+              title="Permalink to vec3.get sppp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sppp() =&gt; new vec4(s, p, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tsss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tsss</strong>() <a class="anchor-link" href="#get:tsss"
+              title="Permalink to vec3.get tsss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsss() =&gt; new vec4(t, s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tsst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tsst</strong>() <a class="anchor-link" href="#get:tsst"
+              title="Permalink to vec3.get tsst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsst() =&gt; new vec4(t, s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tssp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tssp</strong>() <a class="anchor-link" href="#get:tssp"
+              title="Permalink to vec3.get tssp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tssp() =&gt; new vec4(t, s, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tsts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tsts</strong>() <a class="anchor-link" href="#get:tsts"
+              title="Permalink to vec3.get tsts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsts() =&gt; new vec4(t, s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tstt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tstt</strong>() <a class="anchor-link" href="#get:tstt"
+              title="Permalink to vec3.get tstt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tstt() =&gt; new vec4(t, s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tstp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tstp</strong>() <a class="anchor-link" href="#get:tstp"
+              title="Permalink to vec3.get tstp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tstp() =&gt; new vec4(t, s, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tsps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tsps</strong>() <a class="anchor-link" href="#get:tsps"
+              title="Permalink to vec3.get tsps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsps() =&gt; new vec4(t, s, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tspt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tspt</strong>() <a class="anchor-link" href="#get:tspt"
+              title="Permalink to vec3.get tspt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tspt() =&gt; new vec4(t, s, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tspp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tspp</strong>() <a class="anchor-link" href="#get:tspp"
+              title="Permalink to vec3.get tspp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tspp() =&gt; new vec4(t, s, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttss</strong>() <a class="anchor-link" href="#get:ttss"
+              title="Permalink to vec3.get ttss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttss() =&gt; new vec4(t, t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttst</strong>() <a class="anchor-link" href="#get:ttst"
+              title="Permalink to vec3.get ttst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttst() =&gt; new vec4(t, t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttsp</strong>() <a class="anchor-link" href="#get:ttsp"
+              title="Permalink to vec3.get ttsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttsp() =&gt; new vec4(t, t, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttts</strong>() <a class="anchor-link" href="#get:ttts"
+              title="Permalink to vec3.get ttts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttts() =&gt; new vec4(t, t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tttt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tttt</strong>() <a class="anchor-link" href="#get:tttt"
+              title="Permalink to vec3.get tttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tttt() =&gt; new vec4(t, t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tttp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tttp</strong>() <a class="anchor-link" href="#get:tttp"
+              title="Permalink to vec3.get tttp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tttp() =&gt; new vec4(t, t, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttps</strong>() <a class="anchor-link" href="#get:ttps"
+              title="Permalink to vec3.get ttps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttps() =&gt; new vec4(t, t, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttpt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttpt</strong>() <a class="anchor-link" href="#get:ttpt"
+              title="Permalink to vec3.get ttpt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttpt() =&gt; new vec4(t, t, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ttpp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ttpp</strong>() <a class="anchor-link" href="#get:ttpp"
+              title="Permalink to vec3.get ttpp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttpp() =&gt; new vec4(t, t, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tpss</strong>() <a class="anchor-link" href="#get:tpss"
+              title="Permalink to vec3.get tpss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tpss() =&gt; new vec4(t, p, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tpst</strong>() <a class="anchor-link" href="#get:tpst"
+              title="Permalink to vec3.get tpst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tpst() =&gt; new vec4(t, p, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tpsp</strong>() <a class="anchor-link" href="#get:tpsp"
+              title="Permalink to vec3.get tpsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tpsp() =&gt; new vec4(t, p, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tpts</strong>() <a class="anchor-link" href="#get:tpts"
+              title="Permalink to vec3.get tpts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tpts() =&gt; new vec4(t, p, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tptt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tptt</strong>() <a class="anchor-link" href="#get:tptt"
+              title="Permalink to vec3.get tptt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tptt() =&gt; new vec4(t, p, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tptp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tptp</strong>() <a class="anchor-link" href="#get:tptp"
+              title="Permalink to vec3.get tptp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tptp() =&gt; new vec4(t, p, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tpps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tpps</strong>() <a class="anchor-link" href="#get:tpps"
+              title="Permalink to vec3.get tpps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tpps() =&gt; new vec4(t, p, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tppt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tppt</strong>() <a class="anchor-link" href="#get:tppt"
+              title="Permalink to vec3.get tppt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tppt() =&gt; new vec4(t, p, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:tppp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get tppp</strong>() <a class="anchor-link" href="#get:tppp"
+              title="Permalink to vec3.get tppp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tppp() =&gt; new vec4(t, p, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:psss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get psss</strong>() <a class="anchor-link" href="#get:psss"
+              title="Permalink to vec3.get psss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get psss() =&gt; new vec4(p, s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:psst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get psst</strong>() <a class="anchor-link" href="#get:psst"
+              title="Permalink to vec3.get psst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get psst() =&gt; new vec4(p, s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pssp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pssp</strong>() <a class="anchor-link" href="#get:pssp"
+              title="Permalink to vec3.get pssp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pssp() =&gt; new vec4(p, s, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:psts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get psts</strong>() <a class="anchor-link" href="#get:psts"
+              title="Permalink to vec3.get psts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get psts() =&gt; new vec4(p, s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pstt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pstt</strong>() <a class="anchor-link" href="#get:pstt"
+              title="Permalink to vec3.get pstt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pstt() =&gt; new vec4(p, s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pstp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pstp</strong>() <a class="anchor-link" href="#get:pstp"
+              title="Permalink to vec3.get pstp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pstp() =&gt; new vec4(p, s, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:psps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get psps</strong>() <a class="anchor-link" href="#get:psps"
+              title="Permalink to vec3.get psps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get psps() =&gt; new vec4(p, s, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pspt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pspt</strong>() <a class="anchor-link" href="#get:pspt"
+              title="Permalink to vec3.get pspt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pspt() =&gt; new vec4(p, s, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pspp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pspp</strong>() <a class="anchor-link" href="#get:pspp"
+              title="Permalink to vec3.get pspp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pspp() =&gt; new vec4(p, s, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptss</strong>() <a class="anchor-link" href="#get:ptss"
+              title="Permalink to vec3.get ptss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptss() =&gt; new vec4(p, t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptst</strong>() <a class="anchor-link" href="#get:ptst"
+              title="Permalink to vec3.get ptst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptst() =&gt; new vec4(p, t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptsp</strong>() <a class="anchor-link" href="#get:ptsp"
+              title="Permalink to vec3.get ptsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptsp() =&gt; new vec4(p, t, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptts</strong>() <a class="anchor-link" href="#get:ptts"
+              title="Permalink to vec3.get ptts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptts() =&gt; new vec4(p, t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pttt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pttt</strong>() <a class="anchor-link" href="#get:pttt"
+              title="Permalink to vec3.get pttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pttt() =&gt; new vec4(p, t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pttp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pttp</strong>() <a class="anchor-link" href="#get:pttp"
+              title="Permalink to vec3.get pttp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pttp() =&gt; new vec4(p, t, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptps</strong>() <a class="anchor-link" href="#get:ptps"
+              title="Permalink to vec3.get ptps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptps() =&gt; new vec4(p, t, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptpt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptpt</strong>() <a class="anchor-link" href="#get:ptpt"
+              title="Permalink to vec3.get ptpt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptpt() =&gt; new vec4(p, t, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ptpp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ptpp</strong>() <a class="anchor-link" href="#get:ptpp"
+              title="Permalink to vec3.get ptpp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ptpp() =&gt; new vec4(p, t, p, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppss">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ppss</strong>() <a class="anchor-link" href="#get:ppss"
+              title="Permalink to vec3.get ppss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ppss() =&gt; new vec4(p, p, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppst">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ppst</strong>() <a class="anchor-link" href="#get:ppst"
+              title="Permalink to vec3.get ppst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ppst() =&gt; new vec4(p, p, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppsp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ppsp</strong>() <a class="anchor-link" href="#get:ppsp"
+              title="Permalink to vec3.get ppsp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ppsp() =&gt; new vec4(p, p, s, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppts">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ppts</strong>() <a class="anchor-link" href="#get:ppts"
+              title="Permalink to vec3.get ppts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ppts() =&gt; new vec4(p, p, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pptt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pptt</strong>() <a class="anchor-link" href="#get:pptt"
+              title="Permalink to vec3.get pptt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pptt() =&gt; new vec4(p, p, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pptp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pptp</strong>() <a class="anchor-link" href="#get:pptp"
+              title="Permalink to vec3.get pptp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pptp() =&gt; new vec4(p, p, t, p);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:ppps">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get ppps</strong>() <a class="anchor-link" href="#get:ppps"
+              title="Permalink to vec3.get ppps">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ppps() =&gt; new vec4(p, p, p, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pppt">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pppt</strong>() <a class="anchor-link" href="#get:pppt"
+              title="Permalink to vec3.get pppt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pppt() =&gt; new vec4(p, p, p, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:pppp">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec4.html">vec4</a> <strong>get pppp</strong>() <a class="anchor-link" href="#get:pppp"
+              title="Permalink to vec3.get pppp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get pppp() =&gt; new vec4(p, p, p, p);
+</pre>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="x">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>x</strong> <a class="anchor-link"
+            href="#x"
+            title="Permalink to vec3.x">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num x;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="y">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>y</strong> <a class="anchor-link"
+            href="#y"
+            title="Permalink to vec3.y">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num y;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="z">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>z</strong> <a class="anchor-link"
+            href="#z"
+            title="Permalink to vec3.z">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num z;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer"></div>
+        </body></html>
+        

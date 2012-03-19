@@ -166,8 +166,8 @@ void main() {
                  new GeneratedFunctionDesc('asinh', 'Math.asinh', ['arg'], 'arg', 'Returns arc hyperbolic sine of [arg]. Return type matches the type of [arg]'),
                  new GeneratedFunctionDesc('acosh', 'Math.acosh', ['arg'], 'arg', 'Returns arc hyperbolic cosine of [arg]. Return type matches the type of [arg]'),
                  new GeneratedFunctionDesc('atanh', 'Math.atanh', ['arg'], 'arg', 'Returns arc hyperbolic tangent of [arg]. Return type matches the type of [arg]'),
-                 new GeneratedFunctionDesc('radians', 'ScalarMath.radians', ['arg'], 'arg', 'Returns [arg] converted from degrees to radians. Return types matches the type of [arg]'),
-                 new GeneratedFunctionDesc('degrees', 'ScalarMath.degrees', ['arg'], 'arg', 'Returns [arg] converted from radians to degrees. Return types matches the type of [arg]'),
+                 new GeneratedFunctionDesc('radians', '_ScalerHelpers.radians', ['arg'], 'arg', 'Returns [arg] converted from degrees to radians. Return types matches the type of [arg]'),
+                 new GeneratedFunctionDesc('degrees', '_ScalerHelpers.degrees', ['arg'], 'arg', 'Returns [arg] converted from radians to degrees. Return types matches the type of [arg]'),
                  ]);
     opened.close(() {});
   });
@@ -184,10 +184,10 @@ void main() {
     bg.generate([new GeneratedFunctionDesc('pow', 'Math.pow', ['x','y'], 'x', 'Returns [x] raised to the exponent [y]. Supports vectors and numbers.'),
                  new GeneratedFunctionDesc('exp', 'Math.exp', ['arg'], 'arg', 'Returns *e* raised to the exponent [arg]. Supports vectors and numbers.'),
                  new GeneratedFunctionDesc('log', 'Math.log', ['arg'], 'arg', 'Returns the logarithm of [arg] base *e*. Supports vectors and numbers.'),
-                 new GeneratedFunctionDesc('exp2', 'ScalarMath.exp2', ['arg'], 'arg', 'Returns *2* raised to the exponent [arg]. Supports vectors and numbers.'),
-                 new GeneratedFunctionDesc('log2', 'ScalarMath.log2', ['arg'], 'arg', 'Returns the logarithm of [arg] base *2*. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('exp2', '_ScalerHelpers.exp2', ['arg'], 'arg', 'Returns *2* raised to the exponent [arg]. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('log2', '_ScalerHelpers.log2', ['arg'], 'arg', 'Returns the logarithm of [arg] base *2*. Supports vectors and numbers.'),
                  new GeneratedFunctionDesc('sqrt', 'Math.sqrt', ['arg'], 'arg', 'Returns the square root of [arg].'),
-                 new GeneratedFunctionDesc('inversesqrt', 'ScalarMath.inversesqrt', ['arg'], 'arg', 'Returns the inverse square root of [arg]. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('inversesqrt', '_ScalerHelpers.inversesqrt', ['arg'], 'arg', 'Returns the inverse square root of [arg]. Supports vectors and numbers.'),
                  ]);
     opened.close(() {});
   });
@@ -201,21 +201,21 @@ void main() {
     BuiltinGen bg = new BuiltinGen();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
-    bg.generate([new GeneratedFunctionDesc('abs', 'ScalarMath.abs', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('sign', 'ScalarMath.sign', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('floor', 'ScalarMath.floor', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('trunc', 'ScalarMath.truncate', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('round', 'ScalarMath.round', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('roundEven', 'ScalarMath.roundEven', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('ceil', 'ScalarMath.ceil', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('fract', 'ScalarMath.fract', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('mod', 'ScalarMath.mod', ['x', 'y'], 'x'),
-                 new GeneratedFunctionDesc('min', 'Math.min', ['x', 'y'], 'x'),
-                 new GeneratedFunctionDesc('max', 'Math.max', ['x', 'y'], 'x'),
-                 new GeneratedFunctionDesc('clamp', 'ScalarMath.clamp', ['x', 'min_', 'max_'], 'x'),
-                 new GeneratedFunctionDesc('mix', 'ScalarMath.mix', ['x', 'y', 't'], 'x'),
-                 new GeneratedFunctionDesc('step', 'ScalarMath.step', ['x', 'y'], 'x'),
-                 new GeneratedFunctionDesc('smoothstep', 'ScalarMath.smoothstep', ['edge0', 'edge1', 'x'], 'x'),
+    bg.generate([new GeneratedFunctionDesc('abs', '_ScalerHelpers.abs', ['arg'], 'arg', 'Returns absolute value of [arg].'),
+                 new GeneratedFunctionDesc('sign', '_ScalerHelpers.sign', ['arg'], 'arg', 'Returns 1.0 or 0.0 or -1.0 depending on sign of [arg].'),
+                 new GeneratedFunctionDesc('floor', '_ScalerHelpers.floor', ['arg'], 'arg', 'Returns floor value of [arg].'),
+                 new GeneratedFunctionDesc('trunc', '_ScalerHelpers.truncate', ['arg'], 'arg', 'Returns [arg] truncated.'),
+                 new GeneratedFunctionDesc('round', '_ScalerHelpers.round', ['arg'], 'arg', 'Returns [arg] rounded to nearest integer.'),
+                 new GeneratedFunctionDesc('roundEven', '_ScalerHelpers.roundEven', ['arg'], 'arg', 'Returns [arg] rounded to nearest even integer.'),
+                 new GeneratedFunctionDesc('ceil', '_ScalerHelpers.ceil', ['arg'], 'arg', 'Returns ceiling of [arg]'),
+                 new GeneratedFunctionDesc('fract', '_ScalerHelpers.fract', ['arg'], 'arg', 'Returns fraction of [arg]'),
+                 new GeneratedFunctionDesc('mod', '_ScalerHelpers.mod', ['x', 'y'], 'x', 'Returns [x] mod [y]'),
+                 new GeneratedFunctionDesc('min', 'Math.min', ['x', 'y'], 'x', 'Returns component wise minimum of [x] and [y]'),
+                 new GeneratedFunctionDesc('max', 'Math.max', ['x', 'y'], 'x', 'Returns component wise maximum of [x] and [y]'),
+                 new GeneratedFunctionDesc('clamp', '_ScalerHelpers.clamp', ['x', 'min_', 'max_'], 'x', 'Component wise clamp of [x] between [min_] and [max_]'),
+                 new GeneratedFunctionDesc('mix', '_ScalerHelpers.mix', ['x', 'y', 't'], 'x', 'Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.'),
+                 new GeneratedFunctionDesc('step', '_ScalerHelpers.step', ['x', 'y'], 'x', 'Returns 0.0 if x < [y] and 1.0 otherwise.'),
+                 new GeneratedFunctionDesc('smoothstep', '_ScalerHelpers.smoothstep', ['edge0', 'edge1', 'x'], 'x', 'Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].'),
                  ]);
     opened.close(() {});
   });

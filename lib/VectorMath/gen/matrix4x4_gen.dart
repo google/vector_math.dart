@@ -532,7 +532,7 @@ class mat4x4 {
   }
   /// Returns the translation vector from this homogeneous transformation matrix.
   vec3 getTranslation() {
-    return = new vec3(col3.x, col3.y, col3.z);
+    return new vec3(col3.x, col3.y, col3.z);
   }
   /// Sets the translation vector in this homogeneous transformation matrix.
   void setTranslation(vec3 T) {

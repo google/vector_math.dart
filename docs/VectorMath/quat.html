@@ -1,0 +1,640 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Library VectorMath / Class quat</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <script src="../client-static.js"></script>
+        
+        </head>
+        <body data-library="VectorMath" data-type="quat">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../VectorMath.html">VectorMath</a> &rsaquo; <a href="../VectorMath/quat.html">quat</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../dart_core.html">dart:core</a></h2><h2><div class="icon-library"></div><a href="../dart_coreimpl.html">dart:coreimpl</a></h2><h2><div class="icon-library"></div><a href="../VectorMath.html">VectorMath</a></h2><ul class="icon">
+<li><a href="../VectorMath/vec2.html"><div class="icon-class"></div>vec2</a></li>
+<li><a href="../VectorMath/vec3.html"><div class="icon-class"></div>vec3</a></li>
+<li><a href="../VectorMath/vec4.html"><div class="icon-class"></div>vec4</a></li>
+<li><a href="../VectorMath/mat2x2.html"><div class="icon-class"></div>mat2x2</a></li>
+<li><a href="../VectorMath/mat2x3.html"><div class="icon-class"></div>mat2x3</a></li>
+<li><a href="../VectorMath/mat2x4.html"><div class="icon-class"></div>mat2x4</a></li>
+<li><a href="../VectorMath/mat3x2.html"><div class="icon-class"></div>mat3x2</a></li>
+<li><a href="../VectorMath/mat3x3.html"><div class="icon-class"></div>mat3x3</a></li>
+<li><a href="../VectorMath/mat3x4.html"><div class="icon-class"></div>mat3x4</a></li>
+<li><a href="../VectorMath/mat4x2.html"><div class="icon-class"></div>mat4x2</a></li>
+<li><a href="../VectorMath/mat4x3.html"><div class="icon-class"></div>mat4x3</a></li>
+<li><a href="../VectorMath/mat4x4.html"><div class="icon-class"></div>mat4x4</a></li>
+<li><div class="icon-class"></div><strong>quat</strong></li>
+</ul>
+</div>
+<div class="content">
+        <h2>Class
+            <strong>quat</strong></h2>
+        
+<div class="doc">
+
+</div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="quat">
+<span class="show-code">Code</span>
+new <strong>quat</strong>([a, b, c, d]) <a class="anchor-link" href="#quat"
+              title="Permalink to quat.quat">#</a></h4>
+<div class="doc">
+<p>Constructs a new quaternion. Behaviour depends on the types of arguments:</p><ul><li><em>(<code>num</code> x,<code>num</code> y,<code>num</code> z,<code>num</code> w)</em> Raw values</li><li><em>(<a class="crossref" href="../VectorMath/vec3.html">vec3</a> axis,<code>num</code> angle)</em> Rotation of <code>angle</code> degrees around <a class="crossref" href="../VectorMath/quat.html#get:axis">axis</a></li><li><em>(<a class="crossref" href="../VectorMath/quat.html">quat</a> other)</em> Copy of other</li><li><em>(<a class="crossref" href="../VectorMath/mat3x3.html">mat3x3</a>)</em> Convert rotation matrix into quaternion</li></ul>
+<pre class="source">
+quat([Dynamic a, Dynamic b, Dynamic c, Dynamic d]) {
+  x = 0.0;
+  y = 0.0;
+  z = 0.0;
+  w = 1.0;
+  
+  if (a is num &amp;&amp; b is num &amp;&amp; c is num &amp;&amp; d is num) {
+    x = a;
+    y = b;
+    z = c;
+    w = d;
+    return;
+  }
+  
+  if (a is vec3 &amp;&amp; b is num) {
+    setAxisAngle(a, b);
+    return;
+  }
+  
+  if (a is vec3) {
+    x = a.x;
+    y = a.y;
+    z = a.z;
+    w = 0.0;
+    return;
+  }
+  
+  if (a is quat) {
+    x = a._x;
+    y = a._y;
+    z = a._z;
+    w = a._w;
+    return;
+  }
+  
+  if (a is mat3x3) {
+    num trace = a.trace();
+    List&lt;num&gt; temp = new List&lt;num&gt;(4);
+    if (trace &gt; 0.0) {
+      num s = Math.sqrt(trace + 1.0);
+      temp[3]=(s * 0.5);
+      s = 0.5 / s;
+      
+      temp[0] = ((a[1].z - a[2].y) * s);
+      temp[1] = ((a[0].z - a[0].z) * s);
+      temp[2] = ((a[0].y - a[1].x) * s);
+    } else {
+      int i = a[0].x &lt; a[1].y ? (a[1].y &lt; a[2].z ? 2 : 1) : (a[0].x &lt; a[2].z ? 2 : 0); 
+      int j = (i + 1) % 3;
+      int k = (i + 2) % 3;
+
+      num s = Math.sqrt(a[i][i] - a[j][j] - a[k][k] + 1.0);
+      temp[i] = s * 0.5;
+      s = 0.5 / s;
+
+      temp[3] = (a[k][j] - a[j][k]) * s;
+      temp[j] = (a[j][i] + a[i][j]) * s;
+      temp[k] = (a[k][i] + a[i][k]) * s;
+    }
+    x = temp[0];
+    y = temp[1];
+    z = temp[2];
+    w = temp[3];
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="quat">
+<span class="show-code">Code</span>
+new <strong>quat</strong>.dq(<a href="../VectorMath/quat.html">quat</a> q, <a href="../VectorMath/vec3.html">vec3</a> omega) <a class="anchor-link" href="#quat"
+              title="Permalink to quat.quat">#</a></h4>
+<div class="doc">
+<p>Generate the time derivative of 
+<span class="param">q</span> with angular velocity 
+<span class="param">omega</span></p>
+<pre class="source">
+quat.dq(quat q, vec3 omega) {
+  x = omega.x * q.w + omega.y * q.z - omega.z * q.y;
+  y = omega.y * q.w + omega.z * q.x - omega.x * q.z;
+  z = omega.z * q.w + omega.x * q.y - omega.y * q.x;
+  w = -omega.x * q.x - omega.y * q.y - omega.z * q.z;
+  x *= 0.5;
+  y *= 0.5;
+  z *= 0.5;
+  w *= 0.5;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="quat">
+<span class="show-code">Code</span>
+new <strong>quat</strong>.random() <a class="anchor-link" href="#quat"
+              title="Permalink to quat.quat">#</a></h4>
+<div class="doc">
+<p>Generate a random rotation</p>
+<pre class="source">
+quat.random() {
+// From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
+//       pg. 124-132
+  num x0 = Math.random();
+  num r1 = Math.sqrt(1.0 - x0);
+  num r2 = Math.sqrt(x0);
+  num t1 = Math.PI*2.0 * Math.random();
+  num t2 = Math.PI*2.0 * Math.random();
+  num c1 = Math.cos(t1);
+  num s1 = Math.sin(t1);
+  num c2 = Math.cos(t2);
+  num s2 = Math.sin(t2);
+  x = s1 * r1;
+  y = c1 * r1;
+  z = s2 * r2;
+  w = c2 * r2;
+}
+</pre>
+</div>
+</div>
+<h3>Methods</h3>
+<div class="method"><h4 id="setAxisAngle">
+<span class="show-code">Code</span>
+<a href="../dart_core/void.html">void</a> <strong>setAxisAngle</strong>(<a href="../VectorMath/vec3.html">vec3</a> axis, <a href="../dart_core/num.html">num</a> radians) <a class="anchor-link" href="#setAxisAngle"
+              title="Permalink to quat.setAxisAngle">#</a></h4>
+<div class="doc">
+<p>Reset quaternion with rotation of 
+<span class="param">radians</span> around 
+<span class="param">axis</span></p>
+<pre class="source">
+void setAxisAngle(vec3 axis, num radians) {
+  num len = axis.length;
+  if (len == 0.0) {
+    return;
+  }
+  num halfSin = sin(radians * 0.5) / len;
+  x = axis.x * halfSin;
+  y = axis.y * halfSin;
+  z = axis.z * halfSin;
+  w = cos(radians * 0.5);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setEuler">
+<span class="show-code">Code</span>
+<a href="../dart_core/void.html">void</a> <strong>setEuler</strong>(<a href="../dart_core/num.html">num</a> yaw, <a href="../dart_core/num.html">num</a> pitch, <a href="../dart_core/num.html">num</a> roll) <a class="anchor-link" href="#setEuler"
+              title="Permalink to quat.setEuler">#</a></h4>
+<div class="doc">
+<p>Reset quaternion with rotation of 
+<span class="param">yaw</span>, 
+<span class="param">pitch</span> and 
+<span class="param">roll</span></p>
+<pre class="source">
+void setEuler(num yaw, num pitch, num roll) {
+  num halfYaw = yaw * 0.5;  
+  num halfPitch = pitch * 0.5;  
+  num halfRoll = roll * 0.5;  
+  num cosYaw = halfYaw;
+  num sinYaw = halfYaw;
+  num cosPitch = halfPitch;
+  num sinPitch = halfPitch;
+  num cosRoll = halfRoll;
+  num sinRoll = halfRoll;
+  x = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
+  y = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+  z = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
+  w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="normalize">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>normalize</strong>() <a class="anchor-link" href="#normalize"
+              title="Permalink to quat.normalize">#</a></h4>
+<div class="doc">
+<p>Quaternion becomes normalized</p>
+<pre class="source">
+quat normalize() {
+  num l = length;
+  if (l == 0.0) {
+    return this;
+  }
+  x /= l;
+  y /= l;
+  z /= l;
+  w /= l;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="conjugate">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>conjugate</strong>() <a class="anchor-link" href="#conjugate"
+              title="Permalink to quat.conjugate">#</a></h4>
+<div class="doc">
+<p>Quaternion becomes conjugate of itself</p>
+<pre class="source">
+quat conjugate() {
+  x = -x;
+  y = -y;
+  z = -z;
+  w = w;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="inverse">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>inverse</strong>() <a class="anchor-link" href="#inverse"
+              title="Permalink to quat.inverse">#</a></h4>
+<div class="doc">
+<p>Quaternion becomes inverse of itself</p>
+<pre class="source">
+quat inverse() {
+  x = -x;
+  y = -y;
+  z = -z;
+  w = w;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="normalized">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>normalized</strong>() <a class="anchor-link" href="#normalized"
+              title="Permalink to quat.normalized">#</a></h4>
+<div class="doc">
+<p>Returns normalized copy of quaternion</p>
+<pre class="source">
+quat normalized() {
+  return (new quat(this)).normalize();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="conjugated">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>conjugated</strong>() <a class="anchor-link" href="#conjugated"
+              title="Permalink to quat.conjugated">#</a></h4>
+<div class="doc">
+<p>Returns conjugated copy of quaternion</p>
+<pre class="source">
+quat conjugated() {
+  return (new quat(this)).conjugate();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="inverted">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>inverted</strong>() <a class="anchor-link" href="#inverted"
+              title="Permalink to quat.inverted">#</a></h4>
+<div class="doc">
+<p>Returns inverted copy of quaternion</p>
+<pre class="source">
+quat inverted() {
+  return (new quat(this)).inverse();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:radians">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get radians</strong>() <a class="anchor-link" href="#get:radians"
+              title="Permalink to quat.get radians">#</a></h4>
+<div class="doc">
+<p>Radians of rotation</p>
+<pre class="source">
+num get radians() {
+  return 2.0 * acos(w);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:axis">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>get axis</strong>() <a class="anchor-link" href="#get:axis"
+              title="Permalink to quat.get axis">#</a></h4>
+<div class="doc">
+<p>Axis of rotation</p>
+<pre class="source">
+vec3 get axis() {
+    num divisor = 1.0 - (w*w);
+    return new vec3(x / divisor, y / divisor, z / divisor);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:length2">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get length2</strong>() <a class="anchor-link" href="#get:length2"
+              title="Permalink to quat.get length2">#</a></h4>
+<div class="doc">
+<p>Squared length</p>
+<pre class="source">
+num get length2() {
+  return (x*x) + (y*y) + (z*z) + (w*w);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="get:length">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>get length</strong>() <a class="anchor-link" href="#get:length"
+              title="Permalink to quat.get length">#</a></h4>
+<div class="doc">
+<p>Length</p>
+<pre class="source">
+num get length() {
+  return sqrt(length2);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rotate">
+<span class="show-code">Code</span>
+<a href="../VectorMath/vec3.html">vec3</a> <strong>rotate</strong>(<a href="../VectorMath/vec3.html">vec3</a> v) <a class="anchor-link" href="#rotate"
+              title="Permalink to quat.rotate">#</a></h4>
+<div class="doc">
+<p>Returns v rotated by quaternion</p>
+<pre class="source">
+vec3 rotate(vec3 v) {
+  quat v_as_quat = new quat(v);
+  quat this_inverted = inverse();
+  quat result = this * v_as_quat * this_inverted;
+  vec3 o = new vec3(result.x, result.y, result.z);
+  return o;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":div">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>operator /</strong>(<a href="../dart_core/num.html">num</a> scale) <a class="anchor-link" href="#:div"
+              title="Permalink to quat.operator /">#</a></h4>
+<div class="doc">
+<p>Returns copy of quaternion divided by 
+<span class="param">scale</span></p>
+<pre class="source">
+quat operator/(num scale) {
+  return new quat(x / scale, y / scale, z / scale, w / scale);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":mul">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>operator *</strong>(other) <a class="anchor-link" href="#:mul"
+              title="Permalink to quat.operator *">#</a></h4>
+<div class="doc">
+<p>Returns copy of quaternion multiplied by <code>scale</code>
+ Returns copy of quaternion rotated by <code>otherQuat</code></p>
+<pre class="source">
+quat operator*(Dynamic other) {
+  if (other is num) {
+    return new quat(x * other, y * other, z * other, w * other);
+  }
+  if (other is quat) {
+    return new quat(w * other.x + x * other.w + y * other.z - z * other.y,
+                    w * other.y + y * other.w + z * other.x - x * other.z,
+                    w * other.z + z * other.w + x * other.y - y * other.x,
+                    w * other.w - x * other.x - y * other.y - z * other.z);
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":add">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>operator +</strong>(<a href="../VectorMath/quat.html">quat</a> other) <a class="anchor-link" href="#:add"
+              title="Permalink to quat.operator +">#</a></h4>
+<div class="doc">
+<p>Returns copy of quaternion - 
+<span class="param">other</span></p>
+<pre class="source">
+quat operator+(quat other) {
+  return new quat(x + other.x, y + other.y, z + other.z, w + other.w);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":sub">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>operator -</strong>(<a href="../VectorMath/quat.html">quat</a> other) <a class="anchor-link" href="#:sub"
+              title="Permalink to quat.operator -">#</a></h4>
+<div class="doc">
+<p>Returns copy of quaternion + 
+<span class="param">other</span></p>
+<pre class="source">
+quat operator-(quat other) {
+  return new quat(x - other.x, y - other.y, z - other.z, w - other.w);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":negate">
+<span class="show-code">Code</span>
+<a href="../VectorMath/quat.html">quat</a> <strong>operator negate</strong>() <a class="anchor-link" href="#:negate"
+              title="Permalink to quat.operator negate">#</a></h4>
+<div class="doc">
+<p>Returns negated copy of quaternion</p>
+<pre class="source">
+quat operator negate() {
+  return new quat(-x, -y, -z, -w);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":index">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>operator []</strong>(<a href="../dart_core/int.html">int</a> i) <a class="anchor-link" href="#:index"
+              title="Permalink to quat.operator []">#</a></h4>
+<div class="doc">
+<p>Treats quaternion as an array and returns <a class="crossref" href="../VectorMath/quat.html#x">x</a>,<a class="crossref" href="../VectorMath/quat.html#y">y</a>,<a class="crossref" href="../VectorMath/quat.html#z">z</a>, or <a class="crossref" href="../VectorMath/quat.html#w">w</a></p>
+<pre class="source">
+num operator[](int i) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
+  switch (i) {
+  case 0: return x; break;
+  case 1: return y; break;
+  case 2: return z; break;
+  case 3: return w; break;
+  }
+  return 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id=":setindex">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>operator []=</strong>(<a href="../dart_core/int.html">int</a> i, <a href="../dart_core/num.html">num</a> arg) <a class="anchor-link" href="#:setindex"
+              title="Permalink to quat.operator []=">#</a></h4>
+<div class="doc">
+<p>Treats quaternion as an array and assigns <a class="crossref" href="../VectorMath/quat.html#x">x</a>,<a class="crossref" href="../VectorMath/quat.html#y">y</a>,<a class="crossref" href="../VectorMath/quat.html#z">z</a>, or <a class="crossref" href="../VectorMath/quat.html#w">w</a> the value of 
+<span class="param">arg</span></p>
+<pre class="source">
+num operator[]=(int i, num arg) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
+  switch (i) {
+  case 0: x = arg; return x; break;
+  case 1: y = arg; return y; break;
+  case 2: z = arg; return z; break;
+  case 3: x = arg; return w; break;
+  }
+  return 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="asRotationMatrix">
+<span class="show-code">Code</span>
+<a href="../VectorMath/mat3x3.html">mat3x3</a> <strong>asRotationMatrix</strong>() <a class="anchor-link" href="#asRotationMatrix"
+              title="Permalink to quat.asRotationMatrix">#</a></h4>
+<div class="doc">
+<p>Converts quaternion into rotation matrix (<a class="crossref" href="../VectorMath/mat3x3.html">mat3x3</a>)</p>
+<pre class="source">
+mat3x3 asRotationMatrix() {
+  num d = length2;
+  assert(d != 0.0);
+  num s = 2.0 / d;
+  num xs = x * s;
+  num ys = y * s;
+  num zs = z * s;
+  num wx = w * xs;
+  num wy = w * ys;
+  num wz = w * zs;
+  num xx = x * xs;
+  num xy = x * ys;
+  num xz = x * zs;
+  num yy = y * ys;
+  num yz = y * zs;
+  num zz = z * zs;
+  
+  return new mat3x3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+    xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
+    xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
+    );
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<span class="show-code">Code</span>
+<a href="../dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to quat.toString">#</a></h4>
+<div class="doc">
+<p>Returns a printable string</p>
+<pre class="source">
+String toString() {
+  return '$x, $y, $z @ $w';
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="relativeError">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>relativeError</strong>(<a href="../VectorMath/quat.html">quat</a> correct) <a class="anchor-link" href="#relativeError"
+              title="Permalink to quat.relativeError">#</a></h4>
+<div class="doc">
+<p>Returns relative error between this quaternion and 
+<span class="param">correct</span></p>
+<pre class="source">
+num relativeError(quat correct) {
+  num this_norm = length;
+  num correct_norm = correct.length;
+  num norm_diff = (this_norm - correct_norm).abs();
+  return norm_diff/correct_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="absoluteError">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>absoluteError</strong>(<a href="../VectorMath/quat.html">quat</a> correct) <a class="anchor-link" href="#absoluteError"
+              title="Permalink to quat.absoluteError">#</a></h4>
+<div class="doc">
+<p>Returns absolute error between this quaternion and 
+<span class="param">correct</span></p>
+<pre class="source">
+num absoluteError(quat correct) {
+  num this_norm = length;
+  num correct_norm = correct.length;
+  num norm_diff = (this_norm - correct_norm).abs();
+  return norm_diff;
+}
+</pre>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="x">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>x</strong> <a class="anchor-link"
+            href="#x"
+            title="Permalink to quat.x">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num x;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="y">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>y</strong> <a class="anchor-link"
+            href="#y"
+            title="Permalink to quat.y">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num y;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="z">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>z</strong> <a class="anchor-link"
+            href="#z"
+            title="Permalink to quat.z">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num z;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="w">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a>         <strong>w</strong> <a class="anchor-link"
+            href="#w"
+            title="Permalink to quat.w">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num w;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer"></div>
+        </body></html>
+        

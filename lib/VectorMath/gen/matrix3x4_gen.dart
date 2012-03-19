@@ -40,14 +40,14 @@ class mat3x4 {
       col0[1] = arg1;
       col0[2] = arg2;
       col0[3] = arg3;
-      col1[0] = arg3;
-      col1[1] = arg4;
-      col1[2] = arg5;
-      col1[3] = arg6;
-      col2[0] = arg6;
-      col2[1] = arg7;
-      col2[2] = arg8;
-      col2[3] = arg9;
+      col1[0] = arg4;
+      col1[1] = arg5;
+      col1[2] = arg6;
+      col1[3] = arg7;
+      col2[0] = arg8;
+      col2[1] = arg9;
+      col2[2] = arg10;
+      col2[3] = arg11;
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null) {

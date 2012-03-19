@@ -1,0 +1,405 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Library dart:core / Class Math</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <script src="../client-static.js"></script>
+        
+        </head>
+        <body data-library="dart:core" data-type="Math">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../dart_core.html">dart:core</a> &rsaquo; <a href="../dart_core/Math.html">Math</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../dart_core.html">dart:core</a></h2><ul class="icon">
+<li><a href="../dart_core/void.html"><div class="icon-interface"></div>void</a></li>
+<li><a href="../dart_core/Dynamic.html"><div class="icon-interface"></div>Dynamic</a></li>
+<li><a href="../dart_core/Object.html"><div class="icon-class"></div>Object</a></li>
+<li><a href="../dart_core/num.html"><div class="icon-interface"></div>num</a></li>
+<li><a href="../dart_core/int.html"><div class="icon-interface"></div>int</a></li>
+<li><a href="../dart_core/double.html"><div class="icon-interface"></div>double</a></li>
+<li><a href="../dart_core/bool.html"><div class="icon-interface"></div>bool</a></li>
+<li><a href="../dart_core/String.html"><div class="icon-interface"></div>String</a></li>
+<li><a href="../dart_core/List.html"><div class="icon-interface"></div>List&lt;E&gt;</a></li>
+<li><a href="../dart_core/Map.html"><div class="icon-interface"></div>Map&lt;K, V&gt;</a></li>
+<li><a href="../dart_core/Function.html"><div class="icon-interface"></div>Function</a></li>
+<li><a href="../dart_core/TypeError.html"><div class="icon-class"></div>TypeError</a></li>
+<li><a href="../dart_core/Clock.html"><div class="icon-class"></div>Clock</a></li>
+<li><a href="../dart_core/AssertionError.html"><div class="icon-class"></div>AssertionError</a></li>
+<li><a href="../dart_core/FallThroughError.html"><div class="icon-class"></div>FallThroughError</a></li>
+<li><a href="../dart_core/Collection.html"><div class="icon-interface"></div>Collection&lt;E&gt;</a></li>
+<li><a href="../dart_core/Comparable.html"><div class="icon-interface"></div>Comparable</a></li>
+<li><a href="../dart_core/Date.html"><div class="icon-interface"></div>Date</a></li>
+<li><a href="../dart_core/Duration.html"><div class="icon-interface"></div>Duration</a></li>
+<li><a href="../dart_core/Expect.html"><div class="icon-class"></div>Expect</a></li>
+<li><a href="../dart_core/Future.html"><div class="icon-interface"></div>Future&lt;T&gt;</a></li>
+<li><a href="../dart_core/Completer.html"><div class="icon-interface"></div>Completer&lt;T&gt;</a></li>
+<li><a href="../dart_core/Futures.html"><div class="icon-class"></div>Futures</a></li>
+<li><a href="../dart_core/Hashable.html"><div class="icon-interface"></div>Hashable</a></li>
+<li><a href="../dart_core/Iterable.html"><div class="icon-interface"></div>Iterable&lt;E&gt;</a></li>
+<li><a href="../dart_core/Iterator.html"><div class="icon-interface"></div>Iterator&lt;E&gt;</a></li>
+<li><a href="../dart_core/HashMap.html"><div class="icon-interface"></div>HashMap&lt;K, V&gt;</a></li>
+<li><a href="../dart_core/LinkedHashMap.html"><div class="icon-interface"></div>LinkedHashMap&lt;K, V&gt;</a></li>
+<li><div class="icon-class"></div><strong>Math</strong></li>
+<li><a href="../dart_core/Options.html"><div class="icon-interface"></div>Options</a></li>
+<li><a href="../dart_core/Pattern.html"><div class="icon-interface"></div>Pattern</a></li>
+<li><a href="../dart_core/Queue.html"><div class="icon-interface"></div>Queue&lt;E&gt;</a></li>
+<li><a href="../dart_core/Match.html"><div class="icon-interface"></div>Match</a></li>
+<li><a href="../dart_core/RegExp.html"><div class="icon-interface"></div>RegExp</a></li>
+<li><a href="../dart_core/Set.html"><div class="icon-interface"></div>Set&lt;E&gt;</a></li>
+<li><a href="../dart_core/HashSet.html"><div class="icon-interface"></div>HashSet&lt;E&gt;</a></li>
+<li><a href="../dart_core/Stopwatch.html"><div class="icon-interface"></div>Stopwatch</a></li>
+<li><a href="../dart_core/Strings.html"><div class="icon-class"></div>Strings</a></li>
+<li><a href="../dart_core/StringBuffer.html"><div class="icon-interface"></div>StringBuffer</a></li>
+<li><a href="../dart_core/TimeZone.html"><div class="icon-interface"></div>TimeZone</a></li>
+<li><a href="../dart_core/Exception.html"><div class="icon-exception"></div>Exception</a></li>
+<li><a href="../dart_core/IndexOutOfRangeException.html"><div class="icon-exception"></div>IndexOutOfRangeException</a></li>
+<li><a href="../dart_core/IllegalAccessException.html"><div class="icon-exception"></div>IllegalAccessException</a></li>
+<li><a href="../dart_core/NoSuchMethodException.html"><div class="icon-exception"></div>NoSuchMethodException</a></li>
+<li><a href="../dart_core/ClosureArgumentMismatchException.html"><div class="icon-exception"></div>ClosureArgumentMismatchException</a></li>
+<li><a href="../dart_core/ObjectNotClosureException.html"><div class="icon-exception"></div>ObjectNotClosureException</a></li>
+<li><a href="../dart_core/IllegalArgumentException.html"><div class="icon-exception"></div>IllegalArgumentException</a></li>
+<li><a href="../dart_core/OutOfMemoryException.html"><div class="icon-exception"></div>OutOfMemoryException</a></li>
+<li><a href="../dart_core/StackOverflowException.html"><div class="icon-exception"></div>StackOverflowException</a></li>
+<li><a href="../dart_core/BadNumberFormatException.html"><div class="icon-exception"></div>BadNumberFormatException</a></li>
+<li><a href="../dart_core/WrongArgumentCountException.html"><div class="icon-exception"></div>WrongArgumentCountException</a></li>
+<li><a href="../dart_core/NullPointerException.html"><div class="icon-exception"></div>NullPointerException</a></li>
+<li><a href="../dart_core/NoMoreElementsException.html"><div class="icon-exception"></div>NoMoreElementsException</a></li>
+<li><a href="../dart_core/EmptyQueueException.html"><div class="icon-exception"></div>EmptyQueueException</a></li>
+<li><a href="../dart_core/UnsupportedOperationException.html"><div class="icon-exception"></div>UnsupportedOperationException</a></li>
+<li><a href="../dart_core/NotImplementedException.html"><div class="icon-exception"></div>NotImplementedException</a></li>
+<li><a href="../dart_core/IllegalJSRegExpException.html"><div class="icon-exception"></div>IllegalJSRegExpException</a></li>
+<li><a href="../dart_core/IntegerDivisionByZeroException.html"><div class="icon-exception"></div>IntegerDivisionByZeroException</a></li>
+<li><a href="../dart_core/ExpectException.html"><div class="icon-exception"></div>ExpectException</a></li>
+<li><a href="../dart_core/FutureNotCompleteException.html"><div class="icon-exception"></div>FutureNotCompleteException</a></li>
+<li><a href="../dart_core/FutureAlreadyCompleteException.html"><div class="icon-exception"></div>FutureAlreadyCompleteException</a></li>
+</ul>
+<h2><div class="icon-library"></div><a href="../dart_coreimpl.html">dart:coreimpl</a></h2><h2><div class="icon-library"></div><a href="../VectorMath.html">VectorMath</a></h2></div>
+<div class="content">
+        <h2>Class
+            <strong>Math</strong></h2>
+        
+<div class="doc">
+
+</div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="parseInt">
+<span class="show-code">Code</span>
+<a href="../dart_core/int.html">int</a> <strong>parseInt</strong>(<a href="../dart_core/String.html">String</a> str) <a class="anchor-link" href="#parseInt"
+              title="Permalink to Math.parseInt">#</a></h4>
+<div class="doc">
+<p>Parses a <a class="crossref" href="../dart_core/String.html">String</a> representation of an <a class="crossref" href="../dart_core/int.html">int</a>, and returns
+an <a class="crossref" href="../dart_core/int.html">int</a>. Throws a <a class="crossref" href="../dart_core/BadNumberFormatException.html">BadNumberFormatException</a> if 
+<span class="param">str</span>
+cannot be parsed as an <a class="crossref" href="../dart_core/int.html">int</a>.</p>
+<pre class="source">
+static int parseInt(String str) native '''
+var match = /^\\s*[+-]?(?:(0[xX][abcdefABCDEF0-9]+)|\\d+)\\s*\$/.exec(str);
+if (!match) \$throw(new BadNumberFormatException(str));
+var isHex = !!match[1];
+var ret = parseInt(str, isHex ? 16 : 10);
+if (isNaN(ret)) \$throw(new BadNumberFormatException(str));
+return ret;''' { throw new BadNumberFormatException(""); }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="parseDouble">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>parseDouble</strong>(<a href="../dart_core/String.html">String</a> str) <a class="anchor-link" href="#parseDouble"
+              title="Permalink to Math.parseDouble">#</a></h4>
+<div class="doc">
+<p>Parses a <a class="crossref" href="../dart_core/String.html">String</a> representation of a <a class="crossref" href="../dart_core/double.html">double</a>, and returns
+a <a class="crossref" href="../dart_core/double.html">double</a>. Throws a <a class="crossref" href="../dart_core/BadNumberFormatException.html">BadNumberFormatException</a> if 
+<span class="param">str</span> cannot
+be parsed as a <a class="crossref" href="../dart_core/double.html">double</a>.</p>
+<pre class="source">
+static double parseDouble(String str) native '''var ret = parseFloat(str);
+if (isNaN(ret) &amp;&amp; str != 'NaN') \$throw(new BadNumberFormatException(str));
+return ret;''' { throw new BadNumberFormatException(""); }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="min">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>min</strong>(<a href="../dart_core/num.html">num</a> a, <a href="../dart_core/num.html">num</a> b) <a class="anchor-link" href="#min"
+              title="Permalink to Math.min">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static num min(num a, num b) native '''if (a == b) return a;
+if (a &lt; b) {
+  if (isNaN(b)) return b;
+  else return a;
+}
+if (isNaN(a)) return a;
+else return b;''';
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="max">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>max</strong>(<a href="../dart_core/num.html">num</a> a, <a href="../dart_core/num.html">num</a> b) <a class="anchor-link" href="#max"
+              title="Permalink to Math.max">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static num max(num a, num b) native 'return (a &gt;= b) ? a : b;';
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="atan2">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>atan2</strong>(<a href="../dart_core/num.html">num</a> a, <a href="../dart_core/num.html">num</a> b) <a class="anchor-link" href="#atan2"
+              title="Permalink to Math.atan2">#</a></h4>
+<div class="doc">
+<p>Returns the arc tangent of 
+<span class="param">a</span>/
+<span class="param">b</span> with sign according to quadrant.</p>
+<pre class="source">
+static double atan2(num a, num b) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="pow">
+<span class="show-code">Code</span>
+<a href="../dart_core/num.html">num</a> <strong>pow</strong>(<a href="../dart_core/num.html">num</a> x, <a href="../dart_core/num.html">num</a> exponent) <a class="anchor-link" href="#pow"
+              title="Permalink to Math.pow">#</a></h4>
+<div class="doc">
+<p>If the 
+<span class="param">exponent</span> is an integer the result is of the same type as 
+<span class="param">x</span>.
+Otherwise it is a <a class="crossref" href="../dart_core/double.html">double</a>.</p>
+<pre class="source">
+static num pow(num x, num exponent) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="random">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>random</strong>() <a class="anchor-link" href="#random"
+              title="Permalink to Math.random">#</a></h4>
+<div class="doc">
+<p>Returns a random double greater than or equal to 0.0 and less
+than 1.0.</p>
+<pre class="source">
+static double random() native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sin">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>sin</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#sin"
+              title="Permalink to Math.sin">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double sin(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="cos">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>cos</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#cos"
+              title="Permalink to Math.cos">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double cos(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tan">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>tan</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#tan"
+              title="Permalink to Math.tan">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double tan(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="acos">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>acos</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#acos"
+              title="Permalink to Math.acos">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double acos(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="asin">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>asin</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#asin"
+              title="Permalink to Math.asin">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double asin(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="atan">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>atan</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#atan"
+              title="Permalink to Math.atan">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double atan(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sqrt">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>sqrt</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#sqrt"
+              title="Permalink to Math.sqrt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double sqrt(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="exp">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>exp</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#exp"
+              title="Permalink to Math.exp">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double exp(num x) native;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="log">
+<span class="show-code">Code</span>
+<a href="../dart_core/double.html">double</a> <strong>log</strong>(<a href="../dart_core/num.html">num</a> x) <a class="anchor-link" href="#log"
+              title="Permalink to Math.log">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+static double log(num x) native;
+</pre>
+</div>
+</div>
+<h3>Static Fields</h3>
+<div class="field"><h4 id="E">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>E</strong> <a class="anchor-link"
+            href="#E"
+            title="Permalink to Math.E">#</a>
+        </h4>
+        <div class="doc">
+<p>Base of the natural logarithms.</p>
+<pre class="source">
+static final double E = 2.718281828459045;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LN10">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>LN10</strong> <a class="anchor-link"
+            href="#LN10"
+            title="Permalink to Math.LN10">#</a>
+        </h4>
+        <div class="doc">
+<p>Natural logarithm of 10.</p>
+<pre class="source">
+static final double LN10 =  2.302585092994046;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LN2">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>LN2</strong> <a class="anchor-link"
+            href="#LN2"
+            title="Permalink to Math.LN2">#</a>
+        </h4>
+        <div class="doc">
+<p>Natural logarithm of 2.</p>
+<pre class="source">
+static final double LN2 =  0.6931471805599453;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LOG2E">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>LOG2E</strong> <a class="anchor-link"
+            href="#LOG2E"
+            title="Permalink to Math.LOG2E">#</a>
+        </h4>
+        <div class="doc">
+<p>Base-2 logarithm of E.</p>
+<pre class="source">
+static final double LOG2E = 1.4426950408889634;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LOG10E">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>LOG10E</strong> <a class="anchor-link"
+            href="#LOG10E"
+            title="Permalink to Math.LOG10E">#</a>
+        </h4>
+        <div class="doc">
+<p>Base-10 logarithm of E.</p>
+<pre class="source">
+static final double LOG10E = 0.4342944819032518;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="PI">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>PI</strong> <a class="anchor-link"
+            href="#PI"
+            title="Permalink to Math.PI">#</a>
+        </h4>
+        <div class="doc">
+<p>The PI constant.</p>
+<pre class="source">
+static final double PI = 3.1415926535897932;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="SQRT1_2">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>SQRT1_2</strong> <a class="anchor-link"
+            href="#SQRT1_2"
+            title="Permalink to Math.SQRT1_2">#</a>
+        </h4>
+        <div class="doc">
+<p>Square root of 1/2.</p>
+<pre class="source">
+static final double SQRT1_2 = 0.7071067811865476;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="SQRT2">
+<span class="show-code">Code</span>
+final <a href="../dart_core/double.html">double</a>         <strong>SQRT2</strong> <a class="anchor-link"
+            href="#SQRT2"
+            title="Permalink to Math.SQRT2">#</a>
+        </h4>
+        <div class="doc">
+<p>Square root of 2.</p>
+<pre class="source">
+static final double SQRT2 = 1.4142135623730951;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer"></div>
+        </body></html>
+        

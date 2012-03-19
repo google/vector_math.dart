@@ -36,9 +36,9 @@ class mat2x3 {
       col0[0] = arg0;
       col0[1] = arg1;
       col0[2] = arg2;
-      col1[0] = arg2;
-      col1[1] = arg3;
-      col1[2] = arg4;
+      col1[0] = arg3;
+      col1[1] = arg4;
+      col1[2] = arg5;
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null) {

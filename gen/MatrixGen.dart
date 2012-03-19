@@ -138,7 +138,7 @@ class MatrixGen {
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('col$i[$j] = arg${i*cols+j};');
+        iPrint('col$i[$j] = arg${(i*rows)+j};');
       }
     }
     iPrint('return;');
@@ -575,7 +575,7 @@ class MatrixGen {
       iPrint('\/\/\/ Returns the translation vector from this homogeneous transformation matrix.');
       iPrint('vec3 getTranslation() {');
       iPush();
-      iPrint('return = new vec3(col3.x, col3.y, col3.z);');
+      iPrint('return new vec3(col3.x, col3.y, col3.z);');
       iPop();
       iPrint('}');
       iPrint('\/\/\/ Sets the translation vector in this homogeneous transformation matrix.');

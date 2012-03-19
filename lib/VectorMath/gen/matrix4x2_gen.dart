@@ -39,12 +39,12 @@ class mat4x2 {
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num && arg6 is num && arg7 is num) {
       col0[0] = arg0;
       col0[1] = arg1;
-      col1[0] = arg4;
-      col1[1] = arg5;
-      col2[0] = arg8;
-      col2[1] = arg9;
-      col3[0] = arg12;
-      col3[1] = arg13;
+      col1[0] = arg2;
+      col1[1] = arg3;
+      col2[0] = arg4;
+      col2[1] = arg5;
+      col3[0] = arg6;
+      col3[1] = arg7;
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null) {

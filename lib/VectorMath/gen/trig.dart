@@ -200,32 +200,32 @@ Dynamic atanh(Dynamic arg) {
 /// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
 Dynamic radians(Dynamic arg) {
   if (arg is num) {
-    return ScalarMath.radians(arg);
+    return _ScalerHelpers.radians(arg);
   }
   if (arg is vec2) {
-    return new vec2(ScalarMath.radians(arg.x), ScalarMath.radians(arg.y));
+    return new vec2(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y));
   }
   if (arg is vec3) {
-    return new vec3(ScalarMath.radians(arg.x), ScalarMath.radians(arg.y), ScalarMath.radians(arg.z));
+    return new vec3(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y), _ScalerHelpers.radians(arg.z));
   }
   if (arg is vec4) {
-    return new vec4(ScalarMath.radians(arg.x), ScalarMath.radians(arg.y), ScalarMath.radians(arg.z), ScalarMath.radians(arg.w));
+    return new vec4(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y), _ScalerHelpers.radians(arg.z), _ScalerHelpers.radians(arg.w));
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
 Dynamic degrees(Dynamic arg) {
   if (arg is num) {
-    return ScalarMath.degrees(arg);
+    return _ScalerHelpers.degrees(arg);
   }
   if (arg is vec2) {
-    return new vec2(ScalarMath.degrees(arg.x), ScalarMath.degrees(arg.y));
+    return new vec2(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y));
   }
   if (arg is vec3) {
-    return new vec3(ScalarMath.degrees(arg.x), ScalarMath.degrees(arg.y), ScalarMath.degrees(arg.z));
+    return new vec3(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y), _ScalerHelpers.degrees(arg.z));
   }
   if (arg is vec4) {
-    return new vec4(ScalarMath.degrees(arg.x), ScalarMath.degrees(arg.y), ScalarMath.degrees(arg.z), ScalarMath.degrees(arg.w));
+    return new vec4(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y), _ScalerHelpers.degrees(arg.z), _ScalerHelpers.degrees(arg.w));
   }
   throw new IllegalArgumentException(arg);
 }
