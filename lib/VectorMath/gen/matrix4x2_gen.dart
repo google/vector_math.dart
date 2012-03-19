@@ -21,210 +21,13 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+/// mat4x2 is a column major matrix where each column is represented by [vec2]. This matrix has 4 columns and 2 rows.
 class mat4x2 {
   vec2 col0;
   vec2 col1;
   vec2 col2;
   vec2 col3;
-  num get rows() => 2;
-  num get cols() => 4;
-  num get length() => 4;
-  vec4 get row0() => getRow(0);
-  vec4 get row1() => getRow(1);
-  set row0(vec4 arg) => setRow(0, arg);
-  set row1(vec4 arg) => setRow(1, arg);
-  vec2 operator[](int column) {
-    assert(column >= 0 && column < 4);
-    switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
-      case 2: return col2; break;
-      case 3: return col3; break;
-    }
-    throw new IllegalArgumentException(column);
-  }
-  vec2 operator[]=(int column, vec2 arg) {
-    assert(column >= 0 && column < 4);
-    switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
-      case 2: col2 = arg; return col2; break;
-      case 3: col3 = arg; return col3; break;
-    }
-    throw new IllegalArgumentException(column);
-  }
-  String toString() {
-    String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
-    return s;
-  }
-  void setRow(int row, vec4 arg) {
-    assert(row >= 0 && row < 2);
-    this[0][row] = arg[0];
-    this[1][row] = arg[1];
-    this[2][row] = arg[2];
-    this[3][row] = arg[3];
-  }
-  vec4 getRow(int row) {
-    assert(row >= 0 && row < 2);
-    vec4 r = new vec4();
-    r[0] = this[0][row];
-    r[1] = this[1][row];
-    r[2] = this[2][row];
-    r[3] = this[3][row];
-    return r;
-  }
-  void setColumn(int column, vec2 arg) {
-    assert(column >= 0 && column < 4);
-    this[column] = arg;
-  }
-  vec2 getColumn(int column) {
-    assert(column >= 0 && column < 4);
-    return new vec2(this[column]);
-  }
-  Dynamic operator*(Dynamic arg) {
-    if (arg is num) {
-      mat4x2 r = new mat4x2();
-      r[0][0] = this[0][0] * arg;
-      r[0][1] = this[0][1] * arg;
-      r[1][0] = this[1][0] * arg;
-      r[1][1] = this[1][1] * arg;
-      r[2][0] = this[2][0] * arg;
-      r[2][1] = this[2][1] * arg;
-      r[3][0] = this[3][0] * arg;
-      r[3][1] = this[3][1] * arg;
-      return r;
-    }
-    if (arg is vec4) {
-      vec2 r = new vec2();
-      r[0] = dot(row0, arg);
-      r[1] = dot(row1, arg);
-      return r;
-    }
-    if (2 == arg.cols) {
-      Dynamic r = null;
-      if (arg.rows == 2) {
-        r = new mat4x2();
-      }
-      if (arg.rows == 3) {
-        r = new mat4x3();
-      }
-      if (arg.rows == 4) {
-        r = new mat4x4();
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[0][j] = dot(this.getRow(0), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[1][j] = dot(this.getRow(1), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[2][j] = dot(this.getRow(2), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[3][j] = dot(this.getRow(3), arg.getColumn(j));
-      }
-      return r;
-    }
-    throw new IllegalArgumentException(arg);
-  }
-  mat4x2 operator+(mat4x2 arg) {
-    mat4x2 r = new mat4x2();
-    r[0][0] = this[0][0] + arg[0][0];
-    r[0][1] = this[0][1] + arg[0][1];
-    r[1][0] = this[1][0] + arg[1][0];
-    r[1][1] = this[1][1] + arg[1][1];
-    r[2][0] = this[2][0] + arg[2][0];
-    r[2][1] = this[2][1] + arg[2][1];
-    r[3][0] = this[3][0] + arg[3][0];
-    r[3][1] = this[3][1] + arg[3][1];
-    return r;
-  }
-  mat4x2 operator-(mat4x2 arg) {
-    mat4x2 r = new mat4x2();
-    r[0][0] = this[0][0] - arg[0][0];
-    r[0][1] = this[0][1] - arg[0][1];
-    r[1][0] = this[1][0] - arg[1][0];
-    r[1][1] = this[1][1] - arg[1][1];
-    r[2][0] = this[2][0] - arg[2][0];
-    r[2][1] = this[2][1] - arg[2][1];
-    r[3][0] = this[3][0] - arg[3][0];
-    r[3][1] = this[3][1] - arg[3][1];
-    return r;
-  }
-  mat4x2 operator negate() {
-    mat4x2 r = new mat4x2();
-    r[0] = -this[0];
-    r[1] = -this[1];
-    r[2] = -this[2];
-    r[3] = -this[3];
-    return r;
-  }
-  mat2x4 transposed() {
-    mat2x4 r = new mat2x4();
-    r[0][0] = this[0][0];
-    r[1][0] = this[0][1];
-    r[2][0] = this[0][2];
-    r[3][0] = this[0][3];
-    r[0][1] = this[1][0];
-    r[1][1] = this[1][1];
-    r[2][1] = this[1][2];
-    r[3][1] = this[1][3];
-    return r;
-  }
-  mat4x2 absolute() {
-    mat4x2 r = new mat4x2();
-    r[0][0] = this[0][0].abs();
-    r[0][1] = this[0][1].abs();
-    r[1][0] = this[1][0].abs();
-    r[1][1] = this[1][1].abs();
-    r[2][0] = this[2][0].abs();
-    r[2][1] = this[2][1].abs();
-    r[3][0] = this[3][0].abs();
-    r[3][1] = this[3][1].abs();
-    return r;
-  }
-  num infinityNorm() {
-    num norm = 0.0;
-    {
-      num row_norm = 0.0;
-      row_norm += this[0][0].abs();
-      row_norm += this[0][1].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    {
-      num row_norm = 0.0;
-      row_norm += this[1][0].abs();
-      row_norm += this[1][1].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    {
-      num row_norm = 0.0;
-      row_norm += this[2][0].abs();
-      row_norm += this[2][1].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    {
-      num row_norm = 0.0;
-      row_norm += this[3][0].abs();
-      row_norm += this[3][1].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    return norm;
-  }
-  num relativeError(mat4x2 correct) {
-    num this_norm = infinityNorm();
-    num correct_norm = correct.infinityNorm();
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm/correct_norm;
-  }
-  num absoluteError(mat4x2 correct) {
-    num this_norm = infinityNorm();
-    num correct_norm = correct.infinityNorm();
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm;
-  }
+  /// Constructs a new mat4x2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
   mat4x2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7]) {
     //Initialize the matrix as the identity matrix
     col0 = new vec2();
@@ -284,6 +87,7 @@ class mat4x2 {
       col1[1] = arg0[1];
     }
   }
+  /// Constructs a new mat4x2 from computing the outer product of [u] and [v].
   mat4x2.outer(vec4 u, vec2 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -294,6 +98,7 @@ class mat4x2 {
     col3[0] = u[3] * v[0];
     col3[1] = u[3] * v[1];
   }
+  /// Constructs a new mat4x2 filled with zeros.
   mat4x2.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -303,5 +108,227 @@ class mat4x2 {
     col2[1] = 0.0;
     col3[0] = 0.0;
     col3[1] = 0.0;
+  }
+  /// Returns a printable string
+  String toString() {
+    String s = '';
+    s += '[0] ${getRow(0)}\n';
+    s += '[1] ${getRow(1)}\n';
+    return s;
+  }
+  /// Returns the number of rows in the matrix.
+  num get rows() => 2;
+  /// Returns the number of columns in the matrix.
+  num get cols() => 4;
+  /// Returns the number of columns in the matrix.
+  num get length() => 4;
+  /// Gets the [column] of the matrix
+  vec2 operator[](int column) {
+    assert(column >= 0 && column < 4);
+    switch (column) {
+      case 0: return col0; break;
+      case 1: return col1; break;
+      case 2: return col2; break;
+      case 3: return col3; break;
+    }
+    throw new IllegalArgumentException(column);
+  }
+  /// Assigns the [column] of the matrix [arg]
+  vec2 operator[]=(int column, vec2 arg) {
+    assert(column >= 0 && column < 4);
+    switch (column) {
+      case 0: col0 = arg; return col0; break;
+      case 1: col1 = arg; return col1; break;
+      case 2: col2 = arg; return col2; break;
+      case 3: col3 = arg; return col3; break;
+    }
+    throw new IllegalArgumentException(column);
+  }
+  /// Returns row 0
+  vec4 get row0() => getRow(0);
+  /// Returns row 1
+  vec4 get row1() => getRow(1);
+  /// Sets row 0 to [arg]
+  set row0(vec4 arg) => setRow(0, arg);
+  /// Sets row 1 to [arg]
+  set row1(vec4 arg) => setRow(1, arg);
+  /// Assigns the [column] of the matrix [arg]
+  void setRow(int row, vec4 arg) {
+    assert(row >= 0 && row < 2);
+    this[0][row] = arg[0];
+    this[1][row] = arg[1];
+    this[2][row] = arg[2];
+    this[3][row] = arg[3];
+  }
+  /// Gets the [row] of the matrix
+  vec4 getRow(int row) {
+    assert(row >= 0 && row < 2);
+    vec4 r = new vec4();
+    r[0] = this[0][row];
+    r[1] = this[1][row];
+    r[2] = this[2][row];
+    r[3] = this[3][row];
+    return r;
+  }
+  /// Assigns the [column] of the matrix [arg]
+  void setColumn(int column, vec2 arg) {
+    assert(column >= 0 && column < 4);
+    this[column] = arg;
+  }
+  /// Gets the [column] of the matrix
+  vec2 getColumn(int column) {
+    assert(column >= 0 && column < 4);
+    return new vec2(this[column]);
+  }
+  /// Returns a new vector or matrix by multiplying [this] with [arg].
+  Dynamic operator*(Dynamic arg) {
+    if (arg is num) {
+      mat4x2 r = new mat4x2();
+      r[0][0] = this[0][0] * arg;
+      r[0][1] = this[0][1] * arg;
+      r[1][0] = this[1][0] * arg;
+      r[1][1] = this[1][1] * arg;
+      r[2][0] = this[2][0] * arg;
+      r[2][1] = this[2][1] * arg;
+      r[3][0] = this[3][0] * arg;
+      r[3][1] = this[3][1] * arg;
+      return r;
+    }
+    if (arg is vec4) {
+      vec2 r = new vec2();
+      r[0] = dot(row0, arg);
+      r[1] = dot(row1, arg);
+      return r;
+    }
+    if (2 == arg.cols) {
+      Dynamic r = null;
+      if (arg.rows == 2) {
+        r = new mat4x2();
+      }
+      if (arg.rows == 3) {
+        r = new mat4x3();
+      }
+      if (arg.rows == 4) {
+        r = new mat4x4();
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[0][j] = dot(this.getRow(0), arg.getColumn(j));
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[1][j] = dot(this.getRow(1), arg.getColumn(j));
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[2][j] = dot(this.getRow(2), arg.getColumn(j));
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[3][j] = dot(this.getRow(3), arg.getColumn(j));
+      }
+      return r;
+    }
+    throw new IllegalArgumentException(arg);
+  }
+  /// Returns new matrix after component wise [this] + [arg]
+  mat4x2 operator+(mat4x2 arg) {
+    mat4x2 r = new mat4x2();
+    r[0][0] = this[0][0] + arg[0][0];
+    r[0][1] = this[0][1] + arg[0][1];
+    r[1][0] = this[1][0] + arg[1][0];
+    r[1][1] = this[1][1] + arg[1][1];
+    r[2][0] = this[2][0] + arg[2][0];
+    r[2][1] = this[2][1] + arg[2][1];
+    r[3][0] = this[3][0] + arg[3][0];
+    r[3][1] = this[3][1] + arg[3][1];
+    return r;
+  }
+  /// Returns new matrix after component wise [this] - [arg]
+  mat4x2 operator-(mat4x2 arg) {
+    mat4x2 r = new mat4x2();
+    r[0][0] = this[0][0] - arg[0][0];
+    r[0][1] = this[0][1] - arg[0][1];
+    r[1][0] = this[1][0] - arg[1][0];
+    r[1][1] = this[1][1] - arg[1][1];
+    r[2][0] = this[2][0] - arg[2][0];
+    r[2][1] = this[2][1] - arg[2][1];
+    r[3][0] = this[3][0] - arg[3][0];
+    r[3][1] = this[3][1] - arg[3][1];
+    return r;
+  }
+  /// Returns new matrix -this
+  mat4x2 operator negate() {
+    mat4x2 r = new mat4x2();
+    r[0] = -this[0];
+    r[1] = -this[1];
+    r[2] = -this[2];
+    r[3] = -this[3];
+    return r;
+  }
+  /// Returns the tranpose of this.
+  mat2x4 transposed() {
+    mat2x4 r = new mat2x4();
+    r[0][0] = this[0][0];
+    r[1][0] = this[0][1];
+    r[2][0] = this[0][2];
+    r[3][0] = this[0][3];
+    r[0][1] = this[1][0];
+    r[1][1] = this[1][1];
+    r[2][1] = this[1][2];
+    r[3][1] = this[1][3];
+    return r;
+  }
+  /// Returns the component wise absolute value of this.
+  mat4x2 absolute() {
+    mat4x2 r = new mat4x2();
+    r[0][0] = this[0][0].abs();
+    r[0][1] = this[0][1].abs();
+    r[1][0] = this[1][0].abs();
+    r[1][1] = this[1][1].abs();
+    r[2][0] = this[2][0].abs();
+    r[2][1] = this[2][1].abs();
+    r[3][0] = this[3][0].abs();
+    r[3][1] = this[3][1].abs();
+    return r;
+  }
+  /// Returns infinity norm of the matrix. Used for numerical analysis.
+  num infinityNorm() {
+    num norm = 0.0;
+    {
+      num row_norm = 0.0;
+      row_norm += this[0][0].abs();
+      row_norm += this[0][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[1][0].abs();
+      row_norm += this[1][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[2][0].abs();
+      row_norm += this[2][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[3][0].abs();
+      row_norm += this[3][1].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    return norm;
+  }
+  /// Returns relative error between [this] and [correct]
+  num relativeError(mat4x2 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  /// Returns absolute error between [this] and [correct]
+  num absoluteError(mat4x2 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
 }

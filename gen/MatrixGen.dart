@@ -91,6 +91,7 @@ class MatrixGen {
   }
   
   void generatePrologue() {
+    iPrint('\/\/\/ ${matType} is a column major matrix where each column is represented by [$colVecType]. This matrix has $cols columns and $rows rows.');
     iPrint('class ${matType} {');
     iPush();
     for (int i = 0; i < cols; i++) {
@@ -118,6 +119,7 @@ class MatrixGen {
     for (int i = 0; i < cols; i++) {
       columnArguments[i] = 'arg$i';
     }
+    iPrint('\/\/\/ Constructs a new ${matType}. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.');
     iPrint('${matType}([${joinStrings(arguments, 'Dynamic ')}]) {');
     iPush();
     iPrint('//Initialize the matrix as the identity matrix');
@@ -207,6 +209,7 @@ class MatrixGen {
     iPrint('}');
     
     // Outer product constructor
+    iPrint('\/\/\/ Constructs a new ${matType} from computing the outer product of [u] and [v].');
     iPrint('${matType}.outer(vec${cols} u, vec${rows} v) {');
     iPush();
     for (int i = 0; i < cols; i++) {
@@ -217,6 +220,7 @@ class MatrixGen {
     iPop();
     iPrint('}');
     
+    iPrint('\/\/\/ Constructs a new ${matType} filled with zeros.');
     iPrint('${matType}.zero() {');
     iPush();
     for (int i = 0; i < cols; i++) {
@@ -229,21 +233,27 @@ class MatrixGen {
   }
   
   void generateRowColProperties() {
+    iPrint('\/\/\/ Returns the number of rows in the matrix.');
     iPrint('num get rows() => $rows;');
+    iPrint('\/\/\/ Returns the number of columns in the matrix.');
     iPrint('num get cols() => $cols;');
+    iPrint('\/\/\/ Returns the number of columns in the matrix.');
     iPrint('num get length() => $cols;');
   }
   
   void generateRowGetterSetters() {
     for (int i = 0; i < rows; i++) {
+      iPrint('\/\/\/ Returns row $i');
       iPrint('$rowVecType get row$i() => getRow($i);');
     }
     for (int i = 0; i < rows; i++) {
+      iPrint('\/\/\/ Sets row $i to [arg]');
       iPrint('set row$i($rowVecType arg) => setRow($i, arg);');
     }
   }
   
   void generateIndexOperator() {
+    iPrint('\/\/\/ Gets the [column] of the matrix');
     iPrint('$colVecType operator[](int column) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
@@ -260,6 +270,7 @@ class MatrixGen {
   }
   
   void generateAssignIndexOperator() {
+    iPrint('\/\/\/ Assigns the [column] of the matrix [arg]');
     iPrint('$colVecType operator[]=(int column, $colVecType arg) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
@@ -276,6 +287,7 @@ class MatrixGen {
   }
   
   void generateRowHelpers() {
+    iPrint('\/\/\/ Assigns the [column] of the matrix [arg]');
     iPrint('void setRow(int row, $rowVecType arg) {');
     iPush();
     iPrint('assert(row >= 0 && row < $rows);');
@@ -285,6 +297,7 @@ class MatrixGen {
     iPop();
     iPrint('}');
     
+    iPrint('\/\/\/ Gets the [row] of the matrix');
     iPrint('$rowVecType getRow(int row) {');
     iPush();
     iPrint('assert(row >= 0 && row < $rows);');
@@ -298,6 +311,7 @@ class MatrixGen {
   }
   
   void generateColumnHelpers() {
+    iPrint('\/\/\/ Assigns the [column] of the matrix [arg]');
     iPrint('void setColumn(int column, $colVecType arg) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
@@ -305,6 +319,7 @@ class MatrixGen {
     iPop();
     iPrint('}');
     
+    iPrint('\/\/\/ Gets the [column] of the matrix');
     iPrint('$colVecType getColumn(int column) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
@@ -314,6 +329,7 @@ class MatrixGen {
   }
   
   void generateToString() {
+    iPrint('\/\/\/ Returns a printable string');
     iPrint('String toString() {');
     iPush();
     iPrint('String s = \'\';');
@@ -376,6 +392,7 @@ class MatrixGen {
   }
   
   void generateMult() {
+    iPrint('\/\/\/ Returns a new vector or matrix by multiplying [this] with [arg].');
     iPrint('Dynamic operator*(Dynamic arg) {');
     iPush();
     iPrint('if (arg is num) {');
@@ -399,6 +416,7 @@ class MatrixGen {
   }
   
   void generateOp(String op) {
+    iPrint('\/\/\/ Returns new matrix after component wise [this] $op [arg]');
     iPrint('${matType} operator$op(${matType} arg) {');
     iPush();
     iPrint('${matType} r = new ${matType}();');
@@ -413,6 +431,7 @@ class MatrixGen {
   }
   
   void generateNegate() {
+    iPrint('\/\/\/ Returns new matrix -this');
     iPrint('${matType} operator negate() {');
     iPush();
     iPrint('${matType} r = new ${matType}();');
@@ -425,6 +444,7 @@ class MatrixGen {
   }
   
   void generateTranspose() {
+    iPrint('\/\/\/ Returns the tranpose of this.');
     iPrint('${matTypeTransposed()} transposed() {');
     iPush();
     iPrint('${matTypeTransposed()} r = new ${matTypeTransposed()}();');
@@ -439,6 +459,7 @@ class MatrixGen {
   }
   
   void generateAbsolute() {
+    iPrint('\/\/\/ Returns the component wise absolute value of this.');
     iPrint('${matType} absolute() {');
     iPush();
     iPrint('${matType} r = new ${matType}();');
@@ -454,12 +475,14 @@ class MatrixGen {
   
   void generateDeterminant() {
     if (matType == 'mat2x2') {
+      iPrint('\/\/\/ Returns the determinant of this matrix.');
       iPrint('''num determinant() {
     return (this[0][0] * this[1][1]) - (this[0][1]*this[1][0]); 
   }''');
     }
     
     if (matType == 'mat3x3') {
+      iPrint('\/\/\/ Returns the determinant of this matrix.');
       iPrint('''num determinant() {
         num x = this[0][0]*((this[2][2]*this[1][1])-(this[2][1]*this[1][2]));
         num y = this[1][0]*((this[2][2]*this[0][1])-(this[2][1]*this[0][2]));
@@ -469,6 +492,7 @@ class MatrixGen {
     }
     
     if (matType == 'mat4x4') {
+      iPrint('\/\/\/ Returns the determinant of this matrix.');
       iPrint('''num determinant() {
           //2x2 sub-determinants
           num det2_01_01 = this[0][0] * this[1][1] - this[0][1] * this[1][0];
@@ -491,6 +515,7 @@ class MatrixGen {
   
   void generateTrace() {
     if (rows == cols) {
+      iPrint('\/\/\/ Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries');
       iPrint('num trace() {');
       iPush();
       iPrint('num t = 0.0;');
@@ -504,6 +529,7 @@ class MatrixGen {
   }
   
   void generateInfinityNorm() {
+    iPrint('\/\/\/ Returns infinity norm of the matrix. Used for numerical analysis.');
     iPrint('num infinityNorm() {');
     iPush();
     iPrint('num norm = 0.0;');
@@ -524,6 +550,7 @@ class MatrixGen {
   }
   
   void generateError() {
+    iPrint('\/\/\/ Returns relative error between [this] and [correct]');
     iPrint('num relativeError($matType correct) {');
     iPush();
     iPrint('num this_norm = infinityNorm();');
@@ -532,7 +559,7 @@ class MatrixGen {
     iPrint('return diff_norm/correct_norm;');
     iPop();
     iPrint('}');
-    
+    iPrint('\/\/\/ Returns absolute error between [this] and [correct]');
     iPrint('num absoluteError($matType correct) {');
     iPush();
     iPrint('num this_norm = infinityNorm();');
@@ -545,11 +572,13 @@ class MatrixGen {
   
   void generateTranslate() {
     if (rows == 4 && cols == 4) {
+      iPrint('\/\/\/ Returns the translation vector from this homogeneous transformation matrix.');
       iPrint('vec3 getTranslation() {');
       iPush();
       iPrint('return = new vec3(col3.x, col3.y, col3.z);');
       iPop();
       iPrint('}');
+      iPrint('\/\/\/ Sets the translation vector in this homogeneous transformation matrix.');
       iPrint('void setTranslation(vec3 T) {');
       iPush();
       iPrint('col3.xyz = T;');
@@ -560,6 +589,7 @@ class MatrixGen {
   
   void generateRotation() {
     if (rows == 4 && cols == 4) {
+      iPrint('\/\/\/ Returns the rotation matrix from this homogeneous transformation matrix.');
       iPrint('mat3x3 getRotation() {');
       iPush();
       iPrint('mat3x3 r = new mat3x3();');
@@ -570,6 +600,7 @@ class MatrixGen {
       iPop();
       iPrint('}');
       
+      iPrint('\/\/\/ Sets the rotation matrix in this homogeneous transformation matrix.');
       iPrint('void setRotation(mat3x3 rotation) {');
       iPush();
       iPrint('this.col0.xyz = rotation.col0;');
@@ -578,6 +609,7 @@ class MatrixGen {
       iPop();
       iPrint('}');
       
+      iPrint('\/\/\/ Transposes just the upper 3x3 rotation matrix.');
       iPrint('void transposeRotation() {');
       iPush();
       iPrint('num temp;');
@@ -596,11 +628,12 @@ class MatrixGen {
   void generate() {
     writeLicense();
     generatePrologue();
+    generateConstructors();
+    generateToString();
     generateRowColProperties();
-    generateRowGetterSetters();
     generateIndexOperator();
     generateAssignIndexOperator();
-    generateToString();
+    generateRowGetterSetters();
     generateRowHelpers();
     generateColumnHelpers();
     generateMult();
@@ -615,7 +648,6 @@ class MatrixGen {
     generateError();
     generateTranslate();
     generateRotation();
-    generateConstructors();
     generateEpilogue();
   }
 }

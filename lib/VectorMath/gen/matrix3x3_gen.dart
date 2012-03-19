@@ -21,220 +21,12 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+/// mat3x3 is a column major matrix where each column is represented by [vec3]. This matrix has 3 columns and 3 rows.
 class mat3x3 {
   vec3 col0;
   vec3 col1;
   vec3 col2;
-  num get rows() => 3;
-  num get cols() => 3;
-  num get length() => 3;
-  vec3 get row0() => getRow(0);
-  vec3 get row1() => getRow(1);
-  vec3 get row2() => getRow(2);
-  set row0(vec3 arg) => setRow(0, arg);
-  set row1(vec3 arg) => setRow(1, arg);
-  set row2(vec3 arg) => setRow(2, arg);
-  vec3 operator[](int column) {
-    assert(column >= 0 && column < 3);
-    switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
-      case 2: return col2; break;
-    }
-    throw new IllegalArgumentException(column);
-  }
-  vec3 operator[]=(int column, vec3 arg) {
-    assert(column >= 0 && column < 3);
-    switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
-      case 2: col2 = arg; return col2; break;
-    }
-    throw new IllegalArgumentException(column);
-  }
-  String toString() {
-    String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
-    s += '[2] ${getRow(2)}\n';
-    return s;
-  }
-  void setRow(int row, vec3 arg) {
-    assert(row >= 0 && row < 3);
-    this[0][row] = arg[0];
-    this[1][row] = arg[1];
-    this[2][row] = arg[2];
-  }
-  vec3 getRow(int row) {
-    assert(row >= 0 && row < 3);
-    vec3 r = new vec3();
-    r[0] = this[0][row];
-    r[1] = this[1][row];
-    r[2] = this[2][row];
-    return r;
-  }
-  void setColumn(int column, vec3 arg) {
-    assert(column >= 0 && column < 3);
-    this[column] = arg;
-  }
-  vec3 getColumn(int column) {
-    assert(column >= 0 && column < 3);
-    return new vec3(this[column]);
-  }
-  Dynamic operator*(Dynamic arg) {
-    if (arg is num) {
-      mat3x3 r = new mat3x3();
-      r[0][0] = this[0][0] * arg;
-      r[0][1] = this[0][1] * arg;
-      r[0][2] = this[0][2] * arg;
-      r[1][0] = this[1][0] * arg;
-      r[1][1] = this[1][1] * arg;
-      r[1][2] = this[1][2] * arg;
-      r[2][0] = this[2][0] * arg;
-      r[2][1] = this[2][1] * arg;
-      r[2][2] = this[2][2] * arg;
-      return r;
-    }
-    if (arg is vec3) {
-      vec3 r = new vec3();
-      r[0] = dot(row0, arg);
-      r[1] = dot(row1, arg);
-      r[2] = dot(row2, arg);
-      return r;
-    }
-    if (3 == arg.cols) {
-      Dynamic r = null;
-      if (arg.rows == 2) {
-        r = new mat3x2();
-      }
-      if (arg.rows == 3) {
-        r = new mat3x3();
-      }
-      if (arg.rows == 4) {
-        r = new mat3x4();
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[0][j] = dot(this.getRow(0), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[1][j] = dot(this.getRow(1), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[2][j] = dot(this.getRow(2), arg.getColumn(j));
-      }
-      return r;
-    }
-    throw new IllegalArgumentException(arg);
-  }
-  mat3x3 operator+(mat3x3 arg) {
-    mat3x3 r = new mat3x3();
-    r[0][0] = this[0][0] + arg[0][0];
-    r[0][1] = this[0][1] + arg[0][1];
-    r[0][2] = this[0][2] + arg[0][2];
-    r[1][0] = this[1][0] + arg[1][0];
-    r[1][1] = this[1][1] + arg[1][1];
-    r[1][2] = this[1][2] + arg[1][2];
-    r[2][0] = this[2][0] + arg[2][0];
-    r[2][1] = this[2][1] + arg[2][1];
-    r[2][2] = this[2][2] + arg[2][2];
-    return r;
-  }
-  mat3x3 operator-(mat3x3 arg) {
-    mat3x3 r = new mat3x3();
-    r[0][0] = this[0][0] - arg[0][0];
-    r[0][1] = this[0][1] - arg[0][1];
-    r[0][2] = this[0][2] - arg[0][2];
-    r[1][0] = this[1][0] - arg[1][0];
-    r[1][1] = this[1][1] - arg[1][1];
-    r[1][2] = this[1][2] - arg[1][2];
-    r[2][0] = this[2][0] - arg[2][0];
-    r[2][1] = this[2][1] - arg[2][1];
-    r[2][2] = this[2][2] - arg[2][2];
-    return r;
-  }
-  mat3x3 operator negate() {
-    mat3x3 r = new mat3x3();
-    r[0] = -this[0];
-    r[1] = -this[1];
-    r[2] = -this[2];
-    return r;
-  }
-  mat3x3 transposed() {
-    mat3x3 r = new mat3x3();
-    r[0][0] = this[0][0];
-    r[1][0] = this[0][1];
-    r[2][0] = this[0][2];
-    r[0][1] = this[1][0];
-    r[1][1] = this[1][1];
-    r[2][1] = this[1][2];
-    r[0][2] = this[2][0];
-    r[1][2] = this[2][1];
-    r[2][2] = this[2][2];
-    return r;
-  }
-  mat3x3 absolute() {
-    mat3x3 r = new mat3x3();
-    r[0][0] = this[0][0].abs();
-    r[0][1] = this[0][1].abs();
-    r[0][2] = this[0][2].abs();
-    r[1][0] = this[1][0].abs();
-    r[1][1] = this[1][1].abs();
-    r[1][2] = this[1][2].abs();
-    r[2][0] = this[2][0].abs();
-    r[2][1] = this[2][1].abs();
-    r[2][2] = this[2][2].abs();
-    return r;
-  }
-  num determinant() {
-        num x = this[0][0]*((this[2][2]*this[1][1])-(this[2][1]*this[1][2]));
-        num y = this[1][0]*((this[2][2]*this[0][1])-(this[2][1]*this[0][2]));
-        num z = this[2][0]*((this[1][2]*this[0][1])-(this[1][1]*this[0][2]));
-        return x - y + z;
-      }
-  num trace() {
-    num t = 0.0;
-    t += this[0][0];
-    t += this[1][1];
-    t += this[2][2];
-    return t;
-  }
-  num infinityNorm() {
-    num norm = 0.0;
-    {
-      num row_norm = 0.0;
-      row_norm += this[0][0].abs();
-      row_norm += this[0][1].abs();
-      row_norm += this[0][2].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    {
-      num row_norm = 0.0;
-      row_norm += this[1][0].abs();
-      row_norm += this[1][1].abs();
-      row_norm += this[1][2].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    {
-      num row_norm = 0.0;
-      row_norm += this[2][0].abs();
-      row_norm += this[2][1].abs();
-      row_norm += this[2][2].abs();
-      norm = row_norm > norm ? row_norm : norm;
-    }
-    return norm;
-  }
-  num relativeError(mat3x3 correct) {
-    num this_norm = infinityNorm();
-    num correct_norm = correct.infinityNorm();
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm/correct_norm;
-  }
-  num absoluteError(mat3x3 correct) {
-    num this_norm = infinityNorm();
-    num correct_norm = correct.infinityNorm();
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm;
-  }
+  /// Constructs a new mat3x3. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
   mat3x3([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7, Dynamic arg8]) {
     //Initialize the matrix as the identity matrix
     col0 = new vec3();
@@ -308,6 +100,7 @@ class mat3x3 {
       col2[2] = arg0[2];
     }
   }
+  /// Constructs a new mat3x3 from computing the outer product of [u] and [v].
   mat3x3.outer(vec3 u, vec3 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -319,6 +112,7 @@ class mat3x3 {
     col2[1] = u[2] * v[1];
     col2[2] = u[2] * v[2];
   }
+  /// Constructs a new mat3x3 filled with zeros.
   mat3x3.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -329,5 +123,242 @@ class mat3x3 {
     col2[0] = 0.0;
     col2[1] = 0.0;
     col2[2] = 0.0;
+  }
+  /// Returns a printable string
+  String toString() {
+    String s = '';
+    s += '[0] ${getRow(0)}\n';
+    s += '[1] ${getRow(1)}\n';
+    s += '[2] ${getRow(2)}\n';
+    return s;
+  }
+  /// Returns the number of rows in the matrix.
+  num get rows() => 3;
+  /// Returns the number of columns in the matrix.
+  num get cols() => 3;
+  /// Returns the number of columns in the matrix.
+  num get length() => 3;
+  /// Gets the [column] of the matrix
+  vec3 operator[](int column) {
+    assert(column >= 0 && column < 3);
+    switch (column) {
+      case 0: return col0; break;
+      case 1: return col1; break;
+      case 2: return col2; break;
+    }
+    throw new IllegalArgumentException(column);
+  }
+  /// Assigns the [column] of the matrix [arg]
+  vec3 operator[]=(int column, vec3 arg) {
+    assert(column >= 0 && column < 3);
+    switch (column) {
+      case 0: col0 = arg; return col0; break;
+      case 1: col1 = arg; return col1; break;
+      case 2: col2 = arg; return col2; break;
+    }
+    throw new IllegalArgumentException(column);
+  }
+  /// Returns row 0
+  vec3 get row0() => getRow(0);
+  /// Returns row 1
+  vec3 get row1() => getRow(1);
+  /// Returns row 2
+  vec3 get row2() => getRow(2);
+  /// Sets row 0 to [arg]
+  set row0(vec3 arg) => setRow(0, arg);
+  /// Sets row 1 to [arg]
+  set row1(vec3 arg) => setRow(1, arg);
+  /// Sets row 2 to [arg]
+  set row2(vec3 arg) => setRow(2, arg);
+  /// Assigns the [column] of the matrix [arg]
+  void setRow(int row, vec3 arg) {
+    assert(row >= 0 && row < 3);
+    this[0][row] = arg[0];
+    this[1][row] = arg[1];
+    this[2][row] = arg[2];
+  }
+  /// Gets the [row] of the matrix
+  vec3 getRow(int row) {
+    assert(row >= 0 && row < 3);
+    vec3 r = new vec3();
+    r[0] = this[0][row];
+    r[1] = this[1][row];
+    r[2] = this[2][row];
+    return r;
+  }
+  /// Assigns the [column] of the matrix [arg]
+  void setColumn(int column, vec3 arg) {
+    assert(column >= 0 && column < 3);
+    this[column] = arg;
+  }
+  /// Gets the [column] of the matrix
+  vec3 getColumn(int column) {
+    assert(column >= 0 && column < 3);
+    return new vec3(this[column]);
+  }
+  /// Returns a new vector or matrix by multiplying [this] with [arg].
+  Dynamic operator*(Dynamic arg) {
+    if (arg is num) {
+      mat3x3 r = new mat3x3();
+      r[0][0] = this[0][0] * arg;
+      r[0][1] = this[0][1] * arg;
+      r[0][2] = this[0][2] * arg;
+      r[1][0] = this[1][0] * arg;
+      r[1][1] = this[1][1] * arg;
+      r[1][2] = this[1][2] * arg;
+      r[2][0] = this[2][0] * arg;
+      r[2][1] = this[2][1] * arg;
+      r[2][2] = this[2][2] * arg;
+      return r;
+    }
+    if (arg is vec3) {
+      vec3 r = new vec3();
+      r[0] = dot(row0, arg);
+      r[1] = dot(row1, arg);
+      r[2] = dot(row2, arg);
+      return r;
+    }
+    if (3 == arg.cols) {
+      Dynamic r = null;
+      if (arg.rows == 2) {
+        r = new mat3x2();
+      }
+      if (arg.rows == 3) {
+        r = new mat3x3();
+      }
+      if (arg.rows == 4) {
+        r = new mat3x4();
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[0][j] = dot(this.getRow(0), arg.getColumn(j));
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[1][j] = dot(this.getRow(1), arg.getColumn(j));
+      }
+      for (int j = 0; j < arg.rows; j++) {
+        r[2][j] = dot(this.getRow(2), arg.getColumn(j));
+      }
+      return r;
+    }
+    throw new IllegalArgumentException(arg);
+  }
+  /// Returns new matrix after component wise [this] + [arg]
+  mat3x3 operator+(mat3x3 arg) {
+    mat3x3 r = new mat3x3();
+    r[0][0] = this[0][0] + arg[0][0];
+    r[0][1] = this[0][1] + arg[0][1];
+    r[0][2] = this[0][2] + arg[0][2];
+    r[1][0] = this[1][0] + arg[1][0];
+    r[1][1] = this[1][1] + arg[1][1];
+    r[1][2] = this[1][2] + arg[1][2];
+    r[2][0] = this[2][0] + arg[2][0];
+    r[2][1] = this[2][1] + arg[2][1];
+    r[2][2] = this[2][2] + arg[2][2];
+    return r;
+  }
+  /// Returns new matrix after component wise [this] - [arg]
+  mat3x3 operator-(mat3x3 arg) {
+    mat3x3 r = new mat3x3();
+    r[0][0] = this[0][0] - arg[0][0];
+    r[0][1] = this[0][1] - arg[0][1];
+    r[0][2] = this[0][2] - arg[0][2];
+    r[1][0] = this[1][0] - arg[1][0];
+    r[1][1] = this[1][1] - arg[1][1];
+    r[1][2] = this[1][2] - arg[1][2];
+    r[2][0] = this[2][0] - arg[2][0];
+    r[2][1] = this[2][1] - arg[2][1];
+    r[2][2] = this[2][2] - arg[2][2];
+    return r;
+  }
+  /// Returns new matrix -this
+  mat3x3 operator negate() {
+    mat3x3 r = new mat3x3();
+    r[0] = -this[0];
+    r[1] = -this[1];
+    r[2] = -this[2];
+    return r;
+  }
+  /// Returns the tranpose of this.
+  mat3x3 transposed() {
+    mat3x3 r = new mat3x3();
+    r[0][0] = this[0][0];
+    r[1][0] = this[0][1];
+    r[2][0] = this[0][2];
+    r[0][1] = this[1][0];
+    r[1][1] = this[1][1];
+    r[2][1] = this[1][2];
+    r[0][2] = this[2][0];
+    r[1][2] = this[2][1];
+    r[2][2] = this[2][2];
+    return r;
+  }
+  /// Returns the component wise absolute value of this.
+  mat3x3 absolute() {
+    mat3x3 r = new mat3x3();
+    r[0][0] = this[0][0].abs();
+    r[0][1] = this[0][1].abs();
+    r[0][2] = this[0][2].abs();
+    r[1][0] = this[1][0].abs();
+    r[1][1] = this[1][1].abs();
+    r[1][2] = this[1][2].abs();
+    r[2][0] = this[2][0].abs();
+    r[2][1] = this[2][1].abs();
+    r[2][2] = this[2][2].abs();
+    return r;
+  }
+  /// Returns the determinant of this matrix.
+  num determinant() {
+        num x = this[0][0]*((this[2][2]*this[1][1])-(this[2][1]*this[1][2]));
+        num y = this[1][0]*((this[2][2]*this[0][1])-(this[2][1]*this[0][2]));
+        num z = this[2][0]*((this[1][2]*this[0][1])-(this[1][1]*this[0][2]));
+        return x - y + z;
+      }
+  /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
+  num trace() {
+    num t = 0.0;
+    t += this[0][0];
+    t += this[1][1];
+    t += this[2][2];
+    return t;
+  }
+  /// Returns infinity norm of the matrix. Used for numerical analysis.
+  num infinityNorm() {
+    num norm = 0.0;
+    {
+      num row_norm = 0.0;
+      row_norm += this[0][0].abs();
+      row_norm += this[0][1].abs();
+      row_norm += this[0][2].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[1][0].abs();
+      row_norm += this[1][1].abs();
+      row_norm += this[1][2].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    {
+      num row_norm = 0.0;
+      row_norm += this[2][0].abs();
+      row_norm += this[2][1].abs();
+      row_norm += this[2][2].abs();
+      norm = row_norm > norm ? row_norm : norm;
+    }
+    return norm;
+  }
+  /// Returns relative error between [this] and [correct]
+  num relativeError(mat3x3 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  /// Returns absolute error between [this] and [correct]
+  num absoluteError(mat3x3 correct) {
+    num this_norm = infinityNorm();
+    num correct_norm = correct.infinityNorm();
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
 }
