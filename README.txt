@@ -4,7 +4,15 @@ DartVectorMath
 
 A Vector Math library for game programming written in Dart.
 
-Supports GLSL like syntax, for example:
+DartVectorMath is largely compatible with GLSL.
+
+(Constructor syntax is only incompatibility that wouldn't be classified as a bug.)
+ 
+DartVectorMath offers all GLSL classes and utility functions.
+
+DartVectorMath offers more functionality than GLSL including a quaternion type.
+
+DartVectorMath GLSL getter and setter syntax, for example:
 
 vec3 x = new vec3(); // Zero vector
 vec4 y = new vec4(4.0); // Vector with 4.0 in all lanes
