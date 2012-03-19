@@ -22,6 +22,12 @@
 
 */
 
+/** Returns atan([arg]) or atan([arg]/[arg2])
+  *
+  * Arguments can be of type [num], [vec2], [vec3] or [vec4]
+  * Return type matches input argument type
+  *
+  */
 Dynamic atan(Dynamic arg, [Dynamic arg2]) {
   if (arg2 == null) {
     if (arg is num) {

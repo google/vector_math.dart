@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+/// 
 Dynamic abs(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.abs(arg);
@@ -36,6 +37,7 @@ Dynamic abs(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic sign(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.sign(arg);
@@ -51,6 +53,7 @@ Dynamic sign(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic floor(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.floor(arg);
@@ -66,6 +69,7 @@ Dynamic floor(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic trunc(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.truncate(arg);
@@ -81,6 +85,7 @@ Dynamic trunc(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic round(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.round(arg);
@@ -96,6 +101,7 @@ Dynamic round(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic roundEven(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.roundEven(arg);
@@ -111,6 +117,7 @@ Dynamic roundEven(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic ceil(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.ceil(arg);
@@ -126,6 +133,7 @@ Dynamic ceil(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic fract(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.fract(arg);
@@ -141,6 +149,7 @@ Dynamic fract(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// 
 Dynamic mod(Dynamic x, Dynamic y) {
   if (x is num) {
     return ScalarMath.mod(x, y);
@@ -156,6 +165,7 @@ Dynamic mod(Dynamic x, Dynamic y) {
   }
   throw new IllegalArgumentException(x);
 }
+/// 
 Dynamic min(Dynamic x, Dynamic y) {
   if (x is num) {
     return Math.min(x, y);
@@ -171,6 +181,7 @@ Dynamic min(Dynamic x, Dynamic y) {
   }
   throw new IllegalArgumentException(x);
 }
+/// 
 Dynamic max(Dynamic x, Dynamic y) {
   if (x is num) {
     return Math.max(x, y);
@@ -186,6 +197,7 @@ Dynamic max(Dynamic x, Dynamic y) {
   }
   throw new IllegalArgumentException(x);
 }
+/// 
 Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_) {
   if (x is num) {
     return ScalarMath.clamp(x, min_, max_);
@@ -201,6 +213,7 @@ Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_) {
   }
   throw new IllegalArgumentException(x);
 }
+/// 
 Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
   if (x is num) {
     return ScalarMath.mix(x, y, t);
@@ -216,6 +229,7 @@ Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
   }
   throw new IllegalArgumentException(x);
 }
+/// 
 Dynamic step(Dynamic x, Dynamic y) {
   if (x is num) {
     return ScalarMath.step(x, y);
@@ -231,6 +245,7 @@ Dynamic step(Dynamic x, Dynamic y) {
   }
   throw new IllegalArgumentException(x);
 }
+/// 
 Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x) {
   if (x is num) {
     return ScalarMath.smoothstep(edge0, edge1, x);

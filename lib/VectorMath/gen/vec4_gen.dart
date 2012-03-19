@@ -26,33 +26,50 @@ class vec4 {
   num y;
   num z;
   num w;
-  num get r() => x;
-  set r(num arg) => x = arg;
-  num get g() => y;
-  set g(num arg) => y = arg;
-  num get b() => z;
-  set b(num arg) => z = arg;
-  num get a() => w;
-  set a(num arg) => w = arg;
-  num get s() => x;
-  set s(num arg) => x = arg;
-  num get t() => y;
-  set t(num arg) => y = arg;
-  num get p() => z;
-  set p(num arg) => z = arg;
-  num get q() => w;
-  set q(num arg) => w = arg;
-  vec4.splat(num a) : x = a, y = a, z = a, w = a;
-  void splat(num a) {
-    x = a;
-    y = a;
-    z = a;
-    w = a;
+  /// Constructs a new [vec4]. Follows GLSL constructor syntax so many combinations are possible
+  vec4([Dynamic x_, Dynamic y_, Dynamic z_, Dynamic w_]) {
+    x = y = z = w = 0.0;
+    if (x_ is vec3 && y_ is num) {
+      this.xyz = x_.xyz;
+      this.w = y_;
+    }
+    if (x_ is num && y_ is vec3) {
+      this.x = x_;
+      this.yzw = y_.xyz;
+    }
+    if (x_ is vec3 && y_ == null) {
+      this.xyz = x_.xyz;
+      this.z = 0;
+    }
+    if (x_ is vec2 && y_ is vec2) {
+      this.xy = x_.xy;
+      this.zw = y_.xy;
+    }
+    if (x_ is vec4) {
+      xyzw = x_.xyzw;
+      return;
+    }
+    if (x_ is num && y_ is num && z_ is num && w_ is num) {
+      x = x_;
+      y = y_;
+      z = z_;
+      w = w_;
+      return;
+    }
+    if (x_ is num) {
+      x = y = z = w = x_;
+      return;
+    }
   }
+  /// Returns a printable string
   String toString() => '$x,$y,$z,$w';
+  /// Returns a new vec4 from -this
   vec4 operator negate() => new vec4(-x, -y, -z, -w);
+  /// Returns a new vec4 from this - [other]
   vec4 operator-(vec4 other) => new vec4(x - other.x, y - other.y, z - other.z, w - other.w);
+  /// Returns a new vec4 from this + [other]
   vec4 operator+(vec4 other) => new vec4(x + other.x, y + other.y, z + other.z, w + other.w);
+  /// Returns a new vec4 divided by [other]
   vec4 operator/(Dynamic other) {
     if (other is num) {
       return new vec4(x / other, y / other, z / other, w / other);
@@ -61,6 +78,7 @@ class vec4 {
       return new vec4(x / other.x, y / other.y, z / other.z, w / other.w);
     }
   }
+  /// Returns a new vec4 scaled by [other]
   vec4 operator*(Dynamic other) {
     if (other is num) {
       return new vec4(x * other, y * other, z * other, w * other);
@@ -69,6 +87,7 @@ class vec4 {
       return new vec4(x * other.x, y * other.y, z * other.z, w * other.w);
     }
   }
+  /// Returns a component from vec4. This is indexed as an array with [i]
   num operator[](int i) {
     assert(i >= 0 && i < 4);
     switch (i) {
@@ -79,6 +98,7 @@ class vec4 {
     };
     return 0.0;
   }
+  /// Assigns a component in vec4 the value in [v]. This is indexed as an array with [i]
   num operator[]=(int i, num v) {
     assert(i >= 0 && i < 4);
     switch (i) {
@@ -88,6 +108,58 @@ class vec4 {
       case 3: w = v; return w; break;
     };
     return 0.0;
+  }
+  /// Returns length of this
+  num get length() {
+    num sum = 0.0;
+    sum += (x * x);
+    sum += (y * y);
+    sum += (z * z);
+    sum += (w * w);
+    return Math.sqrt(sum);
+  }
+  /// Returns squared length of this
+  num get length2() {
+    num sum = 0.0;
+    sum += (x * x);
+    sum += (y * y);
+    sum += (z * z);
+    sum += (w * w);
+    return sum;
+  }
+  /// Normalizes this
+  void normalize() {
+    num l = length;
+    if (l == 0.0) {
+      return;
+    }
+    x /= l;
+    y /= l;
+    z /= l;
+    w /= l;
+  }
+  /// Returns the dot product of [this] and [other]
+  num dot(vec4 other) {
+    num sum = 0.0;
+    sum += (x * other.x);
+    sum += (y * other.y);
+    sum += (z * other.z);
+    sum += (w * other.w);
+    return sum;
+  }
+  /// Returns the relative error between [this] and [correct]
+  num relativeError(vec4 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  /// Returns the absolute error between [this] and [correct]
+  num absoluteError(vec4 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
   set xy(vec2 arg) {
     x = arg.x;
@@ -400,6 +472,638 @@ class vec4 {
     z = arg.y;
     y = arg.z;
     x = arg.w;
+  }
+  set r(num arg) => x = arg;
+  set g(num arg) => y = arg;
+  set b(num arg) => z = arg;
+  set a(num arg) => w = arg;
+  set s(num arg) => x = arg;
+  set t(num arg) => y = arg;
+  set p(num arg) => z = arg;
+  set q(num arg) => w = arg;
+  set rg(vec2 arg) {
+    r = arg.r;
+    g = arg.g;
+  }
+  set rb(vec2 arg) {
+    r = arg.r;
+    b = arg.g;
+  }
+  set ra(vec2 arg) {
+    r = arg.r;
+    a = arg.g;
+  }
+  set gr(vec2 arg) {
+    g = arg.r;
+    r = arg.g;
+  }
+  set gb(vec2 arg) {
+    g = arg.r;
+    b = arg.g;
+  }
+  set ga(vec2 arg) {
+    g = arg.r;
+    a = arg.g;
+  }
+  set br(vec2 arg) {
+    b = arg.r;
+    r = arg.g;
+  }
+  set bg(vec2 arg) {
+    b = arg.r;
+    g = arg.g;
+  }
+  set ba(vec2 arg) {
+    b = arg.r;
+    a = arg.g;
+  }
+  set ar(vec2 arg) {
+    a = arg.r;
+    r = arg.g;
+  }
+  set ag(vec2 arg) {
+    a = arg.r;
+    g = arg.g;
+  }
+  set ab(vec2 arg) {
+    a = arg.r;
+    b = arg.g;
+  }
+  set rgb(vec3 arg) {
+    r = arg.r;
+    g = arg.g;
+    b = arg.b;
+  }
+  set rga(vec3 arg) {
+    r = arg.r;
+    g = arg.g;
+    a = arg.b;
+  }
+  set rbg(vec3 arg) {
+    r = arg.r;
+    b = arg.g;
+    g = arg.b;
+  }
+  set rba(vec3 arg) {
+    r = arg.r;
+    b = arg.g;
+    a = arg.b;
+  }
+  set rag(vec3 arg) {
+    r = arg.r;
+    a = arg.g;
+    g = arg.b;
+  }
+  set rab(vec3 arg) {
+    r = arg.r;
+    a = arg.g;
+    b = arg.b;
+  }
+  set grb(vec3 arg) {
+    g = arg.r;
+    r = arg.g;
+    b = arg.b;
+  }
+  set gra(vec3 arg) {
+    g = arg.r;
+    r = arg.g;
+    a = arg.b;
+  }
+  set gbr(vec3 arg) {
+    g = arg.r;
+    b = arg.g;
+    r = arg.b;
+  }
+  set gba(vec3 arg) {
+    g = arg.r;
+    b = arg.g;
+    a = arg.b;
+  }
+  set gar(vec3 arg) {
+    g = arg.r;
+    a = arg.g;
+    r = arg.b;
+  }
+  set gab(vec3 arg) {
+    g = arg.r;
+    a = arg.g;
+    b = arg.b;
+  }
+  set brg(vec3 arg) {
+    b = arg.r;
+    r = arg.g;
+    g = arg.b;
+  }
+  set bra(vec3 arg) {
+    b = arg.r;
+    r = arg.g;
+    a = arg.b;
+  }
+  set bgr(vec3 arg) {
+    b = arg.r;
+    g = arg.g;
+    r = arg.b;
+  }
+  set bga(vec3 arg) {
+    b = arg.r;
+    g = arg.g;
+    a = arg.b;
+  }
+  set bar(vec3 arg) {
+    b = arg.r;
+    a = arg.g;
+    r = arg.b;
+  }
+  set bag(vec3 arg) {
+    b = arg.r;
+    a = arg.g;
+    g = arg.b;
+  }
+  set arg(vec3 arg) {
+    a = arg.r;
+    r = arg.g;
+    g = arg.b;
+  }
+  set arb(vec3 arg) {
+    a = arg.r;
+    r = arg.g;
+    b = arg.b;
+  }
+  set agr(vec3 arg) {
+    a = arg.r;
+    g = arg.g;
+    r = arg.b;
+  }
+  set agb(vec3 arg) {
+    a = arg.r;
+    g = arg.g;
+    b = arg.b;
+  }
+  set abr(vec3 arg) {
+    a = arg.r;
+    b = arg.g;
+    r = arg.b;
+  }
+  set abg(vec3 arg) {
+    a = arg.r;
+    b = arg.g;
+    g = arg.b;
+  }
+  set rgba(vec4 arg) {
+    r = arg.r;
+    g = arg.g;
+    b = arg.b;
+    a = arg.a;
+  }
+  set rgab(vec4 arg) {
+    r = arg.r;
+    g = arg.g;
+    a = arg.b;
+    b = arg.a;
+  }
+  set rbga(vec4 arg) {
+    r = arg.r;
+    b = arg.g;
+    g = arg.b;
+    a = arg.a;
+  }
+  set rbag(vec4 arg) {
+    r = arg.r;
+    b = arg.g;
+    a = arg.b;
+    g = arg.a;
+  }
+  set ragb(vec4 arg) {
+    r = arg.r;
+    a = arg.g;
+    g = arg.b;
+    b = arg.a;
+  }
+  set rabg(vec4 arg) {
+    r = arg.r;
+    a = arg.g;
+    b = arg.b;
+    g = arg.a;
+  }
+  set grba(vec4 arg) {
+    g = arg.r;
+    r = arg.g;
+    b = arg.b;
+    a = arg.a;
+  }
+  set grab(vec4 arg) {
+    g = arg.r;
+    r = arg.g;
+    a = arg.b;
+    b = arg.a;
+  }
+  set gbra(vec4 arg) {
+    g = arg.r;
+    b = arg.g;
+    r = arg.b;
+    a = arg.a;
+  }
+  set gbar(vec4 arg) {
+    g = arg.r;
+    b = arg.g;
+    a = arg.b;
+    r = arg.a;
+  }
+  set garb(vec4 arg) {
+    g = arg.r;
+    a = arg.g;
+    r = arg.b;
+    b = arg.a;
+  }
+  set gabr(vec4 arg) {
+    g = arg.r;
+    a = arg.g;
+    b = arg.b;
+    r = arg.a;
+  }
+  set brga(vec4 arg) {
+    b = arg.r;
+    r = arg.g;
+    g = arg.b;
+    a = arg.a;
+  }
+  set brag(vec4 arg) {
+    b = arg.r;
+    r = arg.g;
+    a = arg.b;
+    g = arg.a;
+  }
+  set bgra(vec4 arg) {
+    b = arg.r;
+    g = arg.g;
+    r = arg.b;
+    a = arg.a;
+  }
+  set bgar(vec4 arg) {
+    b = arg.r;
+    g = arg.g;
+    a = arg.b;
+    r = arg.a;
+  }
+  set barg(vec4 arg) {
+    b = arg.r;
+    a = arg.g;
+    r = arg.b;
+    g = arg.a;
+  }
+  set bagr(vec4 arg) {
+    b = arg.r;
+    a = arg.g;
+    g = arg.b;
+    r = arg.a;
+  }
+  set argb(vec4 arg) {
+    a = arg.r;
+    r = arg.g;
+    g = arg.b;
+    b = arg.a;
+  }
+  set arbg(vec4 arg) {
+    a = arg.r;
+    r = arg.g;
+    b = arg.b;
+    g = arg.a;
+  }
+  set agrb(vec4 arg) {
+    a = arg.r;
+    g = arg.g;
+    r = arg.b;
+    b = arg.a;
+  }
+  set agbr(vec4 arg) {
+    a = arg.r;
+    g = arg.g;
+    b = arg.b;
+    r = arg.a;
+  }
+  set abrg(vec4 arg) {
+    a = arg.r;
+    b = arg.g;
+    r = arg.b;
+    g = arg.a;
+  }
+  set abgr(vec4 arg) {
+    a = arg.r;
+    b = arg.g;
+    g = arg.b;
+    r = arg.a;
+  }
+  set st(vec2 arg) {
+    s = arg.s;
+    t = arg.t;
+  }
+  set sp(vec2 arg) {
+    s = arg.s;
+    p = arg.t;
+  }
+  set sq(vec2 arg) {
+    s = arg.s;
+    q = arg.t;
+  }
+  set ts(vec2 arg) {
+    t = arg.s;
+    s = arg.t;
+  }
+  set tp(vec2 arg) {
+    t = arg.s;
+    p = arg.t;
+  }
+  set tq(vec2 arg) {
+    t = arg.s;
+    q = arg.t;
+  }
+  set ps(vec2 arg) {
+    p = arg.s;
+    s = arg.t;
+  }
+  set pt(vec2 arg) {
+    p = arg.s;
+    t = arg.t;
+  }
+  set pq(vec2 arg) {
+    p = arg.s;
+    q = arg.t;
+  }
+  set qs(vec2 arg) {
+    q = arg.s;
+    s = arg.t;
+  }
+  set qt(vec2 arg) {
+    q = arg.s;
+    t = arg.t;
+  }
+  set qp(vec2 arg) {
+    q = arg.s;
+    p = arg.t;
+  }
+  set stp(vec3 arg) {
+    s = arg.s;
+    t = arg.t;
+    p = arg.p;
+  }
+  set stq(vec3 arg) {
+    s = arg.s;
+    t = arg.t;
+    q = arg.p;
+  }
+  set spt(vec3 arg) {
+    s = arg.s;
+    p = arg.t;
+    t = arg.p;
+  }
+  set spq(vec3 arg) {
+    s = arg.s;
+    p = arg.t;
+    q = arg.p;
+  }
+  set sqt(vec3 arg) {
+    s = arg.s;
+    q = arg.t;
+    t = arg.p;
+  }
+  set sqp(vec3 arg) {
+    s = arg.s;
+    q = arg.t;
+    p = arg.p;
+  }
+  set tsp(vec3 arg) {
+    t = arg.s;
+    s = arg.t;
+    p = arg.p;
+  }
+  set tsq(vec3 arg) {
+    t = arg.s;
+    s = arg.t;
+    q = arg.p;
+  }
+  set tps(vec3 arg) {
+    t = arg.s;
+    p = arg.t;
+    s = arg.p;
+  }
+  set tpq(vec3 arg) {
+    t = arg.s;
+    p = arg.t;
+    q = arg.p;
+  }
+  set tqs(vec3 arg) {
+    t = arg.s;
+    q = arg.t;
+    s = arg.p;
+  }
+  set tqp(vec3 arg) {
+    t = arg.s;
+    q = arg.t;
+    p = arg.p;
+  }
+  set pst(vec3 arg) {
+    p = arg.s;
+    s = arg.t;
+    t = arg.p;
+  }
+  set psq(vec3 arg) {
+    p = arg.s;
+    s = arg.t;
+    q = arg.p;
+  }
+  set pts(vec3 arg) {
+    p = arg.s;
+    t = arg.t;
+    s = arg.p;
+  }
+  set ptq(vec3 arg) {
+    p = arg.s;
+    t = arg.t;
+    q = arg.p;
+  }
+  set pqs(vec3 arg) {
+    p = arg.s;
+    q = arg.t;
+    s = arg.p;
+  }
+  set pqt(vec3 arg) {
+    p = arg.s;
+    q = arg.t;
+    t = arg.p;
+  }
+  set qst(vec3 arg) {
+    q = arg.s;
+    s = arg.t;
+    t = arg.p;
+  }
+  set qsp(vec3 arg) {
+    q = arg.s;
+    s = arg.t;
+    p = arg.p;
+  }
+  set qts(vec3 arg) {
+    q = arg.s;
+    t = arg.t;
+    s = arg.p;
+  }
+  set qtp(vec3 arg) {
+    q = arg.s;
+    t = arg.t;
+    p = arg.p;
+  }
+  set qps(vec3 arg) {
+    q = arg.s;
+    p = arg.t;
+    s = arg.p;
+  }
+  set qpt(vec3 arg) {
+    q = arg.s;
+    p = arg.t;
+    t = arg.p;
+  }
+  set stpq(vec4 arg) {
+    s = arg.s;
+    t = arg.t;
+    p = arg.p;
+    q = arg.q;
+  }
+  set stqp(vec4 arg) {
+    s = arg.s;
+    t = arg.t;
+    q = arg.p;
+    p = arg.q;
+  }
+  set sptq(vec4 arg) {
+    s = arg.s;
+    p = arg.t;
+    t = arg.p;
+    q = arg.q;
+  }
+  set spqt(vec4 arg) {
+    s = arg.s;
+    p = arg.t;
+    q = arg.p;
+    t = arg.q;
+  }
+  set sqtp(vec4 arg) {
+    s = arg.s;
+    q = arg.t;
+    t = arg.p;
+    p = arg.q;
+  }
+  set sqpt(vec4 arg) {
+    s = arg.s;
+    q = arg.t;
+    p = arg.p;
+    t = arg.q;
+  }
+  set tspq(vec4 arg) {
+    t = arg.s;
+    s = arg.t;
+    p = arg.p;
+    q = arg.q;
+  }
+  set tsqp(vec4 arg) {
+    t = arg.s;
+    s = arg.t;
+    q = arg.p;
+    p = arg.q;
+  }
+  set tpsq(vec4 arg) {
+    t = arg.s;
+    p = arg.t;
+    s = arg.p;
+    q = arg.q;
+  }
+  set tpqs(vec4 arg) {
+    t = arg.s;
+    p = arg.t;
+    q = arg.p;
+    s = arg.q;
+  }
+  set tqsp(vec4 arg) {
+    t = arg.s;
+    q = arg.t;
+    s = arg.p;
+    p = arg.q;
+  }
+  set tqps(vec4 arg) {
+    t = arg.s;
+    q = arg.t;
+    p = arg.p;
+    s = arg.q;
+  }
+  set pstq(vec4 arg) {
+    p = arg.s;
+    s = arg.t;
+    t = arg.p;
+    q = arg.q;
+  }
+  set psqt(vec4 arg) {
+    p = arg.s;
+    s = arg.t;
+    q = arg.p;
+    t = arg.q;
+  }
+  set ptsq(vec4 arg) {
+    p = arg.s;
+    t = arg.t;
+    s = arg.p;
+    q = arg.q;
+  }
+  set ptqs(vec4 arg) {
+    p = arg.s;
+    t = arg.t;
+    q = arg.p;
+    s = arg.q;
+  }
+  set pqst(vec4 arg) {
+    p = arg.s;
+    q = arg.t;
+    s = arg.p;
+    t = arg.q;
+  }
+  set pqts(vec4 arg) {
+    p = arg.s;
+    q = arg.t;
+    t = arg.p;
+    s = arg.q;
+  }
+  set qstp(vec4 arg) {
+    q = arg.s;
+    s = arg.t;
+    t = arg.p;
+    p = arg.q;
+  }
+  set qspt(vec4 arg) {
+    q = arg.s;
+    s = arg.t;
+    p = arg.p;
+    t = arg.q;
+  }
+  set qtsp(vec4 arg) {
+    q = arg.s;
+    t = arg.t;
+    s = arg.p;
+    p = arg.q;
+  }
+  set qtps(vec4 arg) {
+    q = arg.s;
+    t = arg.t;
+    p = arg.p;
+    s = arg.q;
+  }
+  set qpst(vec4 arg) {
+    q = arg.s;
+    p = arg.t;
+    s = arg.p;
+    t = arg.q;
+  }
+  set qpts(vec4 arg) {
+    q = arg.s;
+    p = arg.t;
+    t = arg.p;
+    s = arg.q;
   }
   vec2 get xx() => new vec2(x, x);
   vec2 get xy() => new vec2(x, y);
@@ -737,318 +1441,14 @@ class vec4 {
   vec4 get wwwy() => new vec4(w, w, w, y);
   vec4 get wwwz() => new vec4(w, w, w, z);
   vec4 get wwww() => new vec4(w, w, w, w);
-  set rg(vec2 arg) {
-    r = arg.r;
-    g = arg.g;
-  }
-  set rb(vec2 arg) {
-    r = arg.r;
-    b = arg.g;
-  }
-  set ra(vec2 arg) {
-    r = arg.r;
-    a = arg.g;
-  }
-  set gr(vec2 arg) {
-    g = arg.r;
-    r = arg.g;
-  }
-  set gb(vec2 arg) {
-    g = arg.r;
-    b = arg.g;
-  }
-  set ga(vec2 arg) {
-    g = arg.r;
-    a = arg.g;
-  }
-  set br(vec2 arg) {
-    b = arg.r;
-    r = arg.g;
-  }
-  set bg(vec2 arg) {
-    b = arg.r;
-    g = arg.g;
-  }
-  set ba(vec2 arg) {
-    b = arg.r;
-    a = arg.g;
-  }
-  set ar(vec2 arg) {
-    a = arg.r;
-    r = arg.g;
-  }
-  set ag(vec2 arg) {
-    a = arg.r;
-    g = arg.g;
-  }
-  set ab(vec2 arg) {
-    a = arg.r;
-    b = arg.g;
-  }
-  set rgb(vec3 arg) {
-    r = arg.r;
-    g = arg.g;
-    b = arg.b;
-  }
-  set rga(vec3 arg) {
-    r = arg.r;
-    g = arg.g;
-    a = arg.b;
-  }
-  set rbg(vec3 arg) {
-    r = arg.r;
-    b = arg.g;
-    g = arg.b;
-  }
-  set rba(vec3 arg) {
-    r = arg.r;
-    b = arg.g;
-    a = arg.b;
-  }
-  set rag(vec3 arg) {
-    r = arg.r;
-    a = arg.g;
-    g = arg.b;
-  }
-  set rab(vec3 arg) {
-    r = arg.r;
-    a = arg.g;
-    b = arg.b;
-  }
-  set grb(vec3 arg) {
-    g = arg.r;
-    r = arg.g;
-    b = arg.b;
-  }
-  set gra(vec3 arg) {
-    g = arg.r;
-    r = arg.g;
-    a = arg.b;
-  }
-  set gbr(vec3 arg) {
-    g = arg.r;
-    b = arg.g;
-    r = arg.b;
-  }
-  set gba(vec3 arg) {
-    g = arg.r;
-    b = arg.g;
-    a = arg.b;
-  }
-  set gar(vec3 arg) {
-    g = arg.r;
-    a = arg.g;
-    r = arg.b;
-  }
-  set gab(vec3 arg) {
-    g = arg.r;
-    a = arg.g;
-    b = arg.b;
-  }
-  set brg(vec3 arg) {
-    b = arg.r;
-    r = arg.g;
-    g = arg.b;
-  }
-  set bra(vec3 arg) {
-    b = arg.r;
-    r = arg.g;
-    a = arg.b;
-  }
-  set bgr(vec3 arg) {
-    b = arg.r;
-    g = arg.g;
-    r = arg.b;
-  }
-  set bga(vec3 arg) {
-    b = arg.r;
-    g = arg.g;
-    a = arg.b;
-  }
-  set bar(vec3 arg) {
-    b = arg.r;
-    a = arg.g;
-    r = arg.b;
-  }
-  set bag(vec3 arg) {
-    b = arg.r;
-    a = arg.g;
-    g = arg.b;
-  }
-  set arg(vec3 arg) {
-    a = arg.r;
-    r = arg.g;
-    g = arg.b;
-  }
-  set arb(vec3 arg) {
-    a = arg.r;
-    r = arg.g;
-    b = arg.b;
-  }
-  set agr(vec3 arg) {
-    a = arg.r;
-    g = arg.g;
-    r = arg.b;
-  }
-  set agb(vec3 arg) {
-    a = arg.r;
-    g = arg.g;
-    b = arg.b;
-  }
-  set abr(vec3 arg) {
-    a = arg.r;
-    b = arg.g;
-    r = arg.b;
-  }
-  set abg(vec3 arg) {
-    a = arg.r;
-    b = arg.g;
-    g = arg.b;
-  }
-  set rgba(vec4 arg) {
-    r = arg.r;
-    g = arg.g;
-    b = arg.b;
-    a = arg.a;
-  }
-  set rgab(vec4 arg) {
-    r = arg.r;
-    g = arg.g;
-    a = arg.b;
-    b = arg.a;
-  }
-  set rbga(vec4 arg) {
-    r = arg.r;
-    b = arg.g;
-    g = arg.b;
-    a = arg.a;
-  }
-  set rbag(vec4 arg) {
-    r = arg.r;
-    b = arg.g;
-    a = arg.b;
-    g = arg.a;
-  }
-  set ragb(vec4 arg) {
-    r = arg.r;
-    a = arg.g;
-    g = arg.b;
-    b = arg.a;
-  }
-  set rabg(vec4 arg) {
-    r = arg.r;
-    a = arg.g;
-    b = arg.b;
-    g = arg.a;
-  }
-  set grba(vec4 arg) {
-    g = arg.r;
-    r = arg.g;
-    b = arg.b;
-    a = arg.a;
-  }
-  set grab(vec4 arg) {
-    g = arg.r;
-    r = arg.g;
-    a = arg.b;
-    b = arg.a;
-  }
-  set gbra(vec4 arg) {
-    g = arg.r;
-    b = arg.g;
-    r = arg.b;
-    a = arg.a;
-  }
-  set gbar(vec4 arg) {
-    g = arg.r;
-    b = arg.g;
-    a = arg.b;
-    r = arg.a;
-  }
-  set garb(vec4 arg) {
-    g = arg.r;
-    a = arg.g;
-    r = arg.b;
-    b = arg.a;
-  }
-  set gabr(vec4 arg) {
-    g = arg.r;
-    a = arg.g;
-    b = arg.b;
-    r = arg.a;
-  }
-  set brga(vec4 arg) {
-    b = arg.r;
-    r = arg.g;
-    g = arg.b;
-    a = arg.a;
-  }
-  set brag(vec4 arg) {
-    b = arg.r;
-    r = arg.g;
-    a = arg.b;
-    g = arg.a;
-  }
-  set bgra(vec4 arg) {
-    b = arg.r;
-    g = arg.g;
-    r = arg.b;
-    a = arg.a;
-  }
-  set bgar(vec4 arg) {
-    b = arg.r;
-    g = arg.g;
-    a = arg.b;
-    r = arg.a;
-  }
-  set barg(vec4 arg) {
-    b = arg.r;
-    a = arg.g;
-    r = arg.b;
-    g = arg.a;
-  }
-  set bagr(vec4 arg) {
-    b = arg.r;
-    a = arg.g;
-    g = arg.b;
-    r = arg.a;
-  }
-  set argb(vec4 arg) {
-    a = arg.r;
-    r = arg.g;
-    g = arg.b;
-    b = arg.a;
-  }
-  set arbg(vec4 arg) {
-    a = arg.r;
-    r = arg.g;
-    b = arg.b;
-    g = arg.a;
-  }
-  set agrb(vec4 arg) {
-    a = arg.r;
-    g = arg.g;
-    r = arg.b;
-    b = arg.a;
-  }
-  set agbr(vec4 arg) {
-    a = arg.r;
-    g = arg.g;
-    b = arg.b;
-    r = arg.a;
-  }
-  set abrg(vec4 arg) {
-    a = arg.r;
-    b = arg.g;
-    r = arg.b;
-    g = arg.a;
-  }
-  set abgr(vec4 arg) {
-    a = arg.r;
-    b = arg.g;
-    g = arg.b;
-    r = arg.a;
-  }
+  num get r() => x;
+  num get g() => y;
+  num get b() => z;
+  num get a() => w;
+  num get s() => x;
+  num get t() => y;
+  num get p() => z;
+  num get q() => w;
   vec2 get rr() => new vec2(r, r);
   vec2 get rg() => new vec2(r, g);
   vec2 get rb() => new vec2(r, b);
@@ -1385,318 +1785,6 @@ class vec4 {
   vec4 get aaag() => new vec4(a, a, a, g);
   vec4 get aaab() => new vec4(a, a, a, b);
   vec4 get aaaa() => new vec4(a, a, a, a);
-  set st(vec2 arg) {
-    s = arg.s;
-    t = arg.t;
-  }
-  set sp(vec2 arg) {
-    s = arg.s;
-    p = arg.t;
-  }
-  set sq(vec2 arg) {
-    s = arg.s;
-    q = arg.t;
-  }
-  set ts(vec2 arg) {
-    t = arg.s;
-    s = arg.t;
-  }
-  set tp(vec2 arg) {
-    t = arg.s;
-    p = arg.t;
-  }
-  set tq(vec2 arg) {
-    t = arg.s;
-    q = arg.t;
-  }
-  set ps(vec2 arg) {
-    p = arg.s;
-    s = arg.t;
-  }
-  set pt(vec2 arg) {
-    p = arg.s;
-    t = arg.t;
-  }
-  set pq(vec2 arg) {
-    p = arg.s;
-    q = arg.t;
-  }
-  set qs(vec2 arg) {
-    q = arg.s;
-    s = arg.t;
-  }
-  set qt(vec2 arg) {
-    q = arg.s;
-    t = arg.t;
-  }
-  set qp(vec2 arg) {
-    q = arg.s;
-    p = arg.t;
-  }
-  set stp(vec3 arg) {
-    s = arg.s;
-    t = arg.t;
-    p = arg.p;
-  }
-  set stq(vec3 arg) {
-    s = arg.s;
-    t = arg.t;
-    q = arg.p;
-  }
-  set spt(vec3 arg) {
-    s = arg.s;
-    p = arg.t;
-    t = arg.p;
-  }
-  set spq(vec3 arg) {
-    s = arg.s;
-    p = arg.t;
-    q = arg.p;
-  }
-  set sqt(vec3 arg) {
-    s = arg.s;
-    q = arg.t;
-    t = arg.p;
-  }
-  set sqp(vec3 arg) {
-    s = arg.s;
-    q = arg.t;
-    p = arg.p;
-  }
-  set tsp(vec3 arg) {
-    t = arg.s;
-    s = arg.t;
-    p = arg.p;
-  }
-  set tsq(vec3 arg) {
-    t = arg.s;
-    s = arg.t;
-    q = arg.p;
-  }
-  set tps(vec3 arg) {
-    t = arg.s;
-    p = arg.t;
-    s = arg.p;
-  }
-  set tpq(vec3 arg) {
-    t = arg.s;
-    p = arg.t;
-    q = arg.p;
-  }
-  set tqs(vec3 arg) {
-    t = arg.s;
-    q = arg.t;
-    s = arg.p;
-  }
-  set tqp(vec3 arg) {
-    t = arg.s;
-    q = arg.t;
-    p = arg.p;
-  }
-  set pst(vec3 arg) {
-    p = arg.s;
-    s = arg.t;
-    t = arg.p;
-  }
-  set psq(vec3 arg) {
-    p = arg.s;
-    s = arg.t;
-    q = arg.p;
-  }
-  set pts(vec3 arg) {
-    p = arg.s;
-    t = arg.t;
-    s = arg.p;
-  }
-  set ptq(vec3 arg) {
-    p = arg.s;
-    t = arg.t;
-    q = arg.p;
-  }
-  set pqs(vec3 arg) {
-    p = arg.s;
-    q = arg.t;
-    s = arg.p;
-  }
-  set pqt(vec3 arg) {
-    p = arg.s;
-    q = arg.t;
-    t = arg.p;
-  }
-  set qst(vec3 arg) {
-    q = arg.s;
-    s = arg.t;
-    t = arg.p;
-  }
-  set qsp(vec3 arg) {
-    q = arg.s;
-    s = arg.t;
-    p = arg.p;
-  }
-  set qts(vec3 arg) {
-    q = arg.s;
-    t = arg.t;
-    s = arg.p;
-  }
-  set qtp(vec3 arg) {
-    q = arg.s;
-    t = arg.t;
-    p = arg.p;
-  }
-  set qps(vec3 arg) {
-    q = arg.s;
-    p = arg.t;
-    s = arg.p;
-  }
-  set qpt(vec3 arg) {
-    q = arg.s;
-    p = arg.t;
-    t = arg.p;
-  }
-  set stpq(vec4 arg) {
-    s = arg.s;
-    t = arg.t;
-    p = arg.p;
-    q = arg.q;
-  }
-  set stqp(vec4 arg) {
-    s = arg.s;
-    t = arg.t;
-    q = arg.p;
-    p = arg.q;
-  }
-  set sptq(vec4 arg) {
-    s = arg.s;
-    p = arg.t;
-    t = arg.p;
-    q = arg.q;
-  }
-  set spqt(vec4 arg) {
-    s = arg.s;
-    p = arg.t;
-    q = arg.p;
-    t = arg.q;
-  }
-  set sqtp(vec4 arg) {
-    s = arg.s;
-    q = arg.t;
-    t = arg.p;
-    p = arg.q;
-  }
-  set sqpt(vec4 arg) {
-    s = arg.s;
-    q = arg.t;
-    p = arg.p;
-    t = arg.q;
-  }
-  set tspq(vec4 arg) {
-    t = arg.s;
-    s = arg.t;
-    p = arg.p;
-    q = arg.q;
-  }
-  set tsqp(vec4 arg) {
-    t = arg.s;
-    s = arg.t;
-    q = arg.p;
-    p = arg.q;
-  }
-  set tpsq(vec4 arg) {
-    t = arg.s;
-    p = arg.t;
-    s = arg.p;
-    q = arg.q;
-  }
-  set tpqs(vec4 arg) {
-    t = arg.s;
-    p = arg.t;
-    q = arg.p;
-    s = arg.q;
-  }
-  set tqsp(vec4 arg) {
-    t = arg.s;
-    q = arg.t;
-    s = arg.p;
-    p = arg.q;
-  }
-  set tqps(vec4 arg) {
-    t = arg.s;
-    q = arg.t;
-    p = arg.p;
-    s = arg.q;
-  }
-  set pstq(vec4 arg) {
-    p = arg.s;
-    s = arg.t;
-    t = arg.p;
-    q = arg.q;
-  }
-  set psqt(vec4 arg) {
-    p = arg.s;
-    s = arg.t;
-    q = arg.p;
-    t = arg.q;
-  }
-  set ptsq(vec4 arg) {
-    p = arg.s;
-    t = arg.t;
-    s = arg.p;
-    q = arg.q;
-  }
-  set ptqs(vec4 arg) {
-    p = arg.s;
-    t = arg.t;
-    q = arg.p;
-    s = arg.q;
-  }
-  set pqst(vec4 arg) {
-    p = arg.s;
-    q = arg.t;
-    s = arg.p;
-    t = arg.q;
-  }
-  set pqts(vec4 arg) {
-    p = arg.s;
-    q = arg.t;
-    t = arg.p;
-    s = arg.q;
-  }
-  set qstp(vec4 arg) {
-    q = arg.s;
-    s = arg.t;
-    t = arg.p;
-    p = arg.q;
-  }
-  set qspt(vec4 arg) {
-    q = arg.s;
-    s = arg.t;
-    p = arg.p;
-    t = arg.q;
-  }
-  set qtsp(vec4 arg) {
-    q = arg.s;
-    t = arg.t;
-    s = arg.p;
-    p = arg.q;
-  }
-  set qtps(vec4 arg) {
-    q = arg.s;
-    t = arg.t;
-    p = arg.p;
-    s = arg.q;
-  }
-  set qpst(vec4 arg) {
-    q = arg.s;
-    p = arg.t;
-    s = arg.p;
-    t = arg.q;
-  }
-  set qpts(vec4 arg) {
-    q = arg.s;
-    p = arg.t;
-    t = arg.p;
-    s = arg.q;
-  }
   vec2 get ss() => new vec2(s, s);
   vec2 get st() => new vec2(s, t);
   vec2 get sp() => new vec2(s, p);
@@ -2033,84 +2121,4 @@ class vec4 {
   vec4 get qqqt() => new vec4(q, q, q, t);
   vec4 get qqqp() => new vec4(q, q, q, p);
   vec4 get qqqq() => new vec4(q, q, q, q);
-  num get length() {
-    num sum = 0.0;
-    sum += (x * x);
-    sum += (y * y);
-    sum += (z * z);
-    sum += (w * w);
-    return Math.sqrt(sum);
-  }
-  num get length2() {
-    num sum = 0.0;
-    sum += (x * x);
-    sum += (y * y);
-    sum += (z * z);
-    sum += (w * w);
-    return sum;
-  }
-  void normalize() {
-    num l = length;
-    if (l == 0.0) {
-      return;
-    }
-    x /= l;
-    y /= l;
-    z /= l;
-    w /= l;
-  }
-  num dot(vec4 other) {
-    num sum = 0.0;
-    sum += (x * other.x);
-    sum += (y * other.y);
-    sum += (z * other.z);
-    sum += (w * other.w);
-    return sum;
-  }
-  vec4([Dynamic x_, Dynamic y_, Dynamic z_, Dynamic w_]) {
-    x = y = z = w = 0.0;
-    if (x_ is vec3 && y_ is num) {
-      this.xyz = x_.xyz;
-      this.w = y_;
-    }
-    if (x_ is num && y_ is vec3) {
-      this.x = x_;
-      this.yzw = y_.xyz;
-    }
-    if (x_ is vec3 && y_ == null) {
-      this.xyz = x_.xyz;
-      this.z = 0;
-    }
-    if (x_ is vec2 && y_ is vec2) {
-      this.xy = x_.xy;
-      this.zw = y_.xy;
-    }
-    if (x_ is vec4) {
-      xyzw = x_.xyzw;
-      return;
-    }
-    if (x_ is num && y_ is num && z_ is num && w_ is num) {
-      x = x_;
-      y = y_;
-      z = z_;
-      w = w_;
-      return;
-    }
-    if (x_ is num) {
-      x = y = z = w = x_;
-      return;
-    }
-  }
-  num relativeError(vec4 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm/correct_norm;
-  }
-  num absoluteError(vec4 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm;
-  }
 }

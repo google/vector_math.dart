@@ -24,23 +24,32 @@
 class vec2 {
   num x;
   num y;
-  num get r() => x;
-  set r(num arg) => x = arg;
-  num get g() => y;
-  set g(num arg) => y = arg;
-  num get s() => x;
-  set s(num arg) => x = arg;
-  num get t() => y;
-  set t(num arg) => y = arg;
-  vec2.splat(num a) : x = a, y = a;
-  void splat(num a) {
-    x = a;
-    y = a;
+  /// Constructs a new [vec2]. Follows GLSL constructor syntax so many combinations are possible
+  vec2([Dynamic x_, Dynamic y_]) {
+    x = y = 0.0;
+    if (x_ is vec2) {
+      xy = x_.xy;
+      return;
+    }
+    if (x_ is num && y_ is num) {
+      x = x_;
+      y = y_;
+      return;
+    }
+    if (x_ is num) {
+      x = y = x_;
+      return;
+    }
   }
+  /// Returns a printable string
   String toString() => '$x,$y';
+  /// Returns a new vec2 from -this
   vec2 operator negate() => new vec2(-x, -y);
+  /// Returns a new vec2 from this - [other]
   vec2 operator-(vec2 other) => new vec2(x - other.x, y - other.y);
+  /// Returns a new vec2 from this + [other]
   vec2 operator+(vec2 other) => new vec2(x + other.x, y + other.y);
+  /// Returns a new vec2 divided by [other]
   vec2 operator/(Dynamic other) {
     if (other is num) {
       return new vec2(x / other, y / other);
@@ -49,6 +58,7 @@ class vec2 {
       return new vec2(x / other.x, y / other.y);
     }
   }
+  /// Returns a new vec2 scaled by [other]
   vec2 operator*(Dynamic other) {
     if (other is num) {
       return new vec2(x * other, y * other);
@@ -57,6 +67,7 @@ class vec2 {
       return new vec2(x * other.x, y * other.y);
     }
   }
+  /// Returns a component from vec2. This is indexed as an array with [i]
   num operator[](int i) {
     assert(i >= 0 && i < 2);
     switch (i) {
@@ -65,6 +76,7 @@ class vec2 {
     };
     return 0.0;
   }
+  /// Assigns a component in vec2 the value in [v]. This is indexed as an array with [i]
   num operator[]=(int i, num v) {
     assert(i >= 0 && i < 2);
     switch (i) {
@@ -73,6 +85,50 @@ class vec2 {
     };
     return 0.0;
   }
+  /// Returns length of this
+  num get length() {
+    num sum = 0.0;
+    sum += (x * x);
+    sum += (y * y);
+    return Math.sqrt(sum);
+  }
+  /// Returns squared length of this
+  num get length2() {
+    num sum = 0.0;
+    sum += (x * x);
+    sum += (y * y);
+    return sum;
+  }
+  /// Normalizes this
+  void normalize() {
+    num l = length;
+    if (l == 0.0) {
+      return;
+    }
+    x /= l;
+    y /= l;
+  }
+  /// Returns the dot product of [this] and [other]
+  num dot(vec2 other) {
+    num sum = 0.0;
+    sum += (x * other.x);
+    sum += (y * other.y);
+    return sum;
+  }
+  /// Returns the relative error between [this] and [correct]
+  num relativeError(vec2 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  /// Returns the absolute error between [this] and [correct]
+  num absoluteError(vec2 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
+  }
   set xy(vec2 arg) {
     x = arg.x;
     y = arg.y;
@@ -80,6 +136,26 @@ class vec2 {
   set yx(vec2 arg) {
     y = arg.x;
     x = arg.y;
+  }
+  set r(num arg) => x = arg;
+  set g(num arg) => y = arg;
+  set s(num arg) => x = arg;
+  set t(num arg) => y = arg;
+  set rg(vec2 arg) {
+    r = arg.r;
+    g = arg.g;
+  }
+  set gr(vec2 arg) {
+    g = arg.r;
+    r = arg.g;
+  }
+  set st(vec2 arg) {
+    s = arg.s;
+    t = arg.t;
+  }
+  set ts(vec2 arg) {
+    t = arg.s;
+    s = arg.t;
   }
   vec2 get xx() => new vec2(x, x);
   vec2 get xy() => new vec2(x, y);
@@ -109,14 +185,10 @@ class vec2 {
   vec4 get yyxy() => new vec4(y, y, x, y);
   vec4 get yyyx() => new vec4(y, y, y, x);
   vec4 get yyyy() => new vec4(y, y, y, y);
-  set rg(vec2 arg) {
-    r = arg.r;
-    g = arg.g;
-  }
-  set gr(vec2 arg) {
-    g = arg.r;
-    r = arg.g;
-  }
+  num get r() => x;
+  num get g() => y;
+  num get s() => x;
+  num get t() => y;
   vec2 get rr() => new vec2(r, r);
   vec2 get rg() => new vec2(r, g);
   vec2 get gr() => new vec2(g, r);
@@ -145,14 +217,6 @@ class vec2 {
   vec4 get ggrg() => new vec4(g, g, r, g);
   vec4 get gggr() => new vec4(g, g, g, r);
   vec4 get gggg() => new vec4(g, g, g, g);
-  set st(vec2 arg) {
-    s = arg.s;
-    t = arg.t;
-  }
-  set ts(vec2 arg) {
-    t = arg.s;
-    s = arg.t;
-  }
   vec2 get ss() => new vec2(s, s);
   vec2 get st() => new vec2(s, t);
   vec2 get ts() => new vec2(t, s);
@@ -181,58 +245,4 @@ class vec2 {
   vec4 get ttst() => new vec4(t, t, s, t);
   vec4 get ttts() => new vec4(t, t, t, s);
   vec4 get tttt() => new vec4(t, t, t, t);
-  num get length() {
-    num sum = 0.0;
-    sum += (x * x);
-    sum += (y * y);
-    return Math.sqrt(sum);
-  }
-  num get length2() {
-    num sum = 0.0;
-    sum += (x * x);
-    sum += (y * y);
-    return sum;
-  }
-  void normalize() {
-    num l = length;
-    if (l == 0.0) {
-      return;
-    }
-    x /= l;
-    y /= l;
-  }
-  num dot(vec2 other) {
-    num sum = 0.0;
-    sum += (x * other.x);
-    sum += (y * other.y);
-    return sum;
-  }
-  vec2([Dynamic x_, Dynamic y_]) {
-    x = y = 0.0;
-    if (x_ is vec2) {
-      xy = x_.xy;
-      return;
-    }
-    if (x_ is num && y_ is num) {
-      x = x_;
-      y = y_;
-      return;
-    }
-    if (x_ is num) {
-      x = y = x_;
-      return;
-    }
-  }
-  num relativeError(vec2 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm/correct_norm;
-  }
-  num absoluteError(vec2 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm;
-  }
 }

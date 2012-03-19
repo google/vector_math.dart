@@ -7,7 +7,8 @@ class GeneratedFunctionDesc {
   String scalarName;
   List<String> args;
   String typeArg;
-  GeneratedFunctionDesc(this.name, this.scalarName, this.args, this.typeArg);
+  String docString;
+  GeneratedFunctionDesc(this.name, this.scalarName, this.args, this.typeArg, [this.docString = '']);
 }
 
 class BuiltinGen {
@@ -101,6 +102,7 @@ class BuiltinGen {
   }
   
   void generateFunction(GeneratedFunctionDesc function) {
+    iPrint('\/\/\/ ${function.docString}');
     String prologue = 'Dynamic ${function.name}(${makeArgsString(function.args)}) {';
     iPrint(prologue);
     iPush();
@@ -153,19 +155,19 @@ void main() {
     BuiltinGen bg = new BuiltinGen();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
-    bg.generate([new GeneratedFunctionDesc('sin', 'Math.sin', ['arg'], 'arg'), 
-                 new GeneratedFunctionDesc('cos', 'Math.cos', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('tan', 'Math.tan', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('asin', 'Math.asin', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('acos', 'Math.acos', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('sinh', 'Math.sinh', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('cosh', 'Math.cosh', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('tanh', 'Math.tanh', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('asinh', 'Math.asinh', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('acosh', 'Math.acosh', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('atanh', 'Math.atanh', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('radians', 'ScalarMath.radians', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('degrees', 'ScalarMath.degrees', ['arg'], 'arg'),
+    bg.generate([new GeneratedFunctionDesc('sin', 'Math.sin', ['arg'], 'arg', 'Returns sine of [arg]. Return type matches the type of [arg]'), 
+                 new GeneratedFunctionDesc('cos', 'Math.cos', ['arg'], 'arg', 'Returns cosine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('tan', 'Math.tan', ['arg'], 'arg', 'Returns tangent of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('asin', 'Math.asin', ['arg'], 'arg', 'Returns arc sine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('acos', 'Math.acos', ['arg'], 'arg', 'Returns arc cosine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('sinh', 'Math.sinh', ['arg'], 'arg', 'Returns hyperbolic sine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('cosh', 'Math.cosh', ['arg'], 'arg', 'Returns hyperbolic cosine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('tanh', 'Math.tanh', ['arg'], 'arg', 'Returns hyperbolic tangent of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('asinh', 'Math.asinh', ['arg'], 'arg', 'Returns arc hyperbolic sine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('acosh', 'Math.acosh', ['arg'], 'arg', 'Returns arc hyperbolic cosine of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('atanh', 'Math.atanh', ['arg'], 'arg', 'Returns arc hyperbolic tangent of [arg]. Return type matches the type of [arg]'),
+                 new GeneratedFunctionDesc('radians', 'ScalarMath.radians', ['arg'], 'arg', 'Returns [arg] converted from degrees to radians. Return types matches the type of [arg]'),
+                 new GeneratedFunctionDesc('degrees', 'ScalarMath.degrees', ['arg'], 'arg', 'Returns [arg] converted from radians to degrees. Return types matches the type of [arg]'),
                  ]);
     opened.close(() {});
   });
@@ -179,13 +181,13 @@ void main() {
     BuiltinGen bg = new BuiltinGen();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
-    bg.generate([new GeneratedFunctionDesc('pow', 'Math.pow', ['x','y'], 'x'),
-                 new GeneratedFunctionDesc('exp', 'Math.exp', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('log', 'Math.log', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('exp2', 'ScalarMath.exp2', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('log2', 'ScalarMath.log2', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('sqrt', 'Math.sqrt', ['arg'], 'arg'),
-                 new GeneratedFunctionDesc('inversesqrt', 'ScalarMath.inversesqrt', ['arg'], 'arg'),
+    bg.generate([new GeneratedFunctionDesc('pow', 'Math.pow', ['x','y'], 'x', 'Returns [x] raised to the exponent [y]. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('exp', 'Math.exp', ['arg'], 'arg', 'Returns *e* raised to the exponent [arg]. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('log', 'Math.log', ['arg'], 'arg', 'Returns the logarithm of [arg] base *e*. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('exp2', 'ScalarMath.exp2', ['arg'], 'arg', 'Returns *2* raised to the exponent [arg]. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('log2', 'ScalarMath.log2', ['arg'], 'arg', 'Returns the logarithm of [arg] base *2*. Supports vectors and numbers.'),
+                 new GeneratedFunctionDesc('sqrt', 'Math.sqrt', ['arg'], 'arg', 'Returns the square root of [arg].'),
+                 new GeneratedFunctionDesc('inversesqrt', 'ScalarMath.inversesqrt', ['arg'], 'arg', 'Returns the inverse square root of [arg]. Supports vectors and numbers.'),
                  ]);
     opened.close(() {});
   });

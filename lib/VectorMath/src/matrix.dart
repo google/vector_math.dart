@@ -22,6 +22,7 @@
 
 */
 
+/** Returns an OpenGL LookAt matrix */
 mat4x4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
   vec3 z = lookAtPosition - eyePosition;
   z.normalize();
@@ -39,6 +40,7 @@ mat4x4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
   return r;
 }
 
+/** Returns an OpenGL perspective camera projection matrix */
 mat4x4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
   num tan_fov = tan(fov_y_radians * 0.5);
   num height = 1.0/tan_fov;
@@ -54,6 +56,7 @@ mat4x4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar)
   return r;
 }
 
+/** Returns an OpenGL orthographic camera projection matrix */ 
 mat4x4 makeOrthographic(num left, num right, num bottom, num top, num znear, num zfar) {
   num rml = right - left;
   num rpl = right + left;
@@ -74,6 +77,7 @@ mat4x4 makeOrthographic(num left, num right, num bottom, num top, num znear, num
   return r;
 }
 
+/** Returns a transformation matrix that transforms points onto the plane specified with [planeNormal] and [planePoint] */
 mat4x4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
   mat4x4 outer = new mat4x4.outer(v, v);
@@ -85,6 +89,7 @@ mat4x4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   return r;
 }
 
+/** Returns a transformation matrix that transforms points by reflecting them in the plane specified with [planeNormal] and [planePoint] */
 mat4x4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
   mat4x4 outer = new mat4x4.outer(v,v);

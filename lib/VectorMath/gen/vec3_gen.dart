@@ -25,28 +25,45 @@ class vec3 {
   num x;
   num y;
   num z;
-  num get r() => x;
-  set r(num arg) => x = arg;
-  num get g() => y;
-  set g(num arg) => y = arg;
-  num get b() => z;
-  set b(num arg) => z = arg;
-  num get s() => x;
-  set s(num arg) => x = arg;
-  num get t() => y;
-  set t(num arg) => y = arg;
-  num get p() => z;
-  set p(num arg) => z = arg;
-  vec3.splat(num a) : x = a, y = a, z = a;
-  void splat(num a) {
-    x = a;
-    y = a;
-    z = a;
+  /// Constructs a new [vec3]. Follows GLSL constructor syntax so many combinations are possible
+  vec3([Dynamic x_, Dynamic y_, Dynamic z_]) {
+    x = y = z = 0.0;
+    if (x_ is vec2 && y_ is num) {
+      this.xy = x_.xy;
+      this.z = y_;
+    }
+    if (x_ is num && y_ is vec2) {
+      this.x = x_.x;
+      this.yz = y_.xy;
+    }
+    if (x_ is vec2 && y_ == null) {
+      this.xy = x_.xy;
+      this.z = 0;
+    }
+    if (x_ is vec3) {
+      xyz = x_.xyz;
+      return;
+    }
+    if (x_ is num && y_ is num && z_ is num) {
+      x = x_;
+      y = y_;
+      z = z_;
+      return;
+    }
+    if (x_ is num) {
+      x = y = z = x_;
+      return;
+    }
   }
+  /// Returns a printable string
   String toString() => '$x,$y,$z';
+  /// Returns a new vec3 from -this
   vec3 operator negate() => new vec3(-x, -y, -z);
+  /// Returns a new vec3 from this - [other]
   vec3 operator-(vec3 other) => new vec3(x - other.x, y - other.y, z - other.z);
+  /// Returns a new vec3 from this + [other]
   vec3 operator+(vec3 other) => new vec3(x + other.x, y + other.y, z + other.z);
+  /// Returns a new vec3 divided by [other]
   vec3 operator/(Dynamic other) {
     if (other is num) {
       return new vec3(x / other, y / other, z / other);
@@ -55,6 +72,7 @@ class vec3 {
       return new vec3(x / other.x, y / other.y, z / other.z);
     }
   }
+  /// Returns a new vec3 scaled by [other]
   vec3 operator*(Dynamic other) {
     if (other is num) {
       return new vec3(x * other, y * other, z * other);
@@ -63,6 +81,7 @@ class vec3 {
       return new vec3(x * other.x, y * other.y, z * other.z);
     }
   }
+  /// Returns a component from vec3. This is indexed as an array with [i]
   num operator[](int i) {
     assert(i >= 0 && i < 3);
     switch (i) {
@@ -72,6 +91,7 @@ class vec3 {
     };
     return 0.0;
   }
+  /// Assigns a component in vec3 the value in [v]. This is indexed as an array with [i]
   num operator[]=(int i, num v) {
     assert(i >= 0 && i < 3);
     switch (i) {
@@ -80,6 +100,58 @@ class vec3 {
       case 2: z = v; return z; break;
     };
     return 0.0;
+  }
+  /// Returns length of this
+  num get length() {
+    num sum = 0.0;
+    sum += (x * x);
+    sum += (y * y);
+    sum += (z * z);
+    return Math.sqrt(sum);
+  }
+  /// Returns squared length of this
+  num get length2() {
+    num sum = 0.0;
+    sum += (x * x);
+    sum += (y * y);
+    sum += (z * z);
+    return sum;
+  }
+  /// Normalizes this
+  void normalize() {
+    num l = length;
+    if (l == 0.0) {
+      return;
+    }
+    x /= l;
+    y /= l;
+    z /= l;
+  }
+  /// Returns the dot product of [this] and [other]
+  num dot(vec3 other) {
+    num sum = 0.0;
+    sum += (x * other.x);
+    sum += (y * other.y);
+    sum += (z * other.z);
+    return sum;
+  }
+  /// Returns the cross product of [this] and [other]
+  vec3 cross(vec3 other) {
+    return new vec3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
+  }
+  /// Returns the relative error between [this] and [correct]
+  num relativeError(vec3 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm/correct_norm;
+  }
+  /// Returns the absolute error between [this] and [correct]
+  num absoluteError(vec3 correct) {
+    num this_norm = length;
+    num correct_norm = correct.length;
+    num diff_norm = (this_norm - correct_norm).abs();
+    return diff_norm;
   }
   set xy(vec2 arg) {
     x = arg.x;
@@ -134,6 +206,120 @@ class vec3 {
     z = arg.x;
     y = arg.y;
     x = arg.z;
+  }
+  set r(num arg) => x = arg;
+  set g(num arg) => y = arg;
+  set b(num arg) => z = arg;
+  set s(num arg) => x = arg;
+  set t(num arg) => y = arg;
+  set p(num arg) => z = arg;
+  set rg(vec2 arg) {
+    r = arg.r;
+    g = arg.g;
+  }
+  set rb(vec2 arg) {
+    r = arg.r;
+    b = arg.g;
+  }
+  set gr(vec2 arg) {
+    g = arg.r;
+    r = arg.g;
+  }
+  set gb(vec2 arg) {
+    g = arg.r;
+    b = arg.g;
+  }
+  set br(vec2 arg) {
+    b = arg.r;
+    r = arg.g;
+  }
+  set bg(vec2 arg) {
+    b = arg.r;
+    g = arg.g;
+  }
+  set rgb(vec3 arg) {
+    r = arg.r;
+    g = arg.g;
+    b = arg.b;
+  }
+  set rbg(vec3 arg) {
+    r = arg.r;
+    b = arg.g;
+    g = arg.b;
+  }
+  set grb(vec3 arg) {
+    g = arg.r;
+    r = arg.g;
+    b = arg.b;
+  }
+  set gbr(vec3 arg) {
+    g = arg.r;
+    b = arg.g;
+    r = arg.b;
+  }
+  set brg(vec3 arg) {
+    b = arg.r;
+    r = arg.g;
+    g = arg.b;
+  }
+  set bgr(vec3 arg) {
+    b = arg.r;
+    g = arg.g;
+    r = arg.b;
+  }
+  set st(vec2 arg) {
+    s = arg.s;
+    t = arg.t;
+  }
+  set sp(vec2 arg) {
+    s = arg.s;
+    p = arg.t;
+  }
+  set ts(vec2 arg) {
+    t = arg.s;
+    s = arg.t;
+  }
+  set tp(vec2 arg) {
+    t = arg.s;
+    p = arg.t;
+  }
+  set ps(vec2 arg) {
+    p = arg.s;
+    s = arg.t;
+  }
+  set pt(vec2 arg) {
+    p = arg.s;
+    t = arg.t;
+  }
+  set stp(vec3 arg) {
+    s = arg.s;
+    t = arg.t;
+    p = arg.p;
+  }
+  set spt(vec3 arg) {
+    s = arg.s;
+    p = arg.t;
+    t = arg.p;
+  }
+  set tsp(vec3 arg) {
+    t = arg.s;
+    s = arg.t;
+    p = arg.p;
+  }
+  set tps(vec3 arg) {
+    t = arg.s;
+    p = arg.t;
+    s = arg.p;
+  }
+  set pst(vec3 arg) {
+    p = arg.s;
+    s = arg.t;
+    t = arg.p;
+  }
+  set pts(vec3 arg) {
+    p = arg.s;
+    t = arg.t;
+    s = arg.p;
   }
   vec2 get xx() => new vec2(x, x);
   vec2 get xy() => new vec2(x, y);
@@ -252,60 +438,12 @@ class vec3 {
   vec4 get zzzx() => new vec4(z, z, z, x);
   vec4 get zzzy() => new vec4(z, z, z, y);
   vec4 get zzzz() => new vec4(z, z, z, z);
-  set rg(vec2 arg) {
-    r = arg.r;
-    g = arg.g;
-  }
-  set rb(vec2 arg) {
-    r = arg.r;
-    b = arg.g;
-  }
-  set gr(vec2 arg) {
-    g = arg.r;
-    r = arg.g;
-  }
-  set gb(vec2 arg) {
-    g = arg.r;
-    b = arg.g;
-  }
-  set br(vec2 arg) {
-    b = arg.r;
-    r = arg.g;
-  }
-  set bg(vec2 arg) {
-    b = arg.r;
-    g = arg.g;
-  }
-  set rgb(vec3 arg) {
-    r = arg.r;
-    g = arg.g;
-    b = arg.b;
-  }
-  set rbg(vec3 arg) {
-    r = arg.r;
-    b = arg.g;
-    g = arg.b;
-  }
-  set grb(vec3 arg) {
-    g = arg.r;
-    r = arg.g;
-    b = arg.b;
-  }
-  set gbr(vec3 arg) {
-    g = arg.r;
-    b = arg.g;
-    r = arg.b;
-  }
-  set brg(vec3 arg) {
-    b = arg.r;
-    r = arg.g;
-    g = arg.b;
-  }
-  set bgr(vec3 arg) {
-    b = arg.r;
-    g = arg.g;
-    r = arg.b;
-  }
+  num get r() => x;
+  num get g() => y;
+  num get b() => z;
+  num get s() => x;
+  num get t() => y;
+  num get p() => z;
   vec2 get rr() => new vec2(r, r);
   vec2 get rg() => new vec2(r, g);
   vec2 get rb() => new vec2(r, b);
@@ -423,60 +561,6 @@ class vec3 {
   vec4 get bbbr() => new vec4(b, b, b, r);
   vec4 get bbbg() => new vec4(b, b, b, g);
   vec4 get bbbb() => new vec4(b, b, b, b);
-  set st(vec2 arg) {
-    s = arg.s;
-    t = arg.t;
-  }
-  set sp(vec2 arg) {
-    s = arg.s;
-    p = arg.t;
-  }
-  set ts(vec2 arg) {
-    t = arg.s;
-    s = arg.t;
-  }
-  set tp(vec2 arg) {
-    t = arg.s;
-    p = arg.t;
-  }
-  set ps(vec2 arg) {
-    p = arg.s;
-    s = arg.t;
-  }
-  set pt(vec2 arg) {
-    p = arg.s;
-    t = arg.t;
-  }
-  set stp(vec3 arg) {
-    s = arg.s;
-    t = arg.t;
-    p = arg.p;
-  }
-  set spt(vec3 arg) {
-    s = arg.s;
-    p = arg.t;
-    t = arg.p;
-  }
-  set tsp(vec3 arg) {
-    t = arg.s;
-    s = arg.t;
-    p = arg.p;
-  }
-  set tps(vec3 arg) {
-    t = arg.s;
-    p = arg.t;
-    s = arg.p;
-  }
-  set pst(vec3 arg) {
-    p = arg.s;
-    s = arg.t;
-    t = arg.p;
-  }
-  set pts(vec3 arg) {
-    p = arg.s;
-    t = arg.t;
-    s = arg.p;
-  }
   vec2 get ss() => new vec2(s, s);
   vec2 get st() => new vec2(s, t);
   vec2 get sp() => new vec2(s, p);
@@ -594,78 +678,4 @@ class vec3 {
   vec4 get ppps() => new vec4(p, p, p, s);
   vec4 get pppt() => new vec4(p, p, p, t);
   vec4 get pppp() => new vec4(p, p, p, p);
-  num get length() {
-    num sum = 0.0;
-    sum += (x * x);
-    sum += (y * y);
-    sum += (z * z);
-    return Math.sqrt(sum);
-  }
-  num get length2() {
-    num sum = 0.0;
-    sum += (x * x);
-    sum += (y * y);
-    sum += (z * z);
-    return sum;
-  }
-  void normalize() {
-    num l = length;
-    if (l == 0.0) {
-      return;
-    }
-    x /= l;
-    y /= l;
-    z /= l;
-  }
-  num dot(vec3 other) {
-    num sum = 0.0;
-    sum += (x * other.x);
-    sum += (y * other.y);
-    sum += (z * other.z);
-    return sum;
-  }
-  vec3 cross(vec3 other) {
-    return new vec3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
-  }
-  vec3([Dynamic x_, Dynamic y_, Dynamic z_]) {
-    x = y = z = 0.0;
-    if (x_ is vec2 && y_ is num) {
-      this.xy = x_.xy;
-      this.z = y_;
-    }
-    if (x_ is num && y_ is vec2) {
-      this.x = x_.x;
-      this.yz = y_.xy;
-    }
-    if (x_ is vec2 && y_ == null) {
-      this.xy = x_.xy;
-      this.z = 0;
-    }
-    if (x_ is vec3) {
-      xyz = x_.xyz;
-      return;
-    }
-    if (x_ is num && y_ is num && z_ is num) {
-      x = x_;
-      y = y_;
-      z = z_;
-      return;
-    }
-    if (x_ is num) {
-      x = y = z = x_;
-      return;
-    }
-  }
-  num relativeError(vec3 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm/correct_norm;
-  }
-  num absoluteError(vec3 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm;
-  }
 }

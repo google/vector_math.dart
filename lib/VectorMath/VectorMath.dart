@@ -44,6 +44,7 @@
 #source("src/matrix.dart");
 #source("src/quat.dart");
 
+/// Returns relative error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
 num relativeError(Dynamic calculated, Dynamic correct) {
   if (calculated is num && correct is num) {
     num diff = (calculated - correct).abs();
@@ -52,6 +53,7 @@ num relativeError(Dynamic calculated, Dynamic correct) {
   return calculated.relativeError(correct);
 }
 
+/// Returns absolute error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
 num absoluteError(Dynamic calculated, Dynamic correct) {
   if (calculated is num && correct is num) {
     num diff = (calculated - correct).abs();

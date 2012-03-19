@@ -22,7 +22,7 @@
 
 */
 
-class ScalarMath {
+class ScalerHelpers {
   static num degrees(num r) {
     return r * 180.0/Math.PI;
   }
@@ -104,8 +104,8 @@ class ScalarMath {
   
   static num roundEven(num x) {
     if ( (floor(x)%2==0) && (fract(x)==0.5) )
-      return ScalarMath.round(x)-1;
-  else
+      return ScalerHelpers.round(x)-1;
+    else
       return x.round();
   }
   

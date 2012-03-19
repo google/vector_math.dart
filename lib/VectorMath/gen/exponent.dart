@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+/// Returns [x] raised to the exponent [y]. Supports vectors and numbers.
 Dynamic pow(Dynamic x, Dynamic y) {
   if (x is num) {
     return Math.pow(x, y);
@@ -36,6 +37,7 @@ Dynamic pow(Dynamic x, Dynamic y) {
   }
   throw new IllegalArgumentException(x);
 }
+/// Returns *e* raised to the exponent [arg]. Supports vectors and numbers.
 Dynamic exp(Dynamic arg) {
   if (arg is num) {
     return Math.exp(arg);
@@ -51,6 +53,7 @@ Dynamic exp(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns the logarithm of [arg] base *e*. Supports vectors and numbers.
 Dynamic log(Dynamic arg) {
   if (arg is num) {
     return Math.log(arg);
@@ -66,6 +69,7 @@ Dynamic log(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
 Dynamic exp2(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.exp2(arg);
@@ -81,6 +85,7 @@ Dynamic exp2(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
 Dynamic log2(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.log2(arg);
@@ -96,6 +101,7 @@ Dynamic log2(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns the square root of [arg].
 Dynamic sqrt(Dynamic arg) {
   if (arg is num) {
     return Math.sqrt(arg);
@@ -111,6 +117,7 @@ Dynamic sqrt(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns the inverse square root of [arg]. Supports vectors and numbers.
 Dynamic inversesqrt(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.inversesqrt(arg);

@@ -22,22 +22,27 @@
 
 */
 
+/// Returns the dot product between vectors [x] and [y]. The dimension of [x] and [y] must match.
 num dot(Dynamic x, Dynamic y) {
   return x.dot(y);
 }
 
+/// Returns the length of vector [x]
 num length(Dynamic x) {
   return x.length();
 }
 
+/// Returns the distance between vectors [x] and [y]. The dimension of [x] and [y] must match.
 num distance(Dynamic x, Dynamic y) {
   return length(x-y);
 }
 
+/// Returns the cross product between [x] and [y]. Both [x] and [y] must be 3D vectors ([vec3])
 vec3 cross(vec3 x, vec3 y) {
   return x.cross(y);
 }
 
+/// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
 Dynamic normalize(Dynamic x) {
   if (x is num) {
     return 1.0 * sign(x);

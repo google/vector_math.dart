@@ -140,11 +140,14 @@ class VectorGenerator {
     }); 
   }
   
-  void generateAliases() {
+  void generateAliases(bool getters) {
     for (List<String> ca in componentAliases) {
       for (int i = 0; i < ca.length; i++) {
-        iPrint('$vectorType get ${ca[i]}() => ${vectorComponents[i]};');
-        iPrint('set ${ca[i]}($vectorType arg) => ${vectorComponents[i]} = arg;');
+        if (getters) {
+          iPrint('$vectorType get ${ca[i]}() => ${vectorComponents[i]};');  
+        } else {
+          iPrint('set ${ca[i]}($vectorType arg) => ${vectorComponents[i]} = arg;');  
+        }
       }
     }
   }
@@ -160,6 +163,7 @@ class VectorGenerator {
   }
   
   void generateDefaultConstructor() {
+    iPrint('\/\/\/ Constructs a new [$generatedName]. Follows GLSL constructor syntax so many combinations are possible');
     iPrint('$generatedName([${joinStrings(vectorComponents, 'Dynamic ', '_')}]) {');
     iPush();
     iPrint('${joinStrings(vectorComponents, joiner: ' = ')} = 0.0;');
@@ -242,6 +246,7 @@ class VectorGenerator {
   }
   
   void generateToString() {
+    iPrint('''/// Returns a printable string''');
     String code = 'String toString() => \'';
     bool first = true;
     vectorComponents.forEach((comp) {
@@ -253,6 +258,7 @@ class VectorGenerator {
   }
   
   void generateSplat() {
+    /*
     String constructor = '$generatedName.splat($vectorType a) : ';
     bool first = true;
     vectorComponents.forEach((comp) {
@@ -268,9 +274,11 @@ class VectorGenerator {
     });
     iPop();
     iPrint('}');
+    */
   }
   
   void generateOperator(String op) {
+    iPrint('\/\/\/ Returns a new $generatedName from this $op [other]');
     String code = '$generatedName operator$op($generatedName other) => new $generatedName(';
     bool first = true;
     vectorComponents.forEach((comp) {
@@ -282,6 +290,7 @@ class VectorGenerator {
   }
   
   void generateScaleOperator(String op) {
+    iPrint('\/\/\/ Returns a new $generatedName ${op == '*' ? 'scaled' : 'divided'} by [other]');
     iPrint('$generatedName operator$op(Dynamic other) {');
     iPush();
     
@@ -319,6 +328,7 @@ class VectorGenerator {
   }
   
   void generateNegateOperator() {
+    iPrint('\/\/\/ Returns a new $generatedName from -this');
     String op = '-';
     String code = '$generatedName operator negate() => new $generatedName(';
     bool first = true;
@@ -331,6 +341,7 @@ class VectorGenerator {
   }
   
   void generateIndexOperator() {
+    iPrint('\/\/\/ Returns a component from ${generatedName}. This is indexed as an array with [i]');
     iPrint('$vectorType operator[](int i) {');
     iPush();
     iPrint('assert(i >= 0 && i < $vectorDimension);');
@@ -349,6 +360,7 @@ class VectorGenerator {
   }
   
   void generateAssignIndexOperator() {
+    iPrint('\/\/\/ Assigns a component in $generatedName the value in [v]. This is indexed as an array with [i]');
     iPrint('$vectorType operator[]=(int i, $vectorType v) {');
     iPush();
     iPrint('assert(i >= 0 && i < $vectorDimension);');
@@ -492,6 +504,7 @@ class VectorGenerator {
   }
   
   void generateLength() {
+    iPrint('\/\/\/ Returns length of this');
     iPrint('num get length() {');
     iPush();
     iPrint('num sum = 0.0;');
@@ -504,6 +517,7 @@ class VectorGenerator {
   }
   
   void generateLength2() {
+    iPrint('\/\/\/ Returns squared length of this');
     iPrint('num get length2() {');
     iPush();
     iPrint('num sum = 0.0;');
@@ -516,6 +530,7 @@ class VectorGenerator {
   }
   
   void generateNormalize() {
+    iPrint('\/\/\/ Normalizes this');
     iPrint('void normalize() {');
     iPush();
     iPrint('num l = length;');
@@ -532,6 +547,7 @@ class VectorGenerator {
   }
   
   void generateDot() {
+    iPrint('\/\/\/ Returns the dot product of [this] and [other]');
     iPrint('num dot($generatedName other) {');
     iPush();
     iPrint('num sum = 0.0;');
@@ -544,6 +560,7 @@ class VectorGenerator {
   }
   
   void generateCross() {
+    iPrint('\/\/\/ Returns the cross product of [this] and [other]');
     iPrint('$generatedName cross($generatedName other) {');
     iPush();
     iPrint('return new $generatedName(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);');
@@ -552,6 +569,7 @@ class VectorGenerator {
   }
   
   void generateError() {
+    iPrint('\/\/\/ Returns the relative error between [this] and [correct]');
     iPrint('num relativeError($generatedName correct) {');
     iPush();
     iPrint('num this_norm = length;');
@@ -561,6 +579,7 @@ class VectorGenerator {
     iPop();
     iPrint('}');
     
+    iPrint('\/\/\/ Returns the absolute error between [this] and [correct]');
     iPrint('num absoluteError($generatedName correct) {');
     iPush();
     iPrint('num this_norm = length;');
@@ -578,7 +597,7 @@ class VectorGenerator {
   void generate() {
     writeLicense();
     generatePrologue();
-    generateAliases();
+    generateDefaultConstructor();
     generateSplat();
     generateToString();
     generateNegateOperator();
@@ -588,17 +607,6 @@ class VectorGenerator {
     generateScaleOperator('*');
     generateIndexOperator();
     generateAssignIndexOperator();
-    generateSetters();
-    generateGetters();
-    {
-      var backup = vectorComponents;
-      for (List<String> ca in componentAliases) {
-        vectorComponents = ca;
-        generateSetters();
-        generateGetters();
-      }
-      vectorComponents = backup;
-    }
     generateLength();
     generateLength2();
     generateNormalize();
@@ -606,8 +614,27 @@ class VectorGenerator {
     if (generatedName == 'vec3') {
       generateCross();
     }
-    generateDefaultConstructor();
     generateError();
+    generateSetters();
+    generateAliases(false);
+    {
+      var backup = vectorComponents;
+      for (List<String> ca in componentAliases) {
+        vectorComponents = ca;
+        generateSetters();
+      }
+      vectorComponents = backup;
+    }
+    generateGetters();
+    generateAliases(true);
+    {
+      var backup = vectorComponents;
+      for (List<String> ca in componentAliases) {
+        vectorComponents = ca;
+        generateGetters();
+      }
+      vectorComponents = backup;
+    }
     generateEpilogue();
   }
 }

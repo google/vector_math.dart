@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+/// Returns sine of [arg]. Return type matches the type of [arg]
 Dynamic sin(Dynamic arg) {
   if (arg is num) {
     return Math.sin(arg);
@@ -36,6 +37,7 @@ Dynamic sin(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns cosine of [arg]. Return type matches the type of [arg]
 Dynamic cos(Dynamic arg) {
   if (arg is num) {
     return Math.cos(arg);
@@ -51,6 +53,7 @@ Dynamic cos(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns tangent of [arg]. Return type matches the type of [arg]
 Dynamic tan(Dynamic arg) {
   if (arg is num) {
     return Math.tan(arg);
@@ -66,6 +69,7 @@ Dynamic tan(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns arc sine of [arg]. Return type matches the type of [arg]
 Dynamic asin(Dynamic arg) {
   if (arg is num) {
     return Math.asin(arg);
@@ -81,6 +85,7 @@ Dynamic asin(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns arc cosine of [arg]. Return type matches the type of [arg]
 Dynamic acos(Dynamic arg) {
   if (arg is num) {
     return Math.acos(arg);
@@ -96,6 +101,7 @@ Dynamic acos(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns hyperbolic sine of [arg]. Return type matches the type of [arg]
 Dynamic sinh(Dynamic arg) {
   if (arg is num) {
     return Math.sinh(arg);
@@ -111,6 +117,7 @@ Dynamic sinh(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns hyperbolic cosine of [arg]. Return type matches the type of [arg]
 Dynamic cosh(Dynamic arg) {
   if (arg is num) {
     return Math.cosh(arg);
@@ -126,6 +133,7 @@ Dynamic cosh(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns hyperbolic tangent of [arg]. Return type matches the type of [arg]
 Dynamic tanh(Dynamic arg) {
   if (arg is num) {
     return Math.tanh(arg);
@@ -141,6 +149,7 @@ Dynamic tanh(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns arc hyperbolic sine of [arg]. Return type matches the type of [arg]
 Dynamic asinh(Dynamic arg) {
   if (arg is num) {
     return Math.asinh(arg);
@@ -156,6 +165,7 @@ Dynamic asinh(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns arc hyperbolic cosine of [arg]. Return type matches the type of [arg]
 Dynamic acosh(Dynamic arg) {
   if (arg is num) {
     return Math.acosh(arg);
@@ -171,6 +181,7 @@ Dynamic acosh(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns arc hyperbolic tangent of [arg]. Return type matches the type of [arg]
 Dynamic atanh(Dynamic arg) {
   if (arg is num) {
     return Math.atanh(arg);
@@ -186,6 +197,7 @@ Dynamic atanh(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
 Dynamic radians(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.radians(arg);
@@ -201,6 +213,7 @@ Dynamic radians(Dynamic arg) {
   }
   throw new IllegalArgumentException(arg);
 }
+/// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
 Dynamic degrees(Dynamic arg) {
   if (arg is num) {
     return ScalarMath.degrees(arg);
