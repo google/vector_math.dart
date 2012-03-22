@@ -72,7 +72,7 @@ class mat3x2 {
       col1[1] = arg0[1];
     }
   }
-  /// Constructs a new mat3x2 from computing the outer product of [u] and [v].
+  /// Constructs a new [mat3x2] from computing the outer product of [u] and [v].
   mat3x2.outer(vec3 u, vec2 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -81,7 +81,7 @@ class mat3x2 {
     col2[0] = u[2] * v[0];
     col2[1] = u[2] * v[1];
   }
-  /// Constructs a new mat3x2 filled with zeros.
+  /// Constructs a new [mat3x2] filled with zeros.
   mat3x2.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -89,6 +89,15 @@ class mat3x2 {
     col1[1] = 0.0;
     col2[0] = 0.0;
     col2[1] = 0.0;
+  }
+  /// Constructs a new [mat3x2] which is a copy of [other].
+  mat3x2.copy(mat3x2 other) {
+    col0[0] = other.col0[0];
+    col0[1] = other.col0[1];
+    col1[0] = other.col1[0];
+    col1[1] = other.col1[1];
+    col2[0] = other.col2[0];
+    col2[1] = other.col2[1];
   }
   /// Returns a printable string
   String toString() {

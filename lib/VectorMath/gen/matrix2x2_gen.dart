@@ -59,19 +59,30 @@ class mat2x2 {
       col1[1] = arg0[1];
     }
   }
-  /// Constructs a new mat2x2 from computing the outer product of [u] and [v].
+  /// Constructs a new [mat2x2] from computing the outer product of [u] and [v].
   mat2x2.outer(vec2 u, vec2 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
     col1[0] = u[1] * v[0];
     col1[1] = u[1] * v[1];
   }
-  /// Constructs a new mat2x2 filled with zeros.
+  /// Constructs a new [mat2x2] filled with zeros.
   mat2x2.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
     col1[0] = 0.0;
     col1[1] = 0.0;
+  }
+  /// Constructs a new [mat2x2] which is a copy of [other].
+  mat2x2.copy(mat2x2 other) {
+    col0[0] = other.col0[0];
+    col0[1] = other.col0[1];
+    col1[0] = other.col1[0];
+    col1[1] = other.col1[1];
+  }
+  /// Constructs a new [mat2x2] representing a rotation by [radians].
+  mat2x2.rotation(num radians_) {
+    setRotation(radians_);
   }
   /// Returns a printable string
   String toString() {
@@ -218,7 +229,7 @@ class mat2x2 {
   }
   /// Returns the determinant of this matrix.
   num determinant() {
-    return (this[0][0] * this[1][1]) - (this[0][1]*this[1][0]); 
+    return (col0.x * col1.y) - (col0.y*col1.x);
   }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
   num trace() {
@@ -257,5 +268,28 @@ class mat2x2 {
     num correct_norm = correct.infinityNorm();
     num diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
+  }
+  /// Invert the matrix. Returns the determinant.
+  num invert() {
+    double det = determinant();
+    if (det == 0.0) {
+      return 0.0;
+    }
+    double invDet = 1.0 / det;
+    double temp = col0.x;
+    col0.x = col1.y * invDet;
+    col0.y = - col0.y * invDet;
+    col1.x = - col1.x * invDet;
+    col1.y = temp * invDet;
+    return det;
+  }
+  /// Turns the matrix into a rotation of [radians]
+  void setRotation(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = c;
+    col0.y = s;
+    col1.x = -s;
+    col1.y = c;
   }
 }

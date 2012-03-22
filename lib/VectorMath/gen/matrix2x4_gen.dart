@@ -79,7 +79,7 @@ class mat2x4 {
       col1[1] = arg0[1];
     }
   }
-  /// Constructs a new mat2x4 from computing the outer product of [u] and [v].
+  /// Constructs a new [mat2x4] from computing the outer product of [u] and [v].
   mat2x4.outer(vec2 u, vec4 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -90,7 +90,7 @@ class mat2x4 {
     col1[2] = u[1] * v[2];
     col1[3] = u[1] * v[3];
   }
-  /// Constructs a new mat2x4 filled with zeros.
+  /// Constructs a new [mat2x4] filled with zeros.
   mat2x4.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -100,6 +100,17 @@ class mat2x4 {
     col1[1] = 0.0;
     col1[2] = 0.0;
     col1[3] = 0.0;
+  }
+  /// Constructs a new [mat2x4] which is a copy of [other].
+  mat2x4.copy(mat2x4 other) {
+    col0[0] = other.col0[0];
+    col0[1] = other.col0[1];
+    col0[2] = other.col0[2];
+    col0[3] = other.col0[3];
+    col1[0] = other.col1[0];
+    col1[1] = other.col1[1];
+    col1[2] = other.col1[2];
+    col1[3] = other.col1[3];
   }
   /// Returns a printable string
   String toString() {

@@ -41,6 +41,21 @@ class vec2 {
       return;
     }
   }
+  /// Constructs a new [vec2] filled with 0.
+  vec2.zero() {
+    x = 0.0;
+    y = 0.0;
+  }
+  /// Constructs a new [vec2] that is a copy of [other].
+  vec2.copy(vec2 other) {
+    x = other.x;
+    y = other.y;
+  }
+  /// Constructs a new [vec2] that is initialized with passed in values.
+  vec2.raw(num x_, num y_) {
+    x = x_;
+    y = y_;
+  }
   /// Returns a printable string
   String toString() => '$x,$y';
   /// Returns a new vec2 from -this

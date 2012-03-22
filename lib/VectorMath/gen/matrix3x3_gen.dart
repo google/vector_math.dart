@@ -100,7 +100,7 @@ class mat3x3 {
       col2[2] = arg0[2];
     }
   }
-  /// Constructs a new mat3x3 from computing the outer product of [u] and [v].
+  /// Constructs a new [mat3x3] from computing the outer product of [u] and [v].
   mat3x3.outer(vec3 u, vec3 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -112,7 +112,7 @@ class mat3x3 {
     col2[1] = u[2] * v[1];
     col2[2] = u[2] * v[2];
   }
-  /// Constructs a new mat3x3 filled with zeros.
+  /// Constructs a new [mat3x3] filled with zeros.
   mat3x3.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -123,6 +123,30 @@ class mat3x3 {
     col2[0] = 0.0;
     col2[1] = 0.0;
     col2[2] = 0.0;
+  }
+  /// Constructs a new [mat3x3] which is a copy of [other].
+  mat3x3.copy(mat3x3 other) {
+    col0[0] = other.col0[0];
+    col0[1] = other.col0[1];
+    col0[2] = other.col0[2];
+    col1[0] = other.col1[0];
+    col1[1] = other.col1[1];
+    col1[2] = other.col1[2];
+    col2[0] = other.col2[0];
+    col2[1] = other.col2[1];
+    col2[2] = other.col2[2];
+  }
+  //// Constructs a new [mat3x3] representation a rotation of [radians] around the X axis
+  mat3x3.rotationX(num radians_) {
+    setRotationAroundX(radians_);
+  }
+  //// Constructs a new [mat3x3] representation a rotation of [radians] around the Y axis
+  mat3x3.rotationY(num radians_) {
+    setRotationAroundY(radians_);
+  }
+  //// Constructs a new [mat3x3] representation a rotation of [radians] around the Z axis
+  mat3x3.rotationZ(num radians_) {
+    setRotationAroundZ(radians_);
   }
   /// Returns a printable string
   String toString() {
@@ -308,11 +332,11 @@ class mat3x3 {
   }
   /// Returns the determinant of this matrix.
   num determinant() {
-        num x = this[0][0]*((this[2][2]*this[1][1])-(this[2][1]*this[1][2]));
-        num y = this[1][0]*((this[2][2]*this[0][1])-(this[2][1]*this[0][2]));
-        num z = this[2][0]*((this[1][2]*this[0][1])-(this[1][1]*this[0][2]));
-        return x - y + z;
-      }
+    num x = col0.x*((col1.y*col2.z)-(col1.z*col2.y));
+    num y = col0.y*((col1.x*col2.z)-(coly.z*col2.x));
+    num z = col0.z*((col1.x*col2.y)-(col1.y*col2.x));
+    return x - y + z;
+  }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
   num trace() {
     num t = 0.0;
@@ -360,5 +384,71 @@ class mat3x3 {
     num correct_norm = correct.infinityNorm();
     num diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
+  }
+  /// Invert the matrix. Returns the determinant.
+  num invert() {
+    double det = determinant();
+    if (det == 0.0) {
+      return 0.0;
+    }
+    double invDet = 1.0 / det;
+    vec3 i = new vec3.zero();
+    vec3 j = new vec3.zero();
+    vec3 k = new vec3.zero();
+    i.x = invDet * (col1.y * col2.z - col1.z * col2.y);
+    i.y = invDet * (col0.z * col2.y - col0.y * col2.z);
+    i.z = invDet * (col0.y * col1.z - col0.z * col1.y);
+    j.x = invDet * (col1.z * col2.x - col1.x * col2.z);
+    j.y = invDet * (col0.x * col2.z - col0.z * col2.x);
+    j.z = invDet * (col0.z * col1.x - col0.x * col1.z);
+    k.x = invDet * (col1.x * col2.y - col1.y * col2.x);
+    k.y = invDet * (col0.y * col2.x - col0.x * col2.y);
+    k.z = invDet * (col0.x * col1.y - col0.y * col1.x);
+    col0 = i;
+    col1 = j;
+    col2 = k;
+    return det;
+  }
+  /// Turns the matrix into a rotation of [radians] around X
+  void setRotationAroundX(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = 1.0;
+    col0.y = 0.0;
+    col0.z = 0.0;
+    col1.x = 0.0;
+    col1.y = c;
+    col1.z = s;
+    col2.x = 0.0;
+    col2.y = -s;
+    col2.z = c;
+  }
+  /// Turns the matrix into a rotation of [radians] around Y
+  void setRotationAroundY(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = c;
+    col0.y = 0.0;
+    col0.z = -s;
+    col1.x = 0.0;
+    col1.y = 1.0;
+    col1.z = 0.0;
+    col2.x = s;
+    col2.y = 0.0;
+    col2.z = c;
+  }
+  /// Turns the matrix into a rotation of [radians] around Z
+  void setRotationAroundZ(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = c;
+    col0.y = s;
+    col0.z = 0.0;
+    col1.x = -s;
+    col1.y = c;
+    col1.z = 0.0;
+    col2.x = 0.0;
+    col2.y = 0.0;
+    col2.z = 1.0;
   }
 }

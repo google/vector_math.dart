@@ -183,7 +183,7 @@ class mat4x4 {
       col3[3] = arg0[3];
     }
   }
-  /// Constructs a new mat4x4 from computing the outer product of [u] and [v].
+  /// Constructs a new [mat4x4] from computing the outer product of [u] and [v].
   mat4x4.outer(vec4 u, vec4 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -202,7 +202,7 @@ class mat4x4 {
     col3[2] = u[3] * v[2];
     col3[3] = u[3] * v[3];
   }
-  /// Constructs a new mat4x4 filled with zeros.
+  /// Constructs a new [mat4x4] filled with zeros.
   mat4x4.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -220,6 +220,37 @@ class mat4x4 {
     col3[1] = 0.0;
     col3[2] = 0.0;
     col3[3] = 0.0;
+  }
+  /// Constructs a new [mat4x4] which is a copy of [other].
+  mat4x4.copy(mat4x4 other) {
+    col0[0] = other.col0[0];
+    col0[1] = other.col0[1];
+    col0[2] = other.col0[2];
+    col0[3] = other.col0[3];
+    col1[0] = other.col1[0];
+    col1[1] = other.col1[1];
+    col1[2] = other.col1[2];
+    col1[3] = other.col1[3];
+    col2[0] = other.col2[0];
+    col2[1] = other.col2[1];
+    col2[2] = other.col2[2];
+    col2[3] = other.col2[3];
+    col3[0] = other.col3[0];
+    col3[1] = other.col3[1];
+    col3[2] = other.col3[2];
+    col3[3] = other.col3[3];
+  }
+  //// Constructs a new [mat4x4] representation a rotation of [radians] around the X axis
+  mat4x4.rotationX(num radians_) {
+    setRotationAroundX(radians_);
+  }
+  //// Constructs a new [mat4x4] representation a rotation of [radians] around the Y axis
+  mat4x4.rotationY(num radians_) {
+    setRotationAroundY(radians_);
+  }
+  //// Constructs a new [mat4x4] representation a rotation of [radians] around the Z axis
+  mat4x4.rotationZ(num radians_) {
+    setRotationAroundZ(radians_);
   }
   /// Returns a printable string
   String toString() {
@@ -454,22 +485,18 @@ class mat4x4 {
   }
   /// Returns the determinant of this matrix.
   num determinant() {
-          //2x2 sub-determinants
-          num det2_01_01 = this[0][0] * this[1][1] - this[0][1] * this[1][0];
-          num det2_01_02 = this[0][0] * this[1][2] - this[0][2] * this[1][0];
-          num det2_01_03 = this[0][0] * this[1][3] - this[0][3] * this[1][0];
-          num det2_01_12 = this[0][1] * this[1][2] - this[0][2] * this[1][1];
-          num det2_01_13 = this[0][1] * this[1][3] - this[0][3] * this[1][1];
-          num det2_01_23 = this[0][2] * this[1][3] - this[0][3] * this[1][2];
-        
-          //3x3 sub-determinants
-          num det3_201_012 = this[2][0] * det2_01_12 - this[2][1] * det2_01_02 + this[2][2] * det2_01_01;
-          num det3_201_013 = this[2][0] * det2_01_13 - this[2][1] * det2_01_03 + this[2][3] * det2_01_01;
-          num det3_201_023 = this[2][0] * det2_01_23 - this[2][2] * det2_01_03 + this[2][3] * det2_01_02;
-          num det3_201_123 = this[2][1] * det2_01_23 - this[2][2] * det2_01_13 + this[2][3] * det2_01_12;
-        
-          return ( - det3_201_123 * this[3][0] + det3_201_023 * this[3][1] - det3_201_013 * this[3][2] + det3_201_012 * this[3][3] );
-      }
+    num det2_01_01 = col0.x * col1.y - col0.y * col1.x;
+    num det2_01_02 = col0.x * col1.z - col0.z * col1.x;
+    num det2_01_03 = col0.x * col1.w - col0.w * col1.x;
+    num det2_01_12 = col0.y * col1.z - col0.z * col1.y;
+    num det2_01_13 = col0.y * col1.w - col0.w * col1.y;
+    num det2_01_23 = col0.z * col1.w - col0.w * col1.z;
+    num det3_201_012 = col2.x * det2_01_12 - col2.y * det2_01_02 + col2.z * det2_01_01;
+    num det3_201_013 = col2.x * det2_01_13 - col2.y * det2_01_03 + col2.w * det2_01_01;
+    num det3_201_023 = col2.x * det2_01_23 - col2.z * det2_01_03 + col2.w * det2_01_02;
+    num det3_201_123 = col2.y * det2_01_23 - col2.z * det2_01_13 + col2.w * det2_01_12;
+    return ( - det3_201_123 * col3.x + det3_201_023 * col3.y - det3_201_013 * col3.z + det3_201_012 * col3.w);
+  }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
   num trace() {
     num t = 0.0;
@@ -582,5 +609,83 @@ class mat4x4 {
     temp = this[2][2];
     this[2][2] = this[2][2];
     this[2][2] = temp;
+  }
+  num invert() {
+    double det = 0.0;
+    return det;
+  }
+  num invertRotation() {
+    double det = determinant();
+    if (det == 0.0) {
+      return 0.0;
+    }
+    double invDet = 1.0 / det;
+    vec4 i = new vec4.zero();
+    vec4 j = new vec4.zero();
+    vec4 k = new vec4.zero();
+    i.x = invDet * (col1.y * col2.z - col1.z * col2.y);
+    i.y = invDet * (col0.z * col2.y - col0.y * col2.z);
+    i.z = invDet * (col0.y * col1.z - col0.z * col1.y);
+    j.x = invDet * (col1.z * col2.x - col1.x * col2.z);
+    j.y = invDet * (col0.x * col2.z - col0.z * col2.x);
+    j.z = invDet * (col0.z * col1.x - col0.x * col1.z);
+    k.x = invDet * (col1.x * col2.y - col1.y * col2.x);
+    k.y = invDet * (col0.y * col2.x - col0.x * col2.y);
+    k.z = invDet * (col0.x * col1.y - col0.y * col1.x);
+    col0 = i;
+    col1 = j;
+    col2 = k;
+    return det;
+  }
+  /// Sets the upper 3x3 to a rotation of [radians] around X
+  void setRotationAroundX(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = 1.0;
+    col0.y = 0.0;
+    col0.z = 0.0;
+    col1.x = 0.0;
+    col1.y = c;
+    col1.z = s;
+    col2.x = 0.0;
+    col2.y = -s;
+    col2.z = c;
+    col0.w = 0.0;
+    col1.w = 0.0;
+    col2.w = 0.0;
+  }
+  /// Sets the upper 3x3 to a rotation of [radians] around Y
+  void setRotationAroundY(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = c;
+    col0.y = 0.0;
+    col0.z = -s;
+    col1.x = 0.0;
+    col1.y = 1.0;
+    col1.z = 0.0;
+    col2.x = s;
+    col2.y = 0.0;
+    col2.z = c;
+    col0.w = 0.0;
+    col1.w = 0.0;
+    col2.w = 0.0;
+  }
+  /// Sets the upper 3x3 to a rotation of [radians] around Z
+  void setRotationAroundZ(num radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
+    col0.x = c;
+    col0.y = s;
+    col0.z = 0.0;
+    col1.x = -s;
+    col1.y = c;
+    col1.z = 0.0;
+    col2.x = 0.0;
+    col2.y = 0.0;
+    col2.z = 1.0;
+    col0.w = 0.0;
+    col1.w = 0.0;
+    col2.w = 0.0;
   }
 }

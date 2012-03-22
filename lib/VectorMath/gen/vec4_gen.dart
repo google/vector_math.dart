@@ -61,6 +61,27 @@ class vec4 {
       return;
     }
   }
+  /// Constructs a new [vec4] filled with 0.
+  vec4.zero() {
+    x = 0.0;
+    y = 0.0;
+    z = 0.0;
+    w = 0.0;
+  }
+  /// Constructs a new [vec4] that is a copy of [other].
+  vec4.copy(vec4 other) {
+    x = other.x;
+    y = other.y;
+    z = other.z;
+    w = other.w;
+  }
+  /// Constructs a new [vec4] that is initialized with passed in values.
+  vec4.raw(num x_, num y_, num z_, num w_) {
+    x = x_;
+    y = y_;
+    z = z_;
+    w = w_;
+  }
   /// Returns a printable string
   String toString() => '$x,$y,$z,$w';
   /// Returns a new vec4 from -this

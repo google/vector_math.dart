@@ -130,7 +130,7 @@ class mat4x3 {
       col2[2] = arg0[2];
     }
   }
-  /// Constructs a new mat4x3 from computing the outer product of [u] and [v].
+  /// Constructs a new [mat4x3] from computing the outer product of [u] and [v].
   mat4x3.outer(vec4 u, vec3 v) {
     col0[0] = u[0] * v[0];
     col0[1] = u[0] * v[1];
@@ -145,7 +145,7 @@ class mat4x3 {
     col3[1] = u[3] * v[1];
     col3[2] = u[3] * v[2];
   }
-  /// Constructs a new mat4x3 filled with zeros.
+  /// Constructs a new [mat4x3] filled with zeros.
   mat4x3.zero() {
     col0[0] = 0.0;
     col0[1] = 0.0;
@@ -159,6 +159,21 @@ class mat4x3 {
     col3[0] = 0.0;
     col3[1] = 0.0;
     col3[2] = 0.0;
+  }
+  /// Constructs a new [mat4x3] which is a copy of [other].
+  mat4x3.copy(mat4x3 other) {
+    col0[0] = other.col0[0];
+    col0[1] = other.col0[1];
+    col0[2] = other.col0[2];
+    col1[0] = other.col1[0];
+    col1[1] = other.col1[1];
+    col1[2] = other.col1[2];
+    col2[0] = other.col2[0];
+    col2[1] = other.col2[1];
+    col2[2] = other.col2[2];
+    col3[0] = other.col3[0];
+    col3[1] = other.col3[1];
+    col3[2] = other.col3[2];
   }
   /// Returns a printable string
   String toString() {

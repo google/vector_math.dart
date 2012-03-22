@@ -55,6 +55,24 @@ class vec3 {
       return;
     }
   }
+  /// Constructs a new [vec3] filled with 0.
+  vec3.zero() {
+    x = 0.0;
+    y = 0.0;
+    z = 0.0;
+  }
+  /// Constructs a new [vec3] that is a copy of [other].
+  vec3.copy(vec3 other) {
+    x = other.x;
+    y = other.y;
+    z = other.z;
+  }
+  /// Constructs a new [vec3] that is initialized with passed in values.
+  vec3.raw(num x_, num y_, num z_) {
+    x = x_;
+    y = y_;
+    z = z_;
+  }
   /// Returns a printable string
   String toString() => '$x,$y,$z';
   /// Returns a new vec3 from -this
