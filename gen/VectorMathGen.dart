@@ -243,6 +243,33 @@ class VectorGenerator {
     
     iPop();
     iPrint('}');
+    
+    iPrint('\/\/\/ Constructs a new [$generatedName] filled with 0.');
+    iPrint('$generatedName.zero() {');
+    iPush();
+    for (String e in vectorComponents) {
+      iPrint('$e = 0.0;');
+    }
+    iPop();
+    iPrint('}');
+    
+    iPrint('\/\/\/ Constructs a new [$generatedName] that is a copy of [other].');
+    iPrint('$generatedName.copy($generatedName other) {');
+    iPush();
+    for (String e in vectorComponents) {
+      iPrint('$e = other.$e;');
+    }
+    iPop();
+    iPrint('}');
+    
+    iPrint('\/\/\/ Constructs a new [$generatedName] that is initialized with passed in values.');
+    iPrint('$generatedName.raw(${joinStrings(vectorComponents, 'num ', '_')}) {');
+    iPush();
+    for (String e in vectorComponents) {
+      iPrint('$e = ${e}_;');
+    }
+    iPop();
+    iPrint('}');
   }
   
   void generateToString() {
