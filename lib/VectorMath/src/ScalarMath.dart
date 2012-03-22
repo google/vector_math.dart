@@ -23,6 +23,7 @@
 */
 
 class _ScalerHelpers {
+  static final _sqrtOneHalf = 0.707106781186548;
   static num degrees(num r) {
     return r * 180.0/Math.PI;
   }

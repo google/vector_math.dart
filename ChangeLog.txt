@@ -7,6 +7,7 @@ v 0.8.0 - XX XX 2012
 - Added specialized rotation matrix constructors for mat2x2, mat3x3, and mat4x4
 - Added setRotation(num radians) to mat2x2
 - Added setRotationAround[x,y,z](num radians) to mat3x3 and mat4x4
+- Added buildPlaneVectors which constructs the spanning vectors given a plane normal
 
 v 0.0.0 - March 20 2012 
 

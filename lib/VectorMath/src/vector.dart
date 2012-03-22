@@ -62,3 +62,27 @@ Dynamic normalize(Dynamic x) {
   }
   return r;
 }
+
+void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
+  if (planeNormal.z.abs() > _ScalerHelpers._sqrtOneHalf) {
+    // choose u in y-z plane
+    double a = planeNormal.y*planeNormal.y + planeNormal.z*planeNormal.z;
+    double k = 1.0/Math.sqrt(a);
+    u.x = 0.0;
+    u.y = -planeNormal.z*k;
+    u.z = planeNormal.y*k;
+    v.x = a*k;
+    v.y = -planeNormal[0]*(planeNormal[1]*k);
+    v.z = planeNormal[0]*(-planeNormal[2]*k);
+  } else {
+    // choose u in x-y plane
+    double a = planeNormal.x*planeNormal.x + planeNormal.y*planeNormal.y;
+    double k = 1.0/Math.sqrt(a);
+    u.x = -planeNormal[1]*k;
+    u.y = planeNormal[0]*k;
+    u.z = 0.0;
+    u.x = -planeNormal[2]*(planeNormal[0]*k);
+    u.y = planeNormal[2]*(-planeNormal[1]*k);
+    u.z = a*k;
+  }
+}
