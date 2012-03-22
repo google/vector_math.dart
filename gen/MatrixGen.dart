@@ -209,7 +209,7 @@ class MatrixGen {
     iPrint('}');
     
     // Outer product constructor
-    iPrint('\/\/\/ Constructs a new ${matType} from computing the outer product of [u] and [v].');
+    iPrint('\/\/\/ Constructs a new [${matType}] from computing the outer product of [u] and [v].');
     iPrint('${matType}.outer(vec${cols} u, vec${rows} v) {');
     iPush();
     for (int i = 0; i < cols; i++) {
@@ -220,7 +220,7 @@ class MatrixGen {
     iPop();
     iPrint('}');
     
-    iPrint('\/\/\/ Constructs a new ${matType} filled with zeros.');
+    iPrint('\/\/\/ Constructs a new [${matType}] filled with zeros.');
     iPrint('${matType}.zero() {');
     iPush();
     for (int i = 0; i < cols; i++) {
@@ -230,6 +230,49 @@ class MatrixGen {
     }
     iPop();
     iPrint('}');
+    
+    iPrint('\/\/\/ Constructs a new [${matType}] which is a copy of [other].');
+    iPrint('${matType}.copy($matType other) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('col$i[$j] = other.col$i[$j];');
+      }
+    }
+    iPop();
+    iPrint('}');
+    
+    if (rows == 2 && cols == 2) {
+      iPrint('\/\/\/ Constructs a new [${matType}] representing a rotation by [radians].');
+      iPrint('${matType}.rotation(num radians_) {');
+      iPush();
+      iPrint('setRotation(radians_);');
+      iPop();
+      iPrint('}');  
+    }
+    
+    if ((rows == 3 && cols == 3) || (rows == 4 && cols == 4)) {
+      iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the X axis');
+      iPrint('${matType}.rotationX(num radians_) {');
+      iPush();
+      iPrint('setRotationAroundX(radians_);');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the Y axis');
+      iPrint('${matType}.rotationY(num radians_) {');
+      iPush();
+      iPrint('setRotationAroundY(radians_);');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the Z axis');
+      iPrint('${matType}.rotationZ(num radians_) {');
+      iPush();
+      iPrint('setRotationAroundZ(radians_);');
+      iPop();
+      iPrint('}');
+    }
   }
   
   void generateRowColProperties() {
@@ -476,40 +519,42 @@ class MatrixGen {
   void generateDeterminant() {
     if (matType == 'mat2x2') {
       iPrint('\/\/\/ Returns the determinant of this matrix.');
-      iPrint('''num determinant() {
-    return (this[0][0] * this[1][1]) - (this[0][1]*this[1][0]); 
-  }''');
+      iPrint('num determinant() {');
+      iPush();
+      iPrint('return (col0.x * col1.y) - (col0.y*col1.x);');
+      iPop();
+      iPrint('}');
     }
     
     if (matType == 'mat3x3') {
       iPrint('\/\/\/ Returns the determinant of this matrix.');
-      iPrint('''num determinant() {
-        num x = this[0][0]*((this[2][2]*this[1][1])-(this[2][1]*this[1][2]));
-        num y = this[1][0]*((this[2][2]*this[0][1])-(this[2][1]*this[0][2]));
-        num z = this[2][0]*((this[1][2]*this[0][1])-(this[1][1]*this[0][2]));
-        return x - y + z;
-      }''');
+      iPrint('num determinant() {');
+      iPush();
+      iPrint('num x = col0.x*((col1.y*col2.z)-(col1.z*col2.y));');
+      iPrint('num y = col0.y*((col1.x*col2.z)-(coly.z*col2.x));');
+      iPrint('num z = col0.z*((col1.x*col2.y)-(col1.y*col2.x));');
+      iPrint('return x - y + z;');
+      iPop();
+      iPrint('}');
     }
     
     if (matType == 'mat4x4') {
       iPrint('\/\/\/ Returns the determinant of this matrix.');
-      iPrint('''num determinant() {
-          //2x2 sub-determinants
-          num det2_01_01 = this[0][0] * this[1][1] - this[0][1] * this[1][0];
-          num det2_01_02 = this[0][0] * this[1][2] - this[0][2] * this[1][0];
-          num det2_01_03 = this[0][0] * this[1][3] - this[0][3] * this[1][0];
-          num det2_01_12 = this[0][1] * this[1][2] - this[0][2] * this[1][1];
-          num det2_01_13 = this[0][1] * this[1][3] - this[0][3] * this[1][1];
-          num det2_01_23 = this[0][2] * this[1][3] - this[0][3] * this[1][2];
-        
-          //3x3 sub-determinants
-          num det3_201_012 = this[2][0] * det2_01_12 - this[2][1] * det2_01_02 + this[2][2] * det2_01_01;
-          num det3_201_013 = this[2][0] * det2_01_13 - this[2][1] * det2_01_03 + this[2][3] * det2_01_01;
-          num det3_201_023 = this[2][0] * det2_01_23 - this[2][2] * det2_01_03 + this[2][3] * det2_01_02;
-          num det3_201_123 = this[2][1] * det2_01_23 - this[2][2] * det2_01_13 + this[2][3] * det2_01_12;
-        
-          return ( - det3_201_123 * this[3][0] + det3_201_023 * this[3][1] - det3_201_013 * this[3][2] + det3_201_012 * this[3][3] );
-      }''');
+      iPrint('num determinant() {');
+      iPush();
+      iPrint('num det2_01_01 = col0.x * col1.y - col0.y * col1.x;');
+      iPrint('num det2_01_02 = col0.x * col1.z - col0.z * col1.x;');
+      iPrint('num det2_01_03 = col0.x * col1.w - col0.w * col1.x;');
+      iPrint('num det2_01_12 = col0.y * col1.z - col0.z * col1.y;');
+      iPrint('num det2_01_13 = col0.y * col1.w - col0.w * col1.y;');
+      iPrint('num det2_01_23 = col0.z * col1.w - col0.w * col1.z;');
+      iPrint('num det3_201_012 = col2.x * det2_01_12 - col2.y * det2_01_02 + col2.z * det2_01_01;');
+      iPrint('num det3_201_013 = col2.x * det2_01_13 - col2.y * det2_01_03 + col2.w * det2_01_01;');
+      iPrint('num det3_201_023 = col2.x * det2_01_23 - col2.z * det2_01_03 + col2.w * det2_01_02;');
+      iPrint('num det3_201_123 = col2.y * det2_01_23 - col2.z * det2_01_13 + col2.w * det2_01_12;');
+      iPrint('return ( - det3_201_123 * col3.x + det3_201_023 * col3.y - det3_201_013 * col3.z + det3_201_012 * col3.w);');
+      iPop();
+      iPrint('}');
     }
   }
   
@@ -625,6 +670,229 @@ class MatrixGen {
     }
   }
   
+  void generateInvert() {
+    if (rows != cols) {
+      // Only square matrices have inverses
+      return;
+    }
+    
+    if (rows == 2) {
+      iPrint('\/\/\/ Invert the matrix. Returns the determinant.');
+      iPrint('num invert() {');
+      iPush();
+      iPrint('double det = determinant();');
+      iPrint('if (det == 0.0) {');
+      iPush();
+      iPrint('return 0.0;');
+      iPop();
+      iPrint('}');
+      iPrint('double invDet = 1.0 / det;');
+      iPrint('double temp = col0.x;');
+      iPrint('col0.x = col1.y * invDet;');
+      iPrint('col0.y = - col0.y * invDet;');
+      iPrint('col1.x = - col1.x * invDet;');
+      iPrint('col1.y = temp * invDet;');
+      iPrint('return det;');
+      iPop();
+      iPrint('}');
+    } else if (rows == 3) {
+      iPrint('/\/\/\ Invert the matrix. Returns the determinant.');
+      iPrint('num invert() {');
+      iPush();
+      iPrint('double det = determinant();');
+      iPrint('if (det == 0.0) {');
+      iPush();
+      iPrint('return 0.0;');
+      iPop();
+      iPrint('}');
+      iPrint('double invDet = 1.0 / det;');
+      iPrint('vec3 i = new vec3.zero();');
+      iPrint('vec3 j = new vec3.zero();');
+      iPrint('vec3 k = new vec3.zero();');
+      iPrint('i.x = invDet * (col1.y * col2.z - col1.z * col2.y);');
+      iPrint('i.y = invDet * (col0.z * col2.y - col0.y * col2.z);');
+      iPrint('i.z = invDet * (col0.y * col1.z - col0.z * col1.y);');
+      iPrint('j.x = invDet * (col1.z * col2.x - col1.x * col2.z);');
+      iPrint('j.y = invDet * (col0.x * col2.z - col0.z * col2.x);');
+      iPrint('j.z = invDet * (col0.z * col1.x - col0.x * col1.z);');
+      iPrint('k.x = invDet * (col1.x * col2.y - col1.y * col2.x);');
+      iPrint('k.y = invDet * (col0.y * col2.x - col0.x * col2.y);');
+      iPrint('k.z = invDet * (col0.x * col1.y - col0.y * col1.x);');
+      iPrint('col0 = i;');
+      iPrint('col1 = j;');
+      iPrint('col2 = k;');
+      iPrint('return det;');
+      iPop();
+      iPrint('}');
+    } else if (rows == 4) {
+      iPrint('num invert() {');
+      iPush();
+      iPrint('double det = 0.0;');
+      iPrint('return det;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('num invertRotation() {');
+      iPush();
+      iPrint('double det = determinant();');
+      iPrint('if (det == 0.0) {');
+      iPush();
+      iPrint('return 0.0;');
+      iPop();
+      iPrint('}');
+      iPrint('double invDet = 1.0 / det;');
+      iPrint('vec4 i = new vec4.zero();');
+      iPrint('vec4 j = new vec4.zero();');
+      iPrint('vec4 k = new vec4.zero();');
+      iPrint('i.x = invDet * (col1.y * col2.z - col1.z * col2.y);');
+      iPrint('i.y = invDet * (col0.z * col2.y - col0.y * col2.z);');
+      iPrint('i.z = invDet * (col0.y * col1.z - col0.z * col1.y);');
+      iPrint('j.x = invDet * (col1.z * col2.x - col1.x * col2.z);');
+      iPrint('j.y = invDet * (col0.x * col2.z - col0.z * col2.x);');
+      iPrint('j.z = invDet * (col0.z * col1.x - col0.x * col1.z);');
+      iPrint('k.x = invDet * (col1.x * col2.y - col1.y * col2.x);');
+      iPrint('k.y = invDet * (col0.y * col2.x - col0.x * col2.y);');
+      iPrint('k.z = invDet * (col0.x * col1.y - col0.y * col1.x);');
+      iPrint('col0 = i;');
+      iPrint('col1 = j;');
+      iPrint('col2 = k;');
+      iPrint('return det;');
+      iPop();
+      iPrint('}');
+    }
+  }
+  
+  void generateSetRotation() {
+    if (rows == 2 && cols == 2) {
+      iPrint('\/\/\/ Turns the matrix into a rotation of [radians]');
+      iPrint('void setRotation(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = c;');
+      iPrint('col0.y = s;');
+      iPrint('col1.x = -s;');
+      iPrint('col1.y = c;');
+      iPop();
+      iPrint('}');
+    }
+    if (rows == 3 && cols == 3) {
+      iPrint('\/\/\/ Turns the matrix into a rotation of [radians] around X');
+      iPrint('void setRotationAroundX(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = 1.0;');
+      iPrint('col0.y = 0.0;');
+      iPrint('col0.z = 0.0;');
+      iPrint('col1.x = 0.0;');
+      iPrint('col1.y = c;');
+      iPrint('col1.z = s;');
+      iPrint('col2.x = 0.0;');
+      iPrint('col2.y = -s;');
+      iPrint('col2.z = c;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/ Turns the matrix into a rotation of [radians] around Y');
+      iPrint('void setRotationAroundY(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = c;');
+      iPrint('col0.y = 0.0;');
+      iPrint('col0.z = -s;');
+      iPrint('col1.x = 0.0;');
+      iPrint('col1.y = 1.0;');
+      iPrint('col1.z = 0.0;');
+      iPrint('col2.x = s;');
+      iPrint('col2.y = 0.0;');
+      iPrint('col2.z = c;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/ Turns the matrix into a rotation of [radians] around Z');
+      iPrint('void setRotationAroundZ(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = c;');
+      iPrint('col0.y = s;');
+      iPrint('col0.z = 0.0;');
+      iPrint('col1.x = -s;');
+      iPrint('col1.y = c;');
+      iPrint('col1.z = 0.0;');
+      iPrint('col2.x = 0.0;');
+      iPrint('col2.y = 0.0;');
+      iPrint('col2.z = 1.0;');
+      iPop();
+      iPrint('}');
+    }
+    
+    if (rows == 4 && cols == 4) {
+      iPrint('\/\/\/ Sets the upper 3x3 to a rotation of [radians] around X');
+      iPrint('void setRotationAroundX(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = 1.0;');
+      iPrint('col0.y = 0.0;');
+      iPrint('col0.z = 0.0;');
+      iPrint('col1.x = 0.0;');
+      iPrint('col1.y = c;');
+      iPrint('col1.z = s;');
+      iPrint('col2.x = 0.0;');
+      iPrint('col2.y = -s;');
+      iPrint('col2.z = c;');
+      iPrint('col0.w = 0.0;');
+      iPrint('col1.w = 0.0;');
+      iPrint('col2.w = 0.0;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/ Sets the upper 3x3 to a rotation of [radians] around Y');
+      iPrint('void setRotationAroundY(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = c;');
+      iPrint('col0.y = 0.0;');
+      iPrint('col0.z = -s;');
+      iPrint('col1.x = 0.0;');
+      iPrint('col1.y = 1.0;');
+      iPrint('col1.z = 0.0;');
+      iPrint('col2.x = s;');
+      iPrint('col2.y = 0.0;');
+      iPrint('col2.z = c;');
+      iPrint('col0.w = 0.0;');
+      iPrint('col1.w = 0.0;');
+      iPrint('col2.w = 0.0;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/ Sets the upper 3x3 to a rotation of [radians] around Z');
+      iPrint('void setRotationAroundZ(num radians_) {');
+      iPush();
+      iPrint('double c = Math.cos(radians_);');
+      iPrint('double s = Math.sin(radians_);');
+      iPrint('col0.x = c;');
+      iPrint('col0.y = s;');
+      iPrint('col0.z = 0.0;');
+      iPrint('col1.x = -s;');
+      iPrint('col1.y = c;');
+      iPrint('col1.z = 0.0;');
+      iPrint('col2.x = 0.0;');
+      iPrint('col2.y = 0.0;');
+      iPrint('col2.z = 1.0;');
+      iPrint('col0.w = 0.0;');
+      iPrint('col1.w = 0.0;');
+      iPrint('col2.w = 0.0;');
+      iPop();
+      iPrint('}');
+    }
+  }
+  
+  
   void generate() {
     writeLicense();
     generatePrologue();
@@ -648,6 +916,8 @@ class MatrixGen {
     generateError();
     generateTranslate();
     generateRotation();
+    generateInvert();
+    generateSetRotation();
     generateEpilogue();
   }
 }
