@@ -2142,4 +2142,46 @@ class vec4 {
   vec4 get qqqt() => new vec4(q, q, q, t);
   vec4 get qqqp() => new vec4(q, q, q, p);
   vec4 get qqqq() => new vec4(q, q, q, q);
+  vec4 selfAdd(vec4 arg) {
+    x = x + arg.x;
+    y = y + arg.y;
+    z = z + arg.z;
+    w = w + arg.w;
+    return this;
+  }
+  vec4 selfSub(vec4 arg) {
+    x = x - arg.x;
+    y = y - arg.y;
+    z = z - arg.z;
+    w = w - arg.w;
+    return this;
+  }
+  vec4 selfMul(vec4 arg) {
+    x = x * arg.x;
+    y = y * arg.y;
+    z = z * arg.z;
+    w = w * arg.w;
+    return this;
+  }
+  vec4 selfDiv(vec4 arg) {
+    x = x / arg.x;
+    y = y / arg.y;
+    z = z / arg.z;
+    w = w / arg.w;
+    return this;
+  }
+  vec4 Scale(num arg) {
+    x = x * arg;
+    y = y * arg;
+    z = z * arg;
+    w = w * arg;
+    return this;
+  }
+  vec4 selfNegate() {
+    x = -x;
+    y = -y;
+    z = -z;
+    w = -w;
+    return this;
+  }
 }

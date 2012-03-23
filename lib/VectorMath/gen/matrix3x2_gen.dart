@@ -32,20 +32,20 @@ class mat3x2 {
     col0 = new vec2();
     col1 = new vec2();
     col2 = new vec2();
-    col0[0] = 1.0;
-    col1[1] = 1.0;
+    col0.x = 1.0;
+    col1.y = 1.0;
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num) {
-      col0[0] = arg0;
-      col0[1] = arg1;
-      col1[0] = arg2;
-      col1[1] = arg3;
-      col2[0] = arg4;
-      col2[1] = arg5;
+      col0.x = arg0;
+      col0.y = arg1;
+      col1.x = arg2;
+      col1.y = arg3;
+      col2.x = arg4;
+      col2.y = arg5;
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null) {
-      col0[0] = arg0;
-      col1[1] = arg0;
+      col0.x = arg0;
+      col1.y = arg0;
       return;
     }
     if (arg0 is vec3 && arg1 is vec3 && arg2 is vec3) {
@@ -61,43 +61,72 @@ class mat3x2 {
       return;
     }
     if (arg0 is mat2x2) {
-      col0[0] = arg0.col0[0];
-      col0[1] = arg0.col0[1];
-      col1[0] = arg0.col1[0];
-      col1[1] = arg0.col1[1];
+      col0.x = arg0.col0.x;
+      col0.y = arg0.col0.y;
+      col1.x = arg0.col1.x;
+      col1.y = arg0.col1.y;
       return;
     }
     if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null) {
-      col0[0] = arg0[0];
-      col1[1] = arg0[1];
+      col0.x = arg0.x;
+      col1.y = arg0.y;
     }
   }
   /// Constructs a new [mat3x2] from computing the outer product of [u] and [v].
   mat3x2.outer(vec3 u, vec2 v) {
-    col0[0] = u[0] * v[0];
-    col0[1] = u[0] * v[1];
-    col1[0] = u[1] * v[0];
-    col1[1] = u[1] * v[1];
-    col2[0] = u[2] * v[0];
-    col2[1] = u[2] * v[1];
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
+    col0.x = u.x * v.x;
+    col0.y = u.x * v.y;
+    col1.x = u.y * v.x;
+    col1.y = u.y * v.y;
+    col2.x = u.z * v.x;
+    col2.y = u.z * v.y;
   }
   /// Constructs a new [mat3x2] filled with zeros.
   mat3x2.zero() {
-    col0[0] = 0.0;
-    col0[1] = 0.0;
-    col1[0] = 0.0;
-    col1[1] = 0.0;
-    col2[0] = 0.0;
-    col2[1] = 0.0;
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
+    col0.x = 0.0;
+    col0.y = 0.0;
+    col1.x = 0.0;
+    col1.y = 0.0;
+    col2.x = 0.0;
+    col2.y = 0.0;
+  }
+  /// Constructs a new identity [mat3x2].
+  mat3x2.identity() {
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
+    col0.x = 1.0;
+    col0.y = 0.0;
+    col1.x = 0.0;
+    col1.y = 1.0;
+    col2.x = 0.0;
+    col2.y = 0.0;
   }
   /// Constructs a new [mat3x2] which is a copy of [other].
   mat3x2.copy(mat3x2 other) {
-    col0[0] = other.col0[0];
-    col0[1] = other.col0[1];
-    col1[0] = other.col1[0];
-    col1[1] = other.col1[1];
-    col2[0] = other.col2[0];
-    col2[1] = other.col2[1];
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
+    col0.x = other.col0.x;
+    col0.y = other.col0.y;
+    col1.x = other.col1.x;
+    col1.y = other.col1.y;
+    col2.x = other.col2.x;
+    col2.y = other.col2.y;
+  }
+  mat3x2.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5) {
+    col0.x = arg0;
+    col0.y = arg1;
+    col1.x = arg2;
+    col1.y = arg3;
+    col2.x = arg4;
+    col2.y = arg5;
   }
   /// Returns a printable string
   String toString() {
@@ -143,17 +172,17 @@ class mat3x2 {
   /// Assigns the [column] of the matrix [arg]
   void setRow(int row, vec3 arg) {
     assert(row >= 0 && row < 2);
-    this[0][row] = arg[0];
-    this[1][row] = arg[1];
-    this[2][row] = arg[2];
+    col0[row] = arg.x;
+    col1[row] = arg.y;
+    col2[row] = arg.z;
   }
   /// Gets the [row] of the matrix
   vec3 getRow(int row) {
     assert(row >= 0 && row < 2);
     vec3 r = new vec3();
-    r[0] = this[0][row];
-    r[1] = this[1][row];
-    r[2] = this[2][row];
+    r.x = col0[row];
+    r.y = col1[row];
+    r.z = col2[row];
     return r;
   }
   /// Assigns the [column] of the matrix [arg]
@@ -170,12 +199,12 @@ class mat3x2 {
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
       mat3x2 r = new mat3x2();
-      r[0][0] = this[0][0] * arg;
-      r[0][1] = this[0][1] * arg;
-      r[1][0] = this[1][0] * arg;
-      r[1][1] = this[1][1] * arg;
-      r[2][0] = this[2][0] * arg;
-      r[2][1] = this[2][1] * arg;
+      r.col0.x = col0.x * arg;
+      r.col0.y = col0.y * arg;
+      r.col1.x = col1.x * arg;
+      r.col1.y = col1.y * arg;
+      r.col2.x = col2.x * arg;
+      r.col2.y = col2.y * arg;
       return r;
     }
     if (arg is vec3) {
@@ -211,23 +240,23 @@ class mat3x2 {
   /// Returns new matrix after component wise [this] + [arg]
   mat3x2 operator+(mat3x2 arg) {
     mat3x2 r = new mat3x2();
-    r[0][0] = this[0][0] + arg[0][0];
-    r[0][1] = this[0][1] + arg[0][1];
-    r[1][0] = this[1][0] + arg[1][0];
-    r[1][1] = this[1][1] + arg[1][1];
-    r[2][0] = this[2][0] + arg[2][0];
-    r[2][1] = this[2][1] + arg[2][1];
+    r.col0.x = col0.x + arg.col0.x;
+    r.col0.y = col0.y + arg.col0.y;
+    r.col1.x = col1.x + arg.col1.x;
+    r.col1.y = col1.y + arg.col1.y;
+    r.col2.x = col2.x + arg.col2.x;
+    r.col2.y = col2.y + arg.col2.y;
     return r;
   }
   /// Returns new matrix after component wise [this] - [arg]
   mat3x2 operator-(mat3x2 arg) {
     mat3x2 r = new mat3x2();
-    r[0][0] = this[0][0] - arg[0][0];
-    r[0][1] = this[0][1] - arg[0][1];
-    r[1][0] = this[1][0] - arg[1][0];
-    r[1][1] = this[1][1] - arg[1][1];
-    r[2][0] = this[2][0] - arg[2][0];
-    r[2][1] = this[2][1] - arg[2][1];
+    r.col0.x = col0.x - arg.col0.x;
+    r.col0.y = col0.y - arg.col0.y;
+    r.col1.x = col1.x - arg.col1.x;
+    r.col1.y = col1.y - arg.col1.y;
+    r.col2.x = col2.x - arg.col2.x;
+    r.col2.y = col2.y - arg.col2.y;
     return r;
   }
   /// Returns new matrix -this
@@ -241,23 +270,23 @@ class mat3x2 {
   /// Returns the tranpose of this.
   mat2x3 transposed() {
     mat2x3 r = new mat2x3();
-    r[0][0] = this[0][0];
-    r[1][0] = this[0][1];
-    r[2][0] = this[0][2];
-    r[0][1] = this[1][0];
-    r[1][1] = this[1][1];
-    r[2][1] = this[1][2];
+    r.col0.x = col0.x;
+    r.col0.y = col1.x;
+    r.col0.z = col2.x;
+    r.col1.x = col0.y;
+    r.col1.y = col1.y;
+    r.col1.z = col2.y;
     return r;
   }
   /// Returns the component wise absolute value of this.
   mat3x2 absolute() {
     mat3x2 r = new mat3x2();
-    r[0][0] = this[0][0].abs();
-    r[0][1] = this[0][1].abs();
-    r[1][0] = this[1][0].abs();
-    r[1][1] = this[1][1].abs();
-    r[2][0] = this[2][0].abs();
-    r[2][1] = this[2][1].abs();
+    r.col0.x = col0.x.abs();
+    r.col0.y = col0.y.abs();
+    r.col1.x = col1.x.abs();
+    r.col1.y = col1.y.abs();
+    r.col2.x = col2.x.abs();
+    r.col2.y = col2.y.abs();
     return r;
   }
   /// Returns infinity norm of the matrix. Used for numerical analysis.
