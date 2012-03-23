@@ -114,4 +114,7 @@ void main() {
   QuaternionTest qt = new QuaternionTest();
   
   qt.Test();
+  {
+    mat4x4 z = new mat4x4.identity();
+  }
 }
