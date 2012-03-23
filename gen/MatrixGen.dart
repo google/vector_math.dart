@@ -90,6 +90,40 @@ class MatrixGen {
 */''');
   }
   
+  String Access(int row, int col, [String pre = 'col']) {
+    assert(row < rows && row >= 0);
+    assert(col < cols && col >= 0);
+    String rowName = '';
+    if (row == 0) {
+      rowName = 'x';
+    } else if (row == 1) {
+      rowName = 'y';
+    } else if (row == 2) {
+      rowName = 'z';
+    } else if (row == 3) {
+      rowName = 'w';
+    } else {
+      assert(row < 4);
+    }
+    return '$pre$col.$rowName';
+  }
+  
+  String AccessV(int row) {
+    String rowName = '';
+    if (row == 0) {
+      rowName = 'x';
+    } else if (row == 1) {
+      rowName = 'y';
+    } else if (row == 2) {
+      rowName = 'z';
+    } else if (row == 3) {
+      rowName = 'w';
+    } else {
+      assert(row < 4 && row >= 0);
+    }
+    return rowName;
+  }
+  
   void generatePrologue() {
     iPrint('\/\/\/ ${matType} is a column major matrix where each column is represented by [$colVecType]. This matrix has $cols columns and $rows rows.');
     iPrint('class ${matType} {');
@@ -129,7 +163,7 @@ class MatrixGen {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         if (i == j) {
-          iPrint('col$i[$j] = 1.0;');  
+          iPrint('${Access(j, i)} = 1.0;');  
         }
       }
     }
@@ -138,7 +172,7 @@ class MatrixGen {
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('col$i[$j] = arg${(i*rows)+j};');
+        iPrint('${Access(j, i)} = arg${(i*rows)+j};');
       }
     }
     iPrint('return;');
@@ -150,7 +184,7 @@ class MatrixGen {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         if (i == j) {
-          iPrint('col$i[$j] = arg0;');  
+          iPrint('${Access(j, i)} = arg0;');  
         }
       }
     }
@@ -185,7 +219,7 @@ class MatrixGen {
         iPush();
         for (int k = 0; k < i; k++) {
           for (int l = 0; l < j; l++) {
-            iPrint('col$k[$l] = arg0.col$k[$l];');
+            iPrint('${Access(l, k)} = arg0.${Access(l, k)};');
           }
         }
         iPrint('return;');
@@ -199,7 +233,7 @@ class MatrixGen {
       iPrint('if (arg0 is vec${i+1} && ${joinStrings(arguments.getRange(1, numArguments-1), '', ' == null', ' && ')}) {');
       iPush();
       for (int j = 0; j < i+1; j++) {
-        iPrint('col$j[$j] = arg0[$j];');
+        iPrint('${Access(j, j)} = arg0.${AccessV(j)};');
       }
       iPop();
       iPrint('}');
@@ -213,8 +247,11 @@ class MatrixGen {
     iPrint('${matType}.outer(vec${cols} u, vec${rows} v) {');
     iPush();
     for (int i = 0; i < cols; i++) {
+      iPrint('col$i = new $colVecType();');
+    }
+    for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('col$i[$j] = u[$i] * v[$j];');
+        iPrint('${Access(j, i)} = u.${AccessV(i)} * v.${AccessV(j)};');
       }
     }
     iPop();
@@ -224,8 +261,29 @@ class MatrixGen {
     iPrint('${matType}.zero() {');
     iPush();
     for (int i = 0; i < cols; i++) {
+      iPrint('col$i = new $colVecType();');
+    }
+    for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('col$i[$j] = 0.0;');
+        iPrint('${Access(j, i)} = 0.0;');
+      }
+    }
+    iPop();
+    iPrint('}');
+    
+    iPrint('\/\/\/ Constructs a new identity [${matType}].');
+    iPrint('${matType}.identity() {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      iPrint('col$i = new $colVecType();');
+    }
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        if (i == j) {
+          iPrint('${Access(j, i)} = 1.0;');
+        } else {
+          iPrint('${Access(j, i)} = 0.0;');  
+        }
       }
     }
     iPop();
@@ -235,8 +293,11 @@ class MatrixGen {
     iPrint('${matType}.copy($matType other) {');
     iPush();
     for (int i = 0; i < cols; i++) {
+      iPrint('col$i = new $colVecType();');
+    }
+    for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('col$i[$j] = other.col$i[$j];');
+        iPrint('${Access(j, i)} = other.${Access(j, i)};');
       }
     }
     iPop();
@@ -246,6 +307,9 @@ class MatrixGen {
       iPrint('\/\/\/ Constructs a new [${matType}] representing a rotation by [radians].');
       iPrint('${matType}.rotation(num radians_) {');
       iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType();');
+      }
       iPrint('setRotation(radians_);');
       iPop();
       iPrint('}');  
@@ -255,6 +319,9 @@ class MatrixGen {
       iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the X axis');
       iPrint('${matType}.rotationX(num radians_) {');
       iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType();');
+      }
       iPrint('setRotationAroundX(radians_);');
       iPop();
       iPrint('}');
@@ -262,6 +329,9 @@ class MatrixGen {
       iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the Y axis');
       iPrint('${matType}.rotationY(num radians_) {');
       iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType();');
+      }
       iPrint('setRotationAroundY(radians_);');
       iPop();
       iPrint('}');
@@ -269,10 +339,23 @@ class MatrixGen {
       iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the Z axis');
       iPrint('${matType}.rotationZ(num radians_) {');
       iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType();');
+      }
       iPrint('setRotationAroundZ(radians_);');
       iPop();
       iPrint('}');
     }
+    
+    iPrint('${matType}.raw(${joinStrings(arguments, 'num ')}) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('${Access(j, i)} = arg${(i*rows)+j};');
+      }
+    }
+    iPop();
+    iPrint('}');
   }
   
   void generateRowColProperties() {
@@ -335,7 +418,7 @@ class MatrixGen {
     iPush();
     iPrint('assert(row >= 0 && row < $rows);');
     for (int i = 0; i < cols; i++) {
-      iPrint('this[$i][row] = arg[$i];');
+      iPrint('col$i[row] = arg.${AccessV(i)};');
     }
     iPop();
     iPrint('}');
@@ -346,7 +429,7 @@ class MatrixGen {
     iPrint('assert(row >= 0 && row < $rows);');
     iPrint('${rowVecType} r = new ${rowVecType}();');
     for (int i = 0; i < cols; i++) {
-      iPrint('r[$i] = this[$i][row];');
+      iPrint('r.${AccessV(i)} = col$i[row];');
     }
     iPrint('return r;');
     iPop();
@@ -428,7 +511,7 @@ class MatrixGen {
     iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('r[$i][$j] = this[$i][$j] * arg;');
+        iPrint('r.${Access(j, i)} = ${Access(j, i)} * arg;');
       }
     }
     iPrint('return r;');
@@ -465,7 +548,7 @@ class MatrixGen {
     iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('r[$i][$j] = this[$i][$j] $op arg[$i][$j];');
+        iPrint('r.${Access(j, i)} = ${Access(j, i)} $op arg.${Access(j, i)};');
       }
     }
     iPrint('return r;');
@@ -493,7 +576,7 @@ class MatrixGen {
     iPrint('${matTypeTransposed()} r = new ${matTypeTransposed()}();');
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        iPrint('r[$j][$i] = this[$i][$j];');
+        iPrint('r.${Access(j, i)} = ${Access(i, j)};');
       }
     }
     iPrint('return r;');
@@ -508,7 +591,7 @@ class MatrixGen {
     iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('r[$i][$j] = this[$i][$j].abs();');
+        iPrint('r.${Access(j, i)} = ${Access(j, i)}.abs();');
       }
     }
     iPrint('return r;');
@@ -531,7 +614,7 @@ class MatrixGen {
       iPrint('num determinant() {');
       iPush();
       iPrint('num x = col0.x*((col1.y*col2.z)-(col1.z*col2.y));');
-      iPrint('num y = col0.y*((col1.x*col2.z)-(coly.z*col2.x));');
+      iPrint('num y = col0.y*((col1.x*col2.z)-(col1.z*col2.x));');
       iPrint('num z = col0.z*((col1.x*col2.y)-(col1.y*col2.x));');
       iPrint('return x - y + z;');
       iPop();
@@ -565,7 +648,7 @@ class MatrixGen {
       iPush();
       iPrint('num t = 0.0;');
       for (int i = 0; i < cols; i++) {
-        iPrint('t += this[$i][$i];');
+        iPrint('t += ${Access(i, i)};');
       }
       iPrint('return t;');
       iPop();
@@ -660,9 +743,12 @@ class MatrixGen {
       iPrint('num temp;');
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-          iPrint('temp = this[$i][$j];');
-          iPrint('this[$i][$j] = this[$j][$i];');
-          iPrint('this[$j][$i] = temp;');
+          if (i == j) {
+            continue;
+          }
+          iPrint('temp = this.${Access(j, i)};');
+          iPrint('this.${Access(j, i)} = this.${Access(i, j)};');
+          iPrint('this.${Access(i, j)} = temp;');
         }
       }
       iPop();
@@ -727,7 +813,14 @@ class MatrixGen {
     } else if (rows == 4) {
       iPrint('num invert() {');
       iPush();
-      iPrint('double det = 0.0;');
+      iPrint('double det = determinant();');
+      iPrint('if (det == 0.0) {');
+      iPush();
+      iPrint('return 0.0;');
+      iPop();
+      iPrint('}');
+      iPrint('double invDet = 1.0 / det;');
+      iPrint('selfScaleAdjoint(invDet);');
       iPrint('return det;');
       iPop();
       iPrint('}');
@@ -892,6 +985,108 @@ class MatrixGen {
     }
   }
   
+  String generateInlineDet2(String a, String b, String c, String d) {
+    return '($a * $d - $b * $c)';
+  }
+  
+  String generateInlineDet3(String a1, String a2, String a3, String b1, String b2, String b3, String c1, String c2, String c3) {
+    return '$a1 * ${generateInlineDet2(b2, b3, c2, c3)} - $b1 - ${generateInlineDet2(a2, a3, c2, c3)} + c1 * ${generateInlineDet2(a2, a3, b2, b3)}';
+  }
+  
+  void generateAdjugate() {
+    if (rows != cols) {
+      return;
+    }
+    
+    iPrint('\/\/\/ Converts into Adjugate matrix and scales by [scale]');
+    if (rows == 2) {
+      iPrint('void selfScaleAdjoint(double scale) {');
+      iPush();
+      iPrint('double temp = ${Access(0, 0)};');
+      iPrint('${Access(0, 0)} = ${Access(1,1)} * scale;');
+      iPrint('${Access(1, 1)} = temp * scale;');
+      iPrint('temp = ${Access(0, 1)};');
+      iPrint('${Access(0, 1)} = ${Access(1,0)} * scale;');
+      iPrint('${Access(1, 0)} = temp * scale;');
+      iPop();
+      iPrint('}');
+    }
+    
+    if (cols == 3) {
+      iPrint('void selfScaleAdjoint(double scale) {');
+      iPush();
+      iPrint('double m00 = ${Access(0, 0)};');
+      iPrint('double m01 = ${Access(0, 1)};');
+      iPrint('double m02 = ${Access(0, 2)};');
+      iPrint('double m10 = ${Access(1, 0)};');
+      iPrint('double m11 = ${Access(1, 1)};');
+      iPrint('double m12 = ${Access(1, 2)};');
+      iPrint('double m20 = ${Access(2, 0)};');
+      iPrint('double m21 = ${Access(2, 1)};');
+      iPrint('double m22 = ${Access(2, 2)};');
+      iPrint('${Access(0, 0)} = (m11 * m22 - m12 * m21) * scale;');
+      iPrint('${Access(0, 1)} = (m12 * m20 - m10 * m22) * scale;');
+      iPrint('${Access(0, 2)} = (m10 * m21 - m11 * m20) * scale;');
+      
+      iPrint('${Access(1, 0)} = (m02 * m21 - m01 * m22) * scale;');
+      iPrint('${Access(1, 1)} = (m00 * m22 - m02 * m20) * scale;');
+      iPrint('${Access(1, 2)} = (m01 * m20 - m00 * m21) * scale;');
+      
+      iPrint('${Access(2, 0)} = (m01 * m12 - m02 * m11) * scale;');
+      iPrint('${Access(2, 1)} = (m02 * m10 - m00 * m12) * scale;');
+      iPrint('${Access(2, 2)} = (m00 * m00 - m01 * m10) * scale;');
+      iPop();
+      iPrint('}');
+    }
+    
+    if (cols == 4) {
+      iPrint('void selfScaleAdjoint(double scale) {');
+      iPush();
+      iPrint('\/\/ Adapted from code by Richard Carling.');
+      iPrint('double a1 = ${Access(0,0)};');
+      iPrint('double b1 = ${Access(0,1)};');
+      iPrint('double c1 = ${Access(0,2)};');
+      iPrint('double d1 = ${Access(0,3)};');
+
+      iPrint('double a2 = ${Access(1,0)};');
+      iPrint('double b2 = ${Access(1,1)};');
+      iPrint('double c2 = ${Access(1,2)};');
+      iPrint('double d2 = ${Access(1,3)};');
+
+      iPrint('double a3 = ${Access(2,0)};');
+      iPrint('double b3 = ${Access(2,1)};');
+      iPrint('double c3 = ${Access(2,2)};');
+      iPrint('double d3 = ${Access(2,3)};');
+
+      iPrint('double a4 = ${Access(3,0)};');
+      iPrint('double b4 = ${Access(3,1)};');
+      iPrint('double c4 = ${Access(3,2)};');
+      iPrint('double d4 = ${Access(3,3)};');
+      
+      
+      iPrint('${Access(0,0)}  =   (${generateInlineDet3( 'b2', 'b3', 'b4', 'c2', 'c3', 'c4', 'd2', 'd3', 'd4')}) * scale;');
+      iPrint('${Access(1,0)}  = - (${generateInlineDet3( 'a2', 'a3', 'a4', 'c2', 'c3', 'c4', 'd2', 'd3', 'd4')}) * scale;');
+      iPrint('${Access(2,0)}  =   (${generateInlineDet3( 'a2', 'a3', 'a4', 'b2', 'b3', 'b4', 'd2', 'd3', 'd4')}) * scale;');
+      iPrint('${Access(3,0)}  = - (${generateInlineDet3( 'a2', 'a3', 'a4', 'b2', 'b3', 'b4', 'c2', 'c3', 'c4')}) * scale;');
+          
+      iPrint('${Access(0,1)}  = - (${generateInlineDet3( 'b1', 'b3', 'b4', 'c1', 'c3', 'c4', 'd1', 'd3', 'd4')}) * scale;');
+      iPrint('${Access(1,1)}  =   (${generateInlineDet3( 'a1', 'a3', 'a4', 'c1', 'c3', 'c4', 'd1', 'd3', 'd4')}) * scale;');
+      iPrint('${Access(2,1)}  = - (${generateInlineDet3( 'a1', 'a3', 'a4', 'b1', 'b3', 'b4', 'd1', 'd3', 'd4')}) * scale;');
+      iPrint('${Access(3,1)}  =   (${generateInlineDet3( 'a1', 'a3', 'a4', 'b1', 'b3', 'b4', 'c1', 'c3', 'c4')}) * scale;');
+          
+      iPrint('${Access(0,2)}  =   (${generateInlineDet3( 'b1', 'b2', 'b4', 'c1', 'c2', 'c4', 'd1', 'd2', 'd4')}) * scale;');
+      iPrint('${Access(1,2)}  = - (${generateInlineDet3( 'a1', 'a2', 'a4', 'c1', 'c2', 'c4', 'd1', 'd2', 'd4')}) * scale;');
+      iPrint('${Access(2,2)}  =   (${generateInlineDet3( 'a1', 'a2', 'a4', 'b1', 'b2', 'b4', 'd1', 'd2', 'd4')}) * scale;');
+      iPrint('${Access(3,2)}  = - (${generateInlineDet3( 'a1', 'a2', 'a4', 'b1', 'b2', 'b4', 'c1', 'c2', 'c4')}) * scale;');
+          
+      iPrint('${Access(0,3)}  = - (${generateInlineDet3( 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1', 'd2', 'd3')}) * scale;');
+      iPrint('${Access(1,3)}  =   (${generateInlineDet3( 'a1', 'a2', 'a3', 'c1', 'c2', 'c3', 'd1', 'd2', 'd3')}) * scale;');
+      iPrint('${Access(2,3)}  = - (${generateInlineDet3( 'a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'd1', 'd2', 'd3')}) * scale;');
+      iPrint('${Access(3,3)}  =   (${generateInlineDet3( 'a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3')}) * scale;');
+      iPop();
+      iPrint('}');
+    }
+  }
   
   void generate() {
     writeLicense();
@@ -918,6 +1113,7 @@ class MatrixGen {
     generateRotation();
     generateInvert();
     generateSetRotation();
+    generateAdjugate();
     generateEpilogue();
   }
 }
