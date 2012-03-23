@@ -616,6 +616,40 @@ class VectorGenerator {
     iPop();
     iPrint('}');
   }
+  
+  void generateSelfScalarOp(String methodName, String op) {
+    iPrint('$generatedName $methodName(num arg) {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = $c $op arg;');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  void generateSelfOp(String methodName, String op) {
+    iPrint('$generatedName self$methodName($generatedName arg) {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = $c $op arg.$c;');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  void generateSelfNegate() {
+    iPrint('$generatedName selfNegate() {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = -$c;');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
   void generateEpilogue() {
     iPop();
     iPrint('}');
@@ -662,6 +696,12 @@ class VectorGenerator {
       }
       vectorComponents = backup;
     }
+    generateSelfOp('Add', '+');
+    generateSelfOp('Sub', '-');
+    generateSelfOp('Mul', '*');
+    generateSelfOp('Div', '/');
+    generateSelfScalarOp('Scale', '*');
+    generateSelfNegate();
     generateEpilogue();
   }
 }
