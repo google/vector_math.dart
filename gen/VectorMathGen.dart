@@ -655,6 +655,15 @@ class VectorGenerator {
     iPrint('}');
   }
   
+  void generateCopy() {
+    iPrint('$generatedName copy() {');
+    iPush();
+    iPrint('$generatedName c = new ${generatedName}.copy(this);');
+    iPrint('return c');
+    iPop();
+    iPrint('}');
+  }
+  
   void generate() {
     writeLicense();
     generatePrologue();
@@ -702,6 +711,7 @@ class VectorGenerator {
     generateSelfOp('Div', '/');
     generateSelfScalarOp('Scale', '*');
     generateSelfNegate();
+    generateCopy();
     generateEpilogue();
   }
 }
