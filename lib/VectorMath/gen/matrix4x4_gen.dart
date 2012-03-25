@@ -792,4 +792,185 @@ class mat4x4 {
   mat4x4 copy() {
     return new mat4x4.copy(this);
   }
+  mat4x4 selfAdd(mat4x4 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col0.z = col0.z + o.col0.z;
+    col0.w = col0.w + o.col0.w;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    col1.z = col1.z + o.col1.z;
+    col1.w = col1.w + o.col1.w;
+    col2.x = col2.x + o.col2.x;
+    col2.y = col2.y + o.col2.y;
+    col2.z = col2.z + o.col2.z;
+    col2.w = col2.w + o.col2.w;
+    col3.x = col3.x + o.col3.x;
+    col3.y = col3.y + o.col3.y;
+    col3.z = col3.z + o.col3.z;
+    col3.w = col3.w + o.col3.w;
+    return this;
+  }
+  mat4x4 selfSub(mat4x4 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col0.z = col0.z - o.col0.z;
+    col0.w = col0.w - o.col0.w;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    col1.z = col1.z - o.col1.z;
+    col1.w = col1.w - o.col1.w;
+    col2.x = col2.x - o.col2.x;
+    col2.y = col2.y - o.col2.y;
+    col2.z = col2.z - o.col2.z;
+    col2.w = col2.w - o.col2.w;
+    col3.x = col3.x - o.col3.x;
+    col3.y = col3.y - o.col3.y;
+    col3.z = col3.z - o.col3.z;
+    col3.w = col3.w - o.col3.w;
+    return this;
+  }
+  mat4x4 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col0.z = col0.z * o;
+    col0.w = col0.w * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    col1.z = col1.z * o;
+    col1.w = col1.w * o;
+    col2.x = col2.x * o;
+    col2.y = col2.y * o;
+    col2.z = col2.z * o;
+    col2.w = col2.w * o;
+    col3.x = col3.x * o;
+    col3.y = col3.y * o;
+    col3.z = col3.z * o;
+    col3.w = col3.w * o;
+    return this;
+  }
+  mat4x4 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col0.z = -col0.z;
+    col0.w = -col0.w;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    col1.z = -col1.z;
+    col1.w = -col1.w;
+    col2.x = -col2.x;
+    col2.y = -col2.y;
+    col2.z = -col2.z;
+    col2.w = -col2.w;
+    col3.x = -col3.x;
+    col3.y = -col3.y;
+    col3.z = -col3.z;
+    col3.w = -col3.w;
+    return this;
+  }
+  mat4x4 selfMultiply(mat4x4 arg) {
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m02 = col2.x;
+    double m03 = col3.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
+    double m12 = col2.y;
+    double m13 = col3.y;
+    double m20 = col0.z;
+    double m21 = col1.z;
+    double m22 = col2.z;
+    double m23 = col3.z;
+    double m30 = col0.w;
+    double m31 = col1.w;
+    double m32 = col2.w;
+    double m33 = col3.w;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z) + (m03 * arg.col0.w);
+    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z) + (m03 * arg.col1.w);
+    col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z) + (m03 * arg.col2.w);
+    col3.x =  (m00 * arg.col3.x) + (m01 * arg.col3.y) + (m02 * arg.col3.z) + (m03 * arg.col3.w);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y) + (m12 * arg.col0.z) + (m13 * arg.col0.w);
+    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y) + (m12 * arg.col1.z) + (m13 * arg.col1.w);
+    col2.y =  (m10 * arg.col2.x) + (m11 * arg.col2.y) + (m12 * arg.col2.z) + (m13 * arg.col2.w);
+    col3.y =  (m10 * arg.col3.x) + (m11 * arg.col3.y) + (m12 * arg.col3.z) + (m13 * arg.col3.w);
+    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col0.y) + (m22 * arg.col0.z) + (m23 * arg.col0.w);
+    col1.z =  (m20 * arg.col1.x) + (m21 * arg.col1.y) + (m22 * arg.col1.z) + (m23 * arg.col1.w);
+    col2.z =  (m20 * arg.col2.x) + (m21 * arg.col2.y) + (m22 * arg.col2.z) + (m23 * arg.col2.w);
+    col3.z =  (m20 * arg.col3.x) + (m21 * arg.col3.y) + (m22 * arg.col3.z) + (m23 * arg.col3.w);
+    col0.w =  (m30 * arg.col0.x) + (m31 * arg.col0.y) + (m32 * arg.col0.z) + (m33 * arg.col0.w);
+    col1.w =  (m30 * arg.col1.x) + (m31 * arg.col1.y) + (m32 * arg.col1.z) + (m33 * arg.col1.w);
+    col2.w =  (m30 * arg.col2.x) + (m31 * arg.col2.y) + (m32 * arg.col2.z) + (m33 * arg.col2.w);
+    col3.w =  (m30 * arg.col3.x) + (m31 * arg.col3.y) + (m32 * arg.col3.z) + (m33 * arg.col3.w);
+    return this;
+  }
+  mat4x4 selfTransposeMultiply(mat4x4 arg) {
+    double m00 = col0.x;
+    double m01 = col0.y;
+    double m02 = col0.z;
+    double m03 = col0.w;
+    double m10 = col1.x;
+    double m11 = col1.y;
+    double m12 = col1.z;
+    double m13 = col1.w;
+    double m20 = col2.x;
+    double m21 = col2.y;
+    double m22 = col2.z;
+    double m23 = col2.w;
+    double m30 = col3.x;
+    double m31 = col3.y;
+    double m32 = col3.z;
+    double m33 = col3.w;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z) + (m03 * arg.col0.w);
+    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z) + (m03 * arg.col1.w);
+    col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z) + (m03 * arg.col2.w);
+    col3.x =  (m00 * arg.col3.x) + (m01 * arg.col3.y) + (m02 * arg.col3.z) + (m03 * arg.col3.w);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y) + (m12 * arg.col0.z) + (m13 * arg.col0.w);
+    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y) + (m12 * arg.col1.z) + (m13 * arg.col1.w);
+    col2.y =  (m10 * arg.col2.x) + (m11 * arg.col2.y) + (m12 * arg.col2.z) + (m13 * arg.col2.w);
+    col3.y =  (m10 * arg.col3.x) + (m11 * arg.col3.y) + (m12 * arg.col3.z) + (m13 * arg.col3.w);
+    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col0.y) + (m22 * arg.col0.z) + (m23 * arg.col0.w);
+    col1.z =  (m20 * arg.col1.x) + (m21 * arg.col1.y) + (m22 * arg.col1.z) + (m23 * arg.col1.w);
+    col2.z =  (m20 * arg.col2.x) + (m21 * arg.col2.y) + (m22 * arg.col2.z) + (m23 * arg.col2.w);
+    col3.z =  (m20 * arg.col3.x) + (m21 * arg.col3.y) + (m22 * arg.col3.z) + (m23 * arg.col3.w);
+    col0.w =  (m30 * arg.col0.x) + (m31 * arg.col0.y) + (m32 * arg.col0.z) + (m33 * arg.col0.w);
+    col1.w =  (m30 * arg.col1.x) + (m31 * arg.col1.y) + (m32 * arg.col1.z) + (m33 * arg.col1.w);
+    col2.w =  (m30 * arg.col2.x) + (m31 * arg.col2.y) + (m32 * arg.col2.z) + (m33 * arg.col2.w);
+    col3.w =  (m30 * arg.col3.x) + (m31 * arg.col3.y) + (m32 * arg.col3.z) + (m33 * arg.col3.w);
+    return this;
+  }
+  mat4x4 selfMultiplyTranpose(mat4x4 arg) {
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m02 = col2.x;
+    double m03 = col3.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
+    double m12 = col2.y;
+    double m13 = col3.y;
+    double m20 = col0.z;
+    double m21 = col1.z;
+    double m22 = col2.z;
+    double m23 = col3.z;
+    double m30 = col0.w;
+    double m31 = col1.w;
+    double m32 = col2.w;
+    double m33 = col3.w;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x) + (m02 * arg.col2.x) + (m03 * arg.col3.x);
+    col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y) + (m02 * arg.col2.y) + (m03 * arg.col3.y);
+    col2.x =  (m00 * arg.col0.z) + (m01 * arg.col1.z) + (m02 * arg.col2.z) + (m03 * arg.col3.z);
+    col3.x =  (m00 * arg.col0.w) + (m01 * arg.col1.w) + (m02 * arg.col2.w) + (m03 * arg.col3.w);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x) + (m12 * arg.col2.x) + (m13 * arg.col3.x);
+    col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y) + (m12 * arg.col2.y) + (m13 * arg.col3.y);
+    col2.y =  (m10 * arg.col0.z) + (m11 * arg.col1.z) + (m12 * arg.col2.z) + (m13 * arg.col3.z);
+    col3.y =  (m10 * arg.col0.w) + (m11 * arg.col1.w) + (m12 * arg.col2.w) + (m13 * arg.col3.w);
+    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col1.x) + (m22 * arg.col2.x) + (m23 * arg.col3.x);
+    col1.z =  (m20 * arg.col0.y) + (m21 * arg.col1.y) + (m22 * arg.col2.y) + (m23 * arg.col3.y);
+    col2.z =  (m20 * arg.col0.z) + (m21 * arg.col1.z) + (m22 * arg.col2.z) + (m23 * arg.col3.z);
+    col3.z =  (m20 * arg.col0.w) + (m21 * arg.col1.w) + (m22 * arg.col2.w) + (m23 * arg.col3.w);
+    col0.w =  (m30 * arg.col0.x) + (m31 * arg.col1.x) + (m32 * arg.col2.x) + (m33 * arg.col3.x);
+    col1.w =  (m30 * arg.col0.y) + (m31 * arg.col1.y) + (m32 * arg.col2.y) + (m33 * arg.col3.y);
+    col2.w =  (m30 * arg.col0.z) + (m31 * arg.col1.z) + (m32 * arg.col2.z) + (m33 * arg.col3.z);
+    col3.w =  (m30 * arg.col0.w) + (m31 * arg.col1.w) + (m32 * arg.col2.w) + (m33 * arg.col3.w);
+    return this;
+  }
 }

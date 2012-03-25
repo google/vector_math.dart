@@ -328,4 +328,65 @@ class mat2x2 {
   mat2x2 copy() {
     return new mat2x2.copy(this);
   }
+  mat2x2 selfAdd(mat2x2 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    return this;
+  }
+  mat2x2 selfSub(mat2x2 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    return this;
+  }
+  mat2x2 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    return this;
+  }
+  mat2x2 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    return this;
+  }
+  mat2x2 selfMultiply(mat2x2 arg) {
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
+    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
+    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y);
+    return this;
+  }
+  mat2x2 selfTransposeMultiply(mat2x2 arg) {
+    double m00 = col0.x;
+    double m01 = col0.y;
+    double m10 = col1.x;
+    double m11 = col1.y;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
+    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
+    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y);
+    return this;
+  }
+  mat2x2 selfMultiplyTranpose(mat2x2 arg) {
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x);
+    col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x);
+    col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y);
+    return this;
+  }
 }

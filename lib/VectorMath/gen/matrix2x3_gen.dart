@@ -317,4 +317,40 @@ class mat2x3 {
   mat2x3 copy() {
     return new mat2x3.copy(this);
   }
+  mat2x3 selfAdd(mat2x3 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col0.z = col0.z + o.col0.z;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    col1.z = col1.z + o.col1.z;
+    return this;
+  }
+  mat2x3 selfSub(mat2x3 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col0.z = col0.z - o.col0.z;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    col1.z = col1.z - o.col1.z;
+    return this;
+  }
+  mat2x3 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col0.z = col0.z * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    col1.z = col1.z * o;
+    return this;
+  }
+  mat2x3 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col0.z = -col0.z;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    col1.z = -col1.z;
+    return this;
+  }
 }

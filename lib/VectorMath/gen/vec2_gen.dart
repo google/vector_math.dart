@@ -290,4 +290,8 @@ class vec2 {
     y = -y;
     return this;
   }
+  vec2 copy() {
+    vec2 c = new vec2.copy(this);
+    return c
+  }
 }

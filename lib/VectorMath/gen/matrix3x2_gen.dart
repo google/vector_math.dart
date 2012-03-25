@@ -332,4 +332,40 @@ class mat3x2 {
   mat3x2 copy() {
     return new mat3x2.copy(this);
   }
+  mat3x2 selfAdd(mat3x2 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    col2.x = col2.x + o.col2.x;
+    col2.y = col2.y + o.col2.y;
+    return this;
+  }
+  mat3x2 selfSub(mat3x2 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    col2.x = col2.x - o.col2.x;
+    col2.y = col2.y - o.col2.y;
+    return this;
+  }
+  mat3x2 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    col2.x = col2.x * o;
+    col2.y = col2.y * o;
+    return this;
+  }
+  mat3x2 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    col2.x = -col2.x;
+    col2.y = -col2.y;
+    return this;
+  }
 }

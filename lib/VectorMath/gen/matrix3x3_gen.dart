@@ -522,4 +522,115 @@ class mat3x3 {
   mat3x3 copy() {
     return new mat3x3.copy(this);
   }
+  mat3x3 selfAdd(mat3x3 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col0.z = col0.z + o.col0.z;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    col1.z = col1.z + o.col1.z;
+    col2.x = col2.x + o.col2.x;
+    col2.y = col2.y + o.col2.y;
+    col2.z = col2.z + o.col2.z;
+    return this;
+  }
+  mat3x3 selfSub(mat3x3 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col0.z = col0.z - o.col0.z;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    col1.z = col1.z - o.col1.z;
+    col2.x = col2.x - o.col2.x;
+    col2.y = col2.y - o.col2.y;
+    col2.z = col2.z - o.col2.z;
+    return this;
+  }
+  mat3x3 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col0.z = col0.z * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    col1.z = col1.z * o;
+    col2.x = col2.x * o;
+    col2.y = col2.y * o;
+    col2.z = col2.z * o;
+    return this;
+  }
+  mat3x3 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col0.z = -col0.z;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    col1.z = -col1.z;
+    col2.x = -col2.x;
+    col2.y = -col2.y;
+    col2.z = -col2.z;
+    return this;
+  }
+  mat3x3 selfMultiply(mat3x3 arg) {
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m02 = col2.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
+    double m12 = col2.y;
+    double m20 = col0.z;
+    double m21 = col1.z;
+    double m22 = col2.z;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z);
+    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z);
+    col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y) + (m12 * arg.col0.z);
+    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y) + (m12 * arg.col1.z);
+    col2.y =  (m10 * arg.col2.x) + (m11 * arg.col2.y) + (m12 * arg.col2.z);
+    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col0.y) + (m22 * arg.col0.z);
+    col1.z =  (m20 * arg.col1.x) + (m21 * arg.col1.y) + (m22 * arg.col1.z);
+    col2.z =  (m20 * arg.col2.x) + (m21 * arg.col2.y) + (m22 * arg.col2.z);
+    return this;
+  }
+  mat3x3 selfTransposeMultiply(mat3x3 arg) {
+    double m00 = col0.x;
+    double m01 = col0.y;
+    double m02 = col0.z;
+    double m10 = col1.x;
+    double m11 = col1.y;
+    double m12 = col1.z;
+    double m20 = col2.x;
+    double m21 = col2.y;
+    double m22 = col2.z;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z);
+    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z);
+    col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y) + (m12 * arg.col0.z);
+    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y) + (m12 * arg.col1.z);
+    col2.y =  (m10 * arg.col2.x) + (m11 * arg.col2.y) + (m12 * arg.col2.z);
+    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col0.y) + (m22 * arg.col0.z);
+    col1.z =  (m20 * arg.col1.x) + (m21 * arg.col1.y) + (m22 * arg.col1.z);
+    col2.z =  (m20 * arg.col2.x) + (m21 * arg.col2.y) + (m22 * arg.col2.z);
+    return this;
+  }
+  mat3x3 selfMultiplyTranpose(mat3x3 arg) {
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m02 = col2.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
+    double m12 = col2.y;
+    double m20 = col0.z;
+    double m21 = col1.z;
+    double m22 = col2.z;
+    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x) + (m02 * arg.col2.x);
+    col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y) + (m02 * arg.col2.y);
+    col2.x =  (m00 * arg.col0.z) + (m01 * arg.col1.z) + (m02 * arg.col2.z);
+    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x) + (m12 * arg.col2.x);
+    col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y) + (m12 * arg.col2.y);
+    col2.y =  (m10 * arg.col0.z) + (m11 * arg.col1.z) + (m12 * arg.col2.z);
+    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col1.x) + (m22 * arg.col2.x);
+    col1.z =  (m20 * arg.col0.y) + (m21 * arg.col1.y) + (m22 * arg.col2.y);
+    col2.z =  (m20 * arg.col0.z) + (m21 * arg.col1.z) + (m22 * arg.col2.z);
+    return this;
+  }
 }

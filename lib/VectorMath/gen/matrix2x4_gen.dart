@@ -356,4 +356,48 @@ class mat2x4 {
   mat2x4 copy() {
     return new mat2x4.copy(this);
   }
+  mat2x4 selfAdd(mat2x4 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col0.z = col0.z + o.col0.z;
+    col0.w = col0.w + o.col0.w;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    col1.z = col1.z + o.col1.z;
+    col1.w = col1.w + o.col1.w;
+    return this;
+  }
+  mat2x4 selfSub(mat2x4 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col0.z = col0.z - o.col0.z;
+    col0.w = col0.w - o.col0.w;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    col1.z = col1.z - o.col1.z;
+    col1.w = col1.w - o.col1.w;
+    return this;
+  }
+  mat2x4 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col0.z = col0.z * o;
+    col0.w = col0.w * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    col1.z = col1.z * o;
+    col1.w = col1.w * o;
+    return this;
+  }
+  mat2x4 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col0.z = -col0.z;
+    col0.w = -col0.w;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    col1.z = -col1.z;
+    col1.w = -col1.w;
+    return this;
+  }
 }

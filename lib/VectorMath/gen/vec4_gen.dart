@@ -2184,4 +2184,8 @@ class vec4 {
     w = -w;
     return this;
   }
+  vec4 copy() {
+    vec4 c = new vec4.copy(this);
+    return c
+  }
 }

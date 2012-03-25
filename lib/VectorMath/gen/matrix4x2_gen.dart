@@ -386,4 +386,48 @@ class mat4x2 {
   mat4x2 copy() {
     return new mat4x2.copy(this);
   }
+  mat4x2 selfAdd(mat4x2 o) {
+    col0.x = col0.x + o.col0.x;
+    col0.y = col0.y + o.col0.y;
+    col1.x = col1.x + o.col1.x;
+    col1.y = col1.y + o.col1.y;
+    col2.x = col2.x + o.col2.x;
+    col2.y = col2.y + o.col2.y;
+    col3.x = col3.x + o.col3.x;
+    col3.y = col3.y + o.col3.y;
+    return this;
+  }
+  mat4x2 selfSub(mat4x2 o) {
+    col0.x = col0.x - o.col0.x;
+    col0.y = col0.y - o.col0.y;
+    col1.x = col1.x - o.col1.x;
+    col1.y = col1.y - o.col1.y;
+    col2.x = col2.x - o.col2.x;
+    col2.y = col2.y - o.col2.y;
+    col3.x = col3.x - o.col3.x;
+    col3.y = col3.y - o.col3.y;
+    return this;
+  }
+  mat4x2 selfScale(num o) {
+    col0.x = col0.x * o;
+    col0.y = col0.y * o;
+    col1.x = col1.x * o;
+    col1.y = col1.y * o;
+    col2.x = col2.x * o;
+    col2.y = col2.y * o;
+    col3.x = col3.x * o;
+    col3.y = col3.y * o;
+    return this;
+  }
+  mat4x2 selfNegate() {
+    col0.x = -col0.x;
+    col0.y = -col0.y;
+    col1.x = -col1.x;
+    col1.y = -col1.y;
+    col2.x = -col2.x;
+    col2.y = -col2.y;
+    col3.x = -col3.x;
+    col3.y = -col3.y;
+    return this;
+  }
 }

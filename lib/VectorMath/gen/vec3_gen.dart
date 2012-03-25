@@ -732,4 +732,8 @@ class vec3 {
     z = -z;
     return this;
   }
+  vec3 copy() {
+    vec3 c = new vec3.copy(this);
+    return c
+  }
 }
