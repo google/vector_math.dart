@@ -350,6 +350,9 @@ class MatrixGen {
     iPrint('${matType}.raw(${joinStrings(arguments, 'num ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
+      iPrint('col$i = new $colVecType();');
+    }
+    for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('${Access(j, i)} = arg${(i*rows)+j};');
       }
