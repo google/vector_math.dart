@@ -321,9 +321,11 @@ class mat2x2 {
   void selfScaleAdjoint(double scale) {
     double temp = col0.x;
     col0.x = col1.y * scale;
+    col1.x = - col1.x * scale;
+    col0.y = - col0.y * scale;
     col1.y = temp * scale;
-    temp = col1.x;
-    col1.x = col0.y * scale;
-    col0.y = temp * scale;
+  }
+  mat2x2 copy() {
+    return new mat2x2.copy(this);
   }
 }

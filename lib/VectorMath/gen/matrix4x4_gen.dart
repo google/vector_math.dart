@@ -772,21 +772,24 @@ class mat4x4 {
     double b4 = col1.w;
     double c4 = col2.w;
     double d4 = col3.w;
-    col0.x  =   (b2 * (c3 * d4 - c4 * d3) - c2 - (b3 * d4 - b4 * d3) + c1 * (b3 * c4 - b4 * c3)) * scale;
-    col0.y  = - (a2 * (c3 * d4 - c4 * d3) - c2 - (a3 * d4 - a4 * d3) + c1 * (a3 * c4 - a4 * c3)) * scale;
-    col0.z  =   (a2 * (b3 * d4 - b4 * d3) - b2 - (a3 * d4 - a4 * d3) + c1 * (a3 * b4 - a4 * b3)) * scale;
-    col0.w  = - (a2 * (b3 * c4 - b4 * c3) - b2 - (a3 * c4 - a4 * c3) + c1 * (a3 * b4 - a4 * b3)) * scale;
-    col1.x  = - (b1 * (c3 * d4 - c4 * d3) - c1 - (b3 * d4 - b4 * d3) + c1 * (b3 * c4 - b4 * c3)) * scale;
-    col1.y  =   (a1 * (c3 * d4 - c4 * d3) - c1 - (a3 * d4 - a4 * d3) + c1 * (a3 * c4 - a4 * c3)) * scale;
-    col1.z  = - (a1 * (b3 * d4 - b4 * d3) - b1 - (a3 * d4 - a4 * d3) + c1 * (a3 * b4 - a4 * b3)) * scale;
-    col1.w  =   (a1 * (b3 * c4 - b4 * c3) - b1 - (a3 * c4 - a4 * c3) + c1 * (a3 * b4 - a4 * b3)) * scale;
-    col2.x  =   (b1 * (c2 * d4 - c4 * d2) - c1 - (b2 * d4 - b4 * d2) + c1 * (b2 * c4 - b4 * c2)) * scale;
-    col2.y  = - (a1 * (c2 * d4 - c4 * d2) - c1 - (a2 * d4 - a4 * d2) + c1 * (a2 * c4 - a4 * c2)) * scale;
-    col2.z  =   (a1 * (b2 * d4 - b4 * d2) - b1 - (a2 * d4 - a4 * d2) + c1 * (a2 * b4 - a4 * b2)) * scale;
-    col2.w  = - (a1 * (b2 * c4 - b4 * c2) - b1 - (a2 * c4 - a4 * c2) + c1 * (a2 * b4 - a4 * b2)) * scale;
-    col3.x  = - (b1 * (c2 * d3 - c3 * d2) - c1 - (b2 * d3 - b3 * d2) + c1 * (b2 * c3 - b3 * c2)) * scale;
-    col3.y  =   (a1 * (c2 * d3 - c3 * d2) - c1 - (a2 * d3 - a3 * d2) + c1 * (a2 * c3 - a3 * c2)) * scale;
-    col3.z  = - (a1 * (b2 * d3 - b3 * d2) - b1 - (a2 * d3 - a3 * d2) + c1 * (a2 * b3 - a3 * b2)) * scale;
-    col3.w  =   (a1 * (b2 * c3 - b3 * c2) - b1 - (a2 * c3 - a3 * c2) + c1 * (a2 * b3 - a3 * b2)) * scale;
+    col0.x  =   (b2 * (c3 * d4 - c4 * d3) - c2 * (b3 * d4 - b4 * d3) + d2 * (b3 * c4 - b4 * c3)) * scale;
+    col0.y  = - (a2 * (c3 * d4 - c4 * d3) - c2 * (a3 * d4 - a4 * d3) + d2 * (a3 * c4 - a4 * c3)) * scale;
+    col0.z  =   (a2 * (b3 * d4 - b4 * d3) - b2 * (a3 * d4 - a4 * d3) + d2 * (a3 * b4 - a4 * b3)) * scale;
+    col0.w  = - (a2 * (b3 * c4 - b4 * c3) - b2 * (a3 * c4 - a4 * c3) + c2 * (a3 * b4 - a4 * b3)) * scale;
+    col1.x  = - (b1 * (c3 * d4 - c4 * d3) - c1 * (b3 * d4 - b4 * d3) + d1 * (b3 * c4 - b4 * c3)) * scale;
+    col1.y  =   (a1 * (c3 * d4 - c4 * d3) - c1 * (a3 * d4 - a4 * d3) + d1 * (a3 * c4 - a4 * c3)) * scale;
+    col1.z  = - (a1 * (b3 * d4 - b4 * d3) - b1 * (a3 * d4 - a4 * d3) + d1 * (a3 * b4 - a4 * b3)) * scale;
+    col1.w  =   (a1 * (b3 * c4 - b4 * c3) - b1 * (a3 * c4 - a4 * c3) + c1 * (a3 * b4 - a4 * b3)) * scale;
+    col2.x  =   (b1 * (c2 * d4 - c4 * d2) - c1 * (b2 * d4 - b4 * d2) + d1 * (b2 * c4 - b4 * c2)) * scale;
+    col2.y  = - (a1 * (c2 * d4 - c4 * d2) - c1 * (a2 * d4 - a4 * d2) + d1 * (a2 * c4 - a4 * c2)) * scale;
+    col2.z  =   (a1 * (b2 * d4 - b4 * d2) - b1 * (a2 * d4 - a4 * d2) + d1 * (a2 * b4 - a4 * b2)) * scale;
+    col2.w  = - (a1 * (b2 * c4 - b4 * c2) - b1 * (a2 * c4 - a4 * c2) + c1 * (a2 * b4 - a4 * b2)) * scale;
+    col3.x  = - (b1 * (c2 * d3 - c3 * d2) - c1 * (b2 * d3 - b3 * d2) + d1 * (b2 * c3 - b3 * c2)) * scale;
+    col3.y  =   (a1 * (c2 * d3 - c3 * d2) - c1 * (a2 * d3 - a3 * d2) + d1 * (a2 * c3 - a3 * c2)) * scale;
+    col3.z  = - (a1 * (b2 * d3 - b3 * d2) - b1 * (a2 * d3 - a3 * d2) + d1 * (a2 * b3 - a3 * b2)) * scale;
+    col3.w  =   (a1 * (b2 * c3 - b3 * c2) - b1 * (a2 * c3 - a3 * c2) + c1 * (a2 * b3 - a3 * b2)) * scale;
+  }
+  mat4x4 copy() {
+    return new mat4x4.copy(this);
   }
 }

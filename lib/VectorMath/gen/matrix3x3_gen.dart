@@ -510,13 +510,16 @@ class mat3x3 {
     double m21 = col1.z;
     double m22 = col2.z;
     col0.x = (m11 * m22 - m12 * m21) * scale;
-    col1.x = (m12 * m20 - m10 * m22) * scale;
-    col2.x = (m10 * m21 - m11 * m20) * scale;
-    col0.y = (m02 * m21 - m01 * m22) * scale;
+    col0.y = (m12 * m20 - m10 * m22) * scale;
+    col0.z = (m10 * m21 - m11 * m20) * scale;
+    col1.x = (m02 * m21 - m01 * m22) * scale;
     col1.y = (m00 * m22 - m02 * m20) * scale;
-    col2.y = (m01 * m20 - m00 * m21) * scale;
-    col0.z = (m01 * m12 - m02 * m11) * scale;
-    col1.z = (m02 * m10 - m00 * m12) * scale;
+    col1.z = (m01 * m20 - m00 * m21) * scale;
+    col2.x = (m01 * m12 - m02 * m11) * scale;
+    col2.y = (m02 * m10 - m00 * m12) * scale;
     col2.z = (m00 * m00 - m01 * m10) * scale;
+  }
+  mat3x3 copy() {
+    return new mat3x3.copy(this);
   }
 }

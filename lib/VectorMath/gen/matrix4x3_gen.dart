@@ -476,4 +476,7 @@ class mat4x3 {
     num diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
   }
+  mat4x3 copy() {
+    return new mat4x3.copy(this);
+  }
 }

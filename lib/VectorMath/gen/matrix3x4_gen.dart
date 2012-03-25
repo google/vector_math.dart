@@ -461,4 +461,7 @@ class mat3x4 {
     num diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
   }
+  mat3x4 copy() {
+    return new mat3x4.copy(this);
+  }
 }
