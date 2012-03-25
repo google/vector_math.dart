@@ -993,7 +993,7 @@ class MatrixGen {
   }
   
   String generateInlineDet3(String a1, String a2, String a3, String b1, String b2, String b3, String c1, String c2, String c3) {
-    return '$a1 * ${generateInlineDet2(b2, b3, c2, c3)} - $b1 - ${generateInlineDet2(a2, a3, c2, c3)} + c1 * ${generateInlineDet2(a2, a3, b2, b3)}';
+    return '($a1 * ${generateInlineDet2(b2, b3, c2, c3)} - $b1 * ${generateInlineDet2(a2, a3, c2, c3)} + $c1 * ${generateInlineDet2(a2, a3, b2, b3)})';
   }
   
   void generateAdjugate() {
@@ -1007,10 +1007,9 @@ class MatrixGen {
       iPush();
       iPrint('double temp = ${Access(0, 0)};');
       iPrint('${Access(0, 0)} = ${Access(1,1)} * scale;');
+      iPrint('${Access(0, 1)} = - ${Access(0,1)} * scale;');
+      iPrint('${Access(1, 0)} = - ${Access(1, 0)} * scale;');
       iPrint('${Access(1, 1)} = temp * scale;');
-      iPrint('temp = ${Access(0, 1)};');
-      iPrint('${Access(0, 1)} = ${Access(1,0)} * scale;');
-      iPrint('${Access(1, 0)} = temp * scale;');
       iPop();
       iPrint('}');
     }
@@ -1028,15 +1027,15 @@ class MatrixGen {
       iPrint('double m21 = ${Access(2, 1)};');
       iPrint('double m22 = ${Access(2, 2)};');
       iPrint('${Access(0, 0)} = (m11 * m22 - m12 * m21) * scale;');
-      iPrint('${Access(0, 1)} = (m12 * m20 - m10 * m22) * scale;');
-      iPrint('${Access(0, 2)} = (m10 * m21 - m11 * m20) * scale;');
+      iPrint('${Access(1, 0)} = (m12 * m20 - m10 * m22) * scale;');
+      iPrint('${Access(2, 0)} = (m10 * m21 - m11 * m20) * scale;');
       
-      iPrint('${Access(1, 0)} = (m02 * m21 - m01 * m22) * scale;');
+      iPrint('${Access(0, 1)} = (m02 * m21 - m01 * m22) * scale;');
       iPrint('${Access(1, 1)} = (m00 * m22 - m02 * m20) * scale;');
-      iPrint('${Access(1, 2)} = (m01 * m20 - m00 * m21) * scale;');
+      iPrint('${Access(2, 1)} = (m01 * m20 - m00 * m21) * scale;');
       
-      iPrint('${Access(2, 0)} = (m01 * m12 - m02 * m11) * scale;');
-      iPrint('${Access(2, 1)} = (m02 * m10 - m00 * m12) * scale;');
+      iPrint('${Access(0, 2)} = (m01 * m12 - m02 * m11) * scale;');
+      iPrint('${Access(1, 2)} = (m02 * m10 - m00 * m12) * scale;');
       iPrint('${Access(2, 2)} = (m00 * m00 - m01 * m10) * scale;');
       iPop();
       iPrint('}');
@@ -1066,29 +1065,36 @@ class MatrixGen {
       iPrint('double c4 = ${Access(3,2)};');
       iPrint('double d4 = ${Access(3,3)};');
       
-      
-      iPrint('${Access(0,0)}  =   (${generateInlineDet3( 'b2', 'b3', 'b4', 'c2', 'c3', 'c4', 'd2', 'd3', 'd4')}) * scale;');
-      iPrint('${Access(1,0)}  = - (${generateInlineDet3( 'a2', 'a3', 'a4', 'c2', 'c3', 'c4', 'd2', 'd3', 'd4')}) * scale;');
-      iPrint('${Access(2,0)}  =   (${generateInlineDet3( 'a2', 'a3', 'a4', 'b2', 'b3', 'b4', 'd2', 'd3', 'd4')}) * scale;');
-      iPrint('${Access(3,0)}  = - (${generateInlineDet3( 'a2', 'a3', 'a4', 'b2', 'b3', 'b4', 'c2', 'c3', 'c4')}) * scale;');
+      iPrint('${Access(0,0)}  =   ${generateInlineDet3( 'b2', 'b3', 'b4', 'c2', 'c3', 'c4', 'd2', 'd3', 'd4')} * scale;');
+      iPrint('${Access(1,0)}  = - ${generateInlineDet3( 'a2', 'a3', 'a4', 'c2', 'c3', 'c4', 'd2', 'd3', 'd4')} * scale;');
+      iPrint('${Access(2,0)}  =   ${generateInlineDet3( 'a2', 'a3', 'a4', 'b2', 'b3', 'b4', 'd2', 'd3', 'd4')} * scale;');
+      iPrint('${Access(3,0)}  = - ${generateInlineDet3( 'a2', 'a3', 'a4', 'b2', 'b3', 'b4', 'c2', 'c3', 'c4')} * scale;');
           
-      iPrint('${Access(0,1)}  = - (${generateInlineDet3( 'b1', 'b3', 'b4', 'c1', 'c3', 'c4', 'd1', 'd3', 'd4')}) * scale;');
-      iPrint('${Access(1,1)}  =   (${generateInlineDet3( 'a1', 'a3', 'a4', 'c1', 'c3', 'c4', 'd1', 'd3', 'd4')}) * scale;');
-      iPrint('${Access(2,1)}  = - (${generateInlineDet3( 'a1', 'a3', 'a4', 'b1', 'b3', 'b4', 'd1', 'd3', 'd4')}) * scale;');
-      iPrint('${Access(3,1)}  =   (${generateInlineDet3( 'a1', 'a3', 'a4', 'b1', 'b3', 'b4', 'c1', 'c3', 'c4')}) * scale;');
+      iPrint('${Access(0,1)}  = - ${generateInlineDet3( 'b1', 'b3', 'b4', 'c1', 'c3', 'c4', 'd1', 'd3', 'd4')} * scale;');
+      iPrint('${Access(1,1)}  =   ${generateInlineDet3( 'a1', 'a3', 'a4', 'c1', 'c3', 'c4', 'd1', 'd3', 'd4')} * scale;');
+      iPrint('${Access(2,1)}  = - ${generateInlineDet3( 'a1', 'a3', 'a4', 'b1', 'b3', 'b4', 'd1', 'd3', 'd4')} * scale;');
+      iPrint('${Access(3,1)}  =   ${generateInlineDet3( 'a1', 'a3', 'a4', 'b1', 'b3', 'b4', 'c1', 'c3', 'c4')} * scale;');
           
-      iPrint('${Access(0,2)}  =   (${generateInlineDet3( 'b1', 'b2', 'b4', 'c1', 'c2', 'c4', 'd1', 'd2', 'd4')}) * scale;');
-      iPrint('${Access(1,2)}  = - (${generateInlineDet3( 'a1', 'a2', 'a4', 'c1', 'c2', 'c4', 'd1', 'd2', 'd4')}) * scale;');
-      iPrint('${Access(2,2)}  =   (${generateInlineDet3( 'a1', 'a2', 'a4', 'b1', 'b2', 'b4', 'd1', 'd2', 'd4')}) * scale;');
-      iPrint('${Access(3,2)}  = - (${generateInlineDet3( 'a1', 'a2', 'a4', 'b1', 'b2', 'b4', 'c1', 'c2', 'c4')}) * scale;');
+      iPrint('${Access(0,2)}  =   ${generateInlineDet3( 'b1', 'b2', 'b4', 'c1', 'c2', 'c4', 'd1', 'd2', 'd4')} * scale;');
+      iPrint('${Access(1,2)}  = - ${generateInlineDet3( 'a1', 'a2', 'a4', 'c1', 'c2', 'c4', 'd1', 'd2', 'd4')} * scale;');
+      iPrint('${Access(2,2)}  =   ${generateInlineDet3( 'a1', 'a2', 'a4', 'b1', 'b2', 'b4', 'd1', 'd2', 'd4')} * scale;');
+      iPrint('${Access(3,2)}  = - ${generateInlineDet3( 'a1', 'a2', 'a4', 'b1', 'b2', 'b4', 'c1', 'c2', 'c4')} * scale;');
           
-      iPrint('${Access(0,3)}  = - (${generateInlineDet3( 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1', 'd2', 'd3')}) * scale;');
-      iPrint('${Access(1,3)}  =   (${generateInlineDet3( 'a1', 'a2', 'a3', 'c1', 'c2', 'c3', 'd1', 'd2', 'd3')}) * scale;');
-      iPrint('${Access(2,3)}  = - (${generateInlineDet3( 'a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'd1', 'd2', 'd3')}) * scale;');
-      iPrint('${Access(3,3)}  =   (${generateInlineDet3( 'a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3')}) * scale;');
+      iPrint('${Access(0,3)}  = - ${generateInlineDet3( 'b1', 'b2', 'b3', 'c1', 'c2', 'c3', 'd1', 'd2', 'd3')} * scale;');
+      iPrint('${Access(1,3)}  =   ${generateInlineDet3( 'a1', 'a2', 'a3', 'c1', 'c2', 'c3', 'd1', 'd2', 'd3')} * scale;');
+      iPrint('${Access(2,3)}  = - ${generateInlineDet3( 'a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'd1', 'd2', 'd3')} * scale;');
+      iPrint('${Access(3,3)}  =   ${generateInlineDet3( 'a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3')} * scale;');
       iPop();
       iPrint('}');
     }
+  }
+  
+  void generateCopy() {
+    iPrint('$matType copy() {');
+    iPush();
+    iPrint('return new ${matType}.copy(this);');
+    iPop();
+    iPrint('}');
   }
   
   void generate() {
@@ -1117,6 +1123,7 @@ class MatrixGen {
     generateInvert();
     generateSetRotation();
     generateAdjugate();
+    generateCopy();
     generateEpilogue();
   }
 }
