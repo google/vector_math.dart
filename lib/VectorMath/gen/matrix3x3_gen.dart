@@ -182,6 +182,9 @@ class mat3x3 {
     setRotationAroundZ(radians_);
   }
   mat3x3.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8) {
+    col0 = new vec3();
+    col1 = new vec3();
+    col2 = new vec3();
     col0.x = arg0;
     col0.y = arg1;
     col0.z = arg2;

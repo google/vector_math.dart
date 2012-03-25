@@ -148,6 +148,10 @@ class mat4x2 {
     col3.y = other.col3.y;
   }
   mat4x2.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7) {
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
+    col3 = new vec2();
     col0.x = arg0;
     col0.y = arg1;
     col1.x = arg2;

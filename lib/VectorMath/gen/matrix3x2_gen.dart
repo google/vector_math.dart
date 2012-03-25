@@ -121,6 +121,9 @@ class mat3x2 {
     col2.y = other.col2.y;
   }
   mat3x2.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5) {
+    col0 = new vec2();
+    col1 = new vec2();
+    col2 = new vec2();
     col0.x = arg0;
     col0.y = arg1;
     col1.x = arg2;

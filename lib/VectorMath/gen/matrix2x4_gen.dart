@@ -132,6 +132,8 @@ class mat2x4 {
     col1.w = other.col1.w;
   }
   mat2x4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7) {
+    col0 = new vec4();
+    col1 = new vec4();
     col0.x = arg0;
     col0.y = arg1;
     col0.z = arg2;

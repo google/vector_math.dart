@@ -199,6 +199,9 @@ class mat3x4 {
     col2.w = other.col2.w;
   }
   mat3x4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11) {
+    col0 = new vec4();
+    col1 = new vec4();
+    col2 = new vec4();
     col0.x = arg0;
     col0.y = arg1;
     col0.z = arg2;

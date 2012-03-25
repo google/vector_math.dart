@@ -113,6 +113,8 @@ class mat2x3 {
     col1.z = other.col1.z;
   }
   mat2x3.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5) {
+    col0 = new vec3();
+    col1 = new vec3();
     col0.x = arg0;
     col0.y = arg1;
     col0.z = arg2;
