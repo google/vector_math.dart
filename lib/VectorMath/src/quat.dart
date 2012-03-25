@@ -74,32 +74,25 @@ class quat {
     
     if (a is mat3x3) {
       num trace = a.trace();
-      List<num> temp = new List<num>(4);
       if (trace > 0.0) {
         num s = Math.sqrt(trace + 1.0);
-        temp[3]=(s * 0.5);
+        w = s * 0.5;
         s = 0.5 / s;
-        
-        temp[0] = ((a[1].z - a[2].y) * s);
-        temp[1] = ((a[0].z - a[0].z) * s);
-        temp[2] = ((a[0].y - a[1].x) * s);
+        x = (a.col1.z - a.col2.y) * s; 
+        y = (a.col2.x - a.col0.z) * s;
+        z = (a.col0.y - a.col1.x) * s;
       } else {
-        int i = a[0].x < a[1].y ? (a[1].y < a[2].z ? 2 : 1) : (a[0].x < a[2].z ? 2 : 0); 
+        int i = a.col0.x < a.col1.y ? (a.col1.y < a.col2.z ? 2 : 1) : (a.col0.x < a.col2.z ? 2 : 0); 
         int j = (i + 1) % 3;
         int k = (i + 2) % 3;
 
         num s = Math.sqrt(a[i][i] - a[j][j] - a[k][k] + 1.0);
-        temp[i] = s * 0.5;
+        this[i] = s * 0.5;
         s = 0.5 / s;
-
-        temp[3] = (a[k][j] - a[j][k]) * s;
-        temp[j] = (a[j][i] + a[i][j]) * s;
-        temp[k] = (a[k][i] + a[i][k]) * s;
+        this[3] = (a[j][k] - a[k][j]) * s;
+        this[j] = (a[i][j] + a[j][i]) * s;
+        this[k] = (a[i][k] + a[k][i]) * s;
       }
-      x = temp[0];
-      y = temp[1];
-      z = temp[2];
-      w = temp[3];
     }
   }
   
@@ -152,12 +145,12 @@ class quat {
     num halfYaw = yaw * 0.5;  
     num halfPitch = pitch * 0.5;  
     num halfRoll = roll * 0.5;  
-    num cosYaw = halfYaw;
-    num sinYaw = halfYaw;
-    num cosPitch = halfPitch;
-    num sinPitch = halfPitch;
-    num cosRoll = halfRoll;
-    num sinRoll = halfRoll;
+    num cosYaw = Math.cos(halfYaw);
+    num sinYaw = Math.sin(halfYaw);
+    num cosPitch = Math.cos(halfPitch);
+    num sinPitch = Math.sin(halfPitch);
+    num cosRoll = Math.cos(halfRoll);
+    num sinRoll = Math.sin(halfRoll);
     x = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
     y = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
     z = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
@@ -188,10 +181,11 @@ class quat {
   
   /** Quaternion becomes inverse of itself */
   quat inverse() {
-    x = -x;
-    y = -y;
-    z = -z;
-    w = w;
+    num l = 1.0 / length2;
+    x = -x * l;
+    y = -y * l;
+    z = -z * l;
+    w = w * l;
     return this;
   }
   
@@ -228,16 +222,33 @@ class quat {
   
   /** Length */
   num get length() {
-    return sqrt(length2);
+    return Math.sqrt(length2);
   }
 
-  /** Returns v rotated by quaternion */
+  /** Returns [v] rotated by quaternion */
   vec3 rotate(vec3 v) {
-    quat v_as_quat = new quat(v);
-    quat this_inverted = inverse();
-    quat result = this * v_as_quat * this_inverted;
-    vec3 o = new vec3(result.x, result.y, result.z);
-    return o;
+    vec3 result = new vec3.copy(v);
+    return rotateSelf(result);
+  }
+  
+  /** Rotates [v] by this. Updates [v] and returns [v]. */
+  vec3 rotateSelf(vec3 v) {
+    // conjugate(this) * [v,0] * this
+    double tix = -x;
+    double tiy = -y;
+    double tiz = -z;
+    double tiw = w;
+    double tx = tiw * v.x + tix * 0.0 + tiy * v.z - tiz * v.y; 
+    double ty = tiw * v.y + tiy * 0.0 + tiz * v.x - tix * v.z;
+    double tz = tiw * v.z + tiz * 0.0 + tix * v.y - tiy * v.x;
+    double tw = tiw * 0.0 - tix * v.x - tiy * v.y - tiz * v.z;
+    double result_x = tw * x + tx * w + ty * z - tz * y;   
+    double result_y = tw * y + ty * w + tz * x - tx * z; 
+    double result_z = tw * z + tz * w + tx * y - ty * x; 
+    v.x = result_x;
+    v.y = result_y;
+    v.z = result_z;
+    return v;
   }
   
   /** Returns copy of quaternion divided by [scale] */
@@ -294,7 +305,7 @@ class quat {
     case 0: x = arg; return x; break;
     case 1: y = arg; return y; break;
     case 2: z = arg; return z; break;
-    case 3: x = arg; return w; break;
+    case 3: w = arg; return w; break;
     }
     return 0.0;
   }
@@ -304,20 +315,24 @@ class quat {
     num d = length2;
     assert(d != 0.0);
     num s = 2.0 / d;
+    
     num xs = x * s;
     num ys = y * s;
     num zs = z * s;
+    
     num wx = w * xs;
     num wy = w * ys;
     num wz = w * zs;
+    
     num xx = x * xs;
     num xy = x * ys;
     num xz = x * zs;
+    
     num yy = y * ys;
     num yz = y * zs;
     num zz = z * zs;
     
-    return new mat3x3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+    return new mat3x3.raw(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
       xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
       xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
       );
