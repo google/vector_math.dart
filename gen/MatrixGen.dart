@@ -1097,6 +1097,138 @@ class MatrixGen {
     iPrint('}');
   }
   
+  void generateSelfOp(String name, String op) {
+    iPrint('$matType self$name($matType o) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('${Access(j,i)} = ${Access(j,i)} $op o.${Access(j,i)};');
+      }
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  void generateSelfScalarOp(String name, String op) {
+    iPrint('$matType self$name(num o) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('${Access(j,i)} = ${Access(j,i)} $op o;');
+      }
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  void generateSelfNegate() {
+    iPrint('$matType selfNegate() {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('${Access(j,i)} = -${Access(j,i)};');
+      }
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  generateSelfMultiplyMatrix() {
+    if (rows != cols) {
+      // Only generate this for square matrices
+      return;
+    }
+    iPrint('$matType selfMultiply($matType arg) {');
+    iPush(); 
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        iPrint('double m$i$j = ${Access(i, j)};');
+      }
+    }
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        String r = '';
+        for (int k = 0; k < rows; k++) {
+          if (k != 0) {
+            r = '$r +';
+          }
+          r = '$r (m$i$k * arg.${Access(k, j)})';
+          
+        }
+        iPrint('${Access(i, j)} = $r;');
+      }
+      
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  generateSelfTransposeMultiplyMatrix() {
+    if (rows != cols) {
+      // Only generate this for square matrices
+      return;
+    }
+    iPrint('$matType selfTransposeMultiply($matType arg) {');
+    iPush(); 
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        iPrint('double m$i$j = ${Access(j, i)};');
+      }
+    }
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        String r = '';
+        for (int k = 0; k < rows; k++) {
+          if (k != 0) {
+            r = '$r +';
+          }
+          r = '$r (m$i$k * arg.${Access(k, j)})';
+          
+        }
+        iPrint('${Access(i, j)} = $r;');
+      }
+      
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  generateSelfMultiplyTransposeMatrix() {
+    if (rows != cols) {
+      // Only generate this for square matrices
+      return;
+    }
+    iPrint('$matType selfMultiplyTranpose($matType arg) {');
+    iPush(); 
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        iPrint('double m$i$j = ${Access(i, j)};');
+      }
+    }
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        String r = '';
+        for (int k = 0; k < rows; k++) {
+          if (k != 0) {
+            r = '$r +';
+          }
+          r = '$r (m$i$k * arg.${Access(j, k)})';
+          
+        }
+        iPrint('${Access(i, j)} = $r;');
+      }
+      
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
   void generate() {
     writeLicense();
     generatePrologue();
@@ -1124,6 +1256,13 @@ class MatrixGen {
     generateSetRotation();
     generateAdjugate();
     generateCopy();
+    generateSelfOp('Add', '+');
+    generateSelfOp('Sub', '-');
+    generateSelfScalarOp('Scale', '*');
+    generateSelfNegate();
+    generateSelfMultiplyMatrix();
+    generateSelfTransposeMultiplyMatrix();
+    generateSelfMultiplyTransposeMatrix();
     generateEpilogue();
   }
 }
