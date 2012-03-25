@@ -1,7 +1,7 @@
 #import('dart:builtin');
 #import('../lib/VectorMath/VectorMath.dart');
 #source('QuaternionTest.dart');
-
+#source('MatrixTest.dart');
 
 void main() {
   /*
@@ -37,7 +37,14 @@ void main() {
     print('2x det(m) = ${m.determinant()}');
   }
   */
+ 
+  {
+    QuaternionTest qt = new QuaternionTest();
+    qt.Test();  
+  }
   
-  QuaternionTest qt = new QuaternionTest();
-  qt.Test();
+  {
+    MatrixTest mt = new MatrixTest();
+    mt.Test();
+  }
 }
