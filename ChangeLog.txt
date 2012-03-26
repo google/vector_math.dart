@@ -10,6 +10,8 @@ v 0.8.0 - XX XX 2012
 - Added buildPlaneVectors which constructs the spanning vectors given a plane normal
 - Added Adjoint of 2x2,3x3, and 4x4 matrices
 - Fixed many bugs in quaternion class
+- Fixed adjoint matrix code generation
+- Added selfAdd, selfSub, selfScale and selfNegate to matrix classes
 
 v 0.0.0 - March 20 2012 
 
