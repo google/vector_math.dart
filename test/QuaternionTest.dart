@@ -1,19 +1,4 @@
-class QuaternionTest {
-  void TestFailure(var output, var expectedOutput, num error) {
-    print('FAILURE!!!');
-    print('$output != $expectedOutput) : ${error}');
-    assert(false);
-  }
-
-  void RelativeTest(var output, var expectedOutput) {
-    num error = relativeError(output, expectedOutput);
-    if (error >= errorThreshold) {
-      TestFailure(output, expectedOutput, error);
-    }
-  }
-  
-  final num errorThreshold = 0.00005;
-  
+class QuaternionTest extends BaseTest {  
   void TestConjugate(List<quat> input, List<quat> expectedOutput) {
     assert(input.length == expectedOutput.length);
     print('Testing quaternion conjugate');

@@ -1,198 +1,72 @@
-class MatrixTest {
-  
-  void TestFailure(var output, var expectedOutput, num error) {
-    print('FAILURE!!!');
-    print('$output != $expectedOutput) : ${error}');
-    assert(false);
-  }
-
-  void RelativeTest(var output, var expectedOutput) {
-    num error = relativeError(output, expectedOutput);
-    //print('$output $expectedOutput $error');
-    if (error >= errorThreshold) {
-      TestFailure(output, expectedOutput, error);
-    }
-  }
-  
-  final num errorThreshold = 0.00005;
-  
-  Dynamic makeMatrix(int rows, int cols) {
-    if (cols == 2) {
-      if (rows == 2) {
-        return new mat2x2();
-      }
-      if (rows == 3) {
-        return new mat2x3();
-      }
-      if (rows == 4) {
-        return new mat2x4();
-      }
-    }
-    if (cols == 3) {
-      if (rows == 2) {
-        return new mat3x2();
-      }
-      if (rows == 3) {
-        return new mat3x3();
-      }
-      if (rows == 4) {
-        return new mat3x4();
-      }
-    }
+class MatrixTest extends BaseTest {
+  void TestMatrixVectorMultiplication() {
+    List<Dynamic> inputA = new List<Dynamic>();
+    List<Dynamic> inputB = new List<Dynamic>();
+    List<Dynamic> expectedOutput = new List<Dynamic>();
     
-    if (cols == 4) {
-      if (rows == 2) {
-        return new mat4x2();
-      }
-      if (rows == 3) {
-        return new mat4x3();
-      }
-      if (rows == 4) {
-        return new mat4x4();
-      }
-    }
+    inputA.add(parseMatrix('''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
+   0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
+   0.369246781120215   0.241691285913833   0.942050590775485   0.234779913372406
+   0.111202755293787   0.403912145588115   0.956134540229802   0.353158571222071'''));
+    inputB.add(parseVector('''0.821194040197959
+   0.015403437651555
+   0.043023801657808
+   0.168990029462704'''));
+    expectedOutput.add(parseVector('''0.390706088480722
+   0.760902311900085
+   0.387152194918898
+   0.198357495624973'''));
     
-    return null;
-  }
-  
-  Dynamic parseMatrix(String input) {
-    input = input.trim();
-    List<String> rows = input.split("\n");
-    List<double> values = new List<double>();
-    int col_count = 0;
-    for (int i = 0; i < rows.length; i++) {
-      rows[i] = rows[i].trim();
-      List<String> cols = rows[i].split(" ");
-      for (int j = 0; j < cols.length; j++) {
-        cols[j] = cols[j].trim();
-      }
-      
-      for (int j = 0; j < cols.length; j++) {
-        if (cols[j].isEmpty()) {
-          continue;
-        }
-        if (i == 0) {
-          col_count++;  
-        }
-        values.add(Math.parseDouble(cols[j]));
-      }
-    }
-    
-    Dynamic m = makeMatrix(rows.length, col_count);
-    
-    for (int j = 0; j < rows.length; j++) {
-      for (int i = 0; i < col_count; i++) {
-        m[i][j] = values[j*rows.length+i];
-      }  
-    }
-    
-    return m;
-  }
-  
-  void Test4x4Det() {
-    List<mat4x4> input = new List<mat4x4>();
-    List<double> expectedOutput = new List<double>();
-    
-    input.add(parseMatrix('''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
-      0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
-      0.823457828327293   0.034446080502909   0.795199901137063   0.646313010111265
-      0.694828622975817   0.438744359656398   0.186872604554379   0.709364830858073'''));
-    expectedOutput.add(-0.199908980087990);
-    
-    input.add(parseMatrix('''  -2.336158020850647   0.358791716162913   0.571930324052307   0.866477090273158
-  -1.190335868711951   1.132044609886021  -0.693048859451418   0.742195189800671
-   0.015919048685702   0.552417702663606   1.020805610524362  -1.288062497216858
-   3.020318574990609  -1.197139524685751  -0.400475005629390   0.441263145991252'''));
-    expectedOutput.add(-5.002276533849802);
-    
-    assert(input.length == expectedOutput.length);
-    
-    for (int i = 0; i < input.length; i++) {
-      double output = input[i].determinant();
-      RelativeTest(output, expectedOutput[i]);
-    }
-  }
-  
-  void Test4x4Adjoint() {
-    List<mat4x4> input = new List<mat4x4>();
-    List<mat4x4> expectedOutput = new List<mat4x4>();
-    input.add(parseMatrix('''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
-      0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
-      0.823457828327293   0.034446080502909   0.795199901137063   0.646313010111265
-      0.694828622975817   0.438744359656398   0.186872604554379   0.709364830858073'''));
-    
-    expectedOutput.add(parseMatrix('''   0.467018967272630  -0.071725686042148  -0.114334007762690  -0.173216551386116
-   0.237958829476358  -0.226305883376421   0.138546690644078  -0.148371483419264
-  -0.003182360786730  -0.110433259522032  -0.204068208468023   0.257495260108212
-  -0.603788805867184   0.239318941402950   0.080058549926103  -0.088212465465529'''));
-    
-    assert(input.length == expectedOutput.length);
-    
-    for (int i = 0; i < input.length; i++) {
-      mat4x4 output = new mat4x4.copy(input[i]);
-      output.selfScaleAdjoint(1.0);
-      RelativeTest(output, expectedOutput[i]);
-    }
-  }
-  
-  void Test4x4Inversion() {
-    List<mat4x4> input = new List<mat4x4>();
-    List<mat4x4> expectedOutput = new List<mat4x4>();
-    input.add(parseMatrix('''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
-   0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
-   0.823457828327293   0.034446080502909   0.795199901137063   0.646313010111265
-   0.694828622975817   0.438744359656398   0.186872604554379   0.709364830858073'''));
-    
-    expectedOutput.add(parseMatrix('''  -2.336158020850647   0.358791716162913   0.571930324052307   0.866477090273158
-  -1.190335868711951   1.132044609886021  -0.693048859451418   0.742195189800671
-   0.015919048685702   0.552417702663606   1.020805610524362  -1.288062497216858
-   3.020318574990609  -1.197139524685751  -0.400475005629390   0.441263145991252'''));
-    
-    assert(input.length == expectedOutput.length);
-    for (int i = 0; i < input.length; i++) {
-      mat4x4 output = new mat4x4.copy(input[i]);
-      output.invert();
-      RelativeTest(output, expectedOutput[i]);
-    }
-  }
-  
-  void Test4x4MatrixMultiplication() {
-    List<mat4x4> inputA = new List<mat4x4>();
-    List<mat4x4> inputB = new List<mat4x4>();
-    List<mat4x4> expectedOutput = new List<mat4x4>();
-    
-    inputA.add(parseMatrix('''  0.754686681982361   0.162611735194631   0.340385726666133   0.255095115459269
-   0.276025076998578   0.118997681558377   0.585267750979777   0.505957051665142
-   0.679702676853675   0.498364051982143   0.223811939491137   0.699076722656686
-   0.655098003973841   0.959743958516081   0.751267059305653   0.890903252535798'''));
-    inputB.add(parseMatrix('''0.959291425205444   0.257508254123736   0.243524968724989   0.251083857976031
-   0.547215529963803   0.840717255983663   0.929263623187228   0.616044676146639
-   0.138624442828679   0.254282178971531   0.349983765984809   0.473288848902729
-   0.149294005559057   0.814284826068816   0.196595250431208   0.351659507062997'''));
-    expectedOutput.add(parseMatrix('''0.898218082886683   0.625322647681513   0.504174187460227   0.540473128734198
-   0.486574639653946   0.731938448794797   0.482102179836115   0.597538636973484
-   1.060139267944114   1.220171263074055   0.844401866551068   0.829441562288635
-   1.390767189418691   1.892049275398817   1.489466491870617   1.424590610642752'''));
-
-    inputA.add(parseMatrix('''0.959291425205444   0.257508254123736   0.243524968724989   0.251083857976031
-      0.547215529963803   0.840717255983663   0.929263623187228   0.616044676146639
-      0.138624442828679   0.254282178971531   0.349983765984809   0.473288848902729
-      0.149294005559057   0.814284826068816   0.196595250431208   0.351659507062997'''));
-    inputB.add(parseMatrix('''  0.754686681982361   0.162611735194631   0.340385726666133   0.255095115459269
-      0.276025076998578   0.118997681558377   0.585267750979777   0.505957051665142
-      0.679702676853675   0.498364051982143   0.223811939491137   0.699076722656686
-      0.655098003973841   0.959743958516081   0.751267059305653   0.890903252535798'''));
-    
-    expectedOutput.add(parseMatrix('''1.125052305727933   0.548975234378873   0.720375212788503   0.768932736659174
-   1.680227927840003   1.243383811879966   1.349103419482854   1.763421606786932
-   0.722741761644472   0.681456392059569   0.629905807879616   0.830338358796353
-   0.701430988639845   0.556654056692266   0.835582765421220   0.900807083387785'''));
+    inputA.add(parseMatrix('''0.780227435151377   0.929385970968730   0.486791632403172 
+   0.081125768865785   0.775712678608402   0.435858588580919'''));
+    inputB.add(parseVector('''0.446783749429806
+   0.306349472016557
+   0.508508655381127'''));
+    expectedOutput.add(parseVector('''0.880847598834920
+   0.495522709533064'''));
     
     assert(inputA.length == inputB.length);
     assert(expectedOutput == inputB.length);
     
     for (int i = 0; i < inputA.length; i++) {
-      mat4x4 output = inputA[i] * inputB[i];
+      Dynamic output = inputA[i] * inputB[i];
+      RelativeTest(output, expectedOutput[i]);
+    }
+  }
+  
+  void TestMatrixMultiplication() {
+    List<Dynamic> inputA = new List<Dynamic>();
+    List<Dynamic> inputB = new List<Dynamic>();
+    List<Dynamic> expectedOutput = new List<Dynamic>();
+    
+    inputA.add(parseMatrix('''0.587044704531417   0.230488160211558   0.170708047147859   0.923379642103244
+   0.207742292733028   0.844308792695389   0.227664297816554   0.430207391329584
+   0.301246330279491   0.194764289567049   0.435698684103899   0.184816320124136
+   0.470923348517591   0.225921780972399   0.311102286650413   0.904880968679893'''));
+    inputB.add(parseMatrix('''0.979748378356085   0.408719846112552   0.711215780433683   0.318778301925882
+   0.438869973126103   0.594896074008614   0.221746734017240   0.424166759713807
+   0.111119223440599   0.262211747780845   0.117417650855806   0.507858284661118
+   0.258064695912067   0.602843089382083   0.296675873218327   0.085515797090044'''));
+    expectedOutput.add(parseMatrix('''0.933571062150012   0.978468014433530   0.762614053950618   0.450561572247979
+   0.710396171182635   0.906228190244263   0.489336274658484   0.576762187862375
+   0.476730868989407   0.464650419830879   0.363428748133464   0.415721232510293
+   0.828623949506267   0.953951612073692   0.690010785130483   0.481326146122225'''));
+
+    inputA.add(parseMatrix('''   0.510771564172110   0.644318130193692
+   0.817627708322262   0.378609382660268
+   0.794831416883453   0.811580458282477'''));
+    inputB.add(parseMatrix('''0.532825588799455   0.939001561999887   0.550156342898422
+   0.350727103576883   0.875942811492984   0.622475086001227'''));
+    expectedOutput.add(parseMatrix('''0.498131991006930   1.044001131040501   0.682076199305903
+   0.568441537273026   1.099393862354050   0.685497977895316
+   0.708149781150244   1.457246010360863   0.942470161099672'''));
+    
+    assert(inputA.length == inputB.length);
+    assert(expectedOutput == inputB.length);
+    
+    for (int i = 0; i < inputA.length; i++) {
+      Dynamic output = inputA[i] * inputB[i];
+      //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
       RelativeTest(output, expectedOutput[i]);
     }
   }
@@ -442,5 +316,7 @@ class MatrixTest {
     TestSelfMultiply();
     TestSelfTransposeMultiply();
     TestSelfMultiplyTranspose();
+    TestMatrixMultiplication();
+    TestMatrixVectorMultiplication();
   }
 }
