@@ -184,26 +184,41 @@ class mat2x2 {
     }
     if (arg is vec2) {
       vec2 r = new vec2();
-      r[0] = dot(row0, arg);
-      r[1] = dot(row1, arg);
+      r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
+      r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
       return r;
     }
-    if (2 == arg.cols) {
+    if (2 == arg.rows) {
       Dynamic r = null;
-      if (arg.rows == 2) {
+      if (arg.cols == 2) {
         r = new mat2x2();
+        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
+        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
+        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
+        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
+        return r;
       }
-      if (arg.rows == 3) {
-        r = new mat2x3();
+      if (arg.cols == 3) {
+        r = new mat3x2();
+        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
+        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
+        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);
+        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
+        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
+        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y);
+        return r;
       }
-      if (arg.rows == 4) {
-        r = new mat2x4();
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[0][j] = dot(this.getRow(0), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[1][j] = dot(this.getRow(1), arg.getColumn(j));
+      if (arg.cols == 4) {
+        r = new mat4x2();
+        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
+        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
+        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);
+        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y);
+        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
+        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
+        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y);
+        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y);
+        return r;
       }
       return r;
     }

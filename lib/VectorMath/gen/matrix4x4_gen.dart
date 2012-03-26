@@ -426,34 +426,61 @@ class mat4x4 {
     }
     if (arg is vec4) {
       vec4 r = new vec4();
-      r[0] = dot(row0, arg);
-      r[1] = dot(row1, arg);
-      r[2] = dot(row2, arg);
-      r[3] = dot(row3, arg);
+      r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + (this.col3.x * arg.w);
+      r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + (this.col3.y * arg.w);
+      r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + (this.col3.z * arg.w);
+      r.w =  (this.col0.w * arg.x) + (this.col1.w * arg.y) + (this.col2.w * arg.z) + (this.col3.w * arg.w);
       return r;
     }
-    if (4 == arg.cols) {
+    if (4 == arg.rows) {
       Dynamic r = null;
-      if (arg.rows == 2) {
-        r = new mat4x2();
+      if (arg.cols == 2) {
+        r = new mat2x4();
+        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
+        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
+        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
+        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
+        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
+        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
+        r.col0.w =  (this.col0.w * arg.col0.x) + (this.col1.w * arg.col0.y) + (this.col2.w * arg.col0.z) + (this.col3.w * arg.col0.w);
+        r.col1.w =  (this.col0.w * arg.col1.x) + (this.col1.w * arg.col1.y) + (this.col2.w * arg.col1.z) + (this.col3.w * arg.col1.w);
+        return r;
       }
-      if (arg.rows == 3) {
-        r = new mat4x3();
+      if (arg.cols == 3) {
+        r = new mat3x4();
+        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
+        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
+        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
+        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
+        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
+        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
+        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
+        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
+        r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z) + (this.col3.z * arg.col2.w);
+        r.col0.w =  (this.col0.w * arg.col0.x) + (this.col1.w * arg.col0.y) + (this.col2.w * arg.col0.z) + (this.col3.w * arg.col0.w);
+        r.col1.w =  (this.col0.w * arg.col1.x) + (this.col1.w * arg.col1.y) + (this.col2.w * arg.col1.z) + (this.col3.w * arg.col1.w);
+        r.col2.w =  (this.col0.w * arg.col2.x) + (this.col1.w * arg.col2.y) + (this.col2.w * arg.col2.z) + (this.col3.w * arg.col2.w);
+        return r;
       }
-      if (arg.rows == 4) {
+      if (arg.cols == 4) {
         r = new mat4x4();
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[0][j] = dot(this.getRow(0), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[1][j] = dot(this.getRow(1), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[2][j] = dot(this.getRow(2), arg.getColumn(j));
-      }
-      for (int j = 0; j < arg.rows; j++) {
-        r[3][j] = dot(this.getRow(3), arg.getColumn(j));
+        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
+        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
+        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
+        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y) + (this.col2.x * arg.col3.z) + (this.col3.x * arg.col3.w);
+        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
+        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
+        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
+        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y) + (this.col2.y * arg.col3.z) + (this.col3.y * arg.col3.w);
+        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
+        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
+        r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z) + (this.col3.z * arg.col2.w);
+        r.col3.z =  (this.col0.z * arg.col3.x) + (this.col1.z * arg.col3.y) + (this.col2.z * arg.col3.z) + (this.col3.z * arg.col3.w);
+        r.col0.w =  (this.col0.w * arg.col0.x) + (this.col1.w * arg.col0.y) + (this.col2.w * arg.col0.z) + (this.col3.w * arg.col0.w);
+        r.col1.w =  (this.col0.w * arg.col1.x) + (this.col1.w * arg.col1.y) + (this.col2.w * arg.col1.z) + (this.col3.w * arg.col1.w);
+        r.col2.w =  (this.col0.w * arg.col2.x) + (this.col1.w * arg.col2.y) + (this.col2.w * arg.col2.z) + (this.col3.w * arg.col2.w);
+        r.col3.w =  (this.col0.w * arg.col3.x) + (this.col1.w * arg.col3.y) + (this.col2.w * arg.col3.z) + (this.col3.w * arg.col3.w);
+        return r;
       }
       return r;
     }
