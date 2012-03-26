@@ -475,38 +475,73 @@ class MatrixGen {
     iPrint('}');
   }
   
+  String generateInlineDot(String rowPrefix, int row, String col, int len) {
+    String r = '';
+    for (int i = 0; i < len; i++) {
+      if (i != 0) {
+        r = '$r +'; 
+      }
+      r = '$r (${rowPrefix}.${Access(row, i)} * ${col}.${AccessV(i)})';
+    }
+    return r;
+  }
+  
   void generateMatrixVectorMultiply() {
     iPrint('$colVecType r = new $colVecType();');
     for (int i = 0; i < rows; i++) {
-      iPrint('r[$i] = dot(row$i, arg);');
+      iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', cols)};');
     }
     iPrint('return r;');
   }
   
+  
+  String generateInlineDotM(String rowPrefix, String colPrefix, int srow, int scol, int len) {
+    String r = '';
+    for (int i = 0; i < len; i++) {
+      if (i != 0) {
+        r = '$r +'; 
+      }
+      r = '$r (${rowPrefix}.${Access(srow, i)} * ${colPrefix}.${Access(i, scol)})';
+    }
+    return r;
+  }
+  
   void generateMatrixMatrixMultiply() {
     iPrint('Dynamic r = null;');
-    iPrint('if (arg.rows == 2) {');
+    iPrint('if (arg.cols == 2) {');
     iPush();
-    iPrint('r = new mat${cols}x2();');
-    iPop();
-    iPrint('}');
-    iPrint('if (arg.rows == 3) {');
-    iPush();
-    iPrint('r = new mat${cols}x3();');
-    iPop();
-    iPrint('}');
-    iPrint('if (arg.rows == 4) {');
-    iPush();
-    iPrint('r = new mat${cols}x4();');
-    iPop();
-    iPrint('}');
-    for (int i = 0; i < cols; i++) {
-      iPrint('for (int j = 0; j < arg.rows; j++) {');
-      iPush();
-      iPrint('r[$i][j] = dot(this.getRow($i), arg.getColumn(j));');
-      iPop();
-      iPrint('}');  
+    iPrint('r = new mat2x${rows}();');
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < 2; j++) {
+        iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
+      }
     }
+    iPrint('return r;');
+    iPop();
+    iPrint('}');
+    iPrint('if (arg.cols == 3) {');
+    iPush();
+    iPrint('r = new mat3x${rows}();');
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < 3; j++) {
+        iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
+      }
+    }
+
+    iPrint('return r;');
+    iPop();
+    iPrint('}');
+    iPrint('if (arg.cols == 4) {');
+    iPush();
+    iPrint('r = new mat4x${rows}();');
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < 4; j++) {
+        iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
+      }
+    }
+    iPrint('return r;');
+    iPop();
+    iPrint('}');
     iPrint('return r;');
   }
   
@@ -534,7 +569,7 @@ class MatrixGen {
     generateMatrixVectorMultiply();
     iPop();
     iPrint('}');
-    iPrint('if ($rows == arg.cols) {');
+    iPrint('if ($cols == arg.rows) {');
     iPush();
     generateMatrixMatrixMultiply();
     iPop();
