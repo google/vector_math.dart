@@ -23,6 +23,7 @@
 */
 #library("VectorMath");
 #import('dart:builtin');
+#import('dart:html'); // For Float32Array
 #source("src/ScalarMath.dart");
 #source("gen/vec2_gen.dart");
 #source("gen/vec3_gen.dart");

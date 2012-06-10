@@ -1367,6 +1367,48 @@ class MatrixGen {
       iPrint('}');
     }
   }
+  
+  void generateBuffer() {
+    iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
+    iPrint('void copyIntoArray(Float32Array array, [int offset=0]) {');
+    iPush();
+    iPrint('int i = offset;');
+    for (int j = 0; j < cols; j++) {
+      for (int i = 0; i < rows; i++) {
+        iPrint('array[i] = ${Access(i,j)};');
+        iPrint('i++;');
+      }
+    }
+    iPop();
+    iPrint('}');
+    iPrint('\/\/\/ Returns a copy of [this] as a [Float32Array].');
+    iPrint('Float32Array copyAsArray() {');
+    iPush();
+    iPrint('Float32Array array = new Float32Array(${rows * cols});');
+    iPrint('int i = 0;');
+    for (int j = 0; j < cols; j++) {
+      for (int i = 0; i < rows; i++) {
+        iPrint('array[i] = ${Access(i,j)};');
+        iPrint('i++;');
+      }
+    }
+    iPrint('return array;');
+    iPop();
+    iPrint('}');
+    iPrint('\/\/\/ Copies elements from [array] into [this] starting at [offset].');
+    iPrint('void copyFromArray(Float32Array array, [int offset=0]) {');
+    iPush();
+    iPrint('int i = offset;');
+    for (int j = 0; j < cols; j++) {
+      for (int i = 0; i < rows; i++) {
+        iPrint('${Access(i,j)} = array[i];');
+        iPrint('i++;');
+      }
+    }
+    iPop();
+    iPrint('}');
+  }
+  
   void generate() {
     writeLicense();
     generatePrologue();
@@ -1402,6 +1444,7 @@ class MatrixGen {
     generateSelfTransposeMultiplyMatrix();
     generateSelfMultiplyTransposeMatrix();
     generateTransforms();
+    generateBuffer();
     generateEpilogue();
   }
 }

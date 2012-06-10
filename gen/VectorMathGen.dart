@@ -271,6 +271,17 @@ class VectorGenerator {
     }
     iPop();
     iPrint('}');
+    
+    iPrint('\/\/\/ Constructs a new [$generatedName] that is initialized with values from [array] starting at [offset].');
+    iPrint('$generatedName.array(Float32Array array, [int offset=0]) {');
+    iPush();
+    iPrint('int i = offset;');
+    for (String e in vectorComponents) {
+      iPrint('$e = array[i];');
+      iPrint('i++;');
+    }
+    iPop();
+    iPrint('}');
   }
   
   void generateToString() {
@@ -671,6 +682,41 @@ class VectorGenerator {
     iPrint('}');
   }
   
+  void generateBuffer() {
+    iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
+    iPrint('void copyIntoArray(Float32Array array, [int offset=0]) {');
+    iPush();
+    iPrint('int i = offset;');
+    for (String c in vectorComponents) {
+      iPrint('array[i] = $c;');
+      iPrint('i++;');
+    }
+    iPop();
+    iPrint('}');
+    iPrint('\/\/\/ Returns a copy of [this] as a [Float32Array].');
+    iPrint('Float32Array copyAsArray() {');
+    iPush();
+    iPrint('Float32Array array = new Float32Array($vectorLen);');
+    iPrint('int i = 0;');
+    for (String c in vectorComponents) {
+      iPrint('array[i] = $c;');
+      iPrint('i++;');
+    }
+    iPrint('return array;');
+    iPop();
+    iPrint('}');
+    iPrint('\/\/\/ Copies elements from [array] into [this] starting at [offset].');
+    iPrint('void copyFromArray(Float32Array array, [int offset=0]) {');
+    iPush();
+    iPrint('int i = offset;');
+    for (String c in vectorComponents) {
+      iPrint('$c = array[i];');
+      iPrint('i++;');
+    }
+    iPop();
+    iPrint('}');
+  }
+  
   void generate() {
     writeLicense();
     generatePrologue();
@@ -719,6 +765,7 @@ class VectorGenerator {
     generateSelfScalarOp('Scale', '*');
     generateSelfNegate();
     generateCopy();
+    generateBuffer();
     generateEpilogue();
   }
 }
