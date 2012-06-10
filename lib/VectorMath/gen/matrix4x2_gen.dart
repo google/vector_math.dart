@@ -417,4 +417,66 @@ class mat4x2 {
     col3.y = -col3.y;
     return this;
   }
+  /// Copies [this] into [array] starting at [offset].
+  void copyIntoArray(Float32Array array, [int offset=0]) {
+    int i = offset;
+    array[i] = col0.x;
+    i++;
+    array[i] = col0.y;
+    i++;
+    array[i] = col1.x;
+    i++;
+    array[i] = col1.y;
+    i++;
+    array[i] = col2.x;
+    i++;
+    array[i] = col2.y;
+    i++;
+    array[i] = col3.x;
+    i++;
+    array[i] = col3.y;
+    i++;
+  }
+  /// Returns a copy of [this] as a [Float32Array].
+  Float32Array copyAsArray() {
+    Float32Array array = new Float32Array(8);
+    int i = 0;
+    array[i] = col0.x;
+    i++;
+    array[i] = col0.y;
+    i++;
+    array[i] = col1.x;
+    i++;
+    array[i] = col1.y;
+    i++;
+    array[i] = col2.x;
+    i++;
+    array[i] = col2.y;
+    i++;
+    array[i] = col3.x;
+    i++;
+    array[i] = col3.y;
+    i++;
+    return array;
+  }
+  /// Copies elements from [array] into [this] starting at [offset].
+  void copyFromArray(Float32Array array, [int offset=0]) {
+    int i = offset;
+    col0.x = array[i];
+    i++;
+    col0.y = array[i];
+    i++;
+    col1.x = array[i];
+    i++;
+    col1.y = array[i];
+    i++;
+    col2.x = array[i];
+    i++;
+    col2.y = array[i];
+    i++;
+    col3.x = array[i];
+    i++;
+    col3.y = array[i];
+    i++;
+  }
 }

@@ -56,6 +56,14 @@ class vec2 {
     x = x_;
     y = y_;
   }
+  /// Constructs a new [vec2] that is initialized with values from [array] starting at [offset].
+  vec2.array(Float32Array array, [int offset=0]) {
+    int i = offset;
+    x = array[i];
+    i++;
+    y = array[i];
+    i++;
+  }
   /// Returns a printable string
   String toString() => '$x,$y';
   /// Returns a new vec2 from -this
@@ -293,5 +301,31 @@ class vec2 {
   vec2 copy() {
     vec2 c = new vec2.copy(this);
     return c;
+  }
+  /// Copies [this] into [array] starting at [offset].
+  void copyIntoArray(Float32Array array, [int offset=0]) {
+    int i = offset;
+    array[i] = x;
+    i++;
+    array[i] = y;
+    i++;
+  }
+  /// Returns a copy of [this] as a [Float32Array].
+  Float32Array copyAsArray() {
+    Float32Array array = new Float32Array(2);
+    int i = 0;
+    array[i] = x;
+    i++;
+    array[i] = y;
+    i++;
+    return array;
+  }
+  /// Copies elements from [array] into [this] starting at [offset].
+  void copyFromArray(Float32Array array, [int offset=0]) {
+    int i = offset;
+    x = array[i];
+    i++;
+    y = array[i];
+    i++;
   }
 }
