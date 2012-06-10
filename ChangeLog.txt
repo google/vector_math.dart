@@ -1,4 +1,4 @@
-v 0.8.0 - XX XX 2012
+v 0.8.0 - June 10 2012
 
 - Inverse of 2x2,3x3,4x4 matrices
 - Inverse of upper 3x3 of a 4x4 matrix
@@ -12,7 +12,8 @@ v 0.8.0 - XX XX 2012
 - Fixed many bugs in quaternion class
 - Fixed adjoint matrix code generation
 - Added selfAdd, selfSub, selfScale and selfNegate to matrix classes
-
+- Added serialization support for Float32Array and Vectors/Matrices
+  
 v 0.0.0 - March 20 2012 
 
 - Initial release
