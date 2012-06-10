@@ -65,10 +65,10 @@ class quat {
     }
     
     if (a is quat) {
-      x = a._x;
-      y = a._y;
-      z = a._z;
-      w = a._w;
+      x = a.x;
+      y = a.y;
+      z = a.z;
+      w = a.w;
       return;
     }
     
@@ -290,10 +290,10 @@ class quat {
   num operator[](int i) {
     assert(i >= 0 && i < 4);
     switch (i) {
-    case 0: return x; break;
-    case 1: return y; break;
-    case 2: return z; break;
-    case 3: return w; break;
+    case 0: return x;
+    case 1: return y;
+    case 2: return z;
+    case 3: return w;
     }
     return 0.0;
   }
@@ -302,10 +302,10 @@ class quat {
   num operator[]=(int i, num arg) {
     assert(i >= 0 && i < 4);
     switch (i) {
-    case 0: x = arg; return x; break;
-    case 1: y = arg; return y; break;
-    case 2: z = arg; return z; break;
-    case 3: w = arg; return w; break;
+    case 0: x = arg; return x;
+    case 1: y = arg; return y;
+    case 2: z = arg; return z;
+    case 3: w = arg; return w;
     }
     return 0.0;
   }
