@@ -26,7 +26,7 @@ class MatrixTest extends BaseTest {
    0.495522709533064'''));
     
     assert(inputA.length == inputB.length);
-    assert(expectedOutput == inputB.length);
+    assert(expectedOutput.length == inputB.length);
     
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i] * inputB[i];
@@ -62,7 +62,7 @@ class MatrixTest extends BaseTest {
    0.708149781150244   1.457246010360863   0.942470161099672'''));
     
     assert(inputA.length == inputB.length);
-    assert(expectedOutput == inputB.length);
+    assert(expectedOutput.length == inputB.length);
     
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i] * inputB[i];
@@ -311,6 +311,7 @@ class MatrixTest extends BaseTest {
 
   
   void Test() {
+    print('Testing matrix');
     TestDeterminant();
     TestAdjoint();
     TestSelfMultiply();
