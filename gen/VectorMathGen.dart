@@ -100,9 +100,9 @@ class VectorGenerator {
   void iPrint(String s) {
     String indent = "";
     for (int i = 0; i < _indent; i++) {
-      indent += '  ';
+      indent = '$indent  ';
     }
-    out.writeString('$indent$s\n');
+    out.writeStringSync('$indent$s\n');
     print('$indent$s');
   }
   
@@ -156,7 +156,8 @@ class VectorGenerator {
     bool first = true;
     String r = '';
     for (String e in elements) {
-      r += first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}';
+      var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}';  
+      r = '$r$extra';
       first = false;
     }
     return r;
@@ -178,7 +179,7 @@ class VectorGenerator {
       
       iPrint('if (${vectorComponents[0]}_ is num && ${vectorComponents[1]}_ is vec2) {');
       iPush();
-      iPrint('this.x = ${vectorComponents[0]}_.x;');
+      iPrint('this.x = ${vectorComponents[0]}_;');
       iPrint('this.yz = ${vectorComponents[1]}_.xy;');
       iPop();
       iPrint('}');
@@ -277,10 +278,11 @@ class VectorGenerator {
     String code = 'String toString() => \'';
     bool first = true;
     vectorComponents.forEach((comp) {
-      code += first ? '\$$comp' : ',\$$comp';
+      var extra = first ? '\$$comp' : ',\$$comp';
+      code = '$code$extra'; 
       first = false;
     });
-    code += '\';';
+    code = '$code\';';
     iPrint(code);
   }
   
@@ -309,10 +311,11 @@ class VectorGenerator {
     String code = '$generatedName operator$op($generatedName other) => new $generatedName(';
     bool first = true;
     vectorComponents.forEach((comp) {
-      code += first ? '$comp $op other.$comp' :', $comp $op other.$comp'; 
+      var extra = first ? '$comp $op other.$comp' :', $comp $op other.$comp'; 
+      code = '$code$extra';  
       first = false;
     });
-    code += ');';
+    code = '$code);';
     iPrint(code);
   }
   
@@ -327,10 +330,11 @@ class VectorGenerator {
       String code = 'return new $generatedName(';
       bool first = true;
       vectorComponents.forEach((comp) {
-        code += first ? '$comp $op other' :', $comp $op other'; 
+        var extra =first ? '$comp $op other' :', $comp $op other'; 
+        code = '$code$extra';  
         first = false;
       });
-      code += ');';
+      code = '$code);';
       iPrint(code);
       iPop();
       iPrint('}');
@@ -341,10 +345,11 @@ class VectorGenerator {
       bool first = true;
       String code = 'return new $generatedName(';
       vectorComponents.forEach((comp) {
-        code += first ? '$comp $op other.$comp' :', $comp $op other.$comp'; 
+        var extra = first ? '$comp $op other.$comp' :', $comp $op other.$comp';
+        code = '$code$extra';
         first = false;
       });
-      code += ');';
+      code = '$code);';
       iPrint(code);
       iPop();
       iPrint('}');
@@ -360,10 +365,11 @@ class VectorGenerator {
     String code = '$generatedName operator negate() => new $generatedName(';
     bool first = true;
     vectorComponents.forEach((comp) {
-      code += first ? '$op$comp' :', $op$comp'; 
+      var extra = first ? '$op$comp' :', $op$comp';
+      code = '$code$extra';
       first = false;
     });
-    code += ');';
+    code = '$code);';
     iPrint(code);
   }
   
@@ -376,7 +382,7 @@ class VectorGenerator {
     iPush();
     int i = 0;
     vectorComponents.forEach((comp) {
-      iPrint('case $i: return $comp; break;');
+      iPrint('case $i: return $comp;');
       i++;
     });
     iPop();
@@ -395,7 +401,7 @@ class VectorGenerator {
     iPush();
     int i = 0;
     vectorComponents.forEach((comp) {
-      iPrint('case $i: $comp = v; return $comp; break;');
+      iPrint('case $i: $comp = v; return $comp;');
       i++;
     });
     iPop();
@@ -484,7 +490,7 @@ class VectorGenerator {
       if (pre.charCodes().indexOf(vectorComponents[a].charCodeAt(0)) != -1) {
         continue;
       }
-      String property_name = pre + vectorComponents[a];
+      String property_name = '$pre${vectorComponents[a]}';
       generateSettersForType(type, len, property_name, i+1, 0);
     }
   }
@@ -506,10 +512,11 @@ class VectorGenerator {
       String code = '$type get $pre() => new $type(';
       bool first = true;
       pre.splitChars().forEach((c) {
-        code += first ? '$c' : ', $c';  
+        var extra = first ? '$c' : ', $c'; 
+        code = '$code$extra'; 
         first = false;
       });
-      code += ');';
+      code = '$code);';
       iPrint(code);
       return;
     }
@@ -517,7 +524,7 @@ class VectorGenerator {
       return;
     }
     for (int a = 0; a < vectorDimension; a++) {
-      String property_name = pre + vectorComponents[a];
+      String property_name = '$pre${vectorComponents[a]}';
       generateGettersForType(type, len, property_name, i+1, 0);
     }
   }
@@ -659,7 +666,7 @@ class VectorGenerator {
     iPrint('$generatedName copy() {');
     iPush();
     iPrint('$generatedName c = new ${generatedName}.copy(this);');
-    iPrint('return c');
+    iPrint('return c;');
     iPop();
     iPrint('}');
   }
@@ -719,12 +726,10 @@ class VectorGenerator {
 void main() {
   String basePath = 'lib/VectorMath/gen';
   var f;
-  
+  var o;
   f = new File('${basePath}/vec2_gen.dart');
-  f.onError = (error) {
-    print('$error');
-  };
-  f.open(FileMode.WRITE, (opened) {
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
     print('opened');
     VectorGenerator vg = new VectorGenerator();
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
@@ -736,13 +741,11 @@ void main() {
     vg.vectorLen = 2;
     vg.out = opened;
     vg.generate();
-    opened.close(() {});
+    opened.closeSync();
   });
   f = new File('${basePath}/vec3_gen.dart');
-  f.onError = (error) {
-    print('$error');
-  };
-  f.open(FileMode.WRITE, (opened) {
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
     print('opened');
     VectorGenerator vg = new VectorGenerator();
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
@@ -757,10 +760,8 @@ void main() {
     opened.close(() {});
   });
   f = new File('${basePath}/vec4_gen.dart');
-  f.onError = (error) {
-    print('$error');
-  };
-  f.open(FileMode.WRITE, (opened) {
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
     print('opened');
     VectorGenerator vg = new VectorGenerator();
     vg.allTypes = ['vec2', 'vec3', 'vec4'];

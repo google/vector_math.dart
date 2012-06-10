@@ -55,9 +55,9 @@ class BuiltinGen {
   void iPrint(String s) {
     String indent = "";
     for (int i = 0; i < _indent; i++) {
-      indent += '  ';
+      indent = '$indent  ';
     }
-    out.writeString('$indent$s\n');
+    out.writeStringSync('$indent$s\n');
     print('$indent$s');
   }
   
@@ -91,16 +91,12 @@ class BuiltinGen {
     switch (typeName) {
     case 'num':
       return [''];
-      break;
     case 'vec2':
       return ['.x', '.y'];
-      break;
     case 'vec3':
       return ['.x', '.y', '.z'];
-      break;
     case 'vec4':
       return ['.x', '.y', '.z', '.w'];
-      break;
     }
     return [''];
   }
@@ -109,7 +105,8 @@ class BuiltinGen {
     bool first = true;
     String code = '';
     args.forEach((arg) {
-      code += first ? 'Dynamic $arg' : ', Dynamic $arg';
+      var extra =first ? 'Dynamic $arg' : ', Dynamic $arg'; 
+      code = '$code$extra'; 
       first = false;
     });
     return code;
@@ -119,7 +116,8 @@ class BuiltinGen {
     bool first = true;
     String code = '';
     arguments.forEach((arg) {
-      code += first ? '$arg$component' : ', $arg$component';
+      var extra = first ? '$arg$component' : ', $arg$component';
+      code = '$code$extra';
       first = false;
     });
     return code;
@@ -141,9 +139,11 @@ class BuiltinGen {
         bool first = true;
         components.forEach((comp) {
           if (first) {
-            code += '${function.scalarName}(${expandArguments(function.args, comp)})';
+            var extra ='${function.scalarName}(${expandArguments(function.args, comp)})'; 
+            code = '$code$extra';
           } else {
-            code += ', ${function.scalarName}(${expandArguments(function.args, comp)})';
+            var extra = ', ${function.scalarName}(${expandArguments(function.args, comp)})';
+            code = '$code$extra'; 
           }
           first = false;
         });
@@ -169,12 +169,10 @@ class BuiltinGen {
 void main() {
   String basePath = 'lib/VectorMath/gen';
   var f;
-  
+  var o;
   f = new File('${basePath}/trig.dart');
-  f.onError = (error) {
-    print('$error');
-  };
-  f.open(FileMode.WRITE, (opened) {
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
     print('opened');
     BuiltinGen bg = new BuiltinGen();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
@@ -193,14 +191,12 @@ void main() {
                  new GeneratedFunctionDesc('radians', '_ScalerHelpers.radians', ['arg'], 'arg', 'Returns [arg] converted from degrees to radians. Return types matches the type of [arg]'),
                  new GeneratedFunctionDesc('degrees', '_ScalerHelpers.degrees', ['arg'], 'arg', 'Returns [arg] converted from radians to degrees. Return types matches the type of [arg]'),
                  ]);
-    opened.close(() {});
+    opened.closeSync();
   });
   
   f = new File('${basePath}/exponent.dart');
-  f.onError = (error) {
-    print('$error');
-  };
-  f.open(FileMode.WRITE, (opened) {
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
     print('opened');
     BuiltinGen bg = new BuiltinGen();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
@@ -213,14 +209,12 @@ void main() {
                  new GeneratedFunctionDesc('sqrt', 'Math.sqrt', ['arg'], 'arg', 'Returns the square root of [arg].'),
                  new GeneratedFunctionDesc('inversesqrt', '_ScalerHelpers.inversesqrt', ['arg'], 'arg', 'Returns the inverse square root of [arg]. Supports vectors and numbers.'),
                  ]);
-    opened.close(() {});
+    opened.closeSync();
   });
   
   f = new File('${basePath}/common.dart');
-  f.onError = (error) {
-    print('$error');
-  };
-  f.open(FileMode.WRITE, (opened) {
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
     print('opened');
     BuiltinGen bg = new BuiltinGen();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
@@ -241,6 +235,6 @@ void main() {
                  new GeneratedFunctionDesc('step', '_ScalerHelpers.step', ['x', 'y'], 'x', 'Returns 0.0 if x < [y] and 1.0 otherwise.'),
                  new GeneratedFunctionDesc('smoothstep', '_ScalerHelpers.smoothstep', ['edge0', 'edge1', 'x'], 'x', 'Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].'),
                  ]);
-    opened.close(() {});
+    opened.closeSync();
   });
 }
