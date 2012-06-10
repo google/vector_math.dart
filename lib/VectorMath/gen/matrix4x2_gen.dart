@@ -164,8 +164,8 @@ class mat4x2 {
   /// Returns a printable string
   String toString() {
     String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
+    s = '$s[0] ${getRow(0)}\n';
+    s = '$s[1] ${getRow(1)}\n';
     return s;
   }
   /// Returns the number of rows in the matrix.
@@ -178,10 +178,10 @@ class mat4x2 {
   vec2 operator[](int column) {
     assert(column >= 0 && column < 4);
     switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
-      case 2: return col2; break;
-      case 3: return col3; break;
+      case 0: return col0;
+      case 1: return col1;
+      case 2: return col2;
+      case 3: return col3;
     }
     throw new IllegalArgumentException(column);
   }
@@ -189,10 +189,10 @@ class mat4x2 {
   vec2 operator[]=(int column, vec2 arg) {
     assert(column >= 0 && column < 4);
     switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
-      case 2: col2 = arg; return col2; break;
-      case 3: col3 = arg; return col3; break;
+      case 0: col0 = arg; return col0;
+      case 1: col1 = arg; return col1;
+      case 2: col2 = arg; return col2;
+      case 3: col3 = arg; return col3;
     }
     throw new IllegalArgumentException(column);
   }
@@ -260,28 +260,6 @@ class mat4x2 {
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
         r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
         r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
-        return r;
-      }
-      if (arg.cols == 3) {
-        r = new mat3x2();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
-        return r;
-      }
-      if (arg.cols == 4) {
-        r = new mat4x2();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
-        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y) + (this.col2.x * arg.col3.z) + (this.col3.x * arg.col3.w);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
-        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y) + (this.col2.y * arg.col3.z) + (this.col3.y * arg.col3.w);
         return r;
       }
       return r;

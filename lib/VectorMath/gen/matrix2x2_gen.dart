@@ -112,8 +112,8 @@ class mat2x2 {
   /// Returns a printable string
   String toString() {
     String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
+    s = '$s[0] ${getRow(0)}\n';
+    s = '$s[1] ${getRow(1)}\n';
     return s;
   }
   /// Returns the number of rows in the matrix.
@@ -126,8 +126,8 @@ class mat2x2 {
   vec2 operator[](int column) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
+      case 0: return col0;
+      case 1: return col1;
     }
     throw new IllegalArgumentException(column);
   }
@@ -135,8 +135,8 @@ class mat2x2 {
   vec2 operator[]=(int column, vec2 arg) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
+      case 0: col0 = arg; return col0;
+      case 1: col1 = arg; return col1;
     }
     throw new IllegalArgumentException(column);
   }
@@ -196,28 +196,6 @@ class mat2x2 {
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
         r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
         r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
-        return r;
-      }
-      if (arg.cols == 3) {
-        r = new mat3x2();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y);
-        return r;
-      }
-      if (arg.cols == 4) {
-        r = new mat4x2();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);
-        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y);
-        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y);
         return r;
       }
       return r;
@@ -311,12 +289,12 @@ class mat2x2 {
   }
   /// Invert the matrix. Returns the determinant.
   num invert() {
-    double det = determinant();
+    num det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    double invDet = 1.0 / det;
-    double temp = col0.x;
+    num invDet = 1.0 / det;
+    num temp = col0.x;
     col0.x = col1.y * invDet;
     col0.y = - col0.y * invDet;
     col1.x = - col1.x * invDet;
@@ -325,16 +303,16 @@ class mat2x2 {
   }
   /// Turns the matrix into a rotation of [radians]
   void setRotation(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = c;
     col0.y = s;
     col1.x = -s;
     col1.y = c;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  void selfScaleAdjoint(double scale) {
-    double temp = col0.x;
+  void selfScaleAdjoint(num scale) {
+    num temp = col0.x;
     col0.x = col1.y * scale;
     col1.x = - col1.x * scale;
     col0.y = - col0.y * scale;
@@ -372,10 +350,10 @@ class mat2x2 {
     return this;
   }
   mat2x2 selfMultiply(mat2x2 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
     col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
@@ -383,10 +361,10 @@ class mat2x2 {
     return this;
   }
   mat2x2 selfTransposeMultiply(mat2x2 arg) {
-    double m00 = col0.x;
-    double m01 = col0.y;
-    double m10 = col1.x;
-    double m11 = col1.y;
+    num m00 = col0.x;
+    num m01 = col0.y;
+    num m10 = col1.x;
+    num m11 = col1.y;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
     col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
@@ -394,14 +372,25 @@ class mat2x2 {
     return this;
   }
   mat2x2 selfMultiplyTranpose(mat2x2 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x);
     col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y);
     col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x);
     col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y);
     return this;
+  }
+  vec2 transformDirect(vec2 arg) {
+    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
+    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+    arg.x = x_;
+    arg.y = y_;
+    return arg;
+  }
+  vec2 transform(vec2 arg) {
+    vec2 d = arg.copy();
+    return transformDirect(d);
   }
 }

@@ -324,10 +324,10 @@ class mat4x4 {
   /// Returns a printable string
   String toString() {
     String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
-    s += '[2] ${getRow(2)}\n';
-    s += '[3] ${getRow(3)}\n';
+    s = '$s[0] ${getRow(0)}\n';
+    s = '$s[1] ${getRow(1)}\n';
+    s = '$s[2] ${getRow(2)}\n';
+    s = '$s[3] ${getRow(3)}\n';
     return s;
   }
   /// Returns the number of rows in the matrix.
@@ -340,10 +340,10 @@ class mat4x4 {
   vec4 operator[](int column) {
     assert(column >= 0 && column < 4);
     switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
-      case 2: return col2; break;
-      case 3: return col3; break;
+      case 0: return col0;
+      case 1: return col1;
+      case 2: return col2;
+      case 3: return col3;
     }
     throw new IllegalArgumentException(column);
   }
@@ -351,10 +351,10 @@ class mat4x4 {
   vec4 operator[]=(int column, vec4 arg) {
     assert(column >= 0 && column < 4);
     switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
-      case 2: col2 = arg; return col2; break;
-      case 3: col3 = arg; return col3; break;
+      case 0: col0 = arg; return col0;
+      case 1: col1 = arg; return col1;
+      case 2: col2 = arg; return col2;
+      case 3: col3 = arg; return col3;
     }
     throw new IllegalArgumentException(column);
   }
@@ -698,20 +698,20 @@ class mat4x4 {
     this.col1.z = temp;
   }
   num invert() {
-    double det = determinant();
+    num det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    double invDet = 1.0 / det;
+    num invDet = 1.0 / det;
     selfScaleAdjoint(invDet);
     return det;
   }
   num invertRotation() {
-    double det = determinant();
+    num det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    double invDet = 1.0 / det;
+    num invDet = 1.0 / det;
     vec4 i = new vec4.zero();
     vec4 j = new vec4.zero();
     vec4 k = new vec4.zero();
@@ -731,8 +731,8 @@ class mat4x4 {
   }
   /// Sets the upper 3x3 to a rotation of [radians] around X
   void setRotationAroundX(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = 1.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -748,8 +748,8 @@ class mat4x4 {
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Y
   void setRotationAroundY(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = c;
     col0.y = 0.0;
     col0.z = -s;
@@ -765,8 +765,8 @@ class mat4x4 {
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Z
   void setRotationAroundZ(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = c;
     col0.y = s;
     col0.z = 0.0;
@@ -781,24 +781,24 @@ class mat4x4 {
     col2.w = 0.0;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  void selfScaleAdjoint(double scale) {
+  void selfScaleAdjoint(num scale) {
     // Adapted from code by Richard Carling.
-    double a1 = col0.x;
-    double b1 = col1.x;
-    double c1 = col2.x;
-    double d1 = col3.x;
-    double a2 = col0.y;
-    double b2 = col1.y;
-    double c2 = col2.y;
-    double d2 = col3.y;
-    double a3 = col0.z;
-    double b3 = col1.z;
-    double c3 = col2.z;
-    double d3 = col3.z;
-    double a4 = col0.w;
-    double b4 = col1.w;
-    double c4 = col2.w;
-    double d4 = col3.w;
+    num a1 = col0.x;
+    num b1 = col1.x;
+    num c1 = col2.x;
+    num d1 = col3.x;
+    num a2 = col0.y;
+    num b2 = col1.y;
+    num c2 = col2.y;
+    num d2 = col3.y;
+    num a3 = col0.z;
+    num b3 = col1.z;
+    num c3 = col2.z;
+    num d3 = col3.z;
+    num a4 = col0.w;
+    num b4 = col1.w;
+    num c4 = col2.w;
+    num d4 = col3.w;
     col0.x  =   (b2 * (c3 * d4 - c4 * d3) - c2 * (b3 * d4 - b4 * d3) + d2 * (b3 * c4 - b4 * c3)) * scale;
     col0.y  = - (a2 * (c3 * d4 - c4 * d3) - c2 * (a3 * d4 - a4 * d3) + d2 * (a3 * c4 - a4 * c3)) * scale;
     col0.z  =   (a2 * (b3 * d4 - b4 * d3) - b2 * (a3 * d4 - a4 * d3) + d2 * (a3 * b4 - a4 * b3)) * scale;
@@ -896,22 +896,22 @@ class mat4x4 {
     return this;
   }
   mat4x4 selfMultiply(mat4x4 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m02 = col2.x;
-    double m03 = col3.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
-    double m12 = col2.y;
-    double m13 = col3.y;
-    double m20 = col0.z;
-    double m21 = col1.z;
-    double m22 = col2.z;
-    double m23 = col3.z;
-    double m30 = col0.w;
-    double m31 = col1.w;
-    double m32 = col2.w;
-    double m33 = col3.w;
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m02 = col2.x;
+    num m03 = col3.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
+    num m12 = col2.y;
+    num m13 = col3.y;
+    num m20 = col0.z;
+    num m21 = col1.z;
+    num m22 = col2.z;
+    num m23 = col3.z;
+    num m30 = col0.w;
+    num m31 = col1.w;
+    num m32 = col2.w;
+    num m33 = col3.w;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z) + (m03 * arg.col0.w);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z) + (m03 * arg.col1.w);
     col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z) + (m03 * arg.col2.w);
@@ -931,22 +931,22 @@ class mat4x4 {
     return this;
   }
   mat4x4 selfTransposeMultiply(mat4x4 arg) {
-    double m00 = col0.x;
-    double m01 = col0.y;
-    double m02 = col0.z;
-    double m03 = col0.w;
-    double m10 = col1.x;
-    double m11 = col1.y;
-    double m12 = col1.z;
-    double m13 = col1.w;
-    double m20 = col2.x;
-    double m21 = col2.y;
-    double m22 = col2.z;
-    double m23 = col2.w;
-    double m30 = col3.x;
-    double m31 = col3.y;
-    double m32 = col3.z;
-    double m33 = col3.w;
+    num m00 = col0.x;
+    num m01 = col0.y;
+    num m02 = col0.z;
+    num m03 = col0.w;
+    num m10 = col1.x;
+    num m11 = col1.y;
+    num m12 = col1.z;
+    num m13 = col1.w;
+    num m20 = col2.x;
+    num m21 = col2.y;
+    num m22 = col2.z;
+    num m23 = col2.w;
+    num m30 = col3.x;
+    num m31 = col3.y;
+    num m32 = col3.z;
+    num m33 = col3.w;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z) + (m03 * arg.col0.w);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z) + (m03 * arg.col1.w);
     col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z) + (m03 * arg.col2.w);
@@ -966,22 +966,22 @@ class mat4x4 {
     return this;
   }
   mat4x4 selfMultiplyTranpose(mat4x4 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m02 = col2.x;
-    double m03 = col3.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
-    double m12 = col2.y;
-    double m13 = col3.y;
-    double m20 = col0.z;
-    double m21 = col1.z;
-    double m22 = col2.z;
-    double m23 = col3.z;
-    double m30 = col0.w;
-    double m31 = col1.w;
-    double m32 = col2.w;
-    double m33 = col3.w;
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m02 = col2.x;
+    num m03 = col3.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
+    num m12 = col2.y;
+    num m13 = col3.y;
+    num m20 = col0.z;
+    num m21 = col1.z;
+    num m22 = col2.z;
+    num m23 = col3.z;
+    num m30 = col0.w;
+    num m31 = col1.w;
+    num m32 = col2.w;
+    num m33 = col3.w;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x) + (m02 * arg.col2.x) + (m03 * arg.col3.x);
     col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y) + (m02 * arg.col2.y) + (m03 * arg.col3.y);
     col2.x =  (m00 * arg.col0.z) + (m01 * arg.col1.z) + (m02 * arg.col2.z) + (m03 * arg.col3.z);
@@ -999,5 +999,33 @@ class mat4x4 {
     col2.w =  (m30 * arg.col0.z) + (m31 * arg.col1.z) + (m32 * arg.col2.z) + (m33 * arg.col3.z);
     col3.w =  (m30 * arg.col0.w) + (m31 * arg.col1.w) + (m32 * arg.col2.w) + (m33 * arg.col3.w);
     return this;
+  }
+  vec3 transformDirect3(vec3 arg) {
+    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
+    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
+    num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
+    arg.x = x_;
+    arg.y = y_;
+    arg.z = z_;
+    return arg;
+  }
+  vec3 transform3(vec3 arg) {
+    vec3 d = arg.copy();
+    return transformDirect3(d);
+  }
+  vec4 transformDirect(vec4 arg) {
+    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
+    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
+    num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
+    num w_ =  (this.col0.w * arg.x) + (this.col1.w * arg.y) + (this.col2.w * arg.z);
+    arg.x = x_;
+    arg.y = y_;
+    arg.z = z_;
+    arg.w = w_;
+    return arg;
+  }
+  vec4 transform(vec4 arg) {
+    vec4 d = arg.copy();
+    return transformDirect(d);
   }
 }

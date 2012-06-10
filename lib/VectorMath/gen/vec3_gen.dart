@@ -33,7 +33,7 @@ class vec3 {
       this.z = y_;
     }
     if (x_ is num && y_ is vec2) {
-      this.x = x_.x;
+      this.x = x_;
       this.yz = y_.xy;
     }
     if (x_ is vec2 && y_ == null) {
@@ -103,9 +103,9 @@ class vec3 {
   num operator[](int i) {
     assert(i >= 0 && i < 3);
     switch (i) {
-      case 0: return x; break;
-      case 1: return y; break;
-      case 2: return z; break;
+      case 0: return x;
+      case 1: return y;
+      case 2: return z;
     };
     return 0.0;
   }
@@ -113,9 +113,9 @@ class vec3 {
   num operator[]=(int i, num v) {
     assert(i >= 0 && i < 3);
     switch (i) {
-      case 0: x = v; return x; break;
-      case 1: y = v; return y; break;
-      case 2: z = v; return z; break;
+      case 0: x = v; return x;
+      case 1: y = v; return y;
+      case 2: z = v; return z;
     };
     return 0.0;
   }
@@ -734,6 +734,6 @@ class vec3 {
   }
   vec3 copy() {
     vec3 c = new vec3.copy(this);
-    return c
+    return c;
   }
 }

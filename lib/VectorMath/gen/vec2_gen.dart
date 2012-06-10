@@ -86,8 +86,8 @@ class vec2 {
   num operator[](int i) {
     assert(i >= 0 && i < 2);
     switch (i) {
-      case 0: return x; break;
-      case 1: return y; break;
+      case 0: return x;
+      case 1: return y;
     };
     return 0.0;
   }
@@ -95,8 +95,8 @@ class vec2 {
   num operator[]=(int i, num v) {
     assert(i >= 0 && i < 2);
     switch (i) {
-      case 0: x = v; return x; break;
-      case 1: y = v; return y; break;
+      case 0: x = v; return x;
+      case 1: y = v; return y;
     };
     return 0.0;
   }
@@ -292,6 +292,6 @@ class vec2 {
   }
   vec2 copy() {
     vec2 c = new vec2.copy(this);
-    return c
+    return c;
   }
 }

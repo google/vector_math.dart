@@ -125,9 +125,9 @@ class mat2x3 {
   /// Returns a printable string
   String toString() {
     String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
-    s += '[2] ${getRow(2)}\n';
+    s = '$s[0] ${getRow(0)}\n';
+    s = '$s[1] ${getRow(1)}\n';
+    s = '$s[2] ${getRow(2)}\n';
     return s;
   }
   /// Returns the number of rows in the matrix.
@@ -140,8 +140,8 @@ class mat2x3 {
   vec3 operator[](int column) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
+      case 0: return col0;
+      case 1: return col1;
     }
     throw new IllegalArgumentException(column);
   }
@@ -149,8 +149,8 @@ class mat2x3 {
   vec3 operator[]=(int column, vec3 arg) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
+      case 0: col0 = arg; return col0;
+      case 1: col1 = arg; return col1;
     }
     throw new IllegalArgumentException(column);
   }
@@ -232,22 +232,6 @@ class mat2x3 {
         r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y);
         r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y);
         r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y);
-        return r;
-      }
-      if (arg.cols == 4) {
-        r = new mat4x3();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);
-        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y);
-        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y);
-        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y);
-        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y);
-        r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y);
-        r.col3.z =  (this.col0.z * arg.col3.x) + (this.col1.z * arg.col3.y);
         return r;
       }
       return r;

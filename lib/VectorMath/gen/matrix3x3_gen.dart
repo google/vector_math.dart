@@ -198,9 +198,9 @@ class mat3x3 {
   /// Returns a printable string
   String toString() {
     String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
-    s += '[2] ${getRow(2)}\n';
+    s = '$s[0] ${getRow(0)}\n';
+    s = '$s[1] ${getRow(1)}\n';
+    s = '$s[2] ${getRow(2)}\n';
     return s;
   }
   /// Returns the number of rows in the matrix.
@@ -213,9 +213,9 @@ class mat3x3 {
   vec3 operator[](int column) {
     assert(column >= 0 && column < 3);
     switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
-      case 2: return col2; break;
+      case 0: return col0;
+      case 1: return col1;
+      case 2: return col2;
     }
     throw new IllegalArgumentException(column);
   }
@@ -223,9 +223,9 @@ class mat3x3 {
   vec3 operator[]=(int column, vec3 arg) {
     assert(column >= 0 && column < 3);
     switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
-      case 2: col2 = arg; return col2; break;
+      case 0: col0 = arg; return col0;
+      case 1: col1 = arg; return col1;
+      case 2: col2 = arg; return col2;
     }
     throw new IllegalArgumentException(column);
   }
@@ -312,22 +312,6 @@ class mat3x3 {
         r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z);
         r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z);
         r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z);
-        return r;
-      }
-      if (arg.cols == 4) {
-        r = new mat4x3();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z);
-        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y) + (this.col2.x * arg.col3.z);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z);
-        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y) + (this.col2.y * arg.col3.z);
-        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z);
-        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z);
-        r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z);
-        r.col3.z =  (this.col0.z * arg.col3.x) + (this.col1.z * arg.col3.y) + (this.col2.z * arg.col3.z);
         return r;
       }
       return r;
@@ -455,11 +439,11 @@ class mat3x3 {
   }
   /// Invert the matrix. Returns the determinant.
   num invert() {
-    double det = determinant();
+    num det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    double invDet = 1.0 / det;
+    num invDet = 1.0 / det;
     vec3 i = new vec3.zero();
     vec3 j = new vec3.zero();
     vec3 k = new vec3.zero();
@@ -479,8 +463,8 @@ class mat3x3 {
   }
   /// Turns the matrix into a rotation of [radians] around X
   void setRotationAroundX(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = 1.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -493,8 +477,8 @@ class mat3x3 {
   }
   /// Turns the matrix into a rotation of [radians] around Y
   void setRotationAroundY(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = c;
     col0.y = 0.0;
     col0.z = -s;
@@ -507,8 +491,8 @@ class mat3x3 {
   }
   /// Turns the matrix into a rotation of [radians] around Z
   void setRotationAroundZ(num radians_) {
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+    num c = Math.cos(radians_);
+    num s = Math.sin(radians_);
     col0.x = c;
     col0.y = s;
     col0.z = 0.0;
@@ -520,16 +504,16 @@ class mat3x3 {
     col2.z = 1.0;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  void selfScaleAdjoint(double scale) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m02 = col2.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
-    double m12 = col2.y;
-    double m20 = col0.z;
-    double m21 = col1.z;
-    double m22 = col2.z;
+  void selfScaleAdjoint(num scale) {
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m02 = col2.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
+    num m12 = col2.y;
+    num m20 = col0.z;
+    num m21 = col1.z;
+    num m22 = col2.z;
     col0.x = (m11 * m22 - m12 * m21) * scale;
     col0.y = (m12 * m20 - m10 * m22) * scale;
     col0.z = (m10 * m21 - m11 * m20) * scale;
@@ -592,15 +576,15 @@ class mat3x3 {
     return this;
   }
   mat3x3 selfMultiply(mat3x3 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m02 = col2.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
-    double m12 = col2.y;
-    double m20 = col0.z;
-    double m21 = col1.z;
-    double m22 = col2.z;
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m02 = col2.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
+    num m12 = col2.y;
+    num m20 = col0.z;
+    num m21 = col1.z;
+    num m22 = col2.z;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z);
     col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z);
@@ -613,15 +597,15 @@ class mat3x3 {
     return this;
   }
   mat3x3 selfTransposeMultiply(mat3x3 arg) {
-    double m00 = col0.x;
-    double m01 = col0.y;
-    double m02 = col0.z;
-    double m10 = col1.x;
-    double m11 = col1.y;
-    double m12 = col1.z;
-    double m20 = col2.x;
-    double m21 = col2.y;
-    double m22 = col2.z;
+    num m00 = col0.x;
+    num m01 = col0.y;
+    num m02 = col0.z;
+    num m10 = col1.x;
+    num m11 = col1.y;
+    num m12 = col1.z;
+    num m20 = col2.x;
+    num m21 = col2.y;
+    num m22 = col2.z;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z);
     col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z);
@@ -634,15 +618,15 @@ class mat3x3 {
     return this;
   }
   mat3x3 selfMultiplyTranpose(mat3x3 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m02 = col2.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
-    double m12 = col2.y;
-    double m20 = col0.z;
-    double m21 = col1.z;
-    double m22 = col2.z;
+    num m00 = col0.x;
+    num m01 = col1.x;
+    num m02 = col2.x;
+    num m10 = col0.y;
+    num m11 = col1.y;
+    num m12 = col2.y;
+    num m20 = col0.z;
+    num m21 = col1.z;
+    num m22 = col2.z;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x) + (m02 * arg.col2.x);
     col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y) + (m02 * arg.col2.y);
     col2.x =  (m00 * arg.col0.z) + (m01 * arg.col1.z) + (m02 * arg.col2.z);
@@ -653,5 +637,18 @@ class mat3x3 {
     col1.z =  (m20 * arg.col0.y) + (m21 * arg.col1.y) + (m22 * arg.col2.y);
     col2.z =  (m20 * arg.col0.z) + (m21 * arg.col1.z) + (m22 * arg.col2.z);
     return this;
+  }
+  vec3 transformDirect(vec3 arg) {
+    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
+    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
+    num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
+    arg.x = x_;
+    arg.y = y_;
+    arg.z = z_;
+    return arg;
+  }
+  vec3 transform(vec3 arg) {
+    vec3 d = arg.copy();
+    return transformDirect(d);
   }
 }

@@ -146,10 +146,10 @@ class mat2x4 {
   /// Returns a printable string
   String toString() {
     String s = '';
-    s += '[0] ${getRow(0)}\n';
-    s += '[1] ${getRow(1)}\n';
-    s += '[2] ${getRow(2)}\n';
-    s += '[3] ${getRow(3)}\n';
+    s = '$s[0] ${getRow(0)}\n';
+    s = '$s[1] ${getRow(1)}\n';
+    s = '$s[2] ${getRow(2)}\n';
+    s = '$s[3] ${getRow(3)}\n';
     return s;
   }
   /// Returns the number of rows in the matrix.
@@ -162,8 +162,8 @@ class mat2x4 {
   vec4 operator[](int column) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: return col0; break;
-      case 1: return col1; break;
+      case 0: return col0;
+      case 1: return col1;
     }
     throw new IllegalArgumentException(column);
   }
@@ -171,8 +171,8 @@ class mat2x4 {
   vec4 operator[]=(int column, vec4 arg) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: col0 = arg; return col0; break;
-      case 1: col1 = arg; return col1; break;
+      case 0: col0 = arg; return col0;
+      case 1: col1 = arg; return col1;
     }
     throw new IllegalArgumentException(column);
   }

@@ -112,10 +112,10 @@ class vec4 {
   num operator[](int i) {
     assert(i >= 0 && i < 4);
     switch (i) {
-      case 0: return x; break;
-      case 1: return y; break;
-      case 2: return z; break;
-      case 3: return w; break;
+      case 0: return x;
+      case 1: return y;
+      case 2: return z;
+      case 3: return w;
     };
     return 0.0;
   }
@@ -123,10 +123,10 @@ class vec4 {
   num operator[]=(int i, num v) {
     assert(i >= 0 && i < 4);
     switch (i) {
-      case 0: x = v; return x; break;
-      case 1: y = v; return y; break;
-      case 2: z = v; return z; break;
-      case 3: w = v; return w; break;
+      case 0: x = v; return x;
+      case 1: y = v; return y;
+      case 2: z = v; return z;
+      case 3: w = v; return w;
     };
     return 0.0;
   }
@@ -2186,6 +2186,6 @@ class vec4 {
   }
   vec4 copy() {
     vec4 c = new vec4.copy(this);
-    return c
+    return c;
   }
 }
