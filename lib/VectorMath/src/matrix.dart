@@ -93,10 +93,11 @@ mat4x4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
 mat4x4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
   mat4x4 outer = new mat4x4.outer(v,v);
-  outer = outer * 2.0;
+  outer.selfScale(2.0);
   mat4x4 r = new mat4x4();
   r = r - outer;
-  vec3 scaledNormal = (planeNormal * 2.0 * dot(planePoint, planeNormal));
+  num scale = 2.0 * dot(planePoint, planeNormal);
+  vec3 scaledNormal = (planeNormal * scale);
   vec4 T = new vec4(scaledNormal, 1.0);
   r.col3 = T;
   return r;
