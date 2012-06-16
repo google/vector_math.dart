@@ -111,10 +111,10 @@ class _ScalerHelpers {
   }
   
   static num exp2(num x) {
-    return x;
+    return Math.pow(2, x);
   }
   
   static num log2(num x) {
-    
+    return Math.log(x) / Math.log(2);
   }
 }
