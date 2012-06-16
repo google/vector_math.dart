@@ -350,14 +350,18 @@ class mat2x2 {
     return this;
   }
   mat2x2 selfMultiply(mat2x2 arg) {
-    num m00 = col0.x;
-    num m01 = col1.x;
-    num m10 = col0.y;
-    num m11 = col1.y;
-    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
-    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
-    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
-    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y);
+    final num m00 = col0.x;
+    final num m01 = col1.x;
+    final num m10 = col0.y;
+    final num m11 = col1.y;
+    final num n00 = arg.col0.x;
+    final num n01 = arg.col1.x;
+    final num n10 = arg.col0.y;
+    final num n11 = arg.col1.y;
+    col0.x =  (m00 * n00) + (m01 * n10);
+    col1.x =  (m00 * n01) + (m01 * n11);
+    col0.y =  (m10 * n00) + (m11 * n10);
+    col1.y =  (m10 * n01) + (m11 * n11);
     return this;
   }
   mat2x2 selfTransposeMultiply(mat2x2 arg) {

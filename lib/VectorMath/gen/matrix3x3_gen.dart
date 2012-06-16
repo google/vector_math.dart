@@ -576,24 +576,33 @@ class mat3x3 {
     return this;
   }
   mat3x3 selfMultiply(mat3x3 arg) {
-    num m00 = col0.x;
-    num m01 = col1.x;
-    num m02 = col2.x;
-    num m10 = col0.y;
-    num m11 = col1.y;
-    num m12 = col2.y;
-    num m20 = col0.z;
-    num m21 = col1.z;
-    num m22 = col2.z;
-    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y) + (m02 * arg.col0.z);
-    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y) + (m02 * arg.col1.z);
-    col2.x =  (m00 * arg.col2.x) + (m01 * arg.col2.y) + (m02 * arg.col2.z);
-    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y) + (m12 * arg.col0.z);
-    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y) + (m12 * arg.col1.z);
-    col2.y =  (m10 * arg.col2.x) + (m11 * arg.col2.y) + (m12 * arg.col2.z);
-    col0.z =  (m20 * arg.col0.x) + (m21 * arg.col0.y) + (m22 * arg.col0.z);
-    col1.z =  (m20 * arg.col1.x) + (m21 * arg.col1.y) + (m22 * arg.col1.z);
-    col2.z =  (m20 * arg.col2.x) + (m21 * arg.col2.y) + (m22 * arg.col2.z);
+    final num m00 = col0.x;
+    final num m01 = col1.x;
+    final num m02 = col2.x;
+    final num m10 = col0.y;
+    final num m11 = col1.y;
+    final num m12 = col2.y;
+    final num m20 = col0.z;
+    final num m21 = col1.z;
+    final num m22 = col2.z;
+    final num n00 = arg.col0.x;
+    final num n01 = arg.col1.x;
+    final num n02 = arg.col2.x;
+    final num n10 = arg.col0.y;
+    final num n11 = arg.col1.y;
+    final num n12 = arg.col2.y;
+    final num n20 = arg.col0.z;
+    final num n21 = arg.col1.z;
+    final num n22 = arg.col2.z;
+    col0.x =  (m00 * n00) + (m01 * n10) + (m02 * n20);
+    col1.x =  (m00 * n01) + (m01 * n11) + (m02 * n21);
+    col2.x =  (m00 * n02) + (m01 * n12) + (m02 * n22);
+    col0.y =  (m10 * n00) + (m11 * n10) + (m12 * n20);
+    col1.y =  (m10 * n01) + (m11 * n11) + (m12 * n21);
+    col2.y =  (m10 * n02) + (m11 * n12) + (m12 * n22);
+    col0.z =  (m20 * n00) + (m21 * n10) + (m22 * n20);
+    col1.z =  (m20 * n01) + (m21 * n11) + (m22 * n21);
+    col2.z =  (m20 * n02) + (m21 * n12) + (m22 * n22);
     return this;
   }
   mat3x3 selfTransposeMultiply(mat3x3 arg) {

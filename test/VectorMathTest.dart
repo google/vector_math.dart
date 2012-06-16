@@ -21,4 +21,5 @@ void main() {
     VectorTest vt = new VectorTest();
     vt.Test();
   }
+  print('Finished testing');
 }

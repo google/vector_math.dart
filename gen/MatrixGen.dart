@@ -1189,7 +1189,12 @@ class MatrixGen {
     iPush(); 
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        iPrint('num m$i$j = ${Access(i, j)};');
+        iPrint('final num m$i$j = ${Access(i, j)};');
+      }
+    }
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        iPrint('final num n$i$j = arg.${Access(i, j)};');
       }
     }
     for (int i = 0; i < rows; i++) {
@@ -1199,7 +1204,7 @@ class MatrixGen {
           if (k != 0) {
             r = '$r +';
           }
-          r = '$r (m$i$k * arg.${Access(k, j)})';
+          r = '$r (m$i$k * n$k$j)';
           
         }
         iPrint('${Access(i, j)} = $r;');
