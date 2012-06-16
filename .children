@@ -1,3 +1,4 @@
+benchmark/benchmark.dart
 test/VectorMathTest.dart
 lib/VectorMath/VectorMath.dart
 gen/VectorMathGen.dart
