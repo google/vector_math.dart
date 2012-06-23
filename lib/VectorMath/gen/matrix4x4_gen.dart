@@ -302,6 +302,32 @@ class mat4x4 {
     col3.w = 1.0;
     setRotationAroundZ(radians_);
   }
+  //// Constructs a new [mat4x4] representening a [translation]
+  mat4x4.translate(vec3 translation) {
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
+    col0.x = 1.0;
+    col1.y = 1.0;
+    col2.z = 1.0;
+    col3.w = 1.0;
+    col3.xyz = translation;
+  }
+  //// Constructs a new [mat4x4] representening a translation of [x], [y], and [z]
+  mat4x4.translateRaw(num x, num y, num z) {
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
+    col0.x = 1.0;
+    col1.y = 1.0;
+    col2.z = 1.0;
+    col3.w = 1.0;
+    col3.x = x;
+    col3.y = y;
+    col3.z = z;
+  }
   mat4x4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11, num arg12, num arg13, num arg14, num arg15) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
