@@ -250,13 +250,13 @@ class mat4x3 {
     throw new IllegalArgumentException(column);
   }
   /// Assigns the [column] of the matrix [arg]
-  vec3 operator[]=(int column, vec3 arg) {
+  void operator[]=(int column, vec3 arg) {
     assert(column >= 0 && column < 4);
     switch (column) {
-      case 0: col0 = arg; return col0;
-      case 1: col1 = arg; return col1;
-      case 2: col2 = arg; return col2;
-      case 3: col3 = arg; return col3;
+      case 0: col0 = arg; break;
+      case 1: col1 = arg; break;
+      case 2: col2 = arg; break;
+      case 3: col3 = arg; break;
     }
     throw new IllegalArgumentException(column);
   }

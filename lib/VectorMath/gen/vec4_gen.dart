@@ -132,15 +132,14 @@ class vec4 {
     return 0.0;
   }
   /// Assigns a component in vec4 the value in [v]. This is indexed as an array with [i]
-  num operator[]=(int i, num v) {
+  void operator[]=(int i, num v) {
     assert(i >= 0 && i < 4);
     switch (i) {
-      case 0: x = v; return x;
-      case 1: y = v; return y;
-      case 2: z = v; return z;
-      case 3: w = v; return w;
+      case 0: x = v; break;
+      case 1: y = v; break;
+      case 2: z = v; break;
+      case 3: w = v; break;
     };
-    return 0.0;
   }
   /// Returns length of this
   num get length() {

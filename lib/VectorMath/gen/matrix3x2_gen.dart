@@ -155,12 +155,12 @@ class mat3x2 {
     throw new IllegalArgumentException(column);
   }
   /// Assigns the [column] of the matrix [arg]
-  vec2 operator[]=(int column, vec2 arg) {
+  void operator[]=(int column, vec2 arg) {
     assert(column >= 0 && column < 3);
     switch (column) {
-      case 0: col0 = arg; return col0;
-      case 1: col1 = arg; return col1;
-      case 2: col2 = arg; return col2;
+      case 0: col0 = arg; break;
+      case 1: col1 = arg; break;
+      case 2: col2 = arg; break;
     }
     throw new IllegalArgumentException(column);
   }

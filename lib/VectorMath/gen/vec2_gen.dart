@@ -100,13 +100,12 @@ class vec2 {
     return 0.0;
   }
   /// Assigns a component in vec2 the value in [v]. This is indexed as an array with [i]
-  num operator[]=(int i, num v) {
+  void operator[]=(int i, num v) {
     assert(i >= 0 && i < 2);
     switch (i) {
-      case 0: x = v; return x;
-      case 1: y = v; return y;
+      case 0: x = v; break;
+      case 1: y = v; break;
     };
-    return 0.0;
   }
   /// Returns length of this
   num get length() {

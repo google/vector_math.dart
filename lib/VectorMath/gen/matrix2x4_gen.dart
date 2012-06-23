@@ -168,11 +168,11 @@ class mat2x4 {
     throw new IllegalArgumentException(column);
   }
   /// Assigns the [column] of the matrix [arg]
-  vec4 operator[]=(int column, vec4 arg) {
+  void operator[]=(int column, vec4 arg) {
     assert(column >= 0 && column < 2);
     switch (column) {
-      case 0: col0 = arg; return col0;
-      case 1: col1 = arg; return col1;
+      case 0: col0 = arg; break;
+      case 1: col1 = arg; break;
     }
     throw new IllegalArgumentException(column);
   }
