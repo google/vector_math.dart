@@ -357,6 +357,38 @@ class MatrixGen {
       iPrint('}');
     }
     
+    if (rows == 4 && cols == 4) {
+      iPrint('\/\/\/\/ Constructs a new [${matType}] representening a [translation]');
+      iPrint('${matType}.translate(vec3 translation) {');
+      iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType.zero();');
+      }
+      iPrint('col0.x = 1.0;');
+      iPrint('col1.y = 1.0;');
+      iPrint('col2.z = 1.0;');
+      iPrint('col3.w = 1.0;');
+      iPrint('col3.xyz = translation;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('\/\/\/\/ Constructs a new [${matType}] representening a translation of [x], [y], and [z]');
+      iPrint('${matType}.translateRaw(num x, num y, num z) {');
+      iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType.zero();');
+      }
+      iPrint('col0.x = 1.0;');
+      iPrint('col1.y = 1.0;');
+      iPrint('col2.z = 1.0;');
+      iPrint('col3.w = 1.0;');
+      iPrint('col3.x = x;');
+      iPrint('col3.y = y;');
+      iPrint('col3.z = z;');
+      iPop();
+      iPrint('}');
+    }
+    
     iPrint('${matType}.raw(${joinStrings(arguments, 'num ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
