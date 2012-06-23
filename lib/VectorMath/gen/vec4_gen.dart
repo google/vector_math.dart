@@ -2181,7 +2181,7 @@ class vec4 {
     w = w / arg.w;
     return this;
   }
-  vec4 Scale(num arg) {
+  vec4 selfScale(num arg) {
     x = x * arg;
     y = y * arg;
     z = z * arg;

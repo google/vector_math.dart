@@ -729,7 +729,7 @@ class vec3 {
     z = z / arg.z;
     return this;
   }
-  vec3 Scale(num arg) {
+  vec3 selfScale(num arg) {
     x = x * arg;
     y = y * arg;
     z = z * arg;

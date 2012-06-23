@@ -287,7 +287,7 @@ class vec2 {
     y = y / arg.y;
     return this;
   }
-  vec2 Scale(num arg) {
+  vec2 selfScale(num arg) {
     x = x * arg;
     y = y * arg;
     return this;
