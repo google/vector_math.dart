@@ -55,7 +55,7 @@ mat4x4 makeFrustum(num left, num right, num bottom, num top, num near, num far) 
   num top_minus_bottom = top - bottom;
   num far_minus_near = far - near;
 
-  mat4x4 view = new mat4x4();
+  mat4x4 view = new mat4x4.zero();
   view[0].x = two_near / right_minus_left;
   view[1].y = two_near / top_minus_bottom;
   view[2].x = (right + left) / right_minus_left;
@@ -77,7 +77,7 @@ mat4x4 makeOrthographic(num left, num right, num bottom, num top, num znear, num
   num fmn = zfar - znear;
   num fpn = zfar + znear;
   
-  mat4x4 r = new mat4x4();
+  mat4x4 r = new mat4x4.zero();
   r[0].x = 2.0/rml;
   r[1].y = 2.0/tmb;
   r[2].z = 2.0/fmn;
