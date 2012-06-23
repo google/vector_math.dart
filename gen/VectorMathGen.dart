@@ -635,7 +635,7 @@ class VectorGenerator {
   }
   
   void generateSelfScalarOp(String methodName, String op) {
-    iPrint('$generatedName $methodName(num arg) {');
+    iPrint('$generatedName self$methodName(num arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = $c $op arg;');
