@@ -28,8 +28,8 @@ class mat2x4 {
   /// Constructs a new mat2x4. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
   mat2x4([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7]) {
     //Initialize the matrix as the identity matrix
-    col0 = new vec4();
-    col1 = new vec4();
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
     col0.x = 1.0;
     col1.y = 1.0;
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num && arg6 is num && arg7 is num) {
@@ -132,8 +132,8 @@ class mat2x4 {
     col1.w = other.col1.w;
   }
   mat2x4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7) {
-    col0 = new vec4();
-    col1 = new vec4();
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
     col0.x = arg0;
     col0.y = arg1;
     col0.z = arg2;
@@ -219,7 +219,7 @@ class mat2x4 {
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
-      mat2x4 r = new mat2x4();
+      mat2x4 r = new mat2x4.zero();
       r.col0.x = col0.x * arg;
       r.col0.y = col0.y * arg;
       r.col0.z = col0.z * arg;
@@ -231,7 +231,7 @@ class mat2x4 {
       return r;
     }
     if (arg is vec2) {
-      vec4 r = new vec4();
+      vec4 r = new vec4.zero();
       r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
       r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
       r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y);
@@ -241,7 +241,7 @@ class mat2x4 {
     if (2 == arg.rows) {
       Dynamic r = null;
       if (arg.cols == 2) {
-        r = new mat2x4();
+        r = new mat2x4.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
         r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
@@ -253,7 +253,7 @@ class mat2x4 {
         return r;
       }
       if (arg.cols == 3) {
-        r = new mat3x4();
+        r = new mat3x4.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
         r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);
@@ -269,7 +269,7 @@ class mat2x4 {
         return r;
       }
       if (arg.cols == 4) {
-        r = new mat4x4();
+        r = new mat4x4.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
         r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y);

@@ -29,9 +29,9 @@ class mat3x2 {
   /// Constructs a new mat3x2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
   mat3x2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5]) {
     //Initialize the matrix as the identity matrix
-    col0 = new vec2();
-    col1 = new vec2();
-    col2 = new vec2();
+    col0 = new vec2.zero();
+    col1 = new vec2.zero();
+    col2 = new vec2.zero();
     col0.x = 1.0;
     col1.y = 1.0;
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num) {
@@ -121,9 +121,9 @@ class mat3x2 {
     col2.y = other.col2.y;
   }
   mat3x2.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5) {
-    col0 = new vec2();
-    col1 = new vec2();
-    col2 = new vec2();
+    col0 = new vec2.zero();
+    col1 = new vec2.zero();
+    col2 = new vec2.zero();
     col0.x = arg0;
     col0.y = arg1;
     col1.x = arg2;
@@ -201,7 +201,7 @@ class mat3x2 {
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
-      mat3x2 r = new mat3x2();
+      mat3x2 r = new mat3x2.zero();
       r.col0.x = col0.x * arg;
       r.col0.y = col0.y * arg;
       r.col1.x = col1.x * arg;
@@ -211,7 +211,7 @@ class mat3x2 {
       return r;
     }
     if (arg is vec3) {
-      vec2 r = new vec2();
+      vec2 r = new vec2.zero();
       r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
       r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
       return r;
@@ -219,7 +219,7 @@ class mat3x2 {
     if (3 == arg.rows) {
       Dynamic r = null;
       if (arg.cols == 2) {
-        r = new mat2x2();
+        r = new mat2x2.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z);
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z);
         r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z);
