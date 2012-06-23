@@ -2199,6 +2199,18 @@ class vec4 {
     vec4 c = new vec4.copy(this);
     return c;
   }
+  void copyIntoVector(vec4 arg) {
+    arg.x = x;
+    arg.y = y;
+    arg.z = z;
+    arg.w = w;
+  }
+  void copyFromVector(vec4 arg) {
+    x = arg.x;
+    y = arg.y;
+    z = arg.z;
+    w = arg.w;
+  }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {
     int i = offset;

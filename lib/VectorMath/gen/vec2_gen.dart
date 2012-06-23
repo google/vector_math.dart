@@ -301,6 +301,14 @@ class vec2 {
     vec2 c = new vec2.copy(this);
     return c;
   }
+  void copyIntoVector(vec2 arg) {
+    arg.x = x;
+    arg.y = y;
+  }
+  void copyFromVector(vec2 arg) {
+    x = arg.x;
+    y = arg.y;
+  }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {
     int i = offset;

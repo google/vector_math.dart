@@ -745,6 +745,16 @@ class vec3 {
     vec3 c = new vec3.copy(this);
     return c;
   }
+  void copyIntoVector(vec3 arg) {
+    arg.x = x;
+    arg.y = y;
+    arg.z = z;
+  }
+  void copyFromVector(vec3 arg) {
+    x = arg.x;
+    y = arg.y;
+    z = arg.z;
+  }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {
     int i = offset;

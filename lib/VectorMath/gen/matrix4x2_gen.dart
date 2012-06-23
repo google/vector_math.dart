@@ -373,6 +373,26 @@ class mat4x2 {
   mat4x2 copy() {
     return new mat4x2.copy(this);
   }
+  void copyIntoMatrix(mat4x2 arg) {
+    arg.col0.x = col0.x;
+    arg.col0.y = col0.y;
+    arg.col1.x = col1.x;
+    arg.col1.y = col1.y;
+    arg.col2.x = col2.x;
+    arg.col2.y = col2.y;
+    arg.col3.x = col3.x;
+    arg.col3.y = col3.y;
+  }
+  void copyFromMatrix(mat4x2 arg) {
+    col0.x = arg.col0.x;
+    col0.y = arg.col0.y;
+    col1.x = arg.col1.x;
+    col1.y = arg.col1.y;
+    col2.x = arg.col2.x;
+    col2.y = arg.col2.y;
+    col3.x = arg.col3.x;
+    col3.y = arg.col3.y;
+  }
   mat4x2 selfAdd(mat4x2 o) {
     col0.x = col0.x + o.col0.x;
     col0.y = col0.y + o.col0.y;

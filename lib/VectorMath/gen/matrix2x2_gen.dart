@@ -321,6 +321,18 @@ class mat2x2 {
   mat2x2 copy() {
     return new mat2x2.copy(this);
   }
+  void copyIntoMatrix(mat2x2 arg) {
+    arg.col0.x = col0.x;
+    arg.col0.y = col0.y;
+    arg.col1.x = col1.x;
+    arg.col1.y = col1.y;
+  }
+  void copyFromMatrix(mat2x2 arg) {
+    col0.x = arg.col0.x;
+    col0.y = arg.col0.y;
+    col1.x = arg.col1.x;
+    col1.y = arg.col1.y;
+  }
   mat2x2 selfAdd(mat2x2 o) {
     col0.x = col0.x + o.col0.x;
     col0.y = col0.y + o.col0.y;
