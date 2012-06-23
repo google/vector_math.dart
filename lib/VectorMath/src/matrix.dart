@@ -42,18 +42,30 @@ mat4x4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
 
 /** Returns an OpenGL perspective camera projection matrix */
 mat4x4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
-  num tan_fov = tan(fov_y_radians * 0.5);
-  num height = 1.0/tan_fov;
-  num width = height / aspect_ratio;
-  num zf_sub_zn = zfar - znear;
-  
-  mat4x4 r = new mat4x4();
-  r[0].x = width;
-  r[1].y = height;
-  r[2].z = zfar/zf_sub_zn;
-  r[3].z = 1.0;
-  r[3].w = 0.0;
-  return r;
+  double height = tan(fov_y_radians * 0.5) * znear;
+  double width = height * aspect_ratio;
+
+  return makeFrustum(-width, width, -height, height, znear, zfar);
+}
+
+/** Returns an OpenGL frustum camera projection matrix */
+mat4x4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
+  num two_near = 2.0 * near;
+  num right_minus_left = right - left;
+  num top_minus_bottom = top - bottom;
+  num far_minus_near = far - near;
+
+  mat4x4 view = new mat4x4();
+  view[0].x = two_near / right_minus_left;
+  view[1].y = two_near / top_minus_bottom;
+  view[2].x = (right + left) / right_minus_left;
+  view[2].y = (top + bottom) / top_minus_bottom;
+  view[2].z = -(far + near) / far_minus_near;
+  view[2].w = -1.0;
+  view[3].z = -(two_near * far) / far_minus_near;
+  view[3].w = 0.0;
+
+  return view;
 }
 
 /** Returns an OpenGL orthographic camera projection matrix */ 
