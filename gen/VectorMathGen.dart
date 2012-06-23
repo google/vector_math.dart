@@ -679,6 +679,21 @@ class VectorGenerator {
     iPrint('return c;');
     iPop();
     iPrint('}');
+    iPrint('void copyIntoVector($generatedName arg) {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('arg.$c = $c;');
+    }
+    iPop();
+    iPrint('}');
+    
+    iPrint('void copyFromVector($generatedName arg) {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = arg.$c;');
+    }
+    iPop();
+    iPrint('}');
   }
   
   void generateBuffer() {

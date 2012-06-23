@@ -1163,6 +1163,26 @@ class MatrixGen {
     iPrint('return new ${matType}.copy(this);');
     iPop();
     iPrint('}');
+    
+    iPrint('void copyIntoMatrix($matType arg) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('arg.${Access(j,i)} = ${Access(j,i)};');
+      }
+    }
+    iPop();
+    iPrint('}');
+    
+    iPrint('void copyFromMatrix($matType arg) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('${Access(j,i)} = arg.${Access(j,i)};');
+      }
+    }
+    iPop();
+    iPrint('}');
   }
   
   void generateSelfOp(String name, String op) {
