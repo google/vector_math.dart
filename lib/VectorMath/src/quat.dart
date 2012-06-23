@@ -299,15 +299,14 @@ class quat {
   }
   
   /** Treats quaternion as an array and assigns [x],[y],[z], or [w] the value of [arg]*/
-  num operator[]=(int i, num arg) {
+  void operator[]=(int i, num arg) {
     assert(i >= 0 && i < 4);
     switch (i) {
-    case 0: x = arg; return x;
-    case 1: y = arg; return y;
-    case 2: z = arg; return z;
-    case 3: w = arg; return w;
+    case 0: x = arg; break;
+    case 1: y = arg; break;
+    case 2: z = arg; break;
+    case 3: w = arg; break;
     }
-    return 0.0;
   }
   
   /** Converts quaternion into rotation matrix ([mat3x3]) */
