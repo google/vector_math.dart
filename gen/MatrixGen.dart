@@ -401,13 +401,13 @@ class MatrixGen {
   
   void generateAssignIndexOperator() {
     iPrint('\/\/\/ Assigns the [column] of the matrix [arg]');
-    iPrint('$colVecType operator[]=(int column, $colVecType arg) {');
+    iPrint('void operator[]=(int column, $colVecType arg) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
     iPrint('switch (column) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('case $i: col$i = arg; return col$i;');
+      iPrint('case $i: col$i = arg; break;');
     }
     iPop();
     iPrint('}');

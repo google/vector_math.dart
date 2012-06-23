@@ -405,19 +405,18 @@ class VectorGenerator {
   
   void generateAssignIndexOperator() {
     iPrint('\/\/\/ Assigns a component in $generatedName the value in [v]. This is indexed as an array with [i]');
-    iPrint('$vectorType operator[]=(int i, $vectorType v) {');
+    iPrint('void operator[]=(int i, $vectorType v) {');
     iPush();
     iPrint('assert(i >= 0 && i < $vectorDimension);');
     iPrint('switch (i) {');
     iPush();
     int i = 0;
     vectorComponents.forEach((comp) {
-      iPrint('case $i: $comp = v; return $comp;');
+      iPrint('case $i: $comp = v; break;');
       i++;
     });
     iPop();
     iPrint('};');
-    iPrint('return 0.0;');
     iPop();
     iPrint('}');
   }
@@ -774,6 +773,7 @@ void main() {
   String basePath = 'lib/VectorMath/gen';
   var f;
   var o;
+
   f = new File('${basePath}/vec2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -790,6 +790,7 @@ void main() {
     vg.generate();
     opened.closeSync();
   });
+
   f = new File('${basePath}/vec3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -804,8 +805,9 @@ void main() {
     vg.vectorLen = 3;
     vg.out = opened;
     vg.generate();
-    opened.close(() {});
+    opened.closeSync();
   });
+
   f = new File('${basePath}/vec4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -820,6 +822,6 @@ void main() {
     vg.vectorLen = 4;
     vg.out = opened;
     vg.generate();
-    opened.close(() {});
+    opened.closeSync();
   });
 }
