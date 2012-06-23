@@ -22,7 +22,6 @@
 
 */
 #library("VectorMath");
-#import('dart:builtin');
 #source("src/ScalarMath.dart");
 #source("gen/vec2_gen.dart");
 #source("gen/vec3_gen.dart");
