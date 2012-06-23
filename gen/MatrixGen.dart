@@ -159,7 +159,7 @@ class MatrixGen {
     iPush();
     iPrint('//Initialize the matrix as the identity matrix');
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new $colVecType();');
+      iPrint('col$i = new $colVecType.zero();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -309,7 +309,7 @@ class MatrixGen {
       iPrint('${matType}.rotation(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
-        iPrint('col$i = new $colVecType();');
+        iPrint('col$i = new $colVecType.zero();');
       }
       iPrint('setRotation(radians_);');
       iPop();
@@ -321,7 +321,10 @@ class MatrixGen {
       iPrint('${matType}.rotationX(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
-        iPrint('col$i = new $colVecType();');
+        iPrint('col$i = new $colVecType.zero();');
+      }
+      if (rows == 4 && cols == 4) {
+        iPrint('col3.w = 1.0;');
       }
       iPrint('setRotationAroundX(radians_);');
       iPop();
@@ -331,7 +334,10 @@ class MatrixGen {
       iPrint('${matType}.rotationY(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
-        iPrint('col$i = new $colVecType();');
+        iPrint('col$i = new $colVecType.zero();');
+      }
+      if (rows == 4 && cols == 4) {
+        iPrint('col3.w = 1.0;');
       }
       iPrint('setRotationAroundY(radians_);');
       iPop();
@@ -341,7 +347,10 @@ class MatrixGen {
       iPrint('${matType}.rotationZ(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
-        iPrint('col$i = new $colVecType();');
+        iPrint('col$i = new $colVecType.zero();');
+      }
+      if (rows == 4 && cols == 4) {
+        iPrint('col3.w = 1.0;');
       }
       iPrint('setRotationAroundZ(radians_);');
       iPop();
@@ -351,7 +360,7 @@ class MatrixGen {
     iPrint('${matType}.raw(${joinStrings(arguments, 'num ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new $colVecType();');
+      iPrint('col$i = new $colVecType.zero();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -488,9 +497,17 @@ class MatrixGen {
   }
   
   void generateMatrixVectorMultiply() {
-    iPrint('$colVecType r = new $colVecType();');
+    iPrint('$colVecType r = new $colVecType.zero();');
     for (int i = 0; i < rows; i++) {
       iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', cols)};');
+    }
+    iPrint('return r;');
+  }
+  
+  void generateMatrixVectorMultiply3() {
+    iPrint('vec3 r = new vec3.zero();');
+    for (int i = 0; i < 3; i++) {
+      iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', 3)};');
     }
     iPrint('return r;');
   }
@@ -512,7 +529,7 @@ class MatrixGen {
     
     iPrint('if (arg.cols == 2) {');
     iPush();
-    iPrint('r = new mat2x${rows}();');
+    iPrint('r = new mat2x${rows}.zero();');
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < 2; j++) {
         iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
@@ -525,7 +542,7 @@ class MatrixGen {
     if (rows >= 3) {
       iPrint('if (arg.cols == 3) {');
       iPush();
-      iPrint('r = new mat3x${rows}();');
+      iPrint('r = new mat3x${rows}.zero();');
       for (int i = 0; i < rows; i++) {
         for (int j = 0; j < 3; j++) {
           iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
@@ -540,7 +557,7 @@ class MatrixGen {
     if (rows >= 4) {
       iPrint('if (arg.cols == 4) {');
       iPush();
-      iPrint('r = new mat4x${rows}();');
+      iPrint('r = new mat4x${rows}.zero();');
       for (int i = 0; i < rows; i++) {
         for (int j = 0; j < 4; j++) {
           iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
@@ -555,7 +572,7 @@ class MatrixGen {
   }
   
   void generateMatrixScale() {
-    iPrint('${matType} r = new ${matType}();');
+    iPrint('${matType} r = new ${matType}.zero();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('r.${Access(j, i)} = ${Access(j, i)} * arg;');
@@ -578,6 +595,13 @@ class MatrixGen {
     generateMatrixVectorMultiply();
     iPop();
     iPrint('}');
+    if (matType == 'mat4x4') {
+      iPrint('if (arg is vec3) {');
+      iPush();
+      generateMatrixVectorMultiply3();
+      iPop();
+      iPrint('}');
+    }
     iPrint('if ($cols == arg.rows) {');
     iPush();
     generateMatrixMatrixMultiply();
