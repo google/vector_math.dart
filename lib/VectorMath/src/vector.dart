@@ -81,8 +81,8 @@ void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
     u.x = -planeNormal[1]*k;
     u.y = planeNormal[0]*k;
     u.z = 0.0;
-    u.x = -planeNormal[2]*(planeNormal[0]*k);
-    u.y = planeNormal[2]*(-planeNormal[1]*k);
-    u.z = a*k;
+    v.x = -planeNormal[2]*(planeNormal[0]*k);
+    v.y = planeNormal[2]*(-planeNormal[1]*k);
+    v.z = a*k;
   }
 }
