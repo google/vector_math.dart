@@ -1411,9 +1411,9 @@ class MatrixGen {
     if (rows == 4) {
       iPrint('vec3 transformDirect3(vec3 arg) {');
       iPush();
-      iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)};');
-      iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)};');
-      iPrint('num z_ = ${generateInlineDot('this', 2, 'arg', 3)};');
+      iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)} + ${Access(0, 3)};');
+      iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)} + ${Access(1, 3)};');
+      iPrint('num z_ = ${generateInlineDot('this', 2, 'arg', 3)} + ${Access(2, 3)};');
       iPrint('arg.x = x_;');
       iPrint('arg.y = y_;');
       iPrint('arg.z = z_;');
