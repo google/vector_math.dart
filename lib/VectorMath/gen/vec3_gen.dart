@@ -164,7 +164,7 @@ class vec3 {
   }
   /// Returns the cross product of [this] and [other]
   vec3 cross(vec3 other) {
-    return new vec3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
+    return new vec3.raw(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
   }
   /// Returns the relative error between [this] and [correct]
   num relativeError(vec3 correct) {
