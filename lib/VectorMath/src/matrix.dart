@@ -26,16 +26,17 @@
 mat4x4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
   vec3 z = lookAtPosition - eyePosition;
   z.normalize();
-  vec3 x = upDirection.cross(z);
+  vec3 x = z.cross(upDirection);
   x.normalize();
-  vec3 y = z.cross(x);
+  vec3 y = x.cross(z);
   y.normalize();
-  mat4x4 r = new mat4x4();
+  mat4x4 r = new mat4x4.zero();
   r[0].xyz = x;
   r[1].xyz = y;
-  r[2].xyz = z;
+  r[2].xyz = -z;
   r[3].w = 1.0;
-  vec3 rotatedEye = r * eyePosition;
+  r = r.transposed();
+  vec3 rotatedEye = r * -eyePosition;
   r[3].xyz = rotatedEye;
   return r;
 }
