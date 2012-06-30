@@ -607,7 +607,7 @@ class VectorGenerator {
     iPrint('\/\/\/ Returns the cross product of [this] and [other]');
     iPrint('$generatedName cross($generatedName other) {');
     iPush();
-    iPrint('return new $generatedName(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);');
+    iPrint('return new ${generatedName}.raw(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);');
     iPop();
     iPrint('}');
   }
