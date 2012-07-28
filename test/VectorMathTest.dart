@@ -6,26 +6,32 @@
 #source('MatrixTest.dart');
 #source('VectorTest.dart');
 #source('OpenGLMatrixTest.dart');
+#source('BuiltinTest.dart');
 
 void main() {
   {
     QuaternionTest qt = new QuaternionTest();
-    qt.Test();  
+    qt.test();  
   }
   
   {
     MatrixTest mt = new MatrixTest();
-    mt.Test();
+    mt.test();
   }
   
   {
     VectorTest vt = new VectorTest();
-    vt.Test();
+    vt.test();
   }
   
   {
     OpenGLMatrixTest omt = new OpenGLMatrixTest();
-    omt.Test();
+    omt.test();
+  }
+  
+  {
+    BuiltinTest bt = new BuiltinTest();
+    bt.test();
   }
   print('Finished testing');
 }

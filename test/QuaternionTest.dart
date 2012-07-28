@@ -35,7 +35,7 @@ class QuaternionTest extends BaseTest {
     }
   }
   
-  void Test() {
+  void test() {
     {
       List<quat> input = new List<quat>();
       input.add(new quat());

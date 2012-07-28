@@ -54,7 +54,7 @@ class VectorTest extends BaseTest {
     }
   }
   
-  void Test() {
+  void test() {
     TestCrossProduct();
     TestDotProduct();
   }

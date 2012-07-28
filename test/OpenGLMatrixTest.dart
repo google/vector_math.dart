@@ -46,7 +46,7 @@ class OpenGLMatrixTest extends BaseTest {
     RelativeTest(ortho[3], new vec4(-(r+l)/(r-l), -(t+b)/(t-b), -(f+n)/(f-n), 1.0));
   }
   
-  void Test() {
+  void test() {
     print('Testing OpenGL matrices');
     TestLookAt();
     TestFrustumMatrix();

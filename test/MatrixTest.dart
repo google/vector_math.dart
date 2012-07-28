@@ -310,7 +310,7 @@ class MatrixTest extends BaseTest {
   }
 
   
-  void Test() {
+  void test() {
     print('Testing matrix');
     TestDeterminant();
     TestAdjoint();
