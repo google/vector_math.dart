@@ -90,7 +90,8 @@ class BaseTest {
   
   Dynamic parseVector(String v) {
     v = v.trim();
-    List<String> rows = v.split("\n");
+    Pattern pattern = new RegExp('[\\s]+', true, false);
+    List<String> rows = v.split(pattern);
     List<double> values = new List<double>();
     for (int i = 0; i < rows.length; i++) {
       rows[i] = rows[i].trim();

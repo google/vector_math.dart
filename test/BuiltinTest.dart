@@ -6,9 +6,7 @@ class BuiltinTest extends BaseTest {
     List<Dynamic> inputC = new List<Dynamic>(); 
     List<Dynamic> expectedOutput = new List<Dynamic>();
     
-    inputA.add(parseVector('''0.0
-0.0
-0.0'''));
+    inputA.add(parseVector('''0.0 0.0 0.0'''));
     inputA.add(parseVector('''0.0
 0.0
 0.0'''));

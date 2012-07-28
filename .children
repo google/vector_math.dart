@@ -5,4 +5,3 @@ gen/VectorMathGen.dart
 gen/BuiltinGen.dart
 test/glslTest.dart
 gen/MatrixGen.dart
-test/PerformanceTest.dart
