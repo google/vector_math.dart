@@ -217,10 +217,10 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGen bg) {
 }
 
 void main() {
-  String basePath = 'lib/VectorMath/gen';
+  String basePath = 'lib/common';
   var f;
   var o;
-  f = new File('${basePath}/trig.dart');
+  f = new File('${basePath}/trig_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
@@ -244,7 +244,7 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/exponent.dart');
+  f = new File('${basePath}/exponent_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
@@ -262,7 +262,7 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/common.dart');
+  f = new File('${basePath}/common_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');

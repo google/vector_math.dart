@@ -59,3 +59,21 @@ Dynamic atan(Dynamic arg, [Dynamic arg2]) {
   
   throw new IllegalArgumentException(arg);
 }
+
+/// Returns relative error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
+num relativeError(Dynamic calculated, Dynamic correct) {
+  if (calculated is num && correct is num) {
+    num diff = (calculated - correct).abs();
+    return diff/correct;
+  }
+  return calculated.relativeError(correct);
+}
+
+/// Returns absolute error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
+num absoluteError(Dynamic calculated, Dynamic correct) {
+  if (calculated is num && correct is num) {
+    num diff = (calculated - correct).abs();
+    return diff;
+  }
+  return calculated.absoluteError(correct);
+}
