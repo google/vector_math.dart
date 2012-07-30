@@ -1,15 +1,15 @@
 class BaseTest {
-  void TestFailure(var output, var expectedOutput, num error) {
+  void testFailure(var output, var expectedOutput, num error) {
     print('FAILURE!!!');
     print('$output != $expectedOutput) : ${error}');
     assert(false);
   }
 
-  void RelativeTest(var output, var expectedOutput) {
+  void relativeTest(var output, var expectedOutput) {
     num error = relativeError(output, expectedOutput);
     //print('$output $expectedOutput $error');
     if (error >= errorThreshold) {
-      TestFailure(output, expectedOutput, error);
+      testFailure(output, expectedOutput, error);
     }
   }
   
@@ -83,8 +83,7 @@ class BaseTest {
         m[i][j] = values[j*col_count+i];
       }  
     }
-    
-    //print('$m');
+
     return m;
   }
   

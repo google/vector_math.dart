@@ -1,6 +1,6 @@
 class VectorTest extends BaseTest {
 
-  void TestDotProduct() {
+  void testDotProduct() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<double> expectedOutput = new List<double>();
@@ -16,11 +16,11 @@ class VectorTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       double output1 = dot(inputA[i], inputB[i]);
       double output2 = dot(inputB[i], inputA[i]);
-      RelativeTest(output1, expectedOutput[i]);
-      RelativeTest(output2, expectedOutput[i]);
+      relativeTest(output1, expectedOutput[i]);
+      relativeTest(output2, expectedOutput[i]);
     }
   }
-  void TestCrossProduct() {
+  void testCrossProduct() {
     List<vec3> inputA = new List<vec3>();
     List<vec3> inputB = new List<vec3>();
     List<vec3> expectedOutput = new List<vec3>();
@@ -50,12 +50,13 @@ class VectorTest extends BaseTest {
     
     for (int i = 0; i < inputA.length; i++) {
       vec3 output = cross(inputA[i], inputB[i]);
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
   void test() {
-    TestCrossProduct();
-    TestDotProduct();
+    print('Running vector tests');
+    testCrossProduct();
+    testDotProduct();
   }
 }

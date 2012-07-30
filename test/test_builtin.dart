@@ -42,12 +42,12 @@ class BuiltinTest extends BaseTest {
     assert(inputB.length == expectedOutput.length);
     for (int i = 0; i < inputA.length; i++) {
       Dynamic out = mix(inputA[i], inputB[i], inputC[i]);
-      RelativeTest(out, expectedOutput[i]);
+      relativeTest(out, expectedOutput[i]);
     }
   }
   
   void test() {
-    print('Testing builtin');
+    print('Running builtin tests');
     testMix();
   }
 }
