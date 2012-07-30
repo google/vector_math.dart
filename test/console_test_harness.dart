@@ -1,12 +1,12 @@
 #import('dart:builtin');
 #import('../lib/vector_math_console.dart');
 
-#source('BaseTest.dart');
-#source('QuaternionTest.dart');
-#source('MatrixTest.dart');
-#source('VectorTest.dart');
-#source('OpenGLMatrixTest.dart');
-#source('BuiltinTest.dart');
+#source('base_test.dart');
+#source('test_quaternion.dart');
+#source('test_matrix.dart');
+#source('test_vector.dart');
+#source('test_opengl_matrix.dart');
+#source('test_builtin.dart');
 
 void main() {
   {
