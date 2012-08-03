@@ -26,13 +26,16 @@
 #import ('dart:core');
 #import ('dart:io');
  
+typedef void GenerateFunction(GeneratedFunctionDesc function, BuiltinGen bg);
+
 class GeneratedFunctionDesc {
   String name;
   String scalarName;
   List<String> args;
   String typeArg;
   String docString;
-  GeneratedFunctionDesc(this.name, this.scalarName, this.args, this.typeArg, [this.docString = '']);
+  GenerateFunction custom;
+  GeneratedFunctionDesc(this.name, this.scalarName, this.args, this.typeArg, [this.docString = '', this.custom = null]);
 }
 
 class BuiltinGen {
@@ -160,17 +163,64 @@ class BuiltinGen {
   void generate(List<GeneratedFunctionDesc> functions) {
     writeLicense();
     functions.forEach((f) {
-      generateFunction(f);
+      if (f.custom != null) {
+        f.custom(f, this);
+      } else {
+        generateFunction(f);
+      }
     });
   }
 }
 
+void generateMix(GeneratedFunctionDesc function, BuiltinGen bg) {
+  bg.iPrint('\/\/\/ ${function.docString}');
+  String prologue = 'Dynamic ${function.name}(${bg.makeArgsString(function.args)}) {';
+  bg.iPrint(prologue);
+  bg.iPush();
+  bg.iPrint('if (t is num) {');
+  bg.iPush();
+  bg.iPrint('''  if (x is num) {
+        return _ScalerHelpers.mix(x, y, t);
+      }
+      if (x is vec2) {
+        return new vec2(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x, y.y, t));
+      }
+      if (x is vec3) {
+        return new vec3(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t));
+      }
+      if (x is vec4) {
+        return new vec4(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t), _ScalerHelpers.mix(x.w, y.w, t));
+      }
+      throw new IllegalArgumentException(x);
+''');
+  bg.iPop();
+  bg.iPrint('} else {');
+  bg.iPush();
+  bg.iPrint('''  if (x is num) {
+        return _ScalerHelpers.mix(x, y, t);
+      }
+      if (x is vec2) {
+        return new vec2(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y));
+      }
+      if (x is vec3) {
+        return new vec3(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z));
+      }
+      if (x is vec4) {
+        return new vec4(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z), _ScalerHelpers.mix(x.w, y.w, t.w));
+      }
+      throw new IllegalArgumentException(x);
+''');
+  bg.iPop();
+  bg.iPrint('}');
+  bg.iPop();
+  bg.iPrint('}');
+}
 
 void main() {
-  String basePath = 'lib/VectorMath/gen';
+  String basePath = 'lib/common';
   var f;
   var o;
-  f = new File('${basePath}/trig.dart');
+  f = new File('${basePath}/trig_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
@@ -194,7 +244,7 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/exponent.dart');
+  f = new File('${basePath}/exponent_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
@@ -212,7 +262,7 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/common.dart');
+  f = new File('${basePath}/common_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
@@ -231,7 +281,7 @@ void main() {
                  new GeneratedFunctionDesc('min', 'Math.min', ['x', 'y'], 'x', 'Returns component wise minimum of [x] and [y]'),
                  new GeneratedFunctionDesc('max', 'Math.max', ['x', 'y'], 'x', 'Returns component wise maximum of [x] and [y]'),
                  new GeneratedFunctionDesc('clamp', '_ScalerHelpers.clamp', ['x', 'min_', 'max_'], 'x', 'Component wise clamp of [x] between [min_] and [max_]'),
-                 new GeneratedFunctionDesc('mix', '_ScalerHelpers.mix', ['x', 'y', 't'], 'x', 'Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.'),
+                 new GeneratedFunctionDesc('mix', '_ScalerHelpers.mix', ['x', 'y', 't'], 'x', 'Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.', generateMix),
                  new GeneratedFunctionDesc('step', '_ScalerHelpers.step', ['x', 'y'], 'x', 'Returns 0.0 if x < [y] and 1.0 otherwise.'),
                  new GeneratedFunctionDesc('smoothstep', '_ScalerHelpers.smoothstep', ['edge0', 'edge1', 'x'], 'x', 'Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].'),
                  ]);

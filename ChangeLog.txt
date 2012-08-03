@@ -1,3 +1,17 @@
+v 0.8.5 - July 29 2012
+
+- 33% faster matrix matrix multiply
+- Fix generated operator[]= 
+- Fix OpenGL lookat and perspective matrix constructors
+- Fix mat4x4 rotation constructors
+- Fix mat4x4 multiplied with vector3 not applying translation
+- Add utility methods for moving between Dart Vector Math types and Float32Array/Float32List types
+- Add mat4x4 translation constructor
+- Fixed buildPlaneVectors method
+- Fix mat4x4 transformDirect3 not applying translation
+- Add a new variant of mix() that takes the parameter t as a num or a vector
+- Large code reorganization to make it fit the 'dartblanklib' template
+
 v 0.8.0 - June 10 2012
 
 - Inverse of 2x2,3x3,4x4 matrices
