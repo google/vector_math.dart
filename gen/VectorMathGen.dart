@@ -730,7 +730,33 @@ class VectorGenerator {
     iPop();
     iPrint('}');
   }
-  
+
+  void generateIsInfinite() {
+    iPrint('\/\/\/ Returns true if any component is infinite.');
+    iPrint('bool isInfinite() {');
+    iPush();
+    iPrint('bool is_infinite = false;');
+    for (String c in vectorComponents) {
+      iPrint('is_infinite = is_infinite && $c.isInfinite();');
+    }
+    iPrint('return is_infinite;');
+    iPop();
+    iPrint('}');
+  }
+
+  void generateIsNaN() {
+    iPrint('\/\/\/ Returns true if any component is NaN.');
+    iPrint('bool isNaN() {');
+    iPush();
+    iPrint('bool is_nan = false;');
+    for (String c in vectorComponents) {
+      iPrint('is_nan = is_nan && $c.isNaN();');
+    }
+    iPrint('return is_nan;');
+    iPop();
+    iPrint('}');
+  }
+
   void generate() {
     writeLicense();
     generatePrologue();
@@ -753,6 +779,8 @@ class VectorGenerator {
     }
     generateError();
     generateSetters();
+    generateIsInfinite();
+    generateIsNaN();
     generateAliases(false);
     {
       var backup = vectorComponents;
