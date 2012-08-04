@@ -22,57 +22,7 @@
 
 */
 
-#import ('dart:builtin');
-#import ('dart:core');
-#import ('dart:io');
-
-void ListSwap(List<int> seq, int i, int j) {
-  int temp = seq[i];
-  seq[i] = seq[j];
-  seq[j] = temp;
-}
-
-void ListReverse(List<int> seq, int first, int last) {
-  while (first != last && first != --last) {
-    ListSwap(seq, first++, last);
-  }  
-}
-
-bool ListNextPermutation(List<int> seq, int first, int last) {
-  if (first == last) {
-    return false;
-  }
-  if (first+1 == last) {
-    return false;
-  }
-  int i = last-1;
-  for (;;) {
-    int ii = i--;
-    if (seq[i] < seq[ii]) {
-      int j = last;
-      while (!(seq[i] < seq[--j])) {
-        continue;
-      }
-      ListSwap(seq, i, j);
-      ListReverse(seq, ii, last);
-      return true;
-    }
-    if (i == first) {
-      ListReverse(seq, first, last);
-      return false;
-    }
-  }
-}
-
-List<String> PrintablePermutation(List<int> seq, List<String> components) {
-  List<String> r = new List<String>(seq.length);
-  for (int i = 0; i < seq.length; i++) {
-    r[i] = components[seq[i]];
-  }
-  return r;
-}
-
-class VectorGenerator {
+class VectorGenerator extends BaseGenerator {
   List<String> vectorComponents;
   int get vectorDimension() {
     return vectorComponents != null ? vectorComponents.length : 0;
@@ -83,54 +33,9 @@ class VectorGenerator {
   List<int> allTypesLength;
   List<List<String>> componentAliases;
   String generatedName;
-  int _indent;
-  RandomAccessFile out;
   String floatArrayType;
   
-  VectorGenerator() {
-    _indent = 0;
-  }
-
-  void iPush() {
-    _indent++;
-  }
-  void iPop() {
-    _indent--;
-    assert(_indent >= 0);
-  }
-  void iPrint(String s) {
-    String indent = "";
-    for (int i = 0; i < _indent; i++) {
-      indent = '$indent  ';
-    }
-    out.writeStringSync('$indent$s\n');
-    print('$indent$s');
-  }
-  
-  void writeLicense() {
-    iPrint('''/*
-
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
-
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
-
-*/''');
+  VectorGenerator() : super() {
   }
   
   void generatePrologue() {
@@ -680,19 +585,21 @@ class VectorGenerator {
     iPrint('return c;');
     iPop();
     iPrint('}');
-    iPrint('void copyIntoVector($generatedName arg) {');
+    iPrint('$generatedName copyIntoVector($generatedName arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('arg.$c = $c;');
     }
+    iPrint('return arg;');
     iPop();
     iPrint('}');
     
-    iPrint('void copyFromVector($generatedName arg) {');
+    iPrint('$generatedName copyFromVector($generatedName arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = arg.$c;');
     }
+    iPrint('return this;');
     iPop();
     iPrint('}');
   }
@@ -732,6 +639,32 @@ class VectorGenerator {
     iPrint('}');
   }
   
+  void generateIsInfinite() {
+    iPrint('\/\/\/ Returns true if any component is infinite.');
+    iPrint('bool isInfinite() {');
+    iPush();
+    iPrint('bool is_infinite = false;');
+    for (String c in vectorComponents) {
+      iPrint('is_infinite = is_infinite || $c.isInfinite();');
+    }
+    iPrint('return is_infinite;');
+    iPop();
+    iPrint('}');
+  }
+
+  void generateIsNaN() {
+    iPrint('\/\/\/ Returns true if any component is NaN.');
+    iPrint('bool isNaN() {');
+    iPush();
+    iPrint('bool is_nan = false;');
+    for (String c in vectorComponents) {
+      iPrint('is_nan = is_nan || $c.isNaN();');
+    }
+    iPrint('return is_nan;');
+    iPop();
+    iPrint('}');
+  }
+    
   void generate() {
     writeLicense();
     generatePrologue();
@@ -781,121 +714,8 @@ class VectorGenerator {
     generateSelfNegate();
     generateCopy();
     generateBuffer();
+    generateIsInfinite();
+    generateIsNaN();
     generateEpilogue();
   }
-}
-
-void main() {
-  String htmlBasePath = 'lib/html';
-  String consoleBasePath = 'lib/console';
-  var f;
-  var o;
-
-  f = new File('${htmlBasePath}/vec2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32Array';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
-    vg.vectorComponents = ['x','y'];
-    vg.componentAliases = [ ['r','g'], ['s','t']];
-    vg.generatedName = 'vec2';
-    vg.vectorLen = 2;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${htmlBasePath}/vec3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32Array';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
-    vg.vectorComponents = ['x','y', 'z'];
-    vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
-    vg.generatedName = 'vec3';
-    vg.vectorLen = 3;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${htmlBasePath}/vec4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32Array';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
-    vg.vectorComponents = ['x','y', 'z', 'w'];
-    vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
-    vg.generatedName = 'vec4';
-    vg.vectorLen = 4;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/vec2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32List';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
-    vg.vectorComponents = ['x','y'];
-    vg.componentAliases = [ ['r','g'], ['s','t']];
-    vg.generatedName = 'vec2';
-    vg.vectorLen = 2;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/vec3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32List';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
-    vg.vectorComponents = ['x','y', 'z'];
-    vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
-    vg.generatedName = 'vec3';
-    vg.vectorLen = 3;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/vec4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32List';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
-    vg.vectorComponents = ['x','y', 'z', 'w'];
-    vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
-    vg.generatedName = 'vec4';
-    vg.vectorLen = 4;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
 }

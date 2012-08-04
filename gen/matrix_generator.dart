@@ -22,10 +22,7 @@
 
 */
 
-#import ('dart:builtin');
-#import ('dart:io');
-
-class MatrixGen {
+class MatrixGenerator extends BaseGenerator {
   int rows;
   int cols;
   String get rowVecType() => 'vec$cols';
@@ -33,11 +30,8 @@ class MatrixGen {
   String get matType() => 'mat${cols}x${rows}';
   String floatArrayType;
   
-  int _indent;
-  RandomAccessFile out;
-  MatrixGen() {
+  MatrixGenerator() : super() {
     floatArrayType = 'Woops';
-    _indent = 0;
   }
   
   List<String> get matrixComponents() {
@@ -49,48 +43,6 @@ class MatrixGen {
   }
   String matTypeTransposed() {
     return 'mat${rows}x${cols}';
-  }
-  
-  void iPush() {
-    _indent++;
-  }
-  void iPop() {
-    _indent--;
-    assert(_indent >= 0);
-  }
-  void iPrint(String s) {
-    String indent = "";
-    for (int i = 0; i < _indent; i++) {
-      indent = '$indent  ';
-    }
-    out.writeStringSync('$indent$s\n');
-    print('$indent$s');
-  }
-  
-  void writeLicense() {
-    iPrint('''/*
-
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
-
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
-
-*/''');
   }
   
   String Access(int row, int col, [String pre = 'col']) {
@@ -1199,23 +1151,25 @@ class MatrixGen {
     iPop();
     iPrint('}');
     
-    iPrint('void copyIntoMatrix($matType arg) {');
+    iPrint('$matType copyIntoMatrix($matType arg) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('arg.${Access(j,i)} = ${Access(j,i)};');
       }
     }
+    iPrint('return arg;');
     iPop();
     iPrint('}');
     
-    iPrint('void copyFromMatrix($matType arg) {');
+    iPrint('$matType copyFromMatrix($matType arg) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('${Access(j,i)} = arg.${Access(j,i)};');
       }
     }
+    iPrint('return this;');
     iPop();
     iPrint('}');
   }
@@ -1531,242 +1485,4 @@ class MatrixGen {
     generateBuffer();
     generateEpilogue();
   }
-}
-
-void main() {
-  String htmlBasePath = 'lib/html';
-  String consoleBasePath = 'lib/console';
-  var f = null;
-  var o;
-  f = new File('${htmlBasePath}/matrix2x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 2;
-    mg.cols = 2;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  f = new File('${htmlBasePath}/matrix2x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.cols = 2;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${htmlBasePath}/matrix2x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.cols = 2;
-    mg.rows = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${htmlBasePath}/matrix3x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 2;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${htmlBasePath}/matrix3x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 3;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${htmlBasePath}/matrix3x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 4;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${htmlBasePath}/matrix4x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 2;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${htmlBasePath}/matrix4x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.cols = 4;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${htmlBasePath}/matrix4x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 4;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix2x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 2;
-    mg.cols = 2;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  f = new File('${consoleBasePath}/matrix2x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.cols = 2;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix2x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.cols = 2;
-    mg.rows = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix3x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 2;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix3x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 3;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix3x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 4;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix4x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 2;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  
-  f = new File('${consoleBasePath}/matrix4x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.cols = 4;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/matrix4x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    print('opened');
-    MatrixGen mg = new MatrixGen();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 4;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
 }
