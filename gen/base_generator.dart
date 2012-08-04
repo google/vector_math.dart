@@ -120,4 +120,16 @@ class BaseGenerator {
 
 */''');
   }
+  
+  String joinStrings(List<String> elements, [String pre = '', String post = '', String joiner = ', ']) {
+    bool first = true;
+    String r = '';
+    for (String e in elements) {
+      var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}'; 
+      r = '$r$extra'; 
+      first = false;
+    }
+    return r;
+  }
+  
 }

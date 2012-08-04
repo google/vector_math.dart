@@ -25,24 +25,27 @@
 class MatrixGenerator extends BaseGenerator {
   int rows;
   int cols;
-  String get rowVecType() => 'vec$cols';
-  String get colVecType() => 'vec$rows';
-  String get matType() => 'mat${cols}x${rows}';
+
   String floatArrayType;
   
   MatrixGenerator() : super() {
     floatArrayType = 'Woops';
   }
   
+  String matrixTypeName(int rows_, int cols_) {
+    return 'mat${cols_}x${rows_}';
+  }
+  
+  String get rowVecType() => 'vec$cols';
+  String get colVecType() => 'vec$rows';
+  String get matType() => matrixTypeName(rows, cols);
+  String get matTypeTransposed() => matrixTypeName(cols, rows);
   List<String> get matrixComponents() {
     List<String> r = new List<String>();
     for (int i = 0; i < cols; i++) {
       r.add('col$i');  
     }
     return r;
-  }
-  String matTypeTransposed() {
-    return 'mat${rows}x${cols}';
   }
   
   String Access(int row, int col, [String pre = 'col']) {
@@ -86,17 +89,6 @@ class MatrixGenerator extends BaseGenerator {
     for (int i = 0; i < cols; i++) {
       iPrint('$colVecType col$i;');  
     }
-  }
-  
-  String joinStrings(List<String> elements, [String pre = '', String post = '', String joiner = ', ']) {
-    bool first = true;
-    String r = '';
-    for (String e in elements) {
-      var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}'; 
-      r = '$r$extra'; 
-      first = false;
-    }
-    return r;
   }
   
   void generateConstructors() {
@@ -629,9 +621,9 @@ class MatrixGenerator extends BaseGenerator {
   
   void generateTranspose() {
     iPrint('\/\/\/ Returns the tranpose of this.');
-    iPrint('${matTypeTransposed()} transposed() {');
+    iPrint('${matTypeTransposed} transposed() {');
     iPush();
-    iPrint('${matTypeTransposed()} r = new ${matTypeTransposed()}();');
+    iPrint('${matTypeTransposed} r = new ${matTypeTransposed}();');
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         iPrint('r.${Access(j, i)} = ${Access(i, j)};');

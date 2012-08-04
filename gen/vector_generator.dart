@@ -58,17 +58,6 @@ class VectorGenerator extends BaseGenerator {
     }
   }
   
-  String joinStrings(List<String> elements, [String pre = '', String post = '', String joiner = ', ']) {
-    bool first = true;
-    String r = '';
-    for (String e in elements) {
-      var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}';  
-      r = '$r$extra';
-      first = false;
-    }
-    return r;
-  }
-  
   void generateDefaultConstructor() {
     iPrint('\/\/\/ Constructs a new [$generatedName]. Follows GLSL constructor syntax so many combinations are possible');
     iPrint('$generatedName([${joinStrings(vectorComponents, 'Dynamic ', '_')}]) {');
