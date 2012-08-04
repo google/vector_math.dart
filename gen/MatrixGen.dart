@@ -31,9 +31,12 @@ class MatrixGen {
   String get rowVecType() => 'vec$cols';
   String get colVecType() => 'vec$rows';
   String get matType() => 'mat${cols}x${rows}';
+  String floatArrayType;
+  
   int _indent;
   RandomAccessFile out;
   MatrixGen() {
+    floatArrayType = 'Woops';
     _indent = 0;
   }
   
@@ -1451,7 +1454,7 @@ class MatrixGen {
   
   void generateBuffer() {
     iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
-    iPrint('void copyIntoArray(Float32Array array, [int offset=0]) {');
+    iPrint('void copyIntoArray(${floatArrayType} array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (int j = 0; j < cols; j++) {
@@ -1462,10 +1465,10 @@ class MatrixGen {
     }
     iPop();
     iPrint('}');
-    iPrint('\/\/\/ Returns a copy of [this] as a [Float32Array].');
-    iPrint('Float32Array copyAsArray() {');
+    iPrint('\/\/\/ Returns a copy of [this] as a [${floatArrayType}].');
+    iPrint('${floatArrayType} copyAsArray() {');
     iPush();
-    iPrint('Float32Array array = new Float32Array(${rows * cols});');
+    iPrint('${floatArrayType} array = new ${floatArrayType}(${rows * cols});');
     iPrint('int i = 0;');
     for (int j = 0; j < cols; j++) {
       for (int i = 0; i < rows; i++) {
@@ -1477,7 +1480,7 @@ class MatrixGen {
     iPop();
     iPrint('}');
     iPrint('\/\/\/ Copies elements from [array] into [this] starting at [offset].');
-    iPrint('void copyFromArray(Float32Array array, [int offset=0]) {');
+    iPrint('void copyFromArray(${floatArrayType} array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (int j = 0; j < cols; j++) {
@@ -1531,25 +1534,28 @@ class MatrixGen {
 }
 
 void main() {
-  String basePath = 'lib/VectorMath/gen';
+  String htmlBasePath = 'lib/html';
+  String consoleBasePath = 'lib/console';
   var f = null;
   var o;
-  f = new File('${basePath}/matrix2x2_gen.dart');
+  f = new File('${htmlBasePath}/matrix2x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.rows = 2;
     mg.cols = 2;
     mg.out = opened;
     mg.generate();
     opened.closeSync();
   });
-  f = new File('${basePath}/matrix2x3_gen.dart');
+  f = new File('${htmlBasePath}/matrix2x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.cols = 2;
     mg.rows = 3;
     mg.out = opened;
@@ -1557,11 +1563,12 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/matrix2x4_gen.dart');
+  f = new File('${htmlBasePath}/matrix2x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.cols = 2;
     mg.rows = 4;
     mg.out = opened;
@@ -1569,11 +1576,12 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/matrix3x2_gen.dart');
+  f = new File('${htmlBasePath}/matrix3x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.rows = 2;
     mg.cols = 3;
     mg.out = opened;
@@ -1581,11 +1589,12 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/matrix3x3_gen.dart');
+  f = new File('${htmlBasePath}/matrix3x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.rows = 3;
     mg.cols = 3;
     mg.out = opened;
@@ -1593,11 +1602,12 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/matrix3x4_gen.dart');
+  f = new File('${htmlBasePath}/matrix3x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.rows = 4;
     mg.cols = 3;
     mg.out = opened;
@@ -1605,11 +1615,12 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/matrix4x2_gen.dart');
+  f = new File('${htmlBasePath}/matrix4x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.rows = 2;
     mg.cols = 4;
     mg.out = opened;
@@ -1617,11 +1628,12 @@ void main() {
     opened.closeSync();
   });
   
-  f = new File('${basePath}/matrix4x3_gen.dart');
+  f = new File('${htmlBasePath}/matrix4x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
     mg.cols = 4;
     mg.rows = 3;
     mg.out = opened;
@@ -1629,11 +1641,128 @@ void main() {
     opened.closeSync();
   });
 
-  f = new File('${basePath}/matrix4x4_gen.dart');
+  f = new File('${htmlBasePath}/matrix4x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32Array';
+    mg.rows = 4;
+    mg.cols = 4;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix2x2_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.rows = 2;
+    mg.cols = 2;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  f = new File('${consoleBasePath}/matrix2x3_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.cols = 2;
+    mg.rows = 3;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix2x4_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.cols = 2;
+    mg.rows = 4;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix3x2_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.rows = 2;
+    mg.cols = 3;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix3x3_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.rows = 3;
+    mg.cols = 3;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix3x4_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.rows = 4;
+    mg.cols = 3;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix4x2_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.rows = 2;
+    mg.cols = 4;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/matrix4x3_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
+    mg.cols = 4;
+    mg.rows = 3;
+    mg.out = opened;
+    mg.generate();
+    opened.closeSync();
+  });
+
+  f = new File('${consoleBasePath}/matrix4x4_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    MatrixGen mg = new MatrixGen();
+    mg.floatArrayType = 'Float32List';
     mg.rows = 4;
     mg.cols = 4;
     mg.out = opened;

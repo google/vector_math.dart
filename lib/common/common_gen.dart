@@ -215,19 +215,37 @@ Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_) {
 }
 /// Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.
 Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
-  if (x is num) {
-    return _ScalerHelpers.mix(x, y, t);
+  if (t is num) {
+      if (x is num) {
+        return _ScalerHelpers.mix(x, y, t);
+      }
+      if (x is vec2) {
+        return new vec2(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x, y.y, t));
+      }
+      if (x is vec3) {
+        return new vec3(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t));
+      }
+      if (x is vec4) {
+        return new vec4(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t), _ScalerHelpers.mix(x.w, y.w, t));
+      }
+      throw new IllegalArgumentException(x);
+
+  } else {
+      if (x is num) {
+        return _ScalerHelpers.mix(x, y, t);
+      }
+      if (x is vec2) {
+        return new vec2(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y));
+      }
+      if (x is vec3) {
+        return new vec3(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z));
+      }
+      if (x is vec4) {
+        return new vec4(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z), _ScalerHelpers.mix(x.w, y.w, t.w));
+      }
+      throw new IllegalArgumentException(x);
+
   }
-  if (x is vec2) {
-    return new vec2(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y));
-  }
-  if (x is vec3) {
-    return new vec3(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z));
-  }
-  if (x is vec4) {
-    return new vec4(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z), _ScalerHelpers.mix(x.w, y.w, t.w));
-  }
-  throw new IllegalArgumentException(x);
 }
 /// Returns 0.0 if x < [y] and 1.0 otherwise.
 Dynamic step(Dynamic x, Dynamic y) {

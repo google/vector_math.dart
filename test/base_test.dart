@@ -1,15 +1,15 @@
 class BaseTest {
-  void TestFailure(var output, var expectedOutput, num error) {
+  void testFailure(var output, var expectedOutput, num error) {
     print('FAILURE!!!');
     print('$output != $expectedOutput) : ${error}');
     assert(false);
   }
 
-  void RelativeTest(var output, var expectedOutput) {
+  void relativeTest(var output, var expectedOutput) {
     num error = relativeError(output, expectedOutput);
     //print('$output $expectedOutput $error');
     if (error >= errorThreshold) {
-      TestFailure(output, expectedOutput, error);
+      testFailure(output, expectedOutput, error);
     }
   }
   
@@ -83,14 +83,14 @@ class BaseTest {
         m[i][j] = values[j*col_count+i];
       }  
     }
-    
-    //print('$m');
+
     return m;
   }
   
   Dynamic parseVector(String v) {
     v = v.trim();
-    List<String> rows = v.split("\n");
+    Pattern pattern = new RegExp('[\\s]+', true, false);
+    List<String> rows = v.split(pattern);
     List<double> values = new List<double>();
     for (int i = 0; i < rows.length; i++) {
       rows[i] = rows[i].trim();

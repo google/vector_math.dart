@@ -1,5 +1,6 @@
 class MatrixTest extends BaseTest {
-  void TestMatrixVectorMultiplication() {
+  
+  void testMatrixVectorMultiplication() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
@@ -30,11 +31,11 @@ class MatrixTest extends BaseTest {
     
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i] * inputB[i];
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
-  void TestMatrixMultiplication() {
+  void testMatrixMultiplication() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
@@ -67,11 +68,11 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i] * inputB[i];
       //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
-  void TestAdjoint() {
+  void testAdjoint() {
     List<Dynamic> input = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
     
@@ -126,11 +127,11 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < input.length; i++) {
       Dynamic output = input[i].copy();
       output.selfScaleAdjoint(1.0);
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
-  void TestDeterminant() {
+  void testDeterminant() {
     List<Dynamic> input = new List<Dynamic>();
     List<double> expectedOutput = new List<double>();
     input.add(parseMatrix('''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
@@ -164,11 +165,11 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < input.length; i++) {
       double output = input[i].determinant();
       //print('${input[i].cols}x${input[i].rows} = $output');
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
-  void TestSelfTransposeMultiply() {
+  void testSelfTransposeMultiply() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
@@ -211,11 +212,11 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i].copy();
       output.selfTransposeMultiply(inputB[i]);
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
-  void TestSelfMultiply() {
+  void testSelfMultiply() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
@@ -258,11 +259,11 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i].copy();
       output.selfMultiply(inputB[i]);
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
   
-  void TestSelfMultiplyTranspose() {
+  void testSelfMultiplyTranspose() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
@@ -305,19 +306,19 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i].copy();
       output.selfMultiplyTranpose(inputB[i]);
-      RelativeTest(output, expectedOutput[i]);
+      relativeTest(output, expectedOutput[i]);
     }
   }
 
   
-  void Test() {
-    print('Testing matrix');
-    TestDeterminant();
-    TestAdjoint();
-    TestSelfMultiply();
-    TestSelfTransposeMultiply();
-    TestSelfMultiplyTranspose();
-    TestMatrixMultiplication();
-    TestMatrixVectorMultiplication();
+  void test() {
+    print('Running matrix tests');
+    testDeterminant();
+    testAdjoint();
+    testSelfMultiply();
+    testSelfTransposeMultiply();
+    testSelfMultiplyTranspose();
+    testMatrixMultiplication();
+    testMatrixVectorMultiplication();
   }
 }

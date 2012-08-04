@@ -85,6 +85,7 @@ class VectorGenerator {
   String generatedName;
   int _indent;
   RandomAccessFile out;
+  String floatArrayType;
   
   VectorGenerator() {
     _indent = 0;
@@ -273,7 +274,7 @@ class VectorGenerator {
     iPrint('}');
     
     iPrint('\/\/\/ Constructs a new [$generatedName] that is initialized with values from [array] starting at [offset].');
-    iPrint('$generatedName.array(Float32Array array, [int offset=0]) {');
+    iPrint('$generatedName.array(${floatArrayType} array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (String e in vectorComponents) {
@@ -698,7 +699,7 @@ class VectorGenerator {
   
   void generateBuffer() {
     iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
-    iPrint('void copyIntoArray(Float32Array array, [int offset=0]) {');
+    iPrint('void copyIntoArray(${floatArrayType} array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (String c in vectorComponents) {
@@ -707,10 +708,10 @@ class VectorGenerator {
     }
     iPop();
     iPrint('}');
-    iPrint('\/\/\/ Returns a copy of [this] as a [Float32Array].');
-    iPrint('Float32Array copyAsArray() {');
+    iPrint('\/\/\/ Returns a copy of [this] as a [${floatArrayType}].');
+    iPrint('${floatArrayType} copyAsArray() {');
     iPush();
-    iPrint('Float32Array array = new Float32Array($vectorLen);');
+    iPrint('${floatArrayType} array = new ${floatArrayType}($vectorLen);');
     iPrint('int i = 0;');
     for (String c in vectorComponents) {
       iPrint('array[i] = $c;');
@@ -720,7 +721,7 @@ class VectorGenerator {
     iPop();
     iPrint('}');
     iPrint('\/\/\/ Copies elements from [array] into [this] starting at [offset].');
-    iPrint('void copyFromArray(Float32Array array, [int offset=0]) {');
+    iPrint('void copyFromArray(${floatArrayType} array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (String c in vectorComponents) {
@@ -785,15 +786,17 @@ class VectorGenerator {
 }
 
 void main() {
-  String basePath = 'lib/VectorMath/gen';
+  String htmlBasePath = 'lib/html';
+  String consoleBasePath = 'lib/console';
   var f;
   var o;
 
-  f = new File('${basePath}/vec2_gen.dart');
+  f = new File('${htmlBasePath}/vec2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     VectorGenerator vg = new VectorGenerator();
+    vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'num';
@@ -806,11 +809,12 @@ void main() {
     opened.closeSync();
   });
 
-  f = new File('${basePath}/vec3_gen.dart');
+  f = new File('${htmlBasePath}/vec3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     VectorGenerator vg = new VectorGenerator();
+    vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'num';
@@ -823,11 +827,66 @@ void main() {
     opened.closeSync();
   });
 
-  f = new File('${basePath}/vec4_gen.dart');
+  f = new File('${htmlBasePath}/vec4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     print('opened');
     VectorGenerator vg = new VectorGenerator();
+    vg.floatArrayType = 'Float32Array';
+    vg.allTypes = ['vec2', 'vec3', 'vec4'];
+    vg.allTypesLength = [2,3,4];
+    vg.vectorType = 'num';
+    vg.vectorComponents = ['x','y', 'z', 'w'];
+    vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
+    vg.generatedName = 'vec4';
+    vg.vectorLen = 4;
+    vg.out = opened;
+    vg.generate();
+    opened.closeSync();
+  });
+  
+  f = new File('${consoleBasePath}/vec2_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    VectorGenerator vg = new VectorGenerator();
+    vg.floatArrayType = 'Float32List';
+    vg.allTypes = ['vec2', 'vec3', 'vec4'];
+    vg.allTypesLength = [2,3,4];
+    vg.vectorType = 'num';
+    vg.vectorComponents = ['x','y'];
+    vg.componentAliases = [ ['r','g'], ['s','t']];
+    vg.generatedName = 'vec2';
+    vg.vectorLen = 2;
+    vg.out = opened;
+    vg.generate();
+    opened.closeSync();
+  });
+
+  f = new File('${consoleBasePath}/vec3_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    VectorGenerator vg = new VectorGenerator();
+    vg.floatArrayType = 'Float32List';
+    vg.allTypes = ['vec2', 'vec3', 'vec4'];
+    vg.allTypesLength = [2,3,4];
+    vg.vectorType = 'num';
+    vg.vectorComponents = ['x','y', 'z'];
+    vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
+    vg.generatedName = 'vec3';
+    vg.vectorLen = 3;
+    vg.out = opened;
+    vg.generate();
+    opened.closeSync();
+  });
+
+  f = new File('${consoleBasePath}/vec4_gen.dart');
+  o = f.open(FileMode.WRITE);
+  o.then((opened) {
+    print('opened');
+    VectorGenerator vg = new VectorGenerator();
+    vg.floatArrayType = 'Float32List';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'num';
