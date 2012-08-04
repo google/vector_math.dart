@@ -58,8 +58,6 @@ void generateBuiltin() {
     opened.closeSync();
   });
   
-  return;
-  
   f = new File('${basePath}/exponent_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {

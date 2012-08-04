@@ -301,13 +301,15 @@ class vec2 {
     vec2 c = new vec2.copy(this);
     return c;
   }
-  void copyIntoVector(vec2 arg) {
+  vec2 copyIntoVector(vec2 arg) {
     arg.x = x;
     arg.y = y;
+    return arg;
   }
-  void copyFromVector(vec2 arg) {
+  vec2 copyFromVector(vec2 arg) {
     x = arg.x;
     y = arg.y;
+    return this;
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {
@@ -334,5 +336,19 @@ class vec2 {
     i++;
     y = array[i];
     i++;
+  }
+  /// Returns true if any component is infinite.
+  bool isInfinite() {
+    bool is_infinite = false;
+    is_infinite = is_infinite || x.isInfinite();
+    is_infinite = is_infinite || y.isInfinite();
+    return is_infinite;
+  }
+  /// Returns true if any component is NaN.
+  bool isNaN() {
+    bool is_nan = false;
+    is_nan = is_nan || x.isNaN();
+    is_nan = is_nan || y.isNaN();
+    return is_nan;
   }
 }

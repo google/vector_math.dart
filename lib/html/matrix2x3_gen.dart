@@ -325,21 +325,23 @@ class mat2x3 {
   mat2x3 copy() {
     return new mat2x3.copy(this);
   }
-  void copyIntoMatrix(mat2x3 arg) {
+  mat2x3 copyIntoMatrix(mat2x3 arg) {
     arg.col0.x = col0.x;
     arg.col0.y = col0.y;
     arg.col0.z = col0.z;
     arg.col1.x = col1.x;
     arg.col1.y = col1.y;
     arg.col1.z = col1.z;
+    return arg;
   }
-  void copyFromMatrix(mat2x3 arg) {
+  mat2x3 copyFromMatrix(mat2x3 arg) {
     col0.x = arg.col0.x;
     col0.y = arg.col0.y;
     col0.z = arg.col0.z;
     col1.x = arg.col1.x;
     col1.y = arg.col1.y;
     col1.z = arg.col1.z;
+    return this;
   }
   mat2x3 selfAdd(mat2x3 o) {
     col0.x = col0.x + o.col0.x;

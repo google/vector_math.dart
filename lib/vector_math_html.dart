@@ -22,7 +22,7 @@
 
 */
 
-#library("vector_math_console");
+#library("vector_math_html");
 #import("dart:html");
 #source("common/scalar_math.dart");
 #source("html/vec2_gen.dart");
