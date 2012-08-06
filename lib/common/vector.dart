@@ -32,9 +32,19 @@ num length(Dynamic x) {
   return x.length();
 }
 
+/// Returns the length squared of vector [x]
+num length2(Dynamic x) {
+  return x.length2();
+}
+
 /// Returns the distance between vectors [x] and [y]. The dimension of [x] and [y] must match.
 num distance(Dynamic x, Dynamic y) {
-  return length(x-y);
+  return length(x - y);
+}
+
+/// Returns the distance squared between vectors [x] and [y].
+num distance2(Dynamic x, Dynamic y) {
+  return length2(x - y);
 }
 
 /// Returns the cross product between [x] and [y]. Both [x] and [y] must be 3D vectors ([vec3])
