@@ -745,15 +745,17 @@ class vec3 {
     vec3 c = new vec3.copy(this);
     return c;
   }
-  void copyIntoVector(vec3 arg) {
+  vec3 copyIntoVector(vec3 arg) {
     arg.x = x;
     arg.y = y;
     arg.z = z;
+    return arg;
   }
-  void copyFromVector(vec3 arg) {
+  vec3 copyFromVector(vec3 arg) {
     x = arg.x;
     y = arg.y;
     z = arg.z;
+    return this;
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {
@@ -786,5 +788,21 @@ class vec3 {
     i++;
     z = array[i];
     i++;
+  }
+  /// Returns true if any component is infinite.
+  bool isInfinite() {
+    bool is_infinite = false;
+    is_infinite = is_infinite || x.isInfinite();
+    is_infinite = is_infinite || y.isInfinite();
+    is_infinite = is_infinite || z.isInfinite();
+    return is_infinite;
+  }
+  /// Returns true if any component is NaN.
+  bool isNaN() {
+    bool is_nan = false;
+    is_nan = is_nan || x.isNaN();
+    is_nan = is_nan || y.isNaN();
+    is_nan = is_nan || z.isNaN();
+    return is_nan;
   }
 }

@@ -2199,17 +2199,19 @@ class vec4 {
     vec4 c = new vec4.copy(this);
     return c;
   }
-  void copyIntoVector(vec4 arg) {
+  vec4 copyIntoVector(vec4 arg) {
     arg.x = x;
     arg.y = y;
     arg.z = z;
     arg.w = w;
+    return arg;
   }
-  void copyFromVector(vec4 arg) {
+  vec4 copyFromVector(vec4 arg) {
     x = arg.x;
     y = arg.y;
     z = arg.z;
     w = arg.w;
+    return this;
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {
@@ -2248,5 +2250,23 @@ class vec4 {
     i++;
     w = array[i];
     i++;
+  }
+  /// Returns true if any component is infinite.
+  bool isInfinite() {
+    bool is_infinite = false;
+    is_infinite = is_infinite || x.isInfinite();
+    is_infinite = is_infinite || y.isInfinite();
+    is_infinite = is_infinite || z.isInfinite();
+    is_infinite = is_infinite || w.isInfinite();
+    return is_infinite;
+  }
+  /// Returns true if any component is NaN.
+  bool isNaN() {
+    bool is_nan = false;
+    is_nan = is_nan || x.isNaN();
+    is_nan = is_nan || y.isNaN();
+    is_nan = is_nan || z.isNaN();
+    is_nan = is_nan || w.isNaN();
+    return is_nan;
   }
 }

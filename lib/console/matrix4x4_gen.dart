@@ -855,7 +855,7 @@ class mat4x4 {
   mat4x4 copy() {
     return new mat4x4.copy(this);
   }
-  void copyIntoMatrix(mat4x4 arg) {
+  mat4x4 copyIntoMatrix(mat4x4 arg) {
     arg.col0.x = col0.x;
     arg.col0.y = col0.y;
     arg.col0.z = col0.z;
@@ -872,8 +872,9 @@ class mat4x4 {
     arg.col3.y = col3.y;
     arg.col3.z = col3.z;
     arg.col3.w = col3.w;
+    return arg;
   }
-  void copyFromMatrix(mat4x4 arg) {
+  mat4x4 copyFromMatrix(mat4x4 arg) {
     col0.x = arg.col0.x;
     col0.y = arg.col0.y;
     col0.z = arg.col0.z;
@@ -890,6 +891,7 @@ class mat4x4 {
     col3.y = arg.col3.y;
     col3.z = arg.col3.z;
     col3.w = arg.col3.w;
+    return this;
   }
   mat4x4 selfAdd(mat4x4 o) {
     col0.x = col0.x + o.col0.x;
