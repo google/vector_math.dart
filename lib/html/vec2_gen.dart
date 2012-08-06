@@ -159,6 +159,20 @@ class vec2 {
     y = arg.x;
     x = arg.y;
   }
+  /// Returns true if any component is infinite.
+  bool isInfinite() {
+    bool is_infinite = false;
+    is_infinite = is_infinite || x.isInfinite();
+    is_infinite = is_infinite || y.isInfinite();
+    return is_infinite;
+  }
+  /// Returns true if any component is NaN.
+  bool isNaN() {
+    bool is_nan = false;
+    is_nan = is_nan || x.isNaN();
+    is_nan = is_nan || y.isNaN();
+    return is_nan;
+  }
   set r(num arg) => x = arg;
   set g(num arg) => y = arg;
   set s(num arg) => x = arg;
