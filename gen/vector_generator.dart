@@ -705,8 +705,6 @@ class VectorGenerator extends BaseGenerator {
     generateSelfNegate();
     generateCopy();
     generateBuffer();
-    generateIsInfinite();
-    generateIsNaN();
     generateEpilogue();
   }
 }

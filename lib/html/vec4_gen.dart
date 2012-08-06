@@ -2269,22 +2269,4 @@ class vec4 {
     w = array[i];
     i++;
   }
-  /// Returns true if any component is infinite.
-  bool isInfinite() {
-    bool is_infinite = false;
-    is_infinite = is_infinite || x.isInfinite();
-    is_infinite = is_infinite || y.isInfinite();
-    is_infinite = is_infinite || z.isInfinite();
-    is_infinite = is_infinite || w.isInfinite();
-    return is_infinite;
-  }
-  /// Returns true if any component is NaN.
-  bool isNaN() {
-    bool is_nan = false;
-    is_nan = is_nan || x.isNaN();
-    is_nan = is_nan || y.isNaN();
-    is_nan = is_nan || z.isNaN();
-    is_nan = is_nan || w.isNaN();
-    return is_nan;
-  }
 }
