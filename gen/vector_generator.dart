@@ -500,9 +500,17 @@ class VectorGenerator extends BaseGenerator {
   
   void generateCross() {
     iPrint('\/\/\/ Returns the cross product of [this] and [other]');
-    iPrint('$generatedName cross($generatedName other) {');
-    iPush();
-    iPrint('return new ${generatedName}.raw(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);');
+    if (generatedName == 'vec3') {
+      iPrint('$generatedName cross($generatedName other) {');
+      iPush();
+      iPrint('return new ${generatedName}.raw(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);');
+    } else if (generatedName == 'vec2') {
+      iPrint('num cross($generatedName other) {');
+      iPush();
+      iPrint('return x * other.y - y * other.x;');
+    } else {
+      assert(false);
+    }
     iPop();
     iPrint('}');
   }
@@ -671,7 +679,7 @@ class VectorGenerator extends BaseGenerator {
     generateLength2();
     generateNormalize();
     generateDot();
-    if (generatedName == 'vec3') {
+    if (generatedName == 'vec3' || generatedName == 'vec2') {
       generateCross();
     }
     generateError();
@@ -705,8 +713,6 @@ class VectorGenerator extends BaseGenerator {
     generateSelfNegate();
     generateCopy();
     generateBuffer();
-    generateIsInfinite();
-    generateIsNaN();
     generateEpilogue();
   }
 }

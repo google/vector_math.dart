@@ -137,6 +137,10 @@ class vec2 {
     sum += (y * other.y);
     return sum;
   }
+  /// Returns the cross product of [this] and [other]
+  num cross(vec2 other) {
+    return x * other.y - y * other.x;
+  }
   /// Returns the relative error between [this] and [correct]
   num relativeError(vec2 correct) {
     num this_norm = length;
@@ -350,19 +354,5 @@ class vec2 {
     i++;
     y = array[i];
     i++;
-  }
-  /// Returns true if any component is infinite.
-  bool isInfinite() {
-    bool is_infinite = false;
-    is_infinite = is_infinite || x.isInfinite();
-    is_infinite = is_infinite || y.isInfinite();
-    return is_infinite;
-  }
-  /// Returns true if any component is NaN.
-  bool isNaN() {
-    bool is_nan = false;
-    is_nan = is_nan || x.isNaN();
-    is_nan = is_nan || y.isNaN();
-    return is_nan;
   }
 }

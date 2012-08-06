@@ -37,9 +37,19 @@ num distance(Dynamic x, Dynamic y) {
   return length(x-y);
 }
 
-/// Returns the cross product between [x] and [y]. Both [x] and [y] must be 3D vectors ([vec3])
-vec3 cross(vec3 x, vec3 y) {
-  return x.cross(y);
+/// Returns the cross product between [x] and [y]. [x] and [y] can be vec2, vec3 or num, but not all combinations are supported.
+Dynamic cross(Dynamic x, Dynamic y) {
+  if ((x is vec3 && y is vec3) ||
+      (x is vec2 && y is vec2)) {
+    return x.cross(y);
+  } else if (x is num && y is vec2) {
+    return new vec2(-a * b.y, a * b.x);
+  } else if (x is vec2 && y is num) {
+    return new vec2(b * a.y, -b * a.y);
+  } else {
+    assert(false);
+  }
+  return null;
 }
 
 /// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
