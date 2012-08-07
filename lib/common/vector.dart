@@ -53,9 +53,9 @@ Dynamic cross(Dynamic x, Dynamic y) {
       (x is vec2 && y is vec2)) {
     return x.cross(y);
   } else if (x is num && y is vec2) {
-    return new vec2(-a * b.y, a * b.x);
+    return new vec2(-x * y.y, x * y.x);
   } else if (x is vec2 && y is num) {
-    return new vec2(b * a.y, -b * a.y);
+    return new vec2(y * x.y, -y * x.y);
   } else {
     assert(false);
   }
