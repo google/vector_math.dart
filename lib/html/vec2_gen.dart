@@ -315,6 +315,11 @@ class vec2 {
     y = -y;
     return this;
   }
+  vec2 selfAbsolute() {
+    x = x.abs();
+    y = y.abs();
+    return this;
+  }
   vec2 copy() {
     vec2 c = new vec2.copy(this);
     return c;

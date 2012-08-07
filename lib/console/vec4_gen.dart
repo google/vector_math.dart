@@ -2213,6 +2213,13 @@ class vec4 {
     w = -w;
     return this;
   }
+  vec4 selfAbsolute() {
+    x = x.abs();
+    y = y.abs();
+    z = z.abs();
+    w = w.abs();
+    return this;
+  }
   vec4 copy() {
     vec4 c = new vec4.copy(this);
     return c;
