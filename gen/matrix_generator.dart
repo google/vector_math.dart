@@ -1143,7 +1143,7 @@ class MatrixGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
     
-    iPrint('$matType copyIntoMatrix($matType arg) {');
+    iPrint('$matType copyInto($matType arg) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -1154,7 +1154,7 @@ class MatrixGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
     
-    iPrint('$matType copyFromMatrix($matType arg) {');
+    iPrint('$matType copyFrom($matType arg) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {

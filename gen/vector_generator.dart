@@ -193,23 +193,15 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateSplat() {
-    /*
-    String constructor = '$generatedName.splat($vectorType a) : ';
-    bool first = true;
-    vectorComponents.forEach((comp) {
-      constructor += first ? '$comp = a' : ', $comp = a';
-      first = false;
-    });
-    constructor += ';';
-    iPrint(constructor);
-    iPrint('void splat($vectorType a) {');
+    iPrint('\/\/\/ Splats a scalar into all lanes of the vector.');
+    iPrint('$generatedName splat(num arg) {');
     iPush();
-    vectorComponents.forEach((comp) {
-      iPrint('$comp = a;');
-    });
+    for (String c in vectorComponents) {
+      iPrint('$c = arg;');
+    }
+    iPrint('return this;');
     iPop();
     iPrint('}');
-    */
   }
   
   void generateOperator(String op) {
@@ -593,7 +585,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('return c;');
     iPop();
     iPrint('}');
-    iPrint('$generatedName copyIntoVector($generatedName arg) {');
+    iPrint('$generatedName copyInto($generatedName arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('arg.$c = $c;');
@@ -602,7 +594,18 @@ class VectorGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
     
-    iPrint('$generatedName copyFromVector($generatedName arg) {');
+    iPrint('$generatedName copyFrom($generatedName arg) {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = arg.$c;');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  void generateSet() {
+    iPrint('$generatedName set($generatedName arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = arg.$c;');
@@ -724,6 +727,7 @@ class VectorGenerator extends BaseGenerator {
     generateSelfNegate();
     generateSelfAbsolute();
     generateCopy();
+    generateSet();
     generateBuffer();
     generateEpilogue();
   }
