@@ -570,6 +570,17 @@ class VectorGenerator extends BaseGenerator {
     iPrint('}');
   }
   
+  void generateSelfAbsolute() {
+    iPrint('$generatedName selfAbsolute() {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = $c.abs();');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
   void generateEpilogue() {
     iPop();
     iPrint('}');
@@ -711,6 +722,7 @@ class VectorGenerator extends BaseGenerator {
     generateSelfOp('Div', '/');
     generateSelfScalarOp('Scale', '*');
     generateSelfNegate();
+    generateSelfAbsolute();
     generateCopy();
     generateBuffer();
     generateEpilogue();
