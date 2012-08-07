@@ -64,6 +64,12 @@ class vec2 {
     y = array[i];
     i++;
   }
+  /// Splats a scalar into all lanes of the vector.
+  vec2 splat(num arg) {
+    x = arg;
+    y = arg;
+    return this;
+  }
   /// Returns a printable string
   String toString() => '$x,$y';
   /// Returns a new vec2 from -this
@@ -324,12 +330,17 @@ class vec2 {
     vec2 c = new vec2.copy(this);
     return c;
   }
-  vec2 copyIntoVector(vec2 arg) {
+  vec2 copyInto(vec2 arg) {
     arg.x = x;
     arg.y = y;
     return arg;
   }
-  vec2 copyFromVector(vec2 arg) {
+  vec2 copyFrom(vec2 arg) {
+    x = arg.x;
+    y = arg.y;
+    return this;
+  }
+  vec2 set(vec2 arg) {
     x = arg.x;
     y = arg.y;
     return this;

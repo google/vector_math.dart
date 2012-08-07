@@ -94,6 +94,14 @@ class vec4 {
     w = array[i];
     i++;
   }
+  /// Splats a scalar into all lanes of the vector.
+  vec4 splat(num arg) {
+    x = arg;
+    y = arg;
+    z = arg;
+    w = arg;
+    return this;
+  }
   /// Returns a printable string
   String toString() => '$x,$y,$z,$w';
   /// Returns a new vec4 from -this
@@ -2224,14 +2232,21 @@ class vec4 {
     vec4 c = new vec4.copy(this);
     return c;
   }
-  vec4 copyIntoVector(vec4 arg) {
+  vec4 copyInto(vec4 arg) {
     arg.x = x;
     arg.y = y;
     arg.z = z;
     arg.w = w;
     return arg;
   }
-  vec4 copyFromVector(vec4 arg) {
+  vec4 copyFrom(vec4 arg) {
+    x = arg.x;
+    y = arg.y;
+    z = arg.z;
+    w = arg.w;
+    return this;
+  }
+  vec4 set(vec4 arg) {
     x = arg.x;
     y = arg.y;
     z = arg.z;

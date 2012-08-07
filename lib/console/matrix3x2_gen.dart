@@ -322,7 +322,7 @@ class mat3x2 {
   mat3x2 copy() {
     return new mat3x2.copy(this);
   }
-  mat3x2 copyIntoMatrix(mat3x2 arg) {
+  mat3x2 copyInto(mat3x2 arg) {
     arg.col0.x = col0.x;
     arg.col0.y = col0.y;
     arg.col1.x = col1.x;
@@ -331,7 +331,7 @@ class mat3x2 {
     arg.col2.y = col2.y;
     return arg;
   }
-  mat3x2 copyFromMatrix(mat3x2 arg) {
+  mat3x2 copyFrom(mat3x2 arg) {
     col0.x = arg.col0.x;
     col0.y = arg.col0.y;
     col1.x = arg.col1.x;

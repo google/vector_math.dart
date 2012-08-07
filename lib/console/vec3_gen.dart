@@ -83,6 +83,13 @@ class vec3 {
     z = array[i];
     i++;
   }
+  /// Splats a scalar into all lanes of the vector.
+  vec3 splat(num arg) {
+    x = arg;
+    y = arg;
+    z = arg;
+    return this;
+  }
   /// Returns a printable string
   String toString() => '$x,$y,$z';
   /// Returns a new vec3 from -this
@@ -767,13 +774,19 @@ class vec3 {
     vec3 c = new vec3.copy(this);
     return c;
   }
-  vec3 copyIntoVector(vec3 arg) {
+  vec3 copyInto(vec3 arg) {
     arg.x = x;
     arg.y = y;
     arg.z = z;
     return arg;
   }
-  vec3 copyFromVector(vec3 arg) {
+  vec3 copyFrom(vec3 arg) {
+    x = arg.x;
+    y = arg.y;
+    z = arg.z;
+    return this;
+  }
+  vec3 set(vec3 arg) {
     x = arg.x;
     y = arg.y;
     z = arg.z;

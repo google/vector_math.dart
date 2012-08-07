@@ -481,7 +481,7 @@ class mat4x3 {
   mat4x3 copy() {
     return new mat4x3.copy(this);
   }
-  mat4x3 copyIntoMatrix(mat4x3 arg) {
+  mat4x3 copyInto(mat4x3 arg) {
     arg.col0.x = col0.x;
     arg.col0.y = col0.y;
     arg.col0.z = col0.z;
@@ -496,7 +496,7 @@ class mat4x3 {
     arg.col3.z = col3.z;
     return arg;
   }
-  mat4x3 copyFromMatrix(mat4x3 arg) {
+  mat4x3 copyFrom(mat4x3 arg) {
     col0.x = arg.col0.x;
     col0.y = arg.col0.y;
     col0.z = arg.col0.z;
