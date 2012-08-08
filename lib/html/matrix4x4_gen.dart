@@ -1228,4 +1228,25 @@ class mat4x4 {
     col3.w = array[i];
     i++;
   }
+  vec3 get right() {
+    vec3 f = new vec3.zero();
+    f.x = col0.x;
+    f.y = col0.y;
+    f.z = col0.z;
+    return f;
+  }
+  vec3 get up() {
+    vec3 f = new vec3.zero();
+    f.x = col1.x;
+    f.y = col1.y;
+    f.z = col1.z;
+    return f;
+  }
+  vec3 get forward() {
+    vec3 f = new vec3.zero();
+    f.x = col2.x;
+    f.y = col2.y;
+    f.z = col2.z;
+    return f;
+  }
 }

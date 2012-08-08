@@ -1439,6 +1439,45 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('}');
   }
   
+  void generateRightUpForward() {
+    if (rows != cols) {
+      return;
+    }
+    
+    
+    if (rows == 3 || rows == 4) {
+      iPrint('vec3 get right() {');
+      iPush();
+      iPrint('vec3 f = new vec3.zero();');
+      iPrint('f.x = ${Access(0, 0)};');
+      iPrint('f.y = ${Access(1, 0)};');
+      iPrint('f.z = ${Access(2, 0)};');
+      iPrint('return f;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('vec3 get up() {');
+      iPush();
+      iPrint('vec3 f = new vec3.zero();');
+      iPrint('f.x = ${Access(0, 1)};');
+      iPrint('f.y = ${Access(1, 1)};');
+      iPrint('f.z = ${Access(2, 1)};');
+      iPrint('return f;');
+      iPop();
+      iPrint('}');
+      
+      iPrint('vec3 get forward() {');
+      iPush();
+      iPrint('vec3 f = new vec3.zero();');
+      iPrint('f.x = ${Access(0, 2)};');
+      iPrint('f.y = ${Access(1, 2)};');
+      iPrint('f.z = ${Access(2, 2)};');
+      iPrint('return f;');
+      iPop();
+      iPrint('}');
+    }
+  }
+  
   void generate() {
     writeLicense();
     generatePrologue();
@@ -1475,6 +1514,7 @@ class MatrixGenerator extends BaseGenerator {
     generateSelfMultiplyTransposeMatrix();
     generateTransforms();
     generateBuffer();
+    generateRightUpForward();
     generateEpilogue();
   }
 }
