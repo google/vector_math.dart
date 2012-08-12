@@ -486,7 +486,7 @@ class MatrixGenerator extends BaseGenerator {
   void generateMatrixVectorMultiply3() {
     iPrint('vec3 r = new vec3.zero();');
     for (int i = 0; i < 3; i++) {
-      iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', 3)};');
+      iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', 3)} + ${Access(i, 3)};');
     }
     iPrint('return r;');
   }
