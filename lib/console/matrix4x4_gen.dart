@@ -1090,6 +1090,19 @@ class mat4x4 {
     col3.w =  (m30 * arg.col0.w) + (m31 * arg.col1.w) + (m32 * arg.col2.w) + (m33 * arg.col3.w);
     return this;
   }
+  vec3 rotateDirect3(vec3 arg) {
+    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
+    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
+    num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
+    arg.x = x_;
+    arg.y = y_;
+    arg.z = z_;
+    return arg;
+  }
+  vec3 rotate3(vec3 arg) {
+    vec3 d = arg.copy();
+    return rotateDirect3(d);
+  }
   vec3 transformDirect3(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + col3.x;
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + col3.y;
