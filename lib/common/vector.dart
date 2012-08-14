@@ -29,12 +29,12 @@ num dot(Dynamic x, Dynamic y) {
 
 /// Returns the length of vector [x]
 num length(Dynamic x) {
-  return x.length();
+  return x.length;
 }
 
 /// Returns the length squared of vector [x]
 num length2(Dynamic x) {
-  return x.length2();
+  return x.length2;
 }
 
 /// Returns the distance between vectors [x] and [y]. The dimension of [x] and [y] must match.
