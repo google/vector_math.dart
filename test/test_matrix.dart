@@ -311,6 +311,73 @@ class MatrixTest extends BaseTest {
   }
 
   
+  void testTranslationMatrix() {
+    List<Dynamic> inputA = new List<Dynamic>();
+    List<Dynamic> inputB = new List<Dynamic>();
+    List<Dynamic> output1 = new List<Dynamic>();
+    List<Dynamic> output2 = new List<Dynamic>();
+    
+    inputA.add(new mat4x4.identity());
+    inputB.add(new mat4x4.translateRaw(1.0, 3.0, 5.7));
+    output1.add(inputA[0] * inputB[0]);
+    output2.add((new mat4x4.identity()).translate(1.0, 3.0, 5.7));
+    
+    assert(inputA.length == inputB.length);
+    assert(output1.length == output2.length);
+    
+    for (int i = 0; i < inputA.length; i++) {
+      relativeTest(output1[i], output2[i]);
+    }
+  }
+  
+  void testScaleMatrix() {
+    List<Dynamic> inputA = new List<Dynamic>();
+    List<Dynamic> inputB = new List<Dynamic>();
+    List<Dynamic> output1 = new List<Dynamic>();
+    List<Dynamic> output2 = new List<Dynamic>();
+    
+    inputA.add(new mat4x4.identity());
+    inputB.add(new mat4x4.scaleRaw(1.0, 3.0, 5.7));
+    output1.add(inputA[0] * inputB[0]);
+    output2.add(new mat4x4.identity().scale(1.0, 3.0, 5.7));
+    
+    assert(inputA.length == inputB.length);
+    assert(output1.length == output2.length);
+    
+    for (int i = 0; i < inputA.length; i++) {
+      relativeTest(output1[i], output2[i]);
+    }
+  }
+  
+  void testRotateMatrix() {
+    List<Dynamic> output1 = new List<Dynamic>();
+    List<Dynamic> output2 = new List<Dynamic>();
+    output1.add(new mat4x4.rotationX(1.57079632679));
+    output2.add(new mat4x4.identity().rotateX(1.57079632679));
+    output1.add(new mat4x4.rotationY(1.57079632679 * 0.5));
+    output2.add(new mat4x4.identity().rotateY(1.57079632679 * 0.5));
+    output1.add(new mat4x4.rotationZ(1.57079632679 * 0.25));
+    output2.add(new mat4x4.identity().rotateZ(1.57079632679 * 0.25));
+    {
+      vec3 axis = new vec3.raw(1.1, 1.1, 1.1);
+      axis.normalize();
+      num angle = 1.5;
+      
+      quat q = new quat(axis, angle);
+      mat3x3 R = q.asRotationMatrix();
+      mat4x4 T = new mat4x4.identity();
+      T.setRotation(R);
+      output1.add(T);
+      
+      output2.add(new mat4x4.identity().rotate(axis, angle));
+    }
+    assert(output1.length == output2.length);
+    for (int i = 0; i < output1.length; i++) {
+      relativeTest(output1[i], output2[i]);
+    }
+    return;
+  }
+  
   void test() {
     print('Running matrix tests');
     testDeterminant();
@@ -320,5 +387,8 @@ class MatrixTest extends BaseTest {
     testSelfMultiplyTranspose();
     testMatrixMultiplication();
     testMatrixVectorMultiplication();
+    testTranslationMatrix();
+    testScaleMatrix();
+    testRotateMatrix();
   }
 }
