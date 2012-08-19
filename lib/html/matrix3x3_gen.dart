@@ -481,11 +481,11 @@ class mat3x3 {
     num s = Math.sin(radians_);
     col0.x = c;
     col0.y = 0.0;
-    col0.z = -s;
+    col0.z = s;
     col1.x = 0.0;
     col1.y = 1.0;
     col1.z = 0.0;
-    col2.x = s;
+    col2.x = -s;
     col2.y = 0.0;
     col2.z = c;
   }

@@ -334,6 +334,20 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('col3.z = z;');
       iPop();
       iPrint('}');
+      
+      iPrint('\/\/\/\/ Constructs a new [${matType}] representening a scale of [x], [y], and [z]');
+      iPrint('${matType}.scaleRaw(num x, num y, num z) {');
+      iPush();
+      for (int i = 0; i < cols; i++) {
+        iPrint('col$i = new $colVecType.zero();');
+      }
+      iPrint('col0.x = x;');
+      iPrint('col1.y = y;');
+      iPrint('col2.z = z;');
+      iPrint('col3.w = 1.0;');
+      iPop();
+      iPrint('}');
+
     }
     
     iPrint('${matType}.raw(${joinStrings(arguments, 'num ')}) {');
@@ -602,6 +616,245 @@ class MatrixGenerator extends BaseGenerator {
       }
     }
     iPrint('return r;');
+    iPop();
+    iPrint('}');
+  }
+  
+  String generateInlineDotArgs(String aX, String aY, String aZ, String aW, String bX, String bY, String bZ, String bW) {
+    return '$aX * $bX + $aY * $bY + $aZ * $bZ + $aW * $bW'; 
+  }
+  
+  void generateInlineTranslate() {
+    if (rows != 4 || cols != 4) {
+      return;
+    }
+    iPrint('\/\/\/ Translate this matrix by a [vec3], [vec4], or x,y,z');
+    iPrint('${matType} translate(Dynamic x, [num y = 0.0, num z = 0.0]) {');
+    iPush();
+    iPrint('num tx;');
+    iPrint('num ty;');
+    iPrint('num tz;');
+    iPrint('num tw = x is vec4 ? x.w : 1.0;');
+    iPrint('if (x is vec3 || x is vec4) {');
+    iPush();
+    iPrint('tx = x.x;');
+    iPrint('ty = x.y;');
+    iPrint('tz = x.z;');
+    iPop();
+    iPrint('} else {');
+    iPush();
+    iPrint('tx = x;');
+    iPrint('ty = y;');
+    iPrint('tz = z;');
+    iPop();
+    iPrint('}');
+    iPrint('var t1 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), 'tx', 'ty', 'tz', 'tw')};');
+    iPrint('var t2 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), 'tx', 'ty', 'tz', 'tw')};');
+    iPrint('var t3 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), 'tx', 'ty', 'tz', 'tw')};');
+    iPrint('var t4 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), 'tx', 'ty', 'tz', 'tw')};');
+    iPrint('${Access(0, 3)} = t1;');
+    iPrint('${Access(1, 3)} = t2;');
+    iPrint('${Access(2, 3)} = t3;');
+    iPrint('${Access(3, 3)} = t4;');
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
+  
+  void generateInlineRotate() {
+    if (rows != 4 || cols != 4) {
+      return;
+    }
+    iPrint('\/\/\/ Rotate this [angle] radians around [axis]');
+    iPrint('${matType} rotate(vec3 axis, num angle) {');
+    iPush();
+    
+    // http://en.wikipedia.org/wiki/Rotation_matrix#Axis_and_angle
+    iPrint('var len = axis.length;');
+    iPrint('var x = axis.x/len;');
+    iPrint('var y = axis.y/len;');
+    iPrint('var z = axis.y/len;');
+    iPrint('var c = cos(angle);');
+    iPrint('var s = sin(angle);');
+    iPrint('var C = 1.0 - c;');
+    
+    // row 1
+    iPrint('var m11 = x * x * C + c;');
+    iPrint('var m12 = x * y * C - z * s;');
+    iPrint('var m13 = x * z * C + y * s;');
+    
+    // row 2
+    iPrint('var m21 = y * x * C + z * s;');
+    iPrint('var m22 = y * y * C + c;');
+    iPrint('var m23 = y * z * C - x * s;');
+    
+    // row 3
+    iPrint('var m31 = z * x * C - y * s;');
+    iPrint('var m32 = z * y * C + x * s;');
+    iPrint('var m33 = z * z * C + c;');
+    
+    iPrint('var t1 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), 'm11', 'm21', 'm31', '0.0')};');
+    iPrint('var t2 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), 'm11', 'm21', 'm31', '0.0')};');
+    iPrint('var t3 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), 'm11', 'm21', 'm31', '0.0')};');
+    iPrint('var t4 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), 'm11', 'm21', 'm31', '0.0')};');
+
+    iPrint('var t5 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), 'm12', 'm22', 'm32', '0.0')};');
+    iPrint('var t6 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), 'm12', 'm22', 'm32', '0.0')};');
+    iPrint('var t7 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), 'm12', 'm22', 'm32', '0.0')};');
+    iPrint('var t8 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), 'm12', 'm22', 'm32', '0.0')};');
+    
+    iPrint('var t9 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), 'm13', 'm23', 'm33', '0.0')};');
+    iPrint('var t10 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), 'm13', 'm23', 'm33', '0.0')};');
+    iPrint('var t11 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), 'm13', 'm23', 'm33', '0.0')};');
+    iPrint('var t12 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), 'm13', 'm23', 'm33', '0.0')};');
+    
+    iPrint('${Access(0, 0)} = t1;');
+    iPrint('${Access(1, 0)} = t2;');
+    iPrint('${Access(2, 0)} = t3;');
+    iPrint('${Access(3, 0)} = t4;');
+    
+    iPrint('${Access(0, 1)} = t5;');
+    iPrint('${Access(1, 1)} = t6;');
+    iPrint('${Access(2, 1)} = t7;');
+    iPrint('${Access(3, 1)} = t8;');
+    
+    iPrint('${Access(0, 2)} = t9;');
+    iPrint('${Access(1, 2)} = t10;');
+    iPrint('${Access(2, 2)} = t11;');
+    iPrint('${Access(3, 2)} = t12;');
+    
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+    
+    iPrint('\/\/\/ Rotate this [angle] radians around X');
+    iPrint('${matType} rotateX(num angle) {');
+    iPush();
+    iPrint('num cosAngle = cos(angle);');
+    iPrint('num sinAngle = sin(angle);');
+    iPrint('var t1 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), '0.0', 'cosAngle', 'sinAngle', '0.0')};');
+    iPrint('var t2 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), '0.0', 'cosAngle', 'sinAngle', '0.0')};');
+    iPrint('var t3 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), '0.0', 'cosAngle', 'sinAngle', '0.0')};');
+    iPrint('var t4 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), '0.0', 'cosAngle', 'sinAngle', '0.0')};');
+
+    iPrint('var t5 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), '0.0', '-sinAngle', 'cosAngle', '0.0')};');
+    iPrint('var t6 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), '0.0', '-sinAngle', 'cosAngle', '0.0')};');
+    iPrint('var t7 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), '0.0', '-sinAngle', 'cosAngle', '0.0')};');
+    iPrint('var t8 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), '0.0', '-sinAngle', 'cosAngle', '0.0')};');
+    
+    iPrint('${Access(0, 1)} = t1;');
+    iPrint('${Access(1, 1)} = t2;');
+    iPrint('${Access(2, 1)} = t3;');
+    iPrint('${Access(3, 1)} = t4;');
+    
+    iPrint('${Access(0, 2)} = t5;');
+    iPrint('${Access(1, 2)} = t6;');
+    iPrint('${Access(2, 2)} = t7;');
+    iPrint('${Access(3, 2)} = t8;');
+    
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+    
+    iPrint('\/\/\/ Rotate this matrix [angle] radians around Y');
+    iPrint('${matType} rotateY(num angle) {');
+    iPush();
+    iPrint('num cosAngle = cos(angle);');
+    iPrint('num sinAngle = sin(angle);');
+    iPrint('var t1 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), 'cosAngle', '0.0', 'sinAngle', '0.0')};');
+    iPrint('var t2 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), 'cosAngle', '0.0', 'sinAngle', '0.0')};');
+    iPrint('var t3 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), 'cosAngle', '0.0', 'sinAngle', '0.0')};');
+    iPrint('var t4 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), 'cosAngle', '0.0', 'sinAngle', '0.0')};');
+
+    iPrint('var t5 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), '-sinAngle', '0.0', 'cosAngle', '0.0')};');
+    iPrint('var t6 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), '-sinAngle', '0.0', 'cosAngle', '0.0')};');
+    iPrint('var t7 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), '-sinAngle', '0.0', 'cosAngle', '0.0')};');
+    iPrint('var t8 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), '-sinAngle', '0.0', 'cosAngle', '0.0')};');
+    
+    iPrint('${Access(0, 0)} = t1;');
+    iPrint('${Access(1, 0)} = t2;');
+    iPrint('${Access(2, 0)} = t3;');
+    iPrint('${Access(3, 0)} = t4;');
+    
+    iPrint('${Access(0, 2)} = t5;');
+    iPrint('${Access(1, 2)} = t6;');
+    iPrint('${Access(2, 2)} = t7;');
+    iPrint('${Access(3, 2)} = t8;');
+
+    iPrint('return this;');
+    iPop();
+    iPrint('}');   
+    
+    iPrint('\/\/\/ Rotate this matrix [angle] radians around Z');
+    iPrint('${matType} rotateZ(num angle) {');
+    iPush();
+    iPrint('num cosAngle = cos(angle);');
+    iPrint('num sinAngle = sin(angle);');
+    iPrint('var t1 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), 'cosAngle', 'sinAngle', '0.0', '0.0')};');
+    iPrint('var t2 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), 'cosAngle', 'sinAngle', '0.0', '0.0')};');
+    iPrint('var t3 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), 'cosAngle', 'sinAngle', '0.0', '0.0')};');
+    iPrint('var t4 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), 'cosAngle', 'sinAngle', '0.0', '0.0')};');
+
+    iPrint('var t5 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), '-sinAngle', 'cosAngle', '0.0', '0.0')};');
+    iPrint('var t6 = ${generateInlineDotArgs(Access(1, 0), Access(1, 1), Access(1, 2), Access(1, 3), '-sinAngle', 'cosAngle', '0.0', '0.0')};');
+    iPrint('var t7 = ${generateInlineDotArgs(Access(2, 0), Access(2, 1), Access(2, 2), Access(2, 3), '-sinAngle', 'cosAngle', '0.0', '0.0')};');
+    iPrint('var t8 = ${generateInlineDotArgs(Access(3, 0), Access(3, 1), Access(3, 2), Access(3, 3), '-sinAngle', 'cosAngle', '0.0', '0.0')};');
+    
+    iPrint('${Access(0, 0)} = t1;');
+    iPrint('${Access(1, 0)} = t2;');
+    iPrint('${Access(2, 0)} = t3;');
+    iPrint('${Access(3, 0)} = t4;');
+    
+    iPrint('${Access(0, 1)} = t5;');
+    iPrint('${Access(1, 1)} = t6;');
+    iPrint('${Access(2, 1)} = t7;');
+    iPrint('${Access(3, 1)} = t8;');
+
+    iPrint('return this;');
+    iPop();
+    iPrint('}');   
+  }
+  
+  void generateInlineScale() {
+    if (rows != 4 || cols != 4) {
+      return;
+    }
+    iPrint('\/\/\/ Scale this matrix by a [vec3], [vec4], or x,y,z');
+    iPrint('${matType} scale(Dynamic x, [num y = null, num z = null]) {');
+    iPush();
+    iPrint('num sx;');
+    iPrint('num sy;');
+    iPrint('num sz;');
+    iPrint('num sw = x is vec4 ? x.w : 1.0;');
+    iPrint('if (x is vec3 || x is vec4) {');
+    iPush();
+    iPrint('sx = x.x;');
+    iPrint('sy = x.y;');
+    iPrint('sz = x.z;');
+    iPop();
+    iPrint('} else {');
+    iPush();
+    iPrint('sx = x;');
+    iPrint('sy = y;');
+    iPrint('sz = z;');
+    iPop();
+    iPrint('}');
+    for (int i = 0; i < 4; i++) {
+      String scalar;
+      if (i == 0) {
+        scalar = 'sx';
+      } else if (i == 1) {
+        scalar = 'sy';
+      } else if (i == 2) {
+        scalar = 'sz';
+      } else if (i == 3) {
+        scalar = 'sw';
+      }
+      for (int j = 0; j < 4; j++) {
+        iPrint('${Access(i, j)} *= $scalar;');
+      }
+    }
+    iPrint('return this;');
     iPop();
     iPrint('}');
   }
@@ -944,11 +1197,11 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('num s = Math.sin(radians_);');
       iPrint('col0.x = c;');
       iPrint('col0.y = 0.0;');
-      iPrint('col0.z = -s;');
+      iPrint('col0.z = s;');
       iPrint('col1.x = 0.0;');
       iPrint('col1.y = 1.0;');
       iPrint('col1.z = 0.0;');
-      iPrint('col2.x = s;');
+      iPrint('col2.x = -s;');
       iPrint('col2.y = 0.0;');
       iPrint('col2.z = c;');
       iPop();
@@ -1000,11 +1253,11 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('num s = Math.sin(radians_);');
       iPrint('col0.x = c;');
       iPrint('col0.y = 0.0;');
-      iPrint('col0.z = -s;');
+      iPrint('col0.z = s;');
       iPrint('col1.x = 0.0;');
       iPrint('col1.y = 1.0;');
       iPrint('col1.z = 0.0;');
-      iPrint('col2.x = s;');
+      iPrint('col2.x = -s;');
       iPrint('col2.y = 0.0;');
       iPrint('col2.z = c;');
       iPrint('col0.w = 0.0;');
@@ -1511,6 +1764,9 @@ class MatrixGenerator extends BaseGenerator {
     generateMult();
     generateOp('+');
     generateOp('-');
+    generateInlineTranslate();
+    generateInlineRotate();
+    generateInlineScale();
     generateNegate();
     generateTranspose();
     generateAbsolute();

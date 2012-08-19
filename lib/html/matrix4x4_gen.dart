@@ -328,6 +328,17 @@ class mat4x4 {
     col3.y = y;
     col3.z = z;
   }
+  //// Constructs a new [mat4x4] representening a scale of [x], [y], and [z]
+  mat4x4.scaleRaw(num x, num y, num z) {
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
+    col0.x = x;
+    col1.y = y;
+    col2.z = z;
+    col3.w = 1.0;
+  }
   mat4x4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11, num arg12, num arg13, num arg14, num arg15) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
@@ -564,6 +575,174 @@ class mat4x4 {
     r.col3.w = col3.w - arg.col3.w;
     return r;
   }
+  /// Translate this matrix by a [vec3], [vec4], or x,y,z
+  mat4x4 translate(Dynamic x, [num y = 0.0, num z = 0.0]) {
+    num tx;
+    num ty;
+    num tz;
+    num tw = x is vec4 ? x.w : 1.0;
+    if (x is vec3 || x is vec4) {
+      tx = x.x;
+      ty = x.y;
+      tz = x.z;
+    } else {
+      tx = x;
+      ty = y;
+      tz = z;
+    }
+    var t1 = col0.x * tx + col1.x * ty + col2.x * tz + col3.x * tw;
+    var t2 = col0.y * tx + col1.y * ty + col2.y * tz + col3.y * tw;
+    var t3 = col0.z * tx + col1.z * ty + col2.z * tz + col3.z * tw;
+    var t4 = col0.w * tx + col1.w * ty + col2.w * tz + col3.w * tw;
+    col3.x = t1;
+    col3.y = t2;
+    col3.z = t3;
+    col3.w = t4;
+    return this;
+  }
+  /// Rotate this [angle] radians around [axis]
+  mat4x4 rotate(vec3 axis, num angle) {
+    var len = axis.length;
+    var x = axis.x/len;
+    var y = axis.y/len;
+    var z = axis.y/len;
+    var c = cos(angle);
+    var s = sin(angle);
+    var C = 1.0 - c;
+    var m11 = x * x * C + c;
+    var m12 = x * y * C - z * s;
+    var m13 = x * z * C + y * s;
+    var m21 = y * x * C + z * s;
+    var m22 = y * y * C + c;
+    var m23 = y * z * C - x * s;
+    var m31 = z * x * C - y * s;
+    var m32 = z * y * C + x * s;
+    var m33 = z * z * C + c;
+    var t1 = col0.x * m11 + col1.x * m21 + col2.x * m31 + col3.x * 0.0;
+    var t2 = col0.y * m11 + col1.y * m21 + col2.y * m31 + col3.y * 0.0;
+    var t3 = col0.z * m11 + col1.z * m21 + col2.z * m31 + col3.z * 0.0;
+    var t4 = col0.w * m11 + col1.w * m21 + col2.w * m31 + col3.w * 0.0;
+    var t5 = col0.x * m12 + col1.x * m22 + col2.x * m32 + col3.x * 0.0;
+    var t6 = col0.y * m12 + col1.y * m22 + col2.y * m32 + col3.y * 0.0;
+    var t7 = col0.z * m12 + col1.z * m22 + col2.z * m32 + col3.z * 0.0;
+    var t8 = col0.w * m12 + col1.w * m22 + col2.w * m32 + col3.w * 0.0;
+    var t9 = col0.x * m13 + col1.x * m23 + col2.x * m33 + col3.x * 0.0;
+    var t10 = col0.y * m13 + col1.y * m23 + col2.y * m33 + col3.y * 0.0;
+    var t11 = col0.z * m13 + col1.z * m23 + col2.z * m33 + col3.z * 0.0;
+    var t12 = col0.w * m13 + col1.w * m23 + col2.w * m33 + col3.w * 0.0;
+    col0.x = t1;
+    col0.y = t2;
+    col0.z = t3;
+    col0.w = t4;
+    col1.x = t5;
+    col1.y = t6;
+    col1.z = t7;
+    col1.w = t8;
+    col2.x = t9;
+    col2.y = t10;
+    col2.z = t11;
+    col2.w = t12;
+    return this;
+  }
+  /// Rotate this [angle] radians around X
+  mat4x4 rotateX(num angle) {
+    num cosAngle = cos(angle);
+    num sinAngle = sin(angle);
+    var t1 = col0.x * 0.0 + col1.x * cosAngle + col2.x * sinAngle + col3.x * 0.0;
+    var t2 = col0.y * 0.0 + col1.y * cosAngle + col2.y * sinAngle + col3.y * 0.0;
+    var t3 = col0.z * 0.0 + col1.z * cosAngle + col2.z * sinAngle + col3.z * 0.0;
+    var t4 = col0.w * 0.0 + col1.w * cosAngle + col2.w * sinAngle + col3.w * 0.0;
+    var t5 = col0.x * 0.0 + col1.x * -sinAngle + col2.x * cosAngle + col3.x * 0.0;
+    var t6 = col0.y * 0.0 + col1.y * -sinAngle + col2.y * cosAngle + col3.y * 0.0;
+    var t7 = col0.z * 0.0 + col1.z * -sinAngle + col2.z * cosAngle + col3.z * 0.0;
+    var t8 = col0.w * 0.0 + col1.w * -sinAngle + col2.w * cosAngle + col3.w * 0.0;
+    col1.x = t1;
+    col1.y = t2;
+    col1.z = t3;
+    col1.w = t4;
+    col2.x = t5;
+    col2.y = t6;
+    col2.z = t7;
+    col2.w = t8;
+    return this;
+  }
+  /// Rotate this matrix [angle] radians around Y
+  mat4x4 rotateY(num angle) {
+    num cosAngle = cos(angle);
+    num sinAngle = sin(angle);
+    var t1 = col0.x * cosAngle + col1.x * 0.0 + col2.x * sinAngle + col3.x * 0.0;
+    var t2 = col0.y * cosAngle + col1.y * 0.0 + col2.y * sinAngle + col3.y * 0.0;
+    var t3 = col0.z * cosAngle + col1.z * 0.0 + col2.z * sinAngle + col3.z * 0.0;
+    var t4 = col0.w * cosAngle + col1.w * 0.0 + col2.w * sinAngle + col3.w * 0.0;
+    var t5 = col0.x * -sinAngle + col1.x * 0.0 + col2.x * cosAngle + col3.x * 0.0;
+    var t6 = col0.y * -sinAngle + col1.y * 0.0 + col2.y * cosAngle + col3.y * 0.0;
+    var t7 = col0.z * -sinAngle + col1.z * 0.0 + col2.z * cosAngle + col3.z * 0.0;
+    var t8 = col0.w * -sinAngle + col1.w * 0.0 + col2.w * cosAngle + col3.w * 0.0;
+    col0.x = t1;
+    col0.y = t2;
+    col0.z = t3;
+    col0.w = t4;
+    col2.x = t5;
+    col2.y = t6;
+    col2.z = t7;
+    col2.w = t8;
+    return this;
+  }
+  /// Rotate this matrix [angle] radians around Z
+  mat4x4 rotateZ(num angle) {
+    num cosAngle = cos(angle);
+    num sinAngle = sin(angle);
+    var t1 = col0.x * cosAngle + col1.x * sinAngle + col2.x * 0.0 + col3.x * 0.0;
+    var t2 = col0.y * cosAngle + col1.y * sinAngle + col2.y * 0.0 + col3.y * 0.0;
+    var t3 = col0.z * cosAngle + col1.z * sinAngle + col2.z * 0.0 + col3.z * 0.0;
+    var t4 = col0.w * cosAngle + col1.w * sinAngle + col2.w * 0.0 + col3.w * 0.0;
+    var t5 = col0.x * -sinAngle + col1.x * cosAngle + col2.x * 0.0 + col3.x * 0.0;
+    var t6 = col0.y * -sinAngle + col1.y * cosAngle + col2.y * 0.0 + col3.y * 0.0;
+    var t7 = col0.z * -sinAngle + col1.z * cosAngle + col2.z * 0.0 + col3.z * 0.0;
+    var t8 = col0.w * -sinAngle + col1.w * cosAngle + col2.w * 0.0 + col3.w * 0.0;
+    col0.x = t1;
+    col0.y = t2;
+    col0.z = t3;
+    col0.w = t4;
+    col1.x = t5;
+    col1.y = t6;
+    col1.z = t7;
+    col1.w = t8;
+    return this;
+  }
+  /// Scale this matrix by a [vec3], [vec4], or x,y,z
+  mat4x4 scale(Dynamic x, [num y = null, num z = null]) {
+    num sx;
+    num sy;
+    num sz;
+    num sw = x is vec4 ? x.w : 1.0;
+    if (x is vec3 || x is vec4) {
+      sx = x.x;
+      sy = x.y;
+      sz = x.z;
+    } else {
+      sx = x;
+      sy = y;
+      sz = z;
+    }
+    col0.x *= sx;
+    col1.x *= sx;
+    col2.x *= sx;
+    col3.x *= sx;
+    col0.y *= sy;
+    col1.y *= sy;
+    col2.y *= sy;
+    col3.y *= sy;
+    col0.z *= sz;
+    col1.z *= sz;
+    col2.z *= sz;
+    col3.z *= sz;
+    col0.w *= sw;
+    col1.w *= sw;
+    col2.w *= sw;
+    col3.w *= sw;
+    return this;
+  }
   /// Returns new matrix -this
   mat4x4 operator negate() {
     mat4x4 r = new mat4x4();
@@ -788,11 +967,11 @@ class mat4x4 {
     num s = Math.sin(radians_);
     col0.x = c;
     col0.y = 0.0;
-    col0.z = -s;
+    col0.z = s;
     col1.x = 0.0;
     col1.y = 1.0;
     col1.z = 0.0;
-    col2.x = s;
+    col2.x = -s;
     col2.y = 0.0;
     col2.z = c;
     col0.w = 0.0;
