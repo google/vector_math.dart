@@ -168,15 +168,31 @@ class vec4 {
     return sum;
   }
   /// Normalizes this
-  void normalize() {
+  vec4 normalize() {
     num l = length;
     if (l == 0.0) {
-      return;
+      return this;
     }
     x /= l;
     y /= l;
     z /= l;
     w /= l;
+    return this;
+  }
+  /// Normalizes this returns new vector or optional [out]
+  vec4 normalized([vec4 out = null]) {
+    if (out == null) {
+      out = new vec4.raw(x, y, z, w);
+    }
+    num l = out.length;
+    if (l == 0.0) {
+      return out;
+    }
+    out.x /= l;
+    out.y /= l;
+    out.z /= l;
+    out.w /= l;
+    return out;
   }
   /// Returns the dot product of [this] and [other]
   num dot(vec4 other) {

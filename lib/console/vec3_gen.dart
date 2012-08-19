@@ -152,14 +152,29 @@ class vec3 {
     return sum;
   }
   /// Normalizes this
-  void normalize() {
+  vec3 normalize() {
     num l = length;
     if (l == 0.0) {
-      return;
+      return this;
     }
     x /= l;
     y /= l;
     z /= l;
+    return this;
+  }
+  /// Normalizes this returns new vector or optional [out]
+  vec3 normalized([vec3 out = null]) {
+    if (out == null) {
+      out = new vec3.raw(x, y, z);
+    }
+    num l = out.length;
+    if (l == 0.0) {
+      return out;
+    }
+    out.x /= l;
+    out.y /= l;
+    out.z /= l;
+    return out;
   }
   /// Returns the dot product of [this] and [other]
   num dot(vec3 other) {
@@ -169,9 +184,15 @@ class vec3 {
     sum += (z * other.z);
     return sum;
   }
-  /// Returns the cross product of [this] and [other]
-  vec3 cross(vec3 other) {
-    return new vec3.raw(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
+  /// Returns the cross product of [this] and [other], optionally pass in output storage [out]
+  vec3 cross(vec3 other, [vec3 out=null]) {
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = y * other.z - z * other.y;
+    out.y = z * other.x - x * other.z;
+    out.z = x * other.y - y * other.x;
+    return out;
   }
   /// Returns the relative error between [this] and [correct]
   num relativeError(vec3 correct) {

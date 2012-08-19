@@ -128,13 +128,27 @@ class vec2 {
     return sum;
   }
   /// Normalizes this
-  void normalize() {
+  vec2 normalize() {
     num l = length;
     if (l == 0.0) {
-      return;
+      return this;
     }
     x /= l;
     y /= l;
+    return this;
+  }
+  /// Normalizes this returns new vector or optional [out]
+  vec2 normalized([vec2 out = null]) {
+    if (out == null) {
+      out = new vec2.raw(x, y);
+    }
+    num l = out.length;
+    if (l == 0.0) {
+      return out;
+    }
+    out.x /= l;
+    out.y /= l;
+    return out;
   }
   /// Returns the dot product of [this] and [other]
   num dot(vec2 other) {
@@ -143,7 +157,7 @@ class vec2 {
     sum += (y * other.y);
     return sum;
   }
-  /// Returns the cross product of [this] and [other]
+  /// Returns the cross product of [this] and [other], optionally pass in output storage [out]
   num cross(vec2 other) {
     return x * other.y - y * other.x;
   }

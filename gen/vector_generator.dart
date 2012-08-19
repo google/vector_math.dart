@@ -462,17 +462,39 @@ class VectorGenerator extends BaseGenerator {
   
   void generateNormalize() {
     iPrint('\/\/\/ Normalizes this');
-    iPrint('void normalize() {');
+    iPrint('$generatedName normalize() {');
     iPush();
     iPrint('num l = length;');
     iPrint('if (l == 0.0) {');
     iPush();
-    iPrint('return;');
+    iPrint('return this;');
     iPop();
     iPrint('}');
     vectorComponents.forEach((comp) {
       iPrint('$comp /= l;');
     });
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+    
+    iPrint('\/\/\/ Normalizes this returns new vector or optional [out]');
+    iPrint('$generatedName normalized([$generatedName out = null]) {');
+    iPush();
+    iPrint('if (out == null) {');
+    iPush();
+    iPrint('out = new ${generatedName}.raw(${joinStrings(vectorComponents)});');
+    iPop();
+    iPrint('}');
+    iPrint('num l = out.length;');
+    iPrint('if (l == 0.0) {');
+    iPush();
+    iPrint('return out;');
+    iPop();
+    iPrint('}');
+    vectorComponents.forEach((comp) {
+      iPrint('out.$comp /= l;');
+    });
+    iPrint('return out;');
     iPop();
     iPrint('}');
   }
@@ -491,11 +513,19 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateCross() {
-    iPrint('\/\/\/ Returns the cross product of [this] and [other]');
+    iPrint('\/\/\/ Returns the cross product of [this] and [other], optionally pass in output storage [out]');
     if (generatedName == 'vec3') {
-      iPrint('$generatedName cross($generatedName other) {');
+      iPrint('$generatedName cross($generatedName other, [$generatedName out=null]) {');
       iPush();
-      iPrint('return new ${generatedName}.raw(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);');
+      iPrint('if (out == null) {');
+      iPush();
+      iPrint('out = new vec3.zero();');
+      iPop();
+      iPrint('}');
+      iPrint('out.x = y * other.z - z * other.y;');
+      iPrint('out.y = z * other.x - x * other.z;');
+      iPrint('out.z = x * other.y - y * other.x;');
+      iPrint('return out;');
     } else if (generatedName == 'vec2') {
       iPrint('num cross($generatedName other) {');
       iPush();
