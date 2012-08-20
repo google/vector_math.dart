@@ -55,7 +55,7 @@ Dynamic cross(Dynamic x, Dynamic y) {
   } else if (x is num && y is vec2) {
     return new vec2(-x * y.y, x * y.x);
   } else if (x is vec2 && y is num) {
-    return new vec2(y * x.y, -y * x.y);
+    return new vec2(y * x.y, -y * x.x);
   } else {
     assert(false);
   }
