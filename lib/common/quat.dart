@@ -28,7 +28,8 @@ class quat {
   num z;
   num w;
   
-  /**  Constructs a new quaternion. Behaviour depends on the types of arguments:
+  /** 
+   *  Constructs a new quaternion. Behaviour depends on the types of arguments:
    *
    *  +  *([num] x,[num] y,[num] z,[num] w)* Raw values
    *  +  *([vec3] axis,[num] angle)* Rotation of [angle] degrees around [axis]
@@ -96,7 +97,20 @@ class quat {
     }
   }
   
-  /** Generate a random rotation */
+  /// Constructs a new quaternion representing a rotation of [angle] around [axis]
+  quat.axisAngle(vec3 axis, num angle) {
+    setAxisAngle(axis, angle);
+  }
+  
+  /// Constructs a new quaternion which is a copy of [original]
+  quat.copy(quat original) {
+    x = original.x;
+    y = original.y;
+    z = original.z;
+    w = original.w;
+  }
+  
+  /** Constructs a random rotation */
   quat.random() {
   // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
   //       pg. 124-132
@@ -115,7 +129,7 @@ class quat {
     w = c2 * r2;
   }
   
-  /** Generate the time derivative of [q] with angular velocity [omega] */
+  /** Constructs the time derivative of [q] with angular velocity [omega] */
   quat.dq(quat q, vec3 omega) {
     x = omega.x * q.w + omega.y * q.z - omega.z * q.y;
     y = omega.y * q.w + omega.z * q.x - omega.x * q.z;
@@ -127,7 +141,7 @@ class quat {
     w *= 0.5;
   }
   
-  /** Reset quaternion with rotation of [radians] around [axis] */ 
+  /** Set quaternion with rotation of [radians] around [axis] */ 
   void setAxisAngle(vec3 axis, num radians) {
     num len = axis.length;
     if (len == 0.0) {
@@ -140,7 +154,7 @@ class quat {
     w = cos(radians * 0.5);
   }
   
-  /** Reset quaternion with rotation of [yaw], [pitch] and [roll] */
+  /** Set quaternion with rotation of [yaw], [pitch] and [roll] */
   void setEuler(num yaw, num pitch, num roll) {
     num halfYaw = yaw * 0.5;  
     num halfPitch = pitch * 0.5;  
@@ -157,7 +171,7 @@ class quat {
     w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
   }
   
-  /** Quaternion becomes normalized */
+  /** Normalize [this] */
   quat normalize() {
     num l = length;
     if (l == 0.0) {
@@ -170,7 +184,7 @@ class quat {
     return this;
   }
   
-  /** Quaternion becomes conjugate of itself */
+  /** Conjugate [this] */
   quat conjugate() {
     x = -x;
     y = -y;
@@ -179,7 +193,7 @@ class quat {
     return this;
   }
   
-  /** Quaternion becomes inverse of itself */
+  /** Invert [this]  */
   quat inverse() {
     num l = 1.0 / length2;
     x = -x * l;
@@ -189,19 +203,28 @@ class quat {
     return this;
   }
   
-  /** Returns normalized copy of quaternion */
-  quat normalized() {
-    return (new quat(this)).normalize();
+  /** Normalized copy of [this]. Optionally stored in [out]*/
+  quat normalized([quat out=null]) {
+    if (out == null) {
+      out = new quat.copy(this);
+    }
+    return out.normalize();
   }
   
-  /** Returns conjugated copy of quaternion */
-  quat conjugated() {
-    return (new quat(this)).conjugate();
+  /** Conjugated copy of [this]. Optionally stored in [out] */
+  quat conjugated([quat out=null]) {
+    if (out == null) {
+      out = new quat.copy(this);
+    }
+    return out.conjugate();
   }
   
-  /** Returns inverted copy of quaternion */
-  quat inverted() {
-    return (new quat(this)).inverse();
+  /** Inverted copy of [this]. Optionally stored in [out] */
+  quat inverted([quat out=null]) {
+    if (out == null) {
+      out = new quat.copy(this);
+    }
+    return out.inverse();
   }
   
   /** Radians of rotation */
@@ -225,14 +248,14 @@ class quat {
     return Math.sqrt(length2);
   }
 
-  /** Returns [v] rotated by quaternion */
-  vec3 rotate(vec3 v) {
+  /** Returns a copy of [v] rotated by quaternion */
+  vec3 rotated(vec3 v) {
     vec3 result = new vec3.copy(v);
-    return rotateSelf(result);
+    return rotate(result);
   }
   
-  /** Rotates [v] by this. Updates [v] and returns [v]. */
-  vec3 rotateSelf(vec3 v) {
+  /** Rotates [v] by [this]. Returns [v]. */
+  vec3 rotate(vec3 v) {
     // conjugate(this) * [v,0] * this
     double tix = -x;
     double tiy = -y;
@@ -251,13 +274,13 @@ class quat {
     return v;
   }
   
-  /** Returns copy of quaternion divided by [scale] */
+  /** Return a copy of [this] divided by [scale] */
   quat operator/(num scale) {
     return new quat(x / scale, y / scale, z / scale, w / scale);
   }
   
-  /**  Returns copy of quaternion multiplied by [scale] 
-    *  Returns copy of quaternion rotated by [otherQuat]
+  /**  Returns copy of [this] multiplied by [scale] 
+    *  Returns copy of [this] rotated by [otherQuat]
     */
   quat operator*(Dynamic other) {
     if (other is num) {
@@ -271,22 +294,22 @@ class quat {
     }
   }
   
-  /** Returns copy of quaternion - [other] */
+  /** Returns copy of [this] - [other] */
   quat operator+(quat other) {
     return new quat(x + other.x, y + other.y, z + other.z, w + other.w);
   }
   
-  /** Returns copy of quaternion + [other] */
+  /** Returns copy of [this] + [other] */
   quat operator-(quat other) {
     return new quat(x - other.x, y - other.y, z - other.z, w - other.w);
   }
   
-  /** Returns negated copy of quaternion */
+  /** Returns negated copy of [this] */
   quat operator negate() {
     return new quat(-x, -y, -z, -w);
   }
   
-  /** Treats quaternion as an array and returns [x],[y],[z], or [w] */
+  /** Treats [this] as an array and returns [x],[y],[z], or [w] */
   num operator[](int i) {
     assert(i >= 0 && i < 4);
     switch (i) {
@@ -298,7 +321,7 @@ class quat {
     return 0.0;
   }
   
-  /** Treats quaternion as an array and assigns [x],[y],[z], or [w] the value of [arg]*/
+  /** Treats [this] as an array and assigns [x],[y],[z], or [w] the value of [arg]*/
   void operator[]=(int i, num arg) {
     assert(i >= 0 && i < 4);
     switch (i) {
@@ -309,7 +332,7 @@ class quat {
     }
   }
   
-  /** Converts quaternion into rotation matrix ([mat3x3]) */
+  /** Returns a rotation matrix containing the same rotation as [this] */
   mat3x3 asRotationMatrix() {
     num d = length2;
     assert(d != 0.0);
@@ -342,7 +365,7 @@ class quat {
     return '$x, $y, $z @ $w';
   }
   
-  /** Returns relative error between this quaternion and [correct] */
+  /** Returns relative error between [this]  and [correct] */
   num relativeError(quat correct) {
     num this_norm = length;
     num correct_norm = correct.length;
@@ -350,7 +373,7 @@ class quat {
     return norm_diff/correct_norm;
   }
   
-  /** Returns absolute error between this quaternion and [correct] */
+  /** Returns absolute error between [this] and [correct] */
   num absoluteError(quat correct) {
     num this_norm = length;
     num correct_norm = correct.length;

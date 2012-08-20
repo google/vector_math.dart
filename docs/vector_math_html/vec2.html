@@ -1,0 +1,1795 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>vec2 Class / vector_math_html Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="vector_math_html" data-type="vec2">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../vector_math_html.html">vector_math_html</a> &rsaquo; <a href="../vector_math_html/vec2.html">vec2</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../vector_math_html.html">vector_math_html</a></h2><ul class="icon">
+<li><a href="../vector_math_html/mat2x2.html"><div class="icon-class"></div>mat2x2</a></li>
+<li><a href="../vector_math_html/mat2x3.html"><div class="icon-class"></div>mat2x3</a></li>
+<li><a href="../vector_math_html/mat2x4.html"><div class="icon-class"></div>mat2x4</a></li>
+<li><a href="../vector_math_html/mat3x2.html"><div class="icon-class"></div>mat3x2</a></li>
+<li><a href="../vector_math_html/mat3x3.html"><div class="icon-class"></div>mat3x3</a></li>
+<li><a href="../vector_math_html/mat3x4.html"><div class="icon-class"></div>mat3x4</a></li>
+<li><a href="../vector_math_html/mat4x2.html"><div class="icon-class"></div>mat4x2</a></li>
+<li><a href="../vector_math_html/mat4x3.html"><div class="icon-class"></div>mat4x3</a></li>
+<li><a href="../vector_math_html/mat4x4.html"><div class="icon-class"></div>mat4x4</a></li>
+<li><a href="../vector_math_html/quat.html"><div class="icon-class"></div>quat</a></li>
+<li><div class="icon-class"></div><strong>vec2</strong></li>
+<li><a href="../vector_math_html/vec3.html"><div class="icon-class"></div>vec3</a></li>
+<li><a href="../vector_math_html/vec4.html"><div class="icon-class"></div>vec4</a></li>
+</ul>
+</div>
+<div class="content">
+        <h2><strong>vec2</strong>
+          Class
+        </h2>
+        
+<div class="doc">
+
+</div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="vec2">
+<span class="show-code">Code</span>
+new <strong>vec2</strong>.raw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> x_, <a href="http://api.dartlang.org/dart_core/num.html">num</a> y_) <a class="anchor-link" href="#vec2"
+              title="Permalink to vec2.vec2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/vec2.html#new:vec2.array">vec2</a> that is initialized with passed in values.</p>
+<pre class="source">
+vec2.raw(num x_, num y_) {
+  x = x_;
+  y = y_;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="vec2">
+<span class="show-code">Code</span>
+new <strong>vec2</strong>([x_, y_]) <a class="anchor-link" href="#vec2"
+              title="Permalink to vec2.vec2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/vec2.html#new:vec2.array">vec2</a>. Follows GLSL constructor syntax so many combinations are possible</p>
+<pre class="source">
+vec2([Dynamic x_, Dynamic y_]) {
+  x = y = 0.0;
+  if (x_ is vec2) {
+    xy = x_.xy;
+    return;
+  }
+  if (x_ is num &amp;&amp; y_ is num) {
+    x = x_;
+    y = y_;
+    return;
+  }
+  if (x_ is num) {
+    x = y = x_;
+    return;
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="vec2">
+<span class="show-code">Code</span>
+new <strong>vec2</strong>.zero() <a class="anchor-link" href="#vec2"
+              title="Permalink to vec2.vec2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/vec2.html#new:vec2.array">vec2</a> filled with 0.</p>
+<pre class="source">
+vec2.zero() {
+  x = 0.0;
+  y = 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="vec2">
+<span class="show-code">Code</span>
+new <strong>vec2</strong>.copy(<a href="../vector_math_html/vec2.html">vec2</a> other) <a class="anchor-link" href="#vec2"
+              title="Permalink to vec2.vec2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/vec2.html#new:vec2.array">vec2</a> that is a copy of 
+<span class="param">other</span>.</p>
+<pre class="source">
+vec2.copy(vec2 other) {
+  x = other.x;
+  y = other.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="vec2">
+<span class="show-code">Code</span>
+new <strong>vec2</strong>.array(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#vec2"
+              title="Permalink to vec2.vec2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/vec2.html#new:vec2.array">vec2</a> that is initialized with values from 
+<span class="param">array</span> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+vec2.array(Float32Array array, [int offset=0]) {
+  int i = offset;
+  x = array[i];
+  i++;
+  y = array[i];
+  i++;
+}
+</pre>
+</div>
+</div>
+<h3>Methods</h3>
+<div class="method"><h4 id="absoluteError">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>absoluteError</strong>(<a href="../vector_math_html/vec2.html">vec2</a> correct) <a class="anchor-link" href="#absoluteError"
+              title="Permalink to vec2.absoluteError">#</a></h4>
+<div class="doc">
+<p>Returns the absolute error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num absoluteError(vec2 correct) {
+  num this_norm = length;
+  num correct_norm = correct.length;
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>copy</strong>() <a class="anchor-link" href="#copy"
+              title="Permalink to vec2.copy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 copy() {
+  vec2 c = new vec2.copy(this);
+  return c;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyAsArray">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> <strong>copyAsArray</strong>() <a class="anchor-link" href="#copyAsArray"
+              title="Permalink to vec2.copyAsArray">#</a></h4>
+<div class="doc">
+<p>Returns a copy of <code>this</code> as a <code>Float32Array</code>.</p>
+<pre class="source">
+Float32Array copyAsArray() {
+  Float32Array array = new Float32Array(2);
+  int i = 0;
+  array[i] = x;
+  i++;
+  array[i] = y;
+  i++;
+  return array;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFrom">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>copyFrom</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#copyFrom"
+              title="Permalink to vec2.copyFrom">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 copyFrom(vec2 arg) {
+  x = arg.x;
+  y = arg.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFromArray">
+<span class="show-code">Code</span>
+void <strong>copyFromArray</strong>(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#copyFromArray"
+              title="Permalink to vec2.copyFromArray">#</a></h4>
+<div class="doc">
+<p>Copies elements from 
+<span class="param">array</span> into <code>this</code> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+void copyFromArray(Float32Array array, [int offset=0]) {
+  int i = offset;
+  x = array[i];
+  i++;
+  y = array[i];
+  i++;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyInto">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>copyInto</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#copyInto"
+              title="Permalink to vec2.copyInto">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 copyInto(vec2 arg) {
+  arg.x = x;
+  arg.y = y;
+  return arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyIntoArray">
+<span class="show-code">Code</span>
+void <strong>copyIntoArray</strong>(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#copyIntoArray"
+              title="Permalink to vec2.copyIntoArray">#</a></h4>
+<div class="doc">
+<p>Copies <code>this</code> into 
+<span class="param">array</span> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+void copyIntoArray(Float32Array array, [int offset=0]) {
+  int i = offset;
+  array[i] = x;
+  i++;
+  array[i] = y;
+  i++;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="cross">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>cross</strong>(<a href="../vector_math_html/vec2.html">vec2</a> other) <a class="anchor-link" href="#cross"
+              title="Permalink to vec2.cross">#</a></h4>
+<div class="doc">
+<p>Returns the cross product of <code>this</code> and 
+<span class="param">other</span>, optionally pass in output storage <code>out</code></p>
+<pre class="source">
+num cross(vec2 other) {
+  return x * other.y - y * other.x;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="dot">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>dot</strong>(<a href="../vector_math_html/vec2.html">vec2</a> other) <a class="anchor-link" href="#dot"
+              title="Permalink to vec2.dot">#</a></h4>
+<div class="doc">
+<p>Returns the dot product of <code>this</code> and 
+<span class="param">other</span></p>
+<pre class="source">
+num dot(vec2 other) {
+  num sum = 0.0;
+  sum += (x * other.x);
+  sum += (y * other.y);
+  return sum;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="g">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get g</strong>() <a class="anchor-link" href="#g"
+              title="Permalink to vec2.get g">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get g() =&gt; y;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="g">
+<span class="show-code">Code</span>
+<strong>set g</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#g"
+              title="Permalink to vec2.set g">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set g(num arg) =&gt; y = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="gg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get gg</strong>() <a class="anchor-link" href="#gg"
+              title="Permalink to vec2.get gg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get gg() =&gt; new vec2(g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ggg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get ggg</strong>() <a class="anchor-link" href="#ggg"
+              title="Permalink to vec2.get ggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ggg() =&gt; new vec3(g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="gggg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get gggg</strong>() <a class="anchor-link" href="#gggg"
+              title="Permalink to vec2.get gggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gggg() =&gt; new vec4(g, g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="gggr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get gggr</strong>() <a class="anchor-link" href="#gggr"
+              title="Permalink to vec2.get gggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get gggr() =&gt; new vec4(g, g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ggr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get ggr</strong>() <a class="anchor-link" href="#ggr"
+              title="Permalink to vec2.get ggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ggr() =&gt; new vec3(g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ggrg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ggrg</strong>() <a class="anchor-link" href="#ggrg"
+              title="Permalink to vec2.get ggrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggrg() =&gt; new vec4(g, g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ggrr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ggrr</strong>() <a class="anchor-link" href="#ggrr"
+              title="Permalink to vec2.get ggrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ggrr() =&gt; new vec4(g, g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="gr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get gr</strong>() <a class="anchor-link" href="#gr"
+              title="Permalink to vec2.get gr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get gr() =&gt; new vec2(g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="gr">
+<span class="show-code">Code</span>
+<strong>set gr</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#gr"
+              title="Permalink to vec2.set gr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set gr(vec2 arg) {
+  g = arg.r;
+  r = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="grg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get grg</strong>() <a class="anchor-link" href="#grg"
+              title="Permalink to vec2.get grg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get grg() =&gt; new vec3(g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="grgg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get grgg</strong>() <a class="anchor-link" href="#grgg"
+              title="Permalink to vec2.get grgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grgg() =&gt; new vec4(g, r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="grgr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get grgr</strong>() <a class="anchor-link" href="#grgr"
+              title="Permalink to vec2.get grgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grgr() =&gt; new vec4(g, r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="grr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get grr</strong>() <a class="anchor-link" href="#grr"
+              title="Permalink to vec2.get grr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get grr() =&gt; new vec3(g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="grrg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get grrg</strong>() <a class="anchor-link" href="#grrg"
+              title="Permalink to vec2.get grrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grrg() =&gt; new vec4(g, r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="grrr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get grrr</strong>() <a class="anchor-link" href="#grrr"
+              title="Permalink to vec2.get grrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get grrr() =&gt; new vec4(g, r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isInfinite">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> <strong>isInfinite</strong>() <a class="anchor-link" href="#isInfinite"
+              title="Permalink to vec2.isInfinite">#</a></h4>
+<div class="doc">
+<p>Returns true if any component is infinite.</p>
+<pre class="source">
+bool isInfinite() {
+  bool is_infinite = false;
+  is_infinite = is_infinite || x.isInfinite();
+  is_infinite = is_infinite || y.isInfinite();
+  return is_infinite;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isNaN">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/bool.html">bool</a> <strong>isNaN</strong>() <a class="anchor-link" href="#isNaN"
+              title="Permalink to vec2.isNaN">#</a></h4>
+<div class="doc">
+<p>Returns true if any component is NaN.</p>
+<pre class="source">
+bool isNaN() {
+  bool is_nan = false;
+  is_nan = is_nan || x.isNaN();
+  is_nan = is_nan || y.isNaN();
+  return is_nan;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="length">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get length</strong>() <a class="anchor-link" href="#length"
+              title="Permalink to vec2.get length">#</a></h4>
+<div class="doc">
+<p>Returns length of this</p>
+<pre class="source">
+num get length() {
+  num sum = 0.0;
+  sum += (x * x);
+  sum += (y * y);
+  return Math.sqrt(sum);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="length2">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get length2</strong>() <a class="anchor-link" href="#length2"
+              title="Permalink to vec2.get length2">#</a></h4>
+<div class="doc">
+<p>Returns squared length of this</p>
+<pre class="source">
+num get length2() {
+  num sum = 0.0;
+  sum += (x * x);
+  sum += (y * y);
+  return sum;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="normalize">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>normalize</strong>() <a class="anchor-link" href="#normalize"
+              title="Permalink to vec2.normalize">#</a></h4>
+<div class="doc">
+<p>Normalizes this</p>
+<pre class="source">
+vec2 normalize() {
+  num l = length;
+  if (l == 0.0) {
+    return this;
+  }
+  x /= l;
+  y /= l;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="normalized">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>normalized</strong>([<a href="../vector_math_html/vec2.html">vec2</a> out = null]) <a class="anchor-link" href="#normalized"
+              title="Permalink to vec2.normalized">#</a></h4>
+<div class="doc">
+<p>Normalizes this returns new vector or optional 
+<span class="param">out</span></p>
+<pre class="source">
+vec2 normalized([vec2 out = null]) {
+  if (out == null) {
+    out = new vec2.raw(x, y);
+  }
+  num l = out.length;
+  if (l == 0.0) {
+    return out;
+  }
+  out.x /= l;
+  out.y /= l;
+  return out;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>operator *</strong>(other) <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator *">#</a></h4>
+<div class="doc">
+<p>Returns a new vec2 scaled by 
+<span class="param">other</span></p>
+<pre class="source">
+vec2 operator*(Dynamic other) {
+  if (other is num) {
+    return new vec2(x * other, y * other);
+  }
+  if (other is vec2) {
+    return new vec2(x * other.x, y * other.y);
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>operator negate</strong>() <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator negate">#</a></h4>
+<div class="doc">
+<p>Returns a new vec2 from -this</p>
+<pre class="source">
+vec2 operator negate() =&gt; new vec2(-x, -y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>operator +</strong>(<a href="../vector_math_html/vec2.html">vec2</a> other) <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator +">#</a></h4>
+<div class="doc">
+<p>Returns a new vec2 from this + 
+<span class="param">other</span></p>
+<pre class="source">
+vec2 operator+(vec2 other) =&gt; new vec2(x + other.x, y + other.y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i) <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator []">#</a></h4>
+<div class="doc">
+<p>Returns a component from vec2. This is indexed as an array with 
+<span class="param">i</span></p>
+<pre class="source">
+num operator[](int i) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 2);
+  switch (i) {
+    case 0: return x;
+    case 1: return y;
+  };
+  return 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i, <a href="http://api.dartlang.org/dart_core/num.html">num</a> v) <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator []=">#</a></h4>
+<div class="doc">
+<p>Assigns a component in vec2 the value in 
+<span class="param">v</span>. This is indexed as an array with 
+<span class="param">i</span></p>
+<pre class="source">
+void operator[]=(int i, num v) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 2);
+  switch (i) {
+    case 0: x = v; break;
+    case 1: y = v; break;
+  };
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>operator -</strong>(<a href="../vector_math_html/vec2.html">vec2</a> other) <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator -">#</a></h4>
+<div class="doc">
+<p>Returns a new vec2 from this - 
+<span class="param">other</span></p>
+<pre class="source">
+vec2 operator-(vec2 other) =&gt; new vec2(x - other.x, y - other.y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>operator /</strong>(other) <a class="anchor-link" href="#operator"
+              title="Permalink to vec2.operator /">#</a></h4>
+<div class="doc">
+<p>Returns a new vec2 divided by 
+<span class="param">other</span></p>
+<pre class="source">
+vec2 operator/(Dynamic other) {
+  if (other is num) {
+    return new vec2(x / other, y / other);
+  }
+  if (other is vec2) {
+    return new vec2(x / other.x, y / other.y);
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="r">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get r</strong>() <a class="anchor-link" href="#r"
+              title="Permalink to vec2.get r">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get r() =&gt; x;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="r">
+<span class="show-code">Code</span>
+<strong>set r</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#r"
+              title="Permalink to vec2.set r">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set r(num arg) =&gt; x = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="relativeError">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>relativeError</strong>(<a href="../vector_math_html/vec2.html">vec2</a> correct) <a class="anchor-link" href="#relativeError"
+              title="Permalink to vec2.relativeError">#</a></h4>
+<div class="doc">
+<p>Returns the relative error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num relativeError(vec2 correct) {
+  num this_norm = length;
+  num correct_norm = correct.length;
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm/correct_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get rg</strong>() <a class="anchor-link" href="#rg"
+              title="Permalink to vec2.get rg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get rg() =&gt; new vec2(r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rg">
+<span class="show-code">Code</span>
+<strong>set rg</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#rg"
+              title="Permalink to vec2.set rg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set rg(vec2 arg) {
+  r = arg.r;
+  g = arg.g;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rgg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get rgg</strong>() <a class="anchor-link" href="#rgg"
+              title="Permalink to vec2.get rgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rgg() =&gt; new vec3(r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rggg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rggg</strong>() <a class="anchor-link" href="#rggg"
+              title="Permalink to vec2.get rggg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rggg() =&gt; new vec4(r, g, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rggr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rggr</strong>() <a class="anchor-link" href="#rggr"
+              title="Permalink to vec2.get rggr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rggr() =&gt; new vec4(r, g, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rgr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get rgr</strong>() <a class="anchor-link" href="#rgr"
+              title="Permalink to vec2.get rgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rgr() =&gt; new vec3(r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rgrg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rgrg</strong>() <a class="anchor-link" href="#rgrg"
+              title="Permalink to vec2.get rgrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgrg() =&gt; new vec4(r, g, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rgrr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rgrr</strong>() <a class="anchor-link" href="#rgrr"
+              title="Permalink to vec2.get rgrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rgrr() =&gt; new vec4(r, g, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get rr</strong>() <a class="anchor-link" href="#rr"
+              title="Permalink to vec2.get rr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get rr() =&gt; new vec2(r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rrg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get rrg</strong>() <a class="anchor-link" href="#rrg"
+              title="Permalink to vec2.get rrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rrg() =&gt; new vec3(r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rrgg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rrgg</strong>() <a class="anchor-link" href="#rrgg"
+              title="Permalink to vec2.get rrgg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrgg() =&gt; new vec4(r, r, g, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rrgr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rrgr</strong>() <a class="anchor-link" href="#rrgr"
+              title="Permalink to vec2.get rrgr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrgr() =&gt; new vec4(r, r, g, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rrr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get rrr</strong>() <a class="anchor-link" href="#rrr"
+              title="Permalink to vec2.get rrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get rrr() =&gt; new vec3(r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rrrg">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rrrg</strong>() <a class="anchor-link" href="#rrrg"
+              title="Permalink to vec2.get rrrg">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrrg() =&gt; new vec4(r, r, r, g);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rrrr">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get rrrr</strong>() <a class="anchor-link" href="#rrrr"
+              title="Permalink to vec2.get rrrr">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get rrrr() =&gt; new vec4(r, r, r, r);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="s">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get s</strong>() <a class="anchor-link" href="#s"
+              title="Permalink to vec2.get s">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get s() =&gt; x;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="s">
+<span class="show-code">Code</span>
+<strong>set s</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#s"
+              title="Permalink to vec2.set s">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set s(num arg) =&gt; x = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfAbsolute">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfAbsolute</strong>() <a class="anchor-link" href="#selfAbsolute"
+              title="Permalink to vec2.selfAbsolute">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfAbsolute() {
+  x = x.abs();
+  y = y.abs();
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfAdd">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfAdd</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#selfAdd"
+              title="Permalink to vec2.selfAdd">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfAdd(vec2 arg) {
+  x = x + arg.x;
+  y = y + arg.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfDiv">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfDiv</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#selfDiv"
+              title="Permalink to vec2.selfDiv">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfDiv(vec2 arg) {
+  x = x / arg.x;
+  y = y / arg.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfMul">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfMul</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#selfMul"
+              title="Permalink to vec2.selfMul">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfMul(vec2 arg) {
+  x = x * arg.x;
+  y = y * arg.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfNegate">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfNegate</strong>() <a class="anchor-link" href="#selfNegate"
+              title="Permalink to vec2.selfNegate">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfNegate() {
+  x = -x;
+  y = -y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfScale">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfScale</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#selfScale"
+              title="Permalink to vec2.selfScale">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfScale(num arg) {
+  x = x * arg;
+  y = y * arg;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfSub">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>selfSub</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#selfSub"
+              title="Permalink to vec2.selfSub">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 selfSub(vec2 arg) {
+  x = x - arg.x;
+  y = y - arg.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>set</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#set"
+              title="Permalink to vec2.set">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 set(vec2 arg) {
+  x = arg.x;
+  y = arg.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="splat">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>splat</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#splat"
+              title="Permalink to vec2.splat">#</a></h4>
+<div class="doc">
+<p>Splats a scalar into all lanes of the vector.</p>
+<pre class="source">
+vec2 splat(num arg) {
+  x = arg;
+  y = arg;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get ss</strong>() <a class="anchor-link" href="#ss"
+              title="Permalink to vec2.get ss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get ss() =&gt; new vec2(s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get sss</strong>() <a class="anchor-link" href="#sss"
+              title="Permalink to vec2.get sss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sss() =&gt; new vec3(s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ssss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ssss</strong>() <a class="anchor-link" href="#ssss"
+              title="Permalink to vec2.get ssss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssss() =&gt; new vec4(s, s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ssst">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ssst</strong>() <a class="anchor-link" href="#ssst"
+              title="Permalink to vec2.get ssst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssst() =&gt; new vec4(s, s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sst">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get sst</strong>() <a class="anchor-link" href="#sst"
+              title="Permalink to vec2.get sst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sst() =&gt; new vec3(s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ssts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ssts</strong>() <a class="anchor-link" href="#ssts"
+              title="Permalink to vec2.get ssts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ssts() =&gt; new vec4(s, s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sstt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get sstt</strong>() <a class="anchor-link" href="#sstt"
+              title="Permalink to vec2.get sstt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sstt() =&gt; new vec4(s, s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="st">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get st</strong>() <a class="anchor-link" href="#st"
+              title="Permalink to vec2.get st">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get st() =&gt; new vec2(s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="st">
+<span class="show-code">Code</span>
+<strong>set st</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#st"
+              title="Permalink to vec2.set st">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set st(vec2 arg) {
+  s = arg.s;
+  t = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get sts</strong>() <a class="anchor-link" href="#sts"
+              title="Permalink to vec2.get sts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get sts() =&gt; new vec3(s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="stss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get stss</strong>() <a class="anchor-link" href="#stss"
+              title="Permalink to vec2.get stss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stss() =&gt; new vec4(s, t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="stst">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get stst</strong>() <a class="anchor-link" href="#stst"
+              title="Permalink to vec2.get stst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stst() =&gt; new vec4(s, t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="stt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get stt</strong>() <a class="anchor-link" href="#stt"
+              title="Permalink to vec2.get stt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get stt() =&gt; new vec3(s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="stts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get stts</strong>() <a class="anchor-link" href="#stts"
+              title="Permalink to vec2.get stts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get stts() =&gt; new vec4(s, t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sttt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get sttt</strong>() <a class="anchor-link" href="#sttt"
+              title="Permalink to vec2.get sttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get sttt() =&gt; new vec4(s, t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="t">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get t</strong>() <a class="anchor-link" href="#t"
+              title="Permalink to vec2.get t">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+num get t() =&gt; y;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="t">
+<span class="show-code">Code</span>
+<strong>set t</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#t"
+              title="Permalink to vec2.set t">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set t(num arg) =&gt; y = arg;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to vec2.toString">#</a></h4>
+<div class="doc">
+<p>Returns a printable string</p>
+<pre class="source">
+String toString() =&gt; '$x,$y';
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get ts</strong>() <a class="anchor-link" href="#ts"
+              title="Permalink to vec2.get ts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get ts() =&gt; new vec2(t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ts">
+<span class="show-code">Code</span>
+<strong>set ts</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#ts"
+              title="Permalink to vec2.set ts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set ts(vec2 arg) {
+  t = arg.s;
+  s = arg.t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get tss</strong>() <a class="anchor-link" href="#tss"
+              title="Permalink to vec2.get tss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tss() =&gt; new vec3(t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tsss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get tsss</strong>() <a class="anchor-link" href="#tsss"
+              title="Permalink to vec2.get tsss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsss() =&gt; new vec4(t, s, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tsst">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get tsst</strong>() <a class="anchor-link" href="#tsst"
+              title="Permalink to vec2.get tsst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsst() =&gt; new vec4(t, s, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tst">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get tst</strong>() <a class="anchor-link" href="#tst"
+              title="Permalink to vec2.get tst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tst() =&gt; new vec3(t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tsts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get tsts</strong>() <a class="anchor-link" href="#tsts"
+              title="Permalink to vec2.get tsts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tsts() =&gt; new vec4(t, s, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tstt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get tstt</strong>() <a class="anchor-link" href="#tstt"
+              title="Permalink to vec2.get tstt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tstt() =&gt; new vec4(t, s, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get tt</strong>() <a class="anchor-link" href="#tt"
+              title="Permalink to vec2.get tt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get tt() =&gt; new vec2(t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get tts</strong>() <a class="anchor-link" href="#tts"
+              title="Permalink to vec2.get tts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get tts() =&gt; new vec3(t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ttss">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ttss</strong>() <a class="anchor-link" href="#ttss"
+              title="Permalink to vec2.get ttss">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttss() =&gt; new vec4(t, t, s, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ttst">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ttst</strong>() <a class="anchor-link" href="#ttst"
+              title="Permalink to vec2.get ttst">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttst() =&gt; new vec4(t, t, s, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ttt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get ttt</strong>() <a class="anchor-link" href="#ttt"
+              title="Permalink to vec2.get ttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get ttt() =&gt; new vec3(t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ttts">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get ttts</strong>() <a class="anchor-link" href="#ttts"
+              title="Permalink to vec2.get ttts">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get ttts() =&gt; new vec4(t, t, t, s);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tttt">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get tttt</strong>() <a class="anchor-link" href="#tttt"
+              title="Permalink to vec2.get tttt">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get tttt() =&gt; new vec4(t, t, t, t);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get xx</strong>() <a class="anchor-link" href="#xx"
+              title="Permalink to vec2.get xx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get xx() =&gt; new vec2(x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xxx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get xxx</strong>() <a class="anchor-link" href="#xxx"
+              title="Permalink to vec2.get xxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xxx() =&gt; new vec3(x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xxxx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xxxx</strong>() <a class="anchor-link" href="#xxxx"
+              title="Permalink to vec2.get xxxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxxx() =&gt; new vec4(x, x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xxxy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xxxy</strong>() <a class="anchor-link" href="#xxxy"
+              title="Permalink to vec2.get xxxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxxy() =&gt; new vec4(x, x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xxy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get xxy</strong>() <a class="anchor-link" href="#xxy"
+              title="Permalink to vec2.get xxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xxy() =&gt; new vec3(x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xxyx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xxyx</strong>() <a class="anchor-link" href="#xxyx"
+              title="Permalink to vec2.get xxyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxyx() =&gt; new vec4(x, x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xxyy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xxyy</strong>() <a class="anchor-link" href="#xxyy"
+              title="Permalink to vec2.get xxyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xxyy() =&gt; new vec4(x, x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xy">
+<span class="show-code">Code</span>
+<strong>set xy</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#xy"
+              title="Permalink to vec2.set xy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set xy(vec2 arg) {
+  x = arg.x;
+  y = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get xy</strong>() <a class="anchor-link" href="#xy"
+              title="Permalink to vec2.get xy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get xy() =&gt; new vec2(x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xyx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get xyx</strong>() <a class="anchor-link" href="#xyx"
+              title="Permalink to vec2.get xyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xyx() =&gt; new vec3(x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xyxx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xyxx</strong>() <a class="anchor-link" href="#xyxx"
+              title="Permalink to vec2.get xyxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyxx() =&gt; new vec4(x, y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xyxy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xyxy</strong>() <a class="anchor-link" href="#xyxy"
+              title="Permalink to vec2.get xyxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyxy() =&gt; new vec4(x, y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xyy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get xyy</strong>() <a class="anchor-link" href="#xyy"
+              title="Permalink to vec2.get xyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get xyy() =&gt; new vec3(x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xyyx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xyyx</strong>() <a class="anchor-link" href="#xyyx"
+              title="Permalink to vec2.get xyyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyyx() =&gt; new vec4(x, y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="xyyy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get xyyy</strong>() <a class="anchor-link" href="#xyyy"
+              title="Permalink to vec2.get xyyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get xyyy() =&gt; new vec4(x, y, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yx">
+<span class="show-code">Code</span>
+<strong>set yx</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#yx"
+              title="Permalink to vec2.set yx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+set yx(vec2 arg) {
+  y = arg.x;
+  x = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get yx</strong>() <a class="anchor-link" href="#yx"
+              title="Permalink to vec2.get yx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get yx() =&gt; new vec2(y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yxx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get yxx</strong>() <a class="anchor-link" href="#yxx"
+              title="Permalink to vec2.get yxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yxx() =&gt; new vec3(y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yxxx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yxxx</strong>() <a class="anchor-link" href="#yxxx"
+              title="Permalink to vec2.get yxxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxxx() =&gt; new vec4(y, x, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yxxy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yxxy</strong>() <a class="anchor-link" href="#yxxy"
+              title="Permalink to vec2.get yxxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxxy() =&gt; new vec4(y, x, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yxy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get yxy</strong>() <a class="anchor-link" href="#yxy"
+              title="Permalink to vec2.get yxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yxy() =&gt; new vec3(y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yxyx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yxyx</strong>() <a class="anchor-link" href="#yxyx"
+              title="Permalink to vec2.get yxyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxyx() =&gt; new vec4(y, x, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yxyy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yxyy</strong>() <a class="anchor-link" href="#yxyy"
+              title="Permalink to vec2.get yxyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yxyy() =&gt; new vec4(y, x, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get yy</strong>() <a class="anchor-link" href="#yy"
+              title="Permalink to vec2.get yy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 get yy() =&gt; new vec2(y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yyx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get yyx</strong>() <a class="anchor-link" href="#yyx"
+              title="Permalink to vec2.get yyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yyx() =&gt; new vec3(y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yyxx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yyxx</strong>() <a class="anchor-link" href="#yyxx"
+              title="Permalink to vec2.get yyxx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyxx() =&gt; new vec4(y, y, x, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yyxy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yyxy</strong>() <a class="anchor-link" href="#yyxy"
+              title="Permalink to vec2.get yyxy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyxy() =&gt; new vec4(y, y, x, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yyy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>get yyy</strong>() <a class="anchor-link" href="#yyy"
+              title="Permalink to vec2.get yyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 get yyy() =&gt; new vec3(y, y, y);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yyyx">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yyyx</strong>() <a class="anchor-link" href="#yyyx"
+              title="Permalink to vec2.get yyyx">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyyx() =&gt; new vec4(y, y, y, x);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="yyyy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get yyyy</strong>() <a class="anchor-link" href="#yyyy"
+              title="Permalink to vec2.get yyyy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 get yyyy() =&gt; new vec4(y, y, y, y);
+</pre>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="x">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a>         <strong>x</strong> <a class="anchor-link"
+            href="#x"
+            title="Permalink to vec2.x">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num x;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="y">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a>         <strong>y</strong> <a class="anchor-link"
+            href="#y"
+            title="Permalink to vec2.y">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+num y;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        
+        <div class="footer">
+          <div>This page was generated at 2012-08-19 20:08:17.486</div>
+        </div>
+        <script async src="../client-static.js"></script>
+        </body></html>
+        

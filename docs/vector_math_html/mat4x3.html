@@ -1,0 +1,1138 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>mat4x3 Class / vector_math_html Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="vector_math_html" data-type="mat4x3">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../vector_math_html.html">vector_math_html</a> &rsaquo; <a href="../vector_math_html/mat4x3.html">mat4x3</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../vector_math_html.html">vector_math_html</a></h2><ul class="icon">
+<li><a href="../vector_math_html/mat2x2.html"><div class="icon-class"></div>mat2x2</a></li>
+<li><a href="../vector_math_html/mat2x3.html"><div class="icon-class"></div>mat2x3</a></li>
+<li><a href="../vector_math_html/mat2x4.html"><div class="icon-class"></div>mat2x4</a></li>
+<li><a href="../vector_math_html/mat3x2.html"><div class="icon-class"></div>mat3x2</a></li>
+<li><a href="../vector_math_html/mat3x3.html"><div class="icon-class"></div>mat3x3</a></li>
+<li><a href="../vector_math_html/mat3x4.html"><div class="icon-class"></div>mat3x4</a></li>
+<li><a href="../vector_math_html/mat4x2.html"><div class="icon-class"></div>mat4x2</a></li>
+<li><div class="icon-class"></div><strong>mat4x3</strong></li>
+<li><a href="../vector_math_html/mat4x4.html"><div class="icon-class"></div>mat4x4</a></li>
+<li><a href="../vector_math_html/quat.html"><div class="icon-class"></div>quat</a></li>
+<li><a href="../vector_math_html/vec2.html"><div class="icon-class"></div>vec2</a></li>
+<li><a href="../vector_math_html/vec3.html"><div class="icon-class"></div>vec3</a></li>
+<li><a href="../vector_math_html/vec4.html"><div class="icon-class"></div>vec4</a></li>
+</ul>
+</div>
+<div class="content">
+        <h2><strong>mat4x3</strong>
+          Class
+        </h2>
+        
+<div class="doc">
+<p>mat4x3 is a column major matrix where each column is represented by <a class="crossref" href="../vector_math_html/vec3.html">vec3</a>. This matrix has 4 columns and 3 rows.</p>
+</div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="mat4x3">
+<span class="show-code">Code</span>
+new <strong>mat4x3</strong>.identity() <a class="anchor-link" href="#mat4x3"
+              title="Permalink to mat4x3.mat4x3">#</a></h4>
+<div class="doc">
+<p>Constructs a new identity <a class="crossref" href="../vector_math_html/mat4x3.html#new:mat4x3.raw">mat4x3</a>.</p>
+<pre class="source">
+mat4x3.identity() {
+  col0 = new vec3();
+  col1 = new vec3();
+  col2 = new vec3();
+  col3 = new vec3();
+  col0.x = 1.0;
+  col0.y = 0.0;
+  col0.z = 0.0;
+  col1.x = 0.0;
+  col1.y = 1.0;
+  col1.z = 0.0;
+  col2.x = 0.0;
+  col2.y = 0.0;
+  col2.z = 1.0;
+  col3.x = 0.0;
+  col3.y = 0.0;
+  col3.z = 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4x3">
+<span class="show-code">Code</span>
+new <strong>mat4x3</strong>.copy(<a href="../vector_math_html/mat4x3.html">mat4x3</a> other) <a class="anchor-link" href="#mat4x3"
+              title="Permalink to mat4x3.mat4x3">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4x3.html#new:mat4x3.raw">mat4x3</a> which is a copy of 
+<span class="param">other</span>.</p>
+<pre class="source">
+mat4x3.copy(mat4x3 other) {
+  col0 = new vec3();
+  col1 = new vec3();
+  col2 = new vec3();
+  col3 = new vec3();
+  col0.x = other.col0.x;
+  col0.y = other.col0.y;
+  col0.z = other.col0.z;
+  col1.x = other.col1.x;
+  col1.y = other.col1.y;
+  col1.z = other.col1.z;
+  col2.x = other.col2.x;
+  col2.y = other.col2.y;
+  col2.z = other.col2.z;
+  col3.x = other.col3.x;
+  col3.y = other.col3.y;
+  col3.z = other.col3.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4x3">
+<span class="show-code">Code</span>
+new <strong>mat4x3</strong>.outer(<a href="../vector_math_html/vec4.html">vec4</a> u, <a href="../vector_math_html/vec3.html">vec3</a> v) <a class="anchor-link" href="#mat4x3"
+              title="Permalink to mat4x3.mat4x3">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4x3.html#new:mat4x3.raw">mat4x3</a> from computing the outer product of 
+<span class="param">u</span> and 
+<span class="param">v</span>.</p>
+<pre class="source">
+mat4x3.outer(vec4 u, vec3 v) {
+  col0 = new vec3();
+  col1 = new vec3();
+  col2 = new vec3();
+  col3 = new vec3();
+  col0.x = u.x * v.x;
+  col0.y = u.x * v.y;
+  col0.z = u.x * v.z;
+  col1.x = u.y * v.x;
+  col1.y = u.y * v.y;
+  col1.z = u.y * v.z;
+  col2.x = u.z * v.x;
+  col2.y = u.z * v.y;
+  col2.z = u.z * v.z;
+  col3.x = u.w * v.x;
+  col3.y = u.w * v.y;
+  col3.z = u.w * v.z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4x3">
+<span class="show-code">Code</span>
+new <strong>mat4x3</strong>.zero() <a class="anchor-link" href="#mat4x3"
+              title="Permalink to mat4x3.mat4x3">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4x3.html#new:mat4x3.raw">mat4x3</a> filled with zeros.</p>
+<pre class="source">
+mat4x3.zero() {
+  col0 = new vec3();
+  col1 = new vec3();
+  col2 = new vec3();
+  col3 = new vec3();
+  col0.x = 0.0;
+  col0.y = 0.0;
+  col0.z = 0.0;
+  col1.x = 0.0;
+  col1.y = 0.0;
+  col1.z = 0.0;
+  col2.x = 0.0;
+  col2.y = 0.0;
+  col2.z = 0.0;
+  col3.x = 0.0;
+  col3.y = 0.0;
+  col3.z = 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4x3">
+<span class="show-code">Code</span>
+new <strong>mat4x3</strong>([arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11]) <a class="anchor-link" href="#mat4x3"
+              title="Permalink to mat4x3.mat4x3">#</a></h4>
+<div class="doc">
+<p>Constructs a new mat4x3. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.</p>
+<pre class="source">
+mat4x3([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7, Dynamic arg8, Dynamic arg9, Dynamic arg10, Dynamic arg11]) {
+  //Initialize the matrix as the identity matrix
+  col0 = new vec3.zero();
+  col1 = new vec3.zero();
+  col2 = new vec3.zero();
+  col3 = new vec3.zero();
+  col0.x = 1.0;
+  col1.y = 1.0;
+  col2.z = 1.0;
+  if (arg0 is num &amp;&amp; arg1 is num &amp;&amp; arg2 is num &amp;&amp; arg3 is num &amp;&amp; arg4 is num &amp;&amp; arg5 is num &amp;&amp; arg6 is num &amp;&amp; arg7 is num &amp;&amp; arg8 is num &amp;&amp; arg9 is num &amp;&amp; arg10 is num &amp;&amp; arg11 is num) {
+    col0.x = arg0;
+    col0.y = arg1;
+    col0.z = arg2;
+    col1.x = arg3;
+    col1.y = arg4;
+    col1.z = arg5;
+    col2.x = arg6;
+    col2.y = arg7;
+    col2.z = arg8;
+    col3.x = arg9;
+    col3.y = arg10;
+    col3.z = arg11;
+    return;
+  }
+  if (arg0 is num &amp;&amp; arg1 == null &amp;&amp; arg2 == null &amp;&amp; arg3 == null &amp;&amp; arg4 == null &amp;&amp; arg5 == null &amp;&amp; arg6 == null &amp;&amp; arg7 == null &amp;&amp; arg8 == null &amp;&amp; arg9 == null &amp;&amp; arg10 == null &amp;&amp; arg11 == null) {
+    col0.x = arg0;
+    col1.y = arg0;
+    col2.z = arg0;
+    return;
+  }
+  if (arg0 is vec4 &amp;&amp; arg1 is vec4 &amp;&amp; arg2 is vec4 &amp;&amp; arg3 is vec4) {
+    col0 = arg0;
+    col1 = arg1;
+    col2 = arg2;
+    col3 = arg3;
+    return;
+  }
+  if (arg0 is mat4x3) {
+    col0 = arg0.col0;
+    col1 = arg0.col1;
+    col2 = arg0.col2;
+    col3 = arg0.col3;
+    return;
+  }
+  if (arg0 is mat4x2) {
+    col0.x = arg0.col0.x;
+    col0.y = arg0.col0.y;
+    col1.x = arg0.col1.x;
+    col1.y = arg0.col1.y;
+    col2.x = arg0.col2.x;
+    col2.y = arg0.col2.y;
+    col3.x = arg0.col3.x;
+    col3.y = arg0.col3.y;
+    return;
+  }
+  if (arg0 is mat3x3) {
+    col0.x = arg0.col0.x;
+    col0.y = arg0.col0.y;
+    col0.z = arg0.col0.z;
+    col1.x = arg0.col1.x;
+    col1.y = arg0.col1.y;
+    col1.z = arg0.col1.z;
+    col2.x = arg0.col2.x;
+    col2.y = arg0.col2.y;
+    col2.z = arg0.col2.z;
+    return;
+  }
+  if (arg0 is mat3x2) {
+    col0.x = arg0.col0.x;
+    col0.y = arg0.col0.y;
+    col1.x = arg0.col1.x;
+    col1.y = arg0.col1.y;
+    col2.x = arg0.col2.x;
+    col2.y = arg0.col2.y;
+    return;
+  }
+  if (arg0 is mat2x3) {
+    col0.x = arg0.col0.x;
+    col0.y = arg0.col0.y;
+    col0.z = arg0.col0.z;
+    col1.x = arg0.col1.x;
+    col1.y = arg0.col1.y;
+    col1.z = arg0.col1.z;
+    return;
+  }
+  if (arg0 is mat2x2) {
+    col0.x = arg0.col0.x;
+    col0.y = arg0.col0.y;
+    col1.x = arg0.col1.x;
+    col1.y = arg0.col1.y;
+    return;
+  }
+  if (arg0 is vec2 &amp;&amp; arg1 == null &amp;&amp; arg2 == null &amp;&amp; arg3 == null &amp;&amp; arg4 == null &amp;&amp; arg5 == null &amp;&amp; arg6 == null &amp;&amp; arg7 == null &amp;&amp; arg8 == null &amp;&amp; arg9 == null &amp;&amp; arg10 == null &amp;&amp; arg11 == null) {
+    col0.x = arg0.x;
+    col1.y = arg0.y;
+  }
+  if (arg0 is vec3 &amp;&amp; arg1 == null &amp;&amp; arg2 == null &amp;&amp; arg3 == null &amp;&amp; arg4 == null &amp;&amp; arg5 == null &amp;&amp; arg6 == null &amp;&amp; arg7 == null &amp;&amp; arg8 == null &amp;&amp; arg9 == null &amp;&amp; arg10 == null &amp;&amp; arg11 == null) {
+    col0.x = arg0.x;
+    col1.y = arg0.y;
+    col2.z = arg0.z;
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4x3">
+<span class="show-code">Code</span>
+new <strong>mat4x3</strong>.raw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg0, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg1, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg2, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg3, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg4, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg5, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg6, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg7, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg8, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg9, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg10, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg11) <a class="anchor-link" href="#mat4x3"
+              title="Permalink to mat4x3.mat4x3">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11) {
+  col0 = new vec3.zero();
+  col1 = new vec3.zero();
+  col2 = new vec3.zero();
+  col3 = new vec3.zero();
+  col0.x = arg0;
+  col0.y = arg1;
+  col0.z = arg2;
+  col1.x = arg3;
+  col1.y = arg4;
+  col1.z = arg5;
+  col2.x = arg6;
+  col2.y = arg7;
+  col2.z = arg8;
+  col3.x = arg9;
+  col3.y = arg10;
+  col3.z = arg11;
+}
+</pre>
+</div>
+</div>
+<h3>Methods</h3>
+<div class="method"><h4 id="absolute">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>absolute</strong>() <a class="anchor-link" href="#absolute"
+              title="Permalink to mat4x3.absolute">#</a></h4>
+<div class="doc">
+<p>Returns the component wise absolute value of this.</p>
+<pre class="source">
+mat4x3 absolute() {
+  mat4x3 r = new mat4x3();
+  r.col0.x = col0.x.abs();
+  r.col0.y = col0.y.abs();
+  r.col0.z = col0.z.abs();
+  r.col1.x = col1.x.abs();
+  r.col1.y = col1.y.abs();
+  r.col1.z = col1.z.abs();
+  r.col2.x = col2.x.abs();
+  r.col2.y = col2.y.abs();
+  r.col2.z = col2.z.abs();
+  r.col3.x = col3.x.abs();
+  r.col3.y = col3.y.abs();
+  r.col3.z = col3.z.abs();
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="absoluteError">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>absoluteError</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> correct) <a class="anchor-link" href="#absoluteError"
+              title="Permalink to mat4x3.absoluteError">#</a></h4>
+<div class="doc">
+<p>Returns absolute error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num absoluteError(mat4x3 correct) {
+  num this_norm = infinityNorm();
+  num correct_norm = correct.infinityNorm();
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="cols">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get cols</strong>() <a class="anchor-link" href="#cols"
+              title="Permalink to mat4x3.get cols">#</a></h4>
+<div class="doc">
+<p>Returns the number of columns in the matrix.</p>
+<pre class="source">
+num get cols() =&gt; 4;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>copy</strong>() <a class="anchor-link" href="#copy"
+              title="Permalink to mat4x3.copy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 copy() {
+  return new mat4x3.copy(this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyAsArray">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> <strong>copyAsArray</strong>() <a class="anchor-link" href="#copyAsArray"
+              title="Permalink to mat4x3.copyAsArray">#</a></h4>
+<div class="doc">
+<p>Returns a copy of <code>this</code> as a <code>Float32Array</code>.</p>
+<pre class="source">
+Float32Array copyAsArray() {
+  Float32Array array = new Float32Array(12);
+  int i = 0;
+  array[i] = col0.x;
+  i++;
+  array[i] = col0.y;
+  i++;
+  array[i] = col0.z;
+  i++;
+  array[i] = col1.x;
+  i++;
+  array[i] = col1.y;
+  i++;
+  array[i] = col1.z;
+  i++;
+  array[i] = col2.x;
+  i++;
+  array[i] = col2.y;
+  i++;
+  array[i] = col2.z;
+  i++;
+  array[i] = col3.x;
+  i++;
+  array[i] = col3.y;
+  i++;
+  array[i] = col3.z;
+  i++;
+  return array;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFrom">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>copyFrom</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> arg) <a class="anchor-link" href="#copyFrom"
+              title="Permalink to mat4x3.copyFrom">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 copyFrom(mat4x3 arg) {
+  col0.x = arg.col0.x;
+  col0.y = arg.col0.y;
+  col0.z = arg.col0.z;
+  col1.x = arg.col1.x;
+  col1.y = arg.col1.y;
+  col1.z = arg.col1.z;
+  col2.x = arg.col2.x;
+  col2.y = arg.col2.y;
+  col2.z = arg.col2.z;
+  col3.x = arg.col3.x;
+  col3.y = arg.col3.y;
+  col3.z = arg.col3.z;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFromArray">
+<span class="show-code">Code</span>
+void <strong>copyFromArray</strong>(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#copyFromArray"
+              title="Permalink to mat4x3.copyFromArray">#</a></h4>
+<div class="doc">
+<p>Copies elements from 
+<span class="param">array</span> into <code>this</code> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+void copyFromArray(Float32Array array, [int offset=0]) {
+  int i = offset;
+  col0.x = array[i];
+  i++;
+  col0.y = array[i];
+  i++;
+  col0.z = array[i];
+  i++;
+  col1.x = array[i];
+  i++;
+  col1.y = array[i];
+  i++;
+  col1.z = array[i];
+  i++;
+  col2.x = array[i];
+  i++;
+  col2.y = array[i];
+  i++;
+  col2.z = array[i];
+  i++;
+  col3.x = array[i];
+  i++;
+  col3.y = array[i];
+  i++;
+  col3.z = array[i];
+  i++;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyInto">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>copyInto</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> arg) <a class="anchor-link" href="#copyInto"
+              title="Permalink to mat4x3.copyInto">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 copyInto(mat4x3 arg) {
+  arg.col0.x = col0.x;
+  arg.col0.y = col0.y;
+  arg.col0.z = col0.z;
+  arg.col1.x = col1.x;
+  arg.col1.y = col1.y;
+  arg.col1.z = col1.z;
+  arg.col2.x = col2.x;
+  arg.col2.y = col2.y;
+  arg.col2.z = col2.z;
+  arg.col3.x = col3.x;
+  arg.col3.y = col3.y;
+  arg.col3.z = col3.z;
+  return arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyIntoArray">
+<span class="show-code">Code</span>
+void <strong>copyIntoArray</strong>(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#copyIntoArray"
+              title="Permalink to mat4x3.copyIntoArray">#</a></h4>
+<div class="doc">
+<p>Copies <code>this</code> into 
+<span class="param">array</span> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+void copyIntoArray(Float32Array array, [int offset=0]) {
+  int i = offset;
+  array[i] = col0.x;
+  i++;
+  array[i] = col0.y;
+  i++;
+  array[i] = col0.z;
+  i++;
+  array[i] = col1.x;
+  i++;
+  array[i] = col1.y;
+  i++;
+  array[i] = col1.z;
+  i++;
+  array[i] = col2.x;
+  i++;
+  array[i] = col2.y;
+  i++;
+  array[i] = col2.z;
+  i++;
+  array[i] = col3.x;
+  i++;
+  array[i] = col3.y;
+  i++;
+  array[i] = col3.z;
+  i++;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getColumn">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>getColumn</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column) <a class="anchor-link" href="#getColumn"
+              title="Permalink to mat4x3.getColumn">#</a></h4>
+<div class="doc">
+<p>Gets the 
+<span class="param">column</span> of the matrix</p>
+<pre class="source">
+vec3 getColumn(int column) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 4);
+  return new vec3(this[column]);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRow">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>getRow</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> row) <a class="anchor-link" href="#getRow"
+              title="Permalink to mat4x3.getRow">#</a></h4>
+<div class="doc">
+<p>Gets the 
+<span class="param">row</span> of the matrix</p>
+<pre class="source">
+vec4 getRow(int row) {
+  assert(row &gt;= 0 &amp;&amp; row &lt; 3);
+  vec4 r = new vec4();
+  r.x = col0[row];
+  r.y = col1[row];
+  r.z = col2[row];
+  r.w = col3[row];
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="infinityNorm">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>infinityNorm</strong>() <a class="anchor-link" href="#infinityNorm"
+              title="Permalink to mat4x3.infinityNorm">#</a></h4>
+<div class="doc">
+<p>Returns infinity norm of the matrix. Used for numerical analysis.</p>
+<pre class="source">
+num infinityNorm() {
+  num norm = 0.0;
+  {
+    num row_norm = 0.0;
+    row_norm += this[0][0].abs();
+    row_norm += this[0][1].abs();
+    row_norm += this[0][2].abs();
+    norm = row_norm &gt; norm ? row_norm : norm;
+  }
+  {
+    num row_norm = 0.0;
+    row_norm += this[1][0].abs();
+    row_norm += this[1][1].abs();
+    row_norm += this[1][2].abs();
+    norm = row_norm &gt; norm ? row_norm : norm;
+  }
+  {
+    num row_norm = 0.0;
+    row_norm += this[2][0].abs();
+    row_norm += this[2][1].abs();
+    row_norm += this[2][2].abs();
+    norm = row_norm &gt; norm ? row_norm : norm;
+  }
+  {
+    num row_norm = 0.0;
+    row_norm += this[3][0].abs();
+    row_norm += this[3][1].abs();
+    row_norm += this[3][2].abs();
+    norm = row_norm &gt; norm ? row_norm : norm;
+  }
+  return norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="length">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get length</strong>() <a class="anchor-link" href="#length"
+              title="Permalink to mat4x3.get length">#</a></h4>
+<div class="doc">
+<p>Returns the number of columns in the matrix.</p>
+<pre class="source">
+num get length() =&gt; 4;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>operator -</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat4x3.operator -">#</a></h4>
+<div class="doc">
+<p>Returns new matrix after component wise <code>this</code> - 
+<span class="param">arg</span></p>
+<pre class="source">
+mat4x3 operator-(mat4x3 arg) {
+  mat4x3 r = new mat4x3();
+  r.col0.x = col0.x - arg.col0.x;
+  r.col0.y = col0.y - arg.col0.y;
+  r.col0.z = col0.z - arg.col0.z;
+  r.col1.x = col1.x - arg.col1.x;
+  r.col1.y = col1.y - arg.col1.y;
+  r.col1.z = col1.z - arg.col1.z;
+  r.col2.x = col2.x - arg.col2.x;
+  r.col2.y = col2.y - arg.col2.y;
+  r.col2.z = col2.z - arg.col2.z;
+  r.col3.x = col3.x - arg.col3.x;
+  r.col3.y = col3.y - arg.col3.y;
+  r.col3.z = col3.z - arg.col3.z;
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column) <a class="anchor-link" href="#operator"
+              title="Permalink to mat4x3.operator []">#</a></h4>
+<div class="doc">
+<p>Gets the 
+<span class="param">column</span> of the matrix</p>
+<pre class="source">
+vec3 operator[](int column) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 4);
+  switch (column) {
+    case 0: return col0;
+    case 1: return col1;
+    case 2: return col2;
+    case 3: return col3;
+  }
+  throw new IllegalArgumentException(column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<strong>operator *</strong>(arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat4x3.operator *">#</a></h4>
+<div class="doc">
+<p>Returns a new vector or matrix by multiplying <code>this</code> with 
+<span class="param">arg</span>.</p>
+<pre class="source">
+Dynamic operator*(Dynamic arg) {
+  if (arg is num) {
+    mat4x3 r = new mat4x3.zero();
+    r.col0.x = col0.x * arg;
+    r.col0.y = col0.y * arg;
+    r.col0.z = col0.z * arg;
+    r.col1.x = col1.x * arg;
+    r.col1.y = col1.y * arg;
+    r.col1.z = col1.z * arg;
+    r.col2.x = col2.x * arg;
+    r.col2.y = col2.y * arg;
+    r.col2.z = col2.z * arg;
+    r.col3.x = col3.x * arg;
+    r.col3.y = col3.y * arg;
+    r.col3.z = col3.z * arg;
+    return r;
+  }
+  if (arg is vec4) {
+    vec3 r = new vec3.zero();
+    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + (this.col3.x * arg.w);
+    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + (this.col3.y * arg.w);
+    r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + (this.col3.z * arg.w);
+    return r;
+  }
+  if (4 == arg.rows) {
+    Dynamic r = null;
+    if (arg.cols == 2) {
+      r = new mat2x3.zero();
+      r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
+      r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
+      r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
+      r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
+      r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
+      r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
+      return r;
+    }
+    if (arg.cols == 3) {
+      r = new mat3x3.zero();
+      r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
+      r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
+      r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
+      r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
+      r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
+      r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
+      r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
+      r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
+      r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z) + (this.col3.z * arg.col2.w);
+      return r;
+    }
+    return r;
+  }
+  throw new IllegalArgumentException(arg);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>operator negate</strong>() <a class="anchor-link" href="#operator"
+              title="Permalink to mat4x3.operator negate">#</a></h4>
+<div class="doc">
+<p>Returns new matrix -this</p>
+<pre class="source">
+mat4x3 operator negate() {
+  mat4x3 r = new mat4x3();
+  r[0] = -this[0];
+  r[1] = -this[1];
+  r[2] = -this[2];
+  r[3] = -this[3];
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column, <a href="../vector_math_html/vec3.html">vec3</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat4x3.operator []=">#</a></h4>
+<div class="doc">
+<p>Assigns the 
+<span class="param">column</span> of the matrix 
+<span class="param">arg</span></p>
+<pre class="source">
+void operator[]=(int column, vec3 arg) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 4);
+  switch (column) {
+    case 0: col0 = arg; break;
+    case 1: col1 = arg; break;
+    case 2: col2 = arg; break;
+    case 3: col3 = arg; break;
+  }
+  throw new IllegalArgumentException(column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>operator +</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat4x3.operator +">#</a></h4>
+<div class="doc">
+<p>Returns new matrix after component wise <code>this</code> + 
+<span class="param">arg</span></p>
+<pre class="source">
+mat4x3 operator+(mat4x3 arg) {
+  mat4x3 r = new mat4x3();
+  r.col0.x = col0.x + arg.col0.x;
+  r.col0.y = col0.y + arg.col0.y;
+  r.col0.z = col0.z + arg.col0.z;
+  r.col1.x = col1.x + arg.col1.x;
+  r.col1.y = col1.y + arg.col1.y;
+  r.col1.z = col1.z + arg.col1.z;
+  r.col2.x = col2.x + arg.col2.x;
+  r.col2.y = col2.y + arg.col2.y;
+  r.col2.z = col2.z + arg.col2.z;
+  r.col3.x = col3.x + arg.col3.x;
+  r.col3.y = col3.y + arg.col3.y;
+  r.col3.z = col3.z + arg.col3.z;
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="relativeError">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>relativeError</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> correct) <a class="anchor-link" href="#relativeError"
+              title="Permalink to mat4x3.relativeError">#</a></h4>
+<div class="doc">
+<p>Returns relative error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num relativeError(mat4x3 correct) {
+  num this_norm = infinityNorm();
+  num correct_norm = correct.infinityNorm();
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm/correct_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row0">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row0</strong>() <a class="anchor-link" href="#row0"
+              title="Permalink to mat4x3.get row0">#</a></h4>
+<div class="doc">
+<p>Returns row 0</p>
+<pre class="source">
+vec4 get row0() =&gt; getRow(0);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row0">
+<span class="show-code">Code</span>
+<strong>set row0</strong>(<a href="../vector_math_html/vec4.html">vec4</a> arg) <a class="anchor-link" href="#row0"
+              title="Permalink to mat4x3.set row0">#</a></h4>
+<div class="doc">
+<p>Sets row 0 to 
+<span class="param">arg</span></p>
+<pre class="source">
+set row0(vec4 arg) =&gt; setRow(0, arg);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row1">
+<span class="show-code">Code</span>
+<strong>set row1</strong>(<a href="../vector_math_html/vec4.html">vec4</a> arg) <a class="anchor-link" href="#row1"
+              title="Permalink to mat4x3.set row1">#</a></h4>
+<div class="doc">
+<p>Sets row 1 to 
+<span class="param">arg</span></p>
+<pre class="source">
+set row1(vec4 arg) =&gt; setRow(1, arg);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row1">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row1</strong>() <a class="anchor-link" href="#row1"
+              title="Permalink to mat4x3.get row1">#</a></h4>
+<div class="doc">
+<p>Returns row 1</p>
+<pre class="source">
+vec4 get row1() =&gt; getRow(1);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row2">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row2</strong>() <a class="anchor-link" href="#row2"
+              title="Permalink to mat4x3.get row2">#</a></h4>
+<div class="doc">
+<p>Returns row 2</p>
+<pre class="source">
+vec4 get row2() =&gt; getRow(2);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row2">
+<span class="show-code">Code</span>
+<strong>set row2</strong>(<a href="../vector_math_html/vec4.html">vec4</a> arg) <a class="anchor-link" href="#row2"
+              title="Permalink to mat4x3.set row2">#</a></h4>
+<div class="doc">
+<p>Sets row 2 to 
+<span class="param">arg</span></p>
+<pre class="source">
+set row2(vec4 arg) =&gt; setRow(2, arg);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rows">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get rows</strong>() <a class="anchor-link" href="#rows"
+              title="Permalink to mat4x3.get rows">#</a></h4>
+<div class="doc">
+<p>Returns the number of rows in the matrix.</p>
+<pre class="source">
+num get rows() =&gt; 3;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfAdd">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>selfAdd</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> o) <a class="anchor-link" href="#selfAdd"
+              title="Permalink to mat4x3.selfAdd">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 selfAdd(mat4x3 o) {
+  col0.x = col0.x + o.col0.x;
+  col0.y = col0.y + o.col0.y;
+  col0.z = col0.z + o.col0.z;
+  col1.x = col1.x + o.col1.x;
+  col1.y = col1.y + o.col1.y;
+  col1.z = col1.z + o.col1.z;
+  col2.x = col2.x + o.col2.x;
+  col2.y = col2.y + o.col2.y;
+  col2.z = col2.z + o.col2.z;
+  col3.x = col3.x + o.col3.x;
+  col3.y = col3.y + o.col3.y;
+  col3.z = col3.z + o.col3.z;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfNegate">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>selfNegate</strong>() <a class="anchor-link" href="#selfNegate"
+              title="Permalink to mat4x3.selfNegate">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 selfNegate() {
+  col0.x = -col0.x;
+  col0.y = -col0.y;
+  col0.z = -col0.z;
+  col1.x = -col1.x;
+  col1.y = -col1.y;
+  col1.z = -col1.z;
+  col2.x = -col2.x;
+  col2.y = -col2.y;
+  col2.z = -col2.z;
+  col3.x = -col3.x;
+  col3.y = -col3.y;
+  col3.z = -col3.z;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfScale">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>selfScale</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> o) <a class="anchor-link" href="#selfScale"
+              title="Permalink to mat4x3.selfScale">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 selfScale(num o) {
+  col0.x = col0.x * o;
+  col0.y = col0.y * o;
+  col0.z = col0.z * o;
+  col1.x = col1.x * o;
+  col1.y = col1.y * o;
+  col1.z = col1.z * o;
+  col2.x = col2.x * o;
+  col2.y = col2.y * o;
+  col2.z = col2.z * o;
+  col3.x = col3.x * o;
+  col3.y = col3.y * o;
+  col3.z = col3.z * o;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selfSub">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat4x3.html">mat4x3</a> <strong>selfSub</strong>(<a href="../vector_math_html/mat4x3.html">mat4x3</a> o) <a class="anchor-link" href="#selfSub"
+              title="Permalink to mat4x3.selfSub">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4x3 selfSub(mat4x3 o) {
+  col0.x = col0.x - o.col0.x;
+  col0.y = col0.y - o.col0.y;
+  col0.z = col0.z - o.col0.z;
+  col1.x = col1.x - o.col1.x;
+  col1.y = col1.y - o.col1.y;
+  col1.z = col1.z - o.col1.z;
+  col2.x = col2.x - o.col2.x;
+  col2.y = col2.y - o.col2.y;
+  col2.z = col2.z - o.col2.z;
+  col3.x = col3.x - o.col3.x;
+  col3.y = col3.y - o.col3.y;
+  col3.z = col3.z - o.col3.z;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setColumn">
+<span class="show-code">Code</span>
+void <strong>setColumn</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column, <a href="../vector_math_html/vec3.html">vec3</a> arg) <a class="anchor-link" href="#setColumn"
+              title="Permalink to mat4x3.setColumn">#</a></h4>
+<div class="doc">
+<p>Assigns the 
+<span class="param">column</span> of the matrix 
+<span class="param">arg</span></p>
+<pre class="source">
+void setColumn(int column, vec3 arg) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 4);
+  this[column] = arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setRow">
+<span class="show-code">Code</span>
+void <strong>setRow</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> row, <a href="../vector_math_html/vec4.html">vec4</a> arg) <a class="anchor-link" href="#setRow"
+              title="Permalink to mat4x3.setRow">#</a></h4>
+<div class="doc">
+<p>Assigns the <code>column</code> of the matrix 
+<span class="param">arg</span></p>
+<pre class="source">
+void setRow(int row, vec4 arg) {
+  assert(row &gt;= 0 &amp;&amp; row &lt; 3);
+  col0[row] = arg.x;
+  col1[row] = arg.y;
+  col2[row] = arg.z;
+  col3[row] = arg.w;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to mat4x3.toString">#</a></h4>
+<div class="doc">
+<p>Returns a printable string</p>
+<pre class="source">
+String toString() {
+  String s = '';
+  s = '$s[0] ${getRow(0)}\n';
+  s = '$s[1] ${getRow(1)}\n';
+  s = '$s[2] ${getRow(2)}\n';
+  return s;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transposed">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat3x4.html">mat3x4</a> <strong>transposed</strong>() <a class="anchor-link" href="#transposed"
+              title="Permalink to mat4x3.transposed">#</a></h4>
+<div class="doc">
+<p>Returns the tranpose of this.</p>
+<pre class="source">
+mat3x4 transposed() {
+  mat3x4 r = new mat3x4();
+  r.col0.x = col0.x;
+  r.col0.y = col1.x;
+  r.col0.z = col2.x;
+  r.col0.w = col3.x;
+  r.col1.x = col0.y;
+  r.col1.y = col1.y;
+  r.col1.z = col2.y;
+  r.col1.w = col3.y;
+  r.col2.x = col0.z;
+  r.col2.y = col1.z;
+  r.col2.z = col2.z;
+  r.col2.w = col3.z;
+  return r;
+}
+</pre>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="col0">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a>         <strong>col0</strong> <a class="anchor-link"
+            href="#col0"
+            title="Permalink to mat4x3.col0">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+vec3 col0;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="col1">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a>         <strong>col1</strong> <a class="anchor-link"
+            href="#col1"
+            title="Permalink to mat4x3.col1">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+vec3 col1;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="col2">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a>         <strong>col2</strong> <a class="anchor-link"
+            href="#col2"
+            title="Permalink to mat4x3.col2">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+vec3 col2;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="col3">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a>         <strong>col3</strong> <a class="anchor-link"
+            href="#col3"
+            title="Permalink to mat4x3.col3">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+vec3 col3;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        
+        <div class="footer">
+          <div>This page was generated at 2012-08-19 20:08:16.586</div>
+        </div>
+        <script async src="../client-static.js"></script>
+        </body></html>
+        

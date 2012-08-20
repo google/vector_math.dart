@@ -83,6 +83,7 @@ Dynamic normalize(Dynamic x) {
   return r;
 }
 
+/// Sets [u] and [v] to be two vectors orthogonal to each other and [planeNormal]
 void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
   if (planeNormal.z.abs() > _ScalerHelpers._sqrtOneHalf) {
     // choose u in y-z plane
