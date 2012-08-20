@@ -151,6 +151,20 @@ class quat {
     w *= 0.5;
   }
   
+  /// Copy [source] into [this]
+  void copyFrom(quat source) {
+    x = source.x;
+    y = source.y;
+    z = source.z;
+    w = source.w;
+  }
+  /// Copy [this] into [target]
+  void copyTo(quat target) {
+    target.x = x;
+    target.y = y;
+    target.z = z;
+    target.w = w;
+  }
   /** Set quaternion with rotation of [radians] around [axis] */ 
   void setAxisAngle(vec3 axis, num radians) {
     num len = axis.length;
