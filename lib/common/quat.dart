@@ -131,6 +131,14 @@ class quat {
     w = c2 * r2;
   }
   
+  /// Constructs the identity quaternion
+  quat.identity() {
+    x = 0.0;
+    y = 0.0;
+    z = 0.0;
+    w = 1.0;
+  }
+  
   /** Constructs the time derivative of [q] with angular velocity [omega] */
   quat.dq(quat q, vec3 omega) {
     x = omega.x * q.w + omega.y * q.z - omega.z * q.y;

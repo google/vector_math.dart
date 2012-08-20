@@ -149,6 +149,22 @@ quat([Dynamic a, Dynamic b, Dynamic c, Dynamic d]) {
 </div>
 <div class="method"><h4 id="quat">
 <span class="show-code">Code</span>
+new <strong>quat</strong>.identity() <a class="anchor-link" href="#quat"
+              title="Permalink to quat.quat">#</a></h4>
+<div class="doc">
+<p>Constructs the identity quaternion</p>
+<pre class="source">
+quat.identity() {
+  x = 0.0;
+  y = 0.0;
+  z = 0.0;
+  w = 1.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="quat">
+<span class="show-code">Code</span>
 new <strong>quat</strong>.copy(<a href="../vector_math_html/quat.html">quat</a> original) <a class="anchor-link" href="#quat"
               title="Permalink to quat.quat">#</a></h4>
 <div class="doc">
@@ -409,26 +425,6 @@ quat normalized([quat out=null]) {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
-void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#operator"
-              title="Permalink to quat.operator []=">#</a></h4>
-<div class="doc">
-<p>Treats <code>this</code> as an array and assigns <a class="crossref" href="../vector_math_html/quat.html#x">x</a>,<a class="crossref" href="../vector_math_html/quat.html#y">y</a>,<a class="crossref" href="../vector_math_html/quat.html#z">z</a>, or <a class="crossref" href="../vector_math_html/quat.html#w">w</a> the value of 
-<span class="param">arg</span></p>
-<pre class="source">
-void operator[]=(int i, num arg) {
-  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
-  switch (i) {
-  case 0: x = arg; break;
-  case 1: y = arg; break;
-  case 2: z = arg; break;
-  case 3: w = arg; break;
-  }
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="operator">
-<span class="show-code">Code</span>
 <a href="../vector_math_html/quat.html">quat</a> <strong>operator /</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> scale) <a class="anchor-link" href="#operator"
               title="Permalink to quat.operator /">#</a></h4>
 <div class="doc">
@@ -437,6 +433,26 @@ void operator[]=(int i, num arg) {
 <pre class="source">
 quat operator/(num scale) {
   return new quat(x / scale, y / scale, z / scale, w / scale);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i) <a class="anchor-link" href="#operator"
+              title="Permalink to quat.operator []">#</a></h4>
+<div class="doc">
+<p>Treats <code>this</code> as an array and returns <a class="crossref" href="../vector_math_html/quat.html#x">x</a>,<a class="crossref" href="../vector_math_html/quat.html#y">y</a>,<a class="crossref" href="../vector_math_html/quat.html#z">z</a>, or <a class="crossref" href="../vector_math_html/quat.html#w">w</a></p>
+<pre class="source">
+num operator[](int i) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
+  switch (i) {
+  case 0: return x;
+  case 1: return y;
+  case 2: return z;
+  case 3: return w;
+  }
+  return 0.0;
 }
 </pre>
 </div>
@@ -470,6 +486,40 @@ quat operator negate() {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
+<a href="../vector_math_html/quat.html">quat</a> <strong>operator +</strong>(<a href="../vector_math_html/quat.html">quat</a> other) <a class="anchor-link" href="#operator"
+              title="Permalink to quat.operator +">#</a></h4>
+<div class="doc">
+<p>Returns copy of <code>this</code> - 
+<span class="param">other</span></p>
+<pre class="source">
+quat operator+(quat other) {
+  return new quat(x + other.x, y + other.y, z + other.z, w + other.w);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to quat.operator []=">#</a></h4>
+<div class="doc">
+<p>Treats <code>this</code> as an array and assigns <a class="crossref" href="../vector_math_html/quat.html#x">x</a>,<a class="crossref" href="../vector_math_html/quat.html#y">y</a>,<a class="crossref" href="../vector_math_html/quat.html#z">z</a>, or <a class="crossref" href="../vector_math_html/quat.html#w">w</a> the value of 
+<span class="param">arg</span></p>
+<pre class="source">
+void operator[]=(int i, num arg) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
+  switch (i) {
+  case 0: x = arg; break;
+  case 1: y = arg; break;
+  case 2: z = arg; break;
+  case 3: w = arg; break;
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
 <a href="../vector_math_html/quat.html">quat</a> <strong>operator *</strong>(other) <a class="anchor-link" href="#operator"
               title="Permalink to quat.operator *">#</a></h4>
 <div class="doc">
@@ -486,40 +536,6 @@ quat operator*(Dynamic other) {
                     w * other.z + z * other.w + x * other.y - y * other.x,
                     w * other.w - x * other.x - y * other.y - z * other.z);
   }
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="operator">
-<span class="show-code">Code</span>
-<a href="../vector_math_html/quat.html">quat</a> <strong>operator +</strong>(<a href="../vector_math_html/quat.html">quat</a> other) <a class="anchor-link" href="#operator"
-              title="Permalink to quat.operator +">#</a></h4>
-<div class="doc">
-<p>Returns copy of <code>this</code> - 
-<span class="param">other</span></p>
-<pre class="source">
-quat operator+(quat other) {
-  return new quat(x + other.x, y + other.y, z + other.z, w + other.w);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="operator">
-<span class="show-code">Code</span>
-<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i) <a class="anchor-link" href="#operator"
-              title="Permalink to quat.operator []">#</a></h4>
-<div class="doc">
-<p>Treats <code>this</code> as an array and returns <a class="crossref" href="../vector_math_html/quat.html#x">x</a>,<a class="crossref" href="../vector_math_html/quat.html#y">y</a>,<a class="crossref" href="../vector_math_html/quat.html#z">z</a>, or <a class="crossref" href="../vector_math_html/quat.html#w">w</a></p>
-<pre class="source">
-num operator[](int i) {
-  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
-  switch (i) {
-  case 0: return x;
-  case 1: return y;
-  case 2: return z;
-  case 3: return w;
-  }
-  return 0.0;
 }
 </pre>
 </div>
@@ -726,7 +742,7 @@ num z;
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-19 20:17:39.142</div>
+          <div>This page was generated at 2012-08-19 20:22:12.696</div>
         </div>
         <script async src="../client-static.js"></script>
         </body></html>
