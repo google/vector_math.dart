@@ -28,6 +28,8 @@ class quat {
   num z;
   num w;
   
+  /// Constructs a quaternion using the raw values [x], [y], [z], and [w]
+  quat.raw(this.x, this.y, this.z, this.w);
   /** 
    *  Constructs a new quaternion. Behaviour depends on the types of arguments:
    *
@@ -248,10 +250,14 @@ class quat {
     return Math.sqrt(length2);
   }
 
-  /** Returns a copy of [v] rotated by quaternion */
-  vec3 rotated(vec3 v) {
-    vec3 result = new vec3.copy(v);
-    return rotate(result);
+  /** Returns a copy of [v] rotated by quaternion. Copy optionally stored in [out] */
+  vec3 rotated(vec3 v, [vec3 out=null]) {
+    if (out == null) {
+      out = new vec3.copy(v);
+    } else {
+      out.copyFrom(v);
+    }
+    return rotate(out);
   }
   
   /** Rotates [v] by [this]. Returns [v]. */
