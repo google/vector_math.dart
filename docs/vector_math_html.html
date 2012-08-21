@@ -18,15 +18,9 @@
         <div class="nav">
         
 <h2><div class="icon-library"></div><strong>vector_math_html</strong></h2><ul class="icon">
-<li><a href="vector_math_html/mat2x2.html"><div class="icon-class"></div>mat2x2</a></li>
-<li><a href="vector_math_html/mat2x3.html"><div class="icon-class"></div>mat2x3</a></li>
-<li><a href="vector_math_html/mat2x4.html"><div class="icon-class"></div>mat2x4</a></li>
-<li><a href="vector_math_html/mat3x2.html"><div class="icon-class"></div>mat3x2</a></li>
-<li><a href="vector_math_html/mat3x3.html"><div class="icon-class"></div>mat3x3</a></li>
-<li><a href="vector_math_html/mat3x4.html"><div class="icon-class"></div>mat3x4</a></li>
-<li><a href="vector_math_html/mat4x2.html"><div class="icon-class"></div>mat4x2</a></li>
-<li><a href="vector_math_html/mat4x3.html"><div class="icon-class"></div>mat4x3</a></li>
-<li><a href="vector_math_html/mat4x4.html"><div class="icon-class"></div>mat4x4</a></li>
+<li><a href="vector_math_html/mat2.html"><div class="icon-class"></div>mat2</a></li>
+<li><a href="vector_math_html/mat3.html"><div class="icon-class"></div>mat3</a></li>
+<li><a href="vector_math_html/mat4.html"><div class="icon-class"></div>mat4</a></li>
 <li><a href="vector_math_html/quat.html"><div class="icon-class"></div>quat</a></li>
 <li><a href="vector_math_html/vec2.html"><div class="icon-class"></div>vec2</a></li>
 <li><a href="vector_math_html/vec3.html"><div class="icon-class"></div>vec3</a></li>
@@ -616,18 +610,18 @@ Dynamic log2(Dynamic arg) {
 </div>
 <div class="method"><h4 id="makeFrustum">
 <span class="show-code">Code</span>
-<a href="vector_math_html/mat4x4.html">mat4x4</a> <strong>makeFrustum</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> left, <a href="http://api.dartlang.org/dart_core/num.html">num</a> right, <a href="http://api.dartlang.org/dart_core/num.html">num</a> bottom, <a href="http://api.dartlang.org/dart_core/num.html">num</a> top, <a href="http://api.dartlang.org/dart_core/num.html">num</a> near, <a href="http://api.dartlang.org/dart_core/num.html">num</a> far) <a class="anchor-link" href="#makeFrustum"
+<a href="vector_math_html/mat4.html">mat4</a> <strong>makeFrustum</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> left, <a href="http://api.dartlang.org/dart_core/num.html">num</a> right, <a href="http://api.dartlang.org/dart_core/num.html">num</a> bottom, <a href="http://api.dartlang.org/dart_core/num.html">num</a> top, <a href="http://api.dartlang.org/dart_core/num.html">num</a> near, <a href="http://api.dartlang.org/dart_core/num.html">num</a> far) <a class="anchor-link" href="#makeFrustum"
               title="Permalink to makeFrustum">#</a></h4>
 <div class="doc">
 <p>Returns an OpenGL frustum camera projection matrix</p>
 <pre class="source">
-mat4x4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
+mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
   num two_near = 2.0 * near;
   num right_minus_left = right - left;
   num top_minus_bottom = top - bottom;
   num far_minus_near = far - near;
 
-  mat4x4 view = new mat4x4.zero();
+  mat4 view = new mat4.zero();
   view[0].x = two_near / right_minus_left;
   view[1].y = two_near / top_minus_bottom;
   view[2].x = (right + left) / right_minus_left;
@@ -644,19 +638,19 @@ mat4x4 makeFrustum(num left, num right, num bottom, num top, num near, num far) 
 </div>
 <div class="method"><h4 id="makeLookAt">
 <span class="show-code">Code</span>
-<a href="vector_math_html/mat4x4.html">mat4x4</a> <strong>makeLookAt</strong>(<a href="vector_math_html/vec3.html">vec3</a> eyePosition, <a href="vector_math_html/vec3.html">vec3</a> lookAtPosition, <a href="vector_math_html/vec3.html">vec3</a> upDirection) <a class="anchor-link" href="#makeLookAt"
+<a href="vector_math_html/mat4.html">mat4</a> <strong>makeLookAt</strong>(<a href="vector_math_html/vec3.html">vec3</a> eyePosition, <a href="vector_math_html/vec3.html">vec3</a> lookAtPosition, <a href="vector_math_html/vec3.html">vec3</a> upDirection) <a class="anchor-link" href="#makeLookAt"
               title="Permalink to makeLookAt">#</a></h4>
 <div class="doc">
 <p>Returns an OpenGL LookAt matrix</p>
 <pre class="source">
-mat4x4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
+mat4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
   vec3 z = lookAtPosition - eyePosition;
   z.normalize();
   vec3 x = z.cross(upDirection);
   x.normalize();
   vec3 y = x.cross(z);
   y.normalize();
-  mat4x4 r = new mat4x4.zero();
+  mat4 r = new mat4.zero();
   r[0].xyz = x;
   r[1].xyz = y;
   r[2].xyz = -z;
@@ -671,12 +665,12 @@ mat4x4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
 </div>
 <div class="method"><h4 id="makeOrthographic">
 <span class="show-code">Code</span>
-<a href="vector_math_html/mat4x4.html">mat4x4</a> <strong>makeOrthographic</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> left, <a href="http://api.dartlang.org/dart_core/num.html">num</a> right, <a href="http://api.dartlang.org/dart_core/num.html">num</a> bottom, <a href="http://api.dartlang.org/dart_core/num.html">num</a> top, <a href="http://api.dartlang.org/dart_core/num.html">num</a> znear, <a href="http://api.dartlang.org/dart_core/num.html">num</a> zfar) <a class="anchor-link" href="#makeOrthographic"
+<a href="vector_math_html/mat4.html">mat4</a> <strong>makeOrthographic</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> left, <a href="http://api.dartlang.org/dart_core/num.html">num</a> right, <a href="http://api.dartlang.org/dart_core/num.html">num</a> bottom, <a href="http://api.dartlang.org/dart_core/num.html">num</a> top, <a href="http://api.dartlang.org/dart_core/num.html">num</a> znear, <a href="http://api.dartlang.org/dart_core/num.html">num</a> zfar) <a class="anchor-link" href="#makeOrthographic"
               title="Permalink to makeOrthographic">#</a></h4>
 <div class="doc">
 <p>Returns an OpenGL orthographic camera projection matrix</p>
 <pre class="source">
-mat4x4 makeOrthographic(num left, num right, num bottom, num top, num znear, num zfar) {
+mat4 makeOrthographic(num left, num right, num bottom, num top, num znear, num zfar) {
   num rml = right - left;
   num rpl = right + left;
   num tmb = top - bottom;
@@ -684,7 +678,7 @@ mat4x4 makeOrthographic(num left, num right, num bottom, num top, num znear, num
   num fmn = zfar - znear;
   num fpn = zfar + znear;
   
-  mat4x4 r = new mat4x4.zero();
+  mat4 r = new mat4.zero();
   r[0].x = 2.0/rml;
   r[1].y = 2.0/tmb;
   r[2].z = 2.0/fmn;
@@ -700,12 +694,12 @@ mat4x4 makeOrthographic(num left, num right, num bottom, num top, num znear, num
 </div>
 <div class="method"><h4 id="makePerspective">
 <span class="show-code">Code</span>
-<a href="vector_math_html/mat4x4.html">mat4x4</a> <strong>makePerspective</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> fov_y_radians, <a href="http://api.dartlang.org/dart_core/num.html">num</a> aspect_ratio, <a href="http://api.dartlang.org/dart_core/num.html">num</a> znear, <a href="http://api.dartlang.org/dart_core/num.html">num</a> zfar) <a class="anchor-link" href="#makePerspective"
+<a href="vector_math_html/mat4.html">mat4</a> <strong>makePerspective</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> fov_y_radians, <a href="http://api.dartlang.org/dart_core/num.html">num</a> aspect_ratio, <a href="http://api.dartlang.org/dart_core/num.html">num</a> znear, <a href="http://api.dartlang.org/dart_core/num.html">num</a> zfar) <a class="anchor-link" href="#makePerspective"
               title="Permalink to makePerspective">#</a></h4>
 <div class="doc">
 <p>Returns an OpenGL perspective camera projection matrix</p>
 <pre class="source">
-mat4x4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
+mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
   double height = tan(fov_y_radians * 0.5) * znear;
   double width = height * aspect_ratio;
 
@@ -716,17 +710,17 @@ mat4x4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar)
 </div>
 <div class="method"><h4 id="makePlaneProjection">
 <span class="show-code">Code</span>
-<a href="vector_math_html/mat4x4.html">mat4x4</a> <strong>makePlaneProjection</strong>(<a href="vector_math_html/vec3.html">vec3</a> planeNormal, <a href="vector_math_html/vec3.html">vec3</a> planePoint) <a class="anchor-link" href="#makePlaneProjection"
+<a href="vector_math_html/mat4.html">mat4</a> <strong>makePlaneProjection</strong>(<a href="vector_math_html/vec3.html">vec3</a> planeNormal, <a href="vector_math_html/vec3.html">vec3</a> planePoint) <a class="anchor-link" href="#makePlaneProjection"
               title="Permalink to makePlaneProjection">#</a></h4>
 <div class="doc">
 <p>Returns a transformation matrix that transforms points onto the plane specified with 
 <span class="param">planeNormal</span> and 
 <span class="param">planePoint</span></p>
 <pre class="source">
-mat4x4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
+mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
-  mat4x4 outer = new mat4x4.outer(v, v);
-  mat4x4 r = new mat4x4();
+  mat4 outer = new mat4.outer(v, v);
+  mat4 r = new mat4();
   r = r - outer;
   vec3 scaledNormal = (planeNormal * dot(planePoint, planeNormal));
   vec4 T = new vec4(scaledNormal, 1.0);
@@ -738,18 +732,18 @@ mat4x4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
 </div>
 <div class="method"><h4 id="makePlaneReflection">
 <span class="show-code">Code</span>
-<a href="vector_math_html/mat4x4.html">mat4x4</a> <strong>makePlaneReflection</strong>(<a href="vector_math_html/vec3.html">vec3</a> planeNormal, <a href="vector_math_html/vec3.html">vec3</a> planePoint) <a class="anchor-link" href="#makePlaneReflection"
+<a href="vector_math_html/mat4.html">mat4</a> <strong>makePlaneReflection</strong>(<a href="vector_math_html/vec3.html">vec3</a> planeNormal, <a href="vector_math_html/vec3.html">vec3</a> planePoint) <a class="anchor-link" href="#makePlaneReflection"
               title="Permalink to makePlaneReflection">#</a></h4>
 <div class="doc">
 <p>Returns a transformation matrix that transforms points by reflecting them in the plane specified with 
 <span class="param">planeNormal</span> and 
 <span class="param">planePoint</span></p>
 <pre class="source">
-mat4x4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
+mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
-  mat4x4 outer = new mat4x4.outer(v,v);
-  outer.selfScale(2.0);
-  mat4x4 r = new mat4x4();
+  mat4 outer = new mat4.outer(v,v);
+  outer.scale(2.0);
+  mat4 r = new mat4();
   r = r - outer;
   num scale = 2.0 * dot(planePoint, planeNormal);
   vec3 scaledNormal = (planeNormal * scale);
@@ -1237,55 +1231,19 @@ Dynamic trunc(Dynamic arg) {
 <h3>Classes</h3>
           <div class="type">
           <h4>
-            <a href="vector_math_html/mat2x2.html"><strong>mat2x2</strong></a>
+            <a href="vector_math_html/mat2.html"><strong>mat2</strong></a>
           </h4>
           </div>
           
           <div class="type">
           <h4>
-            <a href="vector_math_html/mat2x3.html"><strong>mat2x3</strong></a>
+            <a href="vector_math_html/mat3.html"><strong>mat3</strong></a>
           </h4>
           </div>
           
           <div class="type">
           <h4>
-            <a href="vector_math_html/mat2x4.html"><strong>mat2x4</strong></a>
-          </h4>
-          </div>
-          
-          <div class="type">
-          <h4>
-            <a href="vector_math_html/mat3x2.html"><strong>mat3x2</strong></a>
-          </h4>
-          </div>
-          
-          <div class="type">
-          <h4>
-            <a href="vector_math_html/mat3x3.html"><strong>mat3x3</strong></a>
-          </h4>
-          </div>
-          
-          <div class="type">
-          <h4>
-            <a href="vector_math_html/mat3x4.html"><strong>mat3x4</strong></a>
-          </h4>
-          </div>
-          
-          <div class="type">
-          <h4>
-            <a href="vector_math_html/mat4x2.html"><strong>mat4x2</strong></a>
-          </h4>
-          </div>
-          
-          <div class="type">
-          <h4>
-            <a href="vector_math_html/mat4x3.html"><strong>mat4x3</strong></a>
-          </h4>
-          </div>
-          
-          <div class="type">
-          <h4>
-            <a href="vector_math_html/mat4x4.html"><strong>mat4x4</strong></a>
+            <a href="vector_math_html/mat4.html"><strong>mat4</strong></a>
           </h4>
           </div>
           
@@ -1318,7 +1276,7 @@ Dynamic trunc(Dynamic arg) {
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-19 20:22:11.622</div>
+          <div>This page was generated at 2012-08-20 20:02:45.899</div>
         </div>
         <script async src="client-static.js"></script>
         </body></html>

@@ -21,12 +21,12 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-/// mat2x2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 rows.
-class mat2x2 {
+/// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 rows.
+class mat2 {
   vec2 col0;
   vec2 col1;
-  /// Constructs a new mat2x2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
-  mat2x2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3]) {
+  /// Constructs a new mat2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
+  mat2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3]) {
     //Initialize the matrix as the identity matrix
     col0 = new vec2.zero();
     col1 = new vec2.zero();
@@ -49,7 +49,7 @@ class mat2x2 {
       col1 = arg1;
       return;
     }
-    if (arg0 is mat2x2) {
+    if (arg0 is mat2) {
       col0 = arg0.col0;
       col1 = arg0.col1;
       return;
@@ -59,8 +59,8 @@ class mat2x2 {
       col1.y = arg0.y;
     }
   }
-  /// Constructs a new [mat2x2] from computing the outer product of [u] and [v].
-  mat2x2.outer(vec2 u, vec2 v) {
+  /// Constructs a new [mat2] from computing the outer product of [u] and [v].
+  mat2.outer(vec2 u, vec2 v) {
     col0 = new vec2();
     col1 = new vec2();
     col0.x = u.x * v.x;
@@ -68,8 +68,8 @@ class mat2x2 {
     col1.x = u.y * v.x;
     col1.y = u.y * v.y;
   }
-  /// Constructs a new [mat2x2] filled with zeros.
-  mat2x2.zero() {
+  /// Constructs a new [mat2] filled with zeros.
+  mat2.zero() {
     col0 = new vec2();
     col1 = new vec2();
     col0.x = 0.0;
@@ -77,8 +77,8 @@ class mat2x2 {
     col1.x = 0.0;
     col1.y = 0.0;
   }
-  /// Constructs a new identity [mat2x2].
-  mat2x2.identity() {
+  /// Constructs a new identity [mat2].
+  mat2.identity() {
     col0 = new vec2();
     col1 = new vec2();
     col0.x = 1.0;
@@ -86,8 +86,8 @@ class mat2x2 {
     col1.x = 0.0;
     col1.y = 1.0;
   }
-  /// Constructs a new [mat2x2] which is a copy of [other].
-  mat2x2.copy(mat2x2 other) {
+  /// Constructs a new [mat2] which is a copy of [other].
+  mat2.copy(mat2 other) {
     col0 = new vec2();
     col1 = new vec2();
     col0.x = other.col0.x;
@@ -95,13 +95,13 @@ class mat2x2 {
     col1.x = other.col1.x;
     col1.y = other.col1.y;
   }
-  /// Constructs a new [mat2x2] representing a rotation by [radians].
-  mat2x2.rotation(num radians_) {
+  /// Constructs a new [mat2] representing a rotation by [radians].
+  mat2.rotation(num radians_) {
     col0 = new vec2.zero();
     col1 = new vec2.zero();
     setRotation(radians_);
   }
-  mat2x2.raw(num arg0, num arg1, num arg2, num arg3) {
+  mat2.raw(num arg0, num arg1, num arg2, num arg3) {
     col0 = new vec2.zero();
     col1 = new vec2.zero();
     col0.x = arg0;
@@ -175,7 +175,7 @@ class mat2x2 {
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
     if (arg is num) {
-      mat2x2 r = new mat2x2.zero();
+      mat2 r = new mat2.zero();
       r.col0.x = col0.x * arg;
       r.col0.y = col0.y * arg;
       r.col1.x = col1.x * arg;
@@ -191,7 +191,7 @@ class mat2x2 {
     if (2 == arg.rows) {
       Dynamic r = null;
       if (arg.cols == 2) {
-        r = new mat2x2.zero();
+        r = new mat2.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
         r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
         r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
@@ -203,8 +203,8 @@ class mat2x2 {
     throw new IllegalArgumentException(arg);
   }
   /// Returns new matrix after component wise [this] + [arg]
-  mat2x2 operator+(mat2x2 arg) {
-    mat2x2 r = new mat2x2();
+  mat2 operator+(mat2 arg) {
+    mat2 r = new mat2();
     r.col0.x = col0.x + arg.col0.x;
     r.col0.y = col0.y + arg.col0.y;
     r.col1.x = col1.x + arg.col1.x;
@@ -212,8 +212,8 @@ class mat2x2 {
     return r;
   }
   /// Returns new matrix after component wise [this] - [arg]
-  mat2x2 operator-(mat2x2 arg) {
-    mat2x2 r = new mat2x2();
+  mat2 operator-(mat2 arg) {
+    mat2 r = new mat2();
     r.col0.x = col0.x - arg.col0.x;
     r.col0.y = col0.y - arg.col0.y;
     r.col1.x = col1.x - arg.col1.x;
@@ -221,15 +221,31 @@ class mat2x2 {
     return r;
   }
   /// Returns new matrix -this
-  mat2x2 operator negate() {
-    mat2x2 r = new mat2x2();
+  mat2 operator negate() {
+    mat2 r = new mat2();
     r[0] = -this[0];
     r[1] = -this[1];
     return r;
   }
+  /// Zeros [this].
+  mat2 zero() {
+    col0.x = 0.0;
+    col0.y = 0.0;
+    col1.x = 0.0;
+    col1.y = 0.0;
+    return this;
+  }
+  /// Makes [this] into the identity matrix.
+  mat2 identity() {
+    col0.x = 1.0;
+    col0.y = 0.0;
+    col1.x = 0.0;
+    col1.y = 1.0;
+    return this;
+  }
   /// Returns the tranpose of this.
-  mat2x2 transposed() {
-    mat2x2 r = new mat2x2();
+  mat2 transposed() {
+    mat2 r = new mat2();
     r.col0.x = col0.x;
     r.col0.y = col1.x;
     r.col1.x = col0.y;
@@ -237,8 +253,8 @@ class mat2x2 {
     return r;
   }
   /// Returns the component wise absolute value of this.
-  mat2x2 absolute() {
-    mat2x2 r = new mat2x2();
+  mat2 absolute() {
+    mat2 r = new mat2();
     r.col0.x = col0.x.abs();
     r.col0.y = col0.y.abs();
     r.col1.x = col1.x.abs();
@@ -274,14 +290,14 @@ class mat2x2 {
     return norm;
   }
   /// Returns relative error between [this] and [correct]
-  num relativeError(mat2x2 correct) {
+  num relativeError(mat2 correct) {
     num this_norm = infinityNorm();
     num correct_norm = correct.infinityNorm();
     num diff_norm = (this_norm - correct_norm).abs();
     return diff_norm/correct_norm;
   }
   /// Returns absolute error between [this] and [correct]
-  num absoluteError(mat2x2 correct) {
+  num absoluteError(mat2 correct) {
     num this_norm = infinityNorm();
     num correct_norm = correct.infinityNorm();
     num diff_norm = (this_norm - correct_norm).abs();
@@ -311,59 +327,53 @@ class mat2x2 {
     col1.y = c;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  void selfScaleAdjoint(num scale) {
+  mat2 scaleAdjoint(num scale_) {
     num temp = col0.x;
-    col0.x = col1.y * scale;
-    col1.x = - col1.x * scale;
-    col0.y = - col0.y * scale;
-    col1.y = temp * scale;
+    col0.x = col1.y * scale_;
+    col1.x = - col1.x * scale_;
+    col0.y = - col0.y * scale_;
+    col1.y = temp * scale_;
+    return this;
   }
-  mat2x2 copy() {
-    return new mat2x2.copy(this);
+  mat2 copy() {
+    return new mat2.copy(this);
   }
-  mat2x2 copyInto(mat2x2 arg) {
+  mat2 copyInto(mat2 arg) {
     arg.col0.x = col0.x;
     arg.col0.y = col0.y;
     arg.col1.x = col1.x;
     arg.col1.y = col1.y;
     return arg;
   }
-  mat2x2 copyFrom(mat2x2 arg) {
+  mat2 copyFrom(mat2 arg) {
     col0.x = arg.col0.x;
     col0.y = arg.col0.y;
     col1.x = arg.col1.x;
     col1.y = arg.col1.y;
     return this;
   }
-  mat2x2 selfAdd(mat2x2 o) {
+  mat2 add(mat2 o) {
     col0.x = col0.x + o.col0.x;
     col0.y = col0.y + o.col0.y;
     col1.x = col1.x + o.col1.x;
     col1.y = col1.y + o.col1.y;
     return this;
   }
-  mat2x2 selfSub(mat2x2 o) {
+  mat2 sub(mat2 o) {
     col0.x = col0.x - o.col0.x;
     col0.y = col0.y - o.col0.y;
     col1.x = col1.x - o.col1.x;
     col1.y = col1.y - o.col1.y;
     return this;
   }
-  mat2x2 selfScale(num o) {
-    col0.x = col0.x * o;
-    col0.y = col0.y * o;
-    col1.x = col1.x * o;
-    col1.y = col1.y * o;
-    return this;
-  }
-  mat2x2 selfNegate() {
+  mat2 negate_() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col1.x = -col1.x;
     col1.y = -col1.y;
     return this;
   }
-  mat2x2 selfMultiply(mat2x2 arg) {
+  mat2 multiply(mat2 arg) {
     final num m00 = col0.x;
     final num m01 = col1.x;
     final num m10 = col0.y;
@@ -378,7 +388,7 @@ class mat2x2 {
     col1.y =  (m10 * n01) + (m11 * n11);
     return this;
   }
-  mat2x2 selfTransposeMultiply(mat2x2 arg) {
+  mat2 transposeMultiply(mat2 arg) {
     num m00 = col0.x;
     num m01 = col0.y;
     num m10 = col1.x;
@@ -389,7 +399,7 @@ class mat2x2 {
     col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y);
     return this;
   }
-  mat2x2 selfMultiplyTranpose(mat2x2 arg) {
+  mat2 multiplyTranspose(mat2 arg) {
     num m00 = col0.x;
     num m01 = col1.x;
     num m10 = col0.y;

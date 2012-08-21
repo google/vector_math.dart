@@ -226,6 +226,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
+  /*
   f = new File('${htmlBasePath}/matrix2x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -261,7 +262,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+  */
   f = new File('${htmlBasePath}/matrix3x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -273,7 +274,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+  /*
   f = new File('${htmlBasePath}/matrix3x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -309,7 +310,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-
+*/
   f = new File('${htmlBasePath}/matrix4x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -333,6 +334,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
+  /*
   f = new File('${consoleBasePath}/matrix2x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -368,7 +370,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+  */
   f = new File('${consoleBasePath}/matrix3x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -380,7 +382,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+  /*
   f = new File('${consoleBasePath}/matrix3x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -416,7 +418,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-
+*/
   f = new File('${consoleBasePath}/matrix4x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {

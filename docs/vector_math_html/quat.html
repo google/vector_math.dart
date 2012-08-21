@@ -18,15 +18,9 @@
         <div class="nav">
         
 <h2><div class="icon-library"></div><a href="../vector_math_html.html">vector_math_html</a></h2><ul class="icon">
-<li><a href="../vector_math_html/mat2x2.html"><div class="icon-class"></div>mat2x2</a></li>
-<li><a href="../vector_math_html/mat2x3.html"><div class="icon-class"></div>mat2x3</a></li>
-<li><a href="../vector_math_html/mat2x4.html"><div class="icon-class"></div>mat2x4</a></li>
-<li><a href="../vector_math_html/mat3x2.html"><div class="icon-class"></div>mat3x2</a></li>
-<li><a href="../vector_math_html/mat3x3.html"><div class="icon-class"></div>mat3x3</a></li>
-<li><a href="../vector_math_html/mat3x4.html"><div class="icon-class"></div>mat3x4</a></li>
-<li><a href="../vector_math_html/mat4x2.html"><div class="icon-class"></div>mat4x2</a></li>
-<li><a href="../vector_math_html/mat4x3.html"><div class="icon-class"></div>mat4x3</a></li>
-<li><a href="../vector_math_html/mat4x4.html"><div class="icon-class"></div>mat4x4</a></li>
+<li><a href="../vector_math_html/mat2.html"><div class="icon-class"></div>mat2</a></li>
+<li><a href="../vector_math_html/mat3.html"><div class="icon-class"></div>mat3</a></li>
+<li><a href="../vector_math_html/mat4.html"><div class="icon-class"></div>mat4</a></li>
 <li><div class="icon-class"></div><strong>quat</strong></li>
 <li><a href="../vector_math_html/vec2.html"><div class="icon-class"></div>vec2</a></li>
 <li><a href="../vector_math_html/vec3.html"><div class="icon-class"></div>vec3</a></li>
@@ -84,7 +78,7 @@ quat.axisAngle(vec3 axis, num angle) {
 new <strong>quat</strong>([a, b, c, d]) <a class="anchor-link" href="#quat"
               title="Permalink to quat.quat">#</a></h4>
 <div class="doc">
-<p> Constructs a new quaternion. Behaviour depends on the types of arguments:</p><ul><li><em>(<code>num</code> x,<code>num</code> y,<code>num</code> z,<code>num</code> w)</em> Raw values</li><li><em>(<a class="crossref" href="../vector_math_html/vec3.html">vec3</a> axis,<code>num</code> angle)</em> Rotation of <code>angle</code> degrees around <a class="crossref" href="../vector_math_html/quat.html#axis">axis</a></li><li><em>(<a class="crossref" href="../vector_math_html/quat.html#new:quat.raw">quat</a> other)</em> Copy of other</li><li><em>(<a class="crossref" href="../vector_math_html/mat3x3.html">mat3x3</a>)</em> Convert rotation matrix into quaternion</li></ul>
+<p> Constructs a new quaternion. Behaviour depends on the types of arguments:</p><ul><li><em>(<code>num</code> x,<code>num</code> y,<code>num</code> z,<code>num</code> w)</em> Raw values</li><li><em>(<a class="crossref" href="../vector_math_html/vec3.html">vec3</a> axis,<code>num</code> angle)</em> Rotation of <code>angle</code> degrees around <a class="crossref" href="../vector_math_html/quat.html#axis">axis</a></li><li><em>(<a class="crossref" href="../vector_math_html/quat.html#new:quat.raw">quat</a> other)</em> Copy of other</li><li><em>(<a class="crossref" href="../vector_math_html/mat3.html">mat3</a>)</em> Convert rotation matrix into quaternion</li></ul>
 <pre class="source">
 quat([Dynamic a, Dynamic b, Dynamic c, Dynamic d]) {
   x = 0.0;
@@ -121,7 +115,7 @@ quat([Dynamic a, Dynamic b, Dynamic c, Dynamic d]) {
     return;
   }
   
-  if (a is mat3x3) {
+  if (a is mat3) {
     num trace = a.trace();
     if (trace &gt; 0.0) {
       num s = Math.sqrt(trace + 1.0);
@@ -242,12 +236,12 @@ num absoluteError(quat correct) {
 </div>
 <div class="method"><h4 id="asRotationMatrix">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/mat3x3.html">mat3x3</a> <strong>asRotationMatrix</strong>() <a class="anchor-link" href="#asRotationMatrix"
+<a href="../vector_math_html/mat3.html">mat3</a> <strong>asRotationMatrix</strong>() <a class="anchor-link" href="#asRotationMatrix"
               title="Permalink to quat.asRotationMatrix">#</a></h4>
 <div class="doc">
 <p>Returns a rotation matrix containing the same rotation as <code>this</code></p>
 <pre class="source">
-mat3x3 asRotationMatrix() {
+mat3 asRotationMatrix() {
   num d = length2;
   assert(d != 0.0);
   num s = 2.0 / d;
@@ -268,7 +262,7 @@ mat3x3 asRotationMatrix() {
   num yz = y * zs;
   num zz = z * zs;
   
-  return new mat3x3.raw(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+  return new mat3.raw(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
     xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
     xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
     );
@@ -320,6 +314,40 @@ quat conjugated([quat out=null]) {
     out = new quat.copy(this);
   }
   return out.conjugate();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFrom">
+<span class="show-code">Code</span>
+void <strong>copyFrom</strong>(<a href="../vector_math_html/quat.html">quat</a> source) <a class="anchor-link" href="#copyFrom"
+              title="Permalink to quat.copyFrom">#</a></h4>
+<div class="doc">
+<p>Copy 
+<span class="param">source</span> into <code>this</code></p>
+<pre class="source">
+void copyFrom(quat source) {
+  x = source.x;
+  y = source.y;
+  z = source.z;
+  w = source.w;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyTo">
+<span class="show-code">Code</span>
+void <strong>copyTo</strong>(<a href="../vector_math_html/quat.html">quat</a> target) <a class="anchor-link" href="#copyTo"
+              title="Permalink to quat.copyTo">#</a></h4>
+<div class="doc">
+<p>Copy <code>this</code> into 
+<span class="param">target</span></p>
+<pre class="source">
+void copyTo(quat target) {
+  target.x = x;
+  target.y = y;
+  target.z = z;
+  target.w = w;
 }
 </pre>
 </div>
@@ -425,20 +453,6 @@ quat normalized([quat out=null]) {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/quat.html">quat</a> <strong>operator /</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> scale) <a class="anchor-link" href="#operator"
-              title="Permalink to quat.operator /">#</a></h4>
-<div class="doc">
-<p>Return a copy of <code>this</code> divided by 
-<span class="param">scale</span></p>
-<pre class="source">
-quat operator/(num scale) {
-  return new quat(x / scale, y / scale, z / scale, w / scale);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="operator">
-<span class="show-code">Code</span>
 <a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i) <a class="anchor-link" href="#operator"
               title="Permalink to quat.operator []">#</a></h4>
 <div class="doc">
@@ -453,6 +467,26 @@ num operator[](int i) {
   case 3: return w;
   }
   return 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to quat.operator []=">#</a></h4>
+<div class="doc">
+<p>Treats <code>this</code> as an array and assigns <a class="crossref" href="../vector_math_html/quat.html#x">x</a>,<a class="crossref" href="../vector_math_html/quat.html#y">y</a>,<a class="crossref" href="../vector_math_html/quat.html#z">z</a>, or <a class="crossref" href="../vector_math_html/quat.html#w">w</a> the value of 
+<span class="param">arg</span></p>
+<pre class="source">
+void operator[]=(int i, num arg) {
+  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
+  switch (i) {
+  case 0: x = arg; break;
+  case 1: y = arg; break;
+  case 2: z = arg; break;
+  case 3: w = arg; break;
+  }
 }
 </pre>
 </div>
@@ -486,6 +520,20 @@ quat operator negate() {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
+<a href="../vector_math_html/quat.html">quat</a> <strong>operator /</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> scale) <a class="anchor-link" href="#operator"
+              title="Permalink to quat.operator /">#</a></h4>
+<div class="doc">
+<p>Return a copy of <code>this</code> divided by 
+<span class="param">scale</span></p>
+<pre class="source">
+quat operator/(num scale) {
+  return new quat(x / scale, y / scale, z / scale, w / scale);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
 <a href="../vector_math_html/quat.html">quat</a> <strong>operator +</strong>(<a href="../vector_math_html/quat.html">quat</a> other) <a class="anchor-link" href="#operator"
               title="Permalink to quat.operator +">#</a></h4>
 <div class="doc">
@@ -494,26 +542,6 @@ quat operator negate() {
 <pre class="source">
 quat operator+(quat other) {
   return new quat(x + other.x, y + other.y, z + other.z, w + other.w);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="operator">
-<span class="show-code">Code</span>
-void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> i, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg) <a class="anchor-link" href="#operator"
-              title="Permalink to quat.operator []=">#</a></h4>
-<div class="doc">
-<p>Treats <code>this</code> as an array and assigns <a class="crossref" href="../vector_math_html/quat.html#x">x</a>,<a class="crossref" href="../vector_math_html/quat.html#y">y</a>,<a class="crossref" href="../vector_math_html/quat.html#z">z</a>, or <a class="crossref" href="../vector_math_html/quat.html#w">w</a> the value of 
-<span class="param">arg</span></p>
-<pre class="source">
-void operator[]=(int i, num arg) {
-  assert(i &gt;= 0 &amp;&amp; i &lt; 4);
-  switch (i) {
-  case 0: x = arg; break;
-  case 1: y = arg; break;
-  case 2: z = arg; break;
-  case 3: w = arg; break;
-  }
 }
 </pre>
 </div>
@@ -742,7 +770,7 @@ num z;
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-19 20:22:12.696</div>
+          <div>This page was generated at 2012-08-20 20:02:46.608</div>
         </div>
         <script async src="../client-static.js"></script>
         </body></html>

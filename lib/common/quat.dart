@@ -36,7 +36,7 @@ class quat {
    *  +  *([num] x,[num] y,[num] z,[num] w)* Raw values
    *  +  *([vec3] axis,[num] angle)* Rotation of [angle] degrees around [axis]
    *  +  *([quat] other)* Copy of other
-   *  +  *([mat3x3])* Convert rotation matrix into quaternion
+   *  +  *([mat3])* Convert rotation matrix into quaternion
    *
    *
    */
@@ -75,7 +75,7 @@ class quat {
       return;
     }
     
-    if (a is mat3x3) {
+    if (a is mat3) {
       num trace = a.trace();
       if (trace > 0.0) {
         num s = Math.sqrt(trace + 1.0);
@@ -361,7 +361,7 @@ class quat {
   }
   
   /** Returns a rotation matrix containing the same rotation as [this] */
-  mat3x3 asRotationMatrix() {
+  mat3 asRotationMatrix() {
     num d = length2;
     assert(d != 0.0);
     num s = 2.0 / d;
@@ -382,7 +382,7 @@ class quat {
     num yz = y * zs;
     num zz = z * zs;
     
-    return new mat3x3.raw(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+    return new mat3.raw(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
       xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
       xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
       );

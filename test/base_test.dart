@@ -16,39 +16,18 @@ class BaseTest {
   final num errorThreshold = 0.00005;
   
   Dynamic makeMatrix(int rows, int cols) {
-    if (cols == 2) {
-      if (rows == 2) {
-        return new mat2x2();
-      }
-      if (rows == 3) {
-        return new mat2x3();
-      }
-      if (rows == 4) {
-        return new mat2x4();
-      }
-    }
-    if (cols == 3) {
-      if (rows == 2) {
-        return new mat3x2();
-      }
-      if (rows == 3) {
-        return new mat3x3();
-      }
-      if (rows == 4) {
-        return new mat3x4();
-      }
+    if (rows != cols) {
+      return null;
     }
     
+    if (cols == 2) {
+      return new mat2();
+    }
+    if (cols == 3) {
+      return new mat3();
+    }
     if (cols == 4) {
-      if (rows == 2) {
-        return new mat4x2();
-      }
-      if (rows == 3) {
-        return new mat4x3();
-      }
-      if (rows == 4) {
-        return new mat4x4();
-      }
+      return new mat4();
     }
     
     return null;

@@ -17,7 +17,7 @@ class MatrixTest extends BaseTest {
    0.760902311900085
    0.387152194918898
    0.198357495624973'''));
-    
+    /*
     inputA.add(parseMatrix('''0.780227435151377   0.929385970968730   0.486791632403172 
    0.081125768865785   0.775712678608402   0.435858588580919'''));
     inputB.add(parseVector('''0.446783749429806
@@ -25,7 +25,7 @@ class MatrixTest extends BaseTest {
    0.508508655381127'''));
     expectedOutput.add(parseVector('''0.880847598834920
    0.495522709533064'''));
-    
+    */
     assert(inputA.length == inputB.length);
     assert(expectedOutput.length == inputB.length);
     
@@ -53,6 +53,7 @@ class MatrixTest extends BaseTest {
    0.476730868989407   0.464650419830879   0.363428748133464   0.415721232510293
    0.828623949506267   0.953951612073692   0.690010785130483   0.481326146122225'''));
 
+    /*
     inputA.add(parseMatrix('''   0.510771564172110   0.644318130193692
    0.817627708322262   0.378609382660268
    0.794831416883453   0.811580458282477'''));
@@ -61,7 +62,7 @@ class MatrixTest extends BaseTest {
     expectedOutput.add(parseMatrix('''0.498131991006930   1.044001131040501   0.682076199305903
    0.568441537273026   1.099393862354050   0.685497977895316
    0.708149781150244   1.457246010360863   0.942470161099672'''));
-    
+    */
     assert(inputA.length == inputB.length);
     assert(expectedOutput.length == inputB.length);
     
@@ -126,7 +127,7 @@ class MatrixTest extends BaseTest {
     
     for (int i = 0; i < input.length; i++) {
       Dynamic output = input[i].copy();
-      output.selfScaleAdjoint(1.0);
+      output.scaleAdjoint(1.0);
       relativeTest(output, expectedOutput[i]);
     }
   }
@@ -211,7 +212,7 @@ class MatrixTest extends BaseTest {
     
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i].copy();
-      output.selfTransposeMultiply(inputB[i]);
+      output.transposeMultiply(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
@@ -258,7 +259,7 @@ class MatrixTest extends BaseTest {
     
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i].copy();
-      output.selfMultiply(inputB[i]);
+      output.multiply(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
@@ -305,7 +306,7 @@ class MatrixTest extends BaseTest {
     
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i].copy();
-      output.selfMultiplyTranpose(inputB[i]);
+      output.multiplyTranspose(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
@@ -317,10 +318,10 @@ class MatrixTest extends BaseTest {
     List<Dynamic> output1 = new List<Dynamic>();
     List<Dynamic> output2 = new List<Dynamic>();
     
-    inputA.add(new mat4x4.identity());
-    inputB.add(new mat4x4.translateRaw(1.0, 3.0, 5.7));
+    inputA.add(new mat4.identity());
+    inputB.add(new mat4.translationRaw(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
-    output2.add((new mat4x4.identity()).translate(1.0, 3.0, 5.7));
+    output2.add((new mat4.identity()).translate(1.0, 3.0, 5.7));
     
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
@@ -336,10 +337,10 @@ class MatrixTest extends BaseTest {
     List<Dynamic> output1 = new List<Dynamic>();
     List<Dynamic> output2 = new List<Dynamic>();
     
-    inputA.add(new mat4x4.identity());
-    inputB.add(new mat4x4.scaleRaw(1.0, 3.0, 5.7));
+    inputA.add(new mat4.identity());
+    inputB.add(new mat4.scaleRaw(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
-    output2.add(new mat4x4.identity().scale(1.0, 3.0, 5.7));
+    output2.add(new mat4.identity().scale(1.0, 3.0, 5.7));
     
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
@@ -352,24 +353,24 @@ class MatrixTest extends BaseTest {
   void testRotateMatrix() {
     List<Dynamic> output1 = new List<Dynamic>();
     List<Dynamic> output2 = new List<Dynamic>();
-    output1.add(new mat4x4.rotationX(1.57079632679));
-    output2.add(new mat4x4.identity().rotateX(1.57079632679));
-    output1.add(new mat4x4.rotationY(1.57079632679 * 0.5));
-    output2.add(new mat4x4.identity().rotateY(1.57079632679 * 0.5));
-    output1.add(new mat4x4.rotationZ(1.57079632679 * 0.25));
-    output2.add(new mat4x4.identity().rotateZ(1.57079632679 * 0.25));
+    output1.add(new mat4.rotationX(1.57079632679));
+    output2.add(new mat4.identity().rotateX(1.57079632679));
+    output1.add(new mat4.rotationY(1.57079632679 * 0.5));
+    output2.add(new mat4.identity().rotateY(1.57079632679 * 0.5));
+    output1.add(new mat4.rotationZ(1.57079632679 * 0.25));
+    output2.add(new mat4.identity().rotateZ(1.57079632679 * 0.25));
     {
       vec3 axis = new vec3.raw(1.1, 1.1, 1.1);
       axis.normalize();
       num angle = 1.5;
       
       quat q = new quat(axis, angle);
-      mat3x3 R = q.asRotationMatrix();
-      mat4x4 T = new mat4x4.identity();
+      mat3 R = q.asRotationMatrix();
+      mat4 T = new mat4.identity();
       T.setRotation(R);
       output1.add(T);
       
-      output2.add(new mat4x4.identity().rotate(axis, angle));
+      output2.add(new mat4.identity().rotate(axis, angle));
     }
     assert(output1.length == output2.length);
     for (int i = 0; i < output1.length; i++) {

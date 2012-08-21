@@ -11,7 +11,7 @@ class QuaternionTest extends BaseTest {
   void testQuatMatrixRoundTrip(List<quat> input) {
     //print('Testing quaternion <-> matrix conversion');
     for (int i = 0; i < input.length; i++) {
-      mat3x3 R = input[i].asRotationMatrix();
+      mat3 R = input[i].asRotationMatrix();
       quat output = new quat(R);
       relativeTest(output, input[i]);
     }

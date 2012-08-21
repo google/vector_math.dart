@@ -6,7 +6,7 @@ class OpenGLMatrixTest extends BaseTest {
     vec3 lookAtPosition = new vec3(1.0, 0.0, 1.0);
     vec3 upDirection = new vec3(0.0, 1.0, 0.0);
     
-    mat4x4 lookat = makeLookAt(eyePosition, lookAtPosition, upDirection);
+    mat4 lookat = makeLookAt(eyePosition, lookAtPosition, upDirection);
     assert(lookat[0].w == 0.0);
     assert(lookat[1].w == 0.0);
     assert(lookat[2].w == 0.0);
@@ -25,7 +25,7 @@ class OpenGLMatrixTest extends BaseTest {
     num r = 1.0;
     num b = -1.0;
     num t = 1.0;
-    mat4x4 frustum = makeFrustum(l, r, b, t, n, f);
+    mat4 frustum = makeFrustum(l, r, b, t, n, f);
     relativeTest(frustum[0].xyzw, new vec4(2*n/(r-l), 0.0, 0.0, 0.0));
     relativeTest(frustum[1], new vec4(0.0, 2*n/(t-b), 0.0, 0.0));
     relativeTest(frustum[2], new vec4((r+l)/(r-l), (t+b)/(t-b), -(f+n)/(f-n), -1.0));
@@ -39,7 +39,7 @@ class OpenGLMatrixTest extends BaseTest {
     num r = 1.0;
     num b = -1.0;
     num t = 1.0;
-    mat4x4 ortho = makeOrthographic(l, r, b, t, n, f);
+    mat4 ortho = makeOrthographic(l, r, b, t, n, f);
     relativeTest(ortho[0], new vec4(2/(r-l), 0, 0, 0));
     relativeTest(ortho[1], new vec4(0, 2/(t-b), 0, 0));
     relativeTest(ortho[2], new vec4(0, 0, -2/(f-n), 0));
