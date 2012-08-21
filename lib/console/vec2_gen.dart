@@ -305,37 +305,37 @@ class vec2 {
   vec4 get ttst() => new vec4(t, t, s, t);
   vec4 get ttts() => new vec4(t, t, t, s);
   vec4 get tttt() => new vec4(t, t, t, t);
-  vec2 selfAdd(vec2 arg) {
+  vec2 add(vec2 arg) {
     x = x + arg.x;
     y = y + arg.y;
     return this;
   }
-  vec2 selfSub(vec2 arg) {
+  vec2 sub(vec2 arg) {
     x = x - arg.x;
     y = y - arg.y;
     return this;
   }
-  vec2 selfMul(vec2 arg) {
+  vec2 multiply(vec2 arg) {
     x = x * arg.x;
     y = y * arg.y;
     return this;
   }
-  vec2 selfDiv(vec2 arg) {
+  vec2 div(vec2 arg) {
     x = x / arg.x;
     y = y / arg.y;
     return this;
   }
-  vec2 selfScale(num arg) {
+  vec2 scale(num arg) {
     x = x * arg;
     y = y * arg;
     return this;
   }
-  vec2 selfNegate() {
+  vec2 negate_() {
     x = -x;
     y = -y;
     return this;
   }
-  vec2 selfAbsolute() {
+  vec2 absolute() {
     x = x.abs();
     y = y.abs();
     return this;

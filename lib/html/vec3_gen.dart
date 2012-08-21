@@ -749,43 +749,43 @@ class vec3 {
   vec4 get ppps() => new vec4(p, p, p, s);
   vec4 get pppt() => new vec4(p, p, p, t);
   vec4 get pppp() => new vec4(p, p, p, p);
-  vec3 selfAdd(vec3 arg) {
+  vec3 add(vec3 arg) {
     x = x + arg.x;
     y = y + arg.y;
     z = z + arg.z;
     return this;
   }
-  vec3 selfSub(vec3 arg) {
+  vec3 sub(vec3 arg) {
     x = x - arg.x;
     y = y - arg.y;
     z = z - arg.z;
     return this;
   }
-  vec3 selfMul(vec3 arg) {
+  vec3 multiply(vec3 arg) {
     x = x * arg.x;
     y = y * arg.y;
     z = z * arg.z;
     return this;
   }
-  vec3 selfDiv(vec3 arg) {
+  vec3 div(vec3 arg) {
     x = x / arg.x;
     y = y / arg.y;
     z = z / arg.z;
     return this;
   }
-  vec3 selfScale(num arg) {
+  vec3 scale(num arg) {
     x = x * arg;
     y = y * arg;
     z = z * arg;
     return this;
   }
-  vec3 selfNegate() {
+  vec3 negate_() {
     x = -x;
     y = -y;
     z = -z;
     return this;
   }
-  vec3 selfAbsolute() {
+  vec3 absolute() {
     x = x.abs();
     y = y.abs();
     z = z.abs();

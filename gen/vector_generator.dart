@@ -560,7 +560,7 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateSelfScalarOp(String methodName, String op) {
-    iPrint('$generatedName self$methodName(num arg) {');
+    iPrint('$generatedName $methodName(num arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = $c $op arg;');
@@ -571,7 +571,7 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateSelfOp(String methodName, String op) {
-    iPrint('$generatedName self$methodName($generatedName arg) {');
+    iPrint('$generatedName $methodName($generatedName arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = $c $op arg.$c;');
@@ -582,7 +582,7 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateSelfNegate() {
-    iPrint('$generatedName selfNegate() {');
+    iPrint('$generatedName negate_() {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = -$c;');
@@ -593,7 +593,7 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateSelfAbsolute() {
-    iPrint('$generatedName selfAbsolute() {');
+    iPrint('$generatedName absolute() {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = $c.abs();');
@@ -749,11 +749,11 @@ class VectorGenerator extends BaseGenerator {
       }
       vectorComponents = backup;
     }
-    generateSelfOp('Add', '+');
-    generateSelfOp('Sub', '-');
-    generateSelfOp('Mul', '*');
-    generateSelfOp('Div', '/');
-    generateSelfScalarOp('Scale', '*');
+    generateSelfOp('add', '+');
+    generateSelfOp('sub', '-');
+    generateSelfOp('multiply', '*');
+    generateSelfOp('div', '/');
+    generateSelfScalarOp('scale', '*');
     generateSelfNegate();
     generateSelfAbsolute();
     generateCopy();
