@@ -3,7 +3,7 @@ class VectorTest extends BaseTest {
   void testVec2DotProduct() {
     final vec2 inputA = new vec2(0.417267069084370, 0.049654430325742);
     final vec2 inputB = new vec2(0.944787189721646, 0.490864092468080);
-    final vec2 expectedOutput = 0.418602158442475;
+    final num expectedOutput = 0.418602158442475;
     relativeTest(dot(inputA, inputB), expectedOutput);
     relativeTest(dot(inputB, inputA), expectedOutput);
   }
