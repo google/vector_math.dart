@@ -78,7 +78,7 @@ class BuiltinGenerator extends BaseGenerator {
   
   void generateFunction(GeneratedFunctionDesc function) {
     iPrint('\/\/\/ ${function.docString}');
-    String prologue = 'Dynamic ${function.name}(${makeArgsString(function.args)}) {';
+    String prologue = 'Dynamic ${function.name}(${makeArgsString(function.args)}, [Dynamic out=null]) {';
     iPrint(prologue);
     iPush();
     allTypes.forEach((type) {
@@ -88,19 +88,15 @@ class BuiltinGenerator extends BaseGenerator {
         iPrint('return ${function.scalarName}(${expandArguments(function.args, '')});');
       } else {
         List<String> components = getComponents(type);
-        String code = 'return new $type(';
-        bool first = true;
+        iPrint('if (out == null) {');
+        iPush();
+        iPrint('out = new $type.zero();');
+        iPop();
+        iPrint('}');
         components.forEach((comp) {
-          if (first) {
-            var extra ='${function.scalarName}(${expandArguments(function.args, comp)})'; 
-            code = '$code$extra';
-          } else {
-            var extra = ', ${function.scalarName}(${expandArguments(function.args, comp)})';
-            code = '$code$extra'; 
-          }
-          first = false;
+            iPrint('out$comp = ${function.scalarName}(${expandArguments(function.args, comp)});');
         });
-        iPrint('$code);');
+        iPrint('return out;');
       }
       iPop();
       iPrint('}');

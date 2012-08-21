@@ -22,194 +22,410 @@
 
 */
 /// Returns absolute value of [arg].
-Dynamic abs(Dynamic arg) {
+Dynamic abs(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.abs(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.abs(arg.x), _ScalerHelpers.abs(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.abs(arg.x);
+    out.y = _ScalerHelpers.abs(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.abs(arg.x), _ScalerHelpers.abs(arg.y), _ScalerHelpers.abs(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.abs(arg.x);
+    out.y = _ScalerHelpers.abs(arg.y);
+    out.z = _ScalerHelpers.abs(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.abs(arg.x), _ScalerHelpers.abs(arg.y), _ScalerHelpers.abs(arg.z), _ScalerHelpers.abs(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.abs(arg.x);
+    out.y = _ScalerHelpers.abs(arg.y);
+    out.z = _ScalerHelpers.abs(arg.z);
+    out.w = _ScalerHelpers.abs(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns 1.0 or 0.0 or -1.0 depending on sign of [arg].
-Dynamic sign(Dynamic arg) {
+Dynamic sign(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.sign(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.sign(arg.x), _ScalerHelpers.sign(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.sign(arg.x);
+    out.y = _ScalerHelpers.sign(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.sign(arg.x), _ScalerHelpers.sign(arg.y), _ScalerHelpers.sign(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.sign(arg.x);
+    out.y = _ScalerHelpers.sign(arg.y);
+    out.z = _ScalerHelpers.sign(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.sign(arg.x), _ScalerHelpers.sign(arg.y), _ScalerHelpers.sign(arg.z), _ScalerHelpers.sign(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.sign(arg.x);
+    out.y = _ScalerHelpers.sign(arg.y);
+    out.z = _ScalerHelpers.sign(arg.z);
+    out.w = _ScalerHelpers.sign(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns floor value of [arg].
-Dynamic floor(Dynamic arg) {
+Dynamic floor(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.floor(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.floor(arg.x), _ScalerHelpers.floor(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.floor(arg.x);
+    out.y = _ScalerHelpers.floor(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.floor(arg.x), _ScalerHelpers.floor(arg.y), _ScalerHelpers.floor(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.floor(arg.x);
+    out.y = _ScalerHelpers.floor(arg.y);
+    out.z = _ScalerHelpers.floor(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.floor(arg.x), _ScalerHelpers.floor(arg.y), _ScalerHelpers.floor(arg.z), _ScalerHelpers.floor(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.floor(arg.x);
+    out.y = _ScalerHelpers.floor(arg.y);
+    out.z = _ScalerHelpers.floor(arg.z);
+    out.w = _ScalerHelpers.floor(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] truncated.
-Dynamic trunc(Dynamic arg) {
+Dynamic trunc(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.truncate(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.truncate(arg.x), _ScalerHelpers.truncate(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.truncate(arg.x);
+    out.y = _ScalerHelpers.truncate(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.truncate(arg.x), _ScalerHelpers.truncate(arg.y), _ScalerHelpers.truncate(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.truncate(arg.x);
+    out.y = _ScalerHelpers.truncate(arg.y);
+    out.z = _ScalerHelpers.truncate(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.truncate(arg.x), _ScalerHelpers.truncate(arg.y), _ScalerHelpers.truncate(arg.z), _ScalerHelpers.truncate(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.truncate(arg.x);
+    out.y = _ScalerHelpers.truncate(arg.y);
+    out.z = _ScalerHelpers.truncate(arg.z);
+    out.w = _ScalerHelpers.truncate(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] rounded to nearest integer.
-Dynamic round(Dynamic arg) {
+Dynamic round(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.round(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.round(arg.x), _ScalerHelpers.round(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.round(arg.x);
+    out.y = _ScalerHelpers.round(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.round(arg.x), _ScalerHelpers.round(arg.y), _ScalerHelpers.round(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.round(arg.x);
+    out.y = _ScalerHelpers.round(arg.y);
+    out.z = _ScalerHelpers.round(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.round(arg.x), _ScalerHelpers.round(arg.y), _ScalerHelpers.round(arg.z), _ScalerHelpers.round(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.round(arg.x);
+    out.y = _ScalerHelpers.round(arg.y);
+    out.z = _ScalerHelpers.round(arg.z);
+    out.w = _ScalerHelpers.round(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] rounded to nearest even integer.
-Dynamic roundEven(Dynamic arg) {
+Dynamic roundEven(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.roundEven(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.roundEven(arg.x), _ScalerHelpers.roundEven(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.roundEven(arg.x);
+    out.y = _ScalerHelpers.roundEven(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.roundEven(arg.x), _ScalerHelpers.roundEven(arg.y), _ScalerHelpers.roundEven(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.roundEven(arg.x);
+    out.y = _ScalerHelpers.roundEven(arg.y);
+    out.z = _ScalerHelpers.roundEven(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.roundEven(arg.x), _ScalerHelpers.roundEven(arg.y), _ScalerHelpers.roundEven(arg.z), _ScalerHelpers.roundEven(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.roundEven(arg.x);
+    out.y = _ScalerHelpers.roundEven(arg.y);
+    out.z = _ScalerHelpers.roundEven(arg.z);
+    out.w = _ScalerHelpers.roundEven(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns ceiling of [arg]
-Dynamic ceil(Dynamic arg) {
+Dynamic ceil(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.ceil(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.ceil(arg.x), _ScalerHelpers.ceil(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.ceil(arg.x);
+    out.y = _ScalerHelpers.ceil(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.ceil(arg.x), _ScalerHelpers.ceil(arg.y), _ScalerHelpers.ceil(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.ceil(arg.x);
+    out.y = _ScalerHelpers.ceil(arg.y);
+    out.z = _ScalerHelpers.ceil(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.ceil(arg.x), _ScalerHelpers.ceil(arg.y), _ScalerHelpers.ceil(arg.z), _ScalerHelpers.ceil(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.ceil(arg.x);
+    out.y = _ScalerHelpers.ceil(arg.y);
+    out.z = _ScalerHelpers.ceil(arg.z);
+    out.w = _ScalerHelpers.ceil(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns fraction of [arg]
-Dynamic fract(Dynamic arg) {
+Dynamic fract(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.fract(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.fract(arg.x), _ScalerHelpers.fract(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.fract(arg.x);
+    out.y = _ScalerHelpers.fract(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.fract(arg.x), _ScalerHelpers.fract(arg.y), _ScalerHelpers.fract(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.fract(arg.x);
+    out.y = _ScalerHelpers.fract(arg.y);
+    out.z = _ScalerHelpers.fract(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.fract(arg.x), _ScalerHelpers.fract(arg.y), _ScalerHelpers.fract(arg.z), _ScalerHelpers.fract(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.fract(arg.x);
+    out.y = _ScalerHelpers.fract(arg.y);
+    out.z = _ScalerHelpers.fract(arg.z);
+    out.w = _ScalerHelpers.fract(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [x] mod [y]
-Dynamic mod(Dynamic x, Dynamic y) {
+Dynamic mod(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.mod(x, y);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.mod(x.x, y.x), _ScalerHelpers.mod(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.mod(x.x, y.x);
+    out.y = _ScalerHelpers.mod(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.mod(x.x, y.x), _ScalerHelpers.mod(x.y, y.y), _ScalerHelpers.mod(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.mod(x.x, y.x);
+    out.y = _ScalerHelpers.mod(x.y, y.y);
+    out.z = _ScalerHelpers.mod(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.mod(x.x, y.x), _ScalerHelpers.mod(x.y, y.y), _ScalerHelpers.mod(x.z, y.z), _ScalerHelpers.mod(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.mod(x.x, y.x);
+    out.y = _ScalerHelpers.mod(x.y, y.y);
+    out.z = _ScalerHelpers.mod(x.z, y.z);
+    out.w = _ScalerHelpers.mod(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
 /// Returns component wise minimum of [x] and [y]
-Dynamic min(Dynamic x, Dynamic y) {
+Dynamic min(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return Math.min(x, y);
   }
   if (x is vec2) {
-    return new vec2(Math.min(x.x, y.x), Math.min(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.min(x.x, y.x);
+    out.y = Math.min(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(Math.min(x.x, y.x), Math.min(x.y, y.y), Math.min(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.min(x.x, y.x);
+    out.y = Math.min(x.y, y.y);
+    out.z = Math.min(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(Math.min(x.x, y.x), Math.min(x.y, y.y), Math.min(x.z, y.z), Math.min(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.min(x.x, y.x);
+    out.y = Math.min(x.y, y.y);
+    out.z = Math.min(x.z, y.z);
+    out.w = Math.min(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
 /// Returns component wise maximum of [x] and [y]
-Dynamic max(Dynamic x, Dynamic y) {
+Dynamic max(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return Math.max(x, y);
   }
   if (x is vec2) {
-    return new vec2(Math.max(x.x, y.x), Math.max(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.max(x.x, y.x);
+    out.y = Math.max(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(Math.max(x.x, y.x), Math.max(x.y, y.y), Math.max(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.max(x.x, y.x);
+    out.y = Math.max(x.y, y.y);
+    out.z = Math.max(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(Math.max(x.x, y.x), Math.max(x.y, y.y), Math.max(x.z, y.z), Math.max(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.max(x.x, y.x);
+    out.y = Math.max(x.y, y.y);
+    out.z = Math.max(x.z, y.z);
+    out.w = Math.max(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
 /// Component wise clamp of [x] between [min_] and [max_]
-Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_) {
+Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.clamp(x, min_, max_);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.clamp(x.x, min_.x, max_.x), _ScalerHelpers.clamp(x.y, min_.y, max_.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    out.y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.clamp(x.x, min_.x, max_.x), _ScalerHelpers.clamp(x.y, min_.y, max_.y), _ScalerHelpers.clamp(x.z, min_.z, max_.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    out.y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    out.z = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.clamp(x.x, min_.x, max_.x), _ScalerHelpers.clamp(x.y, min_.y, max_.y), _ScalerHelpers.clamp(x.z, min_.z, max_.z), _ScalerHelpers.clamp(x.w, min_.w, max_.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    out.y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    out.z = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
+    out.w = _ScalerHelpers.clamp(x.w, min_.w, max_.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -248,34 +464,70 @@ Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
   }
 }
 /// Returns 0.0 if x < [y] and 1.0 otherwise.
-Dynamic step(Dynamic x, Dynamic y) {
+Dynamic step(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.step(x, y);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.step(x.x, y.x), _ScalerHelpers.step(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.step(x.x, y.x);
+    out.y = _ScalerHelpers.step(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.step(x.x, y.x), _ScalerHelpers.step(x.y, y.y), _ScalerHelpers.step(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.step(x.x, y.x);
+    out.y = _ScalerHelpers.step(x.y, y.y);
+    out.z = _ScalerHelpers.step(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.step(x.x, y.x), _ScalerHelpers.step(x.y, y.y), _ScalerHelpers.step(x.z, y.z), _ScalerHelpers.step(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.step(x.x, y.x);
+    out.y = _ScalerHelpers.step(x.y, y.y);
+    out.z = _ScalerHelpers.step(x.z, y.z);
+    out.w = _ScalerHelpers.step(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
 /// Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].
-Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x) {
+Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.smoothstep(edge0, edge1, x);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x), _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    out.y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x), _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y), _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    out.y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    out.z = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x), _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y), _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z), _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    out.y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    out.z = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
+    out.w = _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }

@@ -22,114 +22,240 @@
 
 */
 /// Returns sine of [arg]. Return type matches the type of [arg]
-Dynamic sin(Dynamic arg) {
+Dynamic sin(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.sin(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.sin(arg.x), Math.sin(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.sin(arg.x);
+    out.y = Math.sin(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.sin(arg.x), Math.sin(arg.y), Math.sin(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.sin(arg.x);
+    out.y = Math.sin(arg.y);
+    out.z = Math.sin(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.sin(arg.x), Math.sin(arg.y), Math.sin(arg.z), Math.sin(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.sin(arg.x);
+    out.y = Math.sin(arg.y);
+    out.z = Math.sin(arg.z);
+    out.w = Math.sin(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns cosine of [arg]. Return type matches the type of [arg]
-Dynamic cos(Dynamic arg) {
+Dynamic cos(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.cos(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.cos(arg.x), Math.cos(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.cos(arg.x);
+    out.y = Math.cos(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.cos(arg.x), Math.cos(arg.y), Math.cos(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.cos(arg.x);
+    out.y = Math.cos(arg.y);
+    out.z = Math.cos(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.cos(arg.x), Math.cos(arg.y), Math.cos(arg.z), Math.cos(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.cos(arg.x);
+    out.y = Math.cos(arg.y);
+    out.z = Math.cos(arg.z);
+    out.w = Math.cos(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns tangent of [arg]. Return type matches the type of [arg]
-Dynamic tan(Dynamic arg) {
+Dynamic tan(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.tan(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.tan(arg.x), Math.tan(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.tan(arg.x);
+    out.y = Math.tan(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.tan(arg.x), Math.tan(arg.y), Math.tan(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.tan(arg.x);
+    out.y = Math.tan(arg.y);
+    out.z = Math.tan(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.tan(arg.x), Math.tan(arg.y), Math.tan(arg.z), Math.tan(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.tan(arg.x);
+    out.y = Math.tan(arg.y);
+    out.z = Math.tan(arg.z);
+    out.w = Math.tan(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns arc sine of [arg]. Return type matches the type of [arg]
-Dynamic asin(Dynamic arg) {
+Dynamic asin(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.asin(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.asin(arg.x), Math.asin(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.asin(arg.x);
+    out.y = Math.asin(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.asin(arg.x), Math.asin(arg.y), Math.asin(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.asin(arg.x);
+    out.y = Math.asin(arg.y);
+    out.z = Math.asin(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.asin(arg.x), Math.asin(arg.y), Math.asin(arg.z), Math.asin(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.asin(arg.x);
+    out.y = Math.asin(arg.y);
+    out.z = Math.asin(arg.z);
+    out.w = Math.asin(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns arc cosine of [arg]. Return type matches the type of [arg]
-Dynamic acos(Dynamic arg) {
+Dynamic acos(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.acos(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.acos(arg.x), Math.acos(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.acos(arg.x);
+    out.y = Math.acos(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.acos(arg.x), Math.acos(arg.y), Math.acos(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.acos(arg.x);
+    out.y = Math.acos(arg.y);
+    out.z = Math.acos(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.acos(arg.x), Math.acos(arg.y), Math.acos(arg.z), Math.acos(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.acos(arg.x);
+    out.y = Math.acos(arg.y);
+    out.z = Math.acos(arg.z);
+    out.w = Math.acos(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
-Dynamic radians(Dynamic arg) {
+Dynamic radians(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.radians(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.radians(arg.x);
+    out.y = _ScalerHelpers.radians(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y), _ScalerHelpers.radians(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.radians(arg.x);
+    out.y = _ScalerHelpers.radians(arg.y);
+    out.z = _ScalerHelpers.radians(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y), _ScalerHelpers.radians(arg.z), _ScalerHelpers.radians(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.radians(arg.x);
+    out.y = _ScalerHelpers.radians(arg.y);
+    out.z = _ScalerHelpers.radians(arg.z);
+    out.w = _ScalerHelpers.radians(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
-Dynamic degrees(Dynamic arg) {
+Dynamic degrees(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.degrees(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.degrees(arg.x);
+    out.y = _ScalerHelpers.degrees(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y), _ScalerHelpers.degrees(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.degrees(arg.x);
+    out.y = _ScalerHelpers.degrees(arg.y);
+    out.z = _ScalerHelpers.degrees(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y), _ScalerHelpers.degrees(arg.z), _ScalerHelpers.degrees(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.degrees(arg.x);
+    out.y = _ScalerHelpers.degrees(arg.y);
+    out.z = _ScalerHelpers.degrees(arg.z);
+    out.w = _ScalerHelpers.degrees(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }

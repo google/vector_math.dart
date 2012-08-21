@@ -22,114 +22,240 @@
 
 */
 /// Returns [x] raised to the exponent [y]. Supports vectors and numbers.
-Dynamic pow(Dynamic x, Dynamic y) {
+Dynamic pow(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return Math.pow(x, y);
   }
   if (x is vec2) {
-    return new vec2(Math.pow(x.x, y.x), Math.pow(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.pow(x.x, y.x);
+    out.y = Math.pow(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(Math.pow(x.x, y.x), Math.pow(x.y, y.y), Math.pow(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.pow(x.x, y.x);
+    out.y = Math.pow(x.y, y.y);
+    out.z = Math.pow(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(Math.pow(x.x, y.x), Math.pow(x.y, y.y), Math.pow(x.z, y.z), Math.pow(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.pow(x.x, y.x);
+    out.y = Math.pow(x.y, y.y);
+    out.z = Math.pow(x.z, y.z);
+    out.w = Math.pow(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
 /// Returns *e* raised to the exponent [arg]. Supports vectors and numbers.
-Dynamic exp(Dynamic arg) {
+Dynamic exp(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.exp(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.exp(arg.x), Math.exp(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.exp(arg.x);
+    out.y = Math.exp(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.exp(arg.x), Math.exp(arg.y), Math.exp(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.exp(arg.x);
+    out.y = Math.exp(arg.y);
+    out.z = Math.exp(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.exp(arg.x), Math.exp(arg.y), Math.exp(arg.z), Math.exp(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.exp(arg.x);
+    out.y = Math.exp(arg.y);
+    out.z = Math.exp(arg.z);
+    out.w = Math.exp(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns the logarithm of [arg] base *e*. Supports vectors and numbers.
-Dynamic log(Dynamic arg) {
+Dynamic log(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.log(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.log(arg.x), Math.log(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.log(arg.x);
+    out.y = Math.log(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.log(arg.x), Math.log(arg.y), Math.log(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.log(arg.x);
+    out.y = Math.log(arg.y);
+    out.z = Math.log(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.log(arg.x), Math.log(arg.y), Math.log(arg.z), Math.log(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.log(arg.x);
+    out.y = Math.log(arg.y);
+    out.z = Math.log(arg.z);
+    out.w = Math.log(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
-Dynamic exp2(Dynamic arg) {
+Dynamic exp2(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.exp2(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.exp2(arg.x);
+    out.y = _ScalerHelpers.exp2(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y), _ScalerHelpers.exp2(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.exp2(arg.x);
+    out.y = _ScalerHelpers.exp2(arg.y);
+    out.z = _ScalerHelpers.exp2(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y), _ScalerHelpers.exp2(arg.z), _ScalerHelpers.exp2(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.exp2(arg.x);
+    out.y = _ScalerHelpers.exp2(arg.y);
+    out.z = _ScalerHelpers.exp2(arg.z);
+    out.w = _ScalerHelpers.exp2(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
-Dynamic log2(Dynamic arg) {
+Dynamic log2(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.log2(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.log2(arg.x);
+    out.y = _ScalerHelpers.log2(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y), _ScalerHelpers.log2(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.log2(arg.x);
+    out.y = _ScalerHelpers.log2(arg.y);
+    out.z = _ScalerHelpers.log2(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y), _ScalerHelpers.log2(arg.z), _ScalerHelpers.log2(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.log2(arg.x);
+    out.y = _ScalerHelpers.log2(arg.y);
+    out.z = _ScalerHelpers.log2(arg.z);
+    out.w = _ScalerHelpers.log2(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns the square root of [arg].
-Dynamic sqrt(Dynamic arg) {
+Dynamic sqrt(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.sqrt(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.sqrt(arg.x), Math.sqrt(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.sqrt(arg.x);
+    out.y = Math.sqrt(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.sqrt(arg.x), Math.sqrt(arg.y), Math.sqrt(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.sqrt(arg.x);
+    out.y = Math.sqrt(arg.y);
+    out.z = Math.sqrt(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.sqrt(arg.x), Math.sqrt(arg.y), Math.sqrt(arg.z), Math.sqrt(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.sqrt(arg.x);
+    out.y = Math.sqrt(arg.y);
+    out.z = Math.sqrt(arg.z);
+    out.w = Math.sqrt(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
 /// Returns the inverse square root of [arg]. Supports vectors and numbers.
-Dynamic inversesqrt(Dynamic arg) {
+Dynamic inversesqrt(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.inversesqrt(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.inversesqrt(arg.x);
+    out.y = _ScalerHelpers.inversesqrt(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y), _ScalerHelpers.inversesqrt(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.inversesqrt(arg.x);
+    out.y = _ScalerHelpers.inversesqrt(arg.y);
+    out.z = _ScalerHelpers.inversesqrt(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y), _ScalerHelpers.inversesqrt(arg.z), _ScalerHelpers.inversesqrt(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.inversesqrt(arg.x);
+    out.y = _ScalerHelpers.inversesqrt(arg.y);
+    out.z = _ScalerHelpers.inversesqrt(arg.z);
+    out.w = _ScalerHelpers.inversesqrt(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
