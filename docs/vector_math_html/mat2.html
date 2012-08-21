@@ -1,0 +1,1003 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>mat2 Class / vector_math_html Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="vector_math_html" data-type="mat2">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../vector_math_html.html">vector_math_html</a> &rsaquo; <a href="../vector_math_html/mat2.html">mat2</a></div>
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../vector_math_html.html">vector_math_html</a></h2><ul class="icon">
+<li><div class="icon-class"></div><strong>mat2</strong></li>
+<li><a href="../vector_math_html/mat3.html"><div class="icon-class"></div>mat3</a></li>
+<li><a href="../vector_math_html/mat4.html"><div class="icon-class"></div>mat4</a></li>
+<li><a href="../vector_math_html/quat.html"><div class="icon-class"></div>quat</a></li>
+<li><a href="../vector_math_html/vec2.html"><div class="icon-class"></div>vec2</a></li>
+<li><a href="../vector_math_html/vec3.html"><div class="icon-class"></div>vec3</a></li>
+<li><a href="../vector_math_html/vec4.html"><div class="icon-class"></div>vec4</a></li>
+</ul>
+</div>
+<div class="content">
+        <h2><strong>mat2</strong>
+          Class
+        </h2>
+        
+<div class="doc">
+<p>mat2 is a column major matrix where each column is represented by <a class="crossref" href="../vector_math_html/vec2.html">vec2</a>. This matrix has 2 columns and 2 rows.</p>
+</div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>.rotation(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat2.html#new:mat2.outer">mat2</a> representing a rotation by <a class="crossref" href="../vector_math_html.html#radians">radians</a>.</p>
+<pre class="source">
+mat2.rotation(num radians_) {
+  col0 = new vec2.zero();
+  col1 = new vec2.zero();
+  setRotation(radians_);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>([arg0, arg1, arg2, arg3]) <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+<p>Constructs a new mat2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.</p>
+<pre class="source">
+mat2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3]) {
+  //Initialize the matrix as the identity matrix
+  col0 = new vec2.zero();
+  col1 = new vec2.zero();
+  col0.x = 1.0;
+  col1.y = 1.0;
+  if (arg0 is num &amp;&amp; arg1 is num &amp;&amp; arg2 is num &amp;&amp; arg3 is num) {
+    col0.x = arg0;
+    col0.y = arg1;
+    col1.x = arg2;
+    col1.y = arg3;
+    return;
+  }
+  if (arg0 is num &amp;&amp; arg1 == null &amp;&amp; arg2 == null &amp;&amp; arg3 == null) {
+    col0.x = arg0;
+    col1.y = arg0;
+    return;
+  }
+  if (arg0 is vec2 &amp;&amp; arg1 is vec2) {
+    col0 = arg0;
+    col1 = arg1;
+    return;
+  }
+  if (arg0 is mat2) {
+    col0 = arg0.col0;
+    col1 = arg0.col1;
+    return;
+  }
+  if (arg0 is vec2 &amp;&amp; arg1 == null &amp;&amp; arg2 == null &amp;&amp; arg3 == null) {
+    col0.x = arg0.x;
+    col1.y = arg0.y;
+  }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>.identity() <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+<p>Constructs a new identity <a class="crossref" href="../vector_math_html/mat2.html#new:mat2.outer">mat2</a>.</p>
+<pre class="source">
+mat2.identity() {
+  col0 = new vec2();
+  col1 = new vec2();
+  col0.x = 1.0;
+  col0.y = 0.0;
+  col1.x = 0.0;
+  col1.y = 1.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>.copy(<a href="../vector_math_html/mat2.html">mat2</a> other) <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat2.html#new:mat2.outer">mat2</a> which is a copy of 
+<span class="param">other</span>.</p>
+<pre class="source">
+mat2.copy(mat2 other) {
+  col0 = new vec2();
+  col1 = new vec2();
+  col0.x = other.col0.x;
+  col0.y = other.col0.y;
+  col1.x = other.col1.x;
+  col1.y = other.col1.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>.raw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg0, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg1, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg2, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg3) <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2.raw(num arg0, num arg1, num arg2, num arg3) {
+  col0 = new vec2.zero();
+  col1 = new vec2.zero();
+  col0.x = arg0;
+  col0.y = arg1;
+  col1.x = arg2;
+  col1.y = arg3;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>.zero() <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat2.html#new:mat2.outer">mat2</a> filled with zeros.</p>
+<pre class="source">
+mat2.zero() {
+  col0 = new vec2();
+  col1 = new vec2();
+  col0.x = 0.0;
+  col0.y = 0.0;
+  col1.x = 0.0;
+  col1.y = 0.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat2">
+<span class="show-code">Code</span>
+new <strong>mat2</strong>.outer(<a href="../vector_math_html/vec2.html">vec2</a> u, <a href="../vector_math_html/vec2.html">vec2</a> v) <a class="anchor-link" href="#mat2"
+              title="Permalink to mat2.mat2">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat2.html#new:mat2.outer">mat2</a> from computing the outer product of 
+<span class="param">u</span> and 
+<span class="param">v</span>.</p>
+<pre class="source">
+mat2.outer(vec2 u, vec2 v) {
+  col0 = new vec2();
+  col1 = new vec2();
+  col0.x = u.x * v.x;
+  col0.y = u.x * v.y;
+  col1.x = u.y * v.x;
+  col1.y = u.y * v.y;
+}
+</pre>
+</div>
+</div>
+<h3>Methods</h3>
+<div class="method"><h4 id="absolute">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>absolute</strong>() <a class="anchor-link" href="#absolute"
+              title="Permalink to mat2.absolute">#</a></h4>
+<div class="doc">
+<p>Returns the component wise absolute value of this.</p>
+<pre class="source">
+mat2 absolute() {
+  mat2 r = new mat2();
+  r.col0.x = col0.x.abs();
+  r.col0.y = col0.y.abs();
+  r.col1.x = col1.x.abs();
+  r.col1.y = col1.y.abs();
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="absoluteError">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>absoluteError</strong>(<a href="../vector_math_html/mat2.html">mat2</a> correct) <a class="anchor-link" href="#absoluteError"
+              title="Permalink to mat2.absoluteError">#</a></h4>
+<div class="doc">
+<p>Returns absolute error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num absoluteError(mat2 correct) {
+  num this_norm = infinityNorm();
+  num correct_norm = correct.infinityNorm();
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="add">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>add</strong>(<a href="../vector_math_html/mat2.html">mat2</a> o) <a class="anchor-link" href="#add"
+              title="Permalink to mat2.add">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 add(mat2 o) {
+  col0.x = col0.x + o.col0.x;
+  col0.y = col0.y + o.col0.y;
+  col1.x = col1.x + o.col1.x;
+  col1.y = col1.y + o.col1.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="cols">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get cols</strong>() <a class="anchor-link" href="#cols"
+              title="Permalink to mat2.get cols">#</a></h4>
+<div class="doc">
+<p>Returns the number of columns in the matrix.</p>
+<pre class="source">
+num get cols() =&gt; 2;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copy">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>copy</strong>() <a class="anchor-link" href="#copy"
+              title="Permalink to mat2.copy">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 copy() {
+  return new mat2.copy(this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyAsArray">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> <strong>copyAsArray</strong>() <a class="anchor-link" href="#copyAsArray"
+              title="Permalink to mat2.copyAsArray">#</a></h4>
+<div class="doc">
+<p>Returns a copy of <code>this</code> as a <code>Float32Array</code>.</p>
+<pre class="source">
+Float32Array copyAsArray() {
+  Float32Array array = new Float32Array(4);
+  int i = 0;
+  array[i] = col0.x;
+  i++;
+  array[i] = col0.y;
+  i++;
+  array[i] = col1.x;
+  i++;
+  array[i] = col1.y;
+  i++;
+  return array;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFrom">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>copyFrom</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#copyFrom"
+              title="Permalink to mat2.copyFrom">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 copyFrom(mat2 arg) {
+  col0.x = arg.col0.x;
+  col0.y = arg.col0.y;
+  col1.x = arg.col1.x;
+  col1.y = arg.col1.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyFromArray">
+<span class="show-code">Code</span>
+void <strong>copyFromArray</strong>(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#copyFromArray"
+              title="Permalink to mat2.copyFromArray">#</a></h4>
+<div class="doc">
+<p>Copies elements from 
+<span class="param">array</span> into <code>this</code> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+void copyFromArray(Float32Array array, [int offset=0]) {
+  int i = offset;
+  col0.x = array[i];
+  i++;
+  col0.y = array[i];
+  i++;
+  col1.x = array[i];
+  i++;
+  col1.y = array[i];
+  i++;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyInto">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>copyInto</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#copyInto"
+              title="Permalink to mat2.copyInto">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 copyInto(mat2 arg) {
+  arg.col0.x = col0.x;
+  arg.col0.y = col0.y;
+  arg.col1.x = col1.x;
+  arg.col1.y = col1.y;
+  return arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="copyIntoArray">
+<span class="show-code">Code</span>
+void <strong>copyIntoArray</strong>(<a href="http://api.dartlang.org/dart_html/Float32Array.html">Float32Array</a> array, [<a href="http://api.dartlang.org/dart_core/int.html">int</a> offset = 0]) <a class="anchor-link" href="#copyIntoArray"
+              title="Permalink to mat2.copyIntoArray">#</a></h4>
+<div class="doc">
+<p>Copies <code>this</code> into 
+<span class="param">array</span> starting at 
+<span class="param">offset</span>.</p>
+<pre class="source">
+void copyIntoArray(Float32Array array, [int offset=0]) {
+  int i = offset;
+  array[i] = col0.x;
+  i++;
+  array[i] = col0.y;
+  i++;
+  array[i] = col1.x;
+  i++;
+  array[i] = col1.y;
+  i++;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="determinant">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>determinant</strong>() <a class="anchor-link" href="#determinant"
+              title="Permalink to mat2.determinant">#</a></h4>
+<div class="doc">
+<p>Returns the determinant of this matrix.</p>
+<pre class="source">
+num determinant() {
+  return (col0.x * col1.y) - (col0.y*col1.x);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getColumn">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>getColumn</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column) <a class="anchor-link" href="#getColumn"
+              title="Permalink to mat2.getColumn">#</a></h4>
+<div class="doc">
+<p>Gets the 
+<span class="param">column</span> of the matrix</p>
+<pre class="source">
+vec2 getColumn(int column) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 2);
+  return new vec2(this[column]);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRow">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>getRow</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> row) <a class="anchor-link" href="#getRow"
+              title="Permalink to mat2.getRow">#</a></h4>
+<div class="doc">
+<p>Gets the 
+<span class="param">row</span> of the matrix</p>
+<pre class="source">
+vec2 getRow(int row) {
+  assert(row &gt;= 0 &amp;&amp; row &lt; 2);
+  vec2 r = new vec2();
+  r.x = col0[row];
+  r.y = col1[row];
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="identity">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>identity</strong>() <a class="anchor-link" href="#identity"
+              title="Permalink to mat2.identity">#</a></h4>
+<div class="doc">
+<p>Makes <code>this</code> into the identity matrix.</p>
+<pre class="source">
+mat2 identity() {
+  col0.x = 1.0;
+  col0.y = 0.0;
+  col1.x = 0.0;
+  col1.y = 1.0;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="infinityNorm">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>infinityNorm</strong>() <a class="anchor-link" href="#infinityNorm"
+              title="Permalink to mat2.infinityNorm">#</a></h4>
+<div class="doc">
+<p>Returns infinity norm of the matrix. Used for numerical analysis.</p>
+<pre class="source">
+num infinityNorm() {
+  num norm = 0.0;
+  {
+    num row_norm = 0.0;
+    row_norm += this[0][0].abs();
+    row_norm += this[0][1].abs();
+    norm = row_norm &gt; norm ? row_norm : norm;
+  }
+  {
+    num row_norm = 0.0;
+    row_norm += this[1][0].abs();
+    row_norm += this[1][1].abs();
+    norm = row_norm &gt; norm ? row_norm : norm;
+  }
+  return norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="invert">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>invert</strong>() <a class="anchor-link" href="#invert"
+              title="Permalink to mat2.invert">#</a></h4>
+<div class="doc">
+<p>Invert the matrix. Returns the determinant.</p>
+<pre class="source">
+num invert() {
+  num det = determinant();
+  if (det == 0.0) {
+    return 0.0;
+  }
+  num invDet = 1.0 / det;
+  num temp = col0.x;
+  col0.x = col1.y * invDet;
+  col0.y = - col0.y * invDet;
+  col1.x = - col1.x * invDet;
+  col1.y = temp * invDet;
+  return det;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="length">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get length</strong>() <a class="anchor-link" href="#length"
+              title="Permalink to mat2.get length">#</a></h4>
+<div class="doc">
+<p>Returns the number of columns in the matrix.</p>
+<pre class="source">
+num get length() =&gt; 2;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="multiply">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>multiply</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#multiply"
+              title="Permalink to mat2.multiply">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 multiply(mat2 arg) {
+  final num m00 = col0.x;
+  final num m01 = col1.x;
+  final num m10 = col0.y;
+  final num m11 = col1.y;
+  final num n00 = arg.col0.x;
+  final num n01 = arg.col1.x;
+  final num n10 = arg.col0.y;
+  final num n11 = arg.col1.y;
+  col0.x =  (m00 * n00) + (m01 * n10);
+  col1.x =  (m00 * n01) + (m01 * n11);
+  col0.y =  (m10 * n00) + (m11 * n10);
+  col1.y =  (m10 * n01) + (m11 * n11);
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="multiplyTranspose">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>multiplyTranspose</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#multiplyTranspose"
+              title="Permalink to mat2.multiplyTranspose">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 multiplyTranspose(mat2 arg) {
+  num m00 = col0.x;
+  num m01 = col1.x;
+  num m10 = col0.y;
+  num m11 = col1.y;
+  col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x);
+  col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y);
+  col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x);
+  col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y);
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="negate_">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>negate_</strong>() <a class="anchor-link" href="#negate_"
+              title="Permalink to mat2.negate_">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 negate_() {
+  col0.x = -col0.x;
+  col0.y = -col0.y;
+  col1.x = -col1.x;
+  col1.y = -col1.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column) <a class="anchor-link" href="#operator"
+              title="Permalink to mat2.operator []">#</a></h4>
+<div class="doc">
+<p>Gets the 
+<span class="param">column</span> of the matrix</p>
+<pre class="source">
+vec2 operator[](int column) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 2);
+  switch (column) {
+    case 0: return col0;
+    case 1: return col1;
+  }
+  throw new IllegalArgumentException(column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>operator -</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat2.operator -">#</a></h4>
+<div class="doc">
+<p>Returns new matrix after component wise <code>this</code> - 
+<span class="param">arg</span></p>
+<pre class="source">
+mat2 operator-(mat2 arg) {
+  mat2 r = new mat2();
+  r.col0.x = col0.x - arg.col0.x;
+  r.col0.y = col0.y - arg.col0.y;
+  r.col1.x = col1.x - arg.col1.x;
+  r.col1.y = col1.y - arg.col1.y;
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>operator negate</strong>() <a class="anchor-link" href="#operator"
+              title="Permalink to mat2.operator negate">#</a></h4>
+<div class="doc">
+<p>Returns new matrix -this</p>
+<pre class="source">
+mat2 operator negate() {
+  mat2 r = new mat2();
+  r[0] = -this[0];
+  r[1] = -this[1];
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+void <strong>operator []=</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column, <a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat2.operator []=">#</a></h4>
+<div class="doc">
+<p>Assigns the 
+<span class="param">column</span> of the matrix 
+<span class="param">arg</span></p>
+<pre class="source">
+void operator[]=(int column, vec2 arg) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 2);
+  switch (column) {
+    case 0: col0 = arg; break;
+    case 1: col1 = arg; break;
+  }
+  throw new IllegalArgumentException(column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<strong>operator *</strong>(arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat2.operator *">#</a></h4>
+<div class="doc">
+<p>Returns a new vector or matrix by multiplying <code>this</code> with 
+<span class="param">arg</span>.</p>
+<pre class="source">
+Dynamic operator*(Dynamic arg) {
+  if (arg is num) {
+    mat2 r = new mat2.zero();
+    r.col0.x = col0.x * arg;
+    r.col0.y = col0.y * arg;
+    r.col1.x = col1.x * arg;
+    r.col1.y = col1.y * arg;
+    return r;
+  }
+  if (arg is vec2) {
+    vec2 r = new vec2.zero();
+    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
+    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+    return r;
+  }
+  if (2 == arg.rows) {
+    Dynamic r = null;
+    if (arg.cols == 2) {
+      r = new mat2.zero();
+      r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
+      r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
+      r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
+      r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
+      return r;
+    }
+    return r;
+  }
+  throw new IllegalArgumentException(arg);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>operator +</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat2.operator +">#</a></h4>
+<div class="doc">
+<p>Returns new matrix after component wise <code>this</code> + 
+<span class="param">arg</span></p>
+<pre class="source">
+mat2 operator+(mat2 arg) {
+  mat2 r = new mat2();
+  r.col0.x = col0.x + arg.col0.x;
+  r.col0.y = col0.y + arg.col0.y;
+  r.col1.x = col1.x + arg.col1.x;
+  r.col1.y = col1.y + arg.col1.y;
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="relativeError">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>relativeError</strong>(<a href="../vector_math_html/mat2.html">mat2</a> correct) <a class="anchor-link" href="#relativeError"
+              title="Permalink to mat2.relativeError">#</a></h4>
+<div class="doc">
+<p>Returns relative error between <code>this</code> and 
+<span class="param">correct</span></p>
+<pre class="source">
+num relativeError(mat2 correct) {
+  num this_norm = infinityNorm();
+  num correct_norm = correct.infinityNorm();
+  num diff_norm = (this_norm - correct_norm).abs();
+  return diff_norm/correct_norm;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row0">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get row0</strong>() <a class="anchor-link" href="#row0"
+              title="Permalink to mat2.get row0">#</a></h4>
+<div class="doc">
+<p>Returns row 0</p>
+<pre class="source">
+vec2 get row0() =&gt; getRow(0);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row0">
+<span class="show-code">Code</span>
+<strong>set row0</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#row0"
+              title="Permalink to mat2.set row0">#</a></h4>
+<div class="doc">
+<p>Sets row 0 to 
+<span class="param">arg</span></p>
+<pre class="source">
+set row0(vec2 arg) =&gt; setRow(0, arg);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row1">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>get row1</strong>() <a class="anchor-link" href="#row1"
+              title="Permalink to mat2.get row1">#</a></h4>
+<div class="doc">
+<p>Returns row 1</p>
+<pre class="source">
+vec2 get row1() =&gt; getRow(1);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row1">
+<span class="show-code">Code</span>
+<strong>set row1</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#row1"
+              title="Permalink to mat2.set row1">#</a></h4>
+<div class="doc">
+<p>Sets row 1 to 
+<span class="param">arg</span></p>
+<pre class="source">
+set row1(vec2 arg) =&gt; setRow(1, arg);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="rows">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get rows</strong>() <a class="anchor-link" href="#rows"
+              title="Permalink to mat2.get rows">#</a></h4>
+<div class="doc">
+<p>Returns the number of rows in the matrix.</p>
+<pre class="source">
+num get rows() =&gt; 2;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scaleAdjoint">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>scaleAdjoint</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> scale_) <a class="anchor-link" href="#scaleAdjoint"
+              title="Permalink to mat2.scaleAdjoint">#</a></h4>
+<div class="doc">
+<p>Converts into Adjugate matrix and scales by <code>scale</code></p>
+<pre class="source">
+mat2 scaleAdjoint(num scale_) {
+  num temp = col0.x;
+  col0.x = col1.y * scale_;
+  col1.x = - col1.x * scale_;
+  col0.y = - col0.y * scale_;
+  col1.y = temp * scale_;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setColumn">
+<span class="show-code">Code</span>
+void <strong>setColumn</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column, <a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#setColumn"
+              title="Permalink to mat2.setColumn">#</a></h4>
+<div class="doc">
+<p>Assigns the 
+<span class="param">column</span> of the matrix 
+<span class="param">arg</span></p>
+<pre class="source">
+void setColumn(int column, vec2 arg) {
+  assert(column &gt;= 0 &amp;&amp; column &lt; 2);
+  this[column] = arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setRotation">
+<span class="show-code">Code</span>
+void <strong>setRotation</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#setRotation"
+              title="Permalink to mat2.setRotation">#</a></h4>
+<div class="doc">
+<p>Turns the matrix into a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a></p>
+<pre class="source">
+void setRotation(num radians_) {
+  num c = Math.cos(radians_);
+  num s = Math.sin(radians_);
+  col0.x = c;
+  col0.y = s;
+  col1.x = -s;
+  col1.y = c;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setRow">
+<span class="show-code">Code</span>
+void <strong>setRow</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> row, <a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#setRow"
+              title="Permalink to mat2.setRow">#</a></h4>
+<div class="doc">
+<p>Assigns the <code>column</code> of the matrix 
+<span class="param">arg</span></p>
+<pre class="source">
+void setRow(int row, vec2 arg) {
+  assert(row &gt;= 0 &amp;&amp; row &lt; 2);
+  col0[row] = arg.x;
+  col1[row] = arg.y;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sub">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>sub</strong>(<a href="../vector_math_html/mat2.html">mat2</a> o) <a class="anchor-link" href="#sub"
+              title="Permalink to mat2.sub">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 sub(mat2 o) {
+  col0.x = col0.x - o.col0.x;
+  col0.y = col0.y - o.col0.y;
+  col1.x = col1.x - o.col1.x;
+  col1.y = col1.y - o.col1.y;
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/String.html">String</a> <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to mat2.toString">#</a></h4>
+<div class="doc">
+<p>Returns a printable string</p>
+<pre class="source">
+String toString() {
+  String s = '';
+  s = '$s[0] ${getRow(0)}\n';
+  s = '$s[1] ${getRow(1)}\n';
+  return s;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="trace">
+<span class="show-code">Code</span>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>trace</strong>() <a class="anchor-link" href="#trace"
+              title="Permalink to mat2.trace">#</a></h4>
+<div class="doc">
+<p>Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries</p>
+<pre class="source">
+num trace() {
+  num t = 0.0;
+  t += col0.x;
+  t += col1.y;
+  return t;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transform">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>transform</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#transform"
+              title="Permalink to mat2.transform">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 transform(vec2 arg) {
+  vec2 d = arg.copy();
+  return transformDirect(d);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transformDirect">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a> <strong>transformDirect</strong>(<a href="../vector_math_html/vec2.html">vec2</a> arg) <a class="anchor-link" href="#transformDirect"
+              title="Permalink to mat2.transformDirect">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec2 transformDirect(vec2 arg) {
+  num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
+  num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+  arg.x = x_;
+  arg.y = y_;
+  return arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transposeMultiply">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>transposeMultiply</strong>(<a href="../vector_math_html/mat2.html">mat2</a> arg) <a class="anchor-link" href="#transposeMultiply"
+              title="Permalink to mat2.transposeMultiply">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat2 transposeMultiply(mat2 arg) {
+  num m00 = col0.x;
+  num m01 = col0.y;
+  num m10 = col1.x;
+  num m11 = col1.y;
+  col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
+  col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
+  col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
+  col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y);
+  return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transposed">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>transposed</strong>() <a class="anchor-link" href="#transposed"
+              title="Permalink to mat2.transposed">#</a></h4>
+<div class="doc">
+<p>Returns the tranpose of this.</p>
+<pre class="source">
+mat2 transposed() {
+  mat2 r = new mat2();
+  r.col0.x = col0.x;
+  r.col0.y = col1.x;
+  r.col1.x = col0.y;
+  r.col1.y = col1.y;
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="zero">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/mat2.html">mat2</a> <strong>zero</strong>() <a class="anchor-link" href="#zero"
+              title="Permalink to mat2.zero">#</a></h4>
+<div class="doc">
+<p>Zeros <code>this</code>.</p>
+<pre class="source">
+mat2 zero() {
+  col0.x = 0.0;
+  col0.y = 0.0;
+  col1.x = 0.0;
+  col1.y = 0.0;
+  return this;
+}
+</pre>
+</div>
+</div>
+<h3>Fields</h3>
+<div class="field"><h4 id="col0">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a>         <strong>col0</strong> <a class="anchor-link"
+            href="#col0"
+            title="Permalink to mat2.col0">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+vec2 col0;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="col1">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec2.html">vec2</a>         <strong>col1</strong> <a class="anchor-link"
+            href="#col1"
+            title="Permalink to mat2.col1">#</a>
+        </h4>
+        <div class="doc">
+
+<pre class="source">
+vec2 col1;
+</pre>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        
+        <div class="footer">
+          <div>This page was generated at 2012-08-20 20:04:03.189</div>
+        </div>
+        <script async src="../client-static.js"></script>
+        </body></html>
+        
