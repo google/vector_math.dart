@@ -32,8 +32,8 @@
 #source("common/exponent_gen.dart");
 #source("common/common_gen.dart");
 #source("common/handwritten.dart");
-#source("console/matrix2x2_gen.dart");
-#source("console/matrix3x3_gen.dart");
-#source("console/matrix4x4_gen.dart");
+#source("console/mat2_gen.dart");
+#source("console/mat3_gen.dart");
+#source("console/mat4_gen.dart");
 #source("common/matrix.dart");
 #source("common/quat.dart");

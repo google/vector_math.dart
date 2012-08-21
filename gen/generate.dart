@@ -215,7 +215,7 @@ void generateMatrix() {
   String consoleBasePath = 'lib/console';
   var f = null;
   var o;
-  f = new File('${htmlBasePath}/matrix2x2_gen.dart');
+  f = new File('${htmlBasePath}/mat2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
@@ -263,7 +263,7 @@ void generateMatrix() {
     opened.closeSync();
   });
   */
-  f = new File('${htmlBasePath}/matrix3x3_gen.dart');
+  f = new File('${htmlBasePath}/mat3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
@@ -311,7 +311,7 @@ void generateMatrix() {
     opened.closeSync();
   });
 */
-  f = new File('${htmlBasePath}/matrix4x4_gen.dart');
+  f = new File('${htmlBasePath}/mat4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
@@ -323,7 +323,7 @@ void generateMatrix() {
     opened.closeSync();
   });
   
-  f = new File('${consoleBasePath}/matrix2x2_gen.dart');
+  f = new File('${consoleBasePath}/mat2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
@@ -371,7 +371,7 @@ void generateMatrix() {
     opened.closeSync();
   });
   */
-  f = new File('${consoleBasePath}/matrix3x3_gen.dart');
+  f = new File('${consoleBasePath}/mat3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
@@ -419,7 +419,7 @@ void generateMatrix() {
     opened.closeSync();
   });
 */
-  f = new File('${consoleBasePath}/matrix4x4_gen.dart');
+  f = new File('${consoleBasePath}/mat4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
