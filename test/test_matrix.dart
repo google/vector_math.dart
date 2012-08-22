@@ -378,6 +378,31 @@ class MatrixTest extends BaseTest {
     }
     return;
   }
+
+  void testMat2Transform() {
+    mat2 rot = new mat2.rotation(Math.PI / 4);
+    final vec2 input = new vec2.raw(0.234245234259, 0.890723489233);
+
+    final vec2 expected = new vec2.raw(rot.col0.x * input.x + rot.col1.x * input.y,
+                                       rot.col0.y * input.x + rot.col1.y * input.y);
+
+    final vec2 transExpected = new vec2.raw(input.x * rot.col0.x + input.y * rot.col0.y,
+                                            input.x * rot.col1.x + input.y * rot.col1.y);
+
+    relativeTest(rot.transform(input), expected);
+    relativeTest(rot.transposed().transform(input), transExpected);
+  }
+
+  void testMat3Transform() {
+    mat3 rotX = new mat3.rotationX(Math.PI / 4);
+    mat3 rotY = new mat3.rotationY(Math.PI / 4);
+    mat3 rotZ = new mat3.rotationZ(Math.PI / 4);
+    final vec3 input = new vec3.raw(1.0, 0.0, 0.0);
+
+    relativeTest(rotX.transform(input), input);
+    relativeTest(rotY.transform(input), new vec3.raw(1 / Math.sqrt(2), 0, 1 / Math.sqrt(2)));
+    relativeTest(rotZ.transform(input), new vec3.raw(1 / Math.sqrt(2), 1 / Math.sqrt(2), 0));
+  }
   
   void test() {
     print('Running matrix tests');
@@ -391,5 +416,7 @@ class MatrixTest extends BaseTest {
     testTranslationMatrix();
     testScaleMatrix();
     testRotateMatrix();
+    testMat2Transform();
+    testMat3Transform();
   }
 }
