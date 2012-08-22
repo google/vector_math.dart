@@ -83,5 +83,6 @@ class VectorTest extends BaseTest {
                       0.049654430325742
     0.902716109915281'''));
     i++;
+    print(i);
   }
 }

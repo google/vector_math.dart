@@ -98,12 +98,12 @@ class vec3 {
   vec3 operator-(vec3 other) => new vec3(x - other.x, y - other.y, z - other.z);
   /// Returns a new vec3 from this + [other]
   vec3 operator+(var other) {
-    if (other is num || other is int) {
-      new vec3(x + other, y + other, z + other);
+    if (other != null && other is int && other == 1) {
+      return new vec3(x + other, y + other, z + other);
     }
     
     if (other is vec3) {
-      new vec3(x + other.x, y + other.y, z + other.z);
+      return new vec3(x + other.x, y + other.y, z + other.z);
     }
     
     throw "other is not a vec3 or num";
