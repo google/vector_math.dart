@@ -644,6 +644,17 @@ class VectorGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
   }
+
+  void generateSetComponents() {
+    iPrint('$generatedName setComponents(${joinStrings(vectorComponents, 'num ', '_')}) {');
+    iPush();
+    for (String c in vectorComponents) {
+      iPrint('$c = ${c}_;');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+  }
   
   void generateBuffer() {
     iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
@@ -758,6 +769,7 @@ class VectorGenerator extends BaseGenerator {
     generateSelfAbsolute();
     generateCopy();
     generateSet();
+    generateSetComponents();
     generateBuffer();
     generateEpilogue();
   }

@@ -2269,6 +2269,13 @@ class vec4 {
     w = arg.w;
     return this;
   }
+  vec4 setComponents(num x_, num y_, num z_, num w_) {
+    x = x_;
+    y = y_;
+    z = z_;
+    w = w_;
+    return this;
+  }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {
     int i = offset;

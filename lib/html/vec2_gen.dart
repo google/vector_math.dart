@@ -359,6 +359,11 @@ class vec2 {
     y = arg.y;
     return this;
   }
+  vec2 setComponents(num x_, num y_) {
+    x = x_;
+    y = y_;
+    return this;
+  }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {
     int i = offset;

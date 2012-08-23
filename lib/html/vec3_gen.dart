@@ -813,6 +813,12 @@ class vec3 {
     z = arg.z;
     return this;
   }
+  vec3 setComponents(num x_, num y_, num z_) {
+    x = x_;
+    y = y_;
+    z = z_;
+    return this;
+  }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {
     int i = offset;
