@@ -1205,7 +1205,7 @@ class mat4 {
     col3.w =  (m30 * arg.col0.w) + (m31 * arg.col1.w) + (m32 * arg.col2.w) + (m33 * arg.col3.w);
     return this;
   }
-  vec3 rotateDirect3(vec3 arg) {
+  vec3 rotate3(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -1214,11 +1214,15 @@ class mat4 {
     arg.z = z_;
     return arg;
   }
-  vec3 rotate3(vec3 arg) {
-    vec3 d = arg.copy();
-    return rotateDirect3(d);
+  vec3 rotated3(vec3 arg, [vec3 out=null]) {
+    if (out == null) {
+      out = arg.copy();
+    } else {
+      out.copyFrom(arg);
+    }
+    return rotate3(out);
   }
-  vec3 transformDirect3(vec3 arg) {
+  vec3 transform3(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + col3.x;
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + col3.y;
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + col3.z;
@@ -1227,11 +1231,15 @@ class mat4 {
     arg.z = z_;
     return arg;
   }
-  vec3 transform3(vec3 arg) {
-    vec3 d = arg.copy();
-    return transformDirect3(d);
+  vec3 transformed3(vec3 arg, [vec3 out=null]) {
+    if (out == null) {
+      out = arg.copy();
+    } else {
+      out.copyFrom(arg);
+    }
+    return transformDirect3(out);
   }
-  vec4 transformDirect(vec4 arg) {
+  vec4 transform(vec4 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -1242,9 +1250,13 @@ class mat4 {
     arg.w = w_;
     return arg;
   }
-  vec4 transform(vec4 arg) {
-    vec4 d = arg.copy();
-    return transformDirect(d);
+  vec4 transformed(vec4 arg, [vec4 out=null]) {
+    if (out == null) {
+      out = arg.copy();
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {

@@ -658,7 +658,7 @@ class mat3 {
     col2.z =  (m20 * arg.col0.z) + (m21 * arg.col1.z) + (m22 * arg.col2.z);
     return this;
   }
-  vec3 transformDirect(vec3 arg) {
+  vec3 transform(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -667,9 +667,13 @@ class mat3 {
     arg.z = z_;
     return arg;
   }
-  vec3 transform(vec3 arg) {
-    vec3 d = arg.copy();
-    return transformDirect(d);
+  vec3 transformed(vec3 arg, [vec3 out=null]) {
+    if (out == null) {
+      out = arg.copy();
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {

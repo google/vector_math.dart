@@ -410,16 +410,20 @@ class mat2 {
     col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y);
     return this;
   }
-  vec2 transformDirect(vec2 arg) {
+  vec2 transform(vec2 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
     arg.x = x_;
     arg.y = y_;
     return arg;
   }
-  vec2 transform(vec2 arg) {
-    vec2 d = arg.copy();
-    return transformDirect(d);
+  vec2 transformed(vec2 arg, [vec2 out=null]) {
+    if (out == null) {
+      out = arg.copy();
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {

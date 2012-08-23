@@ -33,24 +33,42 @@
 <h3>Methods</h3>
 <div class="method"><h4 id="abs">
 <span class="show-code">Code</span>
-<strong>abs</strong>(arg) <a class="anchor-link" href="#abs"
+<strong>abs</strong>(arg, [out = null]) <a class="anchor-link" href="#abs"
               title="Permalink to abs">#</a></h4>
 <div class="doc">
 <p>Returns absolute value of 
 <span class="param">arg</span>.</p>
 <pre class="source">
-Dynamic abs(Dynamic arg) {
+Dynamic abs(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.abs(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.abs(arg.x), _ScalerHelpers.abs(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.abs(arg.x);
+    out.y = _ScalerHelpers.abs(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.abs(arg.x), _ScalerHelpers.abs(arg.y), _ScalerHelpers.abs(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.abs(arg.x);
+    out.y = _ScalerHelpers.abs(arg.y);
+    out.z = _ScalerHelpers.abs(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.abs(arg.x), _ScalerHelpers.abs(arg.y), _ScalerHelpers.abs(arg.z), _ScalerHelpers.abs(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.abs(arg.x);
+    out.y = _ScalerHelpers.abs(arg.y);
+    out.z = _ScalerHelpers.abs(arg.z);
+    out.w = _ScalerHelpers.abs(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -80,25 +98,43 @@ num absoluteError(Dynamic calculated, Dynamic correct) {
 </div>
 <div class="method"><h4 id="acos">
 <span class="show-code">Code</span>
-<strong>acos</strong>(arg) <a class="anchor-link" href="#acos"
+<strong>acos</strong>(arg, [out = null]) <a class="anchor-link" href="#acos"
               title="Permalink to acos">#</a></h4>
 <div class="doc">
 <p>Returns arc cosine of 
 <span class="param">arg</span>. Return type matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic acos(Dynamic arg) {
+Dynamic acos(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.acos(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.acos(arg.x), Math.acos(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.acos(arg.x);
+    out.y = Math.acos(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.acos(arg.x), Math.acos(arg.y), Math.acos(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.acos(arg.x);
+    out.y = Math.acos(arg.y);
+    out.z = Math.acos(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.acos(arg.x), Math.acos(arg.y), Math.acos(arg.z), Math.acos(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.acos(arg.x);
+    out.y = Math.acos(arg.y);
+    out.z = Math.acos(arg.z);
+    out.w = Math.acos(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -107,25 +143,43 @@ Dynamic acos(Dynamic arg) {
 </div>
 <div class="method"><h4 id="asin">
 <span class="show-code">Code</span>
-<strong>asin</strong>(arg) <a class="anchor-link" href="#asin"
+<strong>asin</strong>(arg, [out = null]) <a class="anchor-link" href="#asin"
               title="Permalink to asin">#</a></h4>
 <div class="doc">
 <p>Returns arc sine of 
 <span class="param">arg</span>. Return type matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic asin(Dynamic arg) {
+Dynamic asin(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.asin(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.asin(arg.x), Math.asin(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.asin(arg.x);
+    out.y = Math.asin(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.asin(arg.x), Math.asin(arg.y), Math.asin(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.asin(arg.x);
+    out.y = Math.asin(arg.y);
+    out.z = Math.asin(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.asin(arg.x), Math.asin(arg.y), Math.asin(arg.z), Math.asin(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.asin(arg.x);
+    out.y = Math.asin(arg.y);
+    out.z = Math.asin(arg.z);
+    out.w = Math.asin(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -216,24 +270,42 @@ void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
 </div>
 <div class="method"><h4 id="ceil">
 <span class="show-code">Code</span>
-<strong>ceil</strong>(arg) <a class="anchor-link" href="#ceil"
+<strong>ceil</strong>(arg, [out = null]) <a class="anchor-link" href="#ceil"
               title="Permalink to ceil">#</a></h4>
 <div class="doc">
 <p>Returns ceiling of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic ceil(Dynamic arg) {
+Dynamic ceil(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.ceil(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.ceil(arg.x), _ScalerHelpers.ceil(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.ceil(arg.x);
+    out.y = _ScalerHelpers.ceil(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.ceil(arg.x), _ScalerHelpers.ceil(arg.y), _ScalerHelpers.ceil(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.ceil(arg.x);
+    out.y = _ScalerHelpers.ceil(arg.y);
+    out.z = _ScalerHelpers.ceil(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.ceil(arg.x), _ScalerHelpers.ceil(arg.y), _ScalerHelpers.ceil(arg.z), _ScalerHelpers.ceil(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.ceil(arg.x);
+    out.y = _ScalerHelpers.ceil(arg.y);
+    out.z = _ScalerHelpers.ceil(arg.z);
+    out.w = _ScalerHelpers.ceil(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -242,7 +314,7 @@ Dynamic ceil(Dynamic arg) {
 </div>
 <div class="method"><h4 id="clamp">
 <span class="show-code">Code</span>
-<strong>clamp</strong>(x, min_, max_) <a class="anchor-link" href="#clamp"
+<strong>clamp</strong>(x, min_, max_, [out = null]) <a class="anchor-link" href="#clamp"
               title="Permalink to clamp">#</a></h4>
 <div class="doc">
 <p>Component wise clamp of 
@@ -250,18 +322,36 @@ Dynamic ceil(Dynamic arg) {
 <span class="param">min_</span> and 
 <span class="param">max_</span></p>
 <pre class="source">
-Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_) {
+Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.clamp(x, min_, max_);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.clamp(x.x, min_.x, max_.x), _ScalerHelpers.clamp(x.y, min_.y, max_.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    out.y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.clamp(x.x, min_.x, max_.x), _ScalerHelpers.clamp(x.y, min_.y, max_.y), _ScalerHelpers.clamp(x.z, min_.z, max_.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    out.y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    out.z = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.clamp(x.x, min_.x, max_.x), _ScalerHelpers.clamp(x.y, min_.y, max_.y), _ScalerHelpers.clamp(x.z, min_.z, max_.z), _ScalerHelpers.clamp(x.w, min_.w, max_.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    out.y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    out.z = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
+    out.w = _ScalerHelpers.clamp(x.w, min_.w, max_.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -270,25 +360,43 @@ Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_) {
 </div>
 <div class="method"><h4 id="cos">
 <span class="show-code">Code</span>
-<strong>cos</strong>(arg) <a class="anchor-link" href="#cos"
+<strong>cos</strong>(arg, [out = null]) <a class="anchor-link" href="#cos"
               title="Permalink to cos">#</a></h4>
 <div class="doc">
 <p>Returns cosine of 
 <span class="param">arg</span>. Return type matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic cos(Dynamic arg) {
+Dynamic cos(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.cos(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.cos(arg.x), Math.cos(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.cos(arg.x);
+    out.y = Math.cos(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.cos(arg.x), Math.cos(arg.y), Math.cos(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.cos(arg.x);
+    out.y = Math.cos(arg.y);
+    out.z = Math.cos(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.cos(arg.x), Math.cos(arg.y), Math.cos(arg.z), Math.cos(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.cos(arg.x);
+    out.y = Math.cos(arg.y);
+    out.z = Math.cos(arg.z);
+    out.w = Math.cos(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -297,7 +405,7 @@ Dynamic cos(Dynamic arg) {
 </div>
 <div class="method"><h4 id="cross">
 <span class="show-code">Code</span>
-<strong>cross</strong>(x, y) <a class="anchor-link" href="#cross"
+<strong>cross</strong>(x, y, [out = null]) <a class="anchor-link" href="#cross"
               title="Permalink to cross">#</a></h4>
 <div class="doc">
 <p>Returns the cross product between 
@@ -306,14 +414,25 @@ Dynamic cos(Dynamic arg) {
 <span class="param">x</span> and 
 <span class="param">y</span> can be vec2, vec3 or num, but not all combinations are supported.</p>
 <pre class="source">
-Dynamic cross(Dynamic x, Dynamic y) {
-  if ((x is vec3 &amp;&amp; y is vec3) ||
-      (x is vec2 &amp;&amp; y is vec2)) {
+Dynamic cross(Dynamic x, Dynamic y, [Dynamic out=null]) {
+  if (x is vec3 &amp;&amp; y is vec3) {
+    return x.cross(y, out);
+  } else if (x is vec2 &amp;&amp; y is vec2) {
     return x.cross(y);
   } else if (x is num &amp;&amp; y is vec2) {
-    return new vec2(-x * y.y, x * y.x);
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = -x * y.y;
+    out.y = x * y.x;
+    return out;
   } else if (x is vec2 &amp;&amp; y is num) {
-    return new vec2(y * x.y, -y * x.x);
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = y * x.y;
+    out.y = -y * x.x;
+    return out;
   } else {
     assert(false);
   }
@@ -324,25 +443,43 @@ Dynamic cross(Dynamic x, Dynamic y) {
 </div>
 <div class="method"><h4 id="degrees">
 <span class="show-code">Code</span>
-<strong>degrees</strong>(arg) <a class="anchor-link" href="#degrees"
+<strong>degrees</strong>(arg, [out = null]) <a class="anchor-link" href="#degrees"
               title="Permalink to degrees">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">arg</span> converted from radians to degrees. Return types matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic degrees(Dynamic arg) {
+Dynamic degrees(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.degrees(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.degrees(arg.x);
+    out.y = _ScalerHelpers.degrees(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y), _ScalerHelpers.degrees(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.degrees(arg.x);
+    out.y = _ScalerHelpers.degrees(arg.y);
+    out.z = _ScalerHelpers.degrees(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.degrees(arg.x), _ScalerHelpers.degrees(arg.y), _ScalerHelpers.degrees(arg.z), _ScalerHelpers.degrees(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.degrees(arg.x);
+    out.y = _ScalerHelpers.degrees(arg.y);
+    out.z = _ScalerHelpers.degrees(arg.z);
+    out.w = _ScalerHelpers.degrees(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -400,24 +537,42 @@ num dot(Dynamic x, Dynamic y) {
 </div>
 <div class="method"><h4 id="exp">
 <span class="show-code">Code</span>
-<strong>exp</strong>(arg) <a class="anchor-link" href="#exp"
+<strong>exp</strong>(arg, [out = null]) <a class="anchor-link" href="#exp"
               title="Permalink to exp">#</a></h4>
 <div class="doc">
 <p>Returns <em>e</em> raised to the exponent 
 <span class="param">arg</span>. Supports vectors and numbers.</p>
 <pre class="source">
-Dynamic exp(Dynamic arg) {
+Dynamic exp(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.exp(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.exp(arg.x), Math.exp(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.exp(arg.x);
+    out.y = Math.exp(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.exp(arg.x), Math.exp(arg.y), Math.exp(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.exp(arg.x);
+    out.y = Math.exp(arg.y);
+    out.z = Math.exp(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.exp(arg.x), Math.exp(arg.y), Math.exp(arg.z), Math.exp(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.exp(arg.x);
+    out.y = Math.exp(arg.y);
+    out.z = Math.exp(arg.z);
+    out.w = Math.exp(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -426,24 +581,42 @@ Dynamic exp(Dynamic arg) {
 </div>
 <div class="method"><h4 id="exp2">
 <span class="show-code">Code</span>
-<strong>exp2</strong>(arg) <a class="anchor-link" href="#exp2"
+<strong>exp2</strong>(arg, [out = null]) <a class="anchor-link" href="#exp2"
               title="Permalink to exp2">#</a></h4>
 <div class="doc">
 <p>Returns <em>2</em> raised to the exponent 
 <span class="param">arg</span>. Supports vectors and numbers.</p>
 <pre class="source">
-Dynamic exp2(Dynamic arg) {
+Dynamic exp2(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.exp2(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.exp2(arg.x);
+    out.y = _ScalerHelpers.exp2(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y), _ScalerHelpers.exp2(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.exp2(arg.x);
+    out.y = _ScalerHelpers.exp2(arg.y);
+    out.z = _ScalerHelpers.exp2(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.exp2(arg.x), _ScalerHelpers.exp2(arg.y), _ScalerHelpers.exp2(arg.z), _ScalerHelpers.exp2(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.exp2(arg.x);
+    out.y = _ScalerHelpers.exp2(arg.y);
+    out.z = _ScalerHelpers.exp2(arg.z);
+    out.w = _ScalerHelpers.exp2(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -452,24 +625,42 @@ Dynamic exp2(Dynamic arg) {
 </div>
 <div class="method"><h4 id="floor">
 <span class="show-code">Code</span>
-<strong>floor</strong>(arg) <a class="anchor-link" href="#floor"
+<strong>floor</strong>(arg, [out = null]) <a class="anchor-link" href="#floor"
               title="Permalink to floor">#</a></h4>
 <div class="doc">
 <p>Returns floor value of 
 <span class="param">arg</span>.</p>
 <pre class="source">
-Dynamic floor(Dynamic arg) {
+Dynamic floor(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.floor(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.floor(arg.x), _ScalerHelpers.floor(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.floor(arg.x);
+    out.y = _ScalerHelpers.floor(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.floor(arg.x), _ScalerHelpers.floor(arg.y), _ScalerHelpers.floor(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.floor(arg.x);
+    out.y = _ScalerHelpers.floor(arg.y);
+    out.z = _ScalerHelpers.floor(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.floor(arg.x), _ScalerHelpers.floor(arg.y), _ScalerHelpers.floor(arg.z), _ScalerHelpers.floor(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.floor(arg.x);
+    out.y = _ScalerHelpers.floor(arg.y);
+    out.z = _ScalerHelpers.floor(arg.z);
+    out.w = _ScalerHelpers.floor(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -478,24 +669,42 @@ Dynamic floor(Dynamic arg) {
 </div>
 <div class="method"><h4 id="fract">
 <span class="show-code">Code</span>
-<strong>fract</strong>(arg) <a class="anchor-link" href="#fract"
+<strong>fract</strong>(arg, [out = null]) <a class="anchor-link" href="#fract"
               title="Permalink to fract">#</a></h4>
 <div class="doc">
 <p>Returns fraction of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic fract(Dynamic arg) {
+Dynamic fract(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.fract(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.fract(arg.x), _ScalerHelpers.fract(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.fract(arg.x);
+    out.y = _ScalerHelpers.fract(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.fract(arg.x), _ScalerHelpers.fract(arg.y), _ScalerHelpers.fract(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.fract(arg.x);
+    out.y = _ScalerHelpers.fract(arg.y);
+    out.z = _ScalerHelpers.fract(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.fract(arg.x), _ScalerHelpers.fract(arg.y), _ScalerHelpers.fract(arg.z), _ScalerHelpers.fract(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.fract(arg.x);
+    out.y = _ScalerHelpers.fract(arg.y);
+    out.z = _ScalerHelpers.fract(arg.z);
+    out.w = _ScalerHelpers.fract(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -504,24 +713,42 @@ Dynamic fract(Dynamic arg) {
 </div>
 <div class="method"><h4 id="inversesqrt">
 <span class="show-code">Code</span>
-<strong>inversesqrt</strong>(arg) <a class="anchor-link" href="#inversesqrt"
+<strong>inversesqrt</strong>(arg, [out = null]) <a class="anchor-link" href="#inversesqrt"
               title="Permalink to inversesqrt">#</a></h4>
 <div class="doc">
 <p>Returns the inverse square root of 
 <span class="param">arg</span>. Supports vectors and numbers.</p>
 <pre class="source">
-Dynamic inversesqrt(Dynamic arg) {
+Dynamic inversesqrt(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.inversesqrt(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.inversesqrt(arg.x);
+    out.y = _ScalerHelpers.inversesqrt(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y), _ScalerHelpers.inversesqrt(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.inversesqrt(arg.x);
+    out.y = _ScalerHelpers.inversesqrt(arg.y);
+    out.z = _ScalerHelpers.inversesqrt(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.inversesqrt(arg.x), _ScalerHelpers.inversesqrt(arg.y), _ScalerHelpers.inversesqrt(arg.z), _ScalerHelpers.inversesqrt(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.inversesqrt(arg.x);
+    out.y = _ScalerHelpers.inversesqrt(arg.y);
+    out.z = _ScalerHelpers.inversesqrt(arg.z);
+    out.w = _ScalerHelpers.inversesqrt(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -558,24 +785,42 @@ num length2(Dynamic x) {
 </div>
 <div class="method"><h4 id="log">
 <span class="show-code">Code</span>
-<strong>log</strong>(arg) <a class="anchor-link" href="#log"
+<strong>log</strong>(arg, [out = null]) <a class="anchor-link" href="#log"
               title="Permalink to log">#</a></h4>
 <div class="doc">
 <p>Returns the logarithm of 
 <span class="param">arg</span> base <em>e</em>. Supports vectors and numbers.</p>
 <pre class="source">
-Dynamic log(Dynamic arg) {
+Dynamic log(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.log(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.log(arg.x), Math.log(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.log(arg.x);
+    out.y = Math.log(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.log(arg.x), Math.log(arg.y), Math.log(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.log(arg.x);
+    out.y = Math.log(arg.y);
+    out.z = Math.log(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.log(arg.x), Math.log(arg.y), Math.log(arg.z), Math.log(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.log(arg.x);
+    out.y = Math.log(arg.y);
+    out.z = Math.log(arg.z);
+    out.w = Math.log(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -584,24 +829,42 @@ Dynamic log(Dynamic arg) {
 </div>
 <div class="method"><h4 id="log2">
 <span class="show-code">Code</span>
-<strong>log2</strong>(arg) <a class="anchor-link" href="#log2"
+<strong>log2</strong>(arg, [out = null]) <a class="anchor-link" href="#log2"
               title="Permalink to log2">#</a></h4>
 <div class="doc">
 <p>Returns the logarithm of 
 <span class="param">arg</span> base <em>2</em>. Supports vectors and numbers.</p>
 <pre class="source">
-Dynamic log2(Dynamic arg) {
+Dynamic log2(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.log2(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.log2(arg.x);
+    out.y = _ScalerHelpers.log2(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y), _ScalerHelpers.log2(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.log2(arg.x);
+    out.y = _ScalerHelpers.log2(arg.y);
+    out.z = _ScalerHelpers.log2(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.log2(arg.x), _ScalerHelpers.log2(arg.y), _ScalerHelpers.log2(arg.z), _ScalerHelpers.log2(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.log2(arg.x);
+    out.y = _ScalerHelpers.log2(arg.y);
+    out.z = _ScalerHelpers.log2(arg.z);
+    out.w = _ScalerHelpers.log2(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -756,25 +1019,43 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
 </div>
 <div class="method"><h4 id="max">
 <span class="show-code">Code</span>
-<strong>max</strong>(x, y) <a class="anchor-link" href="#max"
+<strong>max</strong>(x, y, [out = null]) <a class="anchor-link" href="#max"
               title="Permalink to max">#</a></h4>
 <div class="doc">
 <p>Returns component wise maximum of 
 <span class="param">x</span> and 
 <span class="param">y</span></p>
 <pre class="source">
-Dynamic max(Dynamic x, Dynamic y) {
+Dynamic max(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return Math.max(x, y);
   }
   if (x is vec2) {
-    return new vec2(Math.max(x.x, y.x), Math.max(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.max(x.x, y.x);
+    out.y = Math.max(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(Math.max(x.x, y.x), Math.max(x.y, y.y), Math.max(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.max(x.x, y.x);
+    out.y = Math.max(x.y, y.y);
+    out.z = Math.max(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(Math.max(x.x, y.x), Math.max(x.y, y.y), Math.max(x.z, y.z), Math.max(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.max(x.x, y.x);
+    out.y = Math.max(x.y, y.y);
+    out.z = Math.max(x.z, y.z);
+    out.w = Math.max(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -783,25 +1064,43 @@ Dynamic max(Dynamic x, Dynamic y) {
 </div>
 <div class="method"><h4 id="min">
 <span class="show-code">Code</span>
-<strong>min</strong>(x, y) <a class="anchor-link" href="#min"
+<strong>min</strong>(x, y, [out = null]) <a class="anchor-link" href="#min"
               title="Permalink to min">#</a></h4>
 <div class="doc">
 <p>Returns component wise minimum of 
 <span class="param">x</span> and 
 <span class="param">y</span></p>
 <pre class="source">
-Dynamic min(Dynamic x, Dynamic y) {
+Dynamic min(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return Math.min(x, y);
   }
   if (x is vec2) {
-    return new vec2(Math.min(x.x, y.x), Math.min(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.min(x.x, y.x);
+    out.y = Math.min(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(Math.min(x.x, y.x), Math.min(x.y, y.y), Math.min(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.min(x.x, y.x);
+    out.y = Math.min(x.y, y.y);
+    out.z = Math.min(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(Math.min(x.x, y.x), Math.min(x.y, y.y), Math.min(x.z, y.z), Math.min(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.min(x.x, y.x);
+    out.y = Math.min(x.y, y.y);
+    out.z = Math.min(x.z, y.z);
+    out.w = Math.min(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -857,25 +1156,43 @@ Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
 </div>
 <div class="method"><h4 id="mod">
 <span class="show-code">Code</span>
-<strong>mod</strong>(x, y) <a class="anchor-link" href="#mod"
+<strong>mod</strong>(x, y, [out = null]) <a class="anchor-link" href="#mod"
               title="Permalink to mod">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">x</span> mod 
 <span class="param">y</span></p>
 <pre class="source">
-Dynamic mod(Dynamic x, Dynamic y) {
+Dynamic mod(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.mod(x, y);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.mod(x.x, y.x), _ScalerHelpers.mod(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.mod(x.x, y.x);
+    out.y = _ScalerHelpers.mod(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.mod(x.x, y.x), _ScalerHelpers.mod(x.y, y.y), _ScalerHelpers.mod(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.mod(x.x, y.x);
+    out.y = _ScalerHelpers.mod(x.y, y.y);
+    out.z = _ScalerHelpers.mod(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.mod(x.x, y.x), _ScalerHelpers.mod(x.y, y.y), _ScalerHelpers.mod(x.z, y.z), _ScalerHelpers.mod(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.mod(x.x, y.x);
+    out.y = _ScalerHelpers.mod(x.y, y.y);
+    out.z = _ScalerHelpers.mod(x.z, y.z);
+    out.w = _ScalerHelpers.mod(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -884,56 +1201,82 @@ Dynamic mod(Dynamic x, Dynamic y) {
 </div>
 <div class="method"><h4 id="normalize">
 <span class="show-code">Code</span>
-<strong>normalize</strong>(x) <a class="anchor-link" href="#normalize"
+<strong>normalize</strong>(x, [out = null]) <a class="anchor-link" href="#normalize"
               title="Permalink to normalize">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">x</span> normalized. Supports <code>num</code>, <a class="crossref" href="vector_math_html/vec2.html">vec2</a>, <a class="crossref" href="vector_math_html/vec3.html">vec3</a>, and <a class="crossref" href="vector_math_html/vec4.html">vec4</a> input types. The return type will match the type of 
 <span class="param">x</span></p>
 <pre class="source">
-Dynamic normalize(Dynamic x) {
+Dynamic normalize(Dynamic x, [Dynamic out=null]) {
   if (x is num) {
     return 1.0 * sign(x);
   }
-  Dynamic r;
   if (x is vec2) {
-    r = new vec2(x);
-    r.normalize();
+    if (out == null) {
+      out = new vec2.copy(x);
+    }
+    out.normalize();
+    return out;
   }
   if (x is vec3) {
-    r = new vec3(x);
-    r.normalize();
+    if (out == null) {
+      out = new vec3.copy(x);
+    }
+    out.normalize();
+    return out;
   }
   if (x is vec4) {
-    r = new vec4(x);
-    r.normalize();
+    if (out == null) {
+      out = new vec4.copy(x);
+    }
+    out.normalize();
+    return out;
   }
-  return r;
+  return null;
 }
 </pre>
 </div>
 </div>
 <div class="method"><h4 id="pow">
 <span class="show-code">Code</span>
-<strong>pow</strong>(x, y) <a class="anchor-link" href="#pow"
+<strong>pow</strong>(x, y, [out = null]) <a class="anchor-link" href="#pow"
               title="Permalink to pow">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">x</span> raised to the exponent 
 <span class="param">y</span>. Supports vectors and numbers.</p>
 <pre class="source">
-Dynamic pow(Dynamic x, Dynamic y) {
+Dynamic pow(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return Math.pow(x, y);
   }
   if (x is vec2) {
-    return new vec2(Math.pow(x.x, y.x), Math.pow(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.pow(x.x, y.x);
+    out.y = Math.pow(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(Math.pow(x.x, y.x), Math.pow(x.y, y.y), Math.pow(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.pow(x.x, y.x);
+    out.y = Math.pow(x.y, y.y);
+    out.z = Math.pow(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(Math.pow(x.x, y.x), Math.pow(x.y, y.y), Math.pow(x.z, y.z), Math.pow(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.pow(x.x, y.x);
+    out.y = Math.pow(x.y, y.y);
+    out.z = Math.pow(x.z, y.z);
+    out.w = Math.pow(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -942,25 +1285,43 @@ Dynamic pow(Dynamic x, Dynamic y) {
 </div>
 <div class="method"><h4 id="radians">
 <span class="show-code">Code</span>
-<strong>radians</strong>(arg) <a class="anchor-link" href="#radians"
+<strong>radians</strong>(arg, [out = null]) <a class="anchor-link" href="#radians"
               title="Permalink to radians">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">arg</span> converted from degrees to radians. Return types matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic radians(Dynamic arg) {
+Dynamic radians(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.radians(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.radians(arg.x);
+    out.y = _ScalerHelpers.radians(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y), _ScalerHelpers.radians(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.radians(arg.x);
+    out.y = _ScalerHelpers.radians(arg.y);
+    out.z = _ScalerHelpers.radians(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.radians(arg.x), _ScalerHelpers.radians(arg.y), _ScalerHelpers.radians(arg.z), _ScalerHelpers.radians(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.radians(arg.x);
+    out.y = _ScalerHelpers.radians(arg.y);
+    out.z = _ScalerHelpers.radians(arg.z);
+    out.w = _ScalerHelpers.radians(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -990,24 +1351,42 @@ num relativeError(Dynamic calculated, Dynamic correct) {
 </div>
 <div class="method"><h4 id="round">
 <span class="show-code">Code</span>
-<strong>round</strong>(arg) <a class="anchor-link" href="#round"
+<strong>round</strong>(arg, [out = null]) <a class="anchor-link" href="#round"
               title="Permalink to round">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">arg</span> rounded to nearest integer.</p>
 <pre class="source">
-Dynamic round(Dynamic arg) {
+Dynamic round(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.round(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.round(arg.x), _ScalerHelpers.round(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.round(arg.x);
+    out.y = _ScalerHelpers.round(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.round(arg.x), _ScalerHelpers.round(arg.y), _ScalerHelpers.round(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.round(arg.x);
+    out.y = _ScalerHelpers.round(arg.y);
+    out.z = _ScalerHelpers.round(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.round(arg.x), _ScalerHelpers.round(arg.y), _ScalerHelpers.round(arg.z), _ScalerHelpers.round(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.round(arg.x);
+    out.y = _ScalerHelpers.round(arg.y);
+    out.z = _ScalerHelpers.round(arg.z);
+    out.w = _ScalerHelpers.round(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1016,24 +1395,42 @@ Dynamic round(Dynamic arg) {
 </div>
 <div class="method"><h4 id="roundEven">
 <span class="show-code">Code</span>
-<strong>roundEven</strong>(arg) <a class="anchor-link" href="#roundEven"
+<strong>roundEven</strong>(arg, [out = null]) <a class="anchor-link" href="#roundEven"
               title="Permalink to roundEven">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">arg</span> rounded to nearest even integer.</p>
 <pre class="source">
-Dynamic roundEven(Dynamic arg) {
+Dynamic roundEven(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.roundEven(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.roundEven(arg.x), _ScalerHelpers.roundEven(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.roundEven(arg.x);
+    out.y = _ScalerHelpers.roundEven(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.roundEven(arg.x), _ScalerHelpers.roundEven(arg.y), _ScalerHelpers.roundEven(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.roundEven(arg.x);
+    out.y = _ScalerHelpers.roundEven(arg.y);
+    out.z = _ScalerHelpers.roundEven(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.roundEven(arg.x), _ScalerHelpers.roundEven(arg.y), _ScalerHelpers.roundEven(arg.z), _ScalerHelpers.roundEven(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.roundEven(arg.x);
+    out.y = _ScalerHelpers.roundEven(arg.y);
+    out.z = _ScalerHelpers.roundEven(arg.z);
+    out.w = _ScalerHelpers.roundEven(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1042,24 +1439,42 @@ Dynamic roundEven(Dynamic arg) {
 </div>
 <div class="method"><h4 id="sign">
 <span class="show-code">Code</span>
-<strong>sign</strong>(arg) <a class="anchor-link" href="#sign"
+<strong>sign</strong>(arg, [out = null]) <a class="anchor-link" href="#sign"
               title="Permalink to sign">#</a></h4>
 <div class="doc">
 <p>Returns 1.0 or 0.0 or -1.0 depending on sign of 
 <span class="param">arg</span>.</p>
 <pre class="source">
-Dynamic sign(Dynamic arg) {
+Dynamic sign(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.sign(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.sign(arg.x), _ScalerHelpers.sign(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.sign(arg.x);
+    out.y = _ScalerHelpers.sign(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.sign(arg.x), _ScalerHelpers.sign(arg.y), _ScalerHelpers.sign(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.sign(arg.x);
+    out.y = _ScalerHelpers.sign(arg.y);
+    out.z = _ScalerHelpers.sign(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.sign(arg.x), _ScalerHelpers.sign(arg.y), _ScalerHelpers.sign(arg.z), _ScalerHelpers.sign(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.sign(arg.x);
+    out.y = _ScalerHelpers.sign(arg.y);
+    out.z = _ScalerHelpers.sign(arg.z);
+    out.w = _ScalerHelpers.sign(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1068,25 +1483,43 @@ Dynamic sign(Dynamic arg) {
 </div>
 <div class="method"><h4 id="sin">
 <span class="show-code">Code</span>
-<strong>sin</strong>(arg) <a class="anchor-link" href="#sin"
+<strong>sin</strong>(arg, [out = null]) <a class="anchor-link" href="#sin"
               title="Permalink to sin">#</a></h4>
 <div class="doc">
 <p>Returns sine of 
 <span class="param">arg</span>. Return type matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic sin(Dynamic arg) {
+Dynamic sin(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.sin(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.sin(arg.x), Math.sin(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.sin(arg.x);
+    out.y = Math.sin(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.sin(arg.x), Math.sin(arg.y), Math.sin(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.sin(arg.x);
+    out.y = Math.sin(arg.y);
+    out.z = Math.sin(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.sin(arg.x), Math.sin(arg.y), Math.sin(arg.z), Math.sin(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.sin(arg.x);
+    out.y = Math.sin(arg.y);
+    out.z = Math.sin(arg.z);
+    out.w = Math.sin(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1095,7 +1528,7 @@ Dynamic sin(Dynamic arg) {
 </div>
 <div class="method"><h4 id="smoothstep">
 <span class="show-code">Code</span>
-<strong>smoothstep</strong>(edge0, edge1, x) <a class="anchor-link" href="#smoothstep"
+<strong>smoothstep</strong>(edge0, edge1, x, [out = null]) <a class="anchor-link" href="#smoothstep"
               title="Permalink to smoothstep">#</a></h4>
 <div class="doc">
 <p>Hermite intpolation between 
@@ -1105,18 +1538,36 @@ Dynamic sin(Dynamic arg) {
 <span class="param">x</span> &lt; 
 <span class="param">edge1</span>.</p>
 <pre class="source">
-Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x) {
+Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.smoothstep(edge0, edge1, x);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x), _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    out.y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x), _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y), _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    out.y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    out.z = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x), _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y), _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z), _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    out.y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    out.z = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
+    out.w = _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -1125,24 +1576,42 @@ Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x) {
 </div>
 <div class="method"><h4 id="sqrt">
 <span class="show-code">Code</span>
-<strong>sqrt</strong>(arg) <a class="anchor-link" href="#sqrt"
+<strong>sqrt</strong>(arg, [out = null]) <a class="anchor-link" href="#sqrt"
               title="Permalink to sqrt">#</a></h4>
 <div class="doc">
 <p>Returns the square root of 
 <span class="param">arg</span>.</p>
 <pre class="source">
-Dynamic sqrt(Dynamic arg) {
+Dynamic sqrt(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.sqrt(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.sqrt(arg.x), Math.sqrt(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.sqrt(arg.x);
+    out.y = Math.sqrt(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.sqrt(arg.x), Math.sqrt(arg.y), Math.sqrt(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.sqrt(arg.x);
+    out.y = Math.sqrt(arg.y);
+    out.z = Math.sqrt(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.sqrt(arg.x), Math.sqrt(arg.y), Math.sqrt(arg.z), Math.sqrt(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.sqrt(arg.x);
+    out.y = Math.sqrt(arg.y);
+    out.z = Math.sqrt(arg.z);
+    out.w = Math.sqrt(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1151,24 +1620,42 @@ Dynamic sqrt(Dynamic arg) {
 </div>
 <div class="method"><h4 id="step">
 <span class="show-code">Code</span>
-<strong>step</strong>(x, y) <a class="anchor-link" href="#step"
+<strong>step</strong>(x, y, [out = null]) <a class="anchor-link" href="#step"
               title="Permalink to step">#</a></h4>
 <div class="doc">
 <p>Returns 0.0 if x &lt; 
 <span class="param">y</span> and 1.0 otherwise.</p>
 <pre class="source">
-Dynamic step(Dynamic x, Dynamic y) {
+Dynamic step(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is num) {
     return _ScalerHelpers.step(x, y);
   }
   if (x is vec2) {
-    return new vec2(_ScalerHelpers.step(x.x, y.x), _ScalerHelpers.step(x.y, y.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.step(x.x, y.x);
+    out.y = _ScalerHelpers.step(x.y, y.y);
+    return out;
   }
   if (x is vec3) {
-    return new vec3(_ScalerHelpers.step(x.x, y.x), _ScalerHelpers.step(x.y, y.y), _ScalerHelpers.step(x.z, y.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.step(x.x, y.x);
+    out.y = _ScalerHelpers.step(x.y, y.y);
+    out.z = _ScalerHelpers.step(x.z, y.z);
+    return out;
   }
   if (x is vec4) {
-    return new vec4(_ScalerHelpers.step(x.x, y.x), _ScalerHelpers.step(x.y, y.y), _ScalerHelpers.step(x.z, y.z), _ScalerHelpers.step(x.w, y.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.step(x.x, y.x);
+    out.y = _ScalerHelpers.step(x.y, y.y);
+    out.z = _ScalerHelpers.step(x.z, y.z);
+    out.w = _ScalerHelpers.step(x.w, y.w);
+    return out;
   }
   throw new IllegalArgumentException(x);
 }
@@ -1177,25 +1664,43 @@ Dynamic step(Dynamic x, Dynamic y) {
 </div>
 <div class="method"><h4 id="tan">
 <span class="show-code">Code</span>
-<strong>tan</strong>(arg) <a class="anchor-link" href="#tan"
+<strong>tan</strong>(arg, [out = null]) <a class="anchor-link" href="#tan"
               title="Permalink to tan">#</a></h4>
 <div class="doc">
 <p>Returns tangent of 
 <span class="param">arg</span>. Return type matches the type of 
 <span class="param">arg</span></p>
 <pre class="source">
-Dynamic tan(Dynamic arg) {
+Dynamic tan(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return Math.tan(arg);
   }
   if (arg is vec2) {
-    return new vec2(Math.tan(arg.x), Math.tan(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = Math.tan(arg.x);
+    out.y = Math.tan(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(Math.tan(arg.x), Math.tan(arg.y), Math.tan(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = Math.tan(arg.x);
+    out.y = Math.tan(arg.y);
+    out.z = Math.tan(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(Math.tan(arg.x), Math.tan(arg.y), Math.tan(arg.z), Math.tan(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = Math.tan(arg.x);
+    out.y = Math.tan(arg.y);
+    out.z = Math.tan(arg.z);
+    out.w = Math.tan(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1204,24 +1709,42 @@ Dynamic tan(Dynamic arg) {
 </div>
 <div class="method"><h4 id="trunc">
 <span class="show-code">Code</span>
-<strong>trunc</strong>(arg) <a class="anchor-link" href="#trunc"
+<strong>trunc</strong>(arg, [out = null]) <a class="anchor-link" href="#trunc"
               title="Permalink to trunc">#</a></h4>
 <div class="doc">
 <p>Returns 
 <span class="param">arg</span> truncated.</p>
 <pre class="source">
-Dynamic trunc(Dynamic arg) {
+Dynamic trunc(Dynamic arg, [Dynamic out=null]) {
   if (arg is num) {
     return _ScalerHelpers.truncate(arg);
   }
   if (arg is vec2) {
-    return new vec2(_ScalerHelpers.truncate(arg.x), _ScalerHelpers.truncate(arg.y));
+    if (out == null) {
+      out = new vec2.zero();
+    }
+    out.x = _ScalerHelpers.truncate(arg.x);
+    out.y = _ScalerHelpers.truncate(arg.y);
+    return out;
   }
   if (arg is vec3) {
-    return new vec3(_ScalerHelpers.truncate(arg.x), _ScalerHelpers.truncate(arg.y), _ScalerHelpers.truncate(arg.z));
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    out.x = _ScalerHelpers.truncate(arg.x);
+    out.y = _ScalerHelpers.truncate(arg.y);
+    out.z = _ScalerHelpers.truncate(arg.z);
+    return out;
   }
   if (arg is vec4) {
-    return new vec4(_ScalerHelpers.truncate(arg.x), _ScalerHelpers.truncate(arg.y), _ScalerHelpers.truncate(arg.z), _ScalerHelpers.truncate(arg.w));
+    if (out == null) {
+      out = new vec4.zero();
+    }
+    out.x = _ScalerHelpers.truncate(arg.x);
+    out.y = _ScalerHelpers.truncate(arg.y);
+    out.z = _ScalerHelpers.truncate(arg.z);
+    out.w = _ScalerHelpers.truncate(arg.w);
+    return out;
   }
   throw new IllegalArgumentException(arg);
 }
@@ -1276,7 +1799,7 @@ Dynamic trunc(Dynamic arg) {
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-20 20:04:02.640</div>
+          <div>This page was generated at 2012-08-22 20:02:36.656</div>
         </div>
         <script async src="client-static.js"></script>
         </body></html>

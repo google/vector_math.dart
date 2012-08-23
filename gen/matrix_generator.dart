@@ -1632,7 +1632,7 @@ class MatrixGenerator extends BaseGenerator {
     }
     
     if (rows == 2) {
-      iPrint('vec2 transformDirect(vec2 arg) {');
+      iPrint('vec2 transform(vec2 arg) {');
       iPush();
       iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 2)};');
       iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 2)};');
@@ -1641,16 +1641,24 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('return arg;');
       iPop();
       iPrint('}');
-      iPrint('vec2 transform(vec2 arg) {');
+      iPrint('vec2 transformed(vec2 arg, [vec2 out=null]) {');
       iPush();
-      iPrint('vec2 d = arg.copy();');
-      iPrint('return transformDirect(d);');
+      iPrint('if (out == null) {');
+      iPush();
+      iPrint('out = arg.copy();');
+      iPop();
+      iPrint('} else {');
+      iPush();
+      iPrint('out.copyFrom(arg);');
+      iPop();
+      iPrint('}');
+      iPrint('return transform(out);');
       iPop();
       iPrint('}');
     }
     
     if (rows == 3) {
-      iPrint('vec3 transformDirect(vec3 arg) {');
+      iPrint('vec3 transform(vec3 arg) {');
       iPush();
       iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)};');
       iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)};');
@@ -1661,17 +1669,24 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('return arg;');
       iPop();
       iPrint('}');
-      iPrint('vec3 transform(vec3 arg) {');
+      iPrint('vec3 transformed(vec3 arg, [vec3 out=null]) {');
       iPush();
-      iPrint('vec3 d = arg.copy();');
-      iPrint('return transformDirect(d);');
+      iPrint('if (out == null) {');
+      iPush();
+      iPrint('out = arg.copy();');
+      iPop();
+      iPrint('} else {');
+      iPush();
+      iPrint('out.copyFrom(arg);');
+      iPop();
+      iPrint('}');
+      iPrint('return transform(out);');
       iPop();
       iPrint('}');
     }
     
     if (rows == 4) {
-      
-      iPrint('vec3 rotateDirect3(vec3 arg) {');
+      iPrint('vec3 rotate3(vec3 arg) {');
       iPush();
       iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)};');
       iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)};');
@@ -1682,14 +1697,22 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('return arg;');
       iPop();
       iPrint('}');
-      iPrint('vec3 rotate3(vec3 arg) {');
+      iPrint('vec3 rotated3(vec3 arg, [vec3 out=null]) {');
       iPush();
-      iPrint('vec3 d = arg.copy();');
-      iPrint('return rotateDirect3(d);');
+      iPrint('if (out == null) {');
+      iPush();
+      iPrint('out = arg.copy();');
+      iPop();
+      iPrint('} else {');
+      iPush();
+      iPrint('out.copyFrom(arg);');
+      iPop();
+      iPrint('}');
+      iPrint('return rotate3(out);');
       iPop();
       iPrint('}');
       
-      iPrint('vec3 transformDirect3(vec3 arg) {');
+      iPrint('vec3 transform3(vec3 arg) {');
       iPush();
       iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)} + ${Access(0, 3)};');
       iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)} + ${Access(1, 3)};');
@@ -1700,14 +1723,22 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('return arg;');
       iPop();
       iPrint('}');
-      iPrint('vec3 transform3(vec3 arg) {');
+      iPrint('vec3 transformed3(vec3 arg, [vec3 out=null]) {');
       iPush();
-      iPrint('vec3 d = arg.copy();');
-      iPrint('return transformDirect3(d);');
+      iPrint('if (out == null) {');
+      iPush();
+      iPrint('out = arg.copy();');
+      iPop();
+      iPrint('} else {');
+      iPush();
+      iPrint('out.copyFrom(arg);');
+      iPop();
+      iPrint('}');
+      iPrint('return transformDirect3(out);');
       iPop();
       iPrint('}');
       
-      iPrint('vec4 transformDirect(vec4 arg) {');
+      iPrint('vec4 transform(vec4 arg) {');
       iPush();
       iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)};');
       iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)};');
@@ -1720,10 +1751,18 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('return arg;');
       iPop();
       iPrint('}');
-      iPrint('vec4 transform(vec4 arg) {');
+      iPrint('vec4 transformed(vec4 arg, [vec4 out=null]) {');
       iPush();
-      iPrint('vec4 d = arg.copy();');
-      iPrint('return transformDirect(d);');
+      iPrint('if (out == null) {');
+      iPush();
+      iPrint('out = arg.copy();');
+      iPop();
+      iPrint('} else {');
+      iPush();
+      iPrint('out.copyFrom(arg);');
+      iPop();
+      iPrint('}');
+      iPrint('return transform(out);');
       iPop();
       iPrint('}');
     }
