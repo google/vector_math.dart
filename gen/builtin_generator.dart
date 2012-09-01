@@ -94,7 +94,7 @@ class BuiltinGenerator extends BaseGenerator {
         iPop();
         iPrint('}');
         components.forEach((comp) {
-            iPrint('out$comp = ${function.scalarName}(${expandArguments(function.args, comp)});');
+            iPrint('(out as $type)$comp = ${function.scalarName}(${expandArguments(function.args, comp)});');
         });
         iPrint('return out;');
       }
@@ -129,12 +129,15 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
-        return new vec2(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x, y.y, t));
+        x = x as vec2;
+        return new vec2(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t));
       }
       if (x is vec3) {
+        x = x as vec3;
         return new vec3(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t));
       }
       if (x is vec4) {
+        x = x as vec4;
         return new vec4(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t), _ScalerHelpers.mix(x.w, y.w, t));
       }
       throw new IllegalArgumentException(x);
@@ -146,12 +149,15 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
+        x = x as vec2;
         return new vec2(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y));
       }
       if (x is vec3) {
+        x = x as vec3;
         return new vec3(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z));
       }
       if (x is vec4) {
+        x = x as vec4;
         return new vec4(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z), _ScalerHelpers.mix(x.w, y.w, t.w));
       }
       throw new IllegalArgumentException(x);

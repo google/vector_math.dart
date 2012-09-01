@@ -1,5 +1,5 @@
 #import('../lib/vector_math_console.dart');
-
+#import('dart:math', prefix:'Math');
 #source('base_test.dart');
 #source('test_quaternion.dart');
 #source('test_matrix.dart');

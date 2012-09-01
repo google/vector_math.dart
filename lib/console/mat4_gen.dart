@@ -212,7 +212,7 @@ class mat4 {
     col2 = new vec4.zero();
     col3 = new vec4.zero();
     col3.w = 1.0;
-    rotationX(radians_);
+    setRotationX(radians_);
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the Y axis
   mat4.rotationY(num radians_) {
@@ -221,7 +221,7 @@ class mat4 {
     col2 = new vec4.zero();
     col3 = new vec4.zero();
     col3.w = 1.0;
-    rotationY(radians_);
+    setRotationY(radians_);
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the Z axis
   mat4.rotationZ(num radians_) {
@@ -230,7 +230,7 @@ class mat4 {
     col2 = new vec4.zero();
     col3 = new vec4.zero();
     col3.w = 1.0;
-    rotationZ(radians_);
+    setRotationZ(radians_);
   }
   /// Constructs a new [mat4] translation matrix from [translation]
   mat4.translation(vec3 translation) {
@@ -259,7 +259,7 @@ class mat4 {
     col3.z = z;
   }
   //// Constructs a new [mat4] scale of [x], [y], and [z]
-  mat4.scale(vec3 scale_) {
+  mat4.scaleVec(vec3 scale_) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -666,7 +666,7 @@ class mat4 {
     return r;
   }
   /// Zeros [this].
-  mat4 zero() {
+  mat4 setZero() {
     col0.x = 0.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -686,7 +686,7 @@ class mat4 {
     return this;
   }
   /// Makes [this] into the identity matrix.
-  mat4 identity() {
+  mat4 setIdentity() {
     col0.x = 1.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -899,7 +899,7 @@ class mat4 {
     return det;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around X
-  void rotationX(num radians_) {
+  void setRotationX(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = 1.0;
@@ -916,7 +916,7 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Y
-  void rotationY(num radians_) {
+  void setRotationY(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -933,7 +933,7 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Z
-  void rotationZ(num radians_) {
+  void setRotationZ(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -986,7 +986,7 @@ class mat4 {
     col3.w  =   (a1 * (b2 * c3 - b3 * c2) - b1 * (a2 * c3 - a3 * c2) + c1 * (a2 * b3 - a3 * b2)) * scale_;
     return this;
   }
-  mat4 copy() {
+  mat4 newCopy() {
     return new mat4.copy(this);
   }
   mat4 copyInto(mat4 arg) {
@@ -1216,7 +1216,7 @@ class mat4 {
   }
   vec3 rotated3(vec3 arg, [vec3 out=null]) {
     if (out == null) {
-      out = arg.copy();
+      out = new vec3.copy(arg);
     } else {
       out.copyFrom(arg);
     }
@@ -1233,11 +1233,11 @@ class mat4 {
   }
   vec3 transformed3(vec3 arg, [vec3 out=null]) {
     if (out == null) {
-      out = arg.copy();
+      out = new vec3.copy(arg);
     } else {
       out.copyFrom(arg);
     }
-    return transformDirect3(out);
+    return transform3(out);
   }
   vec4 transform(vec4 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
@@ -1252,7 +1252,7 @@ class mat4 {
   }
   vec4 transformed(vec4 arg, [vec4 out=null]) {
     if (out == null) {
-      out = arg.copy();
+      out = new vec4.copy(arg);
     } else {
       out.copyFrom(arg);
     }

@@ -2244,10 +2244,6 @@ class vec4 {
     w = w.abs();
     return this;
   }
-  vec4 copy() {
-    vec4 c = new vec4.copy(this);
-    return c;
-  }
   vec4 copyInto(vec4 arg) {
     arg.x = x;
     arg.y = y;

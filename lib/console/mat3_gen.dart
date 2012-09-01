@@ -147,21 +147,21 @@ class mat3 {
     col0 = new vec3.zero();
     col1 = new vec3.zero();
     col2 = new vec3.zero();
-    rotationX(radians_);
+    setRotationX(radians_);
   }
   //// Constructs a new [mat3] representation a rotation of [radians] around the Y axis
   mat3.rotationY(num radians_) {
     col0 = new vec3.zero();
     col1 = new vec3.zero();
     col2 = new vec3.zero();
-    rotationY(radians_);
+    setRotationY(radians_);
   }
   //// Constructs a new [mat3] representation a rotation of [radians] around the Z axis
   mat3.rotationZ(num radians_) {
     col0 = new vec3.zero();
     col1 = new vec3.zero();
     col2 = new vec3.zero();
-    rotationZ(radians_);
+    setRotationZ(radians_);
   }
   mat3.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8) {
     col0 = new vec3.zero();
@@ -327,7 +327,7 @@ class mat3 {
     return r;
   }
   /// Zeros [this].
-  mat3 zero() {
+  mat3 setZero() {
     col0.x = 0.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -340,7 +340,7 @@ class mat3 {
     return this;
   }
   /// Makes [this] into the identity matrix.
-  mat3 identity() {
+  mat3 setIdentity() {
     col0.x = 1.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -460,7 +460,7 @@ class mat3 {
     return det;
   }
   /// Turns the matrix into a rotation of [radians] around X
-  void rotationX(num radians_) {
+  void setRotationX(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = 1.0;
@@ -474,7 +474,7 @@ class mat3 {
     col2.z = c;
   }
   /// Turns the matrix into a rotation of [radians] around Y
-  void rotationY(num radians_) {
+  void setRotationY(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -488,7 +488,7 @@ class mat3 {
     col2.z = c;
   }
   /// Turns the matrix into a rotation of [radians] around Z
-  void rotationZ(num radians_) {
+  void setRotationZ(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -523,7 +523,7 @@ class mat3 {
     col2.z = (m00 * m00 - m01 * m10) * scale_;
     return this;
   }
-  mat3 copy() {
+  mat3 newCopy() {
     return new mat3.copy(this);
   }
   mat3 copyInto(mat3 arg) {
@@ -669,7 +669,7 @@ class mat3 {
   }
   vec3 transformed(vec3 arg, [vec3 out=null]) {
     if (out == null) {
-      out = arg.copy();
+      out = new vec3.copy(arg);
     } else {
       out.copyFrom(arg);
     }

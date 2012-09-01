@@ -23,6 +23,7 @@
 */
 
 #library("vector_math_html");
+#import('dart:math', prefix: 'Math');
 #import("dart:html");
 #source("common/scalar_math.dart");
 #source("html/vec2_gen.dart");

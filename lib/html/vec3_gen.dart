@@ -791,10 +791,6 @@ class vec3 {
     z = z.abs();
     return this;
   }
-  vec3 copy() {
-    vec3 c = new vec3.copy(this);
-    return c;
-  }
   vec3 copyInto(vec3 arg) {
     arg.x = x;
     arg.y = y;

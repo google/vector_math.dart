@@ -82,21 +82,21 @@ Dynamic normalize(Dynamic x, [Dynamic out=null]) {
     if (out == null) {
       out = new vec2.copy(x);
     }
-    out.normalize();
+    (x as vec2).normalize();
     return out;
   }
   if (x is vec3) {
     if (out == null) {
       out = new vec3.copy(x);
     }
-    out.normalize();
+    (x as vec3).normalize();
     return out;
   }
   if (x is vec4) {
     if (out == null) {
       out = new vec4.copy(x);
     }
-    out.normalize();
+    (x as vec4).normalize();
     return out;
   }
   return null;

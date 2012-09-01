@@ -609,12 +609,6 @@ class VectorGenerator extends BaseGenerator {
   }
   
   void generateCopy() {
-    iPrint('$generatedName copy() {');
-    iPush();
-    iPrint('$generatedName c = new ${generatedName}.copy(this);');
-    iPrint('return c;');
-    iPop();
-    iPrint('}');
     iPrint('$generatedName copyInto($generatedName arg) {');
     iPush();
     for (String c in vectorComponents) {

@@ -228,7 +228,7 @@ class mat2 {
     return r;
   }
   /// Zeros [this].
-  mat2 zero() {
+  mat2 setZero() {
     col0.x = 0.0;
     col0.y = 0.0;
     col1.x = 0.0;
@@ -236,7 +236,7 @@ class mat2 {
     return this;
   }
   /// Makes [this] into the identity matrix.
-  mat2 identity() {
+  mat2 setIdentity() {
     col0.x = 1.0;
     col0.y = 0.0;
     col1.x = 0.0;
@@ -335,7 +335,7 @@ class mat2 {
     col1.y = temp * scale_;
     return this;
   }
-  mat2 copy() {
+  mat2 newCopy() {
     return new mat2.copy(this);
   }
   mat2 copyInto(mat2 arg) {
@@ -419,7 +419,7 @@ class mat2 {
   }
   vec2 transformed(vec2 arg, [vec2 out=null]) {
     if (out == null) {
-      out = arg.copy();
+      out = new vec2.copy(arg);
     } else {
       out.copyFrom(arg);
     }

@@ -113,14 +113,14 @@ class quat {
   }
   
   /** Constructs a random rotation */
-  quat.random() {
+  quat.random(Math.Random rn) {
   // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
   //       pg. 124-132
-    num x0 = Math.random();
+    num x0 = rn.nextDouble();
     num r1 = Math.sqrt(1.0 - x0);
     num r2 = Math.sqrt(x0);
-    num t1 = Math.PI*2.0 * Math.random();
-    num t2 = Math.PI*2.0 * Math.random();
+    num t1 = Math.PI*2.0 * rn.nextDouble();
+    num t2 = Math.PI*2.0 * rn.nextDouble();
     num c1 = Math.cos(t1);
     num s1 = Math.sin(t1);
     num c2 = Math.cos(t2);
