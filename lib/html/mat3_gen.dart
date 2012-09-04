@@ -523,6 +523,27 @@ class mat3 {
     col2.z = (m00 * m00 - m01 * m10) * scale_;
     return this;
   }
+  /// Rotates [arg] by the absolute rotation of [this]
+  /// Returns [arg].
+  /// Primarily used by AABB transformation code.
+  vec3 absoluteRotate(vec3 arg) {
+    num m00 = col0.x.abs();
+    num m01 = col1.x.abs();
+    num m02 = col2.x.abs();
+    num m10 = col0.y.abs();
+    num m11 = col1.y.abs();
+    num m12 = col2.y.abs();
+    num m20 = col0.z.abs();
+    num m21 = col1.z.abs();
+    num m22 = col2.z.abs();
+    num x = arg.x;
+    num y = arg.y;
+    num z = arg.z;
+    arg.x = x * m00 + y * m01 + z * m02 + 0.0 * 0.0;
+    arg.y = x * m10 + y * m11 + z * m12 + 0.0 * 0.0;
+    arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
+    return arg;
+  }
   mat3 newCopy() {
     return new mat3.copy(this);
   }

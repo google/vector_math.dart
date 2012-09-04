@@ -1768,6 +1768,31 @@ class MatrixGenerator extends BaseGenerator {
     }
   }
   
+  void generateAbsoluteRotate() {
+    if (cols < 3 || rows < 3) {
+      return;
+    }
+    iPrint('\/\/\/ Rotates [arg] by the absolute rotation of [this]');
+    iPrint('\/\/\/ Returns [arg].');
+    iPrint('\/\/\/ Primarily used by AABB transformation code.');
+    iPrint('vec3 absoluteRotate(vec3 arg) {');
+    iPush();
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        iPrint('num m$i$j = ${Access(i, j)}.abs();');
+      }
+    }
+    iPrint('num x = arg.x;');
+    iPrint('num y = arg.y;');
+    iPrint('num z = arg.z;');
+    iPrint('arg.x = ${generateInlineDotArgs('x', 'y', 'z', '0.0', 'm00', 'm01', 'm02', '0.0')};');
+    iPrint('arg.y = ${generateInlineDotArgs('x', 'y', 'z', '0.0', 'm10', 'm11', 'm12', '0.0')};');
+    iPrint('arg.z = ${generateInlineDotArgs('x', 'y', 'z', '0.0', 'm20', 'm21', 'm22', '0.0')};');
+    iPrint('return arg;');
+    iPop();
+    iPrint('}');
+  }
+  
   void generateBuffer() {
     iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
     iPrint('void copyIntoArray(${floatArrayType} array, [int offset=0]) {');
@@ -1878,6 +1903,7 @@ class MatrixGenerator extends BaseGenerator {
     generateInvert();
     generateSetRotation();
     generateAdjugate();
+    generateAbsoluteRotate();
     generateCopy();
     generateSelfOp('add', '+');
     generateSelfOp('sub', '-');

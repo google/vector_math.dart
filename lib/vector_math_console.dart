@@ -38,3 +38,4 @@
 #source("console/mat4_gen.dart");
 #source("common/matrix.dart");
 #source("common/quat.dart");
+#source("common/aabb3.dart");
