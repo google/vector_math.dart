@@ -221,7 +221,7 @@ class mat2 {
     return r;
   }
   /// Returns new matrix -this
-  mat2 operator negate() {
+  mat2 operator -() {
     mat2 r = new mat2();
     r[0] = -this[0];
     r[1] = -this[1];
@@ -366,7 +366,7 @@ class mat2 {
     col1.y = col1.y - o.col1.y;
     return this;
   }
-  mat2 negate_() {
+  mat2 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col1.x = -col1.x;

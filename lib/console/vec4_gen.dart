@@ -105,7 +105,7 @@ class vec4 {
   /// Returns a printable string
   String toString() => '$x,$y,$z,$w';
   /// Returns a new vec4 from -this
-  vec4 operator negate() => new vec4(-x, -y, -z, -w);
+  vec4 operator -() => new vec4(-x, -y, -z, -w);
   /// Returns a new vec4 from this - [other]
   vec4 operator-(vec4 other) => new vec4(x - other.x, y - other.y, z - other.z, w - other.w);
   /// Returns a new vec4 from this + [other]
@@ -2230,7 +2230,7 @@ class vec4 {
     w = w * arg;
     return this;
   }
-  vec4 negate_() {
+  vec4 negate() {
     x = -x;
     y = -y;
     z = -z;

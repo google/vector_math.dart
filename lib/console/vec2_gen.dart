@@ -73,7 +73,7 @@ class vec2 {
   /// Returns a printable string
   String toString() => '$x,$y';
   /// Returns a new vec2 from -this
-  vec2 operator negate() => new vec2(-x, -y);
+  vec2 operator -() => new vec2(-x, -y);
   /// Returns a new vec2 from this - [other]
   vec2 operator-(vec2 other) => new vec2(x - other.x, y - other.y);
   /// Returns a new vec2 from this + [other]
@@ -330,7 +330,7 @@ class vec2 {
     y = y * arg;
     return this;
   }
-  vec2 negate_() {
+  vec2 negate() {
     x = -x;
     y = -y;
     return this;

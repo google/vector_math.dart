@@ -319,7 +319,7 @@ class mat3 {
     return r;
   }
   /// Returns new matrix -this
-  mat3 operator negate() {
+  mat3 operator -() {
     mat3 r = new mat3();
     r[0] = -this[0];
     r[1] = -this[1];
@@ -595,7 +595,7 @@ class mat3 {
     col2.z = col2.z - o.col2.z;
     return this;
   }
-  mat3 negate_() {
+  mat3 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;
