@@ -23,6 +23,7 @@
 */
 
 #library("vector_math_html");
+#import('dart:math', prefix: 'Math');
 #import("dart:html");
 #source("common/scalar_math.dart");
 #source("html/vec2_gen.dart");
@@ -38,3 +39,4 @@
 #source("html/mat4_gen.dart");
 #source("common/matrix.dart");
 #source("common/quat.dart");
+#source("common/aabb3.dart");

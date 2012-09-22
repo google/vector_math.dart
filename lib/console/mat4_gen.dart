@@ -212,7 +212,7 @@ class mat4 {
     col2 = new vec4.zero();
     col3 = new vec4.zero();
     col3.w = 1.0;
-    rotationX(radians_);
+    setRotationX(radians_);
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the Y axis
   mat4.rotationY(num radians_) {
@@ -221,7 +221,7 @@ class mat4 {
     col2 = new vec4.zero();
     col3 = new vec4.zero();
     col3.w = 1.0;
-    rotationY(radians_);
+    setRotationY(radians_);
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the Z axis
   mat4.rotationZ(num radians_) {
@@ -230,7 +230,7 @@ class mat4 {
     col2 = new vec4.zero();
     col3 = new vec4.zero();
     col3.w = 1.0;
-    rotationZ(radians_);
+    setRotationZ(radians_);
   }
   /// Constructs a new [mat4] translation matrix from [translation]
   mat4.translation(vec3 translation) {
@@ -259,7 +259,7 @@ class mat4 {
     col3.z = z;
   }
   //// Constructs a new [mat4] scale of [x], [y], and [z]
-  mat4.scale(vec3 scale_) {
+  mat4.scaleVec(vec3 scale_) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -657,7 +657,7 @@ class mat4 {
     return this;
   }
   /// Returns new matrix -this
-  mat4 operator negate() {
+  mat4 operator -() {
     mat4 r = new mat4();
     r[0] = -this[0];
     r[1] = -this[1];
@@ -666,7 +666,7 @@ class mat4 {
     return r;
   }
   /// Zeros [this].
-  mat4 zero() {
+  mat4 setZero() {
     col0.x = 0.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -686,7 +686,7 @@ class mat4 {
     return this;
   }
   /// Makes [this] into the identity matrix.
-  mat4 identity() {
+  mat4 setIdentity() {
     col0.x = 1.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -899,7 +899,7 @@ class mat4 {
     return det;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around X
-  void rotationX(num radians_) {
+  void setRotationX(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = 1.0;
@@ -916,7 +916,7 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Y
-  void rotationY(num radians_) {
+  void setRotationY(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -933,7 +933,7 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Z
-  void rotationZ(num radians_) {
+  void setRotationZ(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -986,7 +986,28 @@ class mat4 {
     col3.w  =   (a1 * (b2 * c3 - b3 * c2) - b1 * (a2 * c3 - a3 * c2) + c1 * (a2 * b3 - a3 * b2)) * scale_;
     return this;
   }
-  mat4 copy() {
+  /// Rotates [arg] by the absolute rotation of [this]
+  /// Returns [arg].
+  /// Primarily used by AABB transformation code.
+  vec3 absoluteRotate(vec3 arg) {
+    num m00 = col0.x.abs();
+    num m01 = col1.x.abs();
+    num m02 = col2.x.abs();
+    num m10 = col0.y.abs();
+    num m11 = col1.y.abs();
+    num m12 = col2.y.abs();
+    num m20 = col0.z.abs();
+    num m21 = col1.z.abs();
+    num m22 = col2.z.abs();
+    num x = arg.x;
+    num y = arg.y;
+    num z = arg.z;
+    arg.x = x * m00 + y * m01 + z * m02 + 0.0 * 0.0;
+    arg.y = x * m10 + y * m11 + z * m12 + 0.0 * 0.0;
+    arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
+    return arg;
+  }
+  mat4 newCopy() {
     return new mat4.copy(this);
   }
   mat4 copyInto(mat4 arg) {
@@ -1065,7 +1086,7 @@ class mat4 {
     col3.w = col3.w - o.col3.w;
     return this;
   }
-  mat4 negate_() {
+  mat4 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;
@@ -1205,7 +1226,7 @@ class mat4 {
     col3.w =  (m30 * arg.col0.w) + (m31 * arg.col1.w) + (m32 * arg.col2.w) + (m33 * arg.col3.w);
     return this;
   }
-  vec3 rotateDirect3(vec3 arg) {
+  vec3 rotate3(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -1214,11 +1235,15 @@ class mat4 {
     arg.z = z_;
     return arg;
   }
-  vec3 rotate3(vec3 arg) {
-    vec3 d = arg.copy();
-    return rotateDirect3(d);
+  vec3 rotated3(vec3 arg, [vec3 out=null]) {
+    if (out == null) {
+      out = new vec3.copy(arg);
+    } else {
+      out.copyFrom(arg);
+    }
+    return rotate3(out);
   }
-  vec3 transformDirect3(vec3 arg) {
+  vec3 transform3(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + col3.x;
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + col3.y;
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + col3.z;
@@ -1227,11 +1252,15 @@ class mat4 {
     arg.z = z_;
     return arg;
   }
-  vec3 transform3(vec3 arg) {
-    vec3 d = arg.copy();
-    return transformDirect3(d);
+  vec3 transformed3(vec3 arg, [vec3 out=null]) {
+    if (out == null) {
+      out = new vec3.copy(arg);
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform3(out);
   }
-  vec4 transformDirect(vec4 arg) {
+  vec4 transform(vec4 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -1242,9 +1271,13 @@ class mat4 {
     arg.w = w_;
     return arg;
   }
-  vec4 transform(vec4 arg) {
-    vec4 d = arg.copy();
-    return transformDirect(d);
+  vec4 transformed(vec4 arg, [vec4 out=null]) {
+    if (out == null) {
+      out = new vec4.copy(arg);
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {

@@ -23,6 +23,7 @@
 */
 
 #library("vector_math_console");
+#import('dart:math', prefix: 'Math');
 #source("common/scalar_math.dart");
 #source("console/vec2_gen.dart");
 #source("console/vec3_gen.dart");
@@ -37,3 +38,4 @@
 #source("console/mat4_gen.dart");
 #source("common/matrix.dart");
 #source("common/quat.dart");
+#source("common/aabb3.dart");

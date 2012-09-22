@@ -38,10 +38,169 @@
 <h3>Constructors</h3>
 <div class="method"><h4 id="mat4">
 <span class="show-code">Code</span>
+new <strong>mat4</strong>.raw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg0, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg1, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg2, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg3, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg4, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg5, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg6, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg7, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg8, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg9, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg10, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg11, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg12, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg13, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg14, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg15) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+mat4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11, num arg12, num arg13, num arg14, num arg15) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col0.x = arg0;
+  col0.y = arg1;
+  col0.z = arg2;
+  col0.w = arg3;
+  col1.x = arg4;
+  col1.y = arg5;
+  col1.z = arg6;
+  col1.w = arg7;
+  col2.x = arg8;
+  col2.y = arg9;
+  col2.z = arg10;
+  col2.w = arg11;
+  col3.x = arg12;
+  col3.y = arg13;
+  col3.z = arg14;
+  col3.w = arg15;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
+new <strong>mat4</strong>.scaleRaw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> x, <a href="http://api.dartlang.org/dart_core/num.html">num</a> y, <a href="http://api.dartlang.org/dart_core/num.html">num</a> z) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> representening a scale of 
+<span class="param">x</span>, 
+<span class="param">y</span>, and 
+<span class="param">z</span></p>
+<pre class="source">
+mat4.scaleRaw(num x, num y, num z) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col0.x = x;
+  col1.y = y;
+  col2.z = z;
+  col3.w = 1.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
+new <strong>mat4</strong>.scale(<a href="../vector_math_html/vec3.html">vec3</a> scale_) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> scale of <code>x</code>, <code>y</code>, and <code>z</code></p>
+<pre class="source">
+mat4.scale(vec3 scale_) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col0.x = scale_.x;
+  col1.y = scale_.y;
+  col2.z = scale_.z;
+  col3.w = 1.0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
+new <strong>mat4</strong>.translationRaw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> x, <a href="http://api.dartlang.org/dart_core/num.html">num</a> y, <a href="http://api.dartlang.org/dart_core/num.html">num</a> z) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> translation from 
+<span class="param">x</span>, 
+<span class="param">y</span>, and 
+<span class="param">z</span></p>
+<pre class="source">
+mat4.translationRaw(num x, num y, num z) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col0.x = 1.0;
+  col1.y = 1.0;
+  col2.z = 1.0;
+  col3.w = 1.0;
+  col3.x = x;
+  col3.y = y;
+  col3.z = z;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
+new <strong>mat4</strong>.translation(<a href="../vector_math_html/vec3.html">vec3</a> translation) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> translation matrix from 
+<span class="param">translation</span></p>
+<pre class="source">
+mat4.translation(vec3 translation) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col0.x = 1.0;
+  col1.y = 1.0;
+  col2.z = 1.0;
+  col3.w = 1.0;
+  col3.xyz = translation;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
+new <strong>mat4</strong>.rotationZ(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> representation a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a> around the Z axis</p>
+<pre class="source">
+mat4.rotationZ(num radians_) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col3.w = 1.0;
+  rotationZ(radians_);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
+new <strong>mat4</strong>.rotationY(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> representation a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a> around the Y axis</p>
+<pre class="source">
+mat4.rotationY(num radians_) {
+  col0 = new vec4.zero();
+  col1 = new vec4.zero();
+  col2 = new vec4.zero();
+  col3 = new vec4.zero();
+  col3.w = 1.0;
+  rotationY(radians_);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
 new <strong>mat4</strong>.rotationX(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#mat4"
               title="Permalink to mat4.mat4">#</a></h4>
 <div class="doc">
-<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> representation a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a> around the X axis</p>
+<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> representation a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a> around the X axis</p>
 <pre class="source">
 mat4.rotationX(num radians_) {
   col0 = new vec4.zero();
@@ -56,10 +215,43 @@ mat4.rotationX(num radians_) {
 </div>
 <div class="method"><h4 id="mat4">
 <span class="show-code">Code</span>
+new <strong>mat4</strong>.copy(<a href="../vector_math_html/mat4.html">mat4</a> other) <a class="anchor-link" href="#mat4"
+              title="Permalink to mat4.mat4">#</a></h4>
+<div class="doc">
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> which is a copy of 
+<span class="param">other</span>.</p>
+<pre class="source">
+mat4.copy(mat4 other) {
+  col0 = new vec4();
+  col1 = new vec4();
+  col2 = new vec4();
+  col3 = new vec4();
+  col0.x = other.col0.x;
+  col0.y = other.col0.y;
+  col0.z = other.col0.z;
+  col0.w = other.col0.w;
+  col1.x = other.col1.x;
+  col1.y = other.col1.y;
+  col1.z = other.col1.z;
+  col1.w = other.col1.w;
+  col2.x = other.col2.x;
+  col2.y = other.col2.y;
+  col2.z = other.col2.z;
+  col2.w = other.col2.w;
+  col3.x = other.col3.x;
+  col3.y = other.col3.y;
+  col3.z = other.col3.z;
+  col3.w = other.col3.w;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="mat4">
+<span class="show-code">Code</span>
 new <strong>mat4</strong>.identity() <a class="anchor-link" href="#mat4"
               title="Permalink to mat4.mat4">#</a></h4>
 <div class="doc">
-<p>Constructs a new identity <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a>.</p>
+<p>Constructs a new identity <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a>.</p>
 <pre class="source">
 mat4.identity() {
   col0 = new vec4();
@@ -88,44 +280,10 @@ mat4.identity() {
 </div>
 <div class="method"><h4 id="mat4">
 <span class="show-code">Code</span>
-new <strong>mat4</strong>.outer(<a href="../vector_math_html/vec4.html">vec4</a> u, <a href="../vector_math_html/vec4.html">vec4</a> v) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> from computing the outer product of 
-<span class="param">u</span> and 
-<span class="param">v</span>.</p>
-<pre class="source">
-mat4.outer(vec4 u, vec4 v) {
-  col0 = new vec4();
-  col1 = new vec4();
-  col2 = new vec4();
-  col3 = new vec4();
-  col0.x = u.x * v.x;
-  col0.y = u.x * v.y;
-  col0.z = u.x * v.z;
-  col0.w = u.x * v.w;
-  col1.x = u.y * v.x;
-  col1.y = u.y * v.y;
-  col1.z = u.y * v.z;
-  col1.w = u.y * v.w;
-  col2.x = u.z * v.x;
-  col2.y = u.z * v.y;
-  col2.z = u.z * v.z;
-  col2.w = u.z * v.w;
-  col3.x = u.w * v.x;
-  col3.y = u.w * v.y;
-  col3.z = u.w * v.z;
-  col3.w = u.w * v.w;
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
 new <strong>mat4</strong>.zero() <a class="anchor-link" href="#mat4"
               title="Permalink to mat4.mat4">#</a></h4>
 <div class="doc">
-<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> filled with zeros.</p>
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> filled with zeros.</p>
 <pre class="source">
 mat4.zero() {
   col0 = new vec4();
@@ -154,46 +312,34 @@ mat4.zero() {
 </div>
 <div class="method"><h4 id="mat4">
 <span class="show-code">Code</span>
-new <strong>mat4</strong>.scale(<a href="../vector_math_html/vec3.html">vec3</a> scale_) <a class="anchor-link" href="#mat4"
+new <strong>mat4</strong>.outer(<a href="../vector_math_html/vec4.html">vec4</a> u, <a href="../vector_math_html/vec4.html">vec4</a> v) <a class="anchor-link" href="#mat4"
               title="Permalink to mat4.mat4">#</a></h4>
 <div class="doc">
-<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> scale of <code>x</code>, <code>y</code>, and <code>z</code></p>
+<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4">mat4</a> from computing the outer product of 
+<span class="param">u</span> and 
+<span class="param">v</span>.</p>
 <pre class="source">
-mat4.scale(vec3 scale_) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col0.x = scale_.x;
-  col1.y = scale_.y;
-  col2.z = scale_.z;
-  col3.w = 1.0;
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.translationRaw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> x, <a href="http://api.dartlang.org/dart_core/num.html">num</a> y, <a href="http://api.dartlang.org/dart_core/num.html">num</a> z) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> translation from 
-<span class="param">x</span>, 
-<span class="param">y</span>, and 
-<span class="param">z</span></p>
-<pre class="source">
-mat4.translationRaw(num x, num y, num z) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col0.x = 1.0;
-  col1.y = 1.0;
-  col2.z = 1.0;
-  col3.w = 1.0;
-  col3.x = x;
-  col3.y = y;
-  col3.z = z;
+mat4.outer(vec4 u, vec4 v) {
+  col0 = new vec4();
+  col1 = new vec4();
+  col2 = new vec4();
+  col3 = new vec4();
+  col0.x = u.x * v.x;
+  col0.y = u.x * v.y;
+  col0.z = u.x * v.z;
+  col0.w = u.x * v.w;
+  col1.x = u.y * v.x;
+  col1.y = u.y * v.y;
+  col1.z = u.y * v.z;
+  col1.w = u.y * v.w;
+  col2.x = u.z * v.x;
+  col2.y = u.z * v.y;
+  col2.z = u.z * v.z;
+  col2.w = u.z * v.w;
+  col3.x = u.w * v.x;
+  col3.y = u.w * v.y;
+  col3.z = u.w * v.z;
+  col3.w = u.w * v.w;
 }
 </pre>
 </div>
@@ -293,152 +439,6 @@ mat4([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dyna
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.copy(<a href="../vector_math_html/mat4.html">mat4</a> other) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> which is a copy of 
-<span class="param">other</span>.</p>
-<pre class="source">
-mat4.copy(mat4 other) {
-  col0 = new vec4();
-  col1 = new vec4();
-  col2 = new vec4();
-  col3 = new vec4();
-  col0.x = other.col0.x;
-  col0.y = other.col0.y;
-  col0.z = other.col0.z;
-  col0.w = other.col0.w;
-  col1.x = other.col1.x;
-  col1.y = other.col1.y;
-  col1.z = other.col1.z;
-  col1.w = other.col1.w;
-  col2.x = other.col2.x;
-  col2.y = other.col2.y;
-  col2.z = other.col2.z;
-  col2.w = other.col2.w;
-  col3.x = other.col3.x;
-  col3.y = other.col3.y;
-  col3.z = other.col3.z;
-  col3.w = other.col3.w;
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.rotationZ(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> representation a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a> around the Z axis</p>
-<pre class="source">
-mat4.rotationZ(num radians_) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col3.w = 1.0;
-  rotationZ(radians_);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.rotationY(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> representation a rotation of <a class="crossref" href="../vector_math_html.html#radians">radians</a> around the Y axis</p>
-<pre class="source">
-mat4.rotationY(num radians_) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col3.w = 1.0;
-  rotationY(radians_);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.scaleRaw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> x, <a href="http://api.dartlang.org/dart_core/num.html">num</a> y, <a href="http://api.dartlang.org/dart_core/num.html">num</a> z) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>/ Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> representening a scale of 
-<span class="param">x</span>, 
-<span class="param">y</span>, and 
-<span class="param">z</span></p>
-<pre class="source">
-mat4.scaleRaw(num x, num y, num z) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col0.x = x;
-  col1.y = y;
-  col2.z = z;
-  col3.w = 1.0;
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.raw(<a href="http://api.dartlang.org/dart_core/num.html">num</a> arg0, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg1, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg2, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg3, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg4, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg5, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg6, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg7, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg8, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg9, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg10, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg11, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg12, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg13, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg14, <a href="http://api.dartlang.org/dart_core/num.html">num</a> arg15) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-
-<pre class="source">
-mat4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11, num arg12, num arg13, num arg14, num arg15) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col0.x = arg0;
-  col0.y = arg1;
-  col0.z = arg2;
-  col0.w = arg3;
-  col1.x = arg4;
-  col1.y = arg5;
-  col1.z = arg6;
-  col1.w = arg7;
-  col2.x = arg8;
-  col2.y = arg9;
-  col2.z = arg10;
-  col2.w = arg11;
-  col3.x = arg12;
-  col3.y = arg13;
-  col3.z = arg14;
-  col3.w = arg15;
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="mat4">
-<span class="show-code">Code</span>
-new <strong>mat4</strong>.translation(<a href="../vector_math_html/vec3.html">vec3</a> translation) <a class="anchor-link" href="#mat4"
-              title="Permalink to mat4.mat4">#</a></h4>
-<div class="doc">
-<p>Constructs a new <a class="crossref" href="../vector_math_html/mat4.html#new:mat4.translation">mat4</a> translation matrix from 
-<span class="param">translation</span></p>
-<pre class="source">
-mat4.translation(vec3 translation) {
-  col0 = new vec4.zero();
-  col1 = new vec4.zero();
-  col2 = new vec4.zero();
-  col3 = new vec4.zero();
-  col0.x = 1.0;
-  col1.y = 1.0;
-  col2.z = 1.0;
-  col3.w = 1.0;
-  col3.xyz = translation;
-}
-</pre>
-</div>
-</div>
 <h3>Methods</h3>
 <div class="method"><h4 id="absolute">
 <span class="show-code">Code</span>
@@ -518,8 +518,8 @@ mat4 add(mat4 o) {
 </div>
 <div class="method"><h4 id="cols">
 <span class="show-code">Code</span>
-<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get cols</strong>() <a class="anchor-link" href="#cols"
-              title="Permalink to mat4.get cols">#</a></h4>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>cols</strong>() <a class="anchor-link" href="#cols"
+              title="Permalink to mat4.cols">#</a></h4>
 <div class="doc">
 <p>Returns the number of columns in the matrix.</p>
 <pre class="source">
@@ -764,8 +764,8 @@ num determinant() {
 </div>
 <div class="method"><h4 id="forward">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/vec3.html">vec3</a> <strong>get forward</strong>() <a class="anchor-link" href="#forward"
-              title="Permalink to mat4.get forward">#</a></h4>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>forward</strong>() <a class="anchor-link" href="#forward"
+              title="Permalink to mat4.forward">#</a></h4>
 <div class="doc">
 
 <pre class="source">
@@ -973,8 +973,8 @@ num invertRotation() {
 </div>
 <div class="method"><h4 id="length">
 <span class="show-code">Code</span>
-<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get length</strong>() <a class="anchor-link" href="#length"
-              title="Permalink to mat4.get length">#</a></h4>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>length</strong>() <a class="anchor-link" href="#length"
+              title="Permalink to mat4.length">#</a></h4>
 <div class="doc">
 <p>Returns the number of columns in the matrix.</p>
 <pre class="source">
@@ -1119,6 +1119,24 @@ mat4 negate_() {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
+<a href="../vector_math_html/mat4.html">mat4</a> <strong>operator negate</strong>() <a class="anchor-link" href="#operator"
+              title="Permalink to mat4.operator negate">#</a></h4>
+<div class="doc">
+<p>Returns new matrix -this</p>
+<pre class="source">
+mat4 operator negate() {
+  mat4 r = new mat4();
+  r[0] = -this[0];
+  r[1] = -this[1];
+  r[2] = -this[2];
+  r[3] = -this[3];
+  return r;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="operator">
+<span class="show-code">Code</span>
 <a href="../vector_math_html/mat4.html">mat4</a> <strong>operator -</strong>(<a href="../vector_math_html/mat4.html">mat4</a> arg) <a class="anchor-link" href="#operator"
               title="Permalink to mat4.operator -">#</a></h4>
 <div class="doc">
@@ -1150,17 +1168,30 @@ mat4 operator-(mat4 arg) {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/mat4.html">mat4</a> <strong>operator negate</strong>() <a class="anchor-link" href="#operator"
-              title="Permalink to mat4.operator negate">#</a></h4>
+<a href="../vector_math_html/mat4.html">mat4</a> <strong>operator +</strong>(<a href="../vector_math_html/mat4.html">mat4</a> arg) <a class="anchor-link" href="#operator"
+              title="Permalink to mat4.operator +">#</a></h4>
 <div class="doc">
-<p>Returns new matrix -this</p>
+<p>Returns new matrix after component wise <code>this</code> + 
+<span class="param">arg</span></p>
 <pre class="source">
-mat4 operator negate() {
+mat4 operator+(mat4 arg) {
   mat4 r = new mat4();
-  r[0] = -this[0];
-  r[1] = -this[1];
-  r[2] = -this[2];
-  r[3] = -this[3];
+  r.col0.x = col0.x + arg.col0.x;
+  r.col0.y = col0.y + arg.col0.y;
+  r.col0.z = col0.z + arg.col0.z;
+  r.col0.w = col0.w + arg.col0.w;
+  r.col1.x = col1.x + arg.col1.x;
+  r.col1.y = col1.y + arg.col1.y;
+  r.col1.z = col1.z + arg.col1.z;
+  r.col1.w = col1.w + arg.col1.w;
+  r.col2.x = col2.x + arg.col2.x;
+  r.col2.y = col2.y + arg.col2.y;
+  r.col2.z = col2.z + arg.col2.z;
+  r.col2.w = col2.w + arg.col2.w;
+  r.col3.x = col3.x + arg.col3.x;
+  r.col3.y = col3.y + arg.col3.y;
+  r.col3.z = col3.z + arg.col3.z;
+  r.col3.w = col3.w + arg.col3.w;
   return r;
 }
 </pre>
@@ -1263,37 +1294,6 @@ void operator[]=(int column, vec4 arg) {
 </div>
 <div class="method"><h4 id="operator">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/mat4.html">mat4</a> <strong>operator +</strong>(<a href="../vector_math_html/mat4.html">mat4</a> arg) <a class="anchor-link" href="#operator"
-              title="Permalink to mat4.operator +">#</a></h4>
-<div class="doc">
-<p>Returns new matrix after component wise <code>this</code> + 
-<span class="param">arg</span></p>
-<pre class="source">
-mat4 operator+(mat4 arg) {
-  mat4 r = new mat4();
-  r.col0.x = col0.x + arg.col0.x;
-  r.col0.y = col0.y + arg.col0.y;
-  r.col0.z = col0.z + arg.col0.z;
-  r.col0.w = col0.w + arg.col0.w;
-  r.col1.x = col1.x + arg.col1.x;
-  r.col1.y = col1.y + arg.col1.y;
-  r.col1.z = col1.z + arg.col1.z;
-  r.col1.w = col1.w + arg.col1.w;
-  r.col2.x = col2.x + arg.col2.x;
-  r.col2.y = col2.y + arg.col2.y;
-  r.col2.z = col2.z + arg.col2.z;
-  r.col2.w = col2.w + arg.col2.w;
-  r.col3.x = col3.x + arg.col3.x;
-  r.col3.y = col3.y + arg.col3.y;
-  r.col3.z = col3.z + arg.col3.z;
-  r.col3.w = col3.w + arg.col3.w;
-  return r;
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="operator">
-<span class="show-code">Code</span>
 <a href="../vector_math_html/vec4.html">vec4</a> <strong>operator []</strong>(<a href="http://api.dartlang.org/dart_core/int.html">int</a> column) <a class="anchor-link" href="#operator"
               title="Permalink to mat4.operator []">#</a></h4>
 <div class="doc">
@@ -1332,8 +1332,8 @@ num relativeError(mat4 correct) {
 </div>
 <div class="method"><h4 id="right">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/vec3.html">vec3</a> <strong>get right</strong>() <a class="anchor-link" href="#right"
-              title="Permalink to mat4.get right">#</a></h4>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>right</strong>() <a class="anchor-link" href="#right"
+              title="Permalink to mat4.right">#</a></h4>
 <div class="doc">
 
 <pre class="source">
@@ -1410,20 +1410,6 @@ mat4 rotate(vec3 axis, num angle) {
 
 <pre class="source">
 vec3 rotate3(vec3 arg) {
-  vec3 d = arg.copy();
-  return rotateDirect3(d);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="rotateDirect3">
-<span class="show-code">Code</span>
-<a href="../vector_math_html/vec3.html">vec3</a> <strong>rotateDirect3</strong>(<a href="../vector_math_html/vec3.html">vec3</a> arg) <a class="anchor-link" href="#rotateDirect3"
-              title="Permalink to mat4.rotateDirect3">#</a></h4>
-<div class="doc">
-
-<pre class="source">
-vec3 rotateDirect3(vec3 arg) {
   num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
   num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
   num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -1531,6 +1517,24 @@ mat4 rotateZ(num angle) {
 </pre>
 </div>
 </div>
+<div class="method"><h4 id="rotated3">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>rotated3</strong>(<a href="../vector_math_html/vec3.html">vec3</a> arg, [<a href="../vector_math_html/vec3.html">vec3</a> out = null]) <a class="anchor-link" href="#rotated3"
+              title="Permalink to mat4.rotated3">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 rotated3(vec3 arg, [vec3 out=null]) {
+  if (out == null) {
+    out = arg.copy();
+  } else {
+    out.copyFrom(arg);
+  }
+  return rotate3(out);
+}
+</pre>
+</div>
+</div>
 <div class="method"><h4 id="rotationX">
 <span class="show-code">Code</span>
 void <strong>rotationX</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> radians_) <a class="anchor-link" href="#rotationX"
@@ -1611,6 +1615,17 @@ void rotationZ(num radians_) {
 </div>
 <div class="method"><h4 id="row0">
 <span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>row0</strong>() <a class="anchor-link" href="#row0"
+              title="Permalink to mat4.row0">#</a></h4>
+<div class="doc">
+<p>Returns row 0</p>
+<pre class="source">
+vec4 get row0() =&gt; getRow(0);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row0">
+<span class="show-code">Code</span>
 <strong>set row0</strong>(<a href="../vector_math_html/vec4.html">vec4</a> arg) <a class="anchor-link" href="#row0"
               title="Permalink to mat4.set row0">#</a></h4>
 <div class="doc">
@@ -1621,14 +1636,14 @@ set row0(vec4 arg) =&gt; setRow(0, arg);
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="row0">
+<div class="method"><h4 id="row1">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row0</strong>() <a class="anchor-link" href="#row0"
-              title="Permalink to mat4.get row0">#</a></h4>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>row1</strong>() <a class="anchor-link" href="#row1"
+              title="Permalink to mat4.row1">#</a></h4>
 <div class="doc">
-<p>Returns row 0</p>
+<p>Returns row 1</p>
 <pre class="source">
-vec4 get row0() =&gt; getRow(0);
+vec4 get row1() =&gt; getRow(1);
 </pre>
 </div>
 </div>
@@ -1641,17 +1656,6 @@ vec4 get row0() =&gt; getRow(0);
 <span class="param">arg</span></p>
 <pre class="source">
 set row1(vec4 arg) =&gt; setRow(1, arg);
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="row1">
-<span class="show-code">Code</span>
-<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row1</strong>() <a class="anchor-link" href="#row1"
-              title="Permalink to mat4.get row1">#</a></h4>
-<div class="doc">
-<p>Returns row 1</p>
-<pre class="source">
-vec4 get row1() =&gt; getRow(1);
 </pre>
 </div>
 </div>
@@ -1669,12 +1673,23 @@ set row2(vec4 arg) =&gt; setRow(2, arg);
 </div>
 <div class="method"><h4 id="row2">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row2</strong>() <a class="anchor-link" href="#row2"
-              title="Permalink to mat4.get row2">#</a></h4>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>row2</strong>() <a class="anchor-link" href="#row2"
+              title="Permalink to mat4.row2">#</a></h4>
 <div class="doc">
 <p>Returns row 2</p>
 <pre class="source">
 vec4 get row2() =&gt; getRow(2);
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="row3">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>row3</strong>() <a class="anchor-link" href="#row3"
+              title="Permalink to mat4.row3">#</a></h4>
+<div class="doc">
+<p>Returns row 3</p>
+<pre class="source">
+vec4 get row3() =&gt; getRow(3);
 </pre>
 </div>
 </div>
@@ -1690,21 +1705,10 @@ set row3(vec4 arg) =&gt; setRow(3, arg);
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="row3">
-<span class="show-code">Code</span>
-<a href="../vector_math_html/vec4.html">vec4</a> <strong>get row3</strong>() <a class="anchor-link" href="#row3"
-              title="Permalink to mat4.get row3">#</a></h4>
-<div class="doc">
-<p>Returns row 3</p>
-<pre class="source">
-vec4 get row3() =&gt; getRow(3);
-</pre>
-</div>
-</div>
 <div class="method"><h4 id="rows">
 <span class="show-code">Code</span>
-<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>get rows</strong>() <a class="anchor-link" href="#rows"
-              title="Permalink to mat4.get rows">#</a></h4>
+<a href="http://api.dartlang.org/dart_core/num.html">num</a> <strong>rows</strong>() <a class="anchor-link" href="#rows"
+              title="Permalink to mat4.rows">#</a></h4>
 <div class="doc">
 <p>Returns the number of rows in the matrix.</p>
 <pre class="source">
@@ -1935,34 +1939,6 @@ num trace() {
 
 <pre class="source">
 vec4 transform(vec4 arg) {
-  vec4 d = arg.copy();
-  return transformDirect(d);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="transform3">
-<span class="show-code">Code</span>
-<a href="../vector_math_html/vec3.html">vec3</a> <strong>transform3</strong>(<a href="../vector_math_html/vec3.html">vec3</a> arg) <a class="anchor-link" href="#transform3"
-              title="Permalink to mat4.transform3">#</a></h4>
-<div class="doc">
-
-<pre class="source">
-vec3 transform3(vec3 arg) {
-  vec3 d = arg.copy();
-  return transformDirect3(d);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="transformDirect">
-<span class="show-code">Code</span>
-<a href="../vector_math_html/vec4.html">vec4</a> <strong>transformDirect</strong>(<a href="../vector_math_html/vec4.html">vec4</a> arg) <a class="anchor-link" href="#transformDirect"
-              title="Permalink to mat4.transformDirect">#</a></h4>
-<div class="doc">
-
-<pre class="source">
-vec4 transformDirect(vec4 arg) {
   num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
   num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
   num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -1976,14 +1952,14 @@ vec4 transformDirect(vec4 arg) {
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="transformDirect3">
+<div class="method"><h4 id="transform3">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/vec3.html">vec3</a> <strong>transformDirect3</strong>(<a href="../vector_math_html/vec3.html">vec3</a> arg) <a class="anchor-link" href="#transformDirect3"
-              title="Permalink to mat4.transformDirect3">#</a></h4>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>transform3</strong>(<a href="../vector_math_html/vec3.html">vec3</a> arg) <a class="anchor-link" href="#transform3"
+              title="Permalink to mat4.transform3">#</a></h4>
 <div class="doc">
 
 <pre class="source">
-vec3 transformDirect3(vec3 arg) {
+vec3 transform3(vec3 arg) {
   num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + col3.x;
   num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + col3.y;
   num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + col3.z;
@@ -1991,6 +1967,42 @@ vec3 transformDirect3(vec3 arg) {
   arg.y = y_;
   arg.z = z_;
   return arg;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transformed">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec4.html">vec4</a> <strong>transformed</strong>(<a href="../vector_math_html/vec4.html">vec4</a> arg, [<a href="../vector_math_html/vec4.html">vec4</a> out = null]) <a class="anchor-link" href="#transformed"
+              title="Permalink to mat4.transformed">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec4 transformed(vec4 arg, [vec4 out=null]) {
+  if (out == null) {
+    out = arg.copy();
+  } else {
+    out.copyFrom(arg);
+  }
+  return transform(out);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="transformed3">
+<span class="show-code">Code</span>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>transformed3</strong>(<a href="../vector_math_html/vec3.html">vec3</a> arg, [<a href="../vector_math_html/vec3.html">vec3</a> out = null]) <a class="anchor-link" href="#transformed3"
+              title="Permalink to mat4.transformed3">#</a></h4>
+<div class="doc">
+
+<pre class="source">
+vec3 transformed3(vec3 arg, [vec3 out=null]) {
+  if (out == null) {
+    out = arg.copy();
+  } else {
+    out.copyFrom(arg);
+  }
+  return transformDirect3(out);
 }
 </pre>
 </div>
@@ -2138,8 +2150,8 @@ mat4 transposed() {
 </div>
 <div class="method"><h4 id="up">
 <span class="show-code">Code</span>
-<a href="../vector_math_html/vec3.html">vec3</a> <strong>get up</strong>() <a class="anchor-link" href="#up"
-              title="Permalink to mat4.get up">#</a></h4>
+<a href="../vector_math_html/vec3.html">vec3</a> <strong>up</strong>() <a class="anchor-link" href="#up"
+              title="Permalink to mat4.up">#</a></h4>
 <div class="doc">
 
 <pre class="source">
@@ -2240,7 +2252,7 @@ vec4 col3;
         </div>
         
         <div class="footer">
-          <div>This page was generated at 2012-08-20 20:04:02.792</div>
+          <div>This page was generated at 2012-08-22 20:02:37.466</div>
         </div>
         <script async src="../client-static.js"></script>
         </body></html>

@@ -16,13 +16,15 @@ class BenchmarkResult {
   }
   
   static num convertToMicroseconds(int i) {
-    assert(Clock.frequency() == 1000000);
+    Stopwatch sw = new Stopwatch();
+    assert(sw.frequency() == 1000000);
     num o = i;
     return o;
   }
   
   static num convertToMilliseconds(int i) {
-    assert(Clock.frequency() == 1000000);
+    Stopwatch sw = new Stopwatch();
+    assert(sw.frequency() == 1000000);
     num o = i;
     o = o / 1000.0;
     return o;
@@ -94,21 +96,21 @@ class BenchmarkRunner {
 }
 
 int MatrixMultiply(int count) {
-  mat4x4 matA = new mat4x4.identity();
-  mat4x4 matB = new mat4x4.identity();
-  int start = Clock.now();
+  mat4 matA = new mat4.identity();
+  mat4 matB = new mat4.identity();
+  Stopwatch sw = new Stopwatch();
+  sw.start();
   for (int i = 0; i < count; i++) {
-    matA.selfMultiply(matB);
+    matA.multiply(matB);
   }
-  int end = Clock.now();
-  return end-start;
+  sw.stop();
+  return sw.elapsed();
 }
 
 void main() {
   final int runCount = 10;
   final int innerCount = 20000;
   print('Starting benchmark');
-  print('Clock frequency: ${Clock.frequency()}');
   List<BenchmarkInfo> benchmarks = new List<BenchmarkInfo>();
   benchmarks.add(new BenchmarkInfo('Matrix Multiplication', MatrixMultiply));
   BenchmarkRunner.RunSet(benchmarks, runCount, innerCount); 

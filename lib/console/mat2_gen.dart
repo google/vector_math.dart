@@ -221,14 +221,14 @@ class mat2 {
     return r;
   }
   /// Returns new matrix -this
-  mat2 operator negate() {
+  mat2 operator -() {
     mat2 r = new mat2();
     r[0] = -this[0];
     r[1] = -this[1];
     return r;
   }
   /// Zeros [this].
-  mat2 zero() {
+  mat2 setZero() {
     col0.x = 0.0;
     col0.y = 0.0;
     col1.x = 0.0;
@@ -236,7 +236,7 @@ class mat2 {
     return this;
   }
   /// Makes [this] into the identity matrix.
-  mat2 identity() {
+  mat2 setIdentity() {
     col0.x = 1.0;
     col0.y = 0.0;
     col1.x = 0.0;
@@ -335,7 +335,7 @@ class mat2 {
     col1.y = temp * scale_;
     return this;
   }
-  mat2 copy() {
+  mat2 newCopy() {
     return new mat2.copy(this);
   }
   mat2 copyInto(mat2 arg) {
@@ -366,7 +366,7 @@ class mat2 {
     col1.y = col1.y - o.col1.y;
     return this;
   }
-  mat2 negate_() {
+  mat2 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col1.x = -col1.x;
@@ -410,16 +410,20 @@ class mat2 {
     col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y);
     return this;
   }
-  vec2 transformDirect(vec2 arg) {
+  vec2 transform(vec2 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
     arg.x = x_;
     arg.y = y_;
     return arg;
   }
-  vec2 transform(vec2 arg) {
-    vec2 d = arg.copy();
-    return transformDirect(d);
+  vec2 transformed(vec2 arg, [vec2 out=null]) {
+    if (out == null) {
+      out = new vec2.copy(arg);
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32List array, [int offset=0]) {

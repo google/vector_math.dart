@@ -105,7 +105,7 @@ class vec4 {
   /// Returns a printable string
   String toString() => '$x,$y,$z,$w';
   /// Returns a new vec4 from -this
-  vec4 operator negate() => new vec4(-x, -y, -z, -w);
+  vec4 operator -() => new vec4(-x, -y, -z, -w);
   /// Returns a new vec4 from this - [other]
   vec4 operator-(vec4 other) => new vec4(x - other.x, y - other.y, z - other.z, w - other.w);
   /// Returns a new vec4 from this + [other]
@@ -2230,7 +2230,7 @@ class vec4 {
     w = w * arg;
     return this;
   }
-  vec4 negate_() {
+  vec4 negate() {
     x = -x;
     y = -y;
     z = -z;
@@ -2243,10 +2243,6 @@ class vec4 {
     z = z.abs();
     w = w.abs();
     return this;
-  }
-  vec4 copy() {
-    vec4 c = new vec4.copy(this);
-    return c;
   }
   vec4 copyInto(vec4 arg) {
     arg.x = x;
@@ -2267,6 +2263,13 @@ class vec4 {
     y = arg.y;
     z = arg.z;
     w = arg.w;
+    return this;
+  }
+  vec4 setComponents(num x_, num y_, num z_, num w_) {
+    x = x_;
+    y = y_;
+    z = z_;
+    w = w_;
     return this;
   }
   /// Copies [this] into [array] starting at [offset].

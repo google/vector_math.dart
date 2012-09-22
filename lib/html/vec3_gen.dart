@@ -93,7 +93,7 @@ class vec3 {
   /// Returns a printable string
   String toString() => '$x,$y,$z';
   /// Returns a new vec3 from -this
-  vec3 operator negate() => new vec3(-x, -y, -z);
+  vec3 operator -() => new vec3(-x, -y, -z);
   /// Returns a new vec3 from this - [other]
   vec3 operator-(vec3 other) => new vec3(x - other.x, y - other.y, z - other.z);
   /// Returns a new vec3 from this + [other]
@@ -779,7 +779,7 @@ class vec3 {
     z = z * arg;
     return this;
   }
-  vec3 negate_() {
+  vec3 negate() {
     x = -x;
     y = -y;
     z = -z;
@@ -790,10 +790,6 @@ class vec3 {
     y = y.abs();
     z = z.abs();
     return this;
-  }
-  vec3 copy() {
-    vec3 c = new vec3.copy(this);
-    return c;
   }
   vec3 copyInto(vec3 arg) {
     arg.x = x;
@@ -811,6 +807,12 @@ class vec3 {
     x = arg.x;
     y = arg.y;
     z = arg.z;
+    return this;
+  }
+  vec3 setComponents(num x_, num y_, num z_) {
+    x = x_;
+    y = y_;
+    z = z_;
     return this;
   }
   /// Copies [this] into [array] starting at [offset].

@@ -147,21 +147,21 @@ class mat3 {
     col0 = new vec3.zero();
     col1 = new vec3.zero();
     col2 = new vec3.zero();
-    rotationX(radians_);
+    setRotationX(radians_);
   }
   //// Constructs a new [mat3] representation a rotation of [radians] around the Y axis
   mat3.rotationY(num radians_) {
     col0 = new vec3.zero();
     col1 = new vec3.zero();
     col2 = new vec3.zero();
-    rotationY(radians_);
+    setRotationY(radians_);
   }
   //// Constructs a new [mat3] representation a rotation of [radians] around the Z axis
   mat3.rotationZ(num radians_) {
     col0 = new vec3.zero();
     col1 = new vec3.zero();
     col2 = new vec3.zero();
-    rotationZ(radians_);
+    setRotationZ(radians_);
   }
   mat3.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8) {
     col0 = new vec3.zero();
@@ -319,7 +319,7 @@ class mat3 {
     return r;
   }
   /// Returns new matrix -this
-  mat3 operator negate() {
+  mat3 operator -() {
     mat3 r = new mat3();
     r[0] = -this[0];
     r[1] = -this[1];
@@ -327,7 +327,7 @@ class mat3 {
     return r;
   }
   /// Zeros [this].
-  mat3 zero() {
+  mat3 setZero() {
     col0.x = 0.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -340,7 +340,7 @@ class mat3 {
     return this;
   }
   /// Makes [this] into the identity matrix.
-  mat3 identity() {
+  mat3 setIdentity() {
     col0.x = 1.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -460,7 +460,7 @@ class mat3 {
     return det;
   }
   /// Turns the matrix into a rotation of [radians] around X
-  void rotationX(num radians_) {
+  void setRotationX(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = 1.0;
@@ -474,7 +474,7 @@ class mat3 {
     col2.z = c;
   }
   /// Turns the matrix into a rotation of [radians] around Y
-  void rotationY(num radians_) {
+  void setRotationY(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -488,7 +488,7 @@ class mat3 {
     col2.z = c;
   }
   /// Turns the matrix into a rotation of [radians] around Z
-  void rotationZ(num radians_) {
+  void setRotationZ(num radians_) {
     num c = Math.cos(radians_);
     num s = Math.sin(radians_);
     col0.x = c;
@@ -523,7 +523,28 @@ class mat3 {
     col2.z = (m00 * m00 - m01 * m10) * scale_;
     return this;
   }
-  mat3 copy() {
+  /// Rotates [arg] by the absolute rotation of [this]
+  /// Returns [arg].
+  /// Primarily used by AABB transformation code.
+  vec3 absoluteRotate(vec3 arg) {
+    num m00 = col0.x.abs();
+    num m01 = col1.x.abs();
+    num m02 = col2.x.abs();
+    num m10 = col0.y.abs();
+    num m11 = col1.y.abs();
+    num m12 = col2.y.abs();
+    num m20 = col0.z.abs();
+    num m21 = col1.z.abs();
+    num m22 = col2.z.abs();
+    num x = arg.x;
+    num y = arg.y;
+    num z = arg.z;
+    arg.x = x * m00 + y * m01 + z * m02 + 0.0 * 0.0;
+    arg.y = x * m10 + y * m11 + z * m12 + 0.0 * 0.0;
+    arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
+    return arg;
+  }
+  mat3 newCopy() {
     return new mat3.copy(this);
   }
   mat3 copyInto(mat3 arg) {
@@ -574,7 +595,7 @@ class mat3 {
     col2.z = col2.z - o.col2.z;
     return this;
   }
-  mat3 negate_() {
+  mat3 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;
@@ -658,7 +679,7 @@ class mat3 {
     col2.z =  (m20 * arg.col0.z) + (m21 * arg.col1.z) + (m22 * arg.col2.z);
     return this;
   }
-  vec3 transformDirect(vec3 arg) {
+  vec3 transform(vec3 arg) {
     num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
     num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
     num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
@@ -667,9 +688,13 @@ class mat3 {
     arg.z = z_;
     return arg;
   }
-  vec3 transform(vec3 arg) {
-    vec3 d = arg.copy();
-    return transformDirect(d);
+  vec3 transformed(vec3 arg, [vec3 out=null]) {
+    if (out == null) {
+      out = new vec3.copy(arg);
+    } else {
+      out.copyFrom(arg);
+    }
+    return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(Float32Array array, [int offset=0]) {

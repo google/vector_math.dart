@@ -73,7 +73,7 @@ class vec2 {
   /// Returns a printable string
   String toString() => '$x,$y';
   /// Returns a new vec2 from -this
-  vec2 operator negate() => new vec2(-x, -y);
+  vec2 operator -() => new vec2(-x, -y);
   /// Returns a new vec2 from this - [other]
   vec2 operator-(vec2 other) => new vec2(x - other.x, y - other.y);
   /// Returns a new vec2 from this + [other]
@@ -330,7 +330,7 @@ class vec2 {
     y = y * arg;
     return this;
   }
-  vec2 negate_() {
+  vec2 negate() {
     x = -x;
     y = -y;
     return this;
@@ -339,10 +339,6 @@ class vec2 {
     x = x.abs();
     y = y.abs();
     return this;
-  }
-  vec2 copy() {
-    vec2 c = new vec2.copy(this);
-    return c;
   }
   vec2 copyInto(vec2 arg) {
     arg.x = x;
@@ -357,6 +353,11 @@ class vec2 {
   vec2 set(vec2 arg) {
     x = arg.x;
     y = arg.y;
+    return this;
+  }
+  vec2 setComponents(num x_, num y_) {
+    x = x_;
+    y = y_;
     return this;
   }
   /// Copies [this] into [array] starting at [offset].
