@@ -1,4 +1,4 @@
-#import('../lib/vector_math_console.dart');
+#import('package:vectormath/vector_math_console.dart');
 #import('dart:math', prefix:'Math');
 #source('base_test.dart');
 #source('test_quaternion.dart');

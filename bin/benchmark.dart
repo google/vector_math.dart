@@ -1,5 +1,5 @@
 #import('dart:core');
-#import('../lib/vector_math_console.dart');
+#import('package:vectormath/vector_math_console.dart');
 
 typedef int Benchmark(int count);
 
