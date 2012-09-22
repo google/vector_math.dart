@@ -77,12 +77,5 @@ class VectorTest extends BaseTest {
     testVec2CrossProduct();
     testVec3DotProduct();
     testVec3CrossProduct();
-    
-    vec3 i = new vec3();
-    i.add(parseVector('''0.417267069084370
-                      0.049654430325742
-    0.902716109915281'''));
-    i++;
-    print(i);
   }
 }
