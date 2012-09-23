@@ -1,0 +1,6 @@
+name: vectormath
+description: A Vector Math library for game programming written in Dart.
+version: 0.0.1
+dependencies:
+  unittest:
+    sdk: unittest
