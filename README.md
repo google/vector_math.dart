@@ -20,18 +20,18 @@ Create a Dart project and add a **pubspec.yaml** file to it
 
 ```
 dependencies:
-  vectormath:
+  DartVectorMath:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
-and run **pub install** to install **vectormath** (including its dependencies). Now add import for **dart:io** projects
+and run **pub install** to install **DartVectorMath** (including its dependencies). Now add import for **dart:io** projects
 
 ```
-#import('package:vectormath/vector_math_console.dart');
+#import('package:DartVectorMath/vector_math_console.dart');
 ```
 or for **dart:html** based projects
 
 ```
-#import('package:vectormath/vector_math_html.dart');
+#import('package:DartVectorMath/vector_math_html.dart');
 ```
 
 ## Example ##
@@ -52,16 +52,8 @@ void main() {
 * vec3
 * vec4
 
-* mat2x2
-* mat2x3
-* mat2x4
-
-* mat3x2
-* mat3x3
-* mat3x4
-
-* mat4x2
-* mat4x3
-* mat4x4
+* mat2
+* mat3
+* mat4
 
 * quat
