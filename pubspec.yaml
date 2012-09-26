@@ -4,7 +4,7 @@ version: 0.8.5
 authors: 
 - John McCutchan <john@johnmccutchan.com>
 - Adam Singer <financeCoding@gmail.com>
-homepage: https://johnmccutchan.github.com/DartVectorMath
+homepage: https://github.com/johnmccutchan/DartVectorMath
 dependencies:
   unittest:
     sdk: unittest
