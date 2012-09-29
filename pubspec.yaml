@@ -1,6 +1,10 @@
-name: DartVectorMath
+name: dartvectormath
 description: A Vector Math library for game programming written in Dart.
-version: 0.0.1
+version: 0.8.5
+authors: 
+- John McCutchan <john@johnmccutchan.com>
+- Adam Singer <financeCoding@gmail.com>
+homepage: https://github.com/johnmccutchan/DartVectorMath
 dependencies:
   unittest:
     sdk: unittest
