@@ -319,7 +319,7 @@ class mat3 {
     return r;
   }
   /// Returns new matrix -this
-  mat3 operator -() {
+  mat3 operator-() {
     mat3 r = new mat3();
     r[0] = -this[0];
     r[1] = -this[1];

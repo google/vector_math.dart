@@ -260,7 +260,7 @@ class VectorGenerator extends BaseGenerator {
   void generateNegateOperator() {
     iPrint('\/\/\/ Returns a new $generatedName from -this');
     String op = '-';
-    String code = '$generatedName operator -() => new $generatedName(';
+    String code = '$generatedName operator-() => new $generatedName(';
     bool first = true;
     vectorComponents.forEach((comp) {
       var extra = first ? '$op$comp' :', $op$comp';

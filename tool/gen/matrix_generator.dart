@@ -916,7 +916,7 @@ class MatrixGenerator extends BaseGenerator {
 
   void generateNegate() {
     iPrint('\/\/\/ Returns new matrix -this');
-    iPrint('${matType} operator -() {');
+    iPrint('${matType} operator-() {');
     iPush();
     iPrint('${matType} r = new ${matType}();');
     for (int i = 0; i < cols; i++) {

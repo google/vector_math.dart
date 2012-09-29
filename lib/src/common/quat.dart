@@ -333,7 +333,7 @@ class quat {
   }
 
   /** Returns negated copy of [this] */
-  quat operator -() {
+  quat operator-() {
     return new quat(-x, -y, -z, -w);
   }
 

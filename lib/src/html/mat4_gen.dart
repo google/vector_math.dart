@@ -657,7 +657,7 @@ class mat4 {
     return this;
   }
   /// Returns new matrix -this
-  mat4 operator -() {
+  mat4 operator-() {
     mat4 r = new mat4();
     r[0] = -this[0];
     r[1] = -this[1];

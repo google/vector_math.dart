@@ -93,7 +93,7 @@ class vec3 {
   /// Returns a printable string
   String toString() => '$x,$y,$z';
   /// Returns a new vec3 from -this
-  vec3 operator -() => new vec3(-x, -y, -z);
+  vec3 operator-() => new vec3(-x, -y, -z);
   /// Returns a new vec3 from this - [other]
   vec3 operator-(vec3 other) => new vec3(x - other.x, y - other.y, z - other.z);
   /// Returns a new vec3 from this + [other]

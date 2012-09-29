@@ -221,7 +221,7 @@ class mat2 {
     return r;
   }
   /// Returns new matrix -this
-  mat2 operator -() {
+  mat2 operator-() {
     mat2 r = new mat2();
     r[0] = -this[0];
     r[1] = -this[1];
