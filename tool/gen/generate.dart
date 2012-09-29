@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -29,8 +29,11 @@
 #source('vector_generator.dart');
 #source('matrix_generator.dart');
 
+String htmlBasePath = 'lib/src/html';
+String consoleBasePath = 'lib/src/console';
+String basePath = 'lib/src/common';
+
 void generateBuiltin() {
-  String basePath = 'lib/common';
   var f;
   var o;
   f = new File('${basePath}/trig_gen.dart');
@@ -39,7 +42,7 @@ void generateBuiltin() {
     BuiltinGenerator bg = new BuiltinGenerator();
     bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
-    bg.generate([new GeneratedFunctionDesc('sin', 'Math.sin', ['arg'], 'arg', 'Returns sine of [arg]. Return type matches the type of [arg]'), 
+    bg.generate([new GeneratedFunctionDesc('sin', 'Math.sin', ['arg'], 'arg', 'Returns sine of [arg]. Return type matches the type of [arg]'),
                  new GeneratedFunctionDesc('cos', 'Math.cos', ['arg'], 'arg', 'Returns cosine of [arg]. Return type matches the type of [arg]'),
                  new GeneratedFunctionDesc('tan', 'Math.tan', ['arg'], 'arg', 'Returns tangent of [arg]. Return type matches the type of [arg]'),
                  new GeneratedFunctionDesc('asin', 'Math.asin', ['arg'], 'arg', 'Returns arc sine of [arg]. Return type matches the type of [arg]'),
@@ -55,7 +58,7 @@ void generateBuiltin() {
                  ]);
     opened.closeSync();
   });
-  
+
   f = new File('${basePath}/exponent_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -72,7 +75,7 @@ void generateBuiltin() {
                  ]);
     opened.closeSync();
   });
-  
+
   f = new File('${basePath}/common_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -100,8 +103,6 @@ void generateBuiltin() {
 }
 
 void generateVector() {
-  String htmlBasePath = 'lib/html';
-  String consoleBasePath = 'lib/console';
   var f;
   var o;
 
@@ -155,7 +156,7 @@ void generateVector() {
     vg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${consoleBasePath}/vec2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -209,8 +210,6 @@ void generateVector() {
 }
 
 void generateMatrix() {
-  String htmlBasePath = 'lib/html';
-  String consoleBasePath = 'lib/console';
   var f = null;
   var o;
   f = new File('${htmlBasePath}/mat2_gen.dart');
@@ -236,7 +235,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${htmlBasePath}/matrix2x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -248,7 +247,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${htmlBasePath}/matrix3x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -284,7 +283,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${htmlBasePath}/matrix4x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -296,7 +295,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${htmlBasePath}/matrix4x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -320,7 +319,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${consoleBasePath}/mat2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -344,7 +343,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${consoleBasePath}/matrix2x4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -356,7 +355,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${consoleBasePath}/matrix3x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -392,7 +391,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${consoleBasePath}/matrix4x2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
@@ -404,7 +403,7 @@ void generateMatrix() {
     mg.generate();
     opened.closeSync();
   });
-  
+
   f = new File('${consoleBasePath}/matrix4x3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
