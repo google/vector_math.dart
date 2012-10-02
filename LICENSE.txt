@@ -1,5 +1,5 @@
 /*
-  VectorMath.dart
+  DartVectorMath
   
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
   

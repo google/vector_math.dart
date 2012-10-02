@@ -20,7 +20,7 @@ Create a Dart project and add a **pubspec.yaml** file to it
 
 ```
 dependencies:
-  DartVectorMath:
+  dartvectormath:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
 and run **pub install** to install **DartVectorMath** (including its dependencies). Now add import for **dart:io** projects
@@ -51,9 +51,7 @@ void main() {
 * vec2
 * vec3
 * vec4
-
 * mat2
 * mat3
 * mat4
-
 * quat

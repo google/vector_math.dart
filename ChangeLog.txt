@@ -1,3 +1,11 @@
+v 0.9.0 - October 2012
+
+- Pub: Dart Vector Math now fully supports the pub package management system!
+- API++: Minor changes to the API everywhere. The changes improve the aesthetics and performance of the library.
+- Faster: Lots of performance tweaks resulting in the library getting faster and generating less garbage.
+- 2D Cross Product: The Box2D Dart port requires a 2D cross product.
+- Library Split: Two libraries, one for browser applications and console applications.
+
 v 0.8.5 - July 29 2012
 
 - 33% faster matrix matrix multiply
