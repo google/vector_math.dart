@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -22,7 +22,10 @@
 
 */
 
-/** Returns an OpenGL LookAt matrix */
+
+/**
+ * Returns an OpenGL look at matrix.
+ */
 mat4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
   vec3 z = lookAtPosition - eyePosition;
   z.normalize();
@@ -41,7 +44,9 @@ mat4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
   return r;
 }
 
-/** Returns an OpenGL perspective camera projection matrix */
+/**
+ * Returns an OpenGL perspective camera projection matrix
+ * */
 mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
   double height = tan(fov_y_radians * 0.5) * znear;
   double width = height * aspect_ratio;
@@ -49,7 +54,9 @@ mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
   return makeFrustum(-width, width, -height, height, znear, zfar);
 }
 
-/** Returns an OpenGL frustum camera projection matrix */
+/**
+ * Returns an OpenGL frustum camera projection matrix
+ */
 mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
   num two_near = 2.0 * near;
   num right_minus_left = right - left;
@@ -69,7 +76,9 @@ mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
   return view;
 }
 
-/** Returns an OpenGL orthographic camera projection matrix */ 
+/**
+ * Returns an OpenGL orthographic camera projection matrix
+ */
 mat4 makeOrthographic(num left, num right, num bottom, num top, num znear, num zfar) {
   num rml = right - left;
   num rpl = right + left;
@@ -77,7 +86,7 @@ mat4 makeOrthographic(num left, num right, num bottom, num top, num znear, num z
   num tpb = top + bottom;
   num fmn = zfar - znear;
   num fpn = zfar + znear;
-  
+
   mat4 r = new mat4.zero();
   r[0].x = 2.0/rml;
   r[1].y = 2.0/tmb;
@@ -86,11 +95,14 @@ mat4 makeOrthographic(num left, num right, num bottom, num top, num znear, num z
   r[3].y = tpb/tmb;
   r[3].z = fpn/fmn;
   r[3].w = 1.0;
-  
+
   return r;
 }
 
-/** Returns a transformation matrix that transforms points onto the plane specified with [planeNormal] and [planePoint] */
+/**
+ * Returns a transformation matrix that transforms points onto
+ * the plane specified with [planeNormal] and [planePoint]
+ */
 mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
   mat4 outer = new mat4.outer(v, v);
@@ -102,7 +114,10 @@ mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   return r;
 }
 
-/** Returns a transformation matrix that transforms points by reflecting them in the plane specified with [planeNormal] and [planePoint] */
+/**
+ * Returns a transformation matrix that transforms points by reflecting
+ * them through the plane specified with [planeNormal] and [planePoint]
+ */
 mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   vec4 v = new vec4(planeNormal, 0.0);
   mat4 outer = new mat4.outer(v,v);
@@ -114,4 +129,53 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   vec4 T = new vec4(scaledNormal, 1.0);
   r.col3 = T;
   return r;
+}
+
+/**
+ * On success, Sets [rayOrigin] to be the origin of the ray and [rayDirection]
+ * to be the unit direction vector from the camera origin to the near
+ * plane that intersects [pickX], [pickX].
+ *
+ * The viewport is specified by ([viewportX], [viewportWidth]) and
+ * ([viewportY], [viewportHeight]).
+ *
+ * [cameraMatrix] includes both the projection and view transforms.
+ *
+ * Returns false on error, for example, the mouse is not in the viewport
+ *
+ */
+bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
+               num viewportY, num viewportHeight,
+               num pickX, num pickY,
+               vec3 rayOrigin, vec3 rayDirection) {
+  // Remove viewport offset from pick coordinates.
+  pickX -= viewportX;
+  pickY -= viewportY;
+  // Normalize into -1,1.
+  pickX = (2.0 * pickX / viewportWidth) - 1.0;
+  pickY = 1.0 - (2.0 * pickY / viewportHeight);
+
+  // Check if pick point is inside viewport.
+  if (pickX < -1.0 || pickY < -1.0 || pickX > 1.0 || pickY > 1.0) {
+    return false;
+  }
+
+  // Copy camera matrix.
+  mat4 invertedCameraMatrix = new mat4.copy(cameraMatrix);
+  // Invert the camera matrix.
+  invertedCameraMatrix.invert();
+
+  // Capture ray origin.
+  rayOrigin.setComponents(invertedCameraMatrix.col3.x,
+                          invertedCameraMatrix.col3.y,
+                          invertedCameraMatrix.col3.z);
+  // Determine near plane intersection point.
+  rayDirection.setComponents(pickX, pickY, 0.0);
+  invertedCameraMatrix.transform3(rayDirection);
+  // Subtract origin of the ray.
+  rayDirection.sub(rayOrigin);
+  // Normalize.
+  rayDirection.normalize();
+
+  return true;
 }

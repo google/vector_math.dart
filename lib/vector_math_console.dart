@@ -37,6 +37,6 @@
 #source("src/console/mat2_gen.dart");
 #source("src/console/mat3_gen.dart");
 #source("src/console/mat4_gen.dart");
-#source("src/common/matrix.dart");
+#source("src/common/opengl.dart");
 #source("src/common/quat.dart");
 #source("src/common/aabb3.dart");
