@@ -132,50 +132,88 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
 }
 
 /**
- * On success, Sets [rayOrigin] to be the origin of the ray and [rayDirection]
- * to be the unit direction vector from the camera origin to the near
- * plane that intersects [pickX], [pickX].
+ * On success, Sets [pickWorld] to be the world space position of.
+ * the screen space [pickX], [pickY], and [pickZ].
  *
  * The viewport is specified by ([viewportX], [viewportWidth]) and
  * ([viewportY], [viewportHeight]).
  *
  * [cameraMatrix] includes both the projection and view transforms.
  *
+ * [pickZ] is typically either 0.0 (near plane) or 1.0 (far plane).
+ *
  * Returns false on error, for example, the mouse is not in the viewport
  *
  */
 bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
                num viewportY, num viewportHeight,
-               num pickX, num pickY,
-               vec3 rayOrigin, vec3 rayDirection) {
+               num pickX, num pickY, num pickZ,
+               vec3 pickWorld) {
   // Remove viewport offset from pick coordinates.
   pickX -= viewportX;
   pickY -= viewportY;
-  // Normalize into -1,1.
+  // Translate from viewport to unit cube
   pickX = (2.0 * pickX / viewportWidth) - 1.0;
   pickY = 1.0 - (2.0 * pickY / viewportHeight);
+  pickZ = 2.0 * pickZ - 1.0;
 
-  // Check if pick point is inside viewport.
-  if (pickX < -1.0 || pickY < -1.0 || pickX > 1.0 || pickY > 1.0) {
+  // Check if pick point is inside unit cube
+  if (pickX < -1.0 || pickY < -1.0 || pickX > 1.0 || pickY > 1.0 ||
+      pickZ < -1.0 || pickZ > 1.0) {
     return false;
   }
 
+  vec4 v = new vec4.zero();
   // Copy camera matrix.
   mat4 invertedCameraMatrix = new mat4.copy(cameraMatrix);
   // Invert the camera matrix.
   invertedCameraMatrix.invert();
+  v.setComponents(pickX, pickY, pickZ, 1.0);
+  // Determine intersection point.
+  invertedCameraMatrix.transform(v);
+  double invW = 1.0 / v.w;
+  if (v.w == 0.0) {
+    return false;
+  }
+  pickWorld.x = v.x * invW;
+  pickWorld.y = v.y * invW;
+  pickWorld.z = v.z * invW;
 
-  // Capture ray origin.
-  rayOrigin.setComponents(invertedCameraMatrix.col3.x,
-                          invertedCameraMatrix.col3.y,
-                          invertedCameraMatrix.col3.z);
-  // Determine near plane intersection point.
-  rayDirection.setComponents(pickX, pickY, 0.0);
-  invertedCameraMatrix.transform3(rayDirection);
-  // Subtract origin of the ray.
-  rayDirection.sub(rayOrigin);
-  // Normalize.
-  rayDirection.normalize();
+  return true;
+}
+
+/**
+ * On success, [rayNear] and [rayFar] are the points where
+ * the screen space [pickX], [pickY] intersect with the near and far
+ * planes respectively.
+ *
+ * The viewport is specified by ([viewportX], [viewportWidth]) and
+ * ([viewportY], [viewportHeight]).
+ *
+ * [cameraMatrix] includes both the projection and view transforms.
+ *
+ *
+ * Returns false on error, for example, the mouse is not in the viewport
+ *
+ */
+bool pickRay(mat4 cameraMatrix, num viewportX, num viewportWidth,
+               num viewportY, num viewportHeight,
+               num pickX, num pickY,
+               vec3 rayNear, vec3 rayFar) {
+
+  bool r;
+
+  r = unproject(cameraMatrix, viewportX, viewportWidth,
+                viewportY, viewportHeight, pickX, pickY, 0.0, rayNear);
+  if (!r) {
+    return false;
+  }
+
+  r = unproject(cameraMatrix, viewportX, viewportWidth,
+                viewportY, viewportHeight, pickX, pickY, 1.0, rayFar);
+  if (!r) {
+    return false;
+  }
 
   return true;
 }
