@@ -541,9 +541,8 @@ class VectorGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns the relative error between [this] and [correct]');
     iPrint('num relativeError($generatedName correct) {');
     iPush();
-    iPrint('num this_norm = length;');
     iPrint('num correct_norm = correct.length;');
-    iPrint('num diff_norm = (this_norm - correct_norm).abs();');
+    iPrint('num diff_norm = (this - correct).length;');
     iPrint('return diff_norm/correct_norm;');
     iPop();
     iPrint('}');
@@ -551,10 +550,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns the absolute error between [this] and [correct]');
     iPrint('num absoluteError($generatedName correct) {');
     iPush();
-    iPrint('num this_norm = length;');
-    iPrint('num correct_norm = correct.length;');
-    iPrint('num diff_norm = (this_norm - correct_norm).abs();');
-    iPrint('return diff_norm;');
+    iPrint('return (this - correct).length;');
     iPop();
     iPrint('}');
   }
