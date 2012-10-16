@@ -867,12 +867,53 @@ class mat4 {
     return this;
   }
   num invert() {
-    num det = determinant();
-    if (det == 0.0) {
-      return 0.0;
-    }
-    num invDet = 1.0 / det;
-    scaleAdjoint(invDet);
+    double a00 = col0.x;
+    double a01 = col0.y;
+    double a02 = col0.z;
+    double a03 = col0.w;
+    double a10 = col1.x;
+    double a11 = col1.y;
+    double a12 = col1.z;
+    double a13 = col1.w;
+    double a20 = col2.x;
+    double a21 = col2.y;
+    double a22 = col2.z;
+    double a23 = col2.w;
+    double a30 = col3.x;
+    double a31 = col3.y;
+    double a32 = col3.z;
+    double a33 = col3.w;
+    var b00 = a00 * a11 - a01 * a10;
+    var b01 = a00 * a12 - a02 * a10;
+    var b02 = a00 * a13 - a03 * a10;
+    var b03 = a01 * a12 - a02 * a11;
+    var b04 = a01 * a13 - a03 * a11;
+    var b05 = a02 * a13 - a03 * a12;
+    var b06 = a20 * a31 - a21 * a30;
+    var b07 = a20 * a32 - a22 * a30;
+    var b08 = a20 * a33 - a23 * a30;
+    var b09 = a21 * a32 - a22 * a31;
+    var b10 = a21 * a33 - a23 * a31;
+    var b11 = a22 * a33 - a23 * a32;
+    var det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+    if (det == 0.0) { return det; }
+    var invDet = 1.0 / det;
+    col0.x = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
+    col0.y = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
+    col0.z = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
+    col0.w = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
+    col1.x = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
+    col1.y = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;
+    col1.z = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
+    col1.w = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;
+    col2.x = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;
+    col2.y = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
+    col2.z = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;
+    col2.w = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
+    col3.x = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
+    col3.y = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
+    col3.z = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
+    col3.w = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
     return det;
   }
   num invertRotation() {
@@ -1261,10 +1302,10 @@ class mat4 {
     return transform3(out);
   }
   vec4 transform(vec4 arg) {
-    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
-    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
-    num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
-    num w_ =  (this.col0.w * arg.x) + (this.col1.w * arg.y) + (this.col2.w * arg.z);
+    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + (this.col3.x * arg.w);
+    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + (this.col3.y * arg.w);
+    num z_ =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + (this.col3.z * arg.w);
+    num w_ =  (this.col0.w * arg.x) + (this.col1.w * arg.y) + (this.col2.w * arg.z) + (this.col3.w * arg.w);
     arg.x = x_;
     arg.y = y_;
     arg.z = z_;

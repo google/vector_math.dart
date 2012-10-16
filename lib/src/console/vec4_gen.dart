@@ -205,17 +205,13 @@ class vec4 {
   }
   /// Returns the relative error between [this] and [correct]
   num relativeError(vec4 correct) {
-    num this_norm = length;
     num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
+    num diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
   /// Returns the absolute error between [this] and [correct]
   num absoluteError(vec4 correct) {
-    num this_norm = length;
-    num correct_norm = correct.length;
-    num diff_norm = (this_norm - correct_norm).abs();
-    return diff_norm;
+    return (this - correct).length;
   }
   set xy(vec2 arg) {
     x = arg.x;
