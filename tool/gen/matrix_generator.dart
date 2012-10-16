@@ -1172,14 +1172,42 @@ class MatrixGenerator extends BaseGenerator {
     } else if (rows == 4) {
       iPrint('num invert() {');
       iPush();
-      iPrint('num det = determinant();');
-      iPrint('if (det == 0.0) {');
-      iPush();
-      iPrint('return 0.0;');
-      iPop();
-      iPrint('}');
-      iPrint('num invDet = 1.0 / det;');
-      iPrint('scaleAdjoint(invDet);');
+      for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+          iPrint('double a$i$j = ${Access(j, i)};');
+        }
+      }
+      iPrint('var b00 = a00 * a11 - a01 * a10;');
+      iPrint('var b01 = a00 * a12 - a02 * a10;');
+      iPrint('var b02 = a00 * a13 - a03 * a10;');
+      iPrint('var b03 = a01 * a12 - a02 * a11;');
+      iPrint('var b04 = a01 * a13 - a03 * a11;');
+      iPrint('var b05 = a02 * a13 - a03 * a12;');
+      iPrint('var b06 = a20 * a31 - a21 * a30;');
+      iPrint('var b07 = a20 * a32 - a22 * a30;');
+      iPrint('var b08 = a20 * a33 - a23 * a30;');
+      iPrint('var b09 = a21 * a32 - a22 * a31;');
+      iPrint('var b10 = a21 * a33 - a23 * a31;');
+      iPrint('var b11 = a22 * a33 - a23 * a32;');
+      iPrint('var det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);');
+      iPrint('if (det == 0.0) { return det; }');
+      iPrint('var invDet = 1.0 / det;');
+      iPrint('${Access(0, 0)} = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;');
+      iPrint('${Access(1, 0)} = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;');
+      iPrint('${Access(2, 0)} = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;');
+      iPrint('${Access(3, 0)} = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;');
+      iPrint('${Access(0, 1)} = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;');
+      iPrint('${Access(1, 1)} = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;');
+      iPrint('${Access(2, 1)} = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;');
+      iPrint('${Access(3, 1)} = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;');
+      iPrint('${Access(0, 2)} = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;');
+      iPrint('${Access(1, 2)} = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;');
+      iPrint('${Access(2, 2)} = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;');
+      iPrint('${Access(3, 2)} = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;');
+      iPrint('${Access(0, 3)} = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;');
+      iPrint('${Access(1, 3)} = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;');
+      iPrint('${Access(2, 3)} = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;');
+      iPrint('${Access(3, 3)} = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;');
       iPrint('return det;');
       iPop();
       iPrint('}');
@@ -1740,10 +1768,10 @@ class MatrixGenerator extends BaseGenerator {
 
       iPrint('vec4 transform(vec4 arg) {');
       iPush();
-      iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 3)};');
-      iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 3)};');
-      iPrint('num z_ = ${generateInlineDot('this', 2, 'arg', 3)};');
-      iPrint('num w_ = ${generateInlineDot('this', 3, 'arg', 3)};');
+      iPrint('num x_ = ${generateInlineDot('this', 0, 'arg', 4)};');
+      iPrint('num y_ = ${generateInlineDot('this', 1, 'arg', 4)};');
+      iPrint('num z_ = ${generateInlineDot('this', 2, 'arg', 4)};');
+      iPrint('num w_ = ${generateInlineDot('this', 3, 'arg', 4)};');
       iPrint('arg.x = x_;');
       iPrint('arg.y = y_;');
       iPrint('arg.z = z_;');
