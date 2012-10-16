@@ -164,13 +164,12 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
     return false;
   }
 
-  vec4 v = new vec4.zero();
   // Copy camera matrix.
   mat4 invertedCameraMatrix = new mat4.copy(cameraMatrix);
   // Invert the camera matrix.
   invertedCameraMatrix.invert();
-  v.setComponents(pickX, pickY, pickZ, 1.0);
   // Determine intersection point.
+  vec4 v = new vec4(pickX, pickY, pickZ, 1.0);
   invertedCameraMatrix.transform(v);
   if (v.w == 0.0) {
     return false;
@@ -211,9 +210,6 @@ bool pickRay(mat4 cameraMatrix, num viewportX, num viewportWidth,
 
   r = unproject(cameraMatrix, viewportX, viewportWidth,
                 viewportY, viewportHeight, pickX, viewportHeight-pickY, 1.0, rayFar);
-  if (!r) {
-    return false;
-  }
 
-  return true;
+  return r;
 }
