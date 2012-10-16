@@ -135,7 +135,7 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
 }
 
 /**
- * On success, Sets [pickWorld] to be the world space position of.
+ * On success, Sets [pickWorld] to be the world space position of
  * the screen space [pickX], [pickY], and [pickZ].
  *
  * The viewport is specified by ([viewportX], [viewportWidth]) and
@@ -193,7 +193,6 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
  *
  * [cameraMatrix] includes both the projection and view transforms.
  *
- *
  * Returns false on error, for example, the mouse is not in the viewport
  *
  */
@@ -205,13 +204,13 @@ bool pickRay(mat4 cameraMatrix, num viewportX, num viewportWidth,
   bool r;
 
   r = unproject(cameraMatrix, viewportX, viewportWidth,
-                viewportY, viewportHeight, pickX, pickY, 0.0, rayNear);
+                viewportY, viewportHeight, pickX, viewportHeight-pickY, 0.0, rayNear);
   if (!r) {
     return false;
   }
 
   r = unproject(cameraMatrix, viewportX, viewportWidth,
-                viewportY, viewportHeight, pickX, pickY, 1.0, rayFar);
+                viewportY, viewportHeight, pickX, viewportHeight-pickY, 1.0, rayFar);
   if (!r) {
     return false;
   }
