@@ -13,7 +13,7 @@ class BaseTest {
     }
   }
 
-  final num errorThreshold = 0.00005;
+  final num errorThreshold = 0.0005;
 
   Dynamic makeMatrix(int rows, int cols) {
     if (rows != cols) {
