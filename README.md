@@ -12,8 +12,7 @@ A Vector Math library for game programming written in Dart.
 * DartVectorMath is fully documented. See the docs/ directory.
 * DartVectorMath GLSL getter and setter syntax (see Example)
 
-## Status: Alpha ##
-This code is alpha.
+## Status: Beta ##
 
 ## Getting Started ##
 Create a Dart project and add a **pubspec.yaml** file to it
