@@ -10,24 +10,24 @@
 void main() {
   {
     QuaternionTest qt = new QuaternionTest();
-    qt.test();  
+    qt.test();
   }
-  
+
   {
     MatrixTest mt = new MatrixTest();
     mt.test();
   }
-  
+
   {
     VectorTest vt = new VectorTest();
     vt.test();
   }
-  
+
   {
     OpenGLMatrixTest omt = new OpenGLMatrixTest();
     omt.test();
   }
-  
+
   {
     BuiltinTest bt = new BuiltinTest();
     bt.test();
