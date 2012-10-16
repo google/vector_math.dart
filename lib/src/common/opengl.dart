@@ -27,7 +27,7 @@
  * Returns an OpenGL look at matrix.
  */
 mat4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
-  vec3 z = lookAtPosition - eyePosition;
+  vec3 z = eyePosition - lookAtPosition;
   z.normalize();
   vec3 x = z.cross(upDirection);
   x.normalize();
@@ -65,11 +65,14 @@ mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
 
   mat4 view = new mat4.zero();
   view[0].x = two_near / right_minus_left;
+
   view[1].y = two_near / top_minus_bottom;
+
   view[2].x = (right + left) / right_minus_left;
   view[2].y = (top + bottom) / top_minus_bottom;
   view[2].z = -(far + near) / far_minus_near;
   view[2].w = -1.0;
+
   view[3].z = -(two_near * far) / far_minus_near;
   view[3].w = 0.0;
 
@@ -149,13 +152,11 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
                num viewportY, num viewportHeight,
                num pickX, num pickY, num pickZ,
                vec3 pickWorld) {
-  // Remove viewport offset from pick coordinates.
-  pickX -= viewportX;
-  pickY -= viewportY;
-  // Translate from viewport to unit cube
+  pickX = (pickX - viewportX);
+  pickY = (pickY - viewportY);
   pickX = (2.0 * pickX / viewportWidth) - 1.0;
-  pickY = 1.0 - (2.0 * pickY / viewportHeight);
-  pickZ = 2.0 * pickZ - 1.0;
+  pickY = (2.0 * pickY / viewportHeight) - 1.0;
+  pickZ = (2.0 * pickZ) - 1.0;
 
   // Check if pick point is inside unit cube
   if (pickX < -1.0 || pickY < -1.0 || pickX > 1.0 || pickY > 1.0 ||
@@ -171,10 +172,10 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
   v.setComponents(pickX, pickY, pickZ, 1.0);
   // Determine intersection point.
   invertedCameraMatrix.transform(v);
-  double invW = 1.0 / v.w;
   if (v.w == 0.0) {
     return false;
   }
+  double invW = 1.0 / v.w;
   pickWorld.x = v.x * invW;
   pickWorld.y = v.y * invW;
   pickWorld.z = v.z * invW;
