@@ -1,4 +1,4 @@
-name: dartvectormath
+name: vector_math
 description: A Vector Math library for game programming written in Dart.
 version: 0.9.0
 author: John McCutchan <john@johnmccutchan.com>
