@@ -25,12 +25,12 @@ dependencies:
 and run **pub install** to install **DartVectorMath** (including its dependencies). Now add import for **dart:io** projects
 
 ```
-#import('package:dartvectormath/vector_math_console.dart');
+#import('package:vector_math/vector_math_console.dart');
 ```
 or for **dart:html** based projects
 
 ```
-#import('package:dartvectormath/vector_math_html.dart');
+#import('package:vector_math/vector_math_browser.dart');
 ```
 
 ## Example ##
