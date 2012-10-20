@@ -19,7 +19,7 @@ Create a Dart project and add a **pubspec.yaml** file to it
 
 ```
 dependencies:
-  dartvectormath:
+  vector_math:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
 and run **pub install** to install **DartVectorMath** (including its dependencies). Now add import for **dart:io** projects
