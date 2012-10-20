@@ -1,10 +1,25 @@
 class MatrixTest extends BaseTest {
-  
+
+  void testMatrixTranspose() {
+    List<Dynamic> inputA = new List<Dynamic>();
+    List<Dynamic> expectedOutput = new List<Dynamic>();
+    inputA.add(parseMatrix('''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
+                           0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
+                           0.369246781120215   0.241691285913833   0.942050590775485   0.234779913372406
+    0.111202755293787   0.403912145588115   0.956134540229802   0.353158571222071'''));
+    expectedOutput.add(inputA[0].transposed());
+
+    for (int i = 0; i < inputA.length; i++) {
+      inputA[i].transpose();
+      relativeTest(inputA[i], expectedOutput[i]);
+    }
+  }
+
   void testMatrixVectorMultiplication() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+
     inputA.add(parseMatrix('''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
    0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
    0.369246781120215   0.241691285913833   0.942050590775485   0.234779913372406
@@ -18,7 +33,7 @@ class MatrixTest extends BaseTest {
    0.387152194918898
    0.198357495624973'''));
     /*
-    inputA.add(parseMatrix('''0.780227435151377   0.929385970968730   0.486791632403172 
+    inputA.add(parseMatrix('''0.780227435151377   0.929385970968730   0.486791632403172
    0.081125768865785   0.775712678608402   0.435858588580919'''));
     inputB.add(parseVector('''0.446783749429806
    0.306349472016557
@@ -28,18 +43,18 @@ class MatrixTest extends BaseTest {
     */
     assert(inputA.length == inputB.length);
     assert(expectedOutput.length == inputB.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i] * inputB[i];
       relativeTest(output, expectedOutput[i]);
     }
   }
-  
+
   void testMatrixMultiplication() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+
     inputA.add(parseMatrix('''0.587044704531417   0.230488160211558   0.170708047147859   0.923379642103244
    0.207742292733028   0.844308792695389   0.227664297816554   0.430207391329584
    0.301246330279491   0.194764289567049   0.435698684103899   0.184816320124136
@@ -65,18 +80,18 @@ class MatrixTest extends BaseTest {
     */
     assert(inputA.length == inputB.length);
     assert(expectedOutput.length == inputB.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
       Dynamic output = inputA[i] * inputB[i];
       //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
       relativeTest(output, expectedOutput[i]);
     }
   }
-  
+
   void testAdjoint() {
     List<Dynamic> input = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+
     input.add(parseMatrix(''' 0.285839018820374   0.380445846975357   0.053950118666607
    0.757200229110721   0.567821640725221   0.530797553008973
    0.753729094278495   0.075854289563064   0.779167230102011'''));
@@ -113,7 +128,7 @@ class MatrixTest extends BaseTest {
       0     1     0     0
       0     0     1     0
       0     0     0     1'''));
-    
+
     input.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
    0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
@@ -122,16 +137,16 @@ class MatrixTest extends BaseTest {
   -0.279454715225440  -0.269081505356250   0.114433412778961   0.133858687769130
    0.218879650360982   0.073892735462981   0.069073300555062  -0.132069899391626
    0.183633794399577   0.146113141160308  -0.156100829983306  -0.064859465665816'''));
-    
+
     assert(input.length == expectedOutput.length);
-    
+
     for (int i = 0; i < input.length; i++) {
-      Dynamic output = input[i].newCopy();
+      Dynamic output = input[i].clone();
       output.scaleAdjoint(1.0);
       relativeTest(output, expectedOutput[i]);
     }
   }
-  
+
   void testDeterminant() {
     List<Dynamic> input = new List<Dynamic>();
     List<double> expectedOutput = new List<double>();
@@ -140,41 +155,41 @@ class MatrixTest extends BaseTest {
       0.823457828327293   0.034446080502909   0.795199901137063   0.646313010111265
       0.694828622975817   0.438744359656398   0.186872604554379   0.709364830858073'''));
     expectedOutput.add(-0.199908980087990);
-    
+
     input.add(parseMatrix('''  -2.336158020850647   0.358791716162913   0.571930324052307   0.866477090273158
   -1.190335868711951   1.132044609886021  -0.693048859451418   0.742195189800671
    0.015919048685702   0.552417702663606   1.020805610524362  -1.288062497216858
    3.020318574990609  -1.197139524685751  -0.400475005629390   0.441263145991252'''));
     expectedOutput.add(-5.002276533849802);
-    
+
     input.add(parseMatrix('''0.830828627896291   0.549723608291140
    0.585264091152724   0.917193663829810'''));
     expectedOutput.add(0.440297265243183);
-    
+
     input.add(parseMatrix('''0.285839018820374   0.380445846975357   0.053950118666607
    0.757200229110721   0.567821640725221   0.530797553008973
    0.753729094278495   0.075854289563064   0.779167230102011'''));
     expectedOutput.add(0.022713604103796);
-    
+
     input.add(parseMatrix('''0.934010684229183   0.011902069501241   0.311215042044805   0.262971284540144
    0.129906208473730   0.337122644398882   0.528533135506213   0.654079098476782
    0.568823660872193   0.162182308193243   0.165648729499781   0.689214503140008
    0.469390641058206   0.794284540683907   0.601981941401637   0.748151592823709'''));
     expectedOutput.add(0.117969860982876);
     assert(input.length == expectedOutput.length);
-    
+
     for (int i = 0; i < input.length; i++) {
       double output = input[i].determinant();
       //print('${input[i].cols}x${input[i].rows} = $output');
       relativeTest(output, expectedOutput[i]);
     }
   }
-  
+
   void testSelfTransposeMultiply() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+
     inputA.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
    0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
@@ -187,7 +202,7 @@ class MatrixTest extends BaseTest {
    1.170948826011164   1.987289692246011   1.393079247172284   1.945966332001094
    0.975285713492989   1.393079247172284   1.138698195167051   1.266161729169725
    1.047596917860438   1.945966332001094   1.266161729169725   2.023122749969790'''));
-    
+
     inputA.add(parseMatrix('''0.084435845510910   0.800068480224308   0.181847028302852
    0.399782649098896   0.431413827463545   0.263802916521990
    0.259870402850654   0.910647594429523   0.145538980384717'''));
@@ -197,7 +212,7 @@ class MatrixTest extends BaseTest {
     expectedOutput.add(parseMatrix('''0.509665070066463   0.326055864494860   0.326206788210183
    1.011795431418814   1.279272055656899   1.116481872383158
    0.338435097301446   0.262379221330899   0.280398953455993'''));
-    
+
     inputA.add(parseMatrix('''0.136068558708664   0.549860201836332   0.622055131485066
    0.869292207640089   0.144954798223727   0.350952380892271
    0.579704587365570   0.853031117721894   0.513249539867053'''));
@@ -209,19 +224,19 @@ class MatrixTest extends BaseTest {
    0.326206788210183   1.116481872383158   0.280398953455993'''));
     assert(inputA.length == inputB.length);
     assert(inputB.length == expectedOutput.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i].newCopy();
+      Dynamic output = inputA[i].clone();
       output.transposeMultiply(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
-  
+
   void testSelfMultiply() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+
     inputA.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
    0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
@@ -234,7 +249,7 @@ class MatrixTest extends BaseTest {
    0.916103942227480   1.704973929800637   1.164721763902784   1.675285658272358
    0.919182849383279   1.351023203753565   1.053750106199745   1.215382950294249
    1.508657696357159   2.344965008135463   1.450552688877760   2.316940716769603'''));
-    
+
     inputA.add(parseMatrix('''0.084435845510910   0.800068480224308   0.181847028302852
    0.399782649098896   0.431413827463545   0.263802916521990
    0.259870402850654   0.910647594429523   0.145538980384717'''));
@@ -244,7 +259,7 @@ class MatrixTest extends BaseTest {
     expectedOutput.add(parseMatrix('''0.812399915745417   0.317522849978516   0.426642592595554
    0.582350288210078   0.507392169174135   0.535489283769338
    0.911348663480233   0.399044409575883   0.555945473748377'''));
-    
+
     inputA.add(parseMatrix('''0.136068558708664   0.549860201836332   0.622055131485066
    0.869292207640089   0.144954798223727   0.350952380892271
    0.579704587365570   0.853031117721894   0.513249539867053'''));
@@ -256,19 +271,19 @@ class MatrixTest extends BaseTest {
    0.523353251675581   1.299202246456530   0.405147467960185'''));
     assert(inputA.length == inputB.length);
     assert(inputB.length == expectedOutput.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i].newCopy();
+      Dynamic output = inputA[i].clone();
       output.multiply(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
-  
+
   void testSelfMultiplyTranspose() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+
     inputA.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
    0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
@@ -281,7 +296,7 @@ class MatrixTest extends BaseTest {
    0.201799089276976   1.485449982570056   1.144315170085286   1.998154153033270
    0.197320406329789   1.144315170085286   1.021602397682138   1.557970885061235
    0.642508126615338   1.998154153033270   1.557970885061235   3.506347918663387'''));
-    
+
     inputA.add(parseMatrix('''0.084435845510910   0.800068480224308   0.181847028302852
    0.399782649098896   0.431413827463545   0.263802916521990
    0.259870402850654   0.910647594429523   0.145538980384717'''));
@@ -291,7 +306,7 @@ class MatrixTest extends BaseTest {
     expectedOutput.add(parseMatrix('''0.564533756922142   0.253192835205285   0.824764060523193
    0.455715101026938   0.502645707562004   0.735161980594196
    0.626622330821134   0.408983306176468   1.002156614695209'''));
-    
+
     inputA.add(parseMatrix('''0.136068558708664   0.549860201836332   0.622055131485066
    0.869292207640089   0.144954798223727   0.350952380892271
    0.579704587365570   0.853031117721894   0.513249539867053'''));
@@ -303,53 +318,53 @@ class MatrixTest extends BaseTest {
    0.824764060523193   0.735161980594196   1.002156614695209'''));
     assert(inputA.length == inputB.length);
     assert(inputB.length == expectedOutput.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i].newCopy();
+      Dynamic output = inputA[i].clone();
       output.multiplyTranspose(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
 
-  
+
   void testTranslationMatrix() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> output1 = new List<Dynamic>();
     List<Dynamic> output2 = new List<Dynamic>();
-    
+
     inputA.add(new mat4.identity());
     inputB.add(new mat4.translationRaw(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
     output2.add((new mat4.identity()).translate(1.0, 3.0, 5.7));
-    
+
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
       relativeTest(output1[i], output2[i]);
     }
   }
-  
+
   void testScaleMatrix() {
     List<Dynamic> inputA = new List<Dynamic>();
     List<Dynamic> inputB = new List<Dynamic>();
     List<Dynamic> output1 = new List<Dynamic>();
     List<Dynamic> output2 = new List<Dynamic>();
-    
+
     inputA.add(new mat4.identity());
     inputB.add(new mat4.scaleRaw(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
     output2.add(new mat4.identity().scale(1.0, 3.0, 5.7));
-    
+
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
       relativeTest(output1[i], output2[i]);
     }
   }
-  
+
   void testRotateMatrix() {
     List<Dynamic> output1 = new List<Dynamic>();
     List<Dynamic> output2 = new List<Dynamic>();
@@ -363,13 +378,13 @@ class MatrixTest extends BaseTest {
       vec3 axis = new vec3.raw(1.1, 1.1, 1.1);
       axis.normalize();
       num angle = 1.5;
-      
+
       quat q = new quat(axis, angle);
       mat3 R = q.asRotationMatrix();
       mat4 T = new mat4.identity();
       T.setRotation(R);
       output1.add(T);
-      
+
       output2.add(new mat4.identity().rotate(axis, angle));
     }
     assert(output1.length == output2.length);
@@ -386,11 +401,11 @@ class MatrixTest extends BaseTest {
     final vec2 expected = new vec2.raw(rot.col0.x * input.x + rot.col1.x * input.y,
                                        rot.col0.y * input.x + rot.col1.y * input.y);
 
-    final vec2 transExpected = new vec2.raw(input.x * rot.col0.x + input.y * rot.col0.y,
-                                            input.x * rot.col1.x + input.y * rot.col1.y);
+    final vec2 transExpected = new vec2.raw(rot.col0.x * input.x + rot.col0.y * input.y,
+                                            rot.col1.x * input.x + rot.col1.y * input.y);
 
-    relativeTest(rot.transform(input), expected);
-    relativeTest(rot.transposed().transform(input), transExpected);
+    relativeTest(rot.transformed(input), expected);
+    relativeTest(rot.transposed().transformed(input), transExpected);
   }
 
   void testMat3Transform() {
@@ -403,9 +418,10 @@ class MatrixTest extends BaseTest {
     relativeTest(rotY.transformed(input), new vec3.raw(1 / Math.sqrt(2), 0, 1 / Math.sqrt(2)));
     relativeTest(rotZ.transformed(input), new vec3.raw(1 / Math.sqrt(2), 1 / Math.sqrt(2), 0));
   }
-  
+
   void test() {
     print('Running matrix tests');
+    testMatrixTranspose();
     testDeterminant();
     testAdjoint();
     testSelfMultiply();
