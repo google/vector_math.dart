@@ -336,6 +336,9 @@ class vec2 {
     y = y.abs();
     return this;
   }
+  vec2 clone() {
+    return new vec2.copy(this);
+  }
   vec2 copyInto(vec2 arg) {
     arg.x = x;
     arg.y = y;

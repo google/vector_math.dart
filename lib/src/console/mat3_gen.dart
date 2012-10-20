@@ -366,6 +366,19 @@ class mat3 {
     r.col2.z = col2.z;
     return r;
   }
+  mat3 transpose() {
+    num temp;
+    temp = col1.x;
+    col1.x = col0.y;
+    col0.y = temp;
+    temp = col2.x;
+    col2.x = col0.z;
+    col0.z = temp;
+    temp = col2.y;
+    col2.y = col1.z;
+    col1.z = temp;
+    return this;
+  }
   /// Returns the component wise absolute value of this.
   mat3 absolute() {
     mat3 r = new mat3();
@@ -544,7 +557,7 @@ class mat3 {
     arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
     return arg;
   }
-  mat3 newCopy() {
+  mat3 clone() {
     return new mat3.copy(this);
   }
   mat3 copyInto(mat3 arg) {

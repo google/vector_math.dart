@@ -726,6 +726,28 @@ class mat4 {
     r.col3.w = col3.w;
     return r;
   }
+  mat4 transpose() {
+    num temp;
+    temp = col1.x;
+    col1.x = col0.y;
+    col0.y = temp;
+    temp = col2.x;
+    col2.x = col0.z;
+    col0.z = temp;
+    temp = col3.x;
+    col3.x = col0.w;
+    col0.w = temp;
+    temp = col2.y;
+    col2.y = col1.z;
+    col1.z = temp;
+    temp = col3.y;
+    col3.y = col1.w;
+    col1.w = temp;
+    temp = col3.z;
+    col3.z = col2.w;
+    col2.w = temp;
+    return this;
+  }
   /// Returns the component wise absolute value of this.
   mat4 absolute() {
     mat4 r = new mat4();
@@ -1048,7 +1070,7 @@ class mat4 {
     arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
     return arg;
   }
-  mat4 newCopy() {
+  mat4 clone() {
     return new mat4.copy(this);
   }
   mat4 copyInto(mat4 arg) {

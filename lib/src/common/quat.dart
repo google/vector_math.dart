@@ -151,6 +151,11 @@ class quat {
     w *= 0.5;
   }
 
+  /// Returns a new copy of this
+  quat clone() {
+    return new quat.copy(this);
+  }
+
   /// Copy [source] into [this]
   void copyFrom(quat source) {
     x = source.x;
@@ -395,9 +400,9 @@ class quat {
 
   /** Returns relative error between [this]  and [correct] */
   num relativeError(quat correct) {
-    num this_norm = length;
+    quat diff = correct - this;
+    num norm_diff = diff.length;
     num correct_norm = correct.length;
-    num norm_diff = (this_norm - correct_norm).abs();
     return norm_diff/correct_norm;
   }
 

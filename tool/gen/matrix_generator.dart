@@ -940,6 +940,20 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('return r;');
     iPop();
     iPrint('}');
+
+    iPrint('${matTypeTransposed} transpose() {');
+    iPush();
+    iPrint('num temp;');
+    for (int n = 0; n < rows; n++) {
+      for (int m = n+1; m < rows; m++) {
+        iPrint('temp = ${Access(n,m)};');
+        iPrint('${Access(n,m)} = ${Access(m,n)};');
+        iPrint('${Access(m,n)} = temp;');
+      }
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
   }
 
   void generateAbsolute() {
@@ -1477,7 +1491,7 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateCopy() {
-    iPrint('$matType newCopy() {');
+    iPrint('$matType clone() {');
     iPush();
     iPrint('return new $matType.copy(this);');
     iPop();

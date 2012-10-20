@@ -252,6 +252,13 @@ class mat2 {
     r.col1.y = col1.y;
     return r;
   }
+  mat2 transpose() {
+    num temp;
+    temp = col1.x;
+    col1.x = col0.y;
+    col0.y = temp;
+    return this;
+  }
   /// Returns the component wise absolute value of this.
   mat2 absolute() {
     mat2 r = new mat2();
@@ -335,7 +342,7 @@ class mat2 {
     col1.y = temp * scale_;
     return this;
   }
-  mat2 newCopy() {
+  mat2 clone() {
     return new mat2.copy(this);
   }
   mat2 copyInto(mat2 arg) {
