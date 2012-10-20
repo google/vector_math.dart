@@ -415,8 +415,8 @@ class MatrixTest extends BaseTest {
     final vec3 input = new vec3.raw(1.0, 0.0, 0.0);
 
     relativeTest(rotX.transformed(input), input);
-    relativeTest(rotY.transformed(input), new vec3.raw(1 / Math.sqrt(2), 0, 1 / Math.sqrt(2)));
-    relativeTest(rotZ.transformed(input), new vec3.raw(1 / Math.sqrt(2), 1 / Math.sqrt(2), 0));
+    relativeTest(rotY.transformed(input), new vec3.raw(1 / Math.sqrt(2), 0.0, 1.0 / Math.sqrt(2.0)));
+    relativeTest(rotZ.transformed(input), new vec3.raw(1 / Math.sqrt(2), 1.0 / Math.sqrt(2.0), 0.0));
   }
 
   void test() {

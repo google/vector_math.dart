@@ -13,8 +13,8 @@ class VectorTest extends BaseTest {
     final vec2 inputB = new vec2(0.944787189721646, 0.490864092468080);
     num expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
     relativeTest(cross(inputA, inputB), expectedOutputCross);
-    relativeTest(cross(1, inputA), new vec2(-inputA.y,  inputA.x));
-    relativeTest(cross(inputA, 1), new vec2( inputA.y, -inputA.x));
+    relativeTest(cross(1.0, inputA), new vec2(-inputA.y,  inputA.x));
+    relativeTest(cross(inputA, 1.0), new vec2( inputA.y, -inputA.x));
   }
 
   void testVec3DotProduct() {
