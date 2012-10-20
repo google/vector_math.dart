@@ -25,22 +25,30 @@
 
 /**
  * Returns an OpenGL look at matrix.
+ * The camera is located at [cameraPosition] and is focused
+ * on [cameraFocusPostion].
+ *
+ * The [upDirection] is almost always (0, 1, 0).
  */
-mat4 makeLookAt(vec3 eyePosition, vec3 lookAtPosition, vec3 upDirection) {
-  vec3 z = eyePosition - lookAtPosition;
+mat4 makeLookAt(vec3 cameraPosition, vec3 cameraFocusPosition, vec3 upDirection) {
+  vec3 z = cameraPosition - cameraFocusPosition;
   z.normalize();
-  vec3 x = z.cross(upDirection);
+
+  vec3 x = upDirection.cross(z);
   x.normalize();
-  vec3 y = x.cross(z);
+
+  vec3 y = z.cross(x);
   y.normalize();
+
   mat4 r = new mat4.zero();
   r[0].xyz = x;
   r[1].xyz = y;
-  r[2].xyz = -z;
+  r[2].xyz = z;
   r[3].w = 1.0;
   r = r.transposed();
-  vec3 rotatedEye = r * -eyePosition;
+  vec3 rotatedEye = r * -cameraPosition;
   r[3].xyz = rotatedEye;
+
   return r;
 }
 

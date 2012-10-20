@@ -2,10 +2,10 @@
 class OpenGLMatrixTest extends BaseTest {
 
   void testUnproject() {
-    vec3 eyePosition = new vec3(0.0, 0.0, 0.0);
-    vec3 lookAtPosition = new vec3(0.0, 0.0, -1.0);
+    vec3 position = new vec3(0.0, 0.0, 0.0);
+    vec3 focusPosition = new vec3(0.0, 0.0, -1.0);
     vec3 upDirection = new vec3(0.0, 1.0, 0.0);
-    mat4 lookat = makeLookAt(eyePosition, lookAtPosition, upDirection);
+    mat4 lookat = makeLookAt(position, focusPosition, upDirection);
     num n = 0.1;
     num f = 1000.0;
     num l = -10.0;
@@ -20,8 +20,8 @@ class OpenGLMatrixTest extends BaseTest {
   }
 
   void testLookAt() {
-    vec3 eyePosition = new vec3(1.0, 0.0, 0.0);
-    vec3 lookAtPosition = new vec3(1.0, 0.0, 1.0);
+    vec3 eyePosition = new vec3(0.0, 0.0, 0.0);
+    vec3 lookAtPosition = new vec3(0.0, 0.0, -1.0);
     vec3 upDirection = new vec3(0.0, 1.0, 0.0);
 
     mat4 lookat = makeLookAt(eyePosition, lookAtPosition, upDirection);

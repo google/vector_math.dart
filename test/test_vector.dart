@@ -41,7 +41,7 @@ class VectorTest extends BaseTest {
     List<vec3> inputA = new List<vec3>();
     List<vec3> inputB = new List<vec3>();
     List<vec3> expectedOutput = new List<vec3>();
-    
+
     inputA.add(parseVector('''0.417267069084370
    0.049654430325742
    0.902716109915281'''));
@@ -51,7 +51,7 @@ class VectorTest extends BaseTest {
     expectedOutput.add(parseVector('''  -0.418817363004761
    0.648725602136344
    0.157908551498227'''));
-    
+
     inputA.add(parseVector('''0.944787189721646
       0.490864092468080
       0.489252638400019'''));
@@ -61,16 +61,38 @@ class VectorTest extends BaseTest {
     expectedOutput.add(parseVector(''' 0.418817363004761
   -0.648725602136344
   -0.157908551498227'''));
-    
+
     assert(inputA.length == inputB.length);
     assert(inputB.length == expectedOutput.length);
-    
+
     for (int i = 0; i < inputA.length; i++) {
       vec3 output = cross(inputA[i], inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
+
+    {
+      vec3 x = new vec3.raw(1.0, 0.0, 0.0);
+      vec3 y = new vec3.raw(0.0, 1.0, 0.0);
+      vec3 z = new vec3.raw(0.0, 0.0, 1.0);
+      vec3 output;
+
+      output = x.cross(y);
+      relativeTest(output, new vec3.raw(0.0, 0.0, 1.0));
+      output = y.cross(x);
+      relativeTest(output, new vec3.raw(0.0, 0.0, -1.0));
+
+      output = x.cross(z);
+      relativeTest(output, new vec3.raw(0.0, -1.0, 0.0));
+      output = z.cross(x);
+      relativeTest(output, new vec3.raw(0.0, 1.0, 0.0));
+
+      output = y.cross(z);
+      relativeTest(output, new vec3.raw(1.0, 0.0, 0.0));
+      output = z.cross(y);
+      relativeTest(output, new vec3.raw(-1.0, 0.0, 0.0));
+    }
   }
-  
+
   void test() {
     print('Running vector tests');
     testVec2DotProduct();
