@@ -22,35 +22,35 @@
 
 */
 class vec3 {
-  num x;
-  num y;
-  num z;
+  double x;
+  double y;
+  double z;
   /// Constructs a new [vec3]. Follows GLSL constructor syntax so many combinations are possible
   vec3([Dynamic x_, Dynamic y_, Dynamic z_]) {
     x = y = z = 0.0;
-    if (x_ is vec2 && y_ is num) {
+    if (x_ is vec2 && y_ is double) {
       this.xy = x_.xy;
       this.z = y_;
     }
-    if (x_ is num && y_ is vec2) {
+    if (x_ is double && y_ is vec2) {
       this.x = x_;
       this.yz = y_.xy;
     }
     if (x_ is vec2 && y_ == null) {
       this.xy = x_.xy;
-      this.z = 0;
+      this.z = 0.0;
     }
     if (x_ is vec3) {
       xyz = x_.xyz;
       return;
     }
-    if (x_ is num && y_ is num && z_ is num) {
+    if (x_ is double && y_ is double && z_ is double) {
       x = x_;
       y = y_;
       z = z_;
       return;
     }
-    if (x_ is num) {
+    if (x_ is double) {
       x = y = z = x_;
       return;
     }
@@ -68,7 +68,7 @@ class vec3 {
     z = other.z;
   }
   /// Constructs a new [vec3] that is initialized with passed in values.
-  vec3.raw(num x_, num y_, num z_) {
+  vec3.raw(double x_, double y_, double z_) {
     x = x_;
     y = y_;
     z = z_;
@@ -84,7 +84,7 @@ class vec3 {
     i++;
   }
   /// Splats a scalar into all lanes of the vector.
-  vec3 splat(num arg) {
+  vec3 splat(double arg) {
     x = arg;
     y = arg;
     z = arg;
@@ -100,7 +100,7 @@ class vec3 {
   vec3 operator+(vec3 other) => new vec3(x + other.x, y + other.y, z + other.z);
   /// Returns a new vec3 divided by [other]
   vec3 operator/(Dynamic other) {
-    if (other is num) {
+    if (other is double) {
       return new vec3(x / other, y / other, z / other);
     }
     if (other is vec3) {
@@ -109,7 +109,7 @@ class vec3 {
   }
   /// Returns a new vec3 scaled by [other]
   vec3 operator*(Dynamic other) {
-    if (other is num) {
+    if (other is double) {
       return new vec3(x * other, y * other, z * other);
     }
     if (other is vec3) {
@@ -117,7 +117,7 @@ class vec3 {
     }
   }
   /// Returns a component from vec3. This is indexed as an array with [i]
-  num operator[](int i) {
+  double operator[](int i) {
     assert(i >= 0 && i < 3);
     switch (i) {
       case 0: return x;
@@ -127,7 +127,7 @@ class vec3 {
     return 0.0;
   }
   /// Assigns a component in vec3 the value in [v]. This is indexed as an array with [i]
-  void operator[]=(int i, num v) {
+  void operator[]=(int i, double v) {
     assert(i >= 0 && i < 3);
     switch (i) {
       case 0: x = v; break;
@@ -136,16 +136,16 @@ class vec3 {
     };
   }
   /// Returns length of this
-  num get length() {
-    num sum = 0.0;
+  double get length() {
+    double sum = 0.0;
     sum += (x * x);
     sum += (y * y);
     sum += (z * z);
     return Math.sqrt(sum);
   }
   /// Returns squared length of this
-  num get length2() {
-    num sum = 0.0;
+  double get length2() {
+    double sum = 0.0;
     sum += (x * x);
     sum += (y * y);
     sum += (z * z);
@@ -153,7 +153,7 @@ class vec3 {
   }
   /// Normalizes this
   vec3 normalize() {
-    num l = length;
+    double l = length;
     if (l == 0.0) {
       return this;
     }
@@ -167,7 +167,7 @@ class vec3 {
     if (out == null) {
       out = new vec3.raw(x, y, z);
     }
-    num l = out.length;
+    double l = out.length;
     if (l == 0.0) {
       return out;
     }
@@ -177,8 +177,8 @@ class vec3 {
     return out;
   }
   /// Returns the dot product of [this] and [other]
-  num dot(vec3 other) {
-    num sum = 0.0;
+  double dot(vec3 other) {
+    double sum = 0.0;
     sum += (x * other.x);
     sum += (y * other.y);
     sum += (z * other.z);
@@ -195,13 +195,13 @@ class vec3 {
     return out;
   }
   /// Returns the relative error between [this] and [correct]
-  num relativeError(vec3 correct) {
-    num correct_norm = correct.length;
-    num diff_norm = (this - correct).length;
+  double relativeError(vec3 correct) {
+    double correct_norm = correct.length;
+    double diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
   /// Returns the absolute error between [this] and [correct]
-  num absoluteError(vec3 correct) {
+  double absoluteError(vec3 correct) {
     return (this - correct).length;
   }
   set xy(vec2 arg) {
@@ -274,12 +274,12 @@ class vec3 {
     is_nan = is_nan || z.isNaN();
     return is_nan;
   }
-  set r(num arg) => x = arg;
-  set g(num arg) => y = arg;
-  set b(num arg) => z = arg;
-  set s(num arg) => x = arg;
-  set t(num arg) => y = arg;
-  set p(num arg) => z = arg;
+  set r(double arg) => x = arg;
+  set g(double arg) => y = arg;
+  set b(double arg) => z = arg;
+  set s(double arg) => x = arg;
+  set t(double arg) => y = arg;
+  set p(double arg) => z = arg;
   set rg(vec2 arg) {
     r = arg.r;
     g = arg.g;
@@ -505,12 +505,12 @@ class vec3 {
   vec4 get zzzx() => new vec4(z, z, z, x);
   vec4 get zzzy() => new vec4(z, z, z, y);
   vec4 get zzzz() => new vec4(z, z, z, z);
-  num get r() => x;
-  num get g() => y;
-  num get b() => z;
-  num get s() => x;
-  num get t() => y;
-  num get p() => z;
+  double get r() => x;
+  double get g() => y;
+  double get b() => z;
+  double get s() => x;
+  double get t() => y;
+  double get p() => z;
   vec2 get rr() => new vec2(r, r);
   vec2 get rg() => new vec2(r, g);
   vec2 get rb() => new vec2(r, b);
@@ -769,7 +769,7 @@ class vec3 {
     z = z / arg.z;
     return this;
   }
-  vec3 scale(num arg) {
+  vec3 scale(double arg) {
     x = x * arg;
     y = y * arg;
     z = z * arg;
@@ -808,7 +808,7 @@ class vec3 {
     z = arg.z;
     return this;
   }
-  vec3 setComponents(num x_, num y_, num z_) {
+  vec3 setComponents(double x_, double y_, double z_) {
     x = x_;
     y = y_;
     z = z_;

@@ -22,24 +22,24 @@
 
 */
 class vec4 {
-  num x;
-  num y;
-  num z;
-  num w;
+  double x;
+  double y;
+  double z;
+  double w;
   /// Constructs a new [vec4]. Follows GLSL constructor syntax so many combinations are possible
   vec4([Dynamic x_, Dynamic y_, Dynamic z_, Dynamic w_]) {
     x = y = z = w = 0.0;
-    if (x_ is vec3 && y_ is num) {
+    if (x_ is vec3 && y_ is double) {
       this.xyz = x_.xyz;
       this.w = y_;
     }
-    if (x_ is num && y_ is vec3) {
+    if (x_ is double && y_ is vec3) {
       this.x = x_;
       this.yzw = y_.xyz;
     }
     if (x_ is vec3 && y_ == null) {
       this.xyz = x_.xyz;
-      this.z = 0;
+      this.z = 0.0;
     }
     if (x_ is vec2 && y_ is vec2) {
       this.xy = x_.xy;
@@ -49,14 +49,14 @@ class vec4 {
       xyzw = x_.xyzw;
       return;
     }
-    if (x_ is num && y_ is num && z_ is num && w_ is num) {
+    if (x_ is double && y_ is double && z_ is double && w_ is double) {
       x = x_;
       y = y_;
       z = z_;
       w = w_;
       return;
     }
-    if (x_ is num) {
+    if (x_ is double) {
       x = y = z = w = x_;
       return;
     }
@@ -76,7 +76,7 @@ class vec4 {
     w = other.w;
   }
   /// Constructs a new [vec4] that is initialized with passed in values.
-  vec4.raw(num x_, num y_, num z_, num w_) {
+  vec4.raw(double x_, double y_, double z_, double w_) {
     x = x_;
     y = y_;
     z = z_;
@@ -95,7 +95,7 @@ class vec4 {
     i++;
   }
   /// Splats a scalar into all lanes of the vector.
-  vec4 splat(num arg) {
+  vec4 splat(double arg) {
     x = arg;
     y = arg;
     z = arg;
@@ -112,7 +112,7 @@ class vec4 {
   vec4 operator+(vec4 other) => new vec4(x + other.x, y + other.y, z + other.z, w + other.w);
   /// Returns a new vec4 divided by [other]
   vec4 operator/(Dynamic other) {
-    if (other is num) {
+    if (other is double) {
       return new vec4(x / other, y / other, z / other, w / other);
     }
     if (other is vec4) {
@@ -121,7 +121,7 @@ class vec4 {
   }
   /// Returns a new vec4 scaled by [other]
   vec4 operator*(Dynamic other) {
-    if (other is num) {
+    if (other is double) {
       return new vec4(x * other, y * other, z * other, w * other);
     }
     if (other is vec4) {
@@ -129,7 +129,7 @@ class vec4 {
     }
   }
   /// Returns a component from vec4. This is indexed as an array with [i]
-  num operator[](int i) {
+  double operator[](int i) {
     assert(i >= 0 && i < 4);
     switch (i) {
       case 0: return x;
@@ -140,7 +140,7 @@ class vec4 {
     return 0.0;
   }
   /// Assigns a component in vec4 the value in [v]. This is indexed as an array with [i]
-  void operator[]=(int i, num v) {
+  void operator[]=(int i, double v) {
     assert(i >= 0 && i < 4);
     switch (i) {
       case 0: x = v; break;
@@ -150,8 +150,8 @@ class vec4 {
     };
   }
   /// Returns length of this
-  num get length() {
-    num sum = 0.0;
+  double get length() {
+    double sum = 0.0;
     sum += (x * x);
     sum += (y * y);
     sum += (z * z);
@@ -159,8 +159,8 @@ class vec4 {
     return Math.sqrt(sum);
   }
   /// Returns squared length of this
-  num get length2() {
-    num sum = 0.0;
+  double get length2() {
+    double sum = 0.0;
     sum += (x * x);
     sum += (y * y);
     sum += (z * z);
@@ -169,7 +169,7 @@ class vec4 {
   }
   /// Normalizes this
   vec4 normalize() {
-    num l = length;
+    double l = length;
     if (l == 0.0) {
       return this;
     }
@@ -184,7 +184,7 @@ class vec4 {
     if (out == null) {
       out = new vec4.raw(x, y, z, w);
     }
-    num l = out.length;
+    double l = out.length;
     if (l == 0.0) {
       return out;
     }
@@ -195,8 +195,8 @@ class vec4 {
     return out;
   }
   /// Returns the dot product of [this] and [other]
-  num dot(vec4 other) {
-    num sum = 0.0;
+  double dot(vec4 other) {
+    double sum = 0.0;
     sum += (x * other.x);
     sum += (y * other.y);
     sum += (z * other.z);
@@ -204,13 +204,13 @@ class vec4 {
     return sum;
   }
   /// Returns the relative error between [this] and [correct]
-  num relativeError(vec4 correct) {
-    num correct_norm = correct.length;
-    num diff_norm = (this - correct).length;
+  double relativeError(vec4 correct) {
+    double correct_norm = correct.length;
+    double diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
   /// Returns the absolute error between [this] and [correct]
-  num absoluteError(vec4 correct) {
+  double absoluteError(vec4 correct) {
     return (this - correct).length;
   }
   set xy(vec2 arg) {
@@ -543,14 +543,14 @@ class vec4 {
     is_nan = is_nan || w.isNaN();
     return is_nan;
   }
-  set r(num arg) => x = arg;
-  set g(num arg) => y = arg;
-  set b(num arg) => z = arg;
-  set a(num arg) => w = arg;
-  set s(num arg) => x = arg;
-  set t(num arg) => y = arg;
-  set p(num arg) => z = arg;
-  set q(num arg) => w = arg;
+  set r(double arg) => x = arg;
+  set g(double arg) => y = arg;
+  set b(double arg) => z = arg;
+  set a(double arg) => w = arg;
+  set s(double arg) => x = arg;
+  set t(double arg) => y = arg;
+  set p(double arg) => z = arg;
+  set q(double arg) => w = arg;
   set rg(vec2 arg) {
     r = arg.r;
     g = arg.g;
@@ -1511,14 +1511,14 @@ class vec4 {
   vec4 get wwwy() => new vec4(w, w, w, y);
   vec4 get wwwz() => new vec4(w, w, w, z);
   vec4 get wwww() => new vec4(w, w, w, w);
-  num get r() => x;
-  num get g() => y;
-  num get b() => z;
-  num get a() => w;
-  num get s() => x;
-  num get t() => y;
-  num get p() => z;
-  num get q() => w;
+  double get r() => x;
+  double get g() => y;
+  double get b() => z;
+  double get a() => w;
+  double get s() => x;
+  double get t() => y;
+  double get p() => z;
+  double get q() => w;
   vec2 get rr() => new vec2(r, r);
   vec2 get rg() => new vec2(r, g);
   vec2 get rb() => new vec2(r, b);
@@ -2219,7 +2219,7 @@ class vec4 {
     w = w / arg.w;
     return this;
   }
-  vec4 scale(num arg) {
+  vec4 scale(double arg) {
     x = x * arg;
     y = y * arg;
     z = z * arg;
@@ -2264,7 +2264,7 @@ class vec4 {
     w = arg.w;
     return this;
   }
-  vec4 setComponents(num x_, num y_, num z_, num w_) {
+  vec4 setComponents(double x_, double y_, double z_, double w_) {
     x = x_;
     y = y_;
     z = z_;

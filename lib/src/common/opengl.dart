@@ -55,7 +55,7 @@ mat4 makeLookAt(vec3 cameraPosition, vec3 cameraFocusPosition, vec3 upDirection)
 /**
  * Returns an OpenGL perspective camera projection matrix
  * */
-mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
+mat4 makePerspective(double fov_y_radians, double aspect_ratio, double znear, double zfar) {
   double height = tan(fov_y_radians * 0.5) * znear;
   double width = height * aspect_ratio;
 
@@ -66,10 +66,10 @@ mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
  * Returns an OpenGL frustum camera projection matrix
  */
 mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
-  num two_near = 2.0 * near;
-  num right_minus_left = right - left;
-  num top_minus_bottom = top - bottom;
-  num far_minus_near = far - near;
+  double two_near = 2.0 * near;
+  double right_minus_left = right - left;
+  double top_minus_bottom = top - bottom;
+  double far_minus_near = far - near;
 
   mat4 view = new mat4.zero();
   view[0].x = two_near / right_minus_left;
@@ -90,18 +90,18 @@ mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
 /**
  * Returns an OpenGL orthographic camera projection matrix
  */
-mat4 makeOrthographic(num left, num right, num bottom, num top, num znear, num zfar) {
-  num rml = right - left;
-  num rpl = right + left;
-  num tmb = top - bottom;
-  num tpb = top + bottom;
-  num fmn = zfar - znear;
-  num fpn = zfar + znear;
+mat4 makeOrthographic(double left, double right, double bottom, double top, double znear, double zfar) {
+  double rml = right - left;
+  double rpl = right + left;
+  double tmb = top - bottom;
+  double tpb = top + bottom;
+  double fmn = zfar - znear;
+  double fpn = zfar + znear;
 
   mat4 r = new mat4.zero();
   r[0].x = 2.0/rml;
   r[1].y = 2.0/tmb;
-  r[2].z = 2.0/fmn;
+  r[2].z = -2.0/fmn;
   r[3].x = rpl/rml;
   r[3].y = tpb/tmb;
   r[3].z = fpn/fmn;
@@ -135,7 +135,7 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   outer.scale(2.0);
   mat4 r = new mat4();
   r = r - outer;
-  num scale = 2.0 * dot(planePoint, planeNormal);
+  double scale = 2.0 * dot(planePoint, planeNormal);
   vec3 scaledNormal = (planeNormal * scale);
   vec4 T = new vec4(scaledNormal, 1.0);
   r.col3 = T;

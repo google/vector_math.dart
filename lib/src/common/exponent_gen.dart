@@ -23,7 +23,7 @@
 */
 /// Returns [x] raised to the exponent [y]. Supports vectors and numbers.
 Dynamic pow(Dynamic x, Dynamic y, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return Math.pow(x, y);
   }
   if (x is vec2) {
@@ -57,7 +57,7 @@ Dynamic pow(Dynamic x, Dynamic y, [Dynamic out=null]) {
 }
 /// Returns *e* raised to the exponent [arg]. Supports vectors and numbers.
 Dynamic exp(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.exp(arg);
   }
   if (arg is vec2) {
@@ -91,7 +91,7 @@ Dynamic exp(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns the logarithm of [arg] base *e*. Supports vectors and numbers.
 Dynamic log(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.log(arg);
   }
   if (arg is vec2) {
@@ -125,7 +125,7 @@ Dynamic log(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
 Dynamic exp2(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.exp2(arg);
   }
   if (arg is vec2) {
@@ -159,7 +159,7 @@ Dynamic exp2(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
 Dynamic log2(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.log2(arg);
   }
   if (arg is vec2) {
@@ -193,7 +193,7 @@ Dynamic log2(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns the square root of [arg].
 Dynamic sqrt(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.sqrt(arg);
   }
   if (arg is vec2) {
@@ -227,7 +227,7 @@ Dynamic sqrt(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns the inverse square root of [arg]. Supports vectors and numbers.
 Dynamic inversesqrt(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.inversesqrt(arg);
   }
   if (arg is vec2) {

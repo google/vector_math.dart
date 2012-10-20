@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -24,64 +24,64 @@
 
 class _ScalerHelpers {
   static final _sqrtOneHalf = 0.707106781186548;
-  static num degrees(num r) {
+  static double degrees(double r) {
     return r * 180.0/Math.PI;
   }
-  
-  static num radians(num d) {
+
+  static double radians(double d) {
     return d * Math.PI/180.0;
   }
-  
-  static num clamp(num x, num _min, num _max) {
+
+  static double clamp(double x, double _min, double _max) {
     return x < _min ? _min : x > _max ? _max : x;
   }
-  
-  static num mix(num x, num y, num t) {
+
+  static double mix(double x, double y, double t) {
     return x * (1.0-t) + y * (t);
   }
-  
-  static num step(num edge, num x) {
+
+  static double step(double edge, double x) {
     if (x < edge) {
       return 0.0;
     }
     return 1.0;
   }
-  
-  static num smoothstep(num edge0, num edge1, num x) {
-    num t = 0.0;
+
+  static double smoothstep(double edge0, double edge1, double x) {
+    double t = 0.0;
     t = clamp((x - edge0)/(edge1-edge0), 0.0, 1.0);
     return (t*t)*(3.0-2.0*t);
   }
-  
-  static num inversesqrt(num x) {
+
+  static double inversesqrt(double x) {
     return 1.0 / Math.sqrt(x);
   }
-  
-  static num abs(num x) {
+
+  static double abs(double x) {
     return x.abs();
   }
-  
-  static num ceil(num x) {
+
+  static double ceil(double x) {
     return x.ceil();
   }
-  
-  static num floor(num x) {
+
+  static double floor(double x) {
     return x.floor();
   }
-  
-  static bool isnan(num x) {
+
+  static bool isnan(double x) {
     return x.isNaN();
   }
-  
-  static bool isInfinite(num x) {
+
+  static bool isInfinite(double x) {
     return x.isInfinite();
   }
-  
-  static num truncate(num x) {
+
+  static double truncate(double x) {
     return x.truncate();
   }
-  
-  static num sign(num x) {
+
+  static double sign(double x) {
     if (x > 0) {
       return 1.0;
     } else if (x == 0.0) {
@@ -90,31 +90,31 @@ class _ScalerHelpers {
       return -1.0;
     }
   }
-  
-  static num fract(num x) {
+
+  static double fract(double x) {
     return x - x.floor();
   }
-  
-  static num mod(num x, num y) {
+
+  static double mod(double x, double y) {
     return x % y;
   }
-  
-  static num round(num x) {
+
+  static double round(double x) {
     return x.round();
   }
-  
-  static num roundEven(num x) {
-    if ( (floor(x)%2==0) && (fract(x)==0.5) )
+
+  static double roundEven(double x) {
+    if ( (floor(x)%2.0==0.0) && (fract(x)==0.5) )
       return _ScalerHelpers.round(x)-1;
     else
       return x.round();
   }
-  
-  static num exp2(num x) {
+
+  static double exp2(double x) {
     return Math.pow(2, x);
   }
-  
-  static num log2(num x) {
+
+  static double log2(double x) {
     return Math.log(x) / Math.log(2);
   }
 }

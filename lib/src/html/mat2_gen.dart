@@ -32,14 +32,14 @@ class mat2 {
     col1 = new vec2.zero();
     col0.x = 1.0;
     col1.y = 1.0;
-    if (arg0 is num && arg1 is num && arg2 is num && arg3 is num) {
+    if (arg0 is double && arg1 is double && arg2 is double && arg3 is double) {
       col0.x = arg0;
       col0.y = arg1;
       col1.x = arg2;
       col1.y = arg3;
       return;
     }
-    if (arg0 is num && arg1 == null && arg2 == null && arg3 == null) {
+    if (arg0 is double && arg1 == null && arg2 == null && arg3 == null) {
       col0.x = arg0;
       col1.y = arg0;
       return;
@@ -96,12 +96,12 @@ class mat2 {
     col1.y = other.col1.y;
   }
   /// Constructs a new [mat2] representing a rotation by [radians].
-  mat2.rotation(num radians_) {
+  mat2.rotation(double radians_) {
     col0 = new vec2.zero();
     col1 = new vec2.zero();
     setRotation(radians_);
   }
-  mat2.raw(num arg0, num arg1, num arg2, num arg3) {
+  mat2.raw(double arg0, double arg1, double arg2, double arg3) {
     col0 = new vec2.zero();
     col1 = new vec2.zero();
     col0.x = arg0;
@@ -117,11 +117,11 @@ class mat2 {
     return s;
   }
   /// Returns the number of rows in the matrix.
-  num get rows() => 2;
+  int get rows() => 2;
   /// Returns the number of columns in the matrix.
-  num get cols() => 2;
+  int get cols() => 2;
   /// Returns the number of columns in the matrix.
-  num get length() => 2;
+  int get length() => 2;
   /// Gets the [column] of the matrix
   vec2 operator[](int column) {
     assert(column >= 0 && column < 2);
@@ -174,7 +174,7 @@ class mat2 {
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
-    if (arg is num) {
+    if (arg is double) {
       mat2 r = new mat2.zero();
       r.col0.x = col0.x * arg;
       r.col0.y = col0.y * arg;
@@ -253,7 +253,7 @@ class mat2 {
     return r;
   }
   mat2 transpose() {
-    num temp;
+    double temp;
     temp = col1.x;
     col1.x = col0.y;
     col0.y = temp;
@@ -269,27 +269,27 @@ class mat2 {
     return r;
   }
   /// Returns the determinant of this matrix.
-  num determinant() {
+  double determinant() {
     return (col0.x * col1.y) - (col0.y*col1.x);
   }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
-  num trace() {
-    num t = 0.0;
+  double trace() {
+    double t = 0.0;
     t += col0.x;
     t += col1.y;
     return t;
   }
   /// Returns infinity norm of the matrix. Used for numerical analysis.
-  num infinityNorm() {
-    num norm = 0.0;
+  double infinityNorm() {
+    double norm = 0.0;
     {
-      num row_norm = 0.0;
+      double row_norm = 0.0;
       row_norm += this[0][0].abs();
       row_norm += this[0][1].abs();
       norm = row_norm > norm ? row_norm : norm;
     }
     {
-      num row_norm = 0.0;
+      double row_norm = 0.0;
       row_norm += this[1][0].abs();
       row_norm += this[1][1].abs();
       norm = row_norm > norm ? row_norm : norm;
@@ -297,27 +297,27 @@ class mat2 {
     return norm;
   }
   /// Returns relative error between [this] and [correct]
-  num relativeError(mat2 correct) {
-    num this_norm = infinityNorm();
-    num correct_norm = correct.infinityNorm();
-    num diff_norm = (this_norm - correct_norm).abs();
+  double relativeError(mat2 correct) {
+    mat2 diff = correct - this;
+    double correct_norm = correct.infinityNorm();
+    double diff_norm = diff.infinityNorm();
     return diff_norm/correct_norm;
   }
   /// Returns absolute error between [this] and [correct]
-  num absoluteError(mat2 correct) {
-    num this_norm = infinityNorm();
-    num correct_norm = correct.infinityNorm();
-    num diff_norm = (this_norm - correct_norm).abs();
+  double absoluteError(mat2 correct) {
+    double this_norm = infinityNorm();
+    double correct_norm = correct.infinityNorm();
+    double diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
   }
   /// Invert the matrix. Returns the determinant.
-  num invert() {
-    num det = determinant();
+  double invert() {
+    double det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    num invDet = 1.0 / det;
-    num temp = col0.x;
+    double invDet = 1.0 / det;
+    double temp = col0.x;
     col0.x = col1.y * invDet;
     col0.y = - col0.y * invDet;
     col1.x = - col1.x * invDet;
@@ -325,17 +325,17 @@ class mat2 {
     return det;
   }
   /// Turns the matrix into a rotation of [radians]
-  void setRotation(num radians_) {
-    num c = Math.cos(radians_);
-    num s = Math.sin(radians_);
+  void setRotation(double radians_) {
+    double c = Math.cos(radians_);
+    double s = Math.sin(radians_);
     col0.x = c;
     col0.y = s;
     col1.x = -s;
     col1.y = c;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  mat2 scaleAdjoint(num scale_) {
-    num temp = col0.x;
+  mat2 scaleAdjoint(double scale_) {
+    double temp = col0.x;
     col0.x = col1.y * scale_;
     col1.x = - col1.x * scale_;
     col0.y = - col0.y * scale_;
@@ -381,14 +381,14 @@ class mat2 {
     return this;
   }
   mat2 multiply(mat2 arg) {
-    final num m00 = col0.x;
-    final num m01 = col1.x;
-    final num m10 = col0.y;
-    final num m11 = col1.y;
-    final num n00 = arg.col0.x;
-    final num n01 = arg.col1.x;
-    final num n10 = arg.col0.y;
-    final num n11 = arg.col1.y;
+    final double m00 = col0.x;
+    final double m01 = col1.x;
+    final double m10 = col0.y;
+    final double m11 = col1.y;
+    final double n00 = arg.col0.x;
+    final double n01 = arg.col1.x;
+    final double n10 = arg.col0.y;
+    final double n11 = arg.col1.y;
     col0.x =  (m00 * n00) + (m01 * n10);
     col1.x =  (m00 * n01) + (m01 * n11);
     col0.y =  (m10 * n00) + (m11 * n10);
@@ -396,10 +396,10 @@ class mat2 {
     return this;
   }
   mat2 transposeMultiply(mat2 arg) {
-    num m00 = col0.x;
-    num m01 = col0.y;
-    num m10 = col1.x;
-    num m11 = col1.y;
+    double m00 = col0.x;
+    double m01 = col0.y;
+    double m10 = col1.x;
+    double m11 = col1.y;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
     col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
     col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
@@ -407,10 +407,10 @@ class mat2 {
     return this;
   }
   mat2 multiplyTranspose(mat2 arg) {
-    num m00 = col0.x;
-    num m01 = col1.x;
-    num m10 = col0.y;
-    num m11 = col1.y;
+    double m00 = col0.x;
+    double m01 = col1.x;
+    double m10 = col0.y;
+    double m11 = col1.y;
     col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x);
     col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y);
     col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x);
@@ -418,8 +418,8 @@ class mat2 {
     return this;
   }
   vec2 transform(vec2 arg) {
-    num x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
-    num y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+    double x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
+    double y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
     arg.x = x_;
     arg.y = y_;
     return arg;

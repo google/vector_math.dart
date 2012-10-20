@@ -23,7 +23,7 @@
 */
 /// Returns sine of [arg]. Return type matches the type of [arg]
 Dynamic sin(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.sin(arg);
   }
   if (arg is vec2) {
@@ -57,7 +57,7 @@ Dynamic sin(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns cosine of [arg]. Return type matches the type of [arg]
 Dynamic cos(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.cos(arg);
   }
   if (arg is vec2) {
@@ -91,7 +91,7 @@ Dynamic cos(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns tangent of [arg]. Return type matches the type of [arg]
 Dynamic tan(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.tan(arg);
   }
   if (arg is vec2) {
@@ -125,7 +125,7 @@ Dynamic tan(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns arc sine of [arg]. Return type matches the type of [arg]
 Dynamic asin(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.asin(arg);
   }
   if (arg is vec2) {
@@ -159,7 +159,7 @@ Dynamic asin(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns arc cosine of [arg]. Return type matches the type of [arg]
 Dynamic acos(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return Math.acos(arg);
   }
   if (arg is vec2) {
@@ -193,7 +193,7 @@ Dynamic acos(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
 Dynamic radians(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.radians(arg);
   }
   if (arg is vec2) {
@@ -227,7 +227,7 @@ Dynamic radians(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
 Dynamic degrees(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.degrees(arg);
   }
   if (arg is vec2) {

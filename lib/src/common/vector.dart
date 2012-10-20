@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -23,44 +23,44 @@
 */
 
 /// Returns the dot product between vectors [x] and [y]. The dimension of [x] and [y] must match.
-num dot(Dynamic x, Dynamic y) {
+double dot(Dynamic x, Dynamic y) {
   return x.dot(y);
 }
 
 /// Returns the length of vector [x]
-num length(Dynamic x) {
+double length(Dynamic x) {
   return x.length;
 }
 
 /// Returns the length squared of vector [x]
-num length2(Dynamic x) {
+double length2(Dynamic x) {
   return x.length2;
 }
 
 /// Returns the distance between vectors [x] and [y]. The dimension of [x] and [y] must match.
-num distance(Dynamic x, Dynamic y) {
+double distance(Dynamic x, Dynamic y) {
   return length(x - y);
 }
 
 /// Returns the distance squared between vectors [x] and [y].
-num distance2(Dynamic x, Dynamic y) {
+double distance2(Dynamic x, Dynamic y) {
   return length2(x - y);
 }
 
-/// Returns the cross product between [x] and [y]. [x] and [y] can be vec2, vec3 or num, but not all combinations are supported.
+/// Returns the cross product between [x] and [y]. [x] and [y] can be vec2, vec3 or double, but not all combinations are supported.
 Dynamic cross(Dynamic x, Dynamic y, [Dynamic out=null]) {
   if (x is vec3 && y is vec3) {
     return x.cross(y, out);
   } else if (x is vec2 && y is vec2) {
     return x.cross(y);
-  } else if (x is num && y is vec2) {
+  } else if (x is double && y is vec2) {
     if (out == null) {
       out = new vec2.zero();
     }
     out.x = -x * y.y;
     out.y = x * y.x;
     return out;
-  } else if (x is vec2 && y is num) {
+  } else if (x is vec2 && y is double) {
     if (out == null) {
       out = new vec2.zero();
     }
@@ -73,9 +73,9 @@ Dynamic cross(Dynamic x, Dynamic y, [Dynamic out=null]) {
   return null;
 }
 
-/// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
+/// Returns [x] normalized. Supports [double], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
 Dynamic normalize(Dynamic x, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return 1.0 * sign(x);
   }
   if (x is vec2) {

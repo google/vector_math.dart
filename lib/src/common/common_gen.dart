@@ -23,7 +23,7 @@
 */
 /// Returns absolute value of [arg].
 Dynamic abs(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.abs(arg);
   }
   if (arg is vec2) {
@@ -57,7 +57,7 @@ Dynamic abs(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns 1.0 or 0.0 or -1.0 depending on sign of [arg].
 Dynamic sign(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.sign(arg);
   }
   if (arg is vec2) {
@@ -91,7 +91,7 @@ Dynamic sign(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns floor value of [arg].
 Dynamic floor(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.floor(arg);
   }
   if (arg is vec2) {
@@ -125,7 +125,7 @@ Dynamic floor(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns [arg] truncated.
 Dynamic trunc(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.truncate(arg);
   }
   if (arg is vec2) {
@@ -159,7 +159,7 @@ Dynamic trunc(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns [arg] rounded to nearest integer.
 Dynamic round(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.round(arg);
   }
   if (arg is vec2) {
@@ -193,7 +193,7 @@ Dynamic round(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns [arg] rounded to nearest even integer.
 Dynamic roundEven(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.roundEven(arg);
   }
   if (arg is vec2) {
@@ -227,7 +227,7 @@ Dynamic roundEven(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns ceiling of [arg]
 Dynamic ceil(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.ceil(arg);
   }
   if (arg is vec2) {
@@ -261,7 +261,7 @@ Dynamic ceil(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns fraction of [arg]
 Dynamic fract(Dynamic arg, [Dynamic out=null]) {
-  if (arg is num) {
+  if (arg is double) {
     return _ScalerHelpers.fract(arg);
   }
   if (arg is vec2) {
@@ -295,7 +295,7 @@ Dynamic fract(Dynamic arg, [Dynamic out=null]) {
 }
 /// Returns [x] mod [y]
 Dynamic mod(Dynamic x, Dynamic y, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return _ScalerHelpers.mod(x, y);
   }
   if (x is vec2) {
@@ -329,7 +329,7 @@ Dynamic mod(Dynamic x, Dynamic y, [Dynamic out=null]) {
 }
 /// Returns component wise minimum of [x] and [y]
 Dynamic min(Dynamic x, Dynamic y, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return Math.min(x, y);
   }
   if (x is vec2) {
@@ -363,7 +363,7 @@ Dynamic min(Dynamic x, Dynamic y, [Dynamic out=null]) {
 }
 /// Returns component wise maximum of [x] and [y]
 Dynamic max(Dynamic x, Dynamic y, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return Math.max(x, y);
   }
   if (x is vec2) {
@@ -397,7 +397,7 @@ Dynamic max(Dynamic x, Dynamic y, [Dynamic out=null]) {
 }
 /// Component wise clamp of [x] between [min_] and [max_]
 Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return _ScalerHelpers.clamp(x, min_, max_);
   }
   if (x is vec2) {
@@ -431,8 +431,8 @@ Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_, [Dynamic out=null]) {
 }
 /// Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.
 Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
-  if (t is num) {
-      if (x is num) {
+  if (t is double) {
+      if (x is double) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
@@ -450,7 +450,7 @@ Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
       throw new IllegalArgumentException(x);
 
   } else {
-      if (x is num) {
+      if (x is double) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
@@ -471,7 +471,7 @@ Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
 }
 /// Returns 0.0 if x < [y] and 1.0 otherwise.
 Dynamic step(Dynamic x, Dynamic y, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return _ScalerHelpers.step(x, y);
   }
   if (x is vec2) {
@@ -505,7 +505,7 @@ Dynamic step(Dynamic x, Dynamic y, [Dynamic out=null]) {
 }
 /// Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].
 Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x, [Dynamic out=null]) {
-  if (x is num) {
+  if (x is double) {
     return _ScalerHelpers.smoothstep(edge0, edge1, x);
   }
   if (x is vec2) {

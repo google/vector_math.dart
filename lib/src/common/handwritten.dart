@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -24,13 +24,13 @@
 
 /** Returns atan([arg]) or atan([arg]/[arg2])
   *
-  * Arguments can be of type [num], [vec2], [vec3] or [vec4]
+  * Arguments can be of type [double], [vec2], [vec3] or [vec4]
   * Return type matches input argument type
   *
   */
 Dynamic atan(Dynamic arg, [Dynamic arg2]) {
   if (arg2 == null) {
-    if (arg is num) {
+    if (arg is double) {
       return Math.atan(arg);
     }
     if (arg is vec2) {
@@ -41,9 +41,9 @@ Dynamic atan(Dynamic arg, [Dynamic arg2]) {
     }
     if (arg is vec4) {
       return new vec4(Math.atan(arg.x), Math.atan(arg.y), Math.atan(arg.z), Math.atan(arg.w));
-    }  
+    }
   } else {
-    if (arg is num) {
+    if (arg is double) {
       return Math.atan2(arg, arg2);
     }
     if (arg is vec2) {
@@ -56,23 +56,23 @@ Dynamic atan(Dynamic arg, [Dynamic arg2]) {
       return new vec4(Math.atan2(arg.x, arg2.x), Math.atan2(arg.y, arg2.y), Math.atan2(arg.z, arg2.z), Math.atan2(arg.w, arg2.w));
     }
   }
-  
+
   throw new IllegalArgumentException(arg);
 }
 
 /// Returns relative error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
-num relativeError(Dynamic calculated, Dynamic correct) {
-  if (calculated is num && correct is num) {
-    num diff = (calculated - correct).abs();
+double relativeError(Dynamic calculated, Dynamic correct) {
+  if (calculated is double && correct is double) {
+    double diff = (calculated - correct).abs();
     return diff/correct;
   }
   return calculated.relativeError(correct);
 }
 
 /// Returns absolute error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
-num absoluteError(Dynamic calculated, Dynamic correct) {
-  if (calculated is num && correct is num) {
-    num diff = (calculated - correct).abs();
+double absoluteError(Dynamic calculated, Dynamic correct) {
+  if (calculated is double && correct is double) {
+    double diff = (calculated - correct).abs();
     return diff;
   }
   return calculated.absoluteError(correct);
