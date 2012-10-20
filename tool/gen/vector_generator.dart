@@ -65,14 +65,14 @@ class VectorGenerator extends BaseGenerator {
     iPrint('${joinStrings(vectorComponents, joiner: ' = ')} = 0.0;');
 
     if (generatedName == 'vec3') {
-      iPrint('if (${vectorComponents[0]}_ is vec2 && ${vectorComponents[1]}_ is num) {');
+      iPrint('if (${vectorComponents[0]}_ is vec2 && ${vectorComponents[1]}_ is double) {');
       iPush();
       iPrint('this.xy = ${vectorComponents[0]}_.xy;');
       iPrint('this.z = ${vectorComponents[1]}_;');
       iPop();
       iPrint('}');
 
-      iPrint('if (${vectorComponents[0]}_ is num && ${vectorComponents[1]}_ is vec2) {');
+      iPrint('if (${vectorComponents[0]}_ is double && ${vectorComponents[1]}_ is vec2) {');
       iPush();
       iPrint('this.x = ${vectorComponents[0]}_;');
       iPrint('this.yz = ${vectorComponents[1]}_.xy;');
@@ -82,18 +82,18 @@ class VectorGenerator extends BaseGenerator {
       iPrint('if (${vectorComponents[0]}_ is vec2 && ${vectorComponents[1]}_ == null) {');
       iPush();
       iPrint('this.xy = ${vectorComponents[0]}_.xy;');
-      iPrint('this.z = 0;');
+      iPrint('this.z = 0.0;');
       iPop();
       iPrint('}');
     } else if (generatedName == 'vec4') {
-      iPrint('if (${vectorComponents[0]}_ is vec3 && ${vectorComponents[1]}_ is num) {');
+      iPrint('if (${vectorComponents[0]}_ is vec3 && ${vectorComponents[1]}_ is double) {');
       iPush();
       iPrint('this.xyz = ${vectorComponents[0]}_.xyz;');
       iPrint('this.w = ${vectorComponents[1]}_;');
       iPop();
       iPrint('}');
 
-      iPrint('if (${vectorComponents[0]}_ is num && ${vectorComponents[1]}_ is vec3) {');
+      iPrint('if (${vectorComponents[0]}_ is double && ${vectorComponents[1]}_ is vec3) {');
       iPush();
       iPrint('this.x = ${vectorComponents[0]}_;');
       iPrint('this.yzw = ${vectorComponents[1]}_.xyz;');
@@ -103,7 +103,7 @@ class VectorGenerator extends BaseGenerator {
       iPrint('if (${vectorComponents[0]}_ is vec3 && ${vectorComponents[1]}_ == null) {');
       iPush();
       iPrint('this.xyz = ${vectorComponents[0]}_.xyz;');
-      iPrint('this.z = 0;');
+      iPrint('this.z = 0.0;');
       iPop();
       iPrint('}');
 
@@ -121,7 +121,7 @@ class VectorGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
 
-    iPrint('if (${joinStrings(vectorComponents, '', '_ is num', ' && ')}) {');
+    iPrint('if (${joinStrings(vectorComponents, '', '_ is double', ' && ')}) {');
     iPush();
     for (String e in vectorComponents) {
       iPrint('$e = ${e}_;');
@@ -130,7 +130,7 @@ class VectorGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
 
-    iPrint('if (${vectorComponents[0]}_ is num) {');
+    iPrint('if (${vectorComponents[0]}_ is double) {');
     iPush();
     iPrint('${joinStrings(vectorComponents, joiner: ' = ')} = ${vectorComponents[0]}_;');
     iPrint('return;');
@@ -159,7 +159,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('}');
 
     iPrint('\/\/\/ Constructs a new [$generatedName] that is initialized with passed in values.');
-    iPrint('$generatedName.raw(${joinStrings(vectorComponents, 'num ', '_')}) {');
+    iPrint('$generatedName.raw(${joinStrings(vectorComponents, 'double ', '_')}) {');
     iPush();
     for (String e in vectorComponents) {
       iPrint('$e = ${e}_;');
@@ -194,7 +194,7 @@ class VectorGenerator extends BaseGenerator {
 
   void generateSplat() {
     iPrint('\/\/\/ Splats a scalar into all lanes of the vector.');
-    iPrint('$generatedName splat(num arg) {');
+    iPrint('$generatedName splat(double arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = arg;');
@@ -222,7 +222,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('$generatedName operator$op(Dynamic other) {');
     iPush();
 
-    iPrint('if (other is num) {');
+    iPrint('if (other is double) {');
     {
       iPush();
       String code = 'return new $generatedName(';
@@ -436,9 +436,9 @@ class VectorGenerator extends BaseGenerator {
 
   void generateLength() {
     iPrint('\/\/\/ Returns length of this');
-    iPrint('num get length() {');
+    iPrint('double get length() {');
     iPush();
-    iPrint('num sum = 0.0;');
+    iPrint('double sum = 0.0;');
     vectorComponents.forEach((comp) {
       iPrint('sum += ($comp * $comp);');
     });
@@ -449,9 +449,9 @@ class VectorGenerator extends BaseGenerator {
 
   void generateLength2() {
     iPrint('\/\/\/ Returns squared length of this');
-    iPrint('num get length2() {');
+    iPrint('double get length2() {');
     iPush();
-    iPrint('num sum = 0.0;');
+    iPrint('double sum = 0.0;');
     vectorComponents.forEach((comp) {
       iPrint('sum += ($comp * $comp);');
     });
@@ -464,7 +464,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('\/\/\/ Normalizes this');
     iPrint('$generatedName normalize() {');
     iPush();
-    iPrint('num l = length;');
+    iPrint('double l = length;');
     iPrint('if (l == 0.0) {');
     iPush();
     iPrint('return this;');
@@ -485,7 +485,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('out = new ${generatedName}.raw(${joinStrings(vectorComponents)});');
     iPop();
     iPrint('}');
-    iPrint('num l = out.length;');
+    iPrint('double l = out.length;');
     iPrint('if (l == 0.0) {');
     iPush();
     iPrint('return out;');
@@ -501,9 +501,9 @@ class VectorGenerator extends BaseGenerator {
 
   void generateDot() {
     iPrint('\/\/\/ Returns the dot product of [this] and [other]');
-    iPrint('num dot($generatedName other) {');
+    iPrint('double dot($generatedName other) {');
     iPush();
-    iPrint('num sum = 0.0;');
+    iPrint('double sum = 0.0;');
     vectorComponents.forEach((comp) {
       iPrint('sum += ($comp * other.$comp);');
     });
@@ -527,7 +527,7 @@ class VectorGenerator extends BaseGenerator {
       iPrint('out.z = x * other.y - y * other.x;');
       iPrint('return out;');
     } else if (generatedName == 'vec2') {
-      iPrint('num cross($generatedName other) {');
+      iPrint('double cross($generatedName other) {');
       iPush();
       iPrint('return x * other.y - y * other.x;');
     } else {
@@ -539,16 +539,16 @@ class VectorGenerator extends BaseGenerator {
 
   void generateError() {
     iPrint('\/\/\/ Returns the relative error between [this] and [correct]');
-    iPrint('num relativeError($generatedName correct) {');
+    iPrint('double relativeError($generatedName correct) {');
     iPush();
-    iPrint('num correct_norm = correct.length;');
-    iPrint('num diff_norm = (this - correct).length;');
+    iPrint('double correct_norm = correct.length;');
+    iPrint('double diff_norm = (this - correct).length;');
     iPrint('return diff_norm/correct_norm;');
     iPop();
     iPrint('}');
 
     iPrint('\/\/\/ Returns the absolute error between [this] and [correct]');
-    iPrint('num absoluteError($generatedName correct) {');
+    iPrint('double absoluteError($generatedName correct) {');
     iPush();
     iPrint('return (this - correct).length;');
     iPop();
@@ -556,7 +556,7 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generateSelfScalarOp(String methodName, String op) {
-    iPrint('$generatedName $methodName(num arg) {');
+    iPrint('$generatedName $methodName(double arg) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = $c $op arg;');
@@ -643,7 +643,7 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generateSetComponents() {
-    iPrint('$generatedName setComponents(${joinStrings(vectorComponents, 'num ', '_')}) {');
+    iPrint('$generatedName setComponents(${joinStrings(vectorComponents, 'double ', '_')}) {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = ${c}_;');

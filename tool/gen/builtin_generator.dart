@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -21,7 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
- 
+
 typedef void GenerateFunction(GeneratedFunctionDesc function, BuiltinGenerator bg);
 
 class GeneratedFunctionDesc {
@@ -36,13 +36,13 @@ class GeneratedFunctionDesc {
 
 class BuiltinGenerator extends BaseGenerator {
   List<String> allTypes;
-  
+
   BuiltinGenerator() : super() {
   }
-    
+
   List<String> getComponents(String typeName) {
     switch (typeName) {
-    case 'num':
+    case 'double':
       return [''];
     case 'vec2':
       return ['.x', '.y'];
@@ -53,18 +53,18 @@ class BuiltinGenerator extends BaseGenerator {
     }
     return [''];
   }
-  
+
   String makeArgsString(List<String> args) {
     bool first = true;
     String code = '';
     args.forEach((arg) {
-      var extra =first ? 'Dynamic $arg' : ', Dynamic $arg'; 
-      code = '$code$extra'; 
+      var extra =first ? 'Dynamic $arg' : ', Dynamic $arg';
+      code = '$code$extra';
       first = false;
     });
     return code;
   }
-  
+
   String expandArguments(List<String> arguments, String component) {
     bool first = true;
     String code = '';
@@ -75,7 +75,7 @@ class BuiltinGenerator extends BaseGenerator {
     });
     return code;
   }
-  
+
   void generateFunction(GeneratedFunctionDesc function) {
     iPrint('\/\/\/ ${function.docString}');
     String prologue = 'Dynamic ${function.name}(${makeArgsString(function.args)}, [Dynamic out=null]) {';
@@ -84,7 +84,7 @@ class BuiltinGenerator extends BaseGenerator {
     allTypes.forEach((type) {
       iPrint('if (${function.typeArg} is $type) {');
       iPush();
-      if (type == 'num') {
+      if (type == 'double') {
         iPrint('return ${function.scalarName}(${expandArguments(function.args, '')});');
       } else {
         List<String> components = getComponents(type);
@@ -105,7 +105,7 @@ class BuiltinGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
   }
-  
+
   void generate(List<GeneratedFunctionDesc> functions) {
     writeLicense();
     functions.forEach((f) {
@@ -123,9 +123,9 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
   String prologue = 'Dynamic ${function.name}(${bg.makeArgsString(function.args)}) {';
   bg.iPrint(prologue);
   bg.iPush();
-  bg.iPrint('if (t is num) {');
+  bg.iPrint('if (t is double) {');
   bg.iPush();
-  bg.iPrint('''  if (x is num) {
+  bg.iPrint('''  if (x is double) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
@@ -145,7 +145,7 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
   bg.iPop();
   bg.iPrint('} else {');
   bg.iPush();
-  bg.iPrint('''  if (x is num) {
+  bg.iPrint('''  if (x is double) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {

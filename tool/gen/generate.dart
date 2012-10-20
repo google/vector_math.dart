@@ -40,7 +40,7 @@ void generateBuiltin() {
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     BuiltinGenerator bg = new BuiltinGenerator();
-    bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
+    bg.allTypes = ['double', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
     bg.generate([new GeneratedFunctionDesc('sin', 'Math.sin', ['arg'], 'arg', 'Returns sine of [arg]. Return type matches the type of [arg]'),
                  new GeneratedFunctionDesc('cos', 'Math.cos', ['arg'], 'arg', 'Returns cosine of [arg]. Return type matches the type of [arg]'),
@@ -63,7 +63,7 @@ void generateBuiltin() {
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     BuiltinGenerator bg = new BuiltinGenerator();
-    bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
+    bg.allTypes = ['double', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
     bg.generate([new GeneratedFunctionDesc('pow', 'Math.pow', ['x','y'], 'x', 'Returns [x] raised to the exponent [y]. Supports vectors and numbers.'),
                  new GeneratedFunctionDesc('exp', 'Math.exp', ['arg'], 'arg', 'Returns *e* raised to the exponent [arg]. Supports vectors and numbers.'),
@@ -80,7 +80,7 @@ void generateBuiltin() {
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     BuiltinGenerator bg = new BuiltinGenerator();
-    bg.allTypes = ['num', 'vec2', 'vec3', 'vec4'];
+    bg.allTypes = ['double', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
     bg.generate([new GeneratedFunctionDesc('abs', '_ScalerHelpers.abs', ['arg'], 'arg', 'Returns absolute value of [arg].'),
                  new GeneratedFunctionDesc('sign', '_ScalerHelpers.sign', ['arg'], 'arg', 'Returns 1.0 or 0.0 or -1.0 depending on sign of [arg].'),
@@ -113,7 +113,7 @@ void generateVector() {
     vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
+    vg.vectorType = 'double';
     vg.vectorComponents = ['x','y'];
     vg.componentAliases = [ ['r','g'], ['s','t']];
     vg.generatedName = 'vec2';
@@ -130,7 +130,7 @@ void generateVector() {
     vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
+    vg.vectorType = 'double';
     vg.vectorComponents = ['x','y', 'z'];
     vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
     vg.generatedName = 'vec3';
@@ -147,7 +147,7 @@ void generateVector() {
     vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
+    vg.vectorType = 'double';
     vg.vectorComponents = ['x','y', 'z', 'w'];
     vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
     vg.generatedName = 'vec4';
@@ -164,7 +164,7 @@ void generateVector() {
     vg.floatArrayType = 'Float32List';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
+    vg.vectorType = 'double';
     vg.vectorComponents = ['x','y'];
     vg.componentAliases = [ ['r','g'], ['s','t']];
     vg.generatedName = 'vec2';
@@ -181,7 +181,7 @@ void generateVector() {
     vg.floatArrayType = 'Float32List';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
+    vg.vectorType = 'double';
     vg.vectorComponents = ['x','y', 'z'];
     vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
     vg.generatedName = 'vec3';
@@ -198,7 +198,7 @@ void generateVector() {
     vg.floatArrayType = 'Float32List';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'num';
+    vg.vectorType = 'double';
     vg.vectorComponents = ['x','y', 'z', 'w'];
     vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
     vg.generatedName = 'vec4';
