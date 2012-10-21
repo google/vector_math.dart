@@ -11,7 +11,8 @@ A Vector math library for 2D and 3D applications.
 * Quaternion type for animating rotations.
 * Syntax that is practically identical to GLSL the WebGL shader language.
 	* Flexible getters and setters, for example, ```position.xwz = color.grb;```
-	* Classes and utility functions to make using it feel more like GLSL
+	* All GLSL utility functions
+	* Flexible construction ```new vec3(new vec2(x,y), z);```
 * Fully documented
 * Well tested
 * Heavily optimized
