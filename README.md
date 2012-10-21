@@ -29,7 +29,7 @@ dependencies:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
 
-2.\ Add the correct import to your project. 
+2\. Add the correct import to your project. 
 
 If your project depends on **dart:io**:
 
