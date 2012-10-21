@@ -21,7 +21,7 @@ A Vector math library for 2D and 3D applications.
 
 ## Getting Started ##
 
-Add the following to your project's **pubspec.yaml** and run ```pub install```.
+1\. Add the following to your project's **pubspec.yaml** and run ```pub install```.
 
 ```
 dependencies:
@@ -29,7 +29,7 @@ dependencies:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
 
-Add the correct import to your project. 
+2.\ Add the correct import to your project. 
 
 If your project depends on **dart:io**:
 
