@@ -1,33 +1,42 @@
-DartVectorMath
+vector_math
 ==============
 
 ## Introduction ##
 
-A Vector Math library for game programming written in Dart.
+A Vector math library for 2D and 3D applications.
 
-* DartVectorMath is largely compatible with GLSL.
-(Constructor syntax is only incompatibility that wouldn't be classified as a bug.)
-* DartVectorMath offers all GLSL classes and utility functions.
-* DartVectorMath offers more functionality than GLSL including a quaternion type.
-* DartVectorMath is fully documented. See the docs/ directory.
-* DartVectorMath GLSL getter and setter syntax (see Example)
+## Features ##
+
+* 2D,3D, and 4D vector and matrix types.
+* Quaternion type for animating rotations.
+* Syntax that is practically identical to GLSL the WebGL shader language.
+	* Flexible getters and setters, for example, ```position.xwz = color.grb;```
+	* Classes and utility functions to make using it feel more like GLSL
+* Fully documented
+* Well tested
+* Heavily optimized
 
 ## Status: Beta ##
 
 ## Getting Started ##
-Create a Dart project and add a **pubspec.yaml** file to it
+Create a new Dart project and add the following to **pubspec.yaml**
 
 ```
 dependencies:
   vector_math:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
-and run **pub install** to install **DartVectorMath** (including its dependencies). Now add import for **dart:io** projects
+
+Add the correct import to your project. 
+
+If your project depends on **dart:io**:
 
 ```
 #import('package:vector_math/vector_math_console.dart');
 ```
-or for **dart:html** based projects
+
+
+If your project depends on **dart:html**:
 
 ```
 #import('package:vector_math/vector_math_browser.dart');
@@ -35,7 +44,7 @@ or for **dart:html** based projects
 
 ## Example ##
 
-Using the GLSL getter and setter syntax.
+1. Using the GLSL getter and setter syntax.
 
 ```
 void main() {
@@ -45,12 +54,48 @@ void main() {
 }
 ``` 
 
-## Supported data types ##
+2. Transforming a vector.
 
-* vec2
-* vec3
-* vec4
-* mat2
-* mat3
-* mat4
-* quat
+
+```
+void main() {
+	// Rotation of pi/2 degrees around the Y axis followed by a 
+	// translation of (5.0, 2.0, 3.0).
+	mat4 T = new mat4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
+	// A point.
+	vec3 position = new vec3.raw(1.0, 1.0, 1.0);
+	// Transform position by T.
+	T.transform3(position);
+}
+```
+
+3. Invert a matrix
+
+```
+void main() {
+	// Rotation of 90 degrees around the Y axis followed by a 
+	// translation of (5.0, 2.0, 3.0).
+	mat4 T = new mat4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
+	// Invert T.
+	T.invert();
+	// Invert just the rotation in T.
+	T.invertRotation();
+}
+```
+
+4. Rotate a vector using a quaternion
+
+```
+void main() {
+	// The X axis.
+	vec3 axis = new vec3.raw(1.0, 0.0, 0.0);
+	// 90 degrees.
+	double angle = pi/2.0;
+	// Quaternion encoding a 90 degree rotation along the X axis. 
+	quat q = new quat.axisAngle(axis, angle);
+	// A point.
+	vec3 point = new vec3.raw(1.0, 1.0, 1.0);
+	// Rotate point by q.
+	q.rotate(point);
+}
+```
