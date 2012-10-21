@@ -33,14 +33,14 @@ Add the correct import to your project.
 If your project depends on **dart:io**:
 
 ```
-#import('package:vector_math/vector_math_console.dart');
+import 'package:vector_math/vector_math_console.dart';
 ```
 
 
 If your project depends on **dart:html**:
 
 ```
-#import('package:vector_math/vector_math_browser.dart');
+import 'package:vector_math/vector_math_browser.dart';
 ```
 
 ## Example ##
