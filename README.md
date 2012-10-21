@@ -10,12 +10,12 @@ A Vector math library for 2D and 3D applications.
 * 2D,3D, and 4D vector and matrix types.
 * Quaternion type for animating rotations.
 * Syntax that is practically identical to GLSL the WebGL shader language.
-	* Flexible getters and setters, for example, ```position.xwz = color.grb;```
-	* All GLSL utility functions
-	* Flexible construction ```new vec3(new vec2(x,y), z);```
-* Fully documented
-* Well tested
-* Heavily optimized
+	* Flexible getters and setters, for example, ```position.xwz = color.grb;```.
+	* All GLSL utility functions.
+	* Flexible construction ```new vec3(new vec2(x,y), z);```.
+* Fully documented.
+* Well tested.
+* Heavily optimized.
 
 ## Status: Beta ##
 
@@ -29,7 +29,7 @@ dependencies:
     git: https://github.com/johnmccutchan/DartVectorMath.git
 ```
 
-2\. Add the correct import to your project. 
+2\. Add the correct import for your project. 
 
 If your project depends on **dart:io**:
 
