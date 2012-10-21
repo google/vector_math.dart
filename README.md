@@ -44,7 +44,7 @@ If your project depends on **dart:html**:
 
 ## Example ##
 
-1. Using the GLSL getter and setter syntax.
+1\. Using the GLSL getter and setter syntax.
 
 ```
 void main() {
@@ -54,7 +54,7 @@ void main() {
 }
 ``` 
 
-2. Transforming a vector.
+2\. Transforming a vector.
 
 
 ```
@@ -69,7 +69,7 @@ void main() {
 }
 ```
 
-3. Invert a matrix
+3\. Invert a matrix
 
 ```
 void main() {
@@ -83,7 +83,7 @@ void main() {
 }
 ```
 
-4. Rotate a vector using a quaternion
+4\. Rotate a vector using a quaternion
 
 ```
 void main() {
