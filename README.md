@@ -20,7 +20,8 @@ A Vector math library for 2D and 3D applications.
 ## Status: Beta ##
 
 ## Getting Started ##
-Create a new Dart project and add the following to **pubspec.yaml**
+
+Add the following to your project's **pubspec.yaml** and run ```pub install```.
 
 ```
 dependencies:
@@ -43,7 +44,7 @@ If your project depends on **dart:html**:
 import 'package:vector_math/vector_math_browser.dart';
 ```
 
-## Example ##
+## Examples ##
 
 1\. Using the GLSL getter and setter syntax.
 
