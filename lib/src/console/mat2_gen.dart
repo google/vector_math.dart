@@ -117,11 +117,11 @@ class mat2 {
     return s;
   }
   /// Returns the number of rows in the matrix.
-  int get rows() => 2;
+  int get rows => 2;
   /// Returns the number of columns in the matrix.
-  int get cols() => 2;
+  int get cols => 2;
   /// Returns the number of columns in the matrix.
-  int get length() => 2;
+  int get length => 2;
   /// Gets the [column] of the matrix
   vec2 operator[](int column) {
     assert(column >= 0 && column < 2);
@@ -141,9 +141,9 @@ class mat2 {
     throw new IllegalArgumentException(column);
   }
   /// Returns row 0
-  vec2 get row0() => getRow(0);
+  vec2 get row0 => getRow(0);
   /// Returns row 1
-  vec2 get row1() => getRow(1);
+  vec2 get row1 => getRow(1);
   /// Sets row 0 to [arg]
   set row0(vec2 arg) => setRow(0, arg);
   /// Sets row 1 to [arg]

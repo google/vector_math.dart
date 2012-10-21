@@ -36,11 +36,11 @@ class MatrixGenerator extends BaseGenerator {
     return 'mat${cols}';
   }
 
-  String get rowVecType() => 'vec$cols';
-  String get colVecType() => 'vec$rows';
-  String get matType() => matrixTypeName(rows, cols);
-  String get matTypeTransposed() => matrixTypeName(cols, rows);
-  List<String> get matrixComponents() {
+  String get rowVecType => 'vec$cols';
+  String get colVecType => 'vec$rows';
+  String get matType => matrixTypeName(rows, cols);
+  String get matTypeTransposed => matrixTypeName(cols, rows);
+  List<String> get matrixComponents {
     List<String> r = new List<String>();
     for (int i = 0; i < cols; i++) {
       r.add('col$i');
@@ -383,17 +383,17 @@ class MatrixGenerator extends BaseGenerator {
 
   void generateRowColProperties() {
     iPrint('\/\/\/ Returns the number of rows in the matrix.');
-    iPrint('int get rows() => $rows;');
+    iPrint('int get rows => $rows;');
     iPrint('\/\/\/ Returns the number of columns in the matrix.');
-    iPrint('int get cols() => $cols;');
+    iPrint('int get cols => $cols;');
     iPrint('\/\/\/ Returns the number of columns in the matrix.');
-    iPrint('int get length() => $cols;');
+    iPrint('int get length => $cols;');
   }
 
   void generateRowGetterSetters() {
     for (int i = 0; i < rows; i++) {
       iPrint('\/\/\/ Returns row $i');
-      iPrint('$rowVecType get row$i() => getRow($i);');
+      iPrint('$rowVecType get row$i => getRow($i);');
     }
     for (int i = 0; i < rows; i++) {
       iPrint('\/\/\/ Sets row $i to [arg]');
@@ -1883,7 +1883,7 @@ class MatrixGenerator extends BaseGenerator {
 
 
     if (rows == 3 || rows == 4) {
-      iPrint('vec3 get right() {');
+      iPrint('vec3 get right {');
       iPush();
       iPrint('vec3 f = new vec3.zero();');
       iPrint('f.x = ${Access(0, 0)};');
@@ -1893,7 +1893,7 @@ class MatrixGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
 
-      iPrint('vec3 get up() {');
+      iPrint('vec3 get up {');
       iPush();
       iPrint('vec3 f = new vec3.zero();');
       iPrint('f.x = ${Access(0, 1)};');
@@ -1903,7 +1903,7 @@ class MatrixGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
 
-      iPrint('vec3 get forward() {');
+      iPrint('vec3 get forward {');
       iPush();
       iPrint('vec3 f = new vec3.zero();');
       iPrint('f.x = ${Access(0, 2)};');

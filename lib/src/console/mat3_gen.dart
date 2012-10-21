@@ -186,11 +186,11 @@ class mat3 {
     return s;
   }
   /// Returns the number of rows in the matrix.
-  int get rows() => 3;
+  int get rows => 3;
   /// Returns the number of columns in the matrix.
-  int get cols() => 3;
+  int get cols => 3;
   /// Returns the number of columns in the matrix.
-  int get length() => 3;
+  int get length => 3;
   /// Gets the [column] of the matrix
   vec3 operator[](int column) {
     assert(column >= 0 && column < 3);
@@ -212,11 +212,11 @@ class mat3 {
     throw new IllegalArgumentException(column);
   }
   /// Returns row 0
-  vec3 get row0() => getRow(0);
+  vec3 get row0 => getRow(0);
   /// Returns row 1
-  vec3 get row1() => getRow(1);
+  vec3 get row1 => getRow(1);
   /// Returns row 2
-  vec3 get row2() => getRow(2);
+  vec3 get row2 => getRow(2);
   /// Sets row 0 to [arg]
   set row0(vec3 arg) => setRow(0, arg);
   /// Sets row 1 to [arg]
@@ -777,21 +777,21 @@ class mat3 {
     col2.z = array[i];
     i++;
   }
-  vec3 get right() {
+  vec3 get right {
     vec3 f = new vec3.zero();
     f.x = col0.x;
     f.y = col0.y;
     f.z = col0.z;
     return f;
   }
-  vec3 get up() {
+  vec3 get up {
     vec3 f = new vec3.zero();
     f.x = col1.x;
     f.y = col1.y;
     f.z = col1.z;
     return f;
   }
-  vec3 get forward() {
+  vec3 get forward {
     vec3 f = new vec3.zero();
     f.x = col2.x;
     f.y = col2.y;

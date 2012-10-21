@@ -24,7 +24,7 @@
 
 class VectorGenerator extends BaseGenerator {
   List<String> vectorComponents;
-  int get vectorDimension() {
+  int get vectorDimension {
     return vectorComponents != null ? vectorComponents.length : 0;
   }
   String vectorType;
@@ -50,7 +50,7 @@ class VectorGenerator extends BaseGenerator {
     for (List<String> ca in componentAliases) {
       for (int i = 0; i < ca.length; i++) {
         if (getters) {
-          iPrint('$vectorType get ${ca[i]}() => ${vectorComponents[i]};');
+          iPrint('$vectorType get ${ca[i]} => ${vectorComponents[i]};');
         } else {
           iPrint('set ${ca[i]}($vectorType arg) => ${vectorComponents[i]} = arg;');
         }
@@ -406,7 +406,7 @@ class VectorGenerator extends BaseGenerator {
 
   void generateGettersForType(String type, int len, String pre, int i, int j) {
     if (i == len) {
-      String code = '$type get $pre() => new $type(';
+      String code = '$type get $pre => new $type(';
       bool first = true;
       pre.splitChars().forEach((c) {
         var extra = first ? '$c' : ', $c';
@@ -436,7 +436,7 @@ class VectorGenerator extends BaseGenerator {
 
   void generateLength() {
     iPrint('\/\/\/ Returns length of this');
-    iPrint('double get length() {');
+    iPrint('double get length {');
     iPush();
     iPrint('double sum = 0.0;');
     vectorComponents.forEach((comp) {
@@ -449,7 +449,7 @@ class VectorGenerator extends BaseGenerator {
 
   void generateLength2() {
     iPrint('\/\/\/ Returns squared length of this');
-    iPrint('double get length2() {');
+    iPrint('double get length2 {');
     iPush();
     iPrint('double sum = 0.0;');
     vectorComponents.forEach((comp) {
