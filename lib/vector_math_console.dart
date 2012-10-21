@@ -22,21 +22,22 @@
 
 */
 
-#library("vector_math_console");
-#import('dart:scalarlist');
-#import('dart:math', prefix: 'Math');
-#source("src/common/scalar_math.dart");
-#source("src/console/vec2_gen.dart");
-#source("src/console/vec3_gen.dart");
-#source("src/console/vec4_gen.dart");
-#source("src/common/vector.dart");
-#source("src/common/trig_gen.dart");
-#source("src/common/exponent_gen.dart");
-#source("src/common/common_gen.dart");
-#source("src/common/handwritten.dart");
-#source("src/console/mat2_gen.dart");
-#source("src/console/mat3_gen.dart");
-#source("src/console/mat4_gen.dart");
-#source("src/common/opengl.dart");
-#source("src/common/quat.dart");
-#source("src/common/aabb3.dart");
+library vector_math_console;
+import 'dart:math' as Math;
+import 'dart:scalarlist';
+
+part 'src/common/scalar_math.dart';
+part 'src/console/vec2_gen.dart';
+part 'src/console/vec3_gen.dart';
+part 'src/console/vec4_gen.dart';
+part 'src/common/vector.dart';
+part 'src/common/trig_gen.dart';
+part 'src/common/exponent_gen.dart';
+part 'src/common/common_gen.dart';
+part 'src/common/handwritten.dart';
+part 'src/console/mat2_gen.dart';
+part 'src/console/mat3_gen.dart';
+part 'src/console/mat4_gen.dart';
+part 'src/common/opengl.dart';
+part 'src/common/quat.dart';
+part 'src/common/aabb3.dart';

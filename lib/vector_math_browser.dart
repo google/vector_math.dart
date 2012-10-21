@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -22,21 +22,22 @@
 
 */
 
-#library("vector_math_browser");
-#import('dart:math', prefix: 'Math');
-#import("dart:html");
-#source("src/common/scalar_math.dart");
-#source("src/html/vec2_gen.dart");
-#source("src/html/vec3_gen.dart");
-#source("src/html/vec4_gen.dart");
-#source("src/common/vector.dart");
-#source("src/common/trig_gen.dart");
-#source("src/common/exponent_gen.dart");
-#source("src/common/common_gen.dart");
-#source("src/common/handwritten.dart");
-#source("src/html/mat2_gen.dart");
-#source("src/html/mat3_gen.dart");
-#source("src/html/mat4_gen.dart");
-#source("src/common/opengl.dart");
-#source("src/common/quat.dart");
-#source("src/common/aabb3.dart");
+library vector_math_browser;
+import 'dart:math' as Math;
+import 'dart:html';
+
+part 'src/common/scalar_math.dart';
+part 'src/html/vec2_gen.dart';
+part 'src/html/vec3_gen.dart';
+part 'src/html/vec4_gen.dart';
+part 'src/common/vector.dart';
+part 'src/common/trig_gen.dart';
+part 'src/common/exponent_gen.dart';
+part 'src/common/common_gen.dart';
+part 'src/common/handwritten.dart';
+part 'src/html/mat2_gen.dart';
+part 'src/html/mat3_gen.dart';
+part 'src/html/mat4_gen.dart';
+part 'src/common/opengl.dart';
+part 'src/common/quat.dart';
+part 'src/common/aabb3.dart';
