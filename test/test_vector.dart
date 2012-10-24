@@ -93,11 +93,28 @@ class VectorTest extends BaseTest {
     }
   }
 
+  void testDefaultConstructor() {
+    try {
+      new vec2();
+    } catch (e) {
+      return;
+    }
+    print('failure.');
+
+    try {
+      new vec2(2, 4);
+    } catch (e) {
+      return;
+    }
+    print('failure.');
+  }
+
   void test() {
     print('Running vector tests');
     testVec2DotProduct();
     testVec2CrossProduct();
     testVec3DotProduct();
     testVec3CrossProduct();
+    testDefaultConstructor();
   }
 }
