@@ -54,6 +54,7 @@ class vec3 {
       x = y = z = x_;
       return;
     }
+    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [vec3] filled with 0.
   vec3.zero() {
@@ -93,27 +94,27 @@ class vec3 {
   /// Returns a printable string
   String toString() => '$x,$y,$z';
   /// Returns a new vec3 from -this
-  vec3 operator-() => new vec3(-x, -y, -z);
+  vec3 operator-() => new vec3.raw(-x, -y, -z);
   /// Returns a new vec3 from this - [other]
-  vec3 operator-(vec3 other) => new vec3(x - other.x, y - other.y, z - other.z);
+  vec3 operator-(vec3 other) => new vec3.raw(x - other.x, y - other.y, z - other.z);
   /// Returns a new vec3 from this + [other]
-  vec3 operator+(vec3 other) => new vec3(x + other.x, y + other.y, z + other.z);
+  vec3 operator+(vec3 other) => new vec3.raw(x + other.x, y + other.y, z + other.z);
   /// Returns a new vec3 divided by [other]
   vec3 operator/(Dynamic other) {
     if (other is double) {
-      return new vec3(x / other, y / other, z / other);
+      return new vec3.raw(x / other, y / other, z / other);
     }
     if (other is vec3) {
-      return new vec3(x / other.x, y / other.y, z / other.z);
+      return new vec3.raw(x / other.x, y / other.y, z / other.z);
     }
   }
   /// Returns a new vec3 scaled by [other]
   vec3 operator*(Dynamic other) {
     if (other is double) {
-      return new vec3(x * other, y * other, z * other);
+      return new vec3.raw(x * other, y * other, z * other);
     }
     if (other is vec3) {
-      return new vec3(x * other.x, y * other.y, z * other.z);
+      return new vec3.raw(x * other.x, y * other.y, z * other.z);
     }
   }
   /// Returns a component from vec3. This is indexed as an array with [i]

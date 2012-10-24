@@ -81,12 +81,13 @@ class mat3 {
       col1.y = arg0.y;
       col2.z = arg0.z;
     }
+    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [mat3] from computing the outer product of [u] and [v].
   mat3.outer(vec3 u, vec3 v) {
-    col0 = new vec3();
-    col1 = new vec3();
-    col2 = new vec3();
+    col0 = new vec3.zero();
+    col1 = new vec3.zero();
+    col2 = new vec3.zero();
     col0.x = u.x * v.x;
     col0.y = u.x * v.y;
     col0.z = u.x * v.z;
@@ -99,9 +100,9 @@ class mat3 {
   }
   /// Constructs a new [mat3] filled with zeros.
   mat3.zero() {
-    col0 = new vec3();
-    col1 = new vec3();
-    col2 = new vec3();
+    col0 = new vec3.zero();
+    col1 = new vec3.zero();
+    col2 = new vec3.zero();
     col0.x = 0.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -114,24 +115,18 @@ class mat3 {
   }
   /// Constructs a new identity [mat3].
   mat3.identity() {
-    col0 = new vec3();
-    col1 = new vec3();
-    col2 = new vec3();
+    col0 = new vec3.zero();
+    col1 = new vec3.zero();
+    col2 = new vec3.zero();
     col0.x = 1.0;
-    col0.y = 0.0;
-    col0.z = 0.0;
-    col1.x = 0.0;
     col1.y = 1.0;
-    col1.z = 0.0;
-    col2.x = 0.0;
-    col2.y = 0.0;
     col2.z = 1.0;
   }
   /// Constructs a new [mat3] which is a copy of [other].
   mat3.copy(mat3 other) {
-    col0 = new vec3();
-    col1 = new vec3();
-    col2 = new vec3();
+    col0 = new vec3.zero();
+    col1 = new vec3.zero();
+    col2 = new vec3.zero();
     col0.x = other.col0.x;
     col0.y = other.col0.y;
     col0.z = other.col0.z;
@@ -233,7 +228,7 @@ class mat3 {
   /// Gets the [row] of the matrix
   vec3 getRow(int row) {
     assert(row >= 0 && row < 3);
-    vec3 r = new vec3();
+    vec3 r = new vec3.zero();
     r.x = col0[row];
     r.y = col1[row];
     r.z = col2[row];
@@ -247,7 +242,7 @@ class mat3 {
   /// Gets the [column] of the matrix
   vec3 getColumn(int column) {
     assert(column >= 0 && column < 3);
-    return new vec3(this[column]);
+    return new vec3.copy(this[column]);
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
@@ -292,7 +287,7 @@ class mat3 {
   }
   /// Returns new matrix after component wise [this] + [arg]
   mat3 operator+(mat3 arg) {
-    mat3 r = new mat3();
+    mat3 r = new mat3.zero();
     r.col0.x = col0.x + arg.col0.x;
     r.col0.y = col0.y + arg.col0.y;
     r.col0.z = col0.z + arg.col0.z;
@@ -306,7 +301,7 @@ class mat3 {
   }
   /// Returns new matrix after component wise [this] - [arg]
   mat3 operator-(mat3 arg) {
-    mat3 r = new mat3();
+    mat3 r = new mat3.zero();
     r.col0.x = col0.x - arg.col0.x;
     r.col0.y = col0.y - arg.col0.y;
     r.col0.z = col0.z - arg.col0.z;
@@ -320,7 +315,7 @@ class mat3 {
   }
   /// Returns new matrix -this
   mat3 operator-() {
-    mat3 r = new mat3();
+    mat3 r = new mat3.zero();
     r[0] = -this[0];
     r[1] = -this[1];
     r[2] = -this[2];
@@ -354,7 +349,7 @@ class mat3 {
   }
   /// Returns the tranpose of this.
   mat3 transposed() {
-    mat3 r = new mat3();
+    mat3 r = new mat3.zero();
     r.col0.x = col0.x;
     r.col0.y = col1.x;
     r.col0.z = col2.x;
@@ -381,7 +376,7 @@ class mat3 {
   }
   /// Returns the component wise absolute value of this.
   mat3 absolute() {
-    mat3 r = new mat3();
+    mat3 r = new mat3.zero();
     r.col0.x = col0.x.abs();
     r.col0.y = col0.y.abs();
     r.col0.z = col0.z.abs();

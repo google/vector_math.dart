@@ -189,7 +189,7 @@ class MatrixGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
     }
-
+    iPrint('throw new ArgumentError(\'Invalid arguments\');');
     iPop();
     iPrint('}');
 
@@ -198,7 +198,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('${matType}.outer(vec${cols} u, vec${rows} v) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new $colVecType();');
+      iPrint('col$i = new ${colVecType}.zero();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -212,7 +212,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('${matType}.zero() {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new $colVecType();');
+      iPrint('col$i = new $colVecType.zero();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -226,14 +226,12 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('${matType}.identity() {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new $colVecType();');
+      iPrint('col$i = new ${colVecType}.zero();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         if (i == j) {
           iPrint('${Access(j, i)} = 1.0;');
-        } else {
-          iPrint('${Access(j, i)} = 0.0;');
         }
       }
     }
@@ -244,7 +242,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('${matType}.copy($matType other) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new $colVecType();');
+      iPrint('col$i = new ${colVecType}.zero();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -450,7 +448,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('$rowVecType getRow(int row) {');
     iPush();
     iPrint('assert(row >= 0 && row < $rows);');
-    iPrint('${rowVecType} r = new ${rowVecType}();');
+    iPrint('${rowVecType} r = new ${rowVecType}.zero();');
     for (int i = 0; i < cols; i++) {
       iPrint('r.${AccessV(i)} = col$i[row];');
     }
@@ -472,7 +470,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('$colVecType getColumn(int column) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
-    iPrint('return new ${colVecType}(this[column]);');
+    iPrint('return new ${colVecType}.copy(this[column]);');
     iPop();
     iPrint('}');
   }
@@ -664,7 +662,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns new matrix after component wise [this] $op [arg]');
     iPrint('${matType} operator$op(${matType} arg) {');
     iPush();
-    iPrint('${matType} r = new ${matType}();');
+    iPrint('${matType} r = new ${matType}.zero();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('r.${Access(j, i)} = ${Access(j, i)} $op arg.${Access(j, i)};');
@@ -918,7 +916,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns new matrix -this');
     iPrint('${matType} operator-() {');
     iPush();
-    iPrint('${matType} r = new ${matType}();');
+    iPrint('${matType} r = new ${matType}.zero();');
     for (int i = 0; i < cols; i++) {
       iPrint('r[$i] = -this[$i];');
     }
@@ -931,7 +929,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns the tranpose of this.');
     iPrint('${matTypeTransposed} transposed() {');
     iPush();
-    iPrint('${matTypeTransposed} r = new ${matTypeTransposed}();');
+    iPrint('${matTypeTransposed} r = new ${matTypeTransposed}.zero();');
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         iPrint('r.${Access(j, i)} = ${Access(i, j)};');
@@ -960,7 +958,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns the component wise absolute value of this.');
     iPrint('${matType} absolute() {');
     iPush();
-    iPrint('${matType} r = new ${matType}();');
+    iPrint('${matType} r = new ${matType}.zero();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         iPrint('r.${Access(j, i)} = ${Access(j, i)}.abs();');
@@ -1075,7 +1073,7 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('\/\/\/ Returns the translation vector from this homogeneous transformation matrix.');
       iPrint('vec3 getTranslation() {');
       iPush();
-      iPrint('return new vec3(col3.x, col3.y, col3.z);');
+      iPrint('return new vec3.raw(col3.x, col3.y, col3.z);');
       iPop();
       iPrint('}');
       iPrint('\/\/\/ Sets the translation vector in this homogeneous transformation matrix.');
@@ -1092,10 +1090,10 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('\/\/\/ Returns the rotation matrix from this homogeneous transformation matrix.');
       iPrint('mat3 getRotation() {');
       iPush();
-      iPrint('mat3 r = new mat3();');
-      iPrint('r.col0 = new vec3(this.col0.x,this.col0.y,this.col0.z);');
-      iPrint('r.col1 = new vec3(this.col1.x,this.col1.y,this.col1.z);');
-      iPrint('r.col2 = new vec3(this.col2.x,this.col2.y,this.col2.z);');
+      iPrint('mat3 r = new mat3.zero();');
+      iPrint('r.col0 = new vec3.raw(this.col0.x,this.col0.y,this.col0.z);');
+      iPrint('r.col1 = new vec3.raw(this.col1.x,this.col1.y,this.col1.z);');
+      iPrint('r.col2 = new vec3.raw(this.col2.x,this.col2.y,this.col2.z);');
       iPrint('return r;');
       iPop();
       iPrint('}');

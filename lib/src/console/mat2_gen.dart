@@ -58,11 +58,12 @@ class mat2 {
       col0.x = arg0.x;
       col1.y = arg0.y;
     }
+    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [mat2] from computing the outer product of [u] and [v].
   mat2.outer(vec2 u, vec2 v) {
-    col0 = new vec2();
-    col1 = new vec2();
+    col0 = new vec2.zero();
+    col1 = new vec2.zero();
     col0.x = u.x * v.x;
     col0.y = u.x * v.y;
     col1.x = u.y * v.x;
@@ -70,8 +71,8 @@ class mat2 {
   }
   /// Constructs a new [mat2] filled with zeros.
   mat2.zero() {
-    col0 = new vec2();
-    col1 = new vec2();
+    col0 = new vec2.zero();
+    col1 = new vec2.zero();
     col0.x = 0.0;
     col0.y = 0.0;
     col1.x = 0.0;
@@ -79,17 +80,15 @@ class mat2 {
   }
   /// Constructs a new identity [mat2].
   mat2.identity() {
-    col0 = new vec2();
-    col1 = new vec2();
+    col0 = new vec2.zero();
+    col1 = new vec2.zero();
     col0.x = 1.0;
-    col0.y = 0.0;
-    col1.x = 0.0;
     col1.y = 1.0;
   }
   /// Constructs a new [mat2] which is a copy of [other].
   mat2.copy(mat2 other) {
-    col0 = new vec2();
-    col1 = new vec2();
+    col0 = new vec2.zero();
+    col1 = new vec2.zero();
     col0.x = other.col0.x;
     col0.y = other.col0.y;
     col1.x = other.col1.x;
@@ -157,7 +156,7 @@ class mat2 {
   /// Gets the [row] of the matrix
   vec2 getRow(int row) {
     assert(row >= 0 && row < 2);
-    vec2 r = new vec2();
+    vec2 r = new vec2.zero();
     r.x = col0[row];
     r.y = col1[row];
     return r;
@@ -170,7 +169,7 @@ class mat2 {
   /// Gets the [column] of the matrix
   vec2 getColumn(int column) {
     assert(column >= 0 && column < 2);
-    return new vec2(this[column]);
+    return new vec2.copy(this[column]);
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
@@ -204,7 +203,7 @@ class mat2 {
   }
   /// Returns new matrix after component wise [this] + [arg]
   mat2 operator+(mat2 arg) {
-    mat2 r = new mat2();
+    mat2 r = new mat2.zero();
     r.col0.x = col0.x + arg.col0.x;
     r.col0.y = col0.y + arg.col0.y;
     r.col1.x = col1.x + arg.col1.x;
@@ -213,7 +212,7 @@ class mat2 {
   }
   /// Returns new matrix after component wise [this] - [arg]
   mat2 operator-(mat2 arg) {
-    mat2 r = new mat2();
+    mat2 r = new mat2.zero();
     r.col0.x = col0.x - arg.col0.x;
     r.col0.y = col0.y - arg.col0.y;
     r.col1.x = col1.x - arg.col1.x;
@@ -222,7 +221,7 @@ class mat2 {
   }
   /// Returns new matrix -this
   mat2 operator-() {
-    mat2 r = new mat2();
+    mat2 r = new mat2.zero();
     r[0] = -this[0];
     r[1] = -this[1];
     return r;
@@ -245,7 +244,7 @@ class mat2 {
   }
   /// Returns the tranpose of this.
   mat2 transposed() {
-    mat2 r = new mat2();
+    mat2 r = new mat2.zero();
     r.col0.x = col0.x;
     r.col0.y = col1.x;
     r.col1.x = col0.y;
@@ -261,7 +260,7 @@ class mat2 {
   }
   /// Returns the component wise absolute value of this.
   mat2 absolute() {
-    mat2 r = new mat2();
+    mat2 r = new mat2.zero();
     r.col0.x = col0.x.abs();
     r.col0.y = col0.y.abs();
     r.col1.x = col1.x.abs();

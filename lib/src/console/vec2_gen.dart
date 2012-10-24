@@ -40,6 +40,7 @@ class vec2 {
       x = y = x_;
       return;
     }
+    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [vec2] filled with 0.
   vec2.zero() {
@@ -73,27 +74,27 @@ class vec2 {
   /// Returns a printable string
   String toString() => '$x,$y';
   /// Returns a new vec2 from -this
-  vec2 operator-() => new vec2(-x, -y);
+  vec2 operator-() => new vec2.raw(-x, -y);
   /// Returns a new vec2 from this - [other]
-  vec2 operator-(vec2 other) => new vec2(x - other.x, y - other.y);
+  vec2 operator-(vec2 other) => new vec2.raw(x - other.x, y - other.y);
   /// Returns a new vec2 from this + [other]
-  vec2 operator+(vec2 other) => new vec2(x + other.x, y + other.y);
+  vec2 operator+(vec2 other) => new vec2.raw(x + other.x, y + other.y);
   /// Returns a new vec2 divided by [other]
   vec2 operator/(Dynamic other) {
     if (other is double) {
-      return new vec2(x / other, y / other);
+      return new vec2.raw(x / other, y / other);
     }
     if (other is vec2) {
-      return new vec2(x / other.x, y / other.y);
+      return new vec2.raw(x / other.x, y / other.y);
     }
   }
   /// Returns a new vec2 scaled by [other]
   vec2 operator*(Dynamic other) {
     if (other is double) {
-      return new vec2(x * other, y * other);
+      return new vec2.raw(x * other, y * other);
     }
     if (other is vec2) {
-      return new vec2(x * other.x, y * other.y);
+      return new vec2.raw(x * other.x, y * other.y);
     }
   }
   /// Returns a component from vec2. This is indexed as an array with [i]

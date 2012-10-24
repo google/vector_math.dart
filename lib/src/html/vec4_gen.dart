@@ -60,6 +60,7 @@ class vec4 {
       x = y = z = w = x_;
       return;
     }
+    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [vec4] filled with 0.
   vec4.zero() {
@@ -105,27 +106,27 @@ class vec4 {
   /// Returns a printable string
   String toString() => '$x,$y,$z,$w';
   /// Returns a new vec4 from -this
-  vec4 operator-() => new vec4(-x, -y, -z, -w);
+  vec4 operator-() => new vec4.raw(-x, -y, -z, -w);
   /// Returns a new vec4 from this - [other]
-  vec4 operator-(vec4 other) => new vec4(x - other.x, y - other.y, z - other.z, w - other.w);
+  vec4 operator-(vec4 other) => new vec4.raw(x - other.x, y - other.y, z - other.z, w - other.w);
   /// Returns a new vec4 from this + [other]
-  vec4 operator+(vec4 other) => new vec4(x + other.x, y + other.y, z + other.z, w + other.w);
+  vec4 operator+(vec4 other) => new vec4.raw(x + other.x, y + other.y, z + other.z, w + other.w);
   /// Returns a new vec4 divided by [other]
   vec4 operator/(Dynamic other) {
     if (other is double) {
-      return new vec4(x / other, y / other, z / other, w / other);
+      return new vec4.raw(x / other, y / other, z / other, w / other);
     }
     if (other is vec4) {
-      return new vec4(x / other.x, y / other.y, z / other.z, w / other.w);
+      return new vec4.raw(x / other.x, y / other.y, z / other.z, w / other.w);
     }
   }
   /// Returns a new vec4 scaled by [other]
   vec4 operator*(Dynamic other) {
     if (other is double) {
-      return new vec4(x * other, y * other, z * other, w * other);
+      return new vec4.raw(x * other, y * other, z * other, w * other);
     }
     if (other is vec4) {
-      return new vec4(x * other.x, y * other.y, z * other.z, w * other.w);
+      return new vec4.raw(x * other.x, y * other.y, z * other.z, w * other.w);
     }
   }
   /// Returns a component from vec4. This is indexed as an array with [i]

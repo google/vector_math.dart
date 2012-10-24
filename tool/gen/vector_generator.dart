@@ -136,7 +136,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('return;');
     iPop();
     iPrint('}');
-
+    iPrint('throw new ArgumentError(\'Invalid arguments\');');
     iPop();
     iPrint('}');
 
@@ -206,7 +206,7 @@ class VectorGenerator extends BaseGenerator {
 
   void generateOperator(String op) {
     iPrint('\/\/\/ Returns a new $generatedName from this $op [other]');
-    String code = '$generatedName operator$op($generatedName other) => new $generatedName(';
+    String code = '$generatedName operator$op($generatedName other) => new $generatedName.raw(';
     bool first = true;
     vectorComponents.forEach((comp) {
       var extra = first ? '$comp $op other.$comp' :', $comp $op other.$comp';
@@ -225,7 +225,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('if (other is double) {');
     {
       iPush();
-      String code = 'return new $generatedName(';
+      String code = 'return new $generatedName.raw(';
       bool first = true;
       vectorComponents.forEach((comp) {
         var extra =first ? '$comp $op other' :', $comp $op other';
@@ -241,7 +241,7 @@ class VectorGenerator extends BaseGenerator {
     {
       iPush();
       bool first = true;
-      String code = 'return new $generatedName(';
+      String code = 'return new $generatedName.raw(';
       vectorComponents.forEach((comp) {
         var extra = first ? '$comp $op other.$comp' :', $comp $op other.$comp';
         code = '$code$extra';
@@ -260,7 +260,7 @@ class VectorGenerator extends BaseGenerator {
   void generateNegateOperator() {
     iPrint('\/\/\/ Returns a new $generatedName from -this');
     String op = '-';
-    String code = '$generatedName operator-() => new $generatedName(';
+    String code = '$generatedName operator-() => new $generatedName.raw(';
     bool first = true;
     vectorComponents.forEach((comp) {
       var extra = first ? '$op$comp' :', $op$comp';

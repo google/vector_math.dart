@@ -21,13 +21,13 @@ class BaseTest {
     }
 
     if (cols == 2) {
-      return new mat2();
+      return new mat2.zero();
     }
     if (cols == 3) {
-      return new mat3();
+      return new mat3.zero();
     }
     if (cols == 4) {
-      return new mat4();
+      return new mat4.zero();
     }
 
     return null;

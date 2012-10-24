@@ -112,13 +112,14 @@ class mat4 {
       col2.z = arg0.z;
       col3.w = arg0.w;
     }
+    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [mat4] from computing the outer product of [u] and [v].
   mat4.outer(vec4 u, vec4 v) {
-    col0 = new vec4();
-    col1 = new vec4();
-    col2 = new vec4();
-    col3 = new vec4();
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
     col0.x = u.x * v.x;
     col0.y = u.x * v.y;
     col0.z = u.x * v.z;
@@ -138,10 +139,10 @@ class mat4 {
   }
   /// Constructs a new [mat4] filled with zeros.
   mat4.zero() {
-    col0 = new vec4();
-    col1 = new vec4();
-    col2 = new vec4();
-    col3 = new vec4();
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
     col0.x = 0.0;
     col0.y = 0.0;
     col0.z = 0.0;
@@ -161,33 +162,21 @@ class mat4 {
   }
   /// Constructs a new identity [mat4].
   mat4.identity() {
-    col0 = new vec4();
-    col1 = new vec4();
-    col2 = new vec4();
-    col3 = new vec4();
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
     col0.x = 1.0;
-    col0.y = 0.0;
-    col0.z = 0.0;
-    col0.w = 0.0;
-    col1.x = 0.0;
     col1.y = 1.0;
-    col1.z = 0.0;
-    col1.w = 0.0;
-    col2.x = 0.0;
-    col2.y = 0.0;
     col2.z = 1.0;
-    col2.w = 0.0;
-    col3.x = 0.0;
-    col3.y = 0.0;
-    col3.z = 0.0;
     col3.w = 1.0;
   }
   /// Constructs a new [mat4] which is a copy of [other].
   mat4.copy(mat4 other) {
-    col0 = new vec4();
-    col1 = new vec4();
-    col2 = new vec4();
-    col3 = new vec4();
+    col0 = new vec4.zero();
+    col1 = new vec4.zero();
+    col2 = new vec4.zero();
+    col3 = new vec4.zero();
     col0.x = other.col0.x;
     col0.y = other.col0.y;
     col0.z = other.col0.z;
@@ -366,7 +355,7 @@ class mat4 {
   /// Gets the [row] of the matrix
   vec4 getRow(int row) {
     assert(row >= 0 && row < 4);
-    vec4 r = new vec4();
+    vec4 r = new vec4.zero();
     r.x = col0[row];
     r.y = col1[row];
     r.z = col2[row];
@@ -381,7 +370,7 @@ class mat4 {
   /// Gets the [column] of the matrix
   vec4 getColumn(int column) {
     assert(column >= 0 && column < 4);
-    return new vec4(this[column]);
+    return new vec4.copy(this[column]);
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   Dynamic operator*(Dynamic arg) {
@@ -448,7 +437,7 @@ class mat4 {
   }
   /// Returns new matrix after component wise [this] + [arg]
   mat4 operator+(mat4 arg) {
-    mat4 r = new mat4();
+    mat4 r = new mat4.zero();
     r.col0.x = col0.x + arg.col0.x;
     r.col0.y = col0.y + arg.col0.y;
     r.col0.z = col0.z + arg.col0.z;
@@ -469,7 +458,7 @@ class mat4 {
   }
   /// Returns new matrix after component wise [this] - [arg]
   mat4 operator-(mat4 arg) {
-    mat4 r = new mat4();
+    mat4 r = new mat4.zero();
     r.col0.x = col0.x - arg.col0.x;
     r.col0.y = col0.y - arg.col0.y;
     r.col0.z = col0.z - arg.col0.z;
@@ -658,7 +647,7 @@ class mat4 {
   }
   /// Returns new matrix -this
   mat4 operator-() {
-    mat4 r = new mat4();
+    mat4 r = new mat4.zero();
     r[0] = -this[0];
     r[1] = -this[1];
     r[2] = -this[2];
@@ -707,7 +696,7 @@ class mat4 {
   }
   /// Returns the tranpose of this.
   mat4 transposed() {
-    mat4 r = new mat4();
+    mat4 r = new mat4.zero();
     r.col0.x = col0.x;
     r.col0.y = col1.x;
     r.col0.z = col2.x;
@@ -750,7 +739,7 @@ class mat4 {
   }
   /// Returns the component wise absolute value of this.
   mat4 absolute() {
-    mat4 r = new mat4();
+    mat4 r = new mat4.zero();
     r.col0.x = col0.x.abs();
     r.col0.y = col0.y.abs();
     r.col0.z = col0.z.abs();
@@ -845,7 +834,7 @@ class mat4 {
   }
   /// Returns the translation vector from this homogeneous transformation matrix.
   vec3 getTranslation() {
-    return new vec3(col3.x, col3.y, col3.z);
+    return new vec3.raw(col3.x, col3.y, col3.z);
   }
   /// Sets the translation vector in this homogeneous transformation matrix.
   void setTranslation(vec3 T) {
@@ -853,10 +842,10 @@ class mat4 {
   }
   /// Returns the rotation matrix from this homogeneous transformation matrix.
   mat3 getRotation() {
-    mat3 r = new mat3();
-    r.col0 = new vec3(this.col0.x,this.col0.y,this.col0.z);
-    r.col1 = new vec3(this.col1.x,this.col1.y,this.col1.z);
-    r.col2 = new vec3(this.col2.x,this.col2.y,this.col2.z);
+    mat3 r = new mat3.zero();
+    r.col0 = new vec3.raw(this.col0.x,this.col0.y,this.col0.z);
+    r.col1 = new vec3.raw(this.col1.x,this.col1.y,this.col1.z);
+    r.col2 = new vec3.raw(this.col2.x,this.col2.y,this.col2.z);
     return r;
   }
   /// Sets the rotation matrix in this homogeneous transformation matrix.
