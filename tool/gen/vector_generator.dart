@@ -461,7 +461,7 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generateNormalize() {
-    iPrint('\/\/\/ Normalizes this');
+    iPrint('\/\/\/ Normalizes [this]. Returns [this].');
     iPrint('$generatedName normalize() {');
     iPush();
     iPrint('double l = length;');
@@ -477,7 +477,23 @@ class VectorGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
 
-    iPrint('\/\/\/ Normalizes this returns new vector or optional [out]');
+    iPrint('\/\/\/ Normalizes [this]. Returns length.');
+    iPrint('double normalizeLength() {');
+    iPush();
+    iPrint('double l = length;');
+    iPrint('if (l == 0.0) {');
+    iPush();
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+    vectorComponents.forEach((comp) {
+      iPrint('$comp /= l;');
+    });
+    iPrint('return l;');
+    iPop();
+    iPrint('}');
+
+    iPrint('\/\/\/ Normalizes [this] returns new vector or optional [out]');
     iPrint('$generatedName normalized([$generatedName out = null]) {');
     iPush();
     iPrint('if (out == null) {');

@@ -128,7 +128,7 @@ class vec2 {
     sum += (y * y);
     return sum;
   }
-  /// Normalizes this
+  /// Normalizes [this]. Returns [this].
   vec2 normalize() {
     double l = length;
     if (l == 0.0) {
@@ -138,7 +138,17 @@ class vec2 {
     y /= l;
     return this;
   }
-  /// Normalizes this returns new vector or optional [out]
+  /// Normalizes [this]. Returns length.
+  double normalizeLength() {
+    double l = length;
+    if (l == 0.0) {
+      return this;
+    }
+    x /= l;
+    y /= l;
+    return l;
+  }
+  /// Normalizes [this] returns new vector or optional [out]
   vec2 normalized([vec2 out = null]) {
     if (out == null) {
       out = new vec2.raw(x, y);

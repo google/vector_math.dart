@@ -152,7 +152,7 @@ class vec3 {
     sum += (z * z);
     return sum;
   }
-  /// Normalizes this
+  /// Normalizes [this]. Returns [this].
   vec3 normalize() {
     double l = length;
     if (l == 0.0) {
@@ -163,7 +163,18 @@ class vec3 {
     z /= l;
     return this;
   }
-  /// Normalizes this returns new vector or optional [out]
+  /// Normalizes [this]. Returns length.
+  double normalizeLength() {
+    double l = length;
+    if (l == 0.0) {
+      return this;
+    }
+    x /= l;
+    y /= l;
+    z /= l;
+    return l;
+  }
+  /// Normalizes [this] returns new vector or optional [out]
   vec3 normalized([vec3 out = null]) {
     if (out == null) {
       out = new vec3.raw(x, y, z);

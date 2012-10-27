@@ -168,7 +168,7 @@ class vec4 {
     sum += (w * w);
     return sum;
   }
-  /// Normalizes this
+  /// Normalizes [this]. Returns [this].
   vec4 normalize() {
     double l = length;
     if (l == 0.0) {
@@ -180,7 +180,19 @@ class vec4 {
     w /= l;
     return this;
   }
-  /// Normalizes this returns new vector or optional [out]
+  /// Normalizes [this]. Returns length.
+  double normalizeLength() {
+    double l = length;
+    if (l == 0.0) {
+      return this;
+    }
+    x /= l;
+    y /= l;
+    z /= l;
+    w /= l;
+    return l;
+  }
+  /// Normalizes [this] returns new vector or optional [out]
   vec4 normalized([vec4 out = null]) {
     if (out == null) {
       out = new vec4.raw(x, y, z, w);
