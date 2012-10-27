@@ -564,6 +564,12 @@ class VectorGenerator extends BaseGenerator {
     iPrint('return this;');
     iPop();
     iPrint('}');
+
+    iPrint('$generatedName scaled(double arg) {');
+    iPush();
+    iPrint('return clone().scale(arg);');
+    iPop();
+    iPrint('}');
   }
 
   void generateSelfOp(String methodName, String op) {

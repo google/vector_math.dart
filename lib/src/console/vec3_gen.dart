@@ -776,6 +776,9 @@ class vec3 {
     z = z * arg;
     return this;
   }
+  vec3 scaled(double arg) {
+    return clone().scale(arg);
+  }
   vec3 negate() {
     x = -x;
     y = -y;

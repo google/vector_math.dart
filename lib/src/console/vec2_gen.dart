@@ -327,6 +327,9 @@ class vec2 {
     y = y * arg;
     return this;
   }
+  vec2 scaled(double arg) {
+    return clone().scale(arg);
+  }
   vec2 negate() {
     x = -x;
     y = -y;

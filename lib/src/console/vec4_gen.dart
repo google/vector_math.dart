@@ -2227,6 +2227,9 @@ class vec4 {
     w = w * arg;
     return this;
   }
+  vec4 scaled(double arg) {
+    return clone().scale(arg);
+  }
   vec4 negate() {
     x = -x;
     y = -y;
