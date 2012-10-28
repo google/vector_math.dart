@@ -142,7 +142,7 @@ class vec2 {
   double normalizeLength() {
     double l = length;
     if (l == 0.0) {
-      return this;
+      return 0.0;
     }
     x /= l;
     y /= l;

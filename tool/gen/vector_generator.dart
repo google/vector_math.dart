@@ -483,7 +483,7 @@ class VectorGenerator extends BaseGenerator {
     iPrint('double l = length;');
     iPrint('if (l == 0.0) {');
     iPush();
-    iPrint('return this;');
+    iPrint('return 0.0;');
     iPop();
     iPrint('}');
     vectorComponents.forEach((comp) {
