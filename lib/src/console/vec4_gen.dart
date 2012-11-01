@@ -27,7 +27,7 @@ class vec4 {
   double z;
   double w;
   /// Constructs a new [vec4]. Follows GLSL constructor syntax so many combinations are possible
-  vec4([Dynamic x_, Dynamic y_, Dynamic z_, Dynamic w_]) {
+  vec4([dynamic x_, dynamic y_, dynamic z_, dynamic w_]) {
     x = y = z = w = 0.0;
     if (x_ is vec3 && y_ is double) {
       this.xyz = x_.xyz;
@@ -112,7 +112,7 @@ class vec4 {
   /// Returns a new vec4 from this + [other]
   vec4 operator+(vec4 other) => new vec4.raw(x + other.x, y + other.y, z + other.z, w + other.w);
   /// Returns a new vec4 divided by [other]
-  vec4 operator/(Dynamic other) {
+  vec4 operator/(dynamic other) {
     if (other is double) {
       return new vec4.raw(x / other, y / other, z / other, w / other);
     }
@@ -121,7 +121,7 @@ class vec4 {
     }
   }
   /// Returns a new vec4 scaled by [other]
-  vec4 operator*(Dynamic other) {
+  vec4 operator*(dynamic other) {
     if (other is double) {
       return new vec4.raw(x * other, y * other, z * other, w * other);
     }
@@ -539,21 +539,21 @@ class vec4 {
     x = arg.w;
   }
   /// Returns true if any component is infinite.
-  bool isInfinite() {
+  bool get isInfinite {
     bool is_infinite = false;
-    is_infinite = is_infinite || x.isInfinite();
-    is_infinite = is_infinite || y.isInfinite();
-    is_infinite = is_infinite || z.isInfinite();
-    is_infinite = is_infinite || w.isInfinite();
+    is_infinite = is_infinite || x.isInfinite;
+    is_infinite = is_infinite || y.isInfinite;
+    is_infinite = is_infinite || z.isInfinite;
+    is_infinite = is_infinite || w.isInfinite;
     return is_infinite;
   }
   /// Returns true if any component is NaN.
-  bool isNaN() {
+  bool get isNaN {
     bool is_nan = false;
-    is_nan = is_nan || x.isNaN();
-    is_nan = is_nan || y.isNaN();
-    is_nan = is_nan || z.isNaN();
-    is_nan = is_nan || w.isNaN();
+    is_nan = is_nan || x.isNaN;
+    is_nan = is_nan || y.isNaN;
+    is_nan = is_nan || z.isNaN;
+    is_nan = is_nan || w.isNaN;
     return is_nan;
   }
   set r(double arg) => x = arg;

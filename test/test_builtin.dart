@@ -1,11 +1,11 @@
 
 class BuiltinTest extends BaseTest {
   void testMix() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> inputC = new List<Dynamic>(); 
-    List<Dynamic> expectedOutput = new List<Dynamic>();
-    
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> inputC = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
+
     inputA.add(parseVector('''0.0 0.0 0.0'''));
     inputA.add(parseVector('''0.0
 0.0
@@ -36,16 +36,16 @@ class BuiltinTest extends BaseTest {
     expectedOutput.add(parseVector('''0.75 
 0.75 
 0.75'''));
-    
+
     assert(inputA.length == inputB.length);
     assert(inputB.length == inputC.length);
     assert(inputB.length == expectedOutput.length);
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic out = mix(inputA[i], inputB[i], inputC[i]);
+      dynamic out = mix(inputA[i], inputB[i], inputC[i]);
       relativeTest(out, expectedOutput[i]);
     }
   }
-  
+
   void test() {
     print('Running builtin tests');
     testMix();

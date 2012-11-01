@@ -15,7 +15,7 @@ class BaseTest {
 
   final num errorThreshold = 0.0005;
 
-  Dynamic makeMatrix(int rows, int cols) {
+  dynamic makeMatrix(int rows, int cols) {
     if (rows != cols) {
       return null;
     }
@@ -33,7 +33,7 @@ class BaseTest {
     return null;
   }
 
-  Dynamic parseMatrix(String input) {
+  dynamic parseMatrix(String input) {
     input = input.trim();
     List<String> rows = input.split("\n");
     List<double> values = new List<double>();
@@ -46,7 +46,7 @@ class BaseTest {
       }
 
       for (int j = 0; j < cols.length; j++) {
-        if (cols[j].isEmpty()) {
+        if (cols[j].isEmpty) {
           continue;
         }
         if (i == 0) {
@@ -56,7 +56,7 @@ class BaseTest {
       }
     }
 
-    Dynamic m = makeMatrix(rows.length, col_count);
+    dynamic m = makeMatrix(rows.length, col_count);
     for (int j = 0; j < rows.length; j++) {
       for (int i = 0; i < col_count; i++) {;
         m[i][j] = values[j*col_count+i];
@@ -66,20 +66,20 @@ class BaseTest {
     return m;
   }
 
-  Dynamic parseVector(String v) {
+  dynamic parseVector(String v) {
     v = v.trim();
     Pattern pattern = new RegExp('[\\s]+', multiLine: true, ignoreCase: false);
     List<String> rows = v.split(pattern);
     List<double> values = new List<double>();
     for (int i = 0; i < rows.length; i++) {
       rows[i] = rows[i].trim();
-      if (rows[i].isEmpty()) {
+      if (rows[i].isEmpty) {
         continue;
       }
       values.add(double.parse(rows[i]));
     }
 
-    Dynamic r = null;
+    dynamic r = null;
     if (values.length == 2) {
       r = new vec2(values[0], values[1]);
     } else if (values.length == 3) {

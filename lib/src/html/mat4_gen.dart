@@ -28,7 +28,7 @@ class mat4 {
   vec4 col2;
   vec4 col3;
   /// Constructs a new mat4. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
-  mat4([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7, Dynamic arg8, Dynamic arg9, Dynamic arg10, Dynamic arg11, Dynamic arg12, Dynamic arg13, Dynamic arg14, Dynamic arg15]) {
+  mat4([dynamic arg0, dynamic arg1, dynamic arg2, dynamic arg3, dynamic arg4, dynamic arg5, dynamic arg6, dynamic arg7, dynamic arg8, dynamic arg9, dynamic arg10, dynamic arg11, dynamic arg12, dynamic arg13, dynamic arg14, dynamic arg15]) {
     //Initialize the matrix as the identity matrix
     col0 = new vec4.zero();
     col1 = new vec4.zero();
@@ -373,7 +373,7 @@ class mat4 {
     return new vec4.copy(this[column]);
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  Dynamic operator*(Dynamic arg) {
+  dynamic operator*(dynamic arg) {
     if (arg is double) {
       mat4 r = new mat4.zero();
       r.col0.x = col0.x * arg;
@@ -410,7 +410,7 @@ class mat4 {
       return r;
     }
     if (4 == arg.rows) {
-      Dynamic r = null;
+      dynamic r = null;
       if (arg.cols == 4) {
         r = new mat4.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
@@ -478,7 +478,7 @@ class mat4 {
     return r;
   }
   /// Translate this matrix by a [vec3], [vec4], or x,y,z
-  mat4 translate(Dynamic x, [double y = 0.0, double z = 0.0]) {
+  mat4 translate(dynamic x, [double y = 0.0, double z = 0.0]) {
     double tx;
     double ty;
     double tz;
@@ -613,7 +613,7 @@ class mat4 {
     return this;
   }
   /// Scale this matrix by a [vec3], [vec4], or x,y,z
-  mat4 scale(Dynamic x, [double y = null, double z = null]) {
+  mat4 scale(dynamic x, [double y = null, double z = null]) {
     double sx;
     double sy;
     double sz;

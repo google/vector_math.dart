@@ -22,7 +22,7 @@
 
 */
 /// Returns absolute value of [arg].
-Dynamic abs(Dynamic arg, [Dynamic out=null]) {
+dynamic abs(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.abs(arg);
   }
@@ -56,7 +56,7 @@ Dynamic abs(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns 1.0 or 0.0 or -1.0 depending on sign of [arg].
-Dynamic sign(Dynamic arg, [Dynamic out=null]) {
+dynamic sign(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.sign(arg);
   }
@@ -90,7 +90,7 @@ Dynamic sign(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns floor value of [arg].
-Dynamic floor(Dynamic arg, [Dynamic out=null]) {
+dynamic floor(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.floor(arg);
   }
@@ -124,7 +124,7 @@ Dynamic floor(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] truncated.
-Dynamic trunc(Dynamic arg, [Dynamic out=null]) {
+dynamic trunc(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.truncate(arg);
   }
@@ -158,7 +158,7 @@ Dynamic trunc(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] rounded to nearest integer.
-Dynamic round(Dynamic arg, [Dynamic out=null]) {
+dynamic round(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.round(arg);
   }
@@ -192,7 +192,7 @@ Dynamic round(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] rounded to nearest even integer.
-Dynamic roundEven(Dynamic arg, [Dynamic out=null]) {
+dynamic roundEven(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.roundEven(arg);
   }
@@ -226,7 +226,7 @@ Dynamic roundEven(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns ceiling of [arg]
-Dynamic ceil(Dynamic arg, [Dynamic out=null]) {
+dynamic ceil(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.ceil(arg);
   }
@@ -260,7 +260,7 @@ Dynamic ceil(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns fraction of [arg]
-Dynamic fract(Dynamic arg, [Dynamic out=null]) {
+dynamic fract(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.fract(arg);
   }
@@ -294,7 +294,7 @@ Dynamic fract(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns [x] mod [y]
-Dynamic mod(Dynamic x, Dynamic y, [Dynamic out=null]) {
+dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {
     return _ScalerHelpers.mod(x, y);
   }
@@ -328,7 +328,7 @@ Dynamic mod(Dynamic x, Dynamic y, [Dynamic out=null]) {
   throw new IllegalArgumentException(x);
 }
 /// Returns component wise minimum of [x] and [y]
-Dynamic min(Dynamic x, Dynamic y, [Dynamic out=null]) {
+dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {
     return Math.min(x, y);
   }
@@ -362,7 +362,7 @@ Dynamic min(Dynamic x, Dynamic y, [Dynamic out=null]) {
   throw new IllegalArgumentException(x);
 }
 /// Returns component wise maximum of [x] and [y]
-Dynamic max(Dynamic x, Dynamic y, [Dynamic out=null]) {
+dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {
     return Math.max(x, y);
   }
@@ -396,7 +396,7 @@ Dynamic max(Dynamic x, Dynamic y, [Dynamic out=null]) {
   throw new IllegalArgumentException(x);
 }
 /// Component wise clamp of [x] between [min_] and [max_]
-Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_, [Dynamic out=null]) {
+dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
   if (x is double) {
     return _ScalerHelpers.clamp(x, min_, max_);
   }
@@ -430,7 +430,7 @@ Dynamic clamp(Dynamic x, Dynamic min_, Dynamic max_, [Dynamic out=null]) {
   throw new IllegalArgumentException(x);
 }
 /// Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.
-Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
+dynamic mix(dynamic x, dynamic y, dynamic t) {
   if (t is double) {
       if (x is double) {
         return _ScalerHelpers.mix(x, y, t);
@@ -470,7 +470,7 @@ Dynamic mix(Dynamic x, Dynamic y, Dynamic t) {
   }
 }
 /// Returns 0.0 if x < [y] and 1.0 otherwise.
-Dynamic step(Dynamic x, Dynamic y, [Dynamic out=null]) {
+dynamic step(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {
     return _ScalerHelpers.step(x, y);
   }
@@ -504,7 +504,7 @@ Dynamic step(Dynamic x, Dynamic y, [Dynamic out=null]) {
   throw new IllegalArgumentException(x);
 }
 /// Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].
-Dynamic smoothstep(Dynamic edge0, Dynamic edge1, Dynamic x, [Dynamic out=null]) {
+dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) {
   if (x is double) {
     return _ScalerHelpers.smoothstep(edge0, edge1, x);
   }

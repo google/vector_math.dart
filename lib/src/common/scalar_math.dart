@@ -70,11 +70,11 @@ class _ScalerHelpers {
   }
 
   static bool isnan(double x) {
-    return x.isNaN();
+    return x.isNaN;
   }
 
   static bool isInfinite(double x) {
-    return x.isInfinite();
+    return x.isInfinite;
   }
 
   static double truncate(double x) {

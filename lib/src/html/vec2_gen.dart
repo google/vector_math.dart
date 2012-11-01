@@ -25,7 +25,7 @@ class vec2 {
   double x;
   double y;
   /// Constructs a new [vec2]. Follows GLSL constructor syntax so many combinations are possible
-  vec2([Dynamic x_, Dynamic y_]) {
+  vec2([dynamic x_, dynamic y_]) {
     x = y = 0.0;
     if (x_ is vec2) {
       xy = x_.xy;
@@ -80,7 +80,7 @@ class vec2 {
   /// Returns a new vec2 from this + [other]
   vec2 operator+(vec2 other) => new vec2.raw(x + other.x, y + other.y);
   /// Returns a new vec2 divided by [other]
-  vec2 operator/(Dynamic other) {
+  vec2 operator/(dynamic other) {
     if (other is double) {
       return new vec2.raw(x / other, y / other);
     }
@@ -89,7 +89,7 @@ class vec2 {
     }
   }
   /// Returns a new vec2 scaled by [other]
-  vec2 operator*(Dynamic other) {
+  vec2 operator*(dynamic other) {
     if (other is double) {
       return new vec2.raw(x * other, y * other);
     }
@@ -191,17 +191,17 @@ class vec2 {
     x = arg.y;
   }
   /// Returns true if any component is infinite.
-  bool isInfinite() {
+  bool get isInfinite {
     bool is_infinite = false;
-    is_infinite = is_infinite || x.isInfinite();
-    is_infinite = is_infinite || y.isInfinite();
+    is_infinite = is_infinite || x.isInfinite;
+    is_infinite = is_infinite || y.isInfinite;
     return is_infinite;
   }
   /// Returns true if any component is NaN.
-  bool isNaN() {
+  bool get isNaN {
     bool is_nan = false;
-    is_nan = is_nan || x.isNaN();
-    is_nan = is_nan || y.isNaN();
+    is_nan = is_nan || x.isNaN;
+    is_nan = is_nan || y.isNaN;
     return is_nan;
   }
   set r(double arg) => x = arg;

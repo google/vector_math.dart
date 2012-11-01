@@ -22,7 +22,7 @@
 
 */
 /// Returns [x] raised to the exponent [y]. Supports vectors and numbers.
-Dynamic pow(Dynamic x, Dynamic y, [Dynamic out=null]) {
+dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {
     return Math.pow(x, y);
   }
@@ -56,7 +56,7 @@ Dynamic pow(Dynamic x, Dynamic y, [Dynamic out=null]) {
   throw new IllegalArgumentException(x);
 }
 /// Returns *e* raised to the exponent [arg]. Supports vectors and numbers.
-Dynamic exp(Dynamic arg, [Dynamic out=null]) {
+dynamic exp(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.exp(arg);
   }
@@ -90,7 +90,7 @@ Dynamic exp(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns the logarithm of [arg] base *e*. Supports vectors and numbers.
-Dynamic log(Dynamic arg, [Dynamic out=null]) {
+dynamic log(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.log(arg);
   }
@@ -124,7 +124,7 @@ Dynamic log(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
-Dynamic exp2(Dynamic arg, [Dynamic out=null]) {
+dynamic exp2(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.exp2(arg);
   }
@@ -158,7 +158,7 @@ Dynamic exp2(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
-Dynamic log2(Dynamic arg, [Dynamic out=null]) {
+dynamic log2(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.log2(arg);
   }
@@ -192,7 +192,7 @@ Dynamic log2(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns the square root of [arg].
-Dynamic sqrt(Dynamic arg, [Dynamic out=null]) {
+dynamic sqrt(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.sqrt(arg);
   }
@@ -226,7 +226,7 @@ Dynamic sqrt(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns the inverse square root of [arg]. Supports vectors and numbers.
-Dynamic inversesqrt(Dynamic arg, [Dynamic out=null]) {
+dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.inversesqrt(arg);
   }

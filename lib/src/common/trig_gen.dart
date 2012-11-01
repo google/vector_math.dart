@@ -22,7 +22,7 @@
 
 */
 /// Returns sine of [arg]. Return type matches the type of [arg]
-Dynamic sin(Dynamic arg, [Dynamic out=null]) {
+dynamic sin(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.sin(arg);
   }
@@ -56,7 +56,7 @@ Dynamic sin(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns cosine of [arg]. Return type matches the type of [arg]
-Dynamic cos(Dynamic arg, [Dynamic out=null]) {
+dynamic cos(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.cos(arg);
   }
@@ -90,7 +90,7 @@ Dynamic cos(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns tangent of [arg]. Return type matches the type of [arg]
-Dynamic tan(Dynamic arg, [Dynamic out=null]) {
+dynamic tan(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.tan(arg);
   }
@@ -124,7 +124,7 @@ Dynamic tan(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns arc sine of [arg]. Return type matches the type of [arg]
-Dynamic asin(Dynamic arg, [Dynamic out=null]) {
+dynamic asin(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.asin(arg);
   }
@@ -158,7 +158,7 @@ Dynamic asin(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns arc cosine of [arg]. Return type matches the type of [arg]
-Dynamic acos(Dynamic arg, [Dynamic out=null]) {
+dynamic acos(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return Math.acos(arg);
   }
@@ -192,7 +192,7 @@ Dynamic acos(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
-Dynamic radians(Dynamic arg, [Dynamic out=null]) {
+dynamic radians(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.radians(arg);
   }
@@ -226,7 +226,7 @@ Dynamic radians(Dynamic arg, [Dynamic out=null]) {
   throw new IllegalArgumentException(arg);
 }
 /// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
-Dynamic degrees(Dynamic arg, [Dynamic out=null]) {
+dynamic degrees(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
     return _ScalerHelpers.degrees(arg);
   }

@@ -58,7 +58,7 @@ class BuiltinGenerator extends BaseGenerator {
     bool first = true;
     String code = '';
     args.forEach((arg) {
-      var extra =first ? 'Dynamic $arg' : ', Dynamic $arg';
+      var extra =first ? 'dynamic $arg' : ', dynamic $arg';
       code = '$code$extra';
       first = false;
     });
@@ -78,7 +78,7 @@ class BuiltinGenerator extends BaseGenerator {
 
   void generateFunction(GeneratedFunctionDesc function) {
     iPrint('\/\/\/ ${function.docString}');
-    String prologue = 'Dynamic ${function.name}(${makeArgsString(function.args)}, [Dynamic out=null]) {';
+    String prologue = 'dynamic ${function.name}(${makeArgsString(function.args)}, [dynamic out=null]) {';
     iPrint(prologue);
     iPush();
     allTypes.forEach((type) {
@@ -120,7 +120,7 @@ class BuiltinGenerator extends BaseGenerator {
 
 void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
   bg.iPrint('\/\/\/ ${function.docString}');
-  String prologue = 'Dynamic ${function.name}(${bg.makeArgsString(function.args)}) {';
+  String prologue = 'dynamic ${function.name}(${bg.makeArgsString(function.args)}) {';
   bg.iPrint(prologue);
   bg.iPush();
   bg.iPrint('if (t is double) {');

@@ -28,7 +28,7 @@
   * Return type matches input argument type
   *
   */
-Dynamic atan(Dynamic arg, [Dynamic arg2]) {
+dynamic atan(dynamic arg, [dynamic arg2]) {
   if (arg2 == null) {
     if (arg is double) {
       return Math.atan(arg);
@@ -61,7 +61,7 @@ Dynamic atan(Dynamic arg, [Dynamic arg2]) {
 }
 
 /// Returns relative error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
-double relativeError(Dynamic calculated, Dynamic correct) {
+double relativeError(dynamic calculated, dynamic correct) {
   if (calculated is double && correct is double) {
     double diff = (calculated - correct).abs();
     return diff/correct;
@@ -70,7 +70,7 @@ double relativeError(Dynamic calculated, Dynamic correct) {
 }
 
 /// Returns absolute error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
-double absoluteError(Dynamic calculated, Dynamic correct) {
+double absoluteError(dynamic calculated, dynamic correct) {
   if (calculated is double && correct is double) {
     double diff = (calculated - correct).abs();
     return diff;

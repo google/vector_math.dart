@@ -27,7 +27,7 @@ class mat3 {
   vec3 col1;
   vec3 col2;
   /// Constructs a new mat3. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
-  mat3([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3, Dynamic arg4, Dynamic arg5, Dynamic arg6, Dynamic arg7, Dynamic arg8]) {
+  mat3([dynamic arg0, dynamic arg1, dynamic arg2, dynamic arg3, dynamic arg4, dynamic arg5, dynamic arg6, dynamic arg7, dynamic arg8]) {
     //Initialize the matrix as the identity matrix
     col0 = new vec3.zero();
     col1 = new vec3.zero();
@@ -245,7 +245,7 @@ class mat3 {
     return new vec3.copy(this[column]);
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  Dynamic operator*(Dynamic arg) {
+  dynamic operator*(dynamic arg) {
     if (arg is double) {
       mat3 r = new mat3.zero();
       r.col0.x = col0.x * arg;
@@ -267,7 +267,7 @@ class mat3 {
       return r;
     }
     if (3 == arg.rows) {
-      Dynamic r = null;
+      dynamic r = null;
       if (arg.cols == 3) {
         r = new mat3.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z);

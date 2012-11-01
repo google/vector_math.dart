@@ -26,7 +26,7 @@ class mat2 {
   vec2 col0;
   vec2 col1;
   /// Constructs a new mat2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
-  mat2([Dynamic arg0, Dynamic arg1, Dynamic arg2, Dynamic arg3]) {
+  mat2([dynamic arg0, dynamic arg1, dynamic arg2, dynamic arg3]) {
     //Initialize the matrix as the identity matrix
     col0 = new vec2.zero();
     col1 = new vec2.zero();
@@ -172,7 +172,7 @@ class mat2 {
     return new vec2.copy(this[column]);
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  Dynamic operator*(Dynamic arg) {
+  dynamic operator*(dynamic arg) {
     if (arg is double) {
       mat2 r = new mat2.zero();
       r.col0.x = col0.x * arg;
@@ -188,7 +188,7 @@ class mat2 {
       return r;
     }
     if (2 == arg.rows) {
-      Dynamic r = null;
+      dynamic r = null;
       if (arg.cols == 2) {
         r = new mat2.zero();
         r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);

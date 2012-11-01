@@ -40,7 +40,7 @@ class quat {
    *
    *
    */
-  quat([Dynamic a, Dynamic b, Dynamic c, Dynamic d]) {
+  quat([dynamic a, dynamic b, dynamic c, dynamic d]) {
     x = 0.0;
     y = 0.0;
     z = 0.0;
@@ -315,7 +315,7 @@ class quat {
   /**  Returns copy of [this] multiplied by [scale]
     *  Returns copy of [this] rotated by [otherQuat]
     */
-  quat operator*(Dynamic other) {
+  quat operator*(dynamic other) {
     if (other is double) {
       return new quat(x * other, y * other, z * other, w * other);
     }

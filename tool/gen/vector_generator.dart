@@ -60,9 +60,9 @@ class VectorGenerator extends BaseGenerator {
 
   void generateDefaultConstructor() {
     iPrint('\/\/\/ Constructs a new [$generatedName]. Follows GLSL constructor syntax so many combinations are possible');
-    iPrint('$generatedName([${joinStrings(vectorComponents, 'Dynamic ', '_')}]) {');
+    iPrint('$generatedName([${joinStrings(vectorComponents, 'dynamic ', '_')}]) {');
     iPush();
-    iPrint('${joinStrings(vectorComponents, joiner: ' = ')} = 0.0;');
+    iPrint('${joinStrings(vectorComponents, '', '', ' = ')} = 0.0;');
 
     if (generatedName == 'vec3') {
       iPrint('if (${vectorComponents[0]}_ is vec2 && ${vectorComponents[1]}_ is double) {');
@@ -116,7 +116,7 @@ class VectorGenerator extends BaseGenerator {
     }
     iPrint('if (${vectorComponents[0]}_ is $generatedName) {');
     iPush();
-    iPrint('${joinStrings(vectorComponents, joiner: '')} = ${vectorComponents[0]}_.${joinStrings(vectorComponents, joiner: '')};');
+    iPrint('${joinStrings(vectorComponents, '', '', '')} = ${vectorComponents[0]}_.${joinStrings(vectorComponents, '', '', '')};');
     iPrint('return;');
     iPop();
     iPrint('}');
@@ -132,7 +132,7 @@ class VectorGenerator extends BaseGenerator {
 
     iPrint('if (${vectorComponents[0]}_ is double) {');
     iPush();
-    iPrint('${joinStrings(vectorComponents, joiner: ' = ')} = ${vectorComponents[0]}_;');
+    iPrint('${joinStrings(vectorComponents, '', '', ' = ')} = ${vectorComponents[0]}_;');
     iPrint('return;');
     iPop();
     iPrint('}');
@@ -219,7 +219,7 @@ class VectorGenerator extends BaseGenerator {
 
   void generateScaleOperator(String op) {
     iPrint('\/\/\/ Returns a new $generatedName ${op == '*' ? 'scaled' : 'divided'} by [other]');
-    iPrint('$generatedName operator$op(Dynamic other) {');
+    iPrint('$generatedName operator$op(dynamic other) {');
     iPush();
 
     iPrint('if (other is double) {');
@@ -384,7 +384,7 @@ class VectorGenerator extends BaseGenerator {
       return;
     }
     for (int a = 0; a < vectorDimension; a++) {
-      if (pre.charCodes().indexOf(vectorComponents[a].charCodeAt(0)) != -1) {
+      if (pre.charCodes.indexOf(vectorComponents[a].charCodeAt(0)) != -1) {
         continue;
       }
       String property_name = '$pre${vectorComponents[a]}';
@@ -712,11 +712,11 @@ class VectorGenerator extends BaseGenerator {
 
   void generateIsInfinite() {
     iPrint('\/\/\/ Returns true if any component is infinite.');
-    iPrint('bool isInfinite() {');
+    iPrint('bool get isInfinite {');
     iPush();
     iPrint('bool is_infinite = false;');
     for (String c in vectorComponents) {
-      iPrint('is_infinite = is_infinite || $c.isInfinite();');
+      iPrint('is_infinite = is_infinite || $c.isInfinite;');
     }
     iPrint('return is_infinite;');
     iPop();
@@ -725,11 +725,11 @@ class VectorGenerator extends BaseGenerator {
 
   void generateIsNaN() {
     iPrint('\/\/\/ Returns true if any component is NaN.');
-    iPrint('bool isNaN() {');
+    iPrint('bool get isNaN {');
     iPush();
     iPrint('bool is_nan = false;');
     for (String c in vectorComponents) {
-      iPrint('is_nan = is_nan || $c.isNaN();');
+      iPrint('is_nan = is_nan || $c.isNaN;');
     }
     iPrint('return is_nan;');
     iPop();

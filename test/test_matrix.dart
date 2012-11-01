@@ -1,8 +1,8 @@
 class MatrixTest extends BaseTest {
 
   void testMatrixTranspose() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
     inputA.add(parseMatrix('''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
                            0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
                            0.369246781120215   0.241691285913833   0.942050590775485   0.234779913372406
@@ -16,9 +16,9 @@ class MatrixTest extends BaseTest {
   }
 
   void testMatrixVectorMultiplication() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
 
     inputA.add(parseMatrix('''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
    0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
@@ -45,15 +45,15 @@ class MatrixTest extends BaseTest {
     assert(expectedOutput.length == inputB.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i] * inputB[i];
+      dynamic output = inputA[i] * inputB[i];
       relativeTest(output, expectedOutput[i]);
     }
   }
 
   void testMatrixMultiplication() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
 
     inputA.add(parseMatrix('''0.587044704531417   0.230488160211558   0.170708047147859   0.923379642103244
    0.207742292733028   0.844308792695389   0.227664297816554   0.430207391329584
@@ -82,15 +82,15 @@ class MatrixTest extends BaseTest {
     assert(expectedOutput.length == inputB.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i] * inputB[i];
+      dynamic output = inputA[i] * inputB[i];
       //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
       relativeTest(output, expectedOutput[i]);
     }
   }
 
   void testAdjoint() {
-    List<Dynamic> input = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> input = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
 
     input.add(parseMatrix(''' 0.285839018820374   0.380445846975357   0.053950118666607
    0.757200229110721   0.567821640725221   0.530797553008973
@@ -141,14 +141,14 @@ class MatrixTest extends BaseTest {
     assert(input.length == expectedOutput.length);
 
     for (int i = 0; i < input.length; i++) {
-      Dynamic output = input[i].clone();
+      dynamic output = input[i].clone();
       output.scaleAdjoint(1.0);
       relativeTest(output, expectedOutput[i]);
     }
   }
 
   void testDeterminant() {
-    List<Dynamic> input = new List<Dynamic>();
+    List<dynamic> input = new List<dynamic>();
     List<double> expectedOutput = new List<double>();
     input.add(parseMatrix('''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
       0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
@@ -186,9 +186,9 @@ class MatrixTest extends BaseTest {
   }
 
   void testSelfTransposeMultiply() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
 
     inputA.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
@@ -226,16 +226,16 @@ class MatrixTest extends BaseTest {
     assert(inputB.length == expectedOutput.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i].clone();
+      dynamic output = inputA[i].clone();
       output.transposeMultiply(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
 
   void testSelfMultiply() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
 
     inputA.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
@@ -273,16 +273,16 @@ class MatrixTest extends BaseTest {
     assert(inputB.length == expectedOutput.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i].clone();
+      dynamic output = inputA[i].clone();
       output.multiply(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
   }
 
   void testSelfMultiplyTranspose() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> expectedOutput = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> expectedOutput = new List<dynamic>();
 
     inputA.add(parseMatrix('''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
    0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
@@ -320,7 +320,7 @@ class MatrixTest extends BaseTest {
     assert(inputB.length == expectedOutput.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      Dynamic output = inputA[i].clone();
+      dynamic output = inputA[i].clone();
       output.multiplyTranspose(inputB[i]);
       relativeTest(output, expectedOutput[i]);
     }
@@ -328,10 +328,10 @@ class MatrixTest extends BaseTest {
 
 
   void testTranslationMatrix() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> output1 = new List<Dynamic>();
-    List<Dynamic> output2 = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> output1 = new List<dynamic>();
+    List<dynamic> output2 = new List<dynamic>();
 
     inputA.add(new mat4.identity());
     inputB.add(new mat4.translationRaw(1.0, 3.0, 5.7));
@@ -347,10 +347,10 @@ class MatrixTest extends BaseTest {
   }
 
   void testScaleMatrix() {
-    List<Dynamic> inputA = new List<Dynamic>();
-    List<Dynamic> inputB = new List<Dynamic>();
-    List<Dynamic> output1 = new List<Dynamic>();
-    List<Dynamic> output2 = new List<Dynamic>();
+    List<dynamic> inputA = new List<dynamic>();
+    List<dynamic> inputB = new List<dynamic>();
+    List<dynamic> output1 = new List<dynamic>();
+    List<dynamic> output2 = new List<dynamic>();
 
     inputA.add(new mat4.identity());
     inputB.add(new mat4.scaleRaw(1.0, 3.0, 5.7));
@@ -366,8 +366,8 @@ class MatrixTest extends BaseTest {
   }
 
   void testRotateMatrix() {
-    List<Dynamic> output1 = new List<Dynamic>();
-    List<Dynamic> output2 = new List<Dynamic>();
+    List<dynamic> output1 = new List<dynamic>();
+    List<dynamic> output2 = new List<dynamic>();
     output1.add(new mat4.rotationX(1.57079632679));
     output2.add(new mat4.identity().rotateX(1.57079632679));
     output1.add(new mat4.rotationY(1.57079632679 * 0.5));

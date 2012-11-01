@@ -26,7 +26,7 @@ class vec3 {
   double y;
   double z;
   /// Constructs a new [vec3]. Follows GLSL constructor syntax so many combinations are possible
-  vec3([Dynamic x_, Dynamic y_, Dynamic z_]) {
+  vec3([dynamic x_, dynamic y_, dynamic z_]) {
     x = y = z = 0.0;
     if (x_ is vec2 && y_ is double) {
       this.xy = x_.xy;
@@ -100,7 +100,7 @@ class vec3 {
   /// Returns a new vec3 from this + [other]
   vec3 operator+(vec3 other) => new vec3.raw(x + other.x, y + other.y, z + other.z);
   /// Returns a new vec3 divided by [other]
-  vec3 operator/(Dynamic other) {
+  vec3 operator/(dynamic other) {
     if (other is double) {
       return new vec3.raw(x / other, y / other, z / other);
     }
@@ -109,7 +109,7 @@ class vec3 {
     }
   }
   /// Returns a new vec3 scaled by [other]
-  vec3 operator*(Dynamic other) {
+  vec3 operator*(dynamic other) {
     if (other is double) {
       return new vec3.raw(x * other, y * other, z * other);
     }
@@ -271,19 +271,19 @@ class vec3 {
     x = arg.z;
   }
   /// Returns true if any component is infinite.
-  bool isInfinite() {
+  bool get isInfinite {
     bool is_infinite = false;
-    is_infinite = is_infinite || x.isInfinite();
-    is_infinite = is_infinite || y.isInfinite();
-    is_infinite = is_infinite || z.isInfinite();
+    is_infinite = is_infinite || x.isInfinite;
+    is_infinite = is_infinite || y.isInfinite;
+    is_infinite = is_infinite || z.isInfinite;
     return is_infinite;
   }
   /// Returns true if any component is NaN.
-  bool isNaN() {
+  bool get isNaN {
     bool is_nan = false;
-    is_nan = is_nan || x.isNaN();
-    is_nan = is_nan || y.isNaN();
-    is_nan = is_nan || z.isNaN();
+    is_nan = is_nan || x.isNaN;
+    is_nan = is_nan || y.isNaN;
+    is_nan = is_nan || z.isNaN;
     return is_nan;
   }
   set r(double arg) => x = arg;

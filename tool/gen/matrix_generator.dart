@@ -102,7 +102,7 @@ class MatrixGenerator extends BaseGenerator {
       columnArguments[i] = 'arg$i';
     }
     iPrint('\/\/\/ Constructs a new ${matType}. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.');
-    iPrint('${matType}([${joinStrings(arguments, 'Dynamic ')}]) {');
+    iPrint('${matType}([${joinStrings(arguments, 'dynamic ')}]) {');
     iPush();
     iPrint('//Initialize the matrix as the identity matrix');
     for (int i = 0; i < cols; i++) {
@@ -533,7 +533,7 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateMatrixMatrixMultiply() {
-    iPrint('Dynamic r = null;');
+    iPrint('dynamic r = null;');
 
     if (rows == 2 && cols == 2) {
       iPrint('if (arg.cols == 2) {');
@@ -600,7 +600,7 @@ class MatrixGenerator extends BaseGenerator {
 
   void generateMult() {
     iPrint('\/\/\/ Returns a new vector or matrix by multiplying [this] with [arg].');
-    iPrint('Dynamic operator*(Dynamic arg) {');
+    iPrint('dynamic operator*(dynamic arg) {');
     iPush();
     iPrint('if (arg is double) {');
     iPush();
@@ -682,7 +682,7 @@ class MatrixGenerator extends BaseGenerator {
       return;
     }
     iPrint('\/\/\/ Translate this matrix by a [vec3], [vec4], or x,y,z');
-    iPrint('${matType} translate(Dynamic x, [double y = 0.0, double z = 0.0]) {');
+    iPrint('${matType} translate(dynamic x, [double y = 0.0, double z = 0.0]) {');
     iPush();
     iPrint('double tx;');
     iPrint('double ty;');
@@ -873,7 +873,7 @@ class MatrixGenerator extends BaseGenerator {
       return;
     }
     iPrint('\/\/\/ Scale this matrix by a [vec3], [vec4], or x,y,z');
-    iPrint('${matType} scale(Dynamic x, [double y = null, double z = null]) {');
+    iPrint('${matType} scale(dynamic x, [double y = null, double z = null]) {');
     iPush();
     iPrint('double sx;');
     iPrint('double sy;');

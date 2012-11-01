@@ -23,32 +23,32 @@
 */
 
 /// Returns the dot product between vectors [x] and [y]. The dimension of [x] and [y] must match.
-double dot(Dynamic x, Dynamic y) {
+double dot(dynamic x, dynamic y) {
   return x.dot(y);
 }
 
 /// Returns the length of vector [x]
-double length(Dynamic x) {
+double length(dynamic x) {
   return x.length;
 }
 
 /// Returns the length squared of vector [x]
-double length2(Dynamic x) {
+double length2(dynamic x) {
   return x.length2;
 }
 
 /// Returns the distance between vectors [x] and [y]. The dimension of [x] and [y] must match.
-double distance(Dynamic x, Dynamic y) {
+double distance(dynamic x, dynamic y) {
   return length(x - y);
 }
 
 /// Returns the distance squared between vectors [x] and [y].
-double distance2(Dynamic x, Dynamic y) {
+double distance2(dynamic x, dynamic y) {
   return length2(x - y);
 }
 
 /// Returns the cross product between [x] and [y]. [x] and [y] can be vec2, vec3 or double, but not all combinations are supported.
-Dynamic cross(Dynamic x, Dynamic y, [Dynamic out=null]) {
+dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is vec3 && y is vec3) {
     return x.cross(y, out);
   } else if (x is vec2 && y is vec2) {
@@ -74,7 +74,7 @@ Dynamic cross(Dynamic x, Dynamic y, [Dynamic out=null]) {
 }
 
 /// Returns [x] normalized. Supports [double], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
-Dynamic normalize(Dynamic x, [Dynamic out=null]) {
+dynamic normalize(dynamic x, [dynamic out=null]) {
   if (x is double) {
     return 1.0 * sign(x);
   }
