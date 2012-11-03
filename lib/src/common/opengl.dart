@@ -102,9 +102,9 @@ mat4 makeOrthographic(double left, double right, double bottom, double top, doub
   r[0].x = 2.0/rml;
   r[1].y = 2.0/tmb;
   r[2].z = -2.0/fmn;
-  r[3].x = rpl/rml;
-  r[3].y = tpb/tmb;
-  r[3].z = fpn/fmn;
+  r[3].x = -rpl/rml;
+  r[3].y = -tpb/tmb;
+  r[3].z = -fpn/fmn;
   r[3].w = 1.0;
 
   return r;
