@@ -1,3 +1,5 @@
+part of console_test_harness;
+
 class VectorTest extends BaseTest {
 
   void testVec2DotProduct() {

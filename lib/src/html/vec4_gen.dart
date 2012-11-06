@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+part of vector_math_browser;
 class vec4 {
   double x;
   double y;
@@ -2242,7 +2243,7 @@ class vec4 {
   vec4 scaled(double arg) {
     return clone().scale(arg);
   }
-  vec4 negate() {
+  vec4 negate_() {
     x = -x;
     y = -y;
     z = -z;

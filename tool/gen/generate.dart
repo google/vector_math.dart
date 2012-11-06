@@ -22,12 +22,13 @@
 
 */
 
-#import ('dart:io');
+library vector_math_generator;
+import 'dart:io';
 
-#source('base_generator.dart');
-#source('builtin_generator.dart');
-#source('vector_generator.dart');
-#source('matrix_generator.dart');
+part 'base_generator.dart';
+part 'builtin_generator.dart';
+part 'vector_generator.dart';
+part 'matrix_generator.dart';
 
 String htmlBasePath = 'lib/src/html';
 String consoleBasePath = 'lib/src/console';

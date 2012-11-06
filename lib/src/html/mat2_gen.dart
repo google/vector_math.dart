@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+part of vector_math_browser;
 /// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 rows.
 class mat2 {
   vec2 col0;
@@ -372,7 +373,7 @@ class mat2 {
     col1.y = col1.y - o.col1.y;
     return this;
   }
-  mat2 negate() {
+  mat2 negate_() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col1.x = -col1.x;

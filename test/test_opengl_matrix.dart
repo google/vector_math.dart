@@ -1,3 +1,4 @@
+part of console_test_harness;
 
 class OpenGLMatrixTest extends BaseTest {
 

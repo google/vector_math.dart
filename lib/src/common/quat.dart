@@ -257,23 +257,23 @@ class quat {
   }
 
   /** Radians of rotation */
-  double get radians() {
+  double get radians {
     return 2.0 * acos(w);
   }
 
   /** Axis of rotation */
-  vec3 get axis() {
+  vec3 get axis {
       double divisor = 1.0 - (w*w);
       return new vec3(x / divisor, y / divisor, z / divisor);
   }
 
   /** Squared length */
-  double get length2() {
+  double get length2 {
     return (x*x) + (y*y) + (z*z) + (w*w);
   }
 
   /** Length */
-  double get length() {
+  double get length {
     return Math.sqrt(length2);
   }
 

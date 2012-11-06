@@ -22,6 +22,8 @@
 
 */
 
+part of vector_math_generator;
+
 class VectorGenerator extends BaseGenerator {
   List<String> vectorComponents;
   int get vectorDimension {
@@ -39,6 +41,11 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generatePrologue() {
+    if (floatArrayType == 'Float32Array') {
+      iPrint('part of vector_math_browser;');
+    } else {
+      iPrint('part of vector_math_console;');
+    }
     iPrint('class $generatedName {');
     iPush();
     vectorComponents.forEach((comp) {
@@ -600,7 +607,7 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generateSelfNegate() {
-    iPrint('$generatedName negate() {');
+    iPrint('$generatedName negate_() {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = -$c;');

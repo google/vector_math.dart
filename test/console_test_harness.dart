@@ -1,12 +1,13 @@
-#import('package:vector_math/vector_math_console.dart');
-#import('package:unittest/unittest.dart');
-#import('dart:math', prefix:'Math');
-#source('base_test.dart');
-#source('test_quaternion.dart');
-#source('test_matrix.dart');
-#source('test_vector.dart');
-#source('test_opengl_matrix.dart');
-#source('test_builtin.dart');
+library console_test_harness;
+import 'package:vector_math/vector_math_console.dart';
+import 'package:unittest/unittest.dart';
+import 'dart:math' as Math;
+part 'base_test.dart';
+part 'test_quaternion.dart';
+part 'test_matrix.dart';
+part 'test_vector.dart';
+part 'test_opengl_matrix.dart';
+part 'test_builtin.dart';
 
 void main() {
   {

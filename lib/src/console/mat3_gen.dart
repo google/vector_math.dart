@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+part of vector_math_console;
 /// mat3 is a column major matrix where each column is represented by [vec3]. This matrix has 3 columns and 3 rows.
 class mat3 {
   vec3 col0;
@@ -603,7 +604,7 @@ class mat3 {
     col2.z = col2.z - o.col2.z;
     return this;
   }
-  mat3 negate() {
+  mat3 negate_() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;

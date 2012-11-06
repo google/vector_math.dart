@@ -22,6 +22,8 @@
 
 */
 
+part of vector_math_generator;
+
 class MatrixGenerator extends BaseGenerator {
   int rows;
   int cols;
@@ -83,6 +85,11 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generatePrologue() {
+    if (floatArrayType == 'Float32Array') {
+      iPrint('part of vector_math_browser;');
+    } else {
+      iPrint('part of vector_math_console;');
+    }
     iPrint('\/\/\/ ${matType} is a column major matrix where each column is represented by [$colVecType]. This matrix has $cols columns and $rows rows.');
     iPrint('class ${matType} {');
     iPush();
@@ -1545,7 +1552,7 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateSelfNegate() {
-    iPrint('$matType negate() {');
+    iPrint('$matType negate_() {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {

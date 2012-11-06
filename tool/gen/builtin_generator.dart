@@ -22,6 +22,8 @@
 
 */
 
+part of vector_math_generator;
+
 typedef void GenerateFunction(GeneratedFunctionDesc function, BuiltinGenerator bg);
 
 class GeneratedFunctionDesc {

@@ -1,9 +1,9 @@
 /*
 
   VectorMath.dart
-  
+
   Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -22,6 +22,8 @@
 
 */
 
+part of vector_math_generator;
+
 void ListSwap(List<int> seq, int i, int j) {
   int temp = seq[i];
   seq[i] = seq[j];
@@ -31,7 +33,7 @@ void ListSwap(List<int> seq, int i, int j) {
 void ListReverse(List<int> seq, int first, int last) {
   while (first != last && first != --last) {
     ListSwap(seq, first++, last);
-  }  
+  }
 }
 
 bool ListNextPermutation(List<int> seq, int first, int last) {
@@ -72,12 +74,12 @@ List<String> PrintablePermutation(List<int> seq, List<String> components) {
 class BaseGenerator {
   int _indent;
   RandomAccessFile out;
-  
+
   BaseGenerator() {
     _indent = 0;
     out = null;
   }
-  
+
   void iPush() {
     _indent++;
   }
@@ -85,7 +87,7 @@ class BaseGenerator {
     _indent--;
     assert(_indent >= 0);
   }
-  
+
   void iPrint(String s) {
     String indent = '';
     for (int i = 0; i < _indent; i++) {
@@ -94,7 +96,7 @@ class BaseGenerator {
     out.writeStringSync('$indent$s\n');
     //print('$indent$s');
   }
-  
+
   void writeLicense() {
     iPrint('''/*
 
@@ -120,16 +122,16 @@ class BaseGenerator {
 
 */''');
   }
-  
+
   String joinStrings(List<String> elements, [String pre = '', String post = '', String joiner = ', ']) {
     bool first = true;
     String r = '';
     for (String e in elements) {
-      var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}'; 
-      r = '$r$extra'; 
+      var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}';
+      r = '$r$extra';
       first = false;
     }
     return r;
   }
-  
+
 }

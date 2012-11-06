@@ -1,3 +1,4 @@
+part of console_test_harness;
 class BaseTest {
   void testFailure(var output, var expectedOutput, num error) {
     print('FAILURE!!!');

@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+part of vector_math_browser;
 /// mat4 is a column major matrix where each column is represented by [vec4]. This matrix has 4 columns and 4 rows.
 class mat4 {
   vec4 col0;
@@ -1138,7 +1139,7 @@ class mat4 {
     col3.w = col3.w - o.col3.w;
     return this;
   }
-  mat4 negate() {
+  mat4 negate_() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;

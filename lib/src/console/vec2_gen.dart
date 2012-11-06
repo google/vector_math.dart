@@ -21,6 +21,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+part of vector_math_console;
 class vec2 {
   double x;
   double y;
@@ -340,7 +341,7 @@ class vec2 {
   vec2 scaled(double arg) {
     return clone().scale(arg);
   }
-  vec2 negate() {
+  vec2 negate_() {
     x = -x;
     y = -y;
     return this;

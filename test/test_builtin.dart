@@ -1,4 +1,4 @@
-
+part of console_test_harness;
 class BuiltinTest extends BaseTest {
   void testMix() {
     List<dynamic> inputA = new List<dynamic>();
