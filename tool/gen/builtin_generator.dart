@@ -103,7 +103,7 @@ class BuiltinGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
     });
-    iPrint('throw new IllegalArgumentException(${function.typeArg});');
+    iPrint('throw new ArgumentError(${function.typeArg});');
     iPop();
     iPrint('}');
   }
@@ -142,7 +142,7 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
         x = x as vec4;
         return new vec4(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t), _ScalerHelpers.mix(x.w, y.w, t));
       }
-      throw new IllegalArgumentException(x);
+      throw new ArgumentError(x);
 ''');
   bg.iPop();
   bg.iPrint('} else {');
@@ -162,7 +162,7 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
         x = x as vec4;
         return new vec4(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z), _ScalerHelpers.mix(x.w, y.w, t.w));
       }
-      throw new IllegalArgumentException(x);
+      throw new ArgumentError(x);
 ''');
   bg.iPop();
   bg.iPrint('}');

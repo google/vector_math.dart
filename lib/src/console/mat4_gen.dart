@@ -316,7 +316,7 @@ class mat4 {
       case 2: return col2;
       case 3: return col3;
     }
-    throw new IllegalArgumentException(column);
+    throw new ArgumentError(column);
   }
   /// Assigns the [column] of the matrix [arg]
   void operator[]=(int column, vec4 arg) {
@@ -327,7 +327,7 @@ class mat4 {
       case 2: col2 = arg; break;
       case 3: col3 = arg; break;
     }
-    throw new IllegalArgumentException(column);
+    throw new ArgumentError(column);
   }
   /// Returns row 0
   vec4 get row0 => getRow(0);
@@ -434,7 +434,7 @@ class mat4 {
       }
       return r;
     }
-    throw new IllegalArgumentException(arg);
+    throw new ArgumentError(arg);
   }
   /// Returns new matrix after component wise [this] + [arg]
   mat4 operator+(mat4 arg) {

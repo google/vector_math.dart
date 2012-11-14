@@ -53,7 +53,7 @@ dynamic sin(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.sin(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns cosine of [arg]. Return type matches the type of [arg]
 dynamic cos(dynamic arg, [dynamic out=null]) {
@@ -87,7 +87,7 @@ dynamic cos(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.cos(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns tangent of [arg]. Return type matches the type of [arg]
 dynamic tan(dynamic arg, [dynamic out=null]) {
@@ -121,7 +121,7 @@ dynamic tan(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.tan(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns arc sine of [arg]. Return type matches the type of [arg]
 dynamic asin(dynamic arg, [dynamic out=null]) {
@@ -155,7 +155,7 @@ dynamic asin(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.asin(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns arc cosine of [arg]. Return type matches the type of [arg]
 dynamic acos(dynamic arg, [dynamic out=null]) {
@@ -189,7 +189,7 @@ dynamic acos(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.acos(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
 dynamic radians(dynamic arg, [dynamic out=null]) {
@@ -223,7 +223,7 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.radians(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
 dynamic degrees(dynamic arg, [dynamic out=null]) {
@@ -257,5 +257,5 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.degrees(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }

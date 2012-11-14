@@ -53,7 +53,7 @@ dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
     (out as vec4).w = Math.pow(x.w, y.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }
 /// Returns *e* raised to the exponent [arg]. Supports vectors and numbers.
 dynamic exp(dynamic arg, [dynamic out=null]) {
@@ -87,7 +87,7 @@ dynamic exp(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.exp(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns the logarithm of [arg] base *e*. Supports vectors and numbers.
 dynamic log(dynamic arg, [dynamic out=null]) {
@@ -121,7 +121,7 @@ dynamic log(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.log(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
 dynamic exp2(dynamic arg, [dynamic out=null]) {
@@ -155,7 +155,7 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.exp2(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
 dynamic log2(dynamic arg, [dynamic out=null]) {
@@ -189,7 +189,7 @@ dynamic log2(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.log2(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns the square root of [arg].
 dynamic sqrt(dynamic arg, [dynamic out=null]) {
@@ -223,7 +223,7 @@ dynamic sqrt(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = Math.sqrt(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns the inverse square root of [arg]. Supports vectors and numbers.
 dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
@@ -257,5 +257,5 @@ dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.inversesqrt(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }

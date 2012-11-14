@@ -129,7 +129,7 @@ class mat2 {
       case 0: return col0;
       case 1: return col1;
     }
-    throw new IllegalArgumentException(column);
+    throw new ArgumentError(column);
   }
   /// Assigns the [column] of the matrix [arg]
   void operator[]=(int column, vec2 arg) {
@@ -138,7 +138,7 @@ class mat2 {
       case 0: col0 = arg; break;
       case 1: col1 = arg; break;
     }
-    throw new IllegalArgumentException(column);
+    throw new ArgumentError(column);
   }
   /// Returns row 0
   vec2 get row0 => getRow(0);
@@ -200,7 +200,7 @@ class mat2 {
       }
       return r;
     }
-    throw new IllegalArgumentException(arg);
+    throw new ArgumentError(arg);
   }
   /// Returns new matrix after component wise [this] + [arg]
   mat2 operator+(mat2 arg) {
