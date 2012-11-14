@@ -53,7 +53,7 @@ dynamic abs(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.abs(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns 1.0 or 0.0 or -1.0 depending on sign of [arg].
 dynamic sign(dynamic arg, [dynamic out=null]) {
@@ -87,7 +87,7 @@ dynamic sign(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.sign(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns floor value of [arg].
 dynamic floor(dynamic arg, [dynamic out=null]) {
@@ -121,7 +121,7 @@ dynamic floor(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.floor(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns [arg] truncated.
 dynamic trunc(dynamic arg, [dynamic out=null]) {
@@ -155,7 +155,7 @@ dynamic trunc(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.truncate(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns [arg] rounded to nearest integer.
 dynamic round(dynamic arg, [dynamic out=null]) {
@@ -189,7 +189,7 @@ dynamic round(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.round(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns [arg] rounded to nearest even integer.
 dynamic roundEven(dynamic arg, [dynamic out=null]) {
@@ -223,7 +223,7 @@ dynamic roundEven(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.roundEven(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns ceiling of [arg]
 dynamic ceil(dynamic arg, [dynamic out=null]) {
@@ -257,7 +257,7 @@ dynamic ceil(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.ceil(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns fraction of [arg]
 dynamic fract(dynamic arg, [dynamic out=null]) {
@@ -291,7 +291,7 @@ dynamic fract(dynamic arg, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.fract(arg.w);
     return out;
   }
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError(arg);
 }
 /// Returns [x] mod [y]
 dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
@@ -325,7 +325,7 @@ dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.mod(x.w, y.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }
 /// Returns component wise minimum of [x] and [y]
 dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
@@ -359,7 +359,7 @@ dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
     (out as vec4).w = Math.min(x.w, y.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }
 /// Returns component wise maximum of [x] and [y]
 dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
@@ -393,7 +393,7 @@ dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
     (out as vec4).w = Math.max(x.w, y.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }
 /// Component wise clamp of [x] between [min_] and [max_]
 dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
@@ -427,7 +427,7 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.clamp(x.w, min_.w, max_.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }
 /// Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.
 dynamic mix(dynamic x, dynamic y, dynamic t) {
@@ -447,7 +447,7 @@ dynamic mix(dynamic x, dynamic y, dynamic t) {
         x = x as vec4;
         return new vec4(_ScalerHelpers.mix(x.x, y.x, t), _ScalerHelpers.mix(x.y, y.y, t), _ScalerHelpers.mix(x.z, y.z, t), _ScalerHelpers.mix(x.w, y.w, t));
       }
-      throw new IllegalArgumentException(x);
+      throw new ArgumentError(x);
 
   } else {
       if (x is double) {
@@ -465,7 +465,7 @@ dynamic mix(dynamic x, dynamic y, dynamic t) {
         x = x as vec4;
         return new vec4(_ScalerHelpers.mix(x.x, y.x, t.x), _ScalerHelpers.mix(x.y, y.y, t.y), _ScalerHelpers.mix(x.z, y.z, t.z), _ScalerHelpers.mix(x.w, y.w, t.w));
       }
-      throw new IllegalArgumentException(x);
+      throw new ArgumentError(x);
 
   }
 }
@@ -501,7 +501,7 @@ dynamic step(dynamic x, dynamic y, [dynamic out=null]) {
     (out as vec4).w = _ScalerHelpers.step(x.w, y.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }
 /// Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].
 dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) {
@@ -535,5 +535,5 @@ dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) 
     (out as vec4).w = _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w);
     return out;
   }
-  throw new IllegalArgumentException(x);
+  throw new ArgumentError(x);
 }

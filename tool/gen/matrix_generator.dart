@@ -418,7 +418,7 @@ class MatrixGenerator extends BaseGenerator {
     }
     iPop();
     iPrint('}');
-    iPrint('throw new IllegalArgumentException(column);');
+    iPrint('throw new ArgumentError(column);');
     iPop();
     iPrint('}');
   }
@@ -435,7 +435,7 @@ class MatrixGenerator extends BaseGenerator {
     }
     iPop();
     iPrint('}');
-    iPrint('throw new IllegalArgumentException(column);');
+    iPrint('throw new ArgumentError(column);');
     iPop();
     iPrint('}');
   }
@@ -631,7 +631,7 @@ class MatrixGenerator extends BaseGenerator {
     generateMatrixMatrixMultiply();
     iPop();
     iPrint('}');
-    iPrint('throw new IllegalArgumentException(arg);');
+    iPrint('throw new ArgumentError(arg);');
     iPop();
     iPrint('}');
   }

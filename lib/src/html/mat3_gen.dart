@@ -195,7 +195,7 @@ class mat3 {
       case 1: return col1;
       case 2: return col2;
     }
-    throw new IllegalArgumentException(column);
+    throw new ArgumentError(column);
   }
   /// Assigns the [column] of the matrix [arg]
   void operator[]=(int column, vec3 arg) {
@@ -205,7 +205,7 @@ class mat3 {
       case 1: col1 = arg; break;
       case 2: col2 = arg; break;
     }
-    throw new IllegalArgumentException(column);
+    throw new ArgumentError(column);
   }
   /// Returns row 0
   vec3 get row0 => getRow(0);
@@ -284,7 +284,7 @@ class mat3 {
       }
       return r;
     }
-    throw new IllegalArgumentException(arg);
+    throw new ArgumentError(arg);
   }
   /// Returns new matrix after component wise [this] + [arg]
   mat3 operator+(mat3 arg) {
