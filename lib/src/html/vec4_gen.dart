@@ -30,12 +30,12 @@ class vec4 {
   /// Constructs a new [vec4]. Follows GLSL constructor syntax so many combinations are possible
   vec4([dynamic x_, dynamic y_, dynamic z_, dynamic w_]) {
     x = y = z = w = 0.0;
-    if (x_ is vec3 && y_ is double) {
+    if (x_ is vec3 && y_ is num) {
       this.xyz = x_.xyz;
-      this.w = y_;
+      this.w = y_.toDouble();
     }
-    if (x_ is double && y_ is vec3) {
-      this.x = x_;
+    if (x_ is num && y_ is vec3) {
+      this.x = x_.toDouble();
       this.yzw = y_.xyz;
     }
     if (x_ is vec3 && y_ == null) {
@@ -50,39 +50,52 @@ class vec4 {
       xyzw = x_.xyzw;
       return;
     }
-    if (x_ is double && y_ is double && z_ is double && w_ is double) {
-      x = x_;
-      y = y_;
-      z = z_;
-      w = w_;
+    if (x_ is num && y_ is num && z_ is num && w_ is num) {
+      x = x_.toDouble();
+      y = y_.toDouble();
+      z = z_.toDouble();
+      w = w_.toDouble();
       return;
     }
-    if (x_ is double) {
-      x = y = z = w = x_;
+    if (x_ is num) {
+      x = y = z = w = x_.toDouble();
       return;
     }
     throw new ArgumentError('Invalid arguments');
   }
-  /// Constructs a new [vec4] filled with 0.
-  vec4.zero() {
+  /// Constructs a new [vec4] zero vector.
+  vec4.zero() { makeZero(); }
+  /// Make [this] the zero vector.
+  vec4 makeZero() {
     x = 0.0;
     y = 0.0;
     z = 0.0;
     w = 0.0;
+    return this;
   }
-  /// Constructs a new [vec4] that is a copy of [other].
+  /// Constructs a copy of [other].
   vec4.copy(vec4 other) {
+    makeCopy(other);
+  }
+  /// Make [this] a copy of [other] [other].
+  vec4 makeCopy(vec4 other) {
     x = other.x;
     y = other.y;
     z = other.z;
     w = other.w;
+    return this;
   }
   /// Constructs a new [vec4] that is initialized with passed in values.
-  vec4.raw(double x_, double y_, double z_, double w_) {
-    x = x_;
-    y = y_;
-    z = z_;
-    w = w_;
+  vec4.raw(num x_, num y_, num z_, num w_) {
+    makeRaw(x_, y_, z_, w_);
+  }
+  /// Components of [this] are set to the passed in values.
+  vec4 makeRaw(num x_, num y_, num z_, num w_) {
+    x = x_.toDouble();
+    y = y_.toDouble();
+    z = z_.toDouble();
+    w = w_.toDouble();
+    return this;
   }
   /// Constructs a new [vec4] that is initialized with values from [array] starting at [offset].
   vec4.array(Float32Array array, [int offset=0]) {
@@ -97,11 +110,12 @@ class vec4 {
     i++;
   }
   /// Splats a scalar into all lanes of the vector.
-  vec4 splat(double arg) {
-    x = arg;
-    y = arg;
-    z = arg;
-    w = arg;
+  vec4 splat(num arg) {
+    double a = arg.toDouble();
+    x = a;
+    y = a;
+    z = a;
+    w = a;
     return this;
   }
   /// Returns a printable string
@@ -114,8 +128,9 @@ class vec4 {
   vec4 operator+(vec4 other) => new vec4.raw(x + other.x, y + other.y, z + other.z, w + other.w);
   /// Returns a new vec4 divided by [other]
   vec4 operator/(dynamic other) {
-    if (other is double) {
-      return new vec4.raw(x / other, y / other, z / other, w / other);
+    if (other is num) {
+      var o = other.toDouble();
+      return new vec4.raw(x / other, y / o, z / o, w / o);
     }
     if (other is vec4) {
       return new vec4.raw(x / other.x, y / other.y, z / other.z, w / other.w);
@@ -123,8 +138,9 @@ class vec4 {
   }
   /// Returns a new vec4 scaled by [other]
   vec4 operator*(dynamic other) {
-    if (other is double) {
-      return new vec4.raw(x * other, y * other, z * other, w * other);
+    if (other is num) {
+      var o = other.toDouble();
+      return new vec4.raw(x * other, y * o, z * o, w * o);
     }
     if (other is vec4) {
       return new vec4.raw(x * other.x, y * other.y, z * other.z, w * other.w);
@@ -2233,14 +2249,15 @@ class vec4 {
     w = w / arg.w;
     return this;
   }
-  vec4 scale(double arg) {
-    x = x * arg;
-    y = y * arg;
-    z = z * arg;
-    w = w * arg;
+  vec4 scale(num arg) {
+    double a = arg.toDouble();
+    x = x * a;
+    y = y * a;
+    z = z * a;
+    w = w * a;
     return this;
   }
-  vec4 scaled(double arg) {
+  vec4 scaled(num arg) {
     return clone().scale(arg);
   }
   vec4 negate_() {
@@ -2281,11 +2298,11 @@ class vec4 {
     w = arg.w;
     return this;
   }
-  vec4 setComponents(double x_, double y_, double z_, double w_) {
-    x = x_;
-    y = y_;
-    z = z_;
-    w = w_;
+  vec4 setComponents(num x_, num y_, num z_, num w_) {
+    x = x_.toDouble();
+    y = y_.toDouble();
+    z = z_.toDouble();
+    w = w_.toDouble();
     return this;
   }
   /// Copies [this] into [array] starting at [offset].

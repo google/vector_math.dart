@@ -44,7 +44,7 @@ class BuiltinGenerator extends BaseGenerator {
 
   List<String> getComponents(String typeName) {
     switch (typeName) {
-    case 'double':
+    case 'num':
       return [''];
     case 'vec2':
       return ['.x', '.y'];

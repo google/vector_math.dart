@@ -39,7 +39,7 @@ class mat4 {
     col1.y = 1.0;
     col2.z = 1.0;
     col3.w = 1.0;
-    if (arg0 is double && arg1 is double && arg2 is double && arg3 is double && arg4 is double && arg5 is double && arg6 is double && arg7 is double && arg8 is double && arg9 is double && arg10 is double && arg11 is double && arg12 is double && arg13 is double && arg14 is double && arg15 is double) {
+    if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num && arg6 is num && arg7 is num && arg8 is num && arg9 is num && arg10 is num && arg11 is num && arg12 is num && arg13 is num && arg14 is num && arg15 is num) {
       col0.x = arg0;
       col0.y = arg1;
       col0.z = arg2;
@@ -58,7 +58,7 @@ class mat4 {
       col3.w = arg15;
       return;
     }
-    if (arg0 is double && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null && arg12 == null && arg13 == null && arg14 == null && arg15 == null) {
+    if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null && arg12 == null && arg13 == null && arg14 == null && arg15 == null) {
       col0.x = arg0;
       col1.y = arg0;
       col2.z = arg0;
@@ -196,7 +196,7 @@ class mat4 {
     col3.w = other.col3.w;
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the X axis
-  mat4.rotationX(double radians_) {
+  mat4.rotationX(num radians_) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -205,7 +205,7 @@ class mat4 {
     setRotationX(radians_);
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the Y axis
-  mat4.rotationY(double radians_) {
+  mat4.rotationY(num radians_) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -214,7 +214,7 @@ class mat4 {
     setRotationY(radians_);
   }
   //// Constructs a new [mat4] representation a rotation of [radians] around the Z axis
-  mat4.rotationZ(double radians_) {
+  mat4.rotationZ(num radians_) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -235,7 +235,7 @@ class mat4 {
     col3.xyz = translation;
   }
   /// Constructs a new [mat4] translation from [x], [y], and [z]
-  mat4.translationRaw(double x, double y, double z) {
+  mat4.translationRaw(num x, num y, num z) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -260,7 +260,7 @@ class mat4 {
     col3.w = 1.0;
   }
   //// Constructs a new [mat4] representening a scale of [x], [y], and [z]
-  mat4.scaleRaw(double x, double y, double z) {
+  mat4.scaleRaw(num x, num y, num z) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -270,7 +270,7 @@ class mat4 {
     col2.z = z;
     col3.w = 1.0;
   }
-  mat4.raw(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15) {
+  mat4.raw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11, num arg12, num arg13, num arg14, num arg15) {
     col0 = new vec4.zero();
     col1 = new vec4.zero();
     col2 = new vec4.zero();
@@ -375,7 +375,7 @@ class mat4 {
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
-    if (arg is double) {
+    if (arg is num) {
       mat4 r = new mat4.zero();
       r.col0.x = col0.x * arg;
       r.col0.y = col0.y * arg;
@@ -479,7 +479,7 @@ class mat4 {
     return r;
   }
   /// Translate this matrix by a [vec3], [vec4], or x,y,z
-  mat4 translate(dynamic x, [double y = 0.0, double z = 0.0]) {
+  mat4 translate(dynamic x, [num y = 0.0, num z = 0.0]) {
     double tx;
     double ty;
     double tz;
@@ -504,8 +504,9 @@ class mat4 {
     return this;
   }
   /// Rotate this [angle] radians around [axis]
-  mat4 rotate(vec3 axis, double angle) {
+  mat4 rotate(vec3 axis, num angle_) {
     var len = axis.length;
+    double angle = angle_.toDouble();
     var x = axis.x/len;
     var y = axis.y/len;
     var z = axis.y/len;
@@ -548,7 +549,8 @@ class mat4 {
     return this;
   }
   /// Rotate this [angle] radians around X
-  mat4 rotateX(double angle) {
+  mat4 rotateX(num angle_) {
+    double angle = angle_.toDouble();
     double cosAngle = cos(angle);
     double sinAngle = sin(angle);
     var t1 = col0.x * 0.0 + col1.x * cosAngle + col2.x * sinAngle + col3.x * 0.0;
@@ -614,7 +616,7 @@ class mat4 {
     return this;
   }
   /// Scale this matrix by a [vec3], [vec4], or x,y,z
-  mat4 scale(dynamic x, [double y = null, double z = null]) {
+  mat4 scale(dynamic x, [num y = null, num z = null]) {
     double sx;
     double sy;
     double sz;
@@ -625,8 +627,8 @@ class mat4 {
       sz = x.z;
     } else {
       sx = x;
-      sy = y == null ? x : y;
-      sz = z == null ? x : z;
+      sy = y == null ? x : y.toDouble();
+      sz = z == null ? x : z.toDouble();
     }
     col0.x *= sx;
     col1.x *= sx;
@@ -952,7 +954,8 @@ class mat4 {
     return det;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around X
-  void setRotationX(double radians_) {
+  void setRotationX(num radians) {
+    double radians_ = radians.toDouble();
     double c = Math.cos(radians_);
     double s = Math.sin(radians_);
     col0.x = 1.0;
@@ -969,7 +972,8 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Y
-  void setRotationY(double radians_) {
+  void setRotationY(num radians) {
+    double radians_ = radians.toDouble();
     double c = Math.cos(radians_);
     double s = Math.sin(radians_);
     col0.x = c;
@@ -986,7 +990,8 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Z
-  void setRotationZ(double radians_) {
+  void setRotationZ(num radians) {
+    double radians_ = radians.toDouble();
     double c = Math.cos(radians_);
     double s = Math.sin(radians_);
     col0.x = c;
@@ -1003,7 +1008,8 @@ class mat4 {
     col2.w = 0.0;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  mat4 scaleAdjoint(double scale_) {
+  mat4 scaleAdjoint(num scale) {
+    double scale_ = scale.toDouble();
     // Adapted from code by Richard Carling.
     double a1 = col0.x;
     double b1 = col1.x;

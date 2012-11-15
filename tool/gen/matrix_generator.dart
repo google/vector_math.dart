@@ -28,10 +28,7 @@ class MatrixGenerator extends BaseGenerator {
   int rows;
   int cols;
 
-  String floatArrayType;
-
   MatrixGenerator() : super() {
-    floatArrayType = 'Woops';
   }
 
   String matrixTypeName(int rows_, int cols_) {
@@ -123,7 +120,7 @@ class MatrixGenerator extends BaseGenerator {
       }
     }
 
-    iPrint('if (${joinStrings(arguments, '', ' is double', ' && ')}) {');
+    iPrint('if (${joinStrings(arguments, '', ' is num', ' && ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -134,7 +131,7 @@ class MatrixGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
 
-    iPrint('if (arg0 is double && ${joinStrings(arguments.getRange(1, numArguments-1), '', ' == null', ' && ')}) {');
+    iPrint('if (arg0 is num && ${joinStrings(arguments.getRange(1, numArguments-1), '', ' == null', ' && ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -261,7 +258,7 @@ class MatrixGenerator extends BaseGenerator {
 
     if (rows == 2 && cols == 2) {
       iPrint('\/\/\/ Constructs a new [${matType}] representing a rotation by [radians].');
-      iPrint('${matType}.rotation(double radians_) {');
+      iPrint('${matType}.rotation(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
         iPrint('col$i = new $colVecType.zero();');
@@ -273,7 +270,7 @@ class MatrixGenerator extends BaseGenerator {
 
     if ((rows == 3 && cols == 3) || (rows == 4 && cols == 4)) {
       iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the X axis');
-      iPrint('${matType}.rotationX(double radians_) {');
+      iPrint('${matType}.rotationX(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
         iPrint('col$i = new $colVecType.zero();');
@@ -286,7 +283,7 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the Y axis');
-      iPrint('${matType}.rotationY(double radians_) {');
+      iPrint('${matType}.rotationY(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
         iPrint('col$i = new $colVecType.zero();');
@@ -299,7 +296,7 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/\/ Constructs a new [${matType}] representation a rotation of [radians] around the Z axis');
-      iPrint('${matType}.rotationZ(double radians_) {');
+      iPrint('${matType}.rotationZ(num radians_) {');
       iPush();
       for (int i = 0; i < cols; i++) {
         iPrint('col$i = new $colVecType.zero();');
@@ -328,7 +325,7 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/ Constructs a new [${matType}] translation from [x], [y], and [z]');
-      iPrint('${matType}.translationRaw(double x, double y, double z) {');
+      iPrint('${matType}.translationRaw(num x, num y, num z) {');
       iPush();
       for (int i = 0; i < cols; i++) {
         iPrint('col$i = new $colVecType.zero();');
@@ -358,7 +355,7 @@ class MatrixGenerator extends BaseGenerator {
 
 
       iPrint('\/\/\/\/ Constructs a new [${matType}] representening a scale of [x], [y], and [z]');
-      iPrint('${matType}.scaleRaw(double x, double y, double z) {');
+      iPrint('${matType}.scaleRaw(num x, num y, num z) {');
       iPush();
       for (int i = 0; i < cols; i++) {
         iPrint('col$i = new $colVecType.zero();');
@@ -372,7 +369,7 @@ class MatrixGenerator extends BaseGenerator {
 
     }
 
-    iPrint('${matType}.raw(${joinStrings(arguments, 'double ')}) {');
+    iPrint('${matType}.raw(${joinStrings(arguments, 'num ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       iPrint('col$i = new $colVecType.zero();');
@@ -609,7 +606,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns a new vector or matrix by multiplying [this] with [arg].');
     iPrint('dynamic operator*(dynamic arg) {');
     iPush();
-    iPrint('if (arg is double) {');
+    iPrint('if (arg is num) {');
     iPush();
     generateMatrixScale();
     iPop();
@@ -689,7 +686,7 @@ class MatrixGenerator extends BaseGenerator {
       return;
     }
     iPrint('\/\/\/ Translate this matrix by a [vec3], [vec4], or x,y,z');
-    iPrint('${matType} translate(dynamic x, [double y = 0.0, double z = 0.0]) {');
+    iPrint('${matType} translate(dynamic x, [num y = 0.0, num z = 0.0]) {');
     iPush();
     iPrint('double tx;');
     iPrint('double ty;');
@@ -726,11 +723,12 @@ class MatrixGenerator extends BaseGenerator {
       return;
     }
     iPrint('\/\/\/ Rotate this [angle] radians around [axis]');
-    iPrint('${matType} rotate(vec3 axis, double angle) {');
+    iPrint('${matType} rotate(vec3 axis, num angle_) {');
     iPush();
 
     // http://en.wikipedia.org/wiki/Rotation_matrix#Axis_and_angle
     iPrint('var len = axis.length;');
+    iPrint('double angle = angle_.toDouble();');
     iPrint('var x = axis.x/len;');
     iPrint('var y = axis.y/len;');
     iPrint('var z = axis.y/len;');
@@ -788,8 +786,9 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('}');
 
     iPrint('\/\/\/ Rotate this [angle] radians around X');
-    iPrint('${matType} rotateX(double angle) {');
+    iPrint('${matType} rotateX(num angle_) {');
     iPush();
+    iPrint('double angle = angle_.toDouble();');
     iPrint('double cosAngle = cos(angle);');
     iPrint('double sinAngle = sin(angle);');
     iPrint('var t1 = ${generateInlineDotArgs(Access(0, 0), Access(0, 1), Access(0, 2), Access(0, 3), '0.0', 'cosAngle', 'sinAngle', '0.0')};');
@@ -880,7 +879,7 @@ class MatrixGenerator extends BaseGenerator {
       return;
     }
     iPrint('\/\/\/ Scale this matrix by a [vec3], [vec4], or x,y,z');
-    iPrint('${matType} scale(dynamic x, [double y = null, double z = null]) {');
+    iPrint('${matType} scale(dynamic x, [num y = null, num z = null]) {');
     iPush();
     iPrint('double sx;');
     iPrint('double sy;');
@@ -895,8 +894,8 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('} else {');
     iPush();
     iPrint('sx = x;');
-    iPrint('sy = y == null ? x : y;');
-    iPrint('sz = z == null ? x : z;');
+    iPrint('sy = y == null ? x : y.toDouble();');
+    iPrint('sz = z == null ? x : z.toDouble();');
     iPop();
     iPrint('}');
     for (int i = 0; i < 4; i++) {
@@ -1264,8 +1263,9 @@ class MatrixGenerator extends BaseGenerator {
   void generateSetRotation() {
     if (rows == 2 && cols == 2) {
       iPrint('\/\/\/ Turns the matrix into a rotation of [radians]');
-      iPrint('void setRotation(double radians_) {');
+      iPrint('void setRotation(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = c;');
@@ -1277,8 +1277,9 @@ class MatrixGenerator extends BaseGenerator {
     }
     if (rows == 3 && cols == 3) {
       iPrint('\/\/\/ Turns the matrix into a rotation of [radians] around X');
-      iPrint('void setRotationX(double radians_) {');
+      iPrint('void setRotationX(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = 1.0;');
@@ -1294,8 +1295,9 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/ Turns the matrix into a rotation of [radians] around Y');
-      iPrint('void setRotationY(double radians_) {');
+      iPrint('void setRotationY(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = c;');
@@ -1311,8 +1313,9 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/ Turns the matrix into a rotation of [radians] around Z');
-      iPrint('void setRotationZ(double radians_) {');
+      iPrint('void setRotationZ(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = c;');
@@ -1330,8 +1333,9 @@ class MatrixGenerator extends BaseGenerator {
 
     if (rows == 4 && cols == 4) {
       iPrint('\/\/\/ Sets the upper 3x3 to a rotation of [radians] around X');
-      iPrint('void setRotationX(double radians_) {');
+      iPrint('void setRotationX(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = 1.0;');
@@ -1350,8 +1354,9 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/ Sets the upper 3x3 to a rotation of [radians] around Y');
-      iPrint('void setRotationY(double radians_) {');
+      iPrint('void setRotationY(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = c;');
@@ -1370,8 +1375,9 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('}');
 
       iPrint('\/\/\/ Sets the upper 3x3 to a rotation of [radians] around Z');
-      iPrint('void setRotationZ(double radians_) {');
+      iPrint('void setRotationZ(num radians) {');
       iPush();
+      iPrint('double radians_ = radians.toDouble();');
       iPrint('double c = Math.cos(radians_);');
       iPrint('double s = Math.sin(radians_);');
       iPrint('col0.x = c;');
@@ -1406,8 +1412,9 @@ class MatrixGenerator extends BaseGenerator {
 
     iPrint('\/\/\/ Converts into Adjugate matrix and scales by [scale]');
     if (rows == 2) {
-      iPrint('$matType scaleAdjoint(double scale_) {');
+      iPrint('$matType scaleAdjoint(num scale) {');
       iPush();
+      iPrint('double scale_ = scale.toDouble();');
       iPrint('double temp = ${Access(0, 0)};');
       iPrint('${Access(0, 0)} = ${Access(1,1)} * scale_;');
       iPrint('${Access(0, 1)} = - ${Access(0,1)} * scale_;');
@@ -1419,8 +1426,9 @@ class MatrixGenerator extends BaseGenerator {
     }
 
     if (cols == 3) {
-      iPrint('$matType scaleAdjoint(double scale_) {');
+      iPrint('$matType scaleAdjoint(num scale) {');
       iPush();
+      iPrint('double scale_ = scale.toDouble();');
       iPrint('double m00 = ${Access(0, 0)};');
       iPrint('double m01 = ${Access(0, 1)};');
       iPrint('double m02 = ${Access(0, 2)};');
@@ -1447,8 +1455,9 @@ class MatrixGenerator extends BaseGenerator {
     }
 
     if (cols == 4) {
-      iPrint('$matType scaleAdjoint(double scale_) {');
+      iPrint('$matType scaleAdjoint(num scale) {');
       iPush();
+      iPrint('double scale_ = scale.toDouble();');
       iPrint('\/\/ Adapted from code by Richard Carling.');
       iPrint('double a1 = ${Access(0,0)};');
       iPrint('double b1 = ${Access(0,1)};');
@@ -1539,11 +1548,12 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateSelfScalarOp(String name, String op) {
-    iPrint('$matType $name(double o) {');
+    iPrint('$matType $name(num o) {');
     iPush();
+    iPrint('double o_ = o.toDouble();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('${Access(j,i)} = ${Access(j,i)} $op o;');
+        iPrint('${Access(j,i)} = ${Access(j,i)} $op o_;');
       }
     }
     iPrint('return this;');

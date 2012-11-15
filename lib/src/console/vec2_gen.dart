@@ -32,31 +32,44 @@ class vec2 {
       xy = x_.xy;
       return;
     }
-    if (x_ is double && y_ is double) {
-      x = x_;
-      y = y_;
+    if (x_ is num && y_ is num) {
+      x = x_.toDouble();
+      y = y_.toDouble();
       return;
     }
-    if (x_ is double) {
-      x = y = x_;
+    if (x_ is num) {
+      x = y = x_.toDouble();
       return;
     }
     throw new ArgumentError('Invalid arguments');
   }
-  /// Constructs a new [vec2] filled with 0.
-  vec2.zero() {
+  /// Constructs a new [vec2] zero vector.
+  vec2.zero() { makeZero(); }
+  /// Make [this] the zero vector.
+  vec2 makeZero() {
     x = 0.0;
     y = 0.0;
+    return this;
   }
-  /// Constructs a new [vec2] that is a copy of [other].
+  /// Constructs a copy of [other].
   vec2.copy(vec2 other) {
+    makeCopy(other);
+  }
+  /// Make [this] a copy of [other] [other].
+  vec2 makeCopy(vec2 other) {
     x = other.x;
     y = other.y;
+    return this;
   }
   /// Constructs a new [vec2] that is initialized with passed in values.
-  vec2.raw(double x_, double y_) {
-    x = x_;
-    y = y_;
+  vec2.raw(num x_, num y_) {
+    makeRaw(x_, y_);
+  }
+  /// Components of [this] are set to the passed in values.
+  vec2 makeRaw(num x_, num y_) {
+    x = x_.toDouble();
+    y = y_.toDouble();
+    return this;
   }
   /// Constructs a new [vec2] that is initialized with values from [array] starting at [offset].
   vec2.array(Float32List array, [int offset=0]) {
@@ -67,9 +80,10 @@ class vec2 {
     i++;
   }
   /// Splats a scalar into all lanes of the vector.
-  vec2 splat(double arg) {
-    x = arg;
-    y = arg;
+  vec2 splat(num arg) {
+    double a = arg.toDouble();
+    x = a;
+    y = a;
     return this;
   }
   /// Returns a printable string
@@ -82,8 +96,9 @@ class vec2 {
   vec2 operator+(vec2 other) => new vec2.raw(x + other.x, y + other.y);
   /// Returns a new vec2 divided by [other]
   vec2 operator/(dynamic other) {
-    if (other is double) {
-      return new vec2.raw(x / other, y / other);
+    if (other is num) {
+      var o = other.toDouble();
+      return new vec2.raw(x / other, y / o);
     }
     if (other is vec2) {
       return new vec2.raw(x / other.x, y / other.y);
@@ -91,8 +106,9 @@ class vec2 {
   }
   /// Returns a new vec2 scaled by [other]
   vec2 operator*(dynamic other) {
-    if (other is double) {
-      return new vec2.raw(x * other, y * other);
+    if (other is num) {
+      var o = other.toDouble();
+      return new vec2.raw(x * other, y * o);
     }
     if (other is vec2) {
       return new vec2.raw(x * other.x, y * other.y);
@@ -333,12 +349,13 @@ class vec2 {
     y = y / arg.y;
     return this;
   }
-  vec2 scale(double arg) {
-    x = x * arg;
-    y = y * arg;
+  vec2 scale(num arg) {
+    double a = arg.toDouble();
+    x = x * a;
+    y = y * a;
     return this;
   }
-  vec2 scaled(double arg) {
+  vec2 scaled(num arg) {
     return clone().scale(arg);
   }
   vec2 negate_() {
@@ -369,9 +386,9 @@ class vec2 {
     y = arg.y;
     return this;
   }
-  vec2 setComponents(double x_, double y_) {
-    x = x_;
-    y = y_;
+  vec2 setComponents(num x_, num y_) {
+    x = x_.toDouble();
+    y = y_.toDouble();
     return this;
   }
   /// Copies [this] into [array] starting at [offset].

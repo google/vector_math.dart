@@ -33,14 +33,14 @@ class mat2 {
     col1 = new vec2.zero();
     col0.x = 1.0;
     col1.y = 1.0;
-    if (arg0 is double && arg1 is double && arg2 is double && arg3 is double) {
+    if (arg0 is num && arg1 is num && arg2 is num && arg3 is num) {
       col0.x = arg0;
       col0.y = arg1;
       col1.x = arg2;
       col1.y = arg3;
       return;
     }
-    if (arg0 is double && arg1 == null && arg2 == null && arg3 == null) {
+    if (arg0 is num && arg1 == null && arg2 == null && arg3 == null) {
       col0.x = arg0;
       col1.y = arg0;
       return;
@@ -96,12 +96,12 @@ class mat2 {
     col1.y = other.col1.y;
   }
   /// Constructs a new [mat2] representing a rotation by [radians].
-  mat2.rotation(double radians_) {
+  mat2.rotation(num radians_) {
     col0 = new vec2.zero();
     col1 = new vec2.zero();
     setRotation(radians_);
   }
-  mat2.raw(double arg0, double arg1, double arg2, double arg3) {
+  mat2.raw(num arg0, num arg1, num arg2, num arg3) {
     col0 = new vec2.zero();
     col1 = new vec2.zero();
     col0.x = arg0;
@@ -174,7 +174,7 @@ class mat2 {
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
-    if (arg is double) {
+    if (arg is num) {
       mat2 r = new mat2.zero();
       r.col0.x = col0.x * arg;
       r.col0.y = col0.y * arg;
@@ -325,7 +325,8 @@ class mat2 {
     return det;
   }
   /// Turns the matrix into a rotation of [radians]
-  void setRotation(double radians_) {
+  void setRotation(num radians) {
+    double radians_ = radians.toDouble();
     double c = Math.cos(radians_);
     double s = Math.sin(radians_);
     col0.x = c;
@@ -334,7 +335,8 @@ class mat2 {
     col1.y = c;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  mat2 scaleAdjoint(double scale_) {
+  mat2 scaleAdjoint(num scale) {
+    double scale_ = scale.toDouble();
     double temp = col0.x;
     col0.x = col1.y * scale_;
     col1.x = - col1.x * scale_;

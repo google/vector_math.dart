@@ -74,6 +74,8 @@ List<String> PrintablePermutation(List<int> seq, List<String> components) {
 class BaseGenerator {
   int _indent;
   RandomAccessFile out;
+  String floatArrayType = 'Float32Array';
+  String numType = 'num';
 
   BaseGenerator() {
     _indent = 0;

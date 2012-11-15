@@ -29,12 +29,12 @@ class vec3 {
   /// Constructs a new [vec3]. Follows GLSL constructor syntax so many combinations are possible
   vec3([dynamic x_, dynamic y_, dynamic z_]) {
     x = y = z = 0.0;
-    if (x_ is vec2 && y_ is double) {
+    if (x_ is vec2 && y_ is num) {
       this.xy = x_.xy;
-      this.z = y_;
+      this.z = y_.toDouble();
     }
-    if (x_ is double && y_ is vec2) {
-      this.x = x_;
+    if (x_ is num && y_ is vec2) {
+      this.x = x_.toDouble();
       this.yz = y_.xy;
     }
     if (x_ is vec2 && y_ == null) {
@@ -45,35 +45,48 @@ class vec3 {
       xyz = x_.xyz;
       return;
     }
-    if (x_ is double && y_ is double && z_ is double) {
-      x = x_;
-      y = y_;
-      z = z_;
+    if (x_ is num && y_ is num && z_ is num) {
+      x = x_.toDouble();
+      y = y_.toDouble();
+      z = z_.toDouble();
       return;
     }
-    if (x_ is double) {
-      x = y = z = x_;
+    if (x_ is num) {
+      x = y = z = x_.toDouble();
       return;
     }
     throw new ArgumentError('Invalid arguments');
   }
-  /// Constructs a new [vec3] filled with 0.
-  vec3.zero() {
+  /// Constructs a new [vec3] zero vector.
+  vec3.zero() { makeZero(); }
+  /// Make [this] the zero vector.
+  vec3 makeZero() {
     x = 0.0;
     y = 0.0;
     z = 0.0;
+    return this;
   }
-  /// Constructs a new [vec3] that is a copy of [other].
+  /// Constructs a copy of [other].
   vec3.copy(vec3 other) {
+    makeCopy(other);
+  }
+  /// Make [this] a copy of [other] [other].
+  vec3 makeCopy(vec3 other) {
     x = other.x;
     y = other.y;
     z = other.z;
+    return this;
   }
   /// Constructs a new [vec3] that is initialized with passed in values.
-  vec3.raw(double x_, double y_, double z_) {
-    x = x_;
-    y = y_;
-    z = z_;
+  vec3.raw(num x_, num y_, num z_) {
+    makeRaw(x_, y_, z_);
+  }
+  /// Components of [this] are set to the passed in values.
+  vec3 makeRaw(num x_, num y_, num z_) {
+    x = x_.toDouble();
+    y = y_.toDouble();
+    z = z_.toDouble();
+    return this;
   }
   /// Constructs a new [vec3] that is initialized with values from [array] starting at [offset].
   vec3.array(Float32Array array, [int offset=0]) {
@@ -86,10 +99,11 @@ class vec3 {
     i++;
   }
   /// Splats a scalar into all lanes of the vector.
-  vec3 splat(double arg) {
-    x = arg;
-    y = arg;
-    z = arg;
+  vec3 splat(num arg) {
+    double a = arg.toDouble();
+    x = a;
+    y = a;
+    z = a;
     return this;
   }
   /// Returns a printable string
@@ -102,8 +116,9 @@ class vec3 {
   vec3 operator+(vec3 other) => new vec3.raw(x + other.x, y + other.y, z + other.z);
   /// Returns a new vec3 divided by [other]
   vec3 operator/(dynamic other) {
-    if (other is double) {
-      return new vec3.raw(x / other, y / other, z / other);
+    if (other is num) {
+      var o = other.toDouble();
+      return new vec3.raw(x / other, y / o, z / o);
     }
     if (other is vec3) {
       return new vec3.raw(x / other.x, y / other.y, z / other.z);
@@ -111,8 +126,9 @@ class vec3 {
   }
   /// Returns a new vec3 scaled by [other]
   vec3 operator*(dynamic other) {
-    if (other is double) {
-      return new vec3.raw(x * other, y * other, z * other);
+    if (other is num) {
+      var o = other.toDouble();
+      return new vec3.raw(x * other, y * o, z * o);
     }
     if (other is vec3) {
       return new vec3.raw(x * other.x, y * other.y, z * other.z);
@@ -782,13 +798,14 @@ class vec3 {
     z = z / arg.z;
     return this;
   }
-  vec3 scale(double arg) {
-    x = x * arg;
-    y = y * arg;
-    z = z * arg;
+  vec3 scale(num arg) {
+    double a = arg.toDouble();
+    x = x * a;
+    y = y * a;
+    z = z * a;
     return this;
   }
-  vec3 scaled(double arg) {
+  vec3 scaled(num arg) {
     return clone().scale(arg);
   }
   vec3 negate_() {
@@ -824,10 +841,10 @@ class vec3 {
     z = arg.z;
     return this;
   }
-  vec3 setComponents(double x_, double y_, double z_) {
-    x = x_;
-    y = y_;
-    z = z_;
+  vec3 setComponents(num x_, num y_, num z_) {
+    x = x_.toDouble();
+    y = y_.toDouble();
+    z = z_.toDouble();
     return this;
   }
   /// Copies [this] into [array] starting at [offset].
