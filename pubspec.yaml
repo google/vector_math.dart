@@ -4,5 +4,4 @@ version: 0.9.2
 author: John McCutchan <john@johnmccutchan.com>
 homepage: https://github.com/johnmccutchan/DartVectorMath
 dependencies:
-  unittest:
-    sdk: any
+  unittest: any
