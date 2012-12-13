@@ -731,7 +731,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('double angle = angle_.toDouble();');
     iPrint('var x = axis.x/len;');
     iPrint('var y = axis.y/len;');
-    iPrint('var z = axis.y/len;');
+    iPrint('var z = axis.z/len;');
     iPrint('var c = cos(angle);');
     iPrint('var s = sin(angle);');
     iPrint('var C = 1.0 - c;');
