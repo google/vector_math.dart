@@ -509,7 +509,7 @@ class mat4 {
     double angle = angle_.toDouble();
     var x = axis.x/len;
     var y = axis.y/len;
-    var z = axis.y/len;
+    var z = axis.z/len;
     var c = cos(angle);
     var s = sin(angle);
     var C = 1.0 - c;
