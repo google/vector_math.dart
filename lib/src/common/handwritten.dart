@@ -56,8 +56,7 @@ dynamic atan(dynamic arg, [dynamic arg2]) {
       return new vec4(Math.atan2(arg.x, arg2.x), Math.atan2(arg.y, arg2.y), Math.atan2(arg.z, arg2.z), Math.atan2(arg.w, arg2.w));
     }
   }
-
-  throw new IllegalArgumentException(arg);
+  throw new ArgumentError('');
 }
 
 /// Returns relative error between [calculated] and [correct]. The type of [calculated] and [correct] must match and can be any vector, matrix, or quaternion.
