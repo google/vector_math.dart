@@ -1,9 +1,6 @@
 /*
+  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
 
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
-  
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -19,8 +16,9 @@
   2. Altered source versions must be plainly marked as such, and must not be
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
-
 */
+
+
 /// Returns sine of [arg]. Return type matches the type of [arg]
 dynamic sin(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
