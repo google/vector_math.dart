@@ -1,6 +1,8 @@
 # vector_math #
 ==============
 
+[![Build Status](https://drone.io/johnmccutchan/vector_math/status.png)](https://drone.io/johnmccutchan/vector_math)
+
 ## Introduction ##
 
 A Vector math library for 2D and 3D applications.
