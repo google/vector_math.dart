@@ -12,6 +12,8 @@ class BaseTest {
     if (error >= errorThreshold) {
       testFailure(output, expectedOutput, error);
     }
+
+    expect(error >= errorThreshold, isFalse);
   }
 
   final num errorThreshold = 0.0005;
