@@ -18,6 +18,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+part of vector_math_browser;
+
 /// Returns [x] raised to the exponent [y]. Supports vectors and numbers.
 dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {

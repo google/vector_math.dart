@@ -12,6 +12,8 @@ class BaseTest {
     if (error >= errorThreshold) {
       testFailure(output, expectedOutput, error);
     }
+
+    expect(error >= errorThreshold, isFalse);
   }
 
   final num errorThreshold = 0.0005;
@@ -69,7 +71,7 @@ class BaseTest {
 
   dynamic parseVector(String v) {
     v = v.trim();
-    Pattern pattern = new RegExp('[\\s]+', multiLine: true, ignoreCase: false);
+    Pattern pattern = new RegExp('[\\s]+', multiLine: true, caseSensitive: false);
     List<String> rows = v.split(pattern);
     List<double> values = new List<double>();
     for (int i = 0; i < rows.length; i++) {

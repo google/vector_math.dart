@@ -22,6 +22,7 @@
 
 */
 
+part of vector_math_browser;
 
 class aabb3 {
   vec3 _min;

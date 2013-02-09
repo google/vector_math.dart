@@ -18,6 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+part of vector_math_browser;
 
 /** Returns atan([arg]) or atan([arg]/[arg2])
   *
