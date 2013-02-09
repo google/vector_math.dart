@@ -18,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-part of vector_math_browser;
+part of vector_math;
 
 class _ScalerHelpers {
   static final _sqrtOneHalf = 0.707106781186548;

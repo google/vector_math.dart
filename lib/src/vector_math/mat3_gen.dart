@@ -1,8 +1,5 @@
 /*
-
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
+  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
   
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-part of vector_math_console;
+part of vector_math;
 /// mat3 is a column major matrix where each column is represented by [vec3]. This matrix has 3 columns and 3 rows.
 class mat3 {
   vec3 col0;
@@ -710,7 +707,7 @@ class mat3 {
     return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(Float32List array, [int offset=0]) {
+  void copyIntoArray(List<num> array, [int offset=0]) {
     int i = offset;
     array[i] = col0.x;
     i++;
@@ -730,51 +727,27 @@ class mat3 {
     i++;
     array[i] = col2.z;
     i++;
-  }
-  /// Returns a copy of [this] as a [Float32List].
-  Float32List copyAsArray() {
-    Float32List array = new Float32List(9);
-    int i = 0;
-    array[i] = col0.x;
-    i++;
-    array[i] = col0.y;
-    i++;
-    array[i] = col0.z;
-    i++;
-    array[i] = col1.x;
-    i++;
-    array[i] = col1.y;
-    i++;
-    array[i] = col1.z;
-    i++;
-    array[i] = col2.x;
-    i++;
-    array[i] = col2.y;
-    i++;
-    array[i] = col2.z;
-    i++;
-    return array;
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(Float32List array, [int offset=0]) {
+  void copyFromArray(List<num> array, [int offset=0]) {
     int i = offset;
-    col0.x = array[i];
+    col0.x = array[i].toDouble();
     i++;
-    col0.y = array[i];
+    col0.y = array[i].toDouble();
     i++;
-    col0.z = array[i];
+    col0.z = array[i].toDouble();
     i++;
-    col1.x = array[i];
+    col1.x = array[i].toDouble();
     i++;
-    col1.y = array[i];
+    col1.y = array[i].toDouble();
     i++;
-    col1.z = array[i];
+    col1.z = array[i].toDouble();
     i++;
-    col2.x = array[i];
+    col2.x = array[i].toDouble();
     i++;
-    col2.y = array[i];
+    col2.y = array[i].toDouble();
     i++;
-    col2.z = array[i];
+    col2.z = array[i].toDouble();
     i++;
   }
   vec3 get right {

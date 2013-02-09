@@ -1,7 +1,4 @@
 /*
-
-  VectorMath.dart
-
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
 
   This software is provided 'as-is', without any express or implied
@@ -22,7 +19,7 @@
 
 */
 
-part of vector_math_browser;
+part of vector_math;
 
 class aabb3 {
   vec3 _min;

@@ -3,7 +3,7 @@ library console_test_harness;
 import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/vm_config.dart';
-import 'package:vector_math/vector_math_console.dart';
+import 'package:vector_math/vector_math.dart';
 
 part 'base_test.dart';
 part 'test_quaternion.dart';

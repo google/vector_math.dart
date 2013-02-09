@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-
+  
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -19,7 +19,7 @@
 
 */
 
-part of vector_math_browser;
+part of vector_math;
 
 /// Returns absolute value of [arg].
 dynamic abs(dynamic arg, [dynamic out=null]) {

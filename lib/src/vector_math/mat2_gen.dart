@@ -1,8 +1,5 @@
 /*
-
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
+  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
   
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-part of vector_math_console;
+part of vector_math;
 /// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 rows.
 class mat2 {
   vec2 col0;
@@ -435,7 +432,7 @@ class mat2 {
     return transform(out);
   }
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(Float32List array, [int offset=0]) {
+  void copyIntoArray(List<num> array, [int offset=0]) {
     int i = offset;
     array[i] = col0.x;
     i++;
@@ -445,31 +442,17 @@ class mat2 {
     i++;
     array[i] = col1.y;
     i++;
-  }
-  /// Returns a copy of [this] as a [Float32List].
-  Float32List copyAsArray() {
-    Float32List array = new Float32List(4);
-    int i = 0;
-    array[i] = col0.x;
-    i++;
-    array[i] = col0.y;
-    i++;
-    array[i] = col1.x;
-    i++;
-    array[i] = col1.y;
-    i++;
-    return array;
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(Float32List array, [int offset=0]) {
+  void copyFromArray(List<num> array, [int offset=0]) {
     int i = offset;
-    col0.x = array[i];
+    col0.x = array[i].toDouble();
     i++;
-    col0.y = array[i];
+    col0.y = array[i].toDouble();
     i++;
-    col1.x = array[i];
+    col1.x = array[i].toDouble();
     i++;
-    col1.y = array[i];
+    col1.y = array[i].toDouble();
     i++;
   }
 }

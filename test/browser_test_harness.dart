@@ -4,7 +4,7 @@ import 'dart:html';
 import 'dart:math' as Math;
 import 'package:unittest/html_config.dart';
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math_browser.dart';
+import 'package:vector_math/vector_math.dart';
 
 part 'base_test.dart';
 part 'test_quaternion.dart';

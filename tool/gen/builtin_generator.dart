@@ -110,6 +110,9 @@ class BuiltinGenerator extends BaseGenerator {
 
   void generate(List<GeneratedFunctionDesc> functions) {
     writeLicense();
+    iPrint('');
+    iPrint('part of vector_math;');
+    iPrint('');
     functions.forEach((f) {
       if (f.custom != null) {
         f.custom(f, this);

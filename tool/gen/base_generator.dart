@@ -74,7 +74,6 @@ List<String> PrintablePermutation(List<int> seq, List<String> components) {
 class BaseGenerator {
   int _indent;
   RandomAccessFile out;
-  String floatArrayType = 'Float32Array';
   String numType = 'num';
 
   BaseGenerator() {
@@ -96,15 +95,11 @@ class BaseGenerator {
       indent = '$indent  ';
     }
     out.writeStringSync('$indent$s\n');
-    //print('$indent$s');
   }
 
   void writeLicense() {
     iPrint('''/*
-
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
+  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
   
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages

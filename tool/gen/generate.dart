@@ -30,9 +30,7 @@ part 'builtin_generator.dart';
 part 'vector_generator.dart';
 part 'matrix_generator.dart';
 
-String htmlBasePath = 'lib/src/html';
-String consoleBasePath = 'lib/src/console';
-String basePath = 'lib/src/common';
+String basePath = 'lib/src/vector_math';
 
 void generateBuiltin() {
   var f;
@@ -107,11 +105,10 @@ void generateVector() {
   var f;
   var o;
 
-  f = new File('${htmlBasePath}/vec2_gen.dart');
+  f = new File('${basePath}/vec2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'double';
@@ -124,11 +121,10 @@ void generateVector() {
     opened.closeSync();
   });
 
-  f = new File('${htmlBasePath}/vec3_gen.dart');
+  f = new File('${basePath}/vec3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32Array';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'double';
@@ -141,62 +137,10 @@ void generateVector() {
     opened.closeSync();
   });
 
-  f = new File('${htmlBasePath}/vec4_gen.dart');
+  f = new File('${basePath}/vec4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32Array';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'double';
-    vg.vectorComponents = ['x','y', 'z', 'w'];
-    vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
-    vg.generatedName = 'vec4';
-    vg.vectorLen = 4;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/vec2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32List';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'double';
-    vg.vectorComponents = ['x','y'];
-    vg.componentAliases = [ ['r','g'], ['s','t']];
-    vg.generatedName = 'vec2';
-    vg.vectorLen = 2;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/vec3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32List';
-    vg.allTypes = ['vec2', 'vec3', 'vec4'];
-    vg.allTypesLength = [2,3,4];
-    vg.vectorType = 'double';
-    vg.vectorComponents = ['x','y', 'z'];
-    vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
-    vg.generatedName = 'vec3';
-    vg.vectorLen = 3;
-    vg.out = opened;
-    vg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/vec4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    VectorGenerator vg = new VectorGenerator();
-    vg.floatArrayType = 'Float32List';
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'double';
@@ -213,215 +157,31 @@ void generateVector() {
 void generateMatrix() {
   var f = null;
   var o;
-  f = new File('${htmlBasePath}/mat2_gen.dart');
+  f = new File('${basePath}/mat2_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
     mg.rows = 2;
     mg.cols = 2;
     mg.out = opened;
     mg.generate();
     opened.closeSync();
   });
-  /*
-  f = new File('${htmlBasePath}/matrix2x3_gen.dart');
+  f = new File('${basePath}/mat3_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.cols = 2;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${htmlBasePath}/matrix2x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.cols = 2;
-    mg.rows = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${htmlBasePath}/matrix3x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 2;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  */
-  f = new File('${htmlBasePath}/mat3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
     mg.rows = 3;
     mg.cols = 3;
     mg.out = opened;
     mg.generate();
     opened.closeSync();
   });
-  /*
-  f = new File('${htmlBasePath}/matrix3x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 4;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
 
-  f = new File('${htmlBasePath}/matrix4x2_gen.dart');
+  f = new File('${basePath}/mat4_gen.dart');
   o = f.open(FileMode.WRITE);
   o.then((opened) {
     MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 2;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${htmlBasePath}/matrix4x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.cols = 4;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-*/
-  f = new File('${htmlBasePath}/mat4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32Array';
-    mg.rows = 4;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/mat2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 2;
-    mg.cols = 2;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  /*
-  f = new File('${consoleBasePath}/matrix2x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.cols = 2;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/matrix2x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.cols = 2;
-    mg.rows = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/matrix3x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 2;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  */
-  f = new File('${consoleBasePath}/mat3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 3;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-  /*
-  f = new File('${consoleBasePath}/matrix3x4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 4;
-    mg.cols = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/matrix4x2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.rows = 2;
-    mg.cols = 4;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-
-  f = new File('${consoleBasePath}/matrix4x3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
-    mg.cols = 4;
-    mg.rows = 3;
-    mg.out = opened;
-    mg.generate();
-    opened.closeSync();
-  });
-*/
-  f = new File('${consoleBasePath}/mat4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.floatArrayType = 'Float32List';
     mg.rows = 4;
     mg.cols = 4;
     mg.out = opened;

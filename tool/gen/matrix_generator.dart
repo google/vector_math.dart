@@ -82,11 +82,7 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generatePrologue() {
-    if (floatArrayType == 'Float32Array') {
-      iPrint('part of vector_math_browser;');
-    } else {
-      iPrint('part of vector_math_console;');
-    }
+    iPrint('part of vector_math;');
     iPrint('\/\/\/ ${matType} is a column major matrix where each column is represented by [$colVecType]. This matrix has $cols columns and $rows rows.');
     iPrint('class ${matType} {');
     iPush();
@@ -1852,7 +1848,7 @@ class MatrixGenerator extends BaseGenerator {
 
   void generateBuffer() {
     iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
-    iPrint('void copyIntoArray(${floatArrayType} array, [int offset=0]) {');
+    iPrint('void copyIntoArray(List<num> array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (int j = 0; j < cols; j++) {
@@ -1861,29 +1857,15 @@ class MatrixGenerator extends BaseGenerator {
         iPrint('i++;');
       }
     }
-    iPop();
-    iPrint('}');
-    iPrint('\/\/\/ Returns a copy of [this] as a [${floatArrayType}].');
-    iPrint('${floatArrayType} copyAsArray() {');
-    iPush();
-    iPrint('${floatArrayType} array = new ${floatArrayType}(${rows * cols});');
-    iPrint('int i = 0;');
-    for (int j = 0; j < cols; j++) {
-      for (int i = 0; i < rows; i++) {
-        iPrint('array[i] = ${Access(i,j)};');
-        iPrint('i++;');
-      }
-    }
-    iPrint('return array;');
     iPop();
     iPrint('}');
     iPrint('\/\/\/ Copies elements from [array] into [this] starting at [offset].');
-    iPrint('void copyFromArray(${floatArrayType} array, [int offset=0]) {');
+    iPrint('void copyFromArray(List<num> array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (int j = 0; j < cols; j++) {
       for (int i = 0; i < rows; i++) {
-        iPrint('${Access(i,j)} = array[i];');
+        iPrint('${Access(i,j)} = array[i].toDouble();');
         iPrint('i++;');
       }
     }

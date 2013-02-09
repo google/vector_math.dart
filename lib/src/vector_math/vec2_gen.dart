@@ -1,8 +1,5 @@
 /*
-
-  VectorMath.dart
-  
-  Copyright (C) 2012 John McCutchan <john@johnmccutchan.com>
+  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
   
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
-part of vector_math_console;
+part of vector_math;
 class vec2 {
   double x;
   double y;
@@ -72,11 +69,11 @@ class vec2 {
     return this;
   }
   /// Constructs a new [vec2] that is initialized with values from [array] starting at [offset].
-  vec2.array(Float32List array, [int offset=0]) {
+  vec2.array(List<num> array, [int offset=0]) {
     int i = offset;
-    x = array[i];
+    x = array[i].toDouble();
     i++;
-    y = array[i];
+    y = array[i].toDouble();
     i++;
   }
   /// Splats a scalar into all lanes of the vector.
@@ -392,29 +389,19 @@ class vec2 {
     return this;
   }
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(Float32List array, [int offset=0]) {
+  void copyIntoArray(List<num> array, [int offset=0]) {
     int i = offset;
     array[i] = x;
     i++;
     array[i] = y;
     i++;
-  }
-  /// Returns a copy of [this] as a [Float32List].
-  Float32List copyAsArray() {
-    Float32List array = new Float32List(2);
-    int i = 0;
-    array[i] = x;
-    i++;
-    array[i] = y;
-    i++;
-    return array;
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(Float32List array, [int offset=0]) {
+  void copyFromArray(List<num> array, [int offset=0]) {
     int i = offset;
-    x = array[i];
+    x = array[i].toDouble();
     i++;
-    y = array[i];
+    y = array[i].toDouble();
     i++;
   }
 }

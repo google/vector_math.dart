@@ -40,11 +40,7 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generatePrologue() {
-    if (floatArrayType == 'Float32Array') {
-      iPrint('part of vector_math_browser;');
-    } else {
-      iPrint('part of vector_math_console;');
-    }
+    iPrint('part of vector_math;');
     iPrint('class $generatedName {');
     iPush();
     vectorComponents.forEach((comp) {
@@ -194,11 +190,11 @@ class VectorGenerator extends BaseGenerator {
     iPrint('}');
 
     iPrint('\/\/\/ Constructs a new [$generatedName] that is initialized with values from [array] starting at [offset].');
-    iPrint('$generatedName.array(${floatArrayType} array, [int offset=0]) {');
+    iPrint('$generatedName.array(List<num> array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (String e in vectorComponents) {
-      iPrint('$e = array[i];');
+      iPrint('$e = array[i].toDouble();');
       iPrint('i++;');
     }
     iPop();
@@ -706,33 +702,21 @@ class VectorGenerator extends BaseGenerator {
 
   void generateBuffer() {
     iPrint('\/\/\/ Copies [this] into [array] starting at [offset].');
-    iPrint('void copyIntoArray(${floatArrayType} array, [int offset=0]) {');
+    iPrint('void copyIntoArray(List<num> array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (String c in vectorComponents) {
       iPrint('array[i] = $c;');
       iPrint('i++;');
     }
-    iPop();
-    iPrint('}');
-    iPrint('\/\/\/ Returns a copy of [this] as a [${floatArrayType}].');
-    iPrint('${floatArrayType} copyAsArray() {');
-    iPush();
-    iPrint('${floatArrayType} array = new ${floatArrayType}($vectorLen);');
-    iPrint('int i = 0;');
-    for (String c in vectorComponents) {
-      iPrint('array[i] = $c;');
-      iPrint('i++;');
-    }
-    iPrint('return array;');
     iPop();
     iPrint('}');
     iPrint('\/\/\/ Copies elements from [array] into [this] starting at [offset].');
-    iPrint('void copyFromArray(${floatArrayType} array, [int offset=0]) {');
+    iPrint('void copyFromArray(List<num> array, [int offset=0]) {');
     iPush();
     iPrint('int i = offset;');
     for (String c in vectorComponents) {
-      iPrint('$c = array[i];');
+      iPrint('$c = array[i].toDouble();');
       iPrint('i++;');
     }
     iPop();
