@@ -3,7 +3,7 @@ library console_test_runner;
 import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/vm_config.dart';
-import 'package:vector_math/vector_math_console.dart';
+import 'package:vector_math/vector_math.dart';
 import 'test_dump_render_tree.dart' as drt;
 import 'console_test_harness.dart' as console;
 
