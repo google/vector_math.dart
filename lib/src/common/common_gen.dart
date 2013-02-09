@@ -19,6 +19,8 @@
 
 */
 
+part of vector_math_browser;
+
 /// Returns absolute value of [arg].
 dynamic abs(dynamic arg, [dynamic out=null]) {
   if (arg is double) {

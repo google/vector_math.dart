@@ -18,6 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+part of vector_math_browser;
 
 /// Returns the dot product between vectors [x] and [y]. The dimension of [x] and [y] must match.
 double dot(dynamic x, dynamic y) {
