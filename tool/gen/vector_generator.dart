@@ -241,18 +241,23 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generateScaleOperator(String op) {
-    iPrint('\/\/\/ Returns a new $generatedName ${op == '*' ? 'scaled' : 'divided'} by [other]');
+    bool isMultiply = op == '*';
+    iPrint('\/\/\/ Returns a new $generatedName ${isMultiply ? 'scaled' : 'divided'} by [other]');
     iPrint('$generatedName operator$op(dynamic other) {');
     iPush();
 
     iPrint('if (other is num) {');
     {
       iPush();
-      iPrint('var o = other.toDouble();');
+      if (isMultiply) {
+        iPrint('var o = other.toDouble();');
+      } else {
+        iPrint('var o = 1.0 / other.toDouble();');
+      }
       String code = 'return new $generatedName.raw(';
       bool first = true;
       vectorComponents.forEach((comp) {
-        var extra =first ? '$comp $op other' :', $comp $op o';
+        var extra =first ? '$comp * o' :', $comp * o';
         code = '$code$extra';
         first = false;
       });

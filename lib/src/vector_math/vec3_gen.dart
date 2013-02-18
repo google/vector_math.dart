@@ -114,8 +114,8 @@ class vec3 {
   /// Returns a new vec3 divided by [other]
   vec3 operator/(dynamic other) {
     if (other is num) {
-      var o = other.toDouble();
-      return new vec3.raw(x / other, y / o, z / o);
+      var o = 1.0 / other.toDouble();
+      return new vec3.raw(x * o, y * o, z * o);
     }
     if (other is vec3) {
       return new vec3.raw(x / other.x, y / other.y, z / other.z);
@@ -125,7 +125,7 @@ class vec3 {
   vec3 operator*(dynamic other) {
     if (other is num) {
       var o = other.toDouble();
-      return new vec3.raw(x * other, y * o, z * o);
+      return new vec3.raw(x * o, y * o, z * o);
     }
     if (other is vec3) {
       return new vec3.raw(x * other.x, y * other.y, z * other.z);

@@ -94,8 +94,8 @@ class vec2 {
   /// Returns a new vec2 divided by [other]
   vec2 operator/(dynamic other) {
     if (other is num) {
-      var o = other.toDouble();
-      return new vec2.raw(x / other, y / o);
+      var o = 1.0 / other.toDouble();
+      return new vec2.raw(x * o, y * o);
     }
     if (other is vec2) {
       return new vec2.raw(x / other.x, y / other.y);
@@ -105,7 +105,7 @@ class vec2 {
   vec2 operator*(dynamic other) {
     if (other is num) {
       var o = other.toDouble();
-      return new vec2.raw(x * other, y * o);
+      return new vec2.raw(x * o, y * o);
     }
     if (other is vec2) {
       return new vec2.raw(x * other.x, y * other.y);
