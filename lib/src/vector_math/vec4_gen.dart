@@ -126,8 +126,8 @@ class vec4 {
   /// Returns a new vec4 divided by [other]
   vec4 operator/(dynamic other) {
     if (other is num) {
-      var o = other.toDouble();
-      return new vec4.raw(x / other, y / o, z / o, w / o);
+      var o = 1.0 / other.toDouble();
+      return new vec4.raw(x * o, y * o, z * o, w * o);
     }
     if (other is vec4) {
       return new vec4.raw(x / other.x, y / other.y, z / other.z, w / other.w);
@@ -137,7 +137,7 @@ class vec4 {
   vec4 operator*(dynamic other) {
     if (other is num) {
       var o = other.toDouble();
-      return new vec4.raw(x * other, y * o, z * o, w * o);
+      return new vec4.raw(x * o, y * o, z * o, w * o);
     }
     if (other is vec4) {
       return new vec4.raw(x * other.x, y * other.y, z * other.z, w * other.w);
