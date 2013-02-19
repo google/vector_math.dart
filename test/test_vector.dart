@@ -111,6 +111,34 @@ class VectorTest extends BaseTest {
     print('failure.');
   }
 
+  void testGLSLConstructor() {
+    var vec = new vec3(new vec2.raw(1, -1), 0);
+
+    expect(vec.x, equals(1));
+    expect(vec.y, equals(-1));
+    expect(vec.z, equals(0));
+
+    vec = new vec3(2, new vec2.raw(1, 1));
+
+    expect(vec.x, equals(2));
+    expect(vec.y, equals(1));
+    expect(vec.z, equals(1));
+
+    vec = new vec4(new vec3.raw(1,1,1),2);
+
+    expect(vec.x, equals(1));
+    expect(vec.y, equals(1));
+    expect(vec.z, equals(1));
+    expect(vec.w, equals(2));
+
+    vec = new vec4(2,new vec3.raw(1,1,1));
+
+    expect(vec.x, equals(2));
+    expect(vec.y, equals(1));
+    expect(vec.z, equals(1));
+    expect(vec.w, equals(1));
+  }
+
   void test() {
     print('Running vector tests');
     testVec2DotProduct();
@@ -118,5 +146,6 @@ class VectorTest extends BaseTest {
     testVec3DotProduct();
     testVec3CrossProduct();
     testDefaultConstructor();
+    testGLSLConstructor();
   }
 }

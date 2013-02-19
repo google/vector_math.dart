@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -29,14 +29,17 @@ class vec3 {
     if (x_ is vec2 && y_ is num) {
       this.xy = x_.xy;
       this.z = y_.toDouble();
+      return;
     }
     if (x_ is num && y_ is vec2) {
       this.x = x_.toDouble();
       this.yz = y_.xy;
+      return;
     }
     if (x_ is vec2 && y_ == null) {
       this.xy = x_.xy;
       this.z = 0.0;
+      return;
     }
     if (x_ is vec3) {
       xyz = x_.xyz;
