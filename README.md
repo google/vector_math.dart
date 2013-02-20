@@ -37,6 +37,11 @@ dependencies:
 import 'package:vector_math/vector_math.dart';
 ```
 
+
+## Documentation ##
+
+Read the [docs](http://www.dartgamedevs.org/packages/vector_math/docs/)
+
 ## Examples ##
 
 1\. Using the GLSL getter and setter syntax.
