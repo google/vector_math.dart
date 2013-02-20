@@ -1,9 +1,10 @@
 name: vector_math
 description: A Vector Math library for 2D and 3D applications.
-version: 0.9.2
+version: 0.9.3
 author: John McCutchan <john@johnmccutchan.com>
 homepage: https://github.com/johnmccutchan/DartVectorMath
 dependencies:
   browser: any
   unittest: any
   bot: ">=0.12.0"
+

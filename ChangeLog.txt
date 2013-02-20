@@ -1,3 +1,14 @@
+v 0.9.3 - February 2013
+
+- Revert to using a single library!
+- Public API reverted to taking nums instead of doubles.
+- Fixed all warnings/errors introduced by M3.
+- drone.io integrated tests.
+- Fixed bug in rotation construction.
+- Fixed bug in orthographic matrix construction.
+- External contribution by fkleon fixing flexible constructors.
+- External contribution by donny-dont adding a missing cast .toDouble().
+
 v 0.9.0 - October 2012
 
 - Pub: Dart Vector Math now fully supports the pub package management system!
