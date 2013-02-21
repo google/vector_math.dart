@@ -1,3 +1,11 @@
+v 0.9.4 - February 2013
+
+- Remove unnecessary dart:scalarlist import.
+- Now that dart2js is fixed, rename negate_ back to negate.
+- Fix library imports in test suites.
+- Flexible constructor fix added to the generator.
+- Tested library under dart2js
+
 v 0.9.3 - February 2013
 
 - Revert to using a single library!
