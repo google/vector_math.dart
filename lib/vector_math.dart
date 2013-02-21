@@ -21,7 +21,6 @@
 
 library vector_math;
 import 'dart:math' as Math;
-import 'dart:scalarlist';
 
 part 'src/vector_math/scalar_math.dart';
 part 'src/vector_math/vec2_gen.dart';
