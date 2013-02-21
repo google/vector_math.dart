@@ -605,7 +605,7 @@ class mat3 {
     col2.z = col2.z - o.col2.z;
     return this;
   }
-  mat3 negate_() {
+  mat3 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;

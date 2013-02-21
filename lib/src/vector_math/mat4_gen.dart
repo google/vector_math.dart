@@ -1142,7 +1142,7 @@ class mat4 {
     col3.w = col3.w - o.col3.w;
     return this;
   }
-  mat4 negate_() {
+  mat4 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col0.z = -col0.z;

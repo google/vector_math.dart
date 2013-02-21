@@ -1558,7 +1558,7 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateSelfNegate() {
-    iPrint('$matType negate_() {');
+    iPrint('$matType negate() {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {

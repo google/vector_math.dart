@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-
+  
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -808,7 +808,7 @@ class vec3 {
   vec3 scaled(num arg) {
     return clone().scale(arg);
   }
-  vec3 negate_() {
+  vec3 negate() {
     x = -x;
     y = -y;
     z = -z;

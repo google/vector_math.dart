@@ -71,6 +71,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.xy = ${vectorComponents[0]}_.xy;');
       iPrint('this.z = ${vectorComponents[1]}_.toDouble();');
+      iPrint('return;');
       iPop();
       iPrint('}');
 
@@ -78,6 +79,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.x = ${vectorComponents[0]}_.toDouble();');
       iPrint('this.yz = ${vectorComponents[1]}_.xy;');
+      iPrint('return;');
       iPop();
       iPrint('}');
 
@@ -85,6 +87,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.xy = ${vectorComponents[0]}_.xy;');
       iPrint('this.z = 0.0;');
+      iPrint('return;');
       iPop();
       iPrint('}');
     } else if (generatedName == 'vec4') {
@@ -92,6 +95,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.xyz = ${vectorComponents[0]}_.xyz;');
       iPrint('this.w = ${vectorComponents[1]}_.toDouble();');
+      iPrint('return;');
       iPop();
       iPrint('}');
 
@@ -99,6 +103,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.x = ${vectorComponents[0]}_.toDouble();');
       iPrint('this.yzw = ${vectorComponents[1]}_.xyz;');
+      iPrint('return;');
       iPop();
       iPrint('}');
 
@@ -106,6 +111,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.xyz = ${vectorComponents[0]}_.xyz;');
       iPrint('this.z = 0.0;');
+      iPrint('return;');
       iPop();
       iPrint('}');
 
@@ -113,6 +119,7 @@ class VectorGenerator extends BaseGenerator {
       iPush();
       iPrint('this.xy = ${vectorComponents[0]}_.xy;');
       iPrint('this.zw = ${vectorComponents[1]}_.xy;');
+      iPrint('return;');
       iPop();
       iPrint('}');
     }
@@ -630,7 +637,7 @@ class VectorGenerator extends BaseGenerator {
   }
 
   void generateSelfNegate() {
-    iPrint('$generatedName negate_() {');
+    iPrint('$generatedName negate() {');
     iPush();
     for (String c in vectorComponents) {
       iPrint('$c = -$c;');

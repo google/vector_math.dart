@@ -372,7 +372,7 @@ class mat2 {
     col1.y = col1.y - o.col1.y;
     return this;
   }
-  mat2 negate_() {
+  mat2 negate() {
     col0.x = -col0.x;
     col0.y = -col0.y;
     col1.x = -col1.x;
