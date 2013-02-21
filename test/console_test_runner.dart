@@ -7,12 +7,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_dump_render_tree.dart' as drt;
 import 'console_test_harness.dart' as console;
 
-part 'base_test.dart';
-part 'test_quaternion.dart';
-part 'test_matrix.dart';
-part 'test_vector.dart';
-part 'test_opengl_matrix.dart';
-part 'test_builtin.dart';
+import 'vector_math_test.dart';
 
 main() {
   final config = new VMConfiguration();
