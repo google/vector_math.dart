@@ -141,6 +141,14 @@ class VectorTest extends BaseTest {
     expect(vec.w, equals(1));
   }
 
+  void testNegate() {
+    var vec = new vec3(1.0, 2.0, 3.0);
+    vec.negate();
+    expect(vec.x, equals(-1.0));
+    expect(vec.y, equals(-2.0));
+    expect(vec.z, equals(-3.0));
+  }
+
   void test() {
     print('Running vector tests');
     testVec2DotProduct();
@@ -148,6 +156,7 @@ class VectorTest extends BaseTest {
     testVec3DotProduct();
     testVec3CrossProduct();
     testDefaultConstructor();
+    testNegate();
     testGLSLConstructor();
   }
 }
