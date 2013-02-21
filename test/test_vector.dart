@@ -1,4 +1,4 @@
-part of console_test_harness;
+part of vector_math_test;
 
 class VectorTest extends BaseTest {
 
@@ -16,7 +16,9 @@ class VectorTest extends BaseTest {
     num expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
     relativeTest(cross(inputA, inputB), expectedOutputCross);
     relativeTest(cross(1.0, inputA), new vec2(-inputA.y,  inputA.x));
-    relativeTest(cross(inputA, 1.0), new vec2( inputA.y, -inputA.x));
+    var result = new vec2.zero();
+    cross(inputA, 1.0, result);
+    relativeTest(result, new vec2( inputA.y, -inputA.x));
   }
 
   void testVec3DotProduct() {

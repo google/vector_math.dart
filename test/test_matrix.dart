@@ -1,4 +1,5 @@
-part of console_test_harness;
+part of vector_math_test;
+
 class MatrixTest extends BaseTest {
 
   void testMatrixTranspose() {

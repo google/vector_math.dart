@@ -1,4 +1,5 @@
-part of console_test_harness;
+part of vector_math_test;
+
 class BuiltinTest extends BaseTest {
   void testMix() {
     List<dynamic> inputA = new List<dynamic>();

@@ -1,4 +1,5 @@
-part of console_test_harness;
+part of vector_math_test;
+
 class QuaternionTest extends BaseTest {
   void testConjugate(List<quat> input, List<quat> expectedOutput) {
     assert(input.length == expectedOutput.length);

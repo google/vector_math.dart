@@ -1,4 +1,5 @@
-part of console_test_harness;
+part of vector_math_test;
+
 class BaseTest {
   void testFailure(var output, var expectedOutput, num error) {
     print('FAILURE!!!');
@@ -12,7 +13,6 @@ class BaseTest {
     if (error >= errorThreshold) {
       testFailure(output, expectedOutput, error);
     }
-
     expect(error >= errorThreshold, isFalse);
   }
 
