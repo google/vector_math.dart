@@ -27,7 +27,8 @@ part of vector_math;
  *
  * The [upDirection] is almost always (0, 1, 0).
  */
-mat4 makeLookAt(vec3 cameraPosition, vec3 cameraFocusPosition, vec3 upDirection) {
+mat4 makeLookAt(vec3 cameraPosition, vec3 cameraFocusPosition,
+                vec3 upDirection) {
   vec3 z = cameraPosition - cameraFocusPosition;
   z.normalize();
 
@@ -52,10 +53,9 @@ mat4 makeLookAt(vec3 cameraPosition, vec3 cameraFocusPosition, vec3 upDirection)
 /**
  * Returns an OpenGL perspective camera projection matrix
  * */
-mat4 makePerspective(double fov_y_radians, double aspect_ratio, double znear, double zfar) {
-  double height = tan(fov_y_radians * 0.5) * znear;
-  double width = height * aspect_ratio;
-
+mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
+  double height = tan(fov_y_radians.toDouble() * 0.5) * znear.toDouble();
+  double width = height.toDouble() * aspect_ratio.toDouble();
   return makeFrustum(-width, width, -height, height, znear, zfar);
 }
 
@@ -63,6 +63,12 @@ mat4 makePerspective(double fov_y_radians, double aspect_ratio, double znear, do
  * Returns an OpenGL frustum camera projection matrix
  */
 mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
+  left = left.toDouble();
+  right = right.toDouble();
+  bottom = bottom.toDouble();
+  top = top.toDouble();
+  near = near.toDouble();
+  far = far.toDouble();
   double two_near = 2.0 * near;
   double right_minus_left = right - left;
   double top_minus_bottom = top - bottom;
@@ -87,7 +93,14 @@ mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
 /**
  * Returns an OpenGL orthographic camera projection matrix
  */
-mat4 makeOrthographic(double left, double right, double bottom, double top, double znear, double zfar) {
+mat4 makeOrthographic(num left, num right, num bottom, num top, num znear,
+                      num zfar) {
+  left = left.toDouble();
+  right = right.toDouble();
+  bottom = bottom.toDouble();
+  top = top.toDouble();
+  znear = znear.toDouble();
+  zfar = zfar.toDouble();
   double rml = right - left;
   double rpl = right + left;
   double tmb = top - bottom;
@@ -157,6 +170,12 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
                num viewportY, num viewportHeight,
                num pickX, num pickY, num pickZ,
                vec3 pickWorld) {
+  viewportX = viewportX.toDouble();
+  viewportWidth = viewportWidth.toDouble();
+  viewportY = viewportY.toDouble();
+  viewportHeight = viewportHeight.toDouble();
+  pickX = pickX.toDouble();
+  pickY = pickY.toDouble();
   pickX = (pickX - viewportX);
   pickY = (pickY - viewportY);
   pickX = (2.0 * pickX / viewportWidth) - 1.0;
@@ -207,14 +226,14 @@ bool pickRay(mat4 cameraMatrix, num viewportX, num viewportWidth,
 
   bool r;
 
-  r = unproject(cameraMatrix, viewportX, viewportWidth,
-                viewportY, viewportHeight, pickX, viewportHeight-pickY, 0.0, rayNear);
+  r = unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
+                viewportHeight, pickX, viewportHeight-pickY, 0.0, rayNear);
   if (!r) {
     return false;
   }
 
-  r = unproject(cameraMatrix, viewportX, viewportWidth,
-                viewportY, viewportHeight, pickX, viewportHeight-pickY, 1.0, rayFar);
+  r = unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
+                viewportHeight, pickX, viewportHeight-pickY, 1.0, rayFar);
 
   return r;
 }
