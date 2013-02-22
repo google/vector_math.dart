@@ -44,15 +44,15 @@ class quat {
     z = 0.0;
     w = 1.0;
 
-    if (a is double && b is double && c is double && d is double) {
-      x = a;
-      y = b;
-      z = c;
-      w = d;
+    if (a is num && b is num && c is num && d is num) {
+      x = a.toDouble();
+      y = b.toDouble();
+      z = c.toDouble();
+      w = d.toDouble();
       return;
     }
 
-    if (a is vec3 && b is double) {
+    if (a is vec3 && b is num) {
       setAxisAngle(a, b);
       return;
     }
@@ -83,10 +83,10 @@ class quat {
         y = (a.col2.x - a.col0.z) * s;
         z = (a.col0.y - a.col1.x) * s;
       } else {
-        int i = a.col0.x < a.col1.y ? (a.col1.y < a.col2.z ? 2 : 1) : (a.col0.x < a.col2.z ? 2 : 0);
+        int i = a.col0.x < a.col1.y ? (a.col1.y < a.col2.z ? 2 : 1) :
+            (a.col0.x < a.col2.z ? 2 : 0);
         int j = (i + 1) % 3;
         int k = (i + 2) % 3;
-
         double s = Math.sqrt(a[i][i] - a[j][j] - a[k][k] + 1.0);
         this[i] = s * 0.5;
         s = 0.5 / s;
@@ -98,7 +98,7 @@ class quat {
   }
 
   /// Constructs a new quaternion representing a rotation of [angle] around [axis]
-  quat.axisAngle(vec3 axis, double angle) {
+  quat.axisAngle(vec3 axis, num angle) {
     setAxisAngle(axis, angle);
   }
 
@@ -161,15 +161,18 @@ class quat {
     z = source.z;
     w = source.w;
   }
-  /// Copy [this] into [target]
+
+  /// Copy [this] into [target].
   void copyTo(quat target) {
     target.x = x;
     target.y = y;
     target.z = z;
     target.w = w;
   }
-  /** Set quaternion with rotation of [radians] around [axis] */
-  void setAxisAngle(vec3 axis, double radians) {
+
+  /// Set quaternion with rotation of [radians] around [axis].
+  void setAxisAngle(vec3 axis, num radians) {
+    radians = radians.toDouble();
     double len = axis.length;
     if (len == 0.0) {
       return;
@@ -182,7 +185,10 @@ class quat {
   }
 
   /** Set quaternion with rotation of [yaw], [pitch] and [roll] */
-  void setEuler(double yaw, double pitch, double roll) {
+  void setEuler(num yaw, num pitch, num roll) {
+    yaw = yaw.toDouble();
+    pitch = pitch.toDouble();
+    roll = roll.toDouble();
     double halfYaw = yaw * 0.5;
     double halfPitch = pitch * 0.5;
     double halfRoll = roll * 0.5;
@@ -306,7 +312,8 @@ class quat {
   }
 
   /** Return a copy of [this] divided by [scale] */
-  quat operator/(double scale) {
+  quat operator/(num scale) {
+    scale = scale.toDouble();
     return new quat(x / scale, y / scale, z / scale, w / scale);
   }
 
@@ -314,7 +321,8 @@ class quat {
     *  Returns copy of [this] rotated by [otherQuat]
     */
   quat operator*(dynamic other) {
-    if (other is double) {
+    if (other is num) {
+      other = other.toDobule();
       return new quat(x * other, y * other, z * other, w * other);
     }
     if (other is quat) {

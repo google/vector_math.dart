@@ -128,9 +128,9 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
   String prologue = 'dynamic ${function.name}(${bg.makeArgsString(function.args)}) {';
   bg.iPrint(prologue);
   bg.iPush();
-  bg.iPrint('if (t is double) {');
+  bg.iPrint('if (t is num) {');
   bg.iPush();
-  bg.iPrint('''  if (x is double) {
+  bg.iPrint('''  if (x is num) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
@@ -150,7 +150,7 @@ void generateMix(GeneratedFunctionDesc function, BuiltinGenerator bg) {
   bg.iPop();
   bg.iPrint('} else {');
   bg.iPush();
-  bg.iPrint('''  if (x is double) {
+  bg.iPrint('''  if (x is num) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {

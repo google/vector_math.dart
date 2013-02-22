@@ -12,7 +12,6 @@ void main() {
     test("test", () {
       qt.test();
     });
-
   });
 
   group('MatrixTest', () {

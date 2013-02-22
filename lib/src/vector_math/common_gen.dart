@@ -431,8 +431,8 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
 }
 /// Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.
 dynamic mix(dynamic x, dynamic y, dynamic t) {
-  if (t is double) {
-      if (x is double) {
+  if (t is num) {
+      if (x is num) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {
@@ -450,7 +450,7 @@ dynamic mix(dynamic x, dynamic y, dynamic t) {
       throw new ArgumentError(x);
 
   } else {
-      if (x is double) {
+      if (x is num) {
         return _ScalerHelpers.mix(x, y, t);
       }
       if (x is vec2) {

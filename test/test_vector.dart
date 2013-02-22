@@ -19,6 +19,8 @@ class VectorTest extends BaseTest {
     var result = new vec2.zero();
     cross(inputA, 1.0, result);
     relativeTest(result, new vec2( inputA.y, -inputA.x));
+    // Test passing a num "1" into cross.
+    relativeTest(cross(inputA, 1), new vec2( inputA.y, -inputA.x));
   }
 
   void testVec3DotProduct() {
@@ -98,19 +100,9 @@ class VectorTest extends BaseTest {
   }
 
   void testDefaultConstructor() {
-    try {
-      new vec2();
-    } catch (e) {
-      return;
-    }
-    print('failure.');
-
-    try {
-      new vec2(2, 4);
-    } catch (e) {
-      return;
-    }
-    print('failure.');
+    var v = new vec2(2, 4);
+    expect(v.x, equals(2.0));
+    expect(v.y, equals(4.0));
   }
 
   void testGLSLConstructor() {

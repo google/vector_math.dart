@@ -51,14 +51,16 @@ dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
     return x.cross(y, out);
   } else if (x is vec2 && y is vec2) {
     return x.cross(y);
-  } else if (x is double && y is vec2) {
+  } else if (x is num && y is vec2) {
+    x = x.toDouble();
     if (out == null) {
       out = new vec2.zero();
     }
     out.x = -x * y.y;
     out.y = x * y.x;
     return out;
-  } else if (x is vec2 && y is double) {
+  } else if (x is vec2 && y is num) {
+    y = y.toDouble();
     if (out == null) {
       out = new vec2.zero();
     }
@@ -71,10 +73,10 @@ dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
   return null;
 }
 
-/// Returns [x] normalized. Supports [double], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
+/// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
 dynamic normalize(dynamic x, [dynamic out=null]) {
-  if (x is double) {
-    return 1.0 * sign(x);
+  if (x is num) {
+    return 1.0 * sign(x.toDouble());
   }
   if (x is vec2) {
     if (out == null) {

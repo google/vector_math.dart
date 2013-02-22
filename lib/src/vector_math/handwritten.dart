@@ -28,8 +28,8 @@ part of vector_math;
   */
 dynamic atan(dynamic arg, [dynamic arg2]) {
   if (arg2 == null) {
-    if (arg is double) {
-      return Math.atan(arg);
+    if (arg is num) {
+      return Math.atan(arg.toDouble());
     }
     if (arg is vec2) {
       return new vec2(Math.atan(arg.x), Math.atan(arg.y));
@@ -41,8 +41,8 @@ dynamic atan(dynamic arg, [dynamic arg2]) {
       return new vec4(Math.atan(arg.x), Math.atan(arg.y), Math.atan(arg.z), Math.atan(arg.w));
     }
   } else {
-    if (arg is double) {
-      return Math.atan2(arg, arg2);
+    if (arg is num) {
+      return Math.atan2(arg.toDouble(), arg2);
     }
     if (arg is vec2) {
       return new vec2(Math.atan2(arg.x, arg2.x), Math.atan2(arg.y, arg2.y));
