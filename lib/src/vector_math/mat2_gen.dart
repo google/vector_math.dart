@@ -56,7 +56,6 @@ class mat2 {
       col0.x = arg0.x;
       col1.y = arg0.y;
     }
-    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [mat2] from computing the outer product of [u] and [v].
   mat2.outer(vec2 u, vec2 v) {

@@ -145,7 +145,6 @@ class VectorGenerator extends BaseGenerator {
     iPrint('return;');
     iPop();
     iPrint('}');
-    iPrint('throw new ArgumentError(\'Invalid arguments\');');
     iPop();
     iPrint('}');
 

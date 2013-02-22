@@ -38,7 +38,6 @@ class vec2 {
       x = y = x_.toDouble();
       return;
     }
-    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [vec2] zero vector.
   vec2.zero() { makeZero(); }

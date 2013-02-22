@@ -189,7 +189,6 @@ class MatrixGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
     }
-    iPrint('throw new ArgumentError(\'Invalid arguments\');');
     iPop();
     iPrint('}');
 

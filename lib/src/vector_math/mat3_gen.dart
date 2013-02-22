@@ -79,7 +79,6 @@ class mat3 {
       col1.y = arg0.y;
       col2.z = arg0.z;
     }
-    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [mat3] from computing the outer product of [u] and [v].
   mat3.outer(vec3 u, vec3 v) {

@@ -110,7 +110,6 @@ class mat4 {
       col2.z = arg0.z;
       col3.w = arg0.w;
     }
-    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [mat4] from computing the outer product of [u] and [v].
   mat4.outer(vec4 u, vec4 v) {

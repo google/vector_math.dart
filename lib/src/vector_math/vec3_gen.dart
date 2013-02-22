@@ -55,7 +55,6 @@ class vec3 {
       x = y = z = x_.toDouble();
       return;
     }
-    throw new ArgumentError('Invalid arguments');
   }
   /// Constructs a new [vec3] zero vector.
   vec3.zero() { makeZero(); }
