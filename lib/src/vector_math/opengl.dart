@@ -21,48 +21,95 @@
 part of vector_math;
 
 /**
- * Returns an OpenGL look at matrix.
- * The camera is located at [cameraPosition] and is focused
- * on [cameraFocusPostion].
+ * Constructs an OpenGL view matrix in [viewMatrix].
  *
- * The [upDirection] is almost always (0, 1, 0).
+ * [cameraPosition] specifies the position of the camera.
+ * [camearFocusPosition] specifies the position the camera is focused on.
+ * [upDirection] specifies the direction of the up vector (usually, +Y).
  */
-mat4 makeLookAt(vec3 cameraPosition, vec3 cameraFocusPosition,
-                vec3 upDirection) {
+void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
+                   vec3 cameraFocusPosition, vec3 upDirection) {
   vec3 z = cameraPosition - cameraFocusPosition;
   z.normalize();
-
   vec3 x = upDirection.cross(z);
   x.normalize();
-
   vec3 y = z.cross(x);
   y.normalize();
+  viewMatrix.setZero();
+  viewMatrix[0].xyz = x;
+  viewMatrix[1].xyz = y;
+  viewMatrix[2].xyz = z;
+  viewMatrix[3].w = 1.0;
+  viewMatrix.transpose();
+  vec3 rotatedEye = viewMatrix * -cameraPosition;
+  viewMatrix[3].xyz = rotatedEye;
+}
 
+/**
+ * Constructs a new OpenGL view matrix.
+ *
+ * [cameraPosition] specifies the position of the camera.
+ * [camearFocusPosition] specifies the position the camera is focused on.
+ * [upDirection] specifies the direction of the up vector (usually, +Y).
+ */
+mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
+                vec3 upDirection) {
   mat4 r = new mat4.zero();
-  r[0].xyz = x;
-  r[1].xyz = y;
-  r[2].xyz = z;
-  r[3].w = 1.0;
-  r = r.transposed();
-  vec3 rotatedEye = r * -cameraPosition;
-  r[3].xyz = rotatedEye;
-
+  setViewMatrix(r, cameraPosition, cameraFocusPosition, upDirection);
   return r;
 }
 
 /**
- * Returns an OpenGL perspective camera projection matrix
- * */
-mat4 makePerspective(num fov_y_radians, num aspect_ratio, num znear, num zfar) {
-  double height = tan(fov_y_radians.toDouble() * 0.5) * znear.toDouble();
-  double width = height.toDouble() * aspect_ratio.toDouble();
-  return makeFrustum(-width, width, -height, height, znear, zfar);
+ * Constructs an OpenGL perspective projection matrix in [perspectiveMatrix].
+ *
+ * [fovYRadians] specifies the field of view angle, in radians, in the y
+ * direction.
+ * [aspectRatio] specifies the aspect ratio that determines the field of view
+ * in the x direction. The aspect ratio of x (width) to y (height).
+ * [zNear] specifies the distance from the viewer to the near plane
+ * (always positive).
+ * [zFar] specifies the distance from the viewer to the far plane
+ * (always positive).
+ */
+void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
+                          num aspectRatio, num zNear, num zFar) {
+  double height = tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
+  double width = height.toDouble() * aspectRatio.toDouble();
+  setFrustumMatrix(perspectiveMatrix, -width, width, -height, height, zNear,
+                   zFar);
 }
 
 /**
- * Returns an OpenGL frustum camera projection matrix
+ * Constructs a new OpenGL perspective projection matrix.
+ *
+ * [fovYRadians] specifies the field of view angle, in radians, in the y
+ * direction.
+ * [aspectRatio] specifies the aspect ratio that determines the field of view
+ * in the x direction. The aspect ratio of x (width) to y (height).
+ * [zNear] specifies the distance from the viewer to the near plane
+ * (always positive).
+ * [zFar] specifies the distance from the viewer to the far plane
+ * (always positive).
  */
-mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
+mat4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
+                           num zFar) {
+  double height = tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
+  double width = height.toDouble() * aspectRatio.toDouble();
+  return makeFrustumMatrix(-width, width, -height, height, zNear, zFar);
+}
+
+/**
+ * Constructs an OpenGL perspective projection matrix in [perspectiveMatrix].
+ *
+ * [left], [right] specify the coordinates for the left and right vertical
+ * clipping planes.
+ * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * clipping planes.
+ * [near], [far] specify the coordinates to the near and far depth clipping
+ * planes.
+ */
+void setFrustumMatrix(mat4 perspectiveMatrix, num left, num right, num bottom,
+                      num top, num near, num far) {
   left = left.toDouble();
   right = right.toDouble();
   bottom = bottom.toDouble();
@@ -73,42 +120,59 @@ mat4 makeFrustum(num left, num right, num bottom, num top, num near, num far) {
   double right_minus_left = right - left;
   double top_minus_bottom = top - bottom;
   double far_minus_near = far - near;
-
-  mat4 view = new mat4.zero();
+  mat4 view = perspectiveMatrix.setZero();
   view[0].x = two_near / right_minus_left;
-
   view[1].y = two_near / top_minus_bottom;
-
   view[2].x = (right + left) / right_minus_left;
   view[2].y = (top + bottom) / top_minus_bottom;
   view[2].z = -(far + near) / far_minus_near;
   view[2].w = -1.0;
-
   view[3].z = -(two_near * far) / far_minus_near;
   view[3].w = 0.0;
+}
 
+/**
+ * Constructs a new OpenGL perspective projection matrix.
+ *
+ * [left], [right] specify the coordinates for the left and right vertical
+ * clipping planes.
+ * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * clipping planes.
+ * [near], [far] specify the coordinates to the near and far depth clipping
+ * planes.
+ */
+mat4 makeFrustumMatrix(num left, num right, num bottom, num top, num near,
+                       num far) {
+  mat4 view = new mat4.zero();
+  setFrustumMatrix(view, left, right, bottom, top, near, far);
   return view;
 }
 
 /**
- * Returns an OpenGL orthographic camera projection matrix
+ * Constructs an OpenGL orthographic projection matrix in [orthographicMatrix].
+ *
+ * [left], [right] specify the coordinates for the left and right vertical
+ * clipping planes.
+ * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * clipping planes.
+ * [near], [far] specify the coordinates to the near and far depth clipping
+ * planes.
  */
-mat4 makeOrthographic(num left, num right, num bottom, num top, num znear,
-                      num zfar) {
+void setOrthographicMatrix(mat4 orthographicMatrix, num left, num right,
+                           num bottom, num top, num near, num far) {
   left = left.toDouble();
   right = right.toDouble();
   bottom = bottom.toDouble();
   top = top.toDouble();
-  znear = znear.toDouble();
-  zfar = zfar.toDouble();
+  near = near.toDouble();
+  far = far.toDouble();
   double rml = right - left;
   double rpl = right + left;
   double tmb = top - bottom;
   double tpb = top + bottom;
-  double fmn = zfar - znear;
-  double fpn = zfar + znear;
-
-  mat4 r = new mat4.zero();
+  double fmn = far - near;
+  double fpn = far + near;
+  mat4 r = orthographicMatrix.setZero();
   r[0].x = 2.0/rml;
   r[1].y = 2.0/tmb;
   r[2].z = -2.0/fmn;
@@ -116,7 +180,22 @@ mat4 makeOrthographic(num left, num right, num bottom, num top, num znear,
   r[3].y = -tpb/tmb;
   r[3].z = -fpn/fmn;
   r[3].w = 1.0;
+}
 
+/**
+ * Constructs a new OpenGL orthographic projection matrix.
+ *
+ * [left], [right] specify the coordinates for the left and right vertical
+ * clipping planes.
+ * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * clipping planes.
+ * [near], [far] specify the coordinates to the near and far depth clipping
+ * planes.
+ */
+mat4 makeOrthographicMatrix(num left, num right, num bottom, num top, num near,
+                      num far) {
+  mat4 r = new mat4.zero();
+  setOrthographicMatrix(r, left, right, bottom, top, near, far);
   return r;
 }
 
