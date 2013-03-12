@@ -396,7 +396,7 @@ class VectorGenerator extends BaseGenerator {
       iPrint('set $pre($type arg) {');
       iPush();
       int z = 0;
-      for (String c in pre.splitChars()) {
+      for (String c in pre.split("")) {
         iPrint('$c = arg.${vectorComponents[z]};');
         z++;
       }
@@ -418,8 +418,9 @@ class VectorGenerator extends BaseGenerator {
     if (j == len) {
       return;
     }
+    List codeUnits = pre.codeUnits;
     for (int a = 0; a < vectorDimension; a++) {
-      if (pre.charCodes.indexOf(vectorComponents[a].charCodeAt(0)) != -1) {
+      if (codeUnits.indexOf(vectorComponents[a].codeUnits[0]) != -1) {
         continue;
       }
       String property_name = '$pre${vectorComponents[a]}';
@@ -443,7 +444,7 @@ class VectorGenerator extends BaseGenerator {
     if (i == len) {
       String code = '$type get $pre => new $type(';
       bool first = true;
-      pre.splitChars().forEach((c) {
+      pre.split("").forEach((c) {
         var extra = first ? '$c' : ', $c';
         code = '$code$extra';
         first = false;

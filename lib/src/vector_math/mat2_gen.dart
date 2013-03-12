@@ -43,13 +43,13 @@ class mat2 {
       return;
     }
     if (arg0 is vec2 && arg1 is vec2) {
-      col0 = arg0;
-      col1 = arg1;
+      col0 = arg0.clone();
+      col1 = arg1.clone();
       return;
     }
     if (arg0 is mat2) {
-      col0 = arg0.col0;
-      col1 = arg0.col1;
+      col0 = arg0.col0.clone();
+      col1 = arg0.col1.clone();
       return;
     }
     if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null) {
@@ -161,7 +161,9 @@ class mat2 {
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec2 arg) {
     assert(column >= 0 && column < 2);
-    this[column] = arg;
+    var col = this[column];
+    col.x = arg.x;
+    col.y = arg.y;
   }
   /// Gets the [column] of the matrix
   vec2 getColumn(int column) {

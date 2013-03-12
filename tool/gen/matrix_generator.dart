@@ -143,7 +143,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('if (${joinStrings(columnArguments, '', ' is vec${cols}', ' && ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = arg$i;');
+      iPrint('col$i = arg${i}.clone();');
     }
     iPrint('return;');
     iPop();
@@ -152,7 +152,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('if (arg0 is ${matType}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = arg0.col$i;');
+      iPrint('col$i = arg0.col${i}.clone();');
     }
     iPrint('return;');
     iPop();
@@ -461,7 +461,10 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('void setColumn(int column, $colVecType arg) {');
     iPush();
     iPrint('assert(column >= 0 && column < $cols);');
-    iPrint('this[column] = arg;');
+    iPrint('var col = this[column];');
+    for (int i = 0; i < cols; i++) {
+      iPrint('col.${AccessV(i)} = arg.${AccessV(i)};');
+    }
     iPop();
     iPrint('}');
 
@@ -811,7 +814,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('}');
 
     iPrint('\/\/\/ Rotate this matrix [angle] radians around Y');
-    iPrint('${matType} rotateY(double angle) {');
+    iPrint('${matType} rotateY(num angle) {');
     iPush();
     iPrint('double cosAngle = cos(angle);');
     iPrint('double sinAngle = sin(angle);');
@@ -840,7 +843,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('}');
 
     iPrint('\/\/\/ Rotate this matrix [angle] radians around Z');
-    iPrint('${matType} rotateZ(double angle) {');
+    iPrint('${matType} rotateZ(num angle) {');
     iPush();
     iPrint('double cosAngle = cos(angle);');
     iPrint('double sinAngle = sin(angle);');

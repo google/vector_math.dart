@@ -1,3 +1,9 @@
+v 0.9.6 - March 2013
+
+- Update to latest String library.
+- Fix holding references in matrix constructor.
+- Replace double type with num in rotationY, and rotationZ.
+
 v 0.9.5 - February 2013
 
 - Remove remaining double type tests and replace them with num.

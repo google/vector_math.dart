@@ -421,6 +421,30 @@ class MatrixTest extends BaseTest {
     relativeTest(rotZ.transformed(input), new vec3.raw(1 / Math.sqrt(2), 1.0 / Math.sqrt(2.0), 0.0));
   }
 
+  void testMat4Column() {
+    mat4 I = new mat4.zero();
+    expect(I[0].x, 0.0);
+    vec4 c0 = new vec4.raw(1.0, 2.0, 3.0, 4.0);
+    I.setColumn(0, c0);
+    expect(I[0].x, 1.0);
+    c0.x = 4.0;
+    expect(I[0].x, 1.0);
+    expect(c0.x, 4.0);
+  }
+
+  void testMat3ConstructorCopy() {
+    vec3 a = new vec3.raw(1.0, 2.0, 3.0);
+    vec3 b = new vec3.raw(4.0, 5.0, 6.0);
+    vec3 c = new vec3.raw(7.0, 8.0, 9.0);
+    mat3 m = new mat3(a, b, c);
+    expect(m.col0.x, 1.0);
+    expect(m.col2.z, 9.0);
+    c.z = 5.0;
+    a.x = 2.0;
+    expect(m.col0.x, 1.0);
+    expect(m.col2.z, 9.0);
+  }
+
   void test() {
     print('Running matrix tests');
     testMatrixTranspose();
@@ -436,5 +460,7 @@ class MatrixTest extends BaseTest {
     testRotateMatrix();
     testMat2Transform();
     testMat3Transform();
+    testMat4Column();
+    testMat3ConstructorCopy();
   }
 }

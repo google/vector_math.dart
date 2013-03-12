@@ -63,17 +63,17 @@ class mat4 {
       return;
     }
     if (arg0 is vec4 && arg1 is vec4 && arg2 is vec4 && arg3 is vec4) {
-      col0 = arg0;
-      col1 = arg1;
-      col2 = arg2;
-      col3 = arg3;
+      col0 = arg0.clone();
+      col1 = arg1.clone();
+      col2 = arg2.clone();
+      col3 = arg3.clone();
       return;
     }
     if (arg0 is mat4) {
-      col0 = arg0.col0;
-      col1 = arg0.col1;
-      col2 = arg0.col2;
-      col3 = arg0.col3;
+      col0 = arg0.col0.clone();
+      col1 = arg0.col1.clone();
+      col2 = arg0.col2.clone();
+      col3 = arg0.col3.clone();
       return;
     }
     if (arg0 is mat3) {
@@ -362,7 +362,11 @@ class mat4 {
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec4 arg) {
     assert(column >= 0 && column < 4);
-    this[column] = arg;
+    var col = this[column];
+    col.x = arg.x;
+    col.y = arg.y;
+    col.z = arg.z;
+    col.w = arg.w;
   }
   /// Gets the [column] of the matrix
   vec4 getColumn(int column) {
@@ -568,7 +572,7 @@ class mat4 {
     return this;
   }
   /// Rotate this matrix [angle] radians around Y
-  mat4 rotateY(double angle) {
+  mat4 rotateY(num angle) {
     double cosAngle = cos(angle);
     double sinAngle = sin(angle);
     var t1 = col0.x * cosAngle + col1.x * 0.0 + col2.x * sinAngle + col3.x * 0.0;
@@ -590,7 +594,7 @@ class mat4 {
     return this;
   }
   /// Rotate this matrix [angle] radians around Z
-  mat4 rotateZ(double angle) {
+  mat4 rotateZ(num angle) {
     double cosAngle = cos(angle);
     double sinAngle = sin(angle);
     var t1 = col0.x * cosAngle + col1.x * sinAngle + col2.x * 0.0 + col3.x * 0.0;

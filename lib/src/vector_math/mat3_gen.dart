@@ -52,15 +52,15 @@ class mat3 {
       return;
     }
     if (arg0 is vec3 && arg1 is vec3 && arg2 is vec3) {
-      col0 = arg0;
-      col1 = arg1;
-      col2 = arg2;
+      col0 = arg0.clone();
+      col1 = arg1.clone();
+      col2 = arg2.clone();
       return;
     }
     if (arg0 is mat3) {
-      col0 = arg0.col0;
-      col1 = arg0.col1;
-      col2 = arg0.col2;
+      col0 = arg0.col0.clone();
+      col1 = arg0.col1.clone();
+      col2 = arg0.col2.clone();
       return;
     }
     if (arg0 is mat2) {
@@ -234,7 +234,10 @@ class mat3 {
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec3 arg) {
     assert(column >= 0 && column < 3);
-    this[column] = arg;
+    var col = this[column];
+    col.x = arg.x;
+    col.y = arg.y;
+    col.z = arg.z;
   }
   /// Gets the [column] of the matrix
   vec3 getColumn(int column) {
