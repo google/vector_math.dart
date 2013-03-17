@@ -322,7 +322,7 @@ class quat {
     */
   quat operator*(dynamic other) {
     if (other is num) {
-      other = other.toDobule();
+      other = other.toDouble();
       return new quat(x * other, y * other, z * other, w * other);
     }
     if (other is quat) {
