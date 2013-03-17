@@ -127,7 +127,7 @@ class MatrixGenerator extends BaseGenerator {
     iPop();
     iPrint('}');
 
-    iPrint('if (arg0 is num && ${joinStrings(arguments.getRange(1, numArguments-1), '', ' == null', ' && ')}) {');
+    iPrint('if (arg0 is num && ${joinStrings(arguments.sublist(1, numArguments), '', ' == null', ' && ')}) {');
     iPush();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -181,7 +181,7 @@ class MatrixGenerator extends BaseGenerator {
 
     int diagonals = rows < cols ? rows : cols;
     for (int i = 1; i < diagonals; i++) {
-      iPrint('if (arg0 is vec${i+1} && ${joinStrings(arguments.getRange(1, numArguments-1), '', ' == null', ' && ')}) {');
+      iPrint('if (arg0 is vec${i+1} && ${joinStrings(arguments.sublist(1, numArguments), '', ' == null', ' && ')}) {');
       iPush();
       for (int j = 0; j < i+1; j++) {
         iPrint('${Access(j, j)} = arg0.${AccessV(j)};');

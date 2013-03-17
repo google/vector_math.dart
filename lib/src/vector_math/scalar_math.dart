@@ -60,11 +60,11 @@ class _ScalerHelpers {
   }
 
   static double ceil(double x) {
-    return x.ceil();
+    return x.ceil().toDouble();
   }
 
   static double floor(double x) {
-    return x.floor();
+    return x.floor().toDouble();
   }
 
   static bool isnan(double x) {
@@ -76,7 +76,7 @@ class _ScalerHelpers {
   }
 
   static double truncate(double x) {
-    return x.truncate();
+    return x.truncate().toDouble();
   }
 
   static double sign(double x) {
@@ -98,14 +98,14 @@ class _ScalerHelpers {
   }
 
   static double round(double x) {
-    return x.round();
+    return x.round().toDouble();
   }
 
   static double roundEven(double x) {
     if ( (floor(x)%2.0==0.0) && (fract(x)==0.5) )
-      return _ScalerHelpers.round(x)-1;
+      return _ScalerHelpers.round(x)-1.0;
     else
-      return x.round();
+      return x.round().toDouble();
   }
 
   static double exp2(double x) {
