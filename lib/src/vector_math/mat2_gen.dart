@@ -31,30 +31,20 @@ class mat2 {
     col0.x = 1.0;
     col1.y = 1.0;
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num) {
-      col0.x = arg0;
-      col0.y = arg1;
-      col1.x = arg2;
-      col1.y = arg3;
+      setRaw(arg0, arg1, arg2, arg3);
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null) {
-      col0.x = arg0;
-      col1.y = arg0;
-      return;
+      splatDiagonal(arg0);
     }
     if (arg0 is vec2 && arg1 is vec2) {
-      col0 = arg0.clone();
-      col1 = arg1.clone();
-      return;
+      setColumns(arg0, arg1);
     }
     if (arg0 is mat2) {
-      col0 = arg0.col0.clone();
-      col1 = arg0.col1.clone();
-      return;
+      setMatrix(arg0);
     }
     if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null) {
-      col0.x = arg0.x;
-      col1.y = arg0.y;
+      setDiagonal2(arg0);
     }
   }
   /// Constructs a new [mat2] from computing the outer product of [u] and [v].
@@ -104,6 +94,38 @@ class mat2 {
     col0.y = arg1;
     col1.x = arg2;
     col1.y = arg3;
+  }
+  /// Sets the diagonal to [arg].
+  mat2 splatDiagonal(num arg) {
+    col0.x = arg;
+    col1.y = arg;
+    return this;
+  }
+  /// Sets the entire matrix to the numeric values.
+  mat2 setRaw(num arg0, num arg1, num arg2, num arg3) {
+    col0.x = arg0;
+    col0.y = arg1;
+    col1.x = arg2;
+    col1.y = arg3;
+    return this;
+  }
+  /// Sets the entire matrix to the column values.
+  mat2 setColumns(vec2 arg0, vec2 arg1) {
+    col0 = arg0.clone();
+    col1 = arg1.clone();
+    return this;
+  }
+  /// Sets the entire matrix to the matrix in [arg].
+  mat2 setMatrix(mat2 arg) {
+    col0 = arg.col0.clone();
+    col1 = arg.col1.clone();
+    return this;
+  }
+  /// Sets the diagonal of the matrix to be [arg].
+  mat2 setDiagonal2(vec2 arg) {
+    col0.x = arg.x;
+    col1.y = arg.y;
+    return this;
   }
   /// Returns a printable string
   String toString() {
@@ -170,33 +192,38 @@ class mat2 {
     assert(column >= 0 && column < 2);
     return new vec2.copy(this[column]);
   }
+  mat2 _mul_scale(num arg) {
+    mat2 r = new mat2.zero();
+    r.col0.x = this.col0.x * arg;
+    r.col0.y = this.col0.y * arg;
+    r.col1.x = this.col1.x * arg;
+    r.col1.y = this.col1.y * arg;
+    return r;
+  }
+  mat2 _mul_matrix(mat2 arg) {
+    var r = new mat2.zero();
+    r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
+    r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
+    r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
+    r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
+    return r;
+  }
+  vec2 _mul_vector(vec2 arg) {
+    vec2 r = new vec2.zero();
+    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
+    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+    return r;
+  }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
     if (arg is num) {
-      mat2 r = new mat2.zero();
-      r.col0.x = col0.x * arg;
-      r.col0.y = col0.y * arg;
-      r.col1.x = col1.x * arg;
-      r.col1.y = col1.y * arg;
-      return r;
+      return _mul_scale(arg);
     }
     if (arg is vec2) {
-      vec2 r = new vec2.zero();
-      r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
-      r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
-      return r;
+      return _mul_vector(arg);
     }
     if (2 == arg.rows) {
-      dynamic r = null;
-      if (arg.cols == 2) {
-        r = new mat2.zero();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
-        return r;
-      }
-      return r;
+      return _mul_matrix(arg);
     }
     throw new ArgumentError(arg);
   }

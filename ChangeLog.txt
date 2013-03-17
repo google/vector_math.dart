@@ -1,3 +1,9 @@
+v 0.9.7 - March 2013
+
+- Refactor generated constructor code into small functions.
+- Refactor generated operator* code into small functions.
+- Fix typo in quaternion code.
+
 v 0.9.6 - March 2013
 
 - Update to latest String library.

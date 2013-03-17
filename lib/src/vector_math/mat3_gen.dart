@@ -34,50 +34,26 @@ class mat3 {
     col1.y = 1.0;
     col2.z = 1.0;
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num && arg6 is num && arg7 is num && arg8 is num) {
-      col0.x = arg0;
-      col0.y = arg1;
-      col0.z = arg2;
-      col1.x = arg3;
-      col1.y = arg4;
-      col1.z = arg5;
-      col2.x = arg6;
-      col2.y = arg7;
-      col2.z = arg8;
+      setRaw(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null) {
-      col0.x = arg0;
-      col1.y = arg0;
-      col2.z = arg0;
-      return;
+      splatDiagonal(arg0);
     }
     if (arg0 is vec3 && arg1 is vec3 && arg2 is vec3) {
-      col0 = arg0.clone();
-      col1 = arg1.clone();
-      col2 = arg2.clone();
-      return;
+      setColumns(arg0, arg1, arg2);
     }
     if (arg0 is mat3) {
-      col0 = arg0.col0.clone();
-      col1 = arg0.col1.clone();
-      col2 = arg0.col2.clone();
-      return;
+      setMatrix(arg0);
     }
     if (arg0 is mat2) {
-      col0.x = arg0.col0.x;
-      col0.y = arg0.col0.y;
-      col1.x = arg0.col1.x;
-      col1.y = arg0.col1.y;
-      return;
+      setUpper2x2(arg0);
     }
     if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null) {
-      col0.x = arg0.x;
-      col1.y = arg0.y;
+      setDiagonal2(arg0);
     }
     if (arg0 is vec3 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null) {
-      col0.x = arg0.x;
-      col1.y = arg0.y;
-      col2.z = arg0.z;
+      setDiagonal3(arg0);
     }
   }
   /// Constructs a new [mat3] from computing the outer product of [u] and [v].
@@ -169,6 +145,61 @@ class mat3 {
     col2.y = arg7;
     col2.z = arg8;
   }
+  /// Sets the diagonal to [arg].
+  mat3 splatDiagonal(num arg) {
+    col0.x = arg;
+    col1.y = arg;
+    col2.z = arg;
+    return this;
+  }
+  /// Sets the entire matrix to the numeric values.
+  mat3 setRaw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8) {
+    col0.x = arg0;
+    col0.y = arg1;
+    col0.z = arg2;
+    col1.x = arg3;
+    col1.y = arg4;
+    col1.z = arg5;
+    col2.x = arg6;
+    col2.y = arg7;
+    col2.z = arg8;
+    return this;
+  }
+  /// Sets the entire matrix to the column values.
+  mat3 setColumns(vec3 arg0, vec3 arg1, vec3 arg2) {
+    col0 = arg0.clone();
+    col1 = arg1.clone();
+    col2 = arg2.clone();
+    return this;
+  }
+  /// Sets the entire matrix to the matrix in [arg].
+  mat3 setMatrix(mat3 arg) {
+    col0 = arg.col0.clone();
+    col1 = arg.col1.clone();
+    col2 = arg.col2.clone();
+    return this;
+  }
+  /// Sets the upper 2x2 of the matrix to be [arg].
+  mat3 setUpper2x2(mat2 arg) {
+    col0.x = arg.col0.x;
+    col0.y = arg.col0.y;
+    col1.x = arg.col1.x;
+    col1.y = arg.col1.y;
+    return this;
+  }
+  /// Sets the diagonal of the matrix to be [arg].
+  mat3 setDiagonal3(vec3 arg) {
+    col0.x = arg.x;
+    col1.y = arg.y;
+    col2.z = arg.z;
+    return this;
+  }
+  /// Sets the diagonal of the matrix to be [arg].
+  mat3 setDiagonal2(vec2 arg) {
+    col0.x = arg.x;
+    col1.y = arg.y;
+    return this;
+  }
   /// Returns a printable string
   String toString() {
     String s = '';
@@ -244,44 +275,49 @@ class mat3 {
     assert(column >= 0 && column < 3);
     return new vec3.copy(this[column]);
   }
+  mat3 _mul_scale(num arg) {
+    mat3 r = new mat3.zero();
+    r.col0.x = this.col0.x * arg;
+    r.col0.y = this.col0.y * arg;
+    r.col0.z = this.col0.z * arg;
+    r.col1.x = this.col1.x * arg;
+    r.col1.y = this.col1.y * arg;
+    r.col1.z = this.col1.z * arg;
+    r.col2.x = this.col2.x * arg;
+    r.col2.y = this.col2.y * arg;
+    r.col2.z = this.col2.z * arg;
+    return r;
+  }
+  mat3 _mul_matrix(mat3 arg) {
+    var r = new mat3.zero();
+    r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z);
+    r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z);
+    r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z);
+    r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z);
+    r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z);
+    r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z);
+    r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z);
+    r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z);
+    r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z);
+    return r;
+  }
+  vec3 _mul_vector(vec3 arg) {
+    vec3 r = new vec3.zero();
+    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
+    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
+    r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
+    return r;
+  }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
     if (arg is num) {
-      mat3 r = new mat3.zero();
-      r.col0.x = col0.x * arg;
-      r.col0.y = col0.y * arg;
-      r.col0.z = col0.z * arg;
-      r.col1.x = col1.x * arg;
-      r.col1.y = col1.y * arg;
-      r.col1.z = col1.z * arg;
-      r.col2.x = col2.x * arg;
-      r.col2.y = col2.y * arg;
-      r.col2.z = col2.z * arg;
-      return r;
+      return _mul_scale(arg);
     }
     if (arg is vec3) {
-      vec3 r = new vec3.zero();
-      r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z);
-      r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z);
-      r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z);
-      return r;
+      return _mul_vector(arg);
     }
     if (3 == arg.rows) {
-      dynamic r = null;
-      if (arg.cols == 3) {
-        r = new mat3.zero();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z);
-        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z);
-        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z);
-        r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z);
-        return r;
-      }
-      return r;
+      return _mul_matrix(arg);
     }
     throw new ArgumentError(arg);
   }

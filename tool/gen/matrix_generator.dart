@@ -48,8 +48,6 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   String Access(int row, int col, [String pre = 'col']) {
-    //assert(row < rows && row >= 0);
-    //assert(col < cols && col >= 0);
     String rowName = '';
     if (row == 0) {
       rowName = 'x';
@@ -101,6 +99,7 @@ class MatrixGenerator extends BaseGenerator {
     for (int i = 0; i < cols; i++) {
       columnArguments[i] = 'arg$i';
     }
+
     iPrint('\/\/\/ Constructs a new ${matType}. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.');
     iPrint('${matType}([${joinStrings(arguments, 'dynamic ')}]) {');
     iPush();
@@ -118,74 +117,54 @@ class MatrixGenerator extends BaseGenerator {
 
     iPrint('if (${joinStrings(arguments, '', ' is num', ' && ')}) {');
     iPush();
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        iPrint('${Access(j, i)} = arg${(i*rows)+j};');
-      }
-    }
+    iPrint('setRaw(${joinStrings(arguments, '')});');
     iPrint('return;');
     iPop();
     iPrint('}');
 
     iPrint('if (arg0 is num && ${joinStrings(arguments.sublist(1, numArguments), '', ' == null', ' && ')}) {');
     iPush();
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        if (i == j) {
-          iPrint('${Access(j, i)} = arg0;');
-        }
-      }
-    }
-    iPrint('return;');
+    iPrint('splatDiagonal(arg0);');
     iPop();
     iPrint('}');
 
     iPrint('if (${joinStrings(columnArguments, '', ' is vec${cols}', ' && ')}) {');
     iPush();
-    for (int i = 0; i < cols; i++) {
-      iPrint('col$i = arg${i}.clone();');
-    }
-    iPrint('return;');
+    iPrint('setColumns(${joinStrings(columnArguments)});');
     iPop();
     iPrint('}');
 
     iPrint('if (arg0 is ${matType}) {');
     iPush();
-    for (int i = 0; i < cols; i++) {
-      iPrint('col$i = arg0.col${i}.clone();');
-    }
-    iPrint('return;');
+    iPrint('setMatrix(arg0);');
     iPop();
     iPrint('}');
 
-    for (int i = cols; i >= 2; i--) {
-      for (int j = rows; j >= 2; j--) {
-        if (i == cols && j == rows) {
-          continue;
-        }
-        if (i != j) {
-          continue;
-        }
-        iPrint('if (arg0 is mat${i}) {');
-        iPush();
-        for (int k = 0; k < i; k++) {
-          for (int l = 0; l < j; l++) {
-            iPrint('${Access(l, k)} = arg0.${Access(l, k)};');
-          }
-        }
-        iPrint('return;');
-        iPop();
-        iPrint('}');
-      }
+    if (cols == 4) {
+      iPrint('if (arg0 is mat3) {');
+      iPush();
+      iPrint('setRotation(arg0);');
+      iPop();
+      iPrint('}');
+      iPrint('if (arg0 is mat2) {');
+      iPush();
+      iPrint('setUpper2x2(arg0);');
+      iPop();
+      iPrint('}');
+    }
+    if (cols == 3) {
+      iPrint('if (arg0 is mat2) {');
+      iPush();
+      iPrint('setUpper2x2(arg0);');
+      iPop();
+      iPrint('}');
     }
 
-    int diagonals = rows < cols ? rows : cols;
+    int diagonals = cols;
     for (int i = 1; i < diagonals; i++) {
       iPrint('if (arg0 is vec${i+1} && ${joinStrings(arguments.sublist(1, numArguments), '', ' == null', ' && ')}) {');
       iPush();
-      for (int j = 0; j < i+1; j++) {
-        iPrint('${Access(j, j)} = arg0.${AccessV(j)};');
-      }
+      iPrint('setDiagonal${i+1}(arg0);');
       iPop();
       iPrint('}');
     }
@@ -378,6 +357,111 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('}');
   }
 
+  void generateSetters() {
+    iPrint('\/\/\/ Sets the diagonal to [arg].');
+    iPrint('$matType splatDiagonal(num arg) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        if (i == j) {
+          iPrint('${Access(j, i)} = arg;');
+        }
+      }
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+
+    int numArguments = cols * rows;
+    List<String> arguments = new List<String>(numArguments);
+    for (int i = 0; i < numArguments; i++) {
+      arguments[i] = 'arg$i';
+    }
+    iPrint('\/\/\/ Sets the entire matrix to the numeric values.');
+    iPrint('$matType setRaw(${joinStrings(arguments, 'num ')}) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        iPrint('${Access(j, i)} = arg${(i*rows)+j};');
+      }
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+
+    List<String> columnArguments = new List<String>(cols);
+    for (int i = 0; i < cols; i++) {
+      columnArguments[i] = 'arg$i';
+    }
+    iPrint('\/\/\/ Sets the entire matrix to the column values.');
+    iPrint('$matType setColumns(${joinStrings(columnArguments, 'vec${cols} ')}) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      iPrint('col$i = arg${i}.clone();');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+
+    iPrint('\/\/\/ Sets the entire matrix to the matrix in [arg].');
+    iPrint('$matType setMatrix($matType arg) {');
+    iPush();
+    for (int i = 0; i < cols; i++) {
+      iPrint('col$i = arg.col${i}.clone();');
+    }
+    iPrint('return this;');
+    iPop();
+    iPrint('}');
+
+    if (cols > 2) {
+      iPrint('\/\/\/ Sets the upper 2x2 of the matrix to be [arg].');
+      iPrint('$matType setUpper2x2(mat2 arg) {');
+      iPush();
+      for (int k = 0; k < 2; k++) {
+        for (int l = 0; l < 2; l++) {
+          iPrint('${Access(l, k)} = arg.${Access(l, k)};');
+        }
+      }
+      iPrint('return this;');
+      iPop();
+      iPrint('}');
+    }
+
+    if (cols == 4) {
+      iPrint('\/\/\/ Sets the diagonal of the matrix to be [arg].');
+      iPrint('$matType setDiagonal4(vec4 arg) {');
+      iPush();
+      iPrint('${Access(0, 0)} = arg.${AccessV(0)};');
+      iPrint('${Access(1, 1)} = arg.${AccessV(1)};');
+      iPrint('${Access(2, 2)} = arg.${AccessV(2)};');
+      iPrint('${Access(3, 3)} = arg.${AccessV(3)};');
+      iPrint('return this;');
+      iPop();
+      iPrint('}');
+    }
+    if (cols >= 3) {
+      iPrint('\/\/\/ Sets the diagonal of the matrix to be [arg].');
+      iPrint('$matType setDiagonal3(vec3 arg) {');
+      iPush();
+      iPrint('${Access(0, 0)} = arg.${AccessV(0)};');
+      iPrint('${Access(1, 1)} = arg.${AccessV(1)};');
+      iPrint('${Access(2, 2)} = arg.${AccessV(2)};');
+      iPrint('return this;');
+      iPop();
+      iPrint('}');
+    }
+    if (cols >= 2) {
+      iPrint('\/\/\/ Sets the diagonal of the matrix to be [arg].');
+      iPrint('$matType setDiagonal2(vec2 arg) {');
+      iPush();
+      iPrint('${Access(0, 0)} = arg.${AccessV(0)};');
+      iPrint('${Access(1, 1)} = arg.${AccessV(1)};');
+      iPrint('return this;');
+      iPop();
+      iPrint('}');
+    }
+  }
+
   void generateRowColProperties() {
     iPrint('\/\/\/ Returns the number of rows in the matrix.');
     iPrint('int get rows => $rows;');
@@ -386,6 +470,8 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('\/\/\/ Returns the number of columns in the matrix.');
     iPrint('int get length => $cols;');
   }
+
+
 
   void generateRowGetterSetters() {
     for (int i = 0; i < rows; i++) {
@@ -507,19 +593,27 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateMatrixVectorMultiply() {
+    iPrint('$colVecType _mul_vector($colVecType arg) {');
+    iPush();
     iPrint('$colVecType r = new $colVecType.zero();');
     for (int i = 0; i < rows; i++) {
       iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', cols)};');
     }
     iPrint('return r;');
+    iPop();
+    iPrint('}');
   }
 
   void generateMatrixVectorMultiply3() {
+    iPrint('vec3 _mul_vector3(vec3 arg) {');
+    iPush();
     iPrint('vec3 r = new vec3.zero();');
     for (int i = 0; i < 3; i++) {
       iPrint('r.${AccessV(i)} = ${generateInlineDot('this', i, 'arg', 3)} + ${Access(i, 3)};');
     }
     iPrint('return r;');
+    iPop();
+    iPrint('}');
   }
 
 
@@ -535,95 +629,63 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generateMatrixMatrixMultiply() {
-    iPrint('dynamic r = null;');
-
-    if (rows == 2 && cols == 2) {
-      iPrint('if (arg.cols == 2) {');
-      iPush();
-      iPrint('r = new mat2.zero();');
-      for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < 2; j++) {
-          iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
-        }
-      }
-      iPrint('return r;');
-      iPop();
-      iPrint('}');
-    }
-
-
-    if (rows == 3 && cols == 3) {
-      if (rows >= 3) {
-        iPrint('if (arg.cols == 3) {');
-        iPush();
-        iPrint('r = new mat3.zero();');
-        for (int i = 0; i < rows; i++) {
-          for (int j = 0; j < 3; j++) {
-            iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
-          }
-        }
-
-        iPrint('return r;');
-        iPop();
-        iPrint('}');
+    iPrint('${matType} _mul_matrix(${matType} arg) {');
+    iPush();
+    iPrint('var r = new ${matType}.zero();');
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
       }
     }
-
-
-    if (rows == 4 && cols == 4) {
-      if (rows >= 4) {
-        iPrint('if (arg.cols == 4) {');
-        iPush();
-        iPrint('r = new mat4.zero();');
-        for (int i = 0; i < rows; i++) {
-          for (int j = 0; j < 4; j++) {
-            iPrint('r.${Access(i, j)} = ${generateInlineDotM('this', 'arg', i, j, cols)};');
-          }
-        }
-        iPrint('return r;');
-        iPop();
-        iPrint('}');
-      }
-    }
-
-
     iPrint('return r;');
+    iPop();
+    iPrint('}');
   }
 
   void generateMatrixScale() {
+    iPrint('${matType} _mul_scale(num arg) {');
+    iPush();
     iPrint('${matType} r = new ${matType}.zero();');
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        iPrint('r.${Access(j, i)} = ${Access(j, i)} * arg;');
+        iPrint('r.${Access(j, i)} = this.${Access(j, i)} * arg;');
       }
     }
     iPrint('return r;');
+    iPop();
+    iPrint('}');
   }
 
   void generateMult() {
+    generateMatrixScale();
+    generateMatrixMatrixMultiply();
+    generateMatrixVectorMultiply();
+    if (matType == 'mat4') {
+      generateMatrixVectorMultiply3();
+    }
     iPrint('\/\/\/ Returns a new vector or matrix by multiplying [this] with [arg].');
     iPrint('dynamic operator*(dynamic arg) {');
     iPush();
     iPrint('if (arg is num) {');
     iPush();
-    generateMatrixScale();
+    iPrint('return _mul_scale(arg);');
     iPop();
     iPrint('}');
     iPrint('if (arg is $rowVecType) {');
     iPush();
-    generateMatrixVectorMultiply();
+    iPrint('return _mul_vector(arg);');
     iPop();
     iPrint('}');
     if (matType == 'mat4') {
       iPrint('if (arg is vec3) {');
       iPush();
-      generateMatrixVectorMultiply3();
+      iPrint('return _mul_vector3(arg);');
       iPop();
       iPrint('}');
     }
     iPrint('if ($cols == arg.rows) {');
     iPush();
-    generateMatrixMatrixMultiply();
+    iPrint('return _mul_matrix(arg);');
     iPop();
     iPrint('}');
     iPrint('throw new ArgumentError(arg);');
@@ -1918,6 +1980,7 @@ class MatrixGenerator extends BaseGenerator {
     writeLicense();
     generatePrologue();
     generateConstructors();
+    generateSetters();
     generateToString();
     generateRowColProperties();
     generateIndexOperator();

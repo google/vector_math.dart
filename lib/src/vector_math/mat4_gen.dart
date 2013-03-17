@@ -37,78 +37,32 @@ class mat4 {
     col2.z = 1.0;
     col3.w = 1.0;
     if (arg0 is num && arg1 is num && arg2 is num && arg3 is num && arg4 is num && arg5 is num && arg6 is num && arg7 is num && arg8 is num && arg9 is num && arg10 is num && arg11 is num && arg12 is num && arg13 is num && arg14 is num && arg15 is num) {
-      col0.x = arg0;
-      col0.y = arg1;
-      col0.z = arg2;
-      col0.w = arg3;
-      col1.x = arg4;
-      col1.y = arg5;
-      col1.z = arg6;
-      col1.w = arg7;
-      col2.x = arg8;
-      col2.y = arg9;
-      col2.z = arg10;
-      col2.w = arg11;
-      col3.x = arg12;
-      col3.y = arg13;
-      col3.z = arg14;
-      col3.w = arg15;
+      setRaw(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
       return;
     }
     if (arg0 is num && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null && arg12 == null && arg13 == null && arg14 == null && arg15 == null) {
-      col0.x = arg0;
-      col1.y = arg0;
-      col2.z = arg0;
-      col3.w = arg0;
-      return;
+      splatDiagonal(arg0);
     }
     if (arg0 is vec4 && arg1 is vec4 && arg2 is vec4 && arg3 is vec4) {
-      col0 = arg0.clone();
-      col1 = arg1.clone();
-      col2 = arg2.clone();
-      col3 = arg3.clone();
-      return;
+      setColumns(arg0, arg1, arg2, arg3);
     }
     if (arg0 is mat4) {
-      col0 = arg0.col0.clone();
-      col1 = arg0.col1.clone();
-      col2 = arg0.col2.clone();
-      col3 = arg0.col3.clone();
-      return;
+      setMatrix(arg0);
     }
     if (arg0 is mat3) {
-      col0.x = arg0.col0.x;
-      col0.y = arg0.col0.y;
-      col0.z = arg0.col0.z;
-      col1.x = arg0.col1.x;
-      col1.y = arg0.col1.y;
-      col1.z = arg0.col1.z;
-      col2.x = arg0.col2.x;
-      col2.y = arg0.col2.y;
-      col2.z = arg0.col2.z;
-      return;
+      setRotation(arg0);
     }
     if (arg0 is mat2) {
-      col0.x = arg0.col0.x;
-      col0.y = arg0.col0.y;
-      col1.x = arg0.col1.x;
-      col1.y = arg0.col1.y;
-      return;
+      setUpper2x2(arg0);
     }
     if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null && arg12 == null && arg13 == null && arg14 == null && arg15 == null) {
-      col0.x = arg0.x;
-      col1.y = arg0.y;
+      setDiagonal2(arg0);
     }
     if (arg0 is vec3 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null && arg12 == null && arg13 == null && arg14 == null && arg15 == null) {
-      col0.x = arg0.x;
-      col1.y = arg0.y;
-      col2.z = arg0.z;
+      setDiagonal3(arg0);
     }
     if (arg0 is vec4 && arg1 == null && arg2 == null && arg3 == null && arg4 == null && arg5 == null && arg6 == null && arg7 == null && arg8 == null && arg9 == null && arg10 == null && arg11 == null && arg12 == null && arg13 == null && arg14 == null && arg15 == null) {
-      col0.x = arg0.x;
-      col1.y = arg0.y;
-      col2.z = arg0.z;
-      col3.w = arg0.w;
+      setDiagonal4(arg0);
     }
   }
   /// Constructs a new [mat4] from computing the outer product of [u] and [v].
@@ -288,6 +242,79 @@ class mat4 {
     col3.z = arg14;
     col3.w = arg15;
   }
+  /// Sets the diagonal to [arg].
+  mat4 splatDiagonal(num arg) {
+    col0.x = arg;
+    col1.y = arg;
+    col2.z = arg;
+    col3.w = arg;
+    return this;
+  }
+  /// Sets the entire matrix to the numeric values.
+  mat4 setRaw(num arg0, num arg1, num arg2, num arg3, num arg4, num arg5, num arg6, num arg7, num arg8, num arg9, num arg10, num arg11, num arg12, num arg13, num arg14, num arg15) {
+    col0.x = arg0;
+    col0.y = arg1;
+    col0.z = arg2;
+    col0.w = arg3;
+    col1.x = arg4;
+    col1.y = arg5;
+    col1.z = arg6;
+    col1.w = arg7;
+    col2.x = arg8;
+    col2.y = arg9;
+    col2.z = arg10;
+    col2.w = arg11;
+    col3.x = arg12;
+    col3.y = arg13;
+    col3.z = arg14;
+    col3.w = arg15;
+    return this;
+  }
+  /// Sets the entire matrix to the column values.
+  mat4 setColumns(vec4 arg0, vec4 arg1, vec4 arg2, vec4 arg3) {
+    col0 = arg0.clone();
+    col1 = arg1.clone();
+    col2 = arg2.clone();
+    col3 = arg3.clone();
+    return this;
+  }
+  /// Sets the entire matrix to the matrix in [arg].
+  mat4 setMatrix(mat4 arg) {
+    col0 = arg.col0.clone();
+    col1 = arg.col1.clone();
+    col2 = arg.col2.clone();
+    col3 = arg.col3.clone();
+    return this;
+  }
+  /// Sets the upper 2x2 of the matrix to be [arg].
+  mat4 setUpper2x2(mat2 arg) {
+    col0.x = arg.col0.x;
+    col0.y = arg.col0.y;
+    col1.x = arg.col1.x;
+    col1.y = arg.col1.y;
+    return this;
+  }
+  /// Sets the diagonal of the matrix to be [arg].
+  mat4 setDiagonal4(vec4 arg) {
+    col0.x = arg.x;
+    col1.y = arg.y;
+    col2.z = arg.z;
+    col3.w = arg.w;
+    return this;
+  }
+  /// Sets the diagonal of the matrix to be [arg].
+  mat4 setDiagonal3(vec3 arg) {
+    col0.x = arg.x;
+    col1.y = arg.y;
+    col2.z = arg.z;
+    return this;
+  }
+  /// Sets the diagonal of the matrix to be [arg].
+  mat4 setDiagonal2(vec2 arg) {
+    col0.x = arg.x;
+    col1.y = arg.y;
+    return this;
+  }
   /// Returns a printable string
   String toString() {
     String s = '';
@@ -373,66 +400,74 @@ class mat4 {
     assert(column >= 0 && column < 4);
     return new vec4.copy(this[column]);
   }
+  mat4 _mul_scale(num arg) {
+    mat4 r = new mat4.zero();
+    r.col0.x = this.col0.x * arg;
+    r.col0.y = this.col0.y * arg;
+    r.col0.z = this.col0.z * arg;
+    r.col0.w = this.col0.w * arg;
+    r.col1.x = this.col1.x * arg;
+    r.col1.y = this.col1.y * arg;
+    r.col1.z = this.col1.z * arg;
+    r.col1.w = this.col1.w * arg;
+    r.col2.x = this.col2.x * arg;
+    r.col2.y = this.col2.y * arg;
+    r.col2.z = this.col2.z * arg;
+    r.col2.w = this.col2.w * arg;
+    r.col3.x = this.col3.x * arg;
+    r.col3.y = this.col3.y * arg;
+    r.col3.z = this.col3.z * arg;
+    r.col3.w = this.col3.w * arg;
+    return r;
+  }
+  mat4 _mul_matrix(mat4 arg) {
+    var r = new mat4.zero();
+    r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
+    r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
+    r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
+    r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y) + (this.col2.x * arg.col3.z) + (this.col3.x * arg.col3.w);
+    r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
+    r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
+    r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
+    r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y) + (this.col2.y * arg.col3.z) + (this.col3.y * arg.col3.w);
+    r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
+    r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
+    r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z) + (this.col3.z * arg.col2.w);
+    r.col3.z =  (this.col0.z * arg.col3.x) + (this.col1.z * arg.col3.y) + (this.col2.z * arg.col3.z) + (this.col3.z * arg.col3.w);
+    r.col0.w =  (this.col0.w * arg.col0.x) + (this.col1.w * arg.col0.y) + (this.col2.w * arg.col0.z) + (this.col3.w * arg.col0.w);
+    r.col1.w =  (this.col0.w * arg.col1.x) + (this.col1.w * arg.col1.y) + (this.col2.w * arg.col1.z) + (this.col3.w * arg.col1.w);
+    r.col2.w =  (this.col0.w * arg.col2.x) + (this.col1.w * arg.col2.y) + (this.col2.w * arg.col2.z) + (this.col3.w * arg.col2.w);
+    r.col3.w =  (this.col0.w * arg.col3.x) + (this.col1.w * arg.col3.y) + (this.col2.w * arg.col3.z) + (this.col3.w * arg.col3.w);
+    return r;
+  }
+  vec4 _mul_vector(vec4 arg) {
+    vec4 r = new vec4.zero();
+    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + (this.col3.x * arg.w);
+    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + (this.col3.y * arg.w);
+    r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + (this.col3.z * arg.w);
+    r.w =  (this.col0.w * arg.x) + (this.col1.w * arg.y) + (this.col2.w * arg.z) + (this.col3.w * arg.w);
+    return r;
+  }
+  vec3 _mul_vector3(vec3 arg) {
+    vec3 r = new vec3.zero();
+    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + col3.x;
+    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + col3.y;
+    r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + col3.z;
+    return r;
+  }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
     if (arg is num) {
-      mat4 r = new mat4.zero();
-      r.col0.x = col0.x * arg;
-      r.col0.y = col0.y * arg;
-      r.col0.z = col0.z * arg;
-      r.col0.w = col0.w * arg;
-      r.col1.x = col1.x * arg;
-      r.col1.y = col1.y * arg;
-      r.col1.z = col1.z * arg;
-      r.col1.w = col1.w * arg;
-      r.col2.x = col2.x * arg;
-      r.col2.y = col2.y * arg;
-      r.col2.z = col2.z * arg;
-      r.col2.w = col2.w * arg;
-      r.col3.x = col3.x * arg;
-      r.col3.y = col3.y * arg;
-      r.col3.z = col3.z * arg;
-      r.col3.w = col3.w * arg;
-      return r;
+      return _mul_scale(arg);
     }
     if (arg is vec4) {
-      vec4 r = new vec4.zero();
-      r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + (this.col3.x * arg.w);
-      r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + (this.col3.y * arg.w);
-      r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + (this.col3.z * arg.w);
-      r.w =  (this.col0.w * arg.x) + (this.col1.w * arg.y) + (this.col2.w * arg.z) + (this.col3.w * arg.w);
-      return r;
+      return _mul_vector(arg);
     }
     if (arg is vec3) {
-      vec3 r = new vec3.zero();
-      r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y) + (this.col2.x * arg.z) + col3.x;
-      r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y) + (this.col2.y * arg.z) + col3.y;
-      r.z =  (this.col0.z * arg.x) + (this.col1.z * arg.y) + (this.col2.z * arg.z) + col3.z;
-      return r;
+      return _mul_vector3(arg);
     }
     if (4 == arg.rows) {
-      dynamic r = null;
-      if (arg.cols == 4) {
-        r = new mat4.zero();
-        r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y) + (this.col2.x * arg.col0.z) + (this.col3.x * arg.col0.w);
-        r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y) + (this.col2.x * arg.col1.z) + (this.col3.x * arg.col1.w);
-        r.col2.x =  (this.col0.x * arg.col2.x) + (this.col1.x * arg.col2.y) + (this.col2.x * arg.col2.z) + (this.col3.x * arg.col2.w);
-        r.col3.x =  (this.col0.x * arg.col3.x) + (this.col1.x * arg.col3.y) + (this.col2.x * arg.col3.z) + (this.col3.x * arg.col3.w);
-        r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y) + (this.col2.y * arg.col0.z) + (this.col3.y * arg.col0.w);
-        r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y) + (this.col2.y * arg.col1.z) + (this.col3.y * arg.col1.w);
-        r.col2.y =  (this.col0.y * arg.col2.x) + (this.col1.y * arg.col2.y) + (this.col2.y * arg.col2.z) + (this.col3.y * arg.col2.w);
-        r.col3.y =  (this.col0.y * arg.col3.x) + (this.col1.y * arg.col3.y) + (this.col2.y * arg.col3.z) + (this.col3.y * arg.col3.w);
-        r.col0.z =  (this.col0.z * arg.col0.x) + (this.col1.z * arg.col0.y) + (this.col2.z * arg.col0.z) + (this.col3.z * arg.col0.w);
-        r.col1.z =  (this.col0.z * arg.col1.x) + (this.col1.z * arg.col1.y) + (this.col2.z * arg.col1.z) + (this.col3.z * arg.col1.w);
-        r.col2.z =  (this.col0.z * arg.col2.x) + (this.col1.z * arg.col2.y) + (this.col2.z * arg.col2.z) + (this.col3.z * arg.col2.w);
-        r.col3.z =  (this.col0.z * arg.col3.x) + (this.col1.z * arg.col3.y) + (this.col2.z * arg.col3.z) + (this.col3.z * arg.col3.w);
-        r.col0.w =  (this.col0.w * arg.col0.x) + (this.col1.w * arg.col0.y) + (this.col2.w * arg.col0.z) + (this.col3.w * arg.col0.w);
-        r.col1.w =  (this.col0.w * arg.col1.x) + (this.col1.w * arg.col1.y) + (this.col2.w * arg.col1.z) + (this.col3.w * arg.col1.w);
-        r.col2.w =  (this.col0.w * arg.col2.x) + (this.col1.w * arg.col2.y) + (this.col2.w * arg.col2.z) + (this.col3.w * arg.col2.w);
-        r.col3.w =  (this.col0.w * arg.col3.x) + (this.col1.w * arg.col3.y) + (this.col2.w * arg.col3.z) + (this.col3.w * arg.col3.w);
-        return r;
-      }
-      return r;
+      return _mul_matrix(arg);
     }
     throw new ArgumentError(arg);
   }
