@@ -6,5 +6,4 @@ homepage: https://github.com/johnmccutchan/DartVectorMath
 dependencies:
   browser: any
   unittest: any
-  bot: ">=0.15.0"
 
