@@ -1,7 +1,7 @@
 # vector_math #
 ==============
 
-[![Build Status](https://drone.io/johnmccutchan/vector_math/status.png)](https://drone.io/johnmccutchan/vector_math)
+[![Build Status](https://drone.io/johnmccutchan/vector_math/status.png)](https://drone.io/johnmccutchan/vector_math/latest)
 
 ## Introduction ##
 
