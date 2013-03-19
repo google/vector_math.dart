@@ -10,6 +10,7 @@ import 'vector_math_test.dart';
 // Headless testing for drone.io
 
 void main() {
+  useHtmlConfiguration();
   group('QuaternionTest', () {
     QuaternionTest qt = new QuaternionTest();
     test("test", () {
