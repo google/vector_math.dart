@@ -56,16 +56,18 @@ dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
     if (out == null) {
       out = new vec2.zero();
     }
+    var tempy = x * y.x;
     out.x = -x * y.y;
-    out.y = x * y.x;
+    out.y = tempy;
     return out;
   } else if (x is vec2 && y is num) {
     y = y.toDouble();
     if (out == null) {
       out = new vec2.zero();
     }
+    var tempy = -y * x.x;
     out.x = y * x.y;
-    out.y = -y * x.x;
+    out.y = tempy;
     return out;
   } else {
     assert(false);
