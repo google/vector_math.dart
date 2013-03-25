@@ -50,6 +50,7 @@ dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is vec3 && y is vec3) {
     return x.cross(y, out);
   } else if (x is vec2 && y is vec2) {
+    assert(out == null);
     return x.cross(y);
   } else if (x is num && y is vec2) {
     x = x.toDouble();
