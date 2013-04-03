@@ -53,7 +53,7 @@ void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
  * [upDirection] specifies the direction of the up vector (usually, +Y).
  */
 mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
-                vec3 upDirection) {
+                    vec3 upDirection) {
   mat4 r = new mat4.zero();
   setViewMatrix(r, cameraPosition, cameraFocusPosition, upDirection);
   return r;
