@@ -18,7 +18,9 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+
 part of vector_math;
+
 /// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 rows.
 class mat2 {
   vec2 col0;
@@ -49,8 +51,8 @@ class mat2 {
   }
   /// Constructs a new [mat2] from computing the outer product of [u] and [v].
   mat2.outer(vec2 u, vec2 v) {
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
+    col0 = new vec2();
+    col1 = new vec2();
     col0.x = u.x * v.x;
     col0.y = u.x * v.y;
     col1.x = u.y * v.x;
@@ -175,7 +177,7 @@ class mat2 {
   /// Gets the [row] of the matrix
   vec2 getRow(int row) {
     assert(row >= 0 && row < 2);
-    vec2 r = new vec2.zero();
+    vec2 r = new vec2();
     r.x = col0[row];
     r.y = col1[row];
     return r;

@@ -77,60 +77,32 @@ class VectorTest extends BaseTest {
     }
 
     {
-      vec3 x = new vec3.raw(1.0, 0.0, 0.0);
-      vec3 y = new vec3.raw(0.0, 1.0, 0.0);
-      vec3 z = new vec3.raw(0.0, 0.0, 1.0);
+      vec3 x = new vec3(1.0, 0.0, 0.0);
+      vec3 y = new vec3(0.0, 1.0, 0.0);
+      vec3 z = new vec3(0.0, 0.0, 1.0);
       vec3 output;
 
       output = x.cross(y);
-      relativeTest(output, new vec3.raw(0.0, 0.0, 1.0));
+      relativeTest(output, new vec3(0.0, 0.0, 1.0));
       output = y.cross(x);
-      relativeTest(output, new vec3.raw(0.0, 0.0, -1.0));
+      relativeTest(output, new vec3(0.0, 0.0, -1.0));
 
       output = x.cross(z);
-      relativeTest(output, new vec3.raw(0.0, -1.0, 0.0));
+      relativeTest(output, new vec3(0.0, -1.0, 0.0));
       output = z.cross(x);
-      relativeTest(output, new vec3.raw(0.0, 1.0, 0.0));
+      relativeTest(output, new vec3(0.0, 1.0, 0.0));
 
       output = y.cross(z);
-      relativeTest(output, new vec3.raw(1.0, 0.0, 0.0));
+      relativeTest(output, new vec3(1.0, 0.0, 0.0));
       output = z.cross(y);
-      relativeTest(output, new vec3.raw(-1.0, 0.0, 0.0));
+      relativeTest(output, new vec3(-1.0, 0.0, 0.0));
     }
   }
 
   void testDefaultConstructor() {
-    var v = new vec2(2, 4);
+    var v = new vec2(2.0, 4.0);
     expect(v.x, equals(2.0));
     expect(v.y, equals(4.0));
-  }
-
-  void testGLSLConstructor() {
-    var vec = new vec3(new vec2.raw(1, -1), 0);
-
-    expect(vec.x, equals(1));
-    expect(vec.y, equals(-1));
-    expect(vec.z, equals(0));
-
-    vec = new vec3(2, new vec2.raw(1, 1));
-
-    expect(vec.x, equals(2));
-    expect(vec.y, equals(1));
-    expect(vec.z, equals(1));
-
-    vec = new vec4(new vec3.raw(1,1,1),2);
-
-    expect(vec.x, equals(1));
-    expect(vec.y, equals(1));
-    expect(vec.z, equals(1));
-    expect(vec.w, equals(2));
-
-    vec = new vec4(2,new vec3.raw(1,1,1));
-
-    expect(vec.x, equals(2));
-    expect(vec.y, equals(1));
-    expect(vec.z, equals(1));
-    expect(vec.w, equals(1));
   }
 
   void testNegate() {
@@ -149,6 +121,5 @@ class VectorTest extends BaseTest {
     testVec3CrossProduct();
     testDefaultConstructor();
     testNegate();
-    testGLSLConstructor();
   }
 }

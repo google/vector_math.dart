@@ -18,7 +18,9 @@
   3. This notice may not be removed or altered from any source distribution.
 
 */
+
 part of vector_math;
+
 /// mat3 is a column major matrix where each column is represented by [vec3]. This matrix has 3 columns and 3 rows.
 class mat3 {
   vec3 col0;
@@ -58,9 +60,9 @@ class mat3 {
   }
   /// Constructs a new [mat3] from computing the outer product of [u] and [v].
   mat3.outer(vec3 u, vec3 v) {
-    col0 = new vec3.zero();
-    col1 = new vec3.zero();
-    col2 = new vec3.zero();
+    col0 = new vec3();
+    col1 = new vec3();
+    col2 = new vec3();
     col0.x = u.x * v.x;
     col0.y = u.x * v.y;
     col0.z = u.x * v.z;
@@ -256,7 +258,7 @@ class mat3 {
   /// Gets the [row] of the matrix
   vec3 getRow(int row) {
     assert(row >= 0 && row < 3);
-    vec3 r = new vec3.zero();
+    vec3 r = new vec3();
     r.x = col0[row];
     r.y = col1[row];
     r.z = col2[row];
@@ -486,9 +488,9 @@ class mat3 {
       return 0.0;
     }
     double invDet = 1.0 / det;
-    vec3 i = new vec3.zero();
-    vec3 j = new vec3.zero();
-    vec3 k = new vec3.zero();
+    vec3 i = new vec3();
+    vec3 j = new vec3();
+    vec3 k = new vec3();
     i.x = invDet * (col1.y * col2.z - col1.z * col2.y);
     i.y = invDet * (col0.z * col2.y - col0.y * col2.z);
     i.z = invDet * (col0.y * col1.z - col0.z * col1.y);
@@ -789,21 +791,21 @@ class mat3 {
     i++;
   }
   vec3 get right {
-    vec3 f = new vec3.zero();
+    vec3 f = new vec3();
     f.x = col0.x;
     f.y = col0.y;
     f.z = col0.z;
     return f;
   }
   vec3 get up {
-    vec3 f = new vec3.zero();
+    vec3 f = new vec3();
     f.x = col1.x;
     f.y = col1.y;
     f.z = col1.z;
     return f;
   }
   vec3 get forward {
-    vec3 f = new vec3.zero();
+    vec3 f = new vec3();
     f.x = col2.x;
     f.y = col2.y;
     f.z = col2.z;

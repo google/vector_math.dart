@@ -21,6 +21,8 @@
 
 part of vector_math;
 
+
+
 /// Returns absolute value of [arg].
 dynamic abs(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
@@ -28,7 +30,7 @@ dynamic abs(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.abs(arg.x);
     (out as vec2).y = _ScalerHelpers.abs(arg.y);
@@ -36,7 +38,7 @@ dynamic abs(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.abs(arg.x);
     (out as vec3).y = _ScalerHelpers.abs(arg.y);
@@ -45,7 +47,7 @@ dynamic abs(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.abs(arg.x);
     (out as vec4).y = _ScalerHelpers.abs(arg.y);
@@ -62,7 +64,7 @@ dynamic sign(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.sign(arg.x);
     (out as vec2).y = _ScalerHelpers.sign(arg.y);
@@ -70,7 +72,7 @@ dynamic sign(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.sign(arg.x);
     (out as vec3).y = _ScalerHelpers.sign(arg.y);
@@ -79,7 +81,7 @@ dynamic sign(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.sign(arg.x);
     (out as vec4).y = _ScalerHelpers.sign(arg.y);
@@ -96,7 +98,7 @@ dynamic floor(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.floor(arg.x);
     (out as vec2).y = _ScalerHelpers.floor(arg.y);
@@ -104,7 +106,7 @@ dynamic floor(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.floor(arg.x);
     (out as vec3).y = _ScalerHelpers.floor(arg.y);
@@ -113,7 +115,7 @@ dynamic floor(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.floor(arg.x);
     (out as vec4).y = _ScalerHelpers.floor(arg.y);
@@ -130,7 +132,7 @@ dynamic trunc(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.truncate(arg.x);
     (out as vec2).y = _ScalerHelpers.truncate(arg.y);
@@ -138,7 +140,7 @@ dynamic trunc(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.truncate(arg.x);
     (out as vec3).y = _ScalerHelpers.truncate(arg.y);
@@ -147,7 +149,7 @@ dynamic trunc(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.truncate(arg.x);
     (out as vec4).y = _ScalerHelpers.truncate(arg.y);
@@ -164,7 +166,7 @@ dynamic round(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.round(arg.x);
     (out as vec2).y = _ScalerHelpers.round(arg.y);
@@ -172,7 +174,7 @@ dynamic round(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.round(arg.x);
     (out as vec3).y = _ScalerHelpers.round(arg.y);
@@ -181,7 +183,7 @@ dynamic round(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.round(arg.x);
     (out as vec4).y = _ScalerHelpers.round(arg.y);
@@ -198,7 +200,7 @@ dynamic roundEven(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.roundEven(arg.x);
     (out as vec2).y = _ScalerHelpers.roundEven(arg.y);
@@ -206,7 +208,7 @@ dynamic roundEven(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.roundEven(arg.x);
     (out as vec3).y = _ScalerHelpers.roundEven(arg.y);
@@ -215,7 +217,7 @@ dynamic roundEven(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.roundEven(arg.x);
     (out as vec4).y = _ScalerHelpers.roundEven(arg.y);
@@ -232,7 +234,7 @@ dynamic ceil(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.ceil(arg.x);
     (out as vec2).y = _ScalerHelpers.ceil(arg.y);
@@ -240,7 +242,7 @@ dynamic ceil(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.ceil(arg.x);
     (out as vec3).y = _ScalerHelpers.ceil(arg.y);
@@ -249,7 +251,7 @@ dynamic ceil(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.ceil(arg.x);
     (out as vec4).y = _ScalerHelpers.ceil(arg.y);
@@ -266,7 +268,7 @@ dynamic fract(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.fract(arg.x);
     (out as vec2).y = _ScalerHelpers.fract(arg.y);
@@ -274,7 +276,7 @@ dynamic fract(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.fract(arg.x);
     (out as vec3).y = _ScalerHelpers.fract(arg.y);
@@ -283,7 +285,7 @@ dynamic fract(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.fract(arg.x);
     (out as vec4).y = _ScalerHelpers.fract(arg.y);
@@ -300,7 +302,7 @@ dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.mod(x.x, y.x);
     (out as vec2).y = _ScalerHelpers.mod(x.y, y.y);
@@ -308,7 +310,7 @@ dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.mod(x.x, y.x);
     (out as vec3).y = _ScalerHelpers.mod(x.y, y.y);
@@ -317,7 +319,7 @@ dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.mod(x.x, y.x);
     (out as vec4).y = _ScalerHelpers.mod(x.y, y.y);
@@ -334,7 +336,7 @@ dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.min(x.x, y.x);
     (out as vec2).y = Math.min(x.y, y.y);
@@ -342,7 +344,7 @@ dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.min(x.x, y.x);
     (out as vec3).y = Math.min(x.y, y.y);
@@ -351,7 +353,7 @@ dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.min(x.x, y.x);
     (out as vec4).y = Math.min(x.y, y.y);
@@ -368,7 +370,7 @@ dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.max(x.x, y.x);
     (out as vec2).y = Math.max(x.y, y.y);
@@ -376,7 +378,7 @@ dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.max(x.x, y.x);
     (out as vec3).y = Math.max(x.y, y.y);
@@ -385,7 +387,7 @@ dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.max(x.x, y.x);
     (out as vec4).y = Math.max(x.y, y.y);
@@ -402,7 +404,7 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
     (out as vec2).y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
@@ -410,7 +412,7 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
     (out as vec3).y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
@@ -419,7 +421,7 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
     (out as vec4).y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
@@ -476,7 +478,7 @@ dynamic step(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.step(x.x, y.x);
     (out as vec2).y = _ScalerHelpers.step(x.y, y.y);
@@ -484,7 +486,7 @@ dynamic step(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.step(x.x, y.x);
     (out as vec3).y = _ScalerHelpers.step(x.y, y.y);
@@ -493,7 +495,7 @@ dynamic step(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.step(x.x, y.x);
     (out as vec4).y = _ScalerHelpers.step(x.y, y.y);
@@ -510,7 +512,7 @@ dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) 
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
     (out as vec2).y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
@@ -518,7 +520,7 @@ dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) 
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
     (out as vec3).y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
@@ -527,7 +529,7 @@ dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) 
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
     (out as vec4).y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);

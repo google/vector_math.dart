@@ -272,7 +272,7 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
   // Invert the camera matrix.
   invertedCameraMatrix.invert();
   // Determine intersection point.
-  vec4 v = new vec4.raw(pickX, pickY, pickZ, 1.0);
+  vec4 v = new vec4(pickX, pickY, pickZ, 1.0);
   invertedCameraMatrix.transform(v);
   if (v.w == 0.0) {
     return false;

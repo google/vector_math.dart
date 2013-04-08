@@ -92,7 +92,7 @@ class BuiltinGenerator extends BaseGenerator {
         List<String> components = getComponents(type);
         iPrint('if (out == null) {');
         iPush();
-        iPrint('out = new $type.zero();');
+        iPrint('out = new $type();');
         iPop();
         iPrint('}');
         components.forEach((comp) {
@@ -111,7 +111,6 @@ class BuiltinGenerator extends BaseGenerator {
   void generate(List<GeneratedFunctionDesc> functions) {
     writeLicense();
     iPrint('');
-    iPrint('part of vector_math;');
     iPrint('');
     functions.forEach((f) {
       if (f.custom != null) {

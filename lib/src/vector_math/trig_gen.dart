@@ -21,6 +21,8 @@
 
 part of vector_math;
 
+
+
 /// Returns sine of [arg]. Return type matches the type of [arg]
 dynamic sin(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
@@ -28,7 +30,7 @@ dynamic sin(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.sin(arg.x);
     (out as vec2).y = Math.sin(arg.y);
@@ -36,7 +38,7 @@ dynamic sin(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.sin(arg.x);
     (out as vec3).y = Math.sin(arg.y);
@@ -45,7 +47,7 @@ dynamic sin(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.sin(arg.x);
     (out as vec4).y = Math.sin(arg.y);
@@ -62,7 +64,7 @@ dynamic cos(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.cos(arg.x);
     (out as vec2).y = Math.cos(arg.y);
@@ -70,7 +72,7 @@ dynamic cos(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.cos(arg.x);
     (out as vec3).y = Math.cos(arg.y);
@@ -79,7 +81,7 @@ dynamic cos(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.cos(arg.x);
     (out as vec4).y = Math.cos(arg.y);
@@ -96,7 +98,7 @@ dynamic tan(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.tan(arg.x);
     (out as vec2).y = Math.tan(arg.y);
@@ -104,7 +106,7 @@ dynamic tan(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.tan(arg.x);
     (out as vec3).y = Math.tan(arg.y);
@@ -113,7 +115,7 @@ dynamic tan(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.tan(arg.x);
     (out as vec4).y = Math.tan(arg.y);
@@ -130,7 +132,7 @@ dynamic asin(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.asin(arg.x);
     (out as vec2).y = Math.asin(arg.y);
@@ -138,7 +140,7 @@ dynamic asin(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.asin(arg.x);
     (out as vec3).y = Math.asin(arg.y);
@@ -147,7 +149,7 @@ dynamic asin(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.asin(arg.x);
     (out as vec4).y = Math.asin(arg.y);
@@ -164,7 +166,7 @@ dynamic acos(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.acos(arg.x);
     (out as vec2).y = Math.acos(arg.y);
@@ -172,7 +174,7 @@ dynamic acos(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.acos(arg.x);
     (out as vec3).y = Math.acos(arg.y);
@@ -181,7 +183,7 @@ dynamic acos(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.acos(arg.x);
     (out as vec4).y = Math.acos(arg.y);
@@ -198,7 +200,7 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.radians(arg.x);
     (out as vec2).y = _ScalerHelpers.radians(arg.y);
@@ -206,7 +208,7 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.radians(arg.x);
     (out as vec3).y = _ScalerHelpers.radians(arg.y);
@@ -215,7 +217,7 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.radians(arg.x);
     (out as vec4).y = _ScalerHelpers.radians(arg.y);
@@ -232,7 +234,7 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.degrees(arg.x);
     (out as vec2).y = _ScalerHelpers.degrees(arg.y);
@@ -240,7 +242,7 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.degrees(arg.x);
     (out as vec3).y = _ScalerHelpers.degrees(arg.y);
@@ -249,7 +251,7 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.degrees(arg.x);
     (out as vec4).y = _ScalerHelpers.degrees(arg.y);

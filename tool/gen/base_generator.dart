@@ -73,8 +73,8 @@ List<String> PrintablePermutation(List<int> seq, List<String> components) {
 
 class BaseGenerator {
   int _indent;
-  RandomAccessFile out;
   String numType = 'num';
+  RandomAccessFile out;
 
   BaseGenerator() {
     _indent = 0;
@@ -98,7 +98,8 @@ class BaseGenerator {
   }
 
   void writeLicense() {
-    iPrint('''/*
+    iPrint('''
+/*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
   
   This software is provided 'as-is', without any express or implied
@@ -117,13 +118,16 @@ class BaseGenerator {
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 
-*/''');
+*/
+
+part of vector_math;
+''');
   }
 
   String joinStrings(List<String> elements, [String pre = '', String post = '', String joiner = ', ']) {
     bool first = true;
     String r = '';
-    for (String e in elements) {
+    for (var e in elements) {
       var extra = first ? '${pre}${e}${post}' : '${joiner}${pre}${e}${post}';
       r = '$r$extra';
       first = false;

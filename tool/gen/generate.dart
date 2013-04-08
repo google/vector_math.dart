@@ -33,11 +33,11 @@ part 'matrix_generator.dart';
 String basePath = 'lib/src/vector_math';
 
 void generateBuiltin() {
-  var f;
-  var o;
+  File f;
+  RandomAccessFile opened;
   f = new File('${basePath}/trig_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     BuiltinGenerator bg = new BuiltinGenerator();
     bg.allTypes = ['double', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
@@ -56,11 +56,11 @@ void generateBuiltin() {
                  new GeneratedFunctionDesc('degrees', '_ScalerHelpers.degrees', ['arg'], 'arg', 'Returns [arg] converted from radians to degrees. Return types matches the type of [arg]'),
                  ]);
     opened.closeSync();
-  });
+  }
 
   f = new File('${basePath}/exponent_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     BuiltinGenerator bg = new BuiltinGenerator();
     bg.allTypes = ['double', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
@@ -73,11 +73,11 @@ void generateBuiltin() {
                  new GeneratedFunctionDesc('inversesqrt', '_ScalerHelpers.inversesqrt', ['arg'], 'arg', 'Returns the inverse square root of [arg]. Supports vectors and numbers.'),
                  ]);
     opened.closeSync();
-  });
+  }
 
   f = new File('${basePath}/common_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     BuiltinGenerator bg = new BuiltinGenerator();
     bg.allTypes = ['double', 'vec2', 'vec3', 'vec4'];
     bg.out = opened;
@@ -98,20 +98,21 @@ void generateBuiltin() {
                  new GeneratedFunctionDesc('smoothstep', '_ScalerHelpers.smoothstep', ['edge0', 'edge1', 'x'], 'x', 'Hermite intpolation between [edge0] and [edge1]. [edge0] < [x] < [edge1].'),
                  ]);
     opened.closeSync();
-  });
+  }
 }
 
 void generateVector() {
-  var f;
-  var o;
+  File f;
+  RandomAccessFile opened;
 
   f = new File('${basePath}/vec2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     VectorGenerator vg = new VectorGenerator();
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'double';
+    vg.vectorIndices = [0, 1];
     vg.vectorComponents = ['x','y'];
     vg.componentAliases = [ ['r','g'], ['s','t']];
     vg.generatedName = 'vec2';
@@ -119,15 +120,16 @@ void generateVector() {
     vg.out = opened;
     vg.generate();
     opened.closeSync();
-  });
+  }
 
   f = new File('${basePath}/vec3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     VectorGenerator vg = new VectorGenerator();
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'double';
+    vg.vectorIndices = [0, 1, 2];
     vg.vectorComponents = ['x','y', 'z'];
     vg.componentAliases = [ ['r','g', 'b'], ['s','t', 'p']];
     vg.generatedName = 'vec3';
@@ -135,15 +137,16 @@ void generateVector() {
     vg.out = opened;
     vg.generate();
     opened.closeSync();
-  });
+  }
 
   f = new File('${basePath}/vec4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     VectorGenerator vg = new VectorGenerator();
     vg.allTypes = ['vec2', 'vec3', 'vec4'];
     vg.allTypesLength = [2,3,4];
     vg.vectorType = 'double';
+    vg.vectorIndices = [0, 1, 2, 3];
     vg.vectorComponents = ['x','y', 'z', 'w'];
     vg.componentAliases = [ ['r','g', 'b', 'a'], ['s','t', 'p', 'q']];
     vg.generatedName = 'vec4';
@@ -151,43 +154,43 @@ void generateVector() {
     vg.out = opened;
     vg.generate();
     opened.closeSync();
-  });
+  }
 }
 
 void generateMatrix() {
-  var f = null;
-  var o;
+  File f;
+  RandomAccessFile opened;
   f = new File('${basePath}/mat2_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     MatrixGenerator mg = new MatrixGenerator();
     mg.rows = 2;
     mg.cols = 2;
     mg.out = opened;
     mg.generate();
     opened.closeSync();
-  });
+  }
   f = new File('${basePath}/mat3_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     MatrixGenerator mg = new MatrixGenerator();
     mg.rows = 3;
     mg.cols = 3;
     mg.out = opened;
     mg.generate();
     opened.closeSync();
-  });
+  }
 
   f = new File('${basePath}/mat4_gen.dart');
-  o = f.open(FileMode.WRITE);
-  o.then((opened) {
+  opened = f.openSync(mode:FileMode.WRITE);
+  {
     MatrixGenerator mg = new MatrixGenerator();
     mg.rows = 4;
     mg.cols = 4;
     mg.out = opened;
     mg.generate();
     opened.closeSync();
-  });
+  }
 }
 
 void main() {

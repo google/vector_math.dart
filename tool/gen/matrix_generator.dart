@@ -80,7 +80,6 @@ class MatrixGenerator extends BaseGenerator {
   }
 
   void generatePrologue() {
-    iPrint('part of vector_math;');
     iPrint('\/\/\/ ${matType} is a column major matrix where each column is represented by [$colVecType]. This matrix has $cols columns and $rows rows.');
     iPrint('class ${matType} {');
     iPush();
@@ -176,7 +175,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('${matType}.outer(vec${cols} u, vec${rows} v) {');
     iPush();
     for (int i = 0; i < cols; i++) {
-      iPrint('col$i = new ${colVecType}.zero();');
+      iPrint('col$i = new ${colVecType}();');
     }
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -533,7 +532,7 @@ class MatrixGenerator extends BaseGenerator {
     iPrint('$rowVecType getRow(int row) {');
     iPush();
     iPrint('assert(row >= 0 && row < $rows);');
-    iPrint('${rowVecType} r = new ${rowVecType}.zero();');
+    iPrint('${rowVecType} r = new ${rowVecType}();');
     for (int i = 0; i < cols; i++) {
       iPrint('r.${AccessV(i)} = col$i[row];');
     }
@@ -1139,7 +1138,7 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('\/\/\/ Returns the translation vector from this homogeneous transformation matrix.');
       iPrint('vec3 getTranslation() {');
       iPush();
-      iPrint('return new vec3.raw(col3.x, col3.y, col3.z);');
+      iPrint('return new vec3(col3.x, col3.y, col3.z);');
       iPop();
       iPrint('}');
       iPrint('\/\/\/ Sets the translation vector in this homogeneous transformation matrix.');
@@ -1157,9 +1156,9 @@ class MatrixGenerator extends BaseGenerator {
       iPrint('mat3 getRotation() {');
       iPush();
       iPrint('mat3 r = new mat3.zero();');
-      iPrint('r.col0 = new vec3.raw(this.col0.x,this.col0.y,this.col0.z);');
-      iPrint('r.col1 = new vec3.raw(this.col1.x,this.col1.y,this.col1.z);');
-      iPrint('r.col2 = new vec3.raw(this.col2.x,this.col2.y,this.col2.z);');
+      iPrint('r.col0 = new vec3(this.col0.x,this.col0.y,this.col0.z);');
+      iPrint('r.col1 = new vec3(this.col1.x,this.col1.y,this.col1.z);');
+      iPrint('r.col2 = new vec3(this.col2.x,this.col2.y,this.col2.z);');
       iPrint('return r;');
       iPop();
       iPrint('}');
@@ -1229,9 +1228,9 @@ class MatrixGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
       iPrint('double invDet = 1.0 / det;');
-      iPrint('vec3 i = new vec3.zero();');
-      iPrint('vec3 j = new vec3.zero();');
-      iPrint('vec3 k = new vec3.zero();');
+      iPrint('vec3 i = new vec3();');
+      iPrint('vec3 j = new vec3();');
+      iPrint('vec3 k = new vec3();');
       iPrint('i.x = invDet * (col1.y * col2.z - col1.z * col2.y);');
       iPrint('i.y = invDet * (col0.z * col2.y - col0.y * col2.z);');
       iPrint('i.z = invDet * (col0.y * col1.z - col0.z * col1.y);');
@@ -1299,9 +1298,9 @@ class MatrixGenerator extends BaseGenerator {
       iPop();
       iPrint('}');
       iPrint('double invDet = 1.0 / det;');
-      iPrint('vec4 i = new vec4.zero();');
-      iPrint('vec4 j = new vec4.zero();');
-      iPrint('vec4 k = new vec4.zero();');
+      iPrint('vec4 i = new vec4();');
+      iPrint('vec4 j = new vec4();');
+      iPrint('vec4 k = new vec4();');
       iPrint('i.x = invDet * (col1.y * col2.z - col1.z * col2.y);');
       iPrint('i.y = invDet * (col0.z * col2.y - col0.y * col2.z);');
       iPrint('i.z = invDet * (col0.y * col1.z - col0.z * col1.y);');
@@ -1946,7 +1945,7 @@ class MatrixGenerator extends BaseGenerator {
     if (rows == 3 || rows == 4) {
       iPrint('vec3 get right {');
       iPush();
-      iPrint('vec3 f = new vec3.zero();');
+      iPrint('vec3 f = new vec3();');
       iPrint('f.x = ${Access(0, 0)};');
       iPrint('f.y = ${Access(1, 0)};');
       iPrint('f.z = ${Access(2, 0)};');
@@ -1956,7 +1955,7 @@ class MatrixGenerator extends BaseGenerator {
 
       iPrint('vec3 get up {');
       iPush();
-      iPrint('vec3 f = new vec3.zero();');
+      iPrint('vec3 f = new vec3();');
       iPrint('f.x = ${Access(0, 1)};');
       iPrint('f.y = ${Access(1, 1)};');
       iPrint('f.z = ${Access(2, 1)};');
@@ -1966,7 +1965,7 @@ class MatrixGenerator extends BaseGenerator {
 
       iPrint('vec3 get forward {');
       iPush();
-      iPrint('vec3 f = new vec3.zero();');
+      iPrint('vec3 f = new vec3();');
       iPrint('f.x = ${Access(0, 2)};');
       iPrint('f.y = ${Access(1, 2)};');
       iPrint('f.z = ${Access(2, 2)};');

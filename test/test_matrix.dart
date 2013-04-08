@@ -377,7 +377,7 @@ class MatrixTest extends BaseTest {
     output1.add(new mat4.rotationZ(1.57079632679 * 0.25));
     output2.add(new mat4.identity().rotateZ(1.57079632679 * 0.25));
     {
-      vec3 axis = new vec3.raw(1.1, 1.1, 1.1);
+      vec3 axis = new vec3(1.1, 1.1, 1.1);
       axis.normalize();
       num angle = 1.5;
 
@@ -398,12 +398,12 @@ class MatrixTest extends BaseTest {
 
   void testMat2Transform() {
     mat2 rot = new mat2.rotation(Math.PI / 4);
-    final vec2 input = new vec2.raw(0.234245234259, 0.890723489233);
+    final vec2 input = new vec2(0.234245234259, 0.890723489233);
 
-    final vec2 expected = new vec2.raw(rot.col0.x * input.x + rot.col1.x * input.y,
+    final vec2 expected = new vec2(rot.col0.x * input.x + rot.col1.x * input.y,
                                        rot.col0.y * input.x + rot.col1.y * input.y);
 
-    final vec2 transExpected = new vec2.raw(rot.col0.x * input.x + rot.col0.y * input.y,
+    final vec2 transExpected = new vec2(rot.col0.x * input.x + rot.col0.y * input.y,
                                             rot.col1.x * input.x + rot.col1.y * input.y);
 
     relativeTest(rot.transformed(input), expected);
@@ -414,17 +414,17 @@ class MatrixTest extends BaseTest {
     mat3 rotX = new mat3.rotationX(Math.PI / 4);
     mat3 rotY = new mat3.rotationY(Math.PI / 4);
     mat3 rotZ = new mat3.rotationZ(Math.PI / 4);
-    final vec3 input = new vec3.raw(1.0, 0.0, 0.0);
+    final vec3 input = new vec3(1.0, 0.0, 0.0);
 
     relativeTest(rotX.transformed(input), input);
-    relativeTest(rotY.transformed(input), new vec3.raw(1 / Math.sqrt(2), 0.0, 1.0 / Math.sqrt(2.0)));
-    relativeTest(rotZ.transformed(input), new vec3.raw(1 / Math.sqrt(2), 1.0 / Math.sqrt(2.0), 0.0));
+    relativeTest(rotY.transformed(input), new vec3(1 / Math.sqrt(2), 0.0, 1.0 / Math.sqrt(2.0)));
+    relativeTest(rotZ.transformed(input), new vec3(1 / Math.sqrt(2), 1.0 / Math.sqrt(2.0), 0.0));
   }
 
   void testMat4Column() {
     mat4 I = new mat4.zero();
     expect(I[0].x, 0.0);
-    vec4 c0 = new vec4.raw(1.0, 2.0, 3.0, 4.0);
+    vec4 c0 = new vec4(1.0, 2.0, 3.0, 4.0);
     I.setColumn(0, c0);
     expect(I[0].x, 1.0);
     c0.x = 4.0;
@@ -433,9 +433,9 @@ class MatrixTest extends BaseTest {
   }
 
   void testMat3ConstructorCopy() {
-    vec3 a = new vec3.raw(1.0, 2.0, 3.0);
-    vec3 b = new vec3.raw(4.0, 5.0, 6.0);
-    vec3 c = new vec3.raw(7.0, 8.0, 9.0);
+    vec3 a = new vec3(1.0, 2.0, 3.0);
+    vec3 b = new vec3(4.0, 5.0, 6.0);
+    vec3 c = new vec3(7.0, 8.0, 9.0);
     mat3 m = new mat3(a, b, c);
     expect(m.col0.x, 1.0);
     expect(m.col2.z, 9.0);

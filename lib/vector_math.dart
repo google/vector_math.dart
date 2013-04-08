@@ -20,6 +20,7 @@
 */
 
 library vector_math;
+import 'dart:typeddata';
 import 'dart:math' as Math;
 
 part 'src/vector_math/scalar_math.dart';

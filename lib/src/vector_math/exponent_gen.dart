@@ -21,6 +21,8 @@
 
 part of vector_math;
 
+
+
 /// Returns [x] raised to the exponent [y]. Supports vectors and numbers.
 dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is double) {
@@ -28,7 +30,7 @@ dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.pow(x.x, y.x);
     (out as vec2).y = Math.pow(x.y, y.y);
@@ -36,7 +38,7 @@ dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.pow(x.x, y.x);
     (out as vec3).y = Math.pow(x.y, y.y);
@@ -45,7 +47,7 @@ dynamic pow(dynamic x, dynamic y, [dynamic out=null]) {
   }
   if (x is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.pow(x.x, y.x);
     (out as vec4).y = Math.pow(x.y, y.y);
@@ -62,7 +64,7 @@ dynamic exp(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.exp(arg.x);
     (out as vec2).y = Math.exp(arg.y);
@@ -70,7 +72,7 @@ dynamic exp(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.exp(arg.x);
     (out as vec3).y = Math.exp(arg.y);
@@ -79,7 +81,7 @@ dynamic exp(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.exp(arg.x);
     (out as vec4).y = Math.exp(arg.y);
@@ -96,7 +98,7 @@ dynamic log(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.log(arg.x);
     (out as vec2).y = Math.log(arg.y);
@@ -104,7 +106,7 @@ dynamic log(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.log(arg.x);
     (out as vec3).y = Math.log(arg.y);
@@ -113,7 +115,7 @@ dynamic log(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.log(arg.x);
     (out as vec4).y = Math.log(arg.y);
@@ -130,7 +132,7 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.exp2(arg.x);
     (out as vec2).y = _ScalerHelpers.exp2(arg.y);
@@ -138,7 +140,7 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.exp2(arg.x);
     (out as vec3).y = _ScalerHelpers.exp2(arg.y);
@@ -147,7 +149,7 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.exp2(arg.x);
     (out as vec4).y = _ScalerHelpers.exp2(arg.y);
@@ -164,7 +166,7 @@ dynamic log2(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.log2(arg.x);
     (out as vec2).y = _ScalerHelpers.log2(arg.y);
@@ -172,7 +174,7 @@ dynamic log2(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.log2(arg.x);
     (out as vec3).y = _ScalerHelpers.log2(arg.y);
@@ -181,7 +183,7 @@ dynamic log2(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.log2(arg.x);
     (out as vec4).y = _ScalerHelpers.log2(arg.y);
@@ -198,7 +200,7 @@ dynamic sqrt(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = Math.sqrt(arg.x);
     (out as vec2).y = Math.sqrt(arg.y);
@@ -206,7 +208,7 @@ dynamic sqrt(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = Math.sqrt(arg.x);
     (out as vec3).y = Math.sqrt(arg.y);
@@ -215,7 +217,7 @@ dynamic sqrt(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = Math.sqrt(arg.x);
     (out as vec4).y = Math.sqrt(arg.y);
@@ -232,7 +234,7 @@ dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec2) {
     if (out == null) {
-      out = new vec2.zero();
+      out = new vec2();
     }
     (out as vec2).x = _ScalerHelpers.inversesqrt(arg.x);
     (out as vec2).y = _ScalerHelpers.inversesqrt(arg.y);
@@ -240,7 +242,7 @@ dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec3) {
     if (out == null) {
-      out = new vec3.zero();
+      out = new vec3();
     }
     (out as vec3).x = _ScalerHelpers.inversesqrt(arg.x);
     (out as vec3).y = _ScalerHelpers.inversesqrt(arg.y);
@@ -249,7 +251,7 @@ dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
   }
   if (arg is vec4) {
     if (out == null) {
-      out = new vec4.zero();
+      out = new vec4();
     }
     (out as vec4).x = _ScalerHelpers.inversesqrt(arg.x);
     (out as vec4).y = _ScalerHelpers.inversesqrt(arg.y);
