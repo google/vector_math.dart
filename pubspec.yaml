@@ -3,7 +3,8 @@ description: A Vector Math library for 2D and 3D applications.
 version: 0.9.7
 author: John McCutchan <john@johnmccutchan.com>
 homepage: https://github.com/johnmccutchan/DartVectorMath
-dependencies:
+dev_dependencies:
   browser: any
   unittest: any
+  hop: any
 
