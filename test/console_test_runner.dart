@@ -15,7 +15,7 @@ main() {
 }
 
 void testCore(Configuration config) {
-  configure(config);
+  unittestConfiguration = config;
   groupSep = ' - ';
 
   console.main();
