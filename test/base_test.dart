@@ -61,8 +61,9 @@ class BaseTest {
 
     dynamic m = makeMatrix(rows.length, col_count);
     for (int j = 0; j < rows.length; j++) {
-      for (int i = 0; i < col_count; i++) {;
-        m[i][j] = values[j*col_count+i];
+      for (int i = 0; i < col_count; i++) {
+        m[m.index(j,i)] = values[j*col_count+i];
+        //m[i][j] = values[j*col_count+i];
       }
     }
 

@@ -21,112 +21,76 @@
 
 part of vector_math;
 
-/// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 rows.
+/// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 dimension.
 class mat2 {
-  vec2 col0;
-  vec2 col1;
-  /// Constructs a new mat2. Supports GLSL like syntax so many possible inputs. Defaults to identity matrix.
-  mat2([dynamic arg0, dynamic arg1, dynamic arg2, dynamic arg3]) {
-    //Initialize the matrix as the identity matrix
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
-    col0.x = 1.0;
-    col1.y = 1.0;
-    if (arg0 is num && arg1 is num && arg2 is num && arg3 is num) {
-      setRaw(arg0, arg1, arg2, arg3);
-      return;
-    }
-    if (arg0 is num && arg1 == null && arg2 == null && arg3 == null) {
-      splatDiagonal(arg0);
-    }
-    if (arg0 is vec2 && arg1 is vec2) {
-      setColumns(arg0, arg1);
-    }
-    if (arg0 is mat2) {
-      setMatrix(arg0);
-    }
-    if (arg0 is vec2 && arg1 == null && arg2 == null && arg3 == null) {
-      setDiagonal2(arg0);
-    }
+  final Float32List _storage = new Float32List(4);
+  int index(int row, int col) => (col * 2) + row;
+  double entry(int row, int col) => _storage[index(row, col)];
+  setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }
+  /// Constructs a new mat2.
+  mat2(double arg0, double arg1, double arg2, double arg3) {
+    setRaw(arg0, arg1, arg2, arg3);
+  }
+  /// Constructs a new mat2 from columns.
+  mat2.columns(vec2 arg0, vec2 arg1) {
+    setColumns(arg0, arg1);
   }
   /// Constructs a new [mat2] from computing the outer product of [u] and [v].
   mat2.outer(vec2 u, vec2 v) {
-    col0 = new vec2();
-    col1 = new vec2();
-    col0.x = u.x * v.x;
-    col0.y = u.x * v.y;
-    col1.x = u.y * v.x;
-    col1.y = u.y * v.y;
+    _storage[0] = u._storage[0] * v._storage[0];
+    _storage[1] = u._storage[0] * v._storage[1];
+    _storage[2] = u._storage[1] * v._storage[0];
+    _storage[3] = u._storage[1] * v._storage[1];
   }
   /// Constructs a new [mat2] filled with zeros.
   mat2.zero() {
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
-    col0.x = 0.0;
-    col0.y = 0.0;
-    col1.x = 0.0;
-    col1.y = 0.0;
   }
   /// Constructs a new identity [mat2].
   mat2.identity() {
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
-    col0.x = 1.0;
-    col1.y = 1.0;
+    setIdentity();
   }
   /// Constructs a new [mat2] which is a copy of [other].
   mat2.copy(mat2 other) {
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
-    col0.x = other.col0.x;
-    col0.y = other.col0.y;
-    col1.x = other.col1.x;
-    col1.y = other.col1.y;
+    setMatrix(other);
   }
   /// Constructs a new [mat2] representing a rotation by [radians].
-  mat2.rotation(num radians_) {
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
+  mat2.rotation(double radians_) {
     setRotation(radians_);
   }
-  mat2.raw(num arg0, num arg1, num arg2, num arg3) {
-    col0 = new vec2.zero();
-    col1 = new vec2.zero();
-    col0.x = arg0;
-    col0.y = arg1;
-    col1.x = arg2;
-    col1.y = arg3;
-  }
   /// Sets the diagonal to [arg].
-  mat2 splatDiagonal(num arg) {
-    col0.x = arg;
-    col1.y = arg;
+  mat2 splatDiagonal(double arg) {
+    _storage[0] = arg;
+    _storage[3] = arg;
     return this;
   }
   /// Sets the entire matrix to the numeric values.
-  mat2 setRaw(num arg0, num arg1, num arg2, num arg3) {
-    col0.x = arg0;
-    col0.y = arg1;
-    col1.x = arg2;
-    col1.y = arg3;
+  mat2 setRaw(double arg0, double arg1, double arg2, double arg3) {
+    _storage[3] = arg3;
+    _storage[2] = arg2;
+    _storage[1] = arg1;
+    _storage[0] = arg0;
     return this;
   }
   /// Sets the entire matrix to the column values.
   mat2 setColumns(vec2 arg0, vec2 arg1) {
-    col0 = arg0.clone();
-    col1 = arg1.clone();
+    _storage[0] = arg0._storage[0];
+    _storage[1] = arg0._storage[1];
+    _storage[2] = arg1._storage[0];
+    _storage[3] = arg1._storage[1];
     return this;
   }
   /// Sets the entire matrix to the matrix in [arg].
   mat2 setMatrix(mat2 arg) {
-    col0 = arg.col0.clone();
-    col1 = arg.col1.clone();
+    _storage[3] = arg._storage[3];
+    _storage[2] = arg._storage[2];
+    _storage[1] = arg._storage[1];
+    _storage[0] = arg._storage[0];
     return this;
   }
   /// Sets the diagonal of the matrix to be [arg].
   mat2 setDiagonal2(vec2 arg) {
-    col0.x = arg.x;
-    col1.y = arg.y;
+    _storage[0] = arg._storage[0];
+    _storage[3] = arg._storage[1];
     return this;
   }
   /// Returns a printable string
@@ -136,29 +100,17 @@ class mat2 {
     s = '$s[1] ${getRow(1)}\n';
     return s;
   }
-  /// Returns the number of rows in the matrix.
-  int get rows => 2;
-  /// Returns the number of columns in the matrix.
-  int get cols => 2;
-  /// Returns the number of columns in the matrix.
+  /// Returns the dimension of the matrix.
+  int get dimension => 2;
+  /// Returns the dimension of the matrix.
   int get length => 2;
-  /// Gets the [column] of the matrix
-  vec2 operator[](int column) {
-    assert(column >= 0 && column < 2);
-    switch (column) {
-      case 0: return col0;
-      case 1: return col1;
-    }
-    throw new ArgumentError(column);
+  /// Gets element [i] from the matrix.
+  double operator[](int i) {
+    return _storage[i];
   }
-  /// Assigns the [column] of the matrix [arg]
-  void operator[]=(int column, vec2 arg) {
-    assert(column >= 0 && column < 2);
-    switch (column) {
-      case 0: col0 = arg; break;
-      case 1: col1 = arg; break;
-    }
-    throw new ArgumentError(column);
+  /// Sets element [i] in the matrix.
+  void operator[]=(int i, double v) {
+    _storage[i] = v;
   }
   /// Returns row 0
   vec2 get row0 => getRow(0);
@@ -170,61 +122,61 @@ class mat2 {
   set row1(vec2 arg) => setRow(1, arg);
   /// Assigns the [column] of the matrix [arg]
   void setRow(int row, vec2 arg) {
-    assert(row >= 0 && row < 2);
-    col0[row] = arg.x;
-    col1[row] = arg.y;
+    _storage[index(row, 0)] = arg._storage[0];
+    _storage[index(row, 1)] = arg._storage[1];
   }
   /// Gets the [row] of the matrix
   vec2 getRow(int row) {
-    assert(row >= 0 && row < 2);
-    vec2 r = new vec2();
-    r.x = col0[row];
-    r.y = col1[row];
+    vec2 r = new vec2.zero();
+    r._storage[0] = _storage[index(row, 0)];
+    r._storage[1] = _storage[index(row, 1)];
     return r;
   }
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec2 arg) {
-    assert(column >= 0 && column < 2);
-    var col = this[column];
-    col.x = arg.x;
-    col.y = arg.y;
+    int entry = column * 2;
+    _storage[entry+1] = arg._storage[1];
+    _storage[entry+0] = arg._storage[0];
   }
   /// Gets the [column] of the matrix
   vec2 getColumn(int column) {
-    assert(column >= 0 && column < 2);
-    return new vec2.copy(this[column]);
+    vec2 r = new vec2.zero();
+    int entry = column * 2;
+    r._storage[1] = _storage[entry+1];
+    r._storage[0] = _storage[entry+0];
+    return r;
   }
-  mat2 _mul_scale(num arg) {
+  mat2 _mul_scale(double arg) {
     mat2 r = new mat2.zero();
-    r.col0.x = this.col0.x * arg;
-    r.col0.y = this.col0.y * arg;
-    r.col1.x = this.col1.x * arg;
-    r.col1.y = this.col1.y * arg;
+    r._storage[3] = _storage[3] * arg;
+    r._storage[2] = _storage[2] * arg;
+    r._storage[1] = _storage[1] * arg;
+    r._storage[0] = _storage[0] * arg;
     return r;
   }
   mat2 _mul_matrix(mat2 arg) {
     var r = new mat2.zero();
-    r.col0.x =  (this.col0.x * arg.col0.x) + (this.col1.x * arg.col0.y);
-    r.col1.x =  (this.col0.x * arg.col1.x) + (this.col1.x * arg.col1.y);
-    r.col0.y =  (this.col0.y * arg.col0.x) + (this.col1.y * arg.col0.y);
-    r.col1.y =  (this.col0.y * arg.col1.x) + (this.col1.y * arg.col1.y);
+    r._storage[0] =  (_storage[0] * arg._storage[0]) + (_storage[2] * arg._storage[1]);
+    r._storage[2] =  (_storage[0] * arg._storage[2]) + (_storage[2] * arg._storage[3]);
+    r._storage[1] =  (_storage[1] * arg._storage[0]) + (_storage[3] * arg._storage[1]);
+    r._storage[3] =  (_storage[1] * arg._storage[2]) + (_storage[3] * arg._storage[3]);
     return r;
   }
   vec2 _mul_vector(vec2 arg) {
     vec2 r = new vec2.zero();
-    r.x =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
-    r.y =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+    r._storage[1] =  (_storage[1] * arg._storage[0]) + (_storage[3] * arg._storage[1]);
+    r._storage[0] =  (_storage[0] * arg._storage[0]) + (_storage[2] * arg._storage[1]);
     return r;
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
-    if (arg is num) {
+    if (arg is double) {
       return _mul_scale(arg);
     }
     if (arg is vec2) {
       return _mul_vector(arg);
     }
-    if (2 == arg.rows) {
+    if (2 == arg.dimension) {
       return _mul_matrix(arg);
     }
     throw new ArgumentError(arg);
@@ -232,19 +184,19 @@ class mat2 {
   /// Returns new matrix after component wise [this] + [arg]
   mat2 operator+(mat2 arg) {
     mat2 r = new mat2.zero();
-    r.col0.x = col0.x + arg.col0.x;
-    r.col0.y = col0.y + arg.col0.y;
-    r.col1.x = col1.x + arg.col1.x;
-    r.col1.y = col1.y + arg.col1.y;
+    r._storage[0] = _storage[0] + arg._storage[0];
+    r._storage[1] = _storage[1] + arg._storage[1];
+    r._storage[2] = _storage[2] + arg._storage[2];
+    r._storage[3] = _storage[3] + arg._storage[3];
     return r;
   }
   /// Returns new matrix after component wise [this] - [arg]
   mat2 operator-(mat2 arg) {
     mat2 r = new mat2.zero();
-    r.col0.x = col0.x - arg.col0.x;
-    r.col0.y = col0.y - arg.col0.y;
-    r.col1.x = col1.x - arg.col1.x;
-    r.col1.y = col1.y - arg.col1.y;
+    r._storage[0] = _storage[0] - arg._storage[0];
+    r._storage[1] = _storage[1] - arg._storage[1];
+    r._storage[2] = _storage[2] - arg._storage[2];
+    r._storage[3] = _storage[3] - arg._storage[3];
     return r;
   }
   /// Returns new matrix -this
@@ -256,54 +208,54 @@ class mat2 {
   }
   /// Zeros [this].
   mat2 setZero() {
-    col0.x = 0.0;
-    col0.y = 0.0;
-    col1.x = 0.0;
-    col1.y = 0.0;
+    _storage[0] = 0.0;
+    _storage[1] = 0.0;
+    _storage[2] = 0.0;
+    _storage[3] = 0.0;
     return this;
   }
   /// Makes [this] into the identity matrix.
   mat2 setIdentity() {
-    col0.x = 1.0;
-    col0.y = 0.0;
-    col1.x = 0.0;
-    col1.y = 1.0;
+    _storage[0] = 1.0;
+    _storage[1] = 0.0;
+    _storage[2] = 0.0;
+    _storage[3] = 1.0;
     return this;
   }
   /// Returns the tranpose of this.
   mat2 transposed() {
     mat2 r = new mat2.zero();
-    r.col0.x = col0.x;
-    r.col0.y = col1.x;
-    r.col1.x = col0.y;
-    r.col1.y = col1.y;
+    r._storage[0] = _storage[0];
+    r._storage[1] = _storage[2];
+    r._storage[2] = _storage[1];
+    r._storage[3] = _storage[3];
     return r;
   }
   mat2 transpose() {
     double temp;
-    temp = col1.x;
-    col1.x = col0.y;
-    col0.y = temp;
+    temp = _storage[2];
+    _storage[2] = _storage[1];
+    _storage[1] = temp;
     return this;
   }
   /// Returns the component wise absolute value of this.
   mat2 absolute() {
     mat2 r = new mat2.zero();
-    r.col0.x = col0.x.abs();
-    r.col0.y = col0.y.abs();
-    r.col1.x = col1.x.abs();
-    r.col1.y = col1.y.abs();
+    r._storage[0] = _storage[0].abs();
+    r._storage[1] = _storage[1].abs();
+    r._storage[2] = _storage[2].abs();
+    r._storage[3] = _storage[3].abs();
     return r;
   }
   /// Returns the determinant of this matrix.
   double determinant() {
-    return (col0.x * col1.y) - (col0.y*col1.x);
+    return (_storage[0] * _storage[3]) - (_storage[1]*_storage[2]);
   }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
   double trace() {
     double t = 0.0;
-    t += col0.x;
-    t += col1.y;
+    t += _storage[0];
+    t += _storage[3];
     return t;
   }
   /// Returns infinity norm of the matrix. Used for numerical analysis.
@@ -311,14 +263,14 @@ class mat2 {
     double norm = 0.0;
     {
       double row_norm = 0.0;
-      row_norm += this[0][0].abs();
-      row_norm += this[0][1].abs();
+      row_norm += _storage[0].abs();
+      row_norm += _storage[1].abs();
       norm = row_norm > norm ? row_norm : norm;
     }
     {
       double row_norm = 0.0;
-      row_norm += this[1][0].abs();
-      row_norm += this[1][1].abs();
+      row_norm += _storage[2].abs();
+      row_norm += _storage[3].abs();
       norm = row_norm > norm ? row_norm : norm;
     }
     return norm;
@@ -356,99 +308,99 @@ class mat2 {
     double radians_ = radians.toDouble();
     double c = Math.cos(radians_);
     double s = Math.sin(radians_);
-    col0.x = c;
-    col0.y = s;
-    col1.x = -s;
-    col1.y = c;
+    _storage[0] = c;
+    _storage[1] = s;
+    _storage[2] = -s;
+    _storage[3] = c;
   }
   /// Converts into Adjugate matrix and scales by [scale]
   mat2 scaleAdjoint(num scale) {
     double scale_ = scale.toDouble();
-    double temp = col0.x;
-    col0.x = col1.y * scale_;
-    col1.x = - col1.x * scale_;
-    col0.y = - col0.y * scale_;
-    col1.y = temp * scale_;
+    double temp = _storage[0];
+    _storage[0] = _storage[3] * scale_;
+    _storage[2] = - _storage[2] * scale_;
+    _storage[1] = - _storage[1] * scale_;
+    _storage[3] = temp * scale_;
     return this;
   }
   mat2 clone() {
     return new mat2.copy(this);
   }
   mat2 copyInto(mat2 arg) {
-    arg.col0.x = col0.x;
-    arg.col0.y = col0.y;
-    arg.col1.x = col1.x;
-    arg.col1.y = col1.y;
+    arg._storage[0] = _storage[0];
+    arg._storage[1] = _storage[1];
+    arg._storage[2] = _storage[2];
+    arg._storage[3] = _storage[3];
     return arg;
   }
   mat2 copyFrom(mat2 arg) {
-    col0.x = arg.col0.x;
-    col0.y = arg.col0.y;
-    col1.x = arg.col1.x;
-    col1.y = arg.col1.y;
+    _storage[0] = arg._storage[0];
+    _storage[1] = arg._storage[1];
+    _storage[2] = arg._storage[2];
+    _storage[3] = arg._storage[3];
     return this;
   }
   mat2 add(mat2 o) {
-    col0.x = col0.x + o.col0.x;
-    col0.y = col0.y + o.col0.y;
-    col1.x = col1.x + o.col1.x;
-    col1.y = col1.y + o.col1.y;
+    _storage[0] = _storage[0] + o._storage[0];
+    _storage[1] = _storage[1] + o._storage[1];
+    _storage[2] = _storage[2] + o._storage[2];
+    _storage[3] = _storage[3] + o._storage[3];
     return this;
   }
   mat2 sub(mat2 o) {
-    col0.x = col0.x - o.col0.x;
-    col0.y = col0.y - o.col0.y;
-    col1.x = col1.x - o.col1.x;
-    col1.y = col1.y - o.col1.y;
+    _storage[0] = _storage[0] - o._storage[0];
+    _storage[1] = _storage[1] - o._storage[1];
+    _storage[2] = _storage[2] - o._storage[2];
+    _storage[3] = _storage[3] - o._storage[3];
     return this;
   }
   mat2 negate() {
-    col0.x = -col0.x;
-    col0.y = -col0.y;
-    col1.x = -col1.x;
-    col1.y = -col1.y;
+    _storage[0] = -_storage[0];
+    _storage[1] = -_storage[1];
+    _storage[2] = -_storage[2];
+    _storage[3] = -_storage[3];
     return this;
   }
   mat2 multiply(mat2 arg) {
-    final double m00 = col0.x;
-    final double m01 = col1.x;
-    final double m10 = col0.y;
-    final double m11 = col1.y;
-    final double n00 = arg.col0.x;
-    final double n01 = arg.col1.x;
-    final double n10 = arg.col0.y;
-    final double n11 = arg.col1.y;
-    col0.x =  (m00 * n00) + (m01 * n10);
-    col1.x =  (m00 * n01) + (m01 * n11);
-    col0.y =  (m10 * n00) + (m11 * n10);
-    col1.y =  (m10 * n01) + (m11 * n11);
+    final double m00 = _storage[0];
+    final double m01 = _storage[2];
+    final double m10 = _storage[1];
+    final double m11 = _storage[3];
+    final double n00 = arg._storage[0];
+    final double n01 = arg._storage[2];
+    final double n10 = arg._storage[1];
+    final double n11 = arg._storage[3];
+    _storage[0] =  (m00 * n00) + (m01 * n10);
+    _storage[2] =  (m00 * n01) + (m01 * n11);
+    _storage[1] =  (m10 * n00) + (m11 * n10);
+    _storage[3] =  (m10 * n01) + (m11 * n11);
     return this;
   }
   mat2 transposeMultiply(mat2 arg) {
-    double m00 = col0.x;
-    double m01 = col0.y;
-    double m10 = col1.x;
-    double m11 = col1.y;
-    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col0.y);
-    col1.x =  (m00 * arg.col1.x) + (m01 * arg.col1.y);
-    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col0.y);
-    col1.y =  (m10 * arg.col1.x) + (m11 * arg.col1.y);
+    double m00 = _storage[0];
+    double m01 = _storage[1];
+    double m10 = _storage[2];
+    double m11 = _storage[3];
+    _storage[0] =  (m00 * arg._storage[0]) + (m01 * arg._storage[1]);
+    _storage[2] =  (m00 * arg._storage[2]) + (m01 * arg._storage[3]);
+    _storage[1] =  (m10 * arg._storage[0]) + (m11 * arg._storage[1]);
+    _storage[3] =  (m10 * arg._storage[2]) + (m11 * arg._storage[3]);
     return this;
   }
   mat2 multiplyTranspose(mat2 arg) {
-    double m00 = col0.x;
-    double m01 = col1.x;
-    double m10 = col0.y;
-    double m11 = col1.y;
-    col0.x =  (m00 * arg.col0.x) + (m01 * arg.col1.x);
-    col1.x =  (m00 * arg.col0.y) + (m01 * arg.col1.y);
-    col0.y =  (m10 * arg.col0.x) + (m11 * arg.col1.x);
-    col1.y =  (m10 * arg.col0.y) + (m11 * arg.col1.y);
+    double m00 = _storage[0];
+    double m01 = _storage[2];
+    double m10 = _storage[1];
+    double m11 = _storage[3];
+    _storage[0] =  (m00 * arg._storage[0]) + (m01 * arg._storage[2]);
+    _storage[2] =  (m00 * arg._storage[1]) + (m01 * arg._storage[3]);
+    _storage[1] =  (m10 * arg._storage[0]) + (m11 * arg._storage[2]);
+    _storage[3] =  (m10 * arg._storage[1]) + (m11 * arg._storage[3]);
     return this;
   }
   vec2 transform(vec2 arg) {
-    double x_ =  (this.col0.x * arg.x) + (this.col1.x * arg.y);
-    double y_ =  (this.col0.y * arg.x) + (this.col1.y * arg.y);
+    double x_ =  (_storage[0] * arg._storage[0]) + (_storage[2] * arg._storage[1]);
+    double y_ =  (_storage[1] * arg._storage[0]) + (_storage[3] * arg._storage[1]);
     arg.x = x_;
     arg.y = y_;
     return arg;
@@ -464,25 +416,17 @@ class mat2 {
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset=0]) {
     int i = offset;
-    array[i] = col0.x;
-    i++;
-    array[i] = col0.y;
-    i++;
-    array[i] = col1.x;
-    i++;
-    array[i] = col1.y;
-    i++;
+    array[i+3] = _storage[3];
+    array[i+2] = _storage[2];
+    array[i+1] = _storage[1];
+    array[i+0] = _storage[0];
   }
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<num> array, [int offset=0]) {
     int i = offset;
-    col0.x = array[i].toDouble();
-    i++;
-    col0.y = array[i].toDouble();
-    i++;
-    col1.x = array[i].toDouble();
-    i++;
-    col1.y = array[i].toDouble();
-    i++;
+    _storage[3] = array[i+3];
+    _storage[2] = array[i+2];
+    _storage[1] = array[i+1];
+    _storage[0] = array[i+0];
   }
 }

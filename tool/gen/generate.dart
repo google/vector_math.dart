@@ -163,9 +163,7 @@ void generateMatrix() {
   f = new File('${basePath}/mat2_gen.dart');
   opened = f.openSync(mode:FileMode.WRITE);
   {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.rows = 2;
-    mg.cols = 2;
+    MatrixGenerator mg = new MatrixGenerator(2);
     mg.out = opened;
     mg.generate();
     opened.closeSync();
@@ -173,9 +171,7 @@ void generateMatrix() {
   f = new File('${basePath}/mat3_gen.dart');
   opened = f.openSync(mode:FileMode.WRITE);
   {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.rows = 3;
-    mg.cols = 3;
+    MatrixGenerator mg = new MatrixGenerator(3);
     mg.out = opened;
     mg.generate();
     opened.closeSync();
@@ -184,9 +180,7 @@ void generateMatrix() {
   f = new File('${basePath}/mat4_gen.dart');
   opened = f.openSync(mode:FileMode.WRITE);
   {
-    MatrixGenerator mg = new MatrixGenerator();
-    mg.rows = 4;
-    mg.cols = 4;
+    MatrixGenerator mg = new MatrixGenerator(4);
     mg.out = opened;
     mg.generate();
     opened.closeSync();

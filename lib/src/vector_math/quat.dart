@@ -79,20 +79,22 @@ class quat {
         double s = Math.sqrt(trace + 1.0);
         w = s * 0.5;
         s = 0.5 / s;
-        x = (a.col1.z - a.col2.y) * s;
-        y = (a.col2.x - a.col0.z) * s;
-        z = (a.col0.y - a.col1.x) * s;
+        x = (a._storage[5] - a._storage[7]) * s;
+        y = (a._storage[6] - a._storage[2]) * s;
+        z = (a._storage[1] - a._storage[3]) * s;
       } else {
-        int i = a.col0.x < a.col1.y ? (a.col1.y < a.col2.z ? 2 : 1) :
-            (a.col0.x < a.col2.z ? 2 : 0);
+        int i = a._storage[0] < a._storage[4] ?
+                (a._storage[4] < a._storage[8] ? 2 : 1) :
+                (a._storage[0] < a._storage[8] ? 2 : 0);
         int j = (i + 1) % 3;
         int k = (i + 2) % 3;
-        double s = Math.sqrt(a[i][i] - a[j][j] - a[k][k] + 1.0);
+        double s = Math.sqrt(a._storage[a.index(i,i)] - a._storage[a.index(j,j)]
+                             - a._storage[a.index(k,k)] + 1.0);
         this[i] = s * 0.5;
         s = 0.5 / s;
-        this[3] = (a[j][k] - a[k][j]) * s;
-        this[j] = (a[i][j] + a[j][i]) * s;
-        this[k] = (a[i][k] + a[k][i]) * s;
+        this[3] = (a._storage[a.index(k,j)] - a._storage[a.index(j,k)]) * s;
+        this[j] = (a._storage[a.index(j,i)] + a._storage[a.index(i,j)]) * s;
+        this[k] = (a._storage[a.index(k,i)] + a._storage[a.index(i,k)]) * s;
       }
     }
   }
@@ -393,7 +395,7 @@ class quat {
     double yz = y * zs;
     double zz = z * zs;
 
-    return new mat3.raw(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+    return new mat3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
       xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
       xz + wy, yz - wx, 1.0 - (xx + yy) // column 2
       );

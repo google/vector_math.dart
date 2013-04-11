@@ -36,13 +36,21 @@ void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
   vec3 y = z.cross(x);
   y.normalize();
   viewMatrix.setZero();
-  viewMatrix[0].xyz = x;
-  viewMatrix[1].xyz = y;
-  viewMatrix[2].xyz = z;
-  viewMatrix[3].w = 1.0;
+  viewMatrix.setEntry(3, 3, 1.0);
+  viewMatrix.setEntry(0, 0, x.x);
+  viewMatrix.setEntry(1, 0, x.y);
+  viewMatrix.setEntry(2, 0, x.z);
+  viewMatrix.setEntry(0, 1, y.x);
+  viewMatrix.setEntry(1, 1, y.y);
+  viewMatrix.setEntry(2, 1, y.z);
+  viewMatrix.setEntry(0, 2, z.x);
+  viewMatrix.setEntry(1, 2, z.y);
+  viewMatrix.setEntry(2, 2, z.z);
   viewMatrix.transpose();
   vec3 rotatedEye = viewMatrix * -cameraPosition;
-  viewMatrix[3].xyz = rotatedEye;
+  viewMatrix.setEntry(0, 3, rotatedEye.x);
+  viewMatrix.setEntry(1, 3, rotatedEye.y);
+  viewMatrix.setEntry(2, 3, rotatedEye.z);
 }
 
 /**
@@ -121,14 +129,13 @@ void setFrustumMatrix(mat4 perspectiveMatrix, num left, num right, num bottom,
   double top_minus_bottom = top - bottom;
   double far_minus_near = far - near;
   mat4 view = perspectiveMatrix.setZero();
-  view[0].x = two_near / right_minus_left;
-  view[1].y = two_near / top_minus_bottom;
-  view[2].x = (right + left) / right_minus_left;
-  view[2].y = (top + bottom) / top_minus_bottom;
-  view[2].z = -(far + near) / far_minus_near;
-  view[2].w = -1.0;
-  view[3].z = -(two_near * far) / far_minus_near;
-  view[3].w = 0.0;
+  view.setEntry(0, 0, two_near / right_minus_left);
+  view.setEntry(1, 1, two_near / top_minus_bottom);
+  view.setEntry(0, 2, (right + left) / right_minus_left);
+  view.setEntry(1, 2, (top + bottom) / top_minus_bottom);
+  view.setEntry(2, 2, -(far + near) / far_minus_near);
+  view.setEntry(3, 2, -1.0);
+  view.setEntry(2, 3, -(two_near * far) / far_minus_near);
 }
 
 /**
@@ -173,13 +180,13 @@ void setOrthographicMatrix(mat4 orthographicMatrix, num left, num right,
   double fmn = far - near;
   double fpn = far + near;
   mat4 r = orthographicMatrix.setZero();
-  r[0].x = 2.0/rml;
-  r[1].y = 2.0/tmb;
-  r[2].z = -2.0/fmn;
-  r[3].x = -rpl/rml;
-  r[3].y = -tpb/tmb;
-  r[3].z = -fpn/fmn;
-  r[3].w = 1.0;
+  r.setEntry(0, 0, 2.0/rml);
+  r.setEntry(1, 1, 2.0/tmb);
+  r.setEntry(2, 2, -2.0/fmn);
+  r.setEntry(0, 3, -rpl/rml);
+  r.setEntry(1, 3, -tpb/tmb);
+  r.setEntry(2, 3, -fpn/fmn);
+  r.setEntry(3, 3, 1.0);
 }
 
 /**
@@ -210,7 +217,7 @@ mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   r = r - outer;
   vec3 scaledNormal = (planeNormal.scaled(dot(planePoint, planeNormal)));
   vec4 T = new vec4(scaledNormal, 1.0);
-  r.col3 = T;
+  r.setColumn(3, T);
   return r;
 }
 
@@ -227,7 +234,7 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   double scale = 2.0 * dot(planePoint, planeNormal);
   vec3 scaledNormal = (planeNormal.scaled(scale));
   vec4 T = new vec4(scaledNormal, 1.0);
-  r.col3 = T;
+  r.setColumn(3, T);
   return r;
 }
 
