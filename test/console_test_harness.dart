@@ -6,6 +6,13 @@ import 'package:unittest/vm_config.dart';
 import 'package:vector_math/vector_math.dart';
 import 'vector_math_test.dart';
 
+void testCore(Configuration config) {
+  unittestConfiguration = config;
+  groupSep = ' - ';
+
+  main();
+}
+
 void main() {
   group('QuaternionTest', () {
     QuaternionTest qt = new QuaternionTest();
