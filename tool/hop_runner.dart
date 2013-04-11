@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:hop/hop.dart';
 import 'package:hop/hop_tasks.dart';
 
-import '../test/console_test_runner.dart' as console_runner;
+import '../test/console_test_harness.dart' as console_test_harness;
 
 void main() {
   //
@@ -21,7 +21,7 @@ void main() {
   //
   // Unit test
   //
-  addTask('test', createUnitTestTask(console_runner.testCore));
+  addTask('test', createUnitTestTask(console_test_harness.testCore));
 
   //
   // Doc generation
