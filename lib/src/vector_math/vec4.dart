@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -175,6 +175,133 @@ class vec4 {
   /// Returns the absolute error between [this] and [correct]
   double absoluteError(vec4 correct) {
     return (this - correct).length;
+  }
+
+  /// Returns true if any component is infinite.
+  bool get isInfinite {
+    bool is_infinite = false;
+    is_infinite = is_infinite || _storage[0].isInfinite;
+    is_infinite = is_infinite || _storage[1].isInfinite;
+    is_infinite = is_infinite || _storage[2].isInfinite;
+    is_infinite = is_infinite || _storage[3].isInfinite;
+    return is_infinite;
+  }
+  /// Returns true if any component is NaN.
+  bool get isNaN {
+    bool is_nan = false;
+    is_nan = is_nan || _storage[0].isNaN;
+    is_nan = is_nan || _storage[1].isNaN;
+    is_nan = is_nan || _storage[2].isNaN;
+    is_nan = is_nan || _storage[3].isNaN;
+    return is_nan;
+  }
+  vec4 add(vec4 arg) {
+    _storage[0] = _storage[0] + arg._storage[0];
+    _storage[1] = _storage[1] + arg._storage[1];
+    _storage[2] = _storage[2] + arg._storage[2];
+    _storage[3] = _storage[3] + arg._storage[3];
+    return this;
+  }
+  vec4 sub(vec4 arg) {
+    _storage[0] = _storage[0] - arg._storage[0];
+    _storage[1] = _storage[1] - arg._storage[1];
+    _storage[2] = _storage[2] - arg._storage[2];
+    _storage[3] = _storage[3] - arg._storage[3];
+    return this;
+  }
+  vec4 multiply(vec4 arg) {
+    _storage[0] = _storage[0] * arg._storage[0];
+    _storage[1] = _storage[1] * arg._storage[1];
+    _storage[2] = _storage[2] * arg._storage[2];
+    _storage[3] = _storage[3] * arg._storage[3];
+    return this;
+  }
+  vec4 div(vec4 arg) {
+    _storage[0] = _storage[0] / arg._storage[0];
+    _storage[1] = _storage[1] / arg._storage[1];
+    _storage[2] = _storage[2] / arg._storage[2];
+    _storage[3] = _storage[3] / arg._storage[3];
+    return this;
+  }
+  vec4 scale(double arg) {
+    _storage[0] = _storage[0] * arg;
+    _storage[1] = _storage[1] * arg;
+    _storage[2] = _storage[2] * arg;
+    _storage[3] = _storage[3] * arg;
+    return this;
+  }
+  vec4 scaled(num arg) {
+    return clone().scale(arg);
+  }
+  vec4 negate() {
+    _storage[0] = -_storage[0];
+    _storage[1] = -_storage[1];
+    _storage[2] = -_storage[2];
+    _storage[3] = -_storage[3];
+    return this;
+  }
+  vec4 absolute() {
+    _storage[0] = -_storage[0].abs();
+    _storage[1] = -_storage[1].abs();
+    _storage[2] = -_storage[2].abs();
+    _storage[3] = -_storage[3].abs();
+    _storage[0] = -_storage[0].abs();
+    _storage[1] = -_storage[1].abs();
+    _storage[2] = -_storage[2].abs();
+    _storage[3] = -_storage[3].abs();
+    _storage[0] = -_storage[0].abs();
+    _storage[1] = -_storage[1].abs();
+    _storage[2] = -_storage[2].abs();
+    _storage[3] = -_storage[3].abs();
+    _storage[0] = -_storage[0].abs();
+    _storage[1] = -_storage[1].abs();
+    _storage[2] = -_storage[2].abs();
+    _storage[3] = -_storage[3].abs();
+    return this;
+  }
+  vec4 clone() {
+    return new vec4.copy(this);
+  }
+  vec4 copyInto(vec4 arg) {
+    arg._storage[0] = _storage[0];
+    arg._storage[1] = _storage[1];
+    arg._storage[2] = _storage[2];
+    arg._storage[3] = _storage[3];
+    return arg;
+  }
+  vec4 copyFrom(vec4 arg) {
+    _storage[0] = arg._storage[0];
+    _storage[1] = arg._storage[1];
+    _storage[2] = arg._storage[2];
+    _storage[3] = arg._storage[3];
+    return this;
+  }
+  vec4 setComponents(double x_, double y_, double z_, double w_) {
+    _storage[0] = x_;
+    _storage[1] = y_;
+    _storage[2] = z_;
+    _storage[3] = w_;
+    return this;
+  }
+  /// Copies [this] into [array] starting at [offset].
+  void copyIntoArray(List<num> array, [int offset=0]) {
+    int i = offset;
+    array[i+0] = _storage[0];
+    array[i+1] = _storage[1];
+    array[i+2] = _storage[2];
+    array[i+3] = _storage[3];
+  }
+  /// Copies elements from [array] into [this] starting at [offset].
+  void copyFromArray(List<num> array, [int offset=0]) {
+    int i = offset;
+    _storage[0] = array[i+0];
+    i++;
+    _storage[1] = array[i+1];
+    i++;
+    _storage[2] = array[i+2];
+    i++;
+    _storage[3] = array[i+3];
+    i++;
   }
   set xy(vec2 arg) {
     _storage[0] = arg._storage[0];
@@ -487,132 +614,6 @@ class vec4 {
     _storage[2] = arg._storage[1];
     _storage[1] = arg._storage[2];
     _storage[0] = arg._storage[3];
-  }
-  /// Returns true if any component is infinite.
-  bool get isInfinite {
-    bool is_infinite = false;
-    is_infinite = is_infinite || _storage[0].isInfinite;
-    is_infinite = is_infinite || _storage[1].isInfinite;
-    is_infinite = is_infinite || _storage[2].isInfinite;
-    is_infinite = is_infinite || _storage[3].isInfinite;
-    return is_infinite;
-  }
-  /// Returns true if any component is NaN.
-  bool get isNaN {
-    bool is_nan = false;
-    is_nan = is_nan || _storage[0].isNaN;
-    is_nan = is_nan || _storage[1].isNaN;
-    is_nan = is_nan || _storage[2].isNaN;
-    is_nan = is_nan || _storage[3].isNaN;
-    return is_nan;
-  }
-  vec4 add(vec4 arg) {
-    _storage[0] = _storage[0] + arg._storage[0];
-    _storage[1] = _storage[1] + arg._storage[1];
-    _storage[2] = _storage[2] + arg._storage[2];
-    _storage[3] = _storage[3] + arg._storage[3];
-    return this;
-  }
-  vec4 sub(vec4 arg) {
-    _storage[0] = _storage[0] - arg._storage[0];
-    _storage[1] = _storage[1] - arg._storage[1];
-    _storage[2] = _storage[2] - arg._storage[2];
-    _storage[3] = _storage[3] - arg._storage[3];
-    return this;
-  }
-  vec4 multiply(vec4 arg) {
-    _storage[0] = _storage[0] * arg._storage[0];
-    _storage[1] = _storage[1] * arg._storage[1];
-    _storage[2] = _storage[2] * arg._storage[2];
-    _storage[3] = _storage[3] * arg._storage[3];
-    return this;
-  }
-  vec4 div(vec4 arg) {
-    _storage[0] = _storage[0] / arg._storage[0];
-    _storage[1] = _storage[1] / arg._storage[1];
-    _storage[2] = _storage[2] / arg._storage[2];
-    _storage[3] = _storage[3] / arg._storage[3];
-    return this;
-  }
-  vec4 scale(double arg) {
-    _storage[0] = _storage[0] * arg;
-    _storage[1] = _storage[1] * arg;
-    _storage[2] = _storage[2] * arg;
-    _storage[3] = _storage[3] * arg;
-    return this;
-  }
-  vec4 scaled(num arg) {
-    return clone().scale(arg);
-  }
-  vec4 negate() {
-    _storage[0] = -_storage[0];
-    _storage[1] = -_storage[1];
-    _storage[2] = -_storage[2];
-    _storage[3] = -_storage[3];
-    return this;
-  }
-  vec4 absolute() {
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    return this;
-  }
-  vec4 clone() {
-    return new vec4.copy(this);
-  }
-  vec4 copyInto(vec4 arg) {
-    arg._storage[0] = _storage[0];
-    arg._storage[1] = _storage[1];
-    arg._storage[2] = _storage[2];
-    arg._storage[3] = _storage[3];
-    return arg;
-  }
-  vec4 copyFrom(vec4 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[2] = arg._storage[2];
-    _storage[3] = arg._storage[3];
-    return this;
-  }
-  vec4 setComponents(double x_, double y_, double z_, double w_) {
-    _storage[0] = x_;
-    _storage[1] = y_;
-    _storage[2] = z_;
-    _storage[3] = w_;
-    return this;
-  }
-  /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset=0]) {
-    int i = offset;
-    array[i+0] = _storage[0];
-    array[i+1] = _storage[1];
-    array[i+2] = _storage[2];
-    array[i+3] = _storage[3];
-  }
-  /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
-    int i = offset;
-    _storage[0] = array[i+0];
-    i++;
-    _storage[1] = array[i+1];
-    i++;
-    _storage[2] = array[i+2];
-    i++;
-    _storage[3] = array[i+3];
-    i++;
   }
   set r(double arg) => _storage[0] = arg;
   set g(double arg) => _storage[1] = arg;

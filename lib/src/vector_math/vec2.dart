@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -21,87 +21,107 @@
 
 part of vector_math;
 
+/// 2D vector.
 class vec2 {
   final _storage = new Float32List(2);
-  /// Constructs a new [vec2] initialized with passed in values.
+
+  /// Vector.
   vec2(double x_, double y_) {
     makeRaw(x_, y_);
   }
-  //// Constructs a new [vec2] zero vector.
-  vec2.zero() {
-    makeZero();
-  }
-  /// Make [this] the zero vector.
-  vec2 makeZero() {
-    _storage[0] = 0.0;
-    _storage[1] = 0.0;
-    return this;
-  }
-  /// Constructs a copy of [other].
-  vec2.copy(vec2 other) {
-    makeCopy(other);
-  }
-  /// Make [this] a copy of [other] [other].
-  vec2 makeCopy(vec2 other) {
-    _storage[0] = other._storage[0];
-    _storage[1] = other._storage[1];
-    return this;
-  }
+
   /// Components of [this] are set to the passed in values.
   vec2 makeRaw(double x_, double y_) {
     _storage[0] = x_;
     _storage[1] = y_;
     return this;
   }
-  /// Constructs a new [vec2] that is initialized with values from [array] starting at [offset].
+
+  /// Zero vector.
+  vec2.zero();
+
+  /// Modify [this] to be the zero vector.
+  vec2 makeZero() {
+    _storage[0] = 0.0;
+    _storage[1] = 0.0;
+    return this;
+  }
+
+  /// Copy of [other].
+  vec2.copy(vec2 other) {
+    makeCopy(other);
+  }
+
+  /// Modify [this] by copying the values in [other].
+  vec2 makeCopy(vec2 other) {
+    _storage[1] = other._storage[1];
+    _storage[0] = other._storage[0];
+    return this;
+  }
+
+  /// Initialized with values from [array] starting at [offset].
   vec2.array(List<num> array, [int offset=0]) {
     int i = offset;
-    _storage[0] = array[i+0];
     _storage[1] = array[i+1];
+    _storage[0] = array[i+0];
   }
+
   /// Splats a scalar into all lanes of the vector.
   vec2 splat(double arg) {
     _storage[0] = arg;
     _storage[1] = arg;
     return this;
   }
+
   /// Returns a printable string
-  String toString() => '${_storage[0]},${_storage[1]}';
-  /// Returns a new vec2 from -this
-  vec2 operator-() => new vec2(- _storage[0], - _storage[1]);
-  /// Returns a new vec2 from this - [other]
-  vec2 operator-(vec2 other) => new vec2(_storage[0] - other._storage[0], _storage[1] - other._storage[1]);
-  /// Returns a new vec2 from this + [other]
-  vec2 operator+(vec2 other) => new vec2(_storage[0] + other._storage[0], _storage[1] + other._storage[1]);
-  /// Returns a new vec2 divided by [other]
+  String toString() => '[${_storage[0]},${_storage[1]}]';
+
+  /// Negate.
+  vec2 operator-() => new vec2(-_storage[0], -_storage[1]);
+
+  /// Subtract two vectors.
+  vec2 operator-(vec2 other) => new vec2(_storage[0] - other._storage[0],
+                                         _storage[1] - other._storage[1]);
+
+  /// Add two vectors.
+  vec2 operator+(vec2 other) => new vec2(_storage[0] + other._storage[0],
+                                         _storage[1] + other._storage[1]);
+
+  /// Returns a copy with each entry divided by [scale].
   vec2 operator/(double scale) {
     var o = 1.0 / scale;
     return new vec2(_storage[0] * o, _storage[1] * o);
   }
-  /// Returns a new vec2 scaled by [other]
+
+  /// Returns a copy with each entry multiplied by [scale].
   vec2 operator*(double scale) {
     var o = scale;
     return new vec2(_storage[0] * o, _storage[1] * o);
   }
-  /// Returns a component from vec2. This is indexed as an array with [i]
+
+  /// Returns an entry from [this].
   double operator[](int i) => _storage[i];
-  /// Assigns a component in vec2 the value in [v]. This is indexed as an array with [i]
+
+  /// Assigns an entry in [this].
   void operator[]=(int i, double v) { _storage[i] = v; }
-  /// Returns length of this
+
+  /// Length.
   double get length {
     double sum = 0.0;
     sum += (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     return Math.sqrt(sum);
   }
-  /// Returns squared length of this
+
+  /// Squared length.
   double get length2 {
     double sum = 0.0;
     sum += (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     return sum;
   }
-  /// Normalizes [this]. Returns [this].
+
+  /// Normalize [this]. Returns [this].
   vec2 normalize() {
     double l = length;
     if (l == 0.0) {
@@ -112,7 +132,8 @@ class vec2 {
     _storage[1] *= l;
     return this;
   }
-  /// Normalizes [this]. Returns length.
+
+  /// Normalize [this]. Returns [length].
   double normalizeLength() {
     double l = length;
     if (l == 0.0) {
@@ -123,6 +144,7 @@ class vec2 {
     _storage[1] *= l;
     return l;
   }
+
   /// Normalizes [this] returns new vector or optional [out]
   vec2 normalized([vec2 out = null]) {
     if (out == null) {
@@ -137,35 +159,32 @@ class vec2 {
     out._storage[1] *= l;
     return out;
   }
-  /// Returns the dot product of [this] and [other]
+
+  /// Returns the dot product of [this] and [other].
   double dot(vec2 other) {
     double sum = 0.0;
     sum += _storage[0] * other._storage[0];
     sum += _storage[1] * other._storage[1];
     return sum;
   }
-  /// Returns the cross product of [this] and [other], optionally pass in output storage [out]
+
+  /// Returns the cross product of [this] and [other].
   double cross(vec2 other) {
     return _storage[0] * other._storage[1] - _storage[1] * other._storage[0];
   }
+
   /// Returns the relative error between [this] and [correct]
   double relativeError(vec2 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
+
   /// Returns the absolute error between [this] and [correct]
   double absoluteError(vec2 correct) {
     return (this - correct).length;
   }
-  set xy(vec2 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-  }
-  set yx(vec2 arg) {
-    _storage[1] = arg._storage[0];
-    _storage[0] = arg._storage[1];
-  }
+
   /// Returns true if any component is infinite.
   bool get isInfinite {
     bool is_infinite = false;
@@ -173,6 +192,7 @@ class vec2 {
     is_infinite = is_infinite || _storage[1].isInfinite;
     return is_infinite;
   }
+
   /// Returns true if any component is NaN.
   bool get isNaN {
     bool is_nan = false;
@@ -180,77 +200,102 @@ class vec2 {
     is_nan = is_nan || _storage[1].isNaN;
     return is_nan;
   }
+
+  /// Add [arg] to [this].
   vec2 add(vec2 arg) {
     _storage[0] = _storage[0] + arg._storage[0];
     _storage[1] = _storage[1] + arg._storage[1];
     return this;
   }
+
+  /// Subtract [arg] from [this].
   vec2 sub(vec2 arg) {
     _storage[0] = _storage[0] - arg._storage[0];
     _storage[1] = _storage[1] - arg._storage[1];
     return this;
   }
+
+  /// Multiply entries in [this] with entries in [arg].
   vec2 multiply(vec2 arg) {
     _storage[0] = _storage[0] * arg._storage[0];
     _storage[1] = _storage[1] * arg._storage[1];
     return this;
   }
+
+  /// Divide entries in [this] with entries in [arg].
   vec2 div(vec2 arg) {
     _storage[0] = _storage[0] / arg._storage[0];
     _storage[1] = _storage[1] / arg._storage[1];
     return this;
   }
+
   vec2 scale(double arg) {
     _storage[0] = _storage[0] * arg;
     _storage[1] = _storage[1] * arg;
     return this;
   }
+
   vec2 scaled(num arg) {
     return clone().scale(arg);
   }
+
   vec2 negate() {
-    _storage[0] = -_storage[0];
     _storage[1] = -_storage[1];
+    _storage[0] = -_storage[0];
     return this;
   }
+
   vec2 absolute() {
-    _storage[0] = -_storage[0].abs();
     _storage[1] = -_storage[1].abs();
     _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
     return this;
   }
+
   vec2 clone() {
     return new vec2.copy(this);
   }
+
   vec2 copyInto(vec2 arg) {
     arg._storage[0] = _storage[0];
     arg._storage[1] = _storage[1];
     return arg;
   }
+
   vec2 copyFrom(vec2 arg) {
     _storage[0] = arg._storage[0];
     _storage[1] = arg._storage[1];
     return this;
   }
+
   vec2 setComponents(double x_, double y_) {
     _storage[0] = x_;
     _storage[1] = y_;
     return this;
   }
+
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset=0]) {
+  void copyIntoArray(List<double> array, [int offset=0]) {
     int i = offset;
     array[i+0] = _storage[0];
     array[i+1] = _storage[1];
   }
+
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[0] = array[i+0];
     i++;
     _storage[1] = array[i+1];
     i++;
+  }
+
+  set xy(vec2 arg) {
+    _storage[0] = arg._storage[0];
+    _storage[1] = arg._storage[1];
+  }
+  set yx(vec2 arg) {
+    _storage[1] = arg._storage[0];
+    _storage[0] = arg._storage[1];
   }
   set r(double arg) => _storage[0] = arg;
   set g(double arg) => _storage[1] = arg;
