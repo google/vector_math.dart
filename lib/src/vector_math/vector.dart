@@ -20,7 +20,8 @@
 
 part of vector_math;
 
-/// Returns the dot product between vectors [x] and [y]. The dimension of [x] and [y] must match.
+/// Returns the dot product between vectors [x] and [y].
+/// The dimension of [x] and [y] must match.
 double dot(dynamic x, dynamic y) {
   return x.dot(y);
 }
@@ -76,7 +77,8 @@ dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
   return null;
 }
 
-/// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input types. The return type will match the type of [x]
+/// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input
+/// types. The return type will match the type of [x]
 dynamic normalize(dynamic x, [dynamic out=null]) {
   if (x is num) {
     return 1.0 * sign(x.toDouble());
@@ -105,7 +107,8 @@ dynamic normalize(dynamic x, [dynamic out=null]) {
   return null;
 }
 
-/// Sets [u] and [v] to be two vectors orthogonal to each other and [planeNormal]
+/// Sets [u] and [v] to be two vectors orthogonal to each other and
+/// [planeNormal].
 void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
   if (planeNormal.z.abs() > _ScalerHelpers._sqrtOneHalf) {
     // choose u in y-z plane
