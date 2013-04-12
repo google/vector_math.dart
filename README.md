@@ -14,7 +14,6 @@ A Vector math library for 2D and 3D applications.
 * Syntax that is practically identical to GLSL the WebGL shader language.
 	* Flexible getters and setters, for example, ```position.xwz = color.grb;```.
 	* All GLSL utility functions.
-	* Flexible construction ```new vec3(new vec2(x,y), z);```.
 * Fully documented.
 * Well tested.
 * Heavily optimized.
@@ -28,7 +27,7 @@ A Vector math library for 2D and 3D applications.
 ```
 dependencies:
   vector_math:
-    git: https://github.com/johnmccutchan/DartVectorMath.git
+    git: https://github.com/johnmccutchan/vector_math.git
 ```
 
 2\. Add the correct import for your project. 
@@ -48,8 +47,8 @@ Read the [docs](http://www.dartgamedevs.org/packages/vector_math/docs/)
 
 ```
 void main() {
-	vec3 x = new vec3(); // Zero vector
-	vec4 y = new vec4(4.0); // Vector with 4.0 in all lanes
+	vec3 x = new vec3.zero(); // Zero vector
+	vec4 y = new vec4.splat(4.0); // Vector with 4.0 in all lanes
 	x.zyx = y.xzz; // Sets z,y,x the values in x,z,z
 }
 ``` 
@@ -63,7 +62,7 @@ void main() {
 	// translation of (5.0, 2.0, 3.0).
 	mat4 T = new mat4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
 	// A point.
-	vec3 position = new vec3.raw(1.0, 1.0, 1.0);
+	vec3 position = new vec3(1.0, 1.0, 1.0);
 	// Transform position by T.
 	T.transform3(position);
 }
@@ -88,13 +87,13 @@ void main() {
 ```
 void main() {
 	// The X axis.
-	vec3 axis = new vec3.raw(1.0, 0.0, 0.0);
+	vec3 axis = new vec3(1.0, 0.0, 0.0);
 	// 90 degrees.
 	double angle = pi/2.0;
 	// Quaternion encoding a 90 degree rotation along the X axis. 
 	quat q = new quat.axisAngle(axis, angle);
 	// A point.
-	vec3 point = new vec3.raw(1.0, 1.0, 1.0);
+	vec3 point = new vec3(1.0, 1.0, 1.0);
 	// Rotate point by q.
 	q.rotate(point);
 }

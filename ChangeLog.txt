@@ -1,3 +1,7 @@
+v 1.1.0 - April 2013
+
+- Large refactoring.
+
 v 0.9.7 - March 2013
 
 - Refactor generated constructor code into small functions.
