@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -298,8 +298,8 @@ class mat2 {
     double invDet = 1.0 / det;
     double temp = _storage[0];
     _storage[0] = _storage[3] * invDet;
-    _storage[1] = - _storage[1] * invDet;
-    _storage[2] = - _storage[2] * invDet;
+    _storage[1] = -_storage[1] * invDet;
+    _storage[2] = -_storage[2] * invDet;
     _storage[3] = temp * invDet;
     return det;
   }
