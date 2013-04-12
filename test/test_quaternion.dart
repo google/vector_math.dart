@@ -14,7 +14,7 @@ class QuaternionTest extends BaseTest {
     //print('Testing quaternion <-> matrix conversion');
     for (int i = 0; i < input.length; i++) {
       mat3 R = input[i].asRotationMatrix();
-      quat output = new quat(R);
+      quat output = new quat.fromRotation(R);
       relativeTest(output, input[i]);
     }
   }
@@ -41,7 +41,7 @@ class QuaternionTest extends BaseTest {
     print('Running quaternion tests');
     {
       List<quat> input = new List<quat>();
-      input.add(new quat());
+      input.add(new quat.identity());
       input.add(new quat(0.18260, 0.54770, 0.73030, 0.36510));
       input.add(new quat(0.9889, 0.0, 0.0, 0.14834));
       List<quat> expectedOutput = new List<quat>();
@@ -52,7 +52,7 @@ class QuaternionTest extends BaseTest {
     }
     {
       List<quat> input = new List<quat>();
-      input.add(new quat().normalize());
+      input.add(new quat.identity().normalize());
       input.add(new quat(0.18260, 0.54770, 0.73030, 0.36510).normalize());
       input.add(new quat(0.9889, 0.0, 0.0, 0.14834).normalize());
       input.add(new quat(0.388127, 0.803418, -0.433317, -0.126429).normalize());
@@ -82,7 +82,7 @@ class QuaternionTest extends BaseTest {
       inputB.add(new vec3(1.0, 1.0, 1.0));
       expectedOutput.add(new vec3(-1.0, 1.0, 1.0));
 
-      inputA.add(new quat().normalize());
+      inputA.add(new quat.identity().normalize());
       inputB.add(new vec3(1.0, 2.0, 3.0));
       expectedOutput.add(new vec3(1.0, 2.0, 3.0));
 

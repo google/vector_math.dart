@@ -296,11 +296,11 @@ class mat2 {
       return 0.0;
     }
     double invDet = 1.0 / det;
-    double temp = col0.x;
-    col0.x = col1.y * invDet;
-    col0.y = - col0.y * invDet;
-    col1.x = - col1.x * invDet;
-    col1.y = temp * invDet;
+    double temp = _storage[0];
+    _storage[0] = _storage[3] * invDet;
+    _storage[1] = - _storage[1] * invDet;
+    _storage[2] = - _storage[2] * invDet;
+    _storage[3] = temp * invDet;
     return det;
   }
   /// Turns the matrix into a rotation of [radians]

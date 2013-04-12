@@ -350,9 +350,9 @@ class mat3 {
   }
   /// Returns the determinant of this matrix.
   double determinant() {
-    double x = col0.x*((col1.y*col2.z)-(col1.z*col2.y));
-    double y = col0.y*((col1.x*col2.z)-(col1.z*col2.x));
-    double z = col0.z*((col1.x*col2.y)-(col1.y*col2.x));
+    double x = _storage[0]*((_storage[4]*_storage[8])-(_storage[5]*_storage[7]));
+    double y = _storage[1]*((_storage[3]*_storage[8])-(_storage[5]*_storage[6]));
+    double z = _storage[2]*((_storage[3]*_storage[7])-(_storage[4]*_storage[6]));
     return x - y + z;
   }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
@@ -413,15 +413,15 @@ class mat3 {
     vec3 i = new vec3();
     vec3 j = new vec3();
     vec3 k = new vec3();
-    i.x = invDet * (col1.y * col2.z - col1.z * col2.y);
-    i.y = invDet * (col0.z * col2.y - col0.y * col2.z);
-    i.z = invDet * (col0.y * col1.z - col0.z * col1.y);
-    j.x = invDet * (col1.z * col2.x - col1.x * col2.z);
-    j.y = invDet * (col0.x * col2.z - col0.z * col2.x);
-    j.z = invDet * (col0.z * col1.x - col0.x * col1.z);
-    k.x = invDet * (col1.x * col2.y - col1.y * col2.x);
-    k.y = invDet * (col0.y * col2.x - col0.x * col2.y);
-    k.z = invDet * (col0.x * col1.y - col0.y * col1.x);
+    i.x = invDet * (_storage[4] * _storage[8] - _storage[5] * _storage[7]);
+    i.y = invDet * (_storage[2] * _storage[7] - _storage[1] * _storage[8]);
+    i.z = invDet * (_storage[1] * _storage[5] - _storage[2] * _storage[4]);
+    j.x = invDet * (_storage[5] * _storage[6] - _storage[3] * _storage[8]);
+    j.y = invDet * (_storage[0] * _storage[8] - _storage[2] * _storage[6]);
+    j.z = invDet * (_storage[2] * _storage[3] - _storage[0] * _storage[5]);
+    k.x = invDet * (_storage[3] * _storage[7] - _storage[4] * _storage[6]);
+    k.y = invDet * (_storage[1] * _storage[6] - _storage[0] * _storage[7]);
+    k.z = invDet * (_storage[0] * _storage[4] - _storage[1] * _storage[3]);
     col0 = i;
     col1 = j;
     col2 = k;

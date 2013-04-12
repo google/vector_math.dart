@@ -381,7 +381,7 @@ class MatrixTest extends BaseTest {
       axis.normalize();
       num angle = 1.5;
 
-      quat q = new quat(axis, angle);
+      quat q = new quat.axisAngle(axis, angle);
       mat3 R = q.asRotationMatrix();
       mat4 T = new mat4.identity();
       T.setRotation(R);
@@ -452,8 +452,8 @@ class MatrixTest extends BaseTest {
   void test() {
     print('Running matrix tests');
     testMatrixTranspose();
-    //testDeterminant();
-    //testAdjoint();
+    testDeterminant();
+    testAdjoint();
     testSelfMultiply();
     testSelfTransposeMultiply();
     testSelfMultiplyTranspose();

@@ -668,17 +668,17 @@ class mat4 {
   }
   /// Returns the determinant of this matrix.
   double determinant() {
-    double det2_01_01 = col0.x * col1.y - col0.y * col1.x;
-    double det2_01_02 = col0.x * col1.z - col0.z * col1.x;
-    double det2_01_03 = col0.x * col1.w - col0.w * col1.x;
-    double det2_01_12 = col0.y * col1.z - col0.z * col1.y;
-    double det2_01_13 = col0.y * col1.w - col0.w * col1.y;
-    double det2_01_23 = col0.z * col1.w - col0.w * col1.z;
-    double det3_201_012 = col2.x * det2_01_12 - col2.y * det2_01_02 + col2.z * det2_01_01;
-    double det3_201_013 = col2.x * det2_01_13 - col2.y * det2_01_03 + col2.w * det2_01_01;
-    double det3_201_023 = col2.x * det2_01_23 - col2.z * det2_01_03 + col2.w * det2_01_02;
-    double det3_201_123 = col2.y * det2_01_23 - col2.z * det2_01_13 + col2.w * det2_01_12;
-    return ( - det3_201_123 * col3.x + det3_201_023 * col3.y - det3_201_013 * col3.z + det3_201_012 * col3.w);
+    double det2_01_01 = _storage[0] * _storage[5] - _storage[1] * _storage[4];
+    double det2_01_02 = _storage[0] * _storage[6] - _storage[2] * _storage[4];
+    double det2_01_03 = _storage[0] * _storage[7] - _storage[3] * _storage[4];
+    double det2_01_12 = _storage[1] * _storage[6] - _storage[2] * _storage[5];
+    double det2_01_13 = _storage[1] * _storage[7] - _storage[3] * _storage[5];
+    double det2_01_23 = _storage[2] * _storage[7] - _storage[3] * _storage[6];
+    double det3_201_012 = _storage[8] * det2_01_12 - _storage[9] * det2_01_02 + _storage[10] * det2_01_01;
+    double det3_201_013 = _storage[8] * det2_01_13 - _storage[9] * det2_01_03 + _storage[11] * det2_01_01;
+    double det3_201_023 = _storage[8] * det2_01_23 - _storage[10] * det2_01_03 + _storage[11] * det2_01_02;
+    double det3_201_123 = _storage[9] * det2_01_23 - _storage[10] * det2_01_13 + _storage[11] * det2_01_12;
+    return ( - det3_201_123 * _storage[12] + det3_201_023 * _storage[13] - det3_201_013 * _storage[14] + det3_201_012 * _storage[15]);
   }
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the diagonal entries
   double trace() {
@@ -870,15 +870,15 @@ class mat4 {
     vec4 i = new vec4.zero();
     vec4 j = new vec4.zero();
     vec4 k = new vec4.zero();
-    i.x = invDet * (col1.y * col2.z - col1.z * col2.y);
-    i.y = invDet * (col0.z * col2.y - col0.y * col2.z);
-    i.z = invDet * (col0.y * col1.z - col0.z * col1.y);
-    j.x = invDet * (col1.z * col2.x - col1.x * col2.z);
-    j.y = invDet * (col0.x * col2.z - col0.z * col2.x);
-    j.z = invDet * (col0.z * col1.x - col0.x * col1.z);
-    k.x = invDet * (col1.x * col2.y - col1.y * col2.x);
-    k.y = invDet * (col0.y * col2.x - col0.x * col2.y);
-    k.z = invDet * (col0.x * col1.y - col0.y * col1.x);
+    i.x = invDet * (_storage[5] * _storage[10] - _storage[6] * _storage[9]);
+    i.y = invDet * (_storage[2] * _storage[9] - _storage[1] * _storage[10]);
+    i.z = invDet * (_storage[1] * _storage[6] - _storage[2] * _storage[5]);
+    j.x = invDet * (_storage[6] * _storage[8] - _storage[4] * _storage[10]);
+    j.y = invDet * (_storage[0] * _storage[10] - _storage[2] * _storage[8]);
+    j.z = invDet * (_storage[2] * _storage[4] - _storage[0] * _storage[6]);
+    k.x = invDet * (_storage[4] * _storage[9] - _storage[5] * _storage[8]);
+    k.y = invDet * (_storage[1] * _storage[8] - _storage[0] * _storage[9]);
+    k.z = invDet * (_storage[0] * _storage[5] - _storage[1] * _storage[4]);
     col0 = i;
     col1 = j;
     col2 = k;
