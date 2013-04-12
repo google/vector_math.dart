@@ -30,7 +30,7 @@ part 'builtin_generator.dart';
 part 'vector_generator.dart';
 part 'matrix_generator.dart';
 
-String basePath = 'lib/src/vector_math';
+String basePath = 'tool/gen/out/';
 
 void generateBuiltin() {
   File f;
