@@ -23,7 +23,8 @@ part of vector_math;
 
 /// 3D vector.
 class vec3 {
-  final _storage = new Float32List(3);
+  final Float32List _storage = new Float32List(3);
+  Float32List get storage => _storage;
 
   /// Constructs a new [vec3] initialized with passed in values.
   vec3(double x_, double y_, double z_) {

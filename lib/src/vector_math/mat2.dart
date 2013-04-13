@@ -24,6 +24,7 @@ part of vector_math;
 /// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 dimension.
 class mat2 {
   final Float32List _storage = new Float32List(4);
+  Float32List get storage => _storage;
   int index(int row, int col) => (col * 2) + row;
   double entry(int row, int col) => _storage[index(row, col)];
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }

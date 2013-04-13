@@ -24,6 +24,7 @@ part of vector_math;
 /// mat4 is a column major matrix where each column is represented by [vec4]. This matrix has 4 columns and 4 dimension.
 class mat4 {
   final Float32List _storage = new Float32List(16);
+  Float32List get storage => _storage;
   int index(int row, int col) => (col * 4) + row;
   double entry(int row, int col) => _storage[index(row, col)];
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }

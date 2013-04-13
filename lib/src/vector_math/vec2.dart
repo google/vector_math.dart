@@ -23,7 +23,8 @@ part of vector_math;
 
 /// 2D vector.
 class vec2 {
-  final _storage = new Float32List(2);
+  final Float32List _storage = new Float32List(2);
+  Float32List get storage => _storage;
 
   /// Vector.
   vec2(double x_, double y_) {

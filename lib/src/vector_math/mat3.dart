@@ -24,6 +24,7 @@ part of vector_math;
 /// mat3 is a column major matrix where each column is represented by [vec3]. This matrix has 3 columns and 3 dimension.
 class mat3 {
   final Float32List _storage = new Float32List(9);
+  Float32List get storage => _storage;
   int index(int row, int col) => (col * 3) + row;
   double entry(int row, int col) => _storage[index(row, col)];
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }

@@ -22,7 +22,8 @@
 part of vector_math;
 
 class vec4 {
-  final _storage = new Float32List(4);
+  final Float32List _storage = new Float32List(4);
+  Float32List get storage => _storage;
   /// Constructs a new [vec4] initialized with passed in values.
   vec4(double x_, double y_, double z_, double w_) {
     makeRaw(x_, y_, z_, w_);
