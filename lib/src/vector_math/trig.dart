@@ -29,30 +29,42 @@ dynamic sin(dynamic arg, [dynamic out=null]) {
     return Math.sin(arg);
   }
   if (arg is vec2) {
+    double x = Math.sin(arg.x);
+    double y = Math.sin(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = Math.sin(arg.x);
-    (out as vec2).y = Math.sin(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = Math.sin(arg.x);
+    double y = Math.sin(arg.y);
+    double z = Math.sin(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = Math.sin(arg.x);
-    (out as vec3).y = Math.sin(arg.y);
-    (out as vec3).z = Math.sin(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = Math.sin(arg.x);
+    double y = Math.sin(arg.y);
+    double z = Math.sin(arg.z);
+    double w = Math.sin(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = Math.sin(arg.x);
-    (out as vec4).y = Math.sin(arg.y);
-    (out as vec4).z = Math.sin(arg.z);
-    (out as vec4).w = Math.sin(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -63,30 +75,42 @@ dynamic cos(dynamic arg, [dynamic out=null]) {
     return Math.cos(arg);
   }
   if (arg is vec2) {
+    double x = Math.cos(arg.x);
+    double y = Math.cos(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = Math.cos(arg.x);
-    (out as vec2).y = Math.cos(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = Math.cos(arg.x);
+    double y = Math.cos(arg.y);
+    double z = Math.cos(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = Math.cos(arg.x);
-    (out as vec3).y = Math.cos(arg.y);
-    (out as vec3).z = Math.cos(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = Math.cos(arg.x);
+    double y = Math.cos(arg.y);
+    double z = Math.cos(arg.z);
+    double w = Math.cos(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = Math.cos(arg.x);
-    (out as vec4).y = Math.cos(arg.y);
-    (out as vec4).z = Math.cos(arg.z);
-    (out as vec4).w = Math.cos(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -97,30 +121,42 @@ dynamic tan(dynamic arg, [dynamic out=null]) {
     return Math.tan(arg);
   }
   if (arg is vec2) {
+    double x = Math.tan(arg.x);
+    double y = Math.tan(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = Math.tan(arg.x);
-    (out as vec2).y = Math.tan(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = Math.tan(arg.x);
+    double y = Math.tan(arg.y);
+    double z = Math.tan(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = Math.tan(arg.x);
-    (out as vec3).y = Math.tan(arg.y);
-    (out as vec3).z = Math.tan(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = Math.tan(arg.x);
+    double y = Math.tan(arg.y);
+    double z = Math.tan(arg.z);
+    double w = Math.tan(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = Math.tan(arg.x);
-    (out as vec4).y = Math.tan(arg.y);
-    (out as vec4).z = Math.tan(arg.z);
-    (out as vec4).w = Math.tan(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -131,30 +167,42 @@ dynamic asin(dynamic arg, [dynamic out=null]) {
     return Math.asin(arg);
   }
   if (arg is vec2) {
+    double x = Math.asin(arg.x);
+    double y = Math.asin(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = Math.asin(arg.x);
-    (out as vec2).y = Math.asin(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = Math.asin(arg.x);
+    double y = Math.asin(arg.y);
+    double z = Math.asin(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = Math.asin(arg.x);
-    (out as vec3).y = Math.asin(arg.y);
-    (out as vec3).z = Math.asin(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = Math.asin(arg.x);
+    double y = Math.asin(arg.y);
+    double z = Math.asin(arg.z);
+    double w = Math.asin(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = Math.asin(arg.x);
-    (out as vec4).y = Math.asin(arg.y);
-    (out as vec4).z = Math.asin(arg.z);
-    (out as vec4).w = Math.asin(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -165,30 +213,42 @@ dynamic acos(dynamic arg, [dynamic out=null]) {
     return Math.acos(arg);
   }
   if (arg is vec2) {
+    double x = Math.acos(arg.x);
+    double y = Math.acos(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = Math.acos(arg.x);
-    (out as vec2).y = Math.acos(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = Math.acos(arg.x);
+    double y = Math.acos(arg.y);
+    double z = Math.acos(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = Math.acos(arg.x);
-    (out as vec3).y = Math.acos(arg.y);
-    (out as vec3).z = Math.acos(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = Math.acos(arg.x);
+    double y = Math.acos(arg.y);
+    double z = Math.acos(arg.z);
+    double w = Math.acos(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = Math.acos(arg.x);
-    (out as vec4).y = Math.acos(arg.y);
-    (out as vec4).z = Math.acos(arg.z);
-    (out as vec4).w = Math.acos(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -199,30 +259,42 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.radians(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.radians(arg.x);
+    double y = _ScalerHelpers.radians(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.radians(arg.x);
-    (out as vec2).y = _ScalerHelpers.radians(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.radians(arg.x);
+    double y = _ScalerHelpers.radians(arg.y);
+    double z = _ScalerHelpers.radians(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.radians(arg.x);
-    (out as vec3).y = _ScalerHelpers.radians(arg.y);
-    (out as vec3).z = _ScalerHelpers.radians(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.radians(arg.x);
+    double y = _ScalerHelpers.radians(arg.y);
+    double z = _ScalerHelpers.radians(arg.z);
+    double w = _ScalerHelpers.radians(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.radians(arg.x);
-    (out as vec4).y = _ScalerHelpers.radians(arg.y);
-    (out as vec4).z = _ScalerHelpers.radians(arg.z);
-    (out as vec4).w = _ScalerHelpers.radians(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -233,30 +305,42 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.degrees(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.degrees(arg.x);
+    double y = _ScalerHelpers.degrees(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.degrees(arg.x);
-    (out as vec2).y = _ScalerHelpers.degrees(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.degrees(arg.x);
+    double y = _ScalerHelpers.degrees(arg.y);
+    double z = _ScalerHelpers.degrees(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.degrees(arg.x);
-    (out as vec3).y = _ScalerHelpers.degrees(arg.y);
-    (out as vec3).z = _ScalerHelpers.degrees(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.degrees(arg.x);
+    double y = _ScalerHelpers.degrees(arg.y);
+    double z = _ScalerHelpers.degrees(arg.z);
+    double w = _ScalerHelpers.degrees(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.degrees(arg.x);
-    (out as vec4).y = _ScalerHelpers.degrees(arg.y);
-    (out as vec4).z = _ScalerHelpers.degrees(arg.z);
-    (out as vec4).w = _ScalerHelpers.degrees(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
