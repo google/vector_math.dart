@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -868,21 +868,33 @@ class mat4 {
       return 0.0;
     }
     double invDet = 1.0 / det;
-    vec4 i = new vec4.zero();
-    vec4 j = new vec4.zero();
-    vec4 k = new vec4.zero();
-    i.x = invDet * (_storage[5] * _storage[10] - _storage[6] * _storage[9]);
-    i.y = invDet * (_storage[2] * _storage[9] - _storage[1] * _storage[10]);
-    i.z = invDet * (_storage[1] * _storage[6] - _storage[2] * _storage[5]);
-    j.x = invDet * (_storage[6] * _storage[8] - _storage[4] * _storage[10]);
-    j.y = invDet * (_storage[0] * _storage[10] - _storage[2] * _storage[8]);
-    j.z = invDet * (_storage[2] * _storage[4] - _storage[0] * _storage[6]);
-    k.x = invDet * (_storage[4] * _storage[9] - _storage[5] * _storage[8]);
-    k.y = invDet * (_storage[1] * _storage[8] - _storage[0] * _storage[9]);
-    k.z = invDet * (_storage[0] * _storage[5] - _storage[1] * _storage[4]);
-    col0 = i;
-    col1 = j;
-    col2 = k;
+    double ix;
+    double iy;
+    double iz;
+    double jx;
+    double jy;
+    double jz;
+    double kx;
+    double ky;
+    double kz;
+    ix = invDet * (_storage[5] * _storage[10] - _storage[6] * _storage[9]);
+    iy = invDet * (_storage[2] * _storage[9] - _storage[1] * _storage[10]);
+    iz = invDet * (_storage[1] * _storage[6] - _storage[2] * _storage[5]);
+    jx = invDet * (_storage[6] * _storage[8] - _storage[4] * _storage[10]);
+    jy = invDet * (_storage[0] * _storage[10] - _storage[2] * _storage[8]);
+    jz = invDet * (_storage[2] * _storage[4] - _storage[0] * _storage[6]);
+    kx = invDet * (_storage[4] * _storage[9] - _storage[5] * _storage[8]);
+    ky = invDet * (_storage[1] * _storage[8] - _storage[0] * _storage[9]);
+    kz = invDet * (_storage[0] * _storage[5] - _storage[1] * _storage[4]);
+    _storage[0] = ix;
+    _storage[1] = iy;
+    _storage[2] = iz;
+    _storage[4] = jx;
+    _storage[5] = jy;
+    _storage[6] = jz;
+    _storage[8] = kx;
+    _storage[9] = ky;
+    _storage[10] = kz;
     return det;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around X
