@@ -162,11 +162,11 @@ dynamic log(dynamic arg, [dynamic out=null]) {
 /// Returns *2* raised to the exponent [arg]. Supports vectors and numbers.
 dynamic exp2(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
-    return _ScalerHelpers.exp2(arg);
+    return _ScalarHelpers.exp2(arg);
   }
   if (arg is vec2) {
-    double x = _ScalerHelpers.exp2(arg.x);
-    double y = _ScalerHelpers.exp2(arg.y);
+    double x = _ScalarHelpers.exp2(arg.x);
+    double y = _ScalarHelpers.exp2(arg.y);
     if (out == null) {
       out = new vec2(x, y);
     } else {
@@ -176,9 +176,9 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec3) {
-    double x = _ScalerHelpers.exp2(arg.x);
-    double y = _ScalerHelpers.exp2(arg.y);
-    double z = _ScalerHelpers.exp2(arg.z);
+    double x = _ScalarHelpers.exp2(arg.x);
+    double y = _ScalarHelpers.exp2(arg.y);
+    double z = _ScalarHelpers.exp2(arg.z);
     if (out == null) {
       out = new vec3(x, y, z);
     } else {
@@ -189,10 +189,10 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec4) {
-    double x = _ScalerHelpers.exp2(arg.x);
-    double y = _ScalerHelpers.exp2(arg.y);
-    double z = _ScalerHelpers.exp2(arg.z);
-    double w = _ScalerHelpers.exp2(arg.w);
+    double x = _ScalarHelpers.exp2(arg.x);
+    double y = _ScalarHelpers.exp2(arg.y);
+    double z = _ScalarHelpers.exp2(arg.z);
+    double w = _ScalarHelpers.exp2(arg.w);
     if (out == null) {
       out = new vec4(x, y, z, w);
     } else {
@@ -208,11 +208,11 @@ dynamic exp2(dynamic arg, [dynamic out=null]) {
 /// Returns the logarithm of [arg] base *2*. Supports vectors and numbers.
 dynamic log2(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
-    return _ScalerHelpers.log2(arg);
+    return _ScalarHelpers.log2(arg);
   }
   if (arg is vec2) {
-    double x = _ScalerHelpers.log2(arg.x);
-    double y = _ScalerHelpers.log2(arg.y);
+    double x = _ScalarHelpers.log2(arg.x);
+    double y = _ScalarHelpers.log2(arg.y);
     if (out == null) {
       out = new vec2(x, y);
     } else {
@@ -222,9 +222,9 @@ dynamic log2(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec3) {
-    double x = _ScalerHelpers.log2(arg.x);
-    double y = _ScalerHelpers.log2(arg.y);
-    double z = _ScalerHelpers.log2(arg.z);
+    double x = _ScalarHelpers.log2(arg.x);
+    double y = _ScalarHelpers.log2(arg.y);
+    double z = _ScalarHelpers.log2(arg.z);
     if (out == null) {
       out = new vec3(x, y, z);
     } else {
@@ -235,10 +235,10 @@ dynamic log2(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec4) {
-    double x = _ScalerHelpers.log2(arg.x);
-    double y = _ScalerHelpers.log2(arg.y);
-    double z = _ScalerHelpers.log2(arg.z);
-    double w = _ScalerHelpers.log2(arg.w);
+    double x = _ScalarHelpers.log2(arg.x);
+    double y = _ScalarHelpers.log2(arg.y);
+    double z = _ScalarHelpers.log2(arg.z);
+    double w = _ScalarHelpers.log2(arg.w);
     if (out == null) {
       out = new vec4(x, y, z, w);
     } else {
@@ -300,11 +300,11 @@ dynamic sqrt(dynamic arg, [dynamic out=null]) {
 /// Returns the inverse square root of [arg]. Supports vectors and numbers.
 dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
-    return _ScalerHelpers.inversesqrt(arg);
+    return _ScalarHelpers.inversesqrt(arg);
   }
   if (arg is vec2) {
-    double x = _ScalerHelpers.inversesqrt(arg.x);
-    double y = _ScalerHelpers.inversesqrt(arg.y);
+    double x = _ScalarHelpers.inversesqrt(arg.x);
+    double y = _ScalarHelpers.inversesqrt(arg.y);
     if (out == null) {
       out = new vec2(x, y);
     } else {
@@ -314,9 +314,9 @@ dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec3) {
-    double x = _ScalerHelpers.inversesqrt(arg.x);
-    double y = _ScalerHelpers.inversesqrt(arg.y);
-    double z = _ScalerHelpers.inversesqrt(arg.z);
+    double x = _ScalarHelpers.inversesqrt(arg.x);
+    double y = _ScalarHelpers.inversesqrt(arg.y);
+    double z = _ScalarHelpers.inversesqrt(arg.z);
     if (out == null) {
       out = new vec3(x, y, z);
     } else {
@@ -327,10 +327,10 @@ dynamic inversesqrt(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec4) {
-    double x = _ScalerHelpers.inversesqrt(arg.x);
-    double y = _ScalerHelpers.inversesqrt(arg.y);
-    double z = _ScalerHelpers.inversesqrt(arg.z);
-    double w = _ScalerHelpers.inversesqrt(arg.w);
+    double x = _ScalarHelpers.inversesqrt(arg.x);
+    double y = _ScalarHelpers.inversesqrt(arg.y);
+    double z = _ScalarHelpers.inversesqrt(arg.z);
+    double w = _ScalarHelpers.inversesqrt(arg.w);
     if (out == null) {
       out = new vec4(x, y, z, w);
     } else {
