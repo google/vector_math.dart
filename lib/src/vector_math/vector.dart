@@ -110,7 +110,7 @@ dynamic normalize(dynamic x, [dynamic out=null]) {
 /// Sets [u] and [v] to be two vectors orthogonal to each other and
 /// [planeNormal].
 void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
-  if (planeNormal.z.abs() > _ScalerHelpers._sqrtOneHalf) {
+  if (planeNormal.z.abs() > _ScalarHelpers._sqrtOneHalf) {
     // choose u in y-z plane
     double a = planeNormal.y*planeNormal.y + planeNormal.z*planeNormal.z;
     double k = 1.0/Math.sqrt(a);
