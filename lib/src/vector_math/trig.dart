@@ -256,11 +256,11 @@ dynamic acos(dynamic arg, [dynamic out=null]) {
 /// Returns [arg] converted from degrees to radians. Return types matches the type of [arg]
 dynamic radians(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
-    return _ScalerHelpers.radians(arg);
+    return _ScalarHelpers.radians(arg);
   }
   if (arg is vec2) {
-    double x = _ScalerHelpers.radians(arg.x);
-    double y = _ScalerHelpers.radians(arg.y);
+    double x = _ScalarHelpers.radians(arg.x);
+    double y = _ScalarHelpers.radians(arg.y);
     if (out == null) {
       out = new vec2(x, y);
     } else {
@@ -270,9 +270,9 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec3) {
-    double x = _ScalerHelpers.radians(arg.x);
-    double y = _ScalerHelpers.radians(arg.y);
-    double z = _ScalerHelpers.radians(arg.z);
+    double x = _ScalarHelpers.radians(arg.x);
+    double y = _ScalarHelpers.radians(arg.y);
+    double z = _ScalarHelpers.radians(arg.z);
     if (out == null) {
       out = new vec3(x, y, z);
     } else {
@@ -283,10 +283,10 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec4) {
-    double x = _ScalerHelpers.radians(arg.x);
-    double y = _ScalerHelpers.radians(arg.y);
-    double z = _ScalerHelpers.radians(arg.z);
-    double w = _ScalerHelpers.radians(arg.w);
+    double x = _ScalarHelpers.radians(arg.x);
+    double y = _ScalarHelpers.radians(arg.y);
+    double z = _ScalarHelpers.radians(arg.z);
+    double w = _ScalarHelpers.radians(arg.w);
     if (out == null) {
       out = new vec4(x, y, z, w);
     } else {
@@ -302,11 +302,11 @@ dynamic radians(dynamic arg, [dynamic out=null]) {
 /// Returns [arg] converted from radians to degrees. Return types matches the type of [arg]
 dynamic degrees(dynamic arg, [dynamic out=null]) {
   if (arg is double) {
-    return _ScalerHelpers.degrees(arg);
+    return _ScalarHelpers.degrees(arg);
   }
   if (arg is vec2) {
-    double x = _ScalerHelpers.degrees(arg.x);
-    double y = _ScalerHelpers.degrees(arg.y);
+    double x = _ScalarHelpers.degrees(arg.x);
+    double y = _ScalarHelpers.degrees(arg.y);
     if (out == null) {
       out = new vec2(x, y);
     } else {
@@ -316,9 +316,9 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec3) {
-    double x = _ScalerHelpers.degrees(arg.x);
-    double y = _ScalerHelpers.degrees(arg.y);
-    double z = _ScalerHelpers.degrees(arg.z);
+    double x = _ScalarHelpers.degrees(arg.x);
+    double y = _ScalarHelpers.degrees(arg.y);
+    double z = _ScalarHelpers.degrees(arg.z);
     if (out == null) {
       out = new vec3(x, y, z);
     } else {
@@ -329,10 +329,10 @@ dynamic degrees(dynamic arg, [dynamic out=null]) {
     return out;
   }
   if (arg is vec4) {
-    double x = _ScalerHelpers.degrees(arg.x);
-    double y = _ScalerHelpers.degrees(arg.y);
-    double z = _ScalerHelpers.degrees(arg.z);
-    double w = _ScalerHelpers.degrees(arg.w);
+    double x = _ScalarHelpers.degrees(arg.x);
+    double y = _ScalarHelpers.degrees(arg.y);
+    double z = _ScalarHelpers.degrees(arg.z);
+    double w = _ScalarHelpers.degrees(arg.w);
     if (out == null) {
       out = new vec4(x, y, z, w);
     } else {
