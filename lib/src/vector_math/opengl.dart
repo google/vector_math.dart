@@ -211,12 +211,18 @@ mat4 makeOrthographicMatrix(num left, num right, num bottom, num top, num near,
  * the plane specified with [planeNormal] and [planePoint]
  */
 mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
-  vec4 v = new vec4(planeNormal, 0.0);
+  vec4 v = new vec4(planeNormal.storage[0],
+                    planeNormal.storage[1],
+                    planeNormal.storage[2],
+                    0.0);
   mat4 outer = new mat4.outer(v, v);
-  mat4 r = new mat4();
+  mat4 r = new mat4.zero();
   r = r - outer;
   vec3 scaledNormal = (planeNormal.scaled(dot(planePoint, planeNormal)));
-  vec4 T = new vec4(scaledNormal, 1.0);
+  vec4 T = new vec4(scaledNormal.storage[0],
+                    scaledNormal.storage[1],
+                    scaledNormal.storage[2],
+                    1.0);
   r.setColumn(3, T);
   return r;
 }
@@ -226,14 +232,20 @@ mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
  * them through the plane specified with [planeNormal] and [planePoint]
  */
 mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
-  vec4 v = new vec4(planeNormal, 0.0);
+  vec4 v = new vec4(planeNormal.storage[0],
+                    planeNormal.storage[1],
+                    planeNormal.storage[2],
+                    0.0);
   mat4 outer = new mat4.outer(v,v);
   outer.scale(2.0);
-  mat4 r = new mat4();
+  mat4 r = new mat4.zero();
   r = r - outer;
   double scale = 2.0 * dot(planePoint, planeNormal);
   vec3 scaledNormal = (planeNormal.scaled(scale));
-  vec4 T = new vec4(scaledNormal, 1.0);
+  vec4 T = new vec4(scaledNormal.storage[0],
+                    scaledNormal.storage[1],
+                    scaledNormal.storage[2],
+                    1.0);
   r.setColumn(3, T);
   return r;
 }
