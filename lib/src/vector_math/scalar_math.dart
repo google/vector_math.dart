@@ -20,7 +20,7 @@
 
 part of vector_math;
 
-class _ScalerHelpers {
+class _ScalarHelpers {
   static final _sqrtOneHalf = 0.707106781186548;
   static double degrees(double r) {
     return r * 180.0/Math.PI;
@@ -103,7 +103,7 @@ class _ScalerHelpers {
 
   static double roundEven(double x) {
     if ( (floor(x)%2.0==0.0) && (fract(x)==0.5) )
-      return _ScalerHelpers.round(x)-1.0;
+      return _ScalarHelpers.round(x)-1.0;
     else
       return x.round().toDouble();
   }
