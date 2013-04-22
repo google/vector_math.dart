@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-  
+
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
   arising from the use of this software.
@@ -402,8 +402,8 @@ dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
     if (out == null) {
       out = new vec2(x_, y_);
     }
-    (out as vec2).storage[0] = x;
-    (out as vec2).storage[1] = y;
+    (out as vec2).storage[0] = x_;
+    (out as vec2).storage[1] = y_;
     return out;
   }
   if (x is vec3) {
@@ -445,8 +445,8 @@ dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
     if (out == null) {
       out = new vec2(x_, y_);
     }
-    (out as vec2).storage[0] = x;
-    (out as vec2).storage[1] = y;
+    (out as vec2).storage[0] = x_;
+    (out as vec2).storage[1] = y_;
     return out;
   }
   if (x is vec3) {
@@ -488,8 +488,8 @@ dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
     if (out == null) {
       out = new vec2(x_, y_);
     }
-    (out as vec2).storage[0] = x;
-    (out as vec2).storage[1] = y;
+    (out as vec2).storage[0] = x_;
+    (out as vec2).storage[1] = y_;
     return out;
   }
   if (x is vec3) {
