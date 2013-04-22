@@ -29,30 +29,42 @@ dynamic abs(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.abs(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.abs(arg.x);
+    double y = _ScalerHelpers.abs(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.abs(arg.x);
-    (out as vec2).y = _ScalerHelpers.abs(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.abs(arg.x);
+    double y = _ScalerHelpers.abs(arg.y);
+    double z = _ScalerHelpers.abs(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.abs(arg.x);
-    (out as vec3).y = _ScalerHelpers.abs(arg.y);
-    (out as vec3).z = _ScalerHelpers.abs(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.abs(arg.x);
+    double y = _ScalerHelpers.abs(arg.y);
+    double z = _ScalerHelpers.abs(arg.z);
+    double w = _ScalerHelpers.abs(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.abs(arg.x);
-    (out as vec4).y = _ScalerHelpers.abs(arg.y);
-    (out as vec4).z = _ScalerHelpers.abs(arg.z);
-    (out as vec4).w = _ScalerHelpers.abs(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -63,30 +75,42 @@ dynamic sign(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.sign(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.sign(arg.x);
+    double y = _ScalerHelpers.sign(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.sign(arg.x);
-    (out as vec2).y = _ScalerHelpers.sign(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.sign(arg.x);
+    double y = _ScalerHelpers.sign(arg.y);
+    double z = _ScalerHelpers.sign(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.sign(arg.x);
-    (out as vec3).y = _ScalerHelpers.sign(arg.y);
-    (out as vec3).z = _ScalerHelpers.sign(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.sign(arg.x);
+    double y = _ScalerHelpers.sign(arg.y);
+    double z = _ScalerHelpers.sign(arg.z);
+    double w = _ScalerHelpers.sign(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.sign(arg.x);
-    (out as vec4).y = _ScalerHelpers.sign(arg.y);
-    (out as vec4).z = _ScalerHelpers.sign(arg.z);
-    (out as vec4).w = _ScalerHelpers.sign(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -97,30 +121,42 @@ dynamic floor(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.floor(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.floor(arg.x);
+    double y = _ScalerHelpers.floor(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.floor(arg.x);
-    (out as vec2).y = _ScalerHelpers.floor(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.floor(arg.x);
+    double y = _ScalerHelpers.floor(arg.y);
+    double z = _ScalerHelpers.floor(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.floor(arg.x);
-    (out as vec3).y = _ScalerHelpers.floor(arg.y);
-    (out as vec3).z = _ScalerHelpers.floor(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.floor(arg.x);
+    double y = _ScalerHelpers.floor(arg.y);
+    double z = _ScalerHelpers.floor(arg.z);
+    double w = _ScalerHelpers.floor(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.floor(arg.x);
-    (out as vec4).y = _ScalerHelpers.floor(arg.y);
-    (out as vec4).z = _ScalerHelpers.floor(arg.z);
-    (out as vec4).w = _ScalerHelpers.floor(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -131,30 +167,42 @@ dynamic trunc(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.truncate(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.truncate(arg.x);
+    double y = _ScalerHelpers.truncate(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.truncate(arg.x);
-    (out as vec2).y = _ScalerHelpers.truncate(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.truncate(arg.x);
+    double y = _ScalerHelpers.truncate(arg.y);
+    double z = _ScalerHelpers.truncate(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.truncate(arg.x);
-    (out as vec3).y = _ScalerHelpers.truncate(arg.y);
-    (out as vec3).z = _ScalerHelpers.truncate(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.truncate(arg.x);
+    double y = _ScalerHelpers.truncate(arg.y);
+    double z = _ScalerHelpers.truncate(arg.z);
+    double w = _ScalerHelpers.truncate(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.truncate(arg.x);
-    (out as vec4).y = _ScalerHelpers.truncate(arg.y);
-    (out as vec4).z = _ScalerHelpers.truncate(arg.z);
-    (out as vec4).w = _ScalerHelpers.truncate(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -165,30 +213,42 @@ dynamic round(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.round(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.round(arg.x);
+    double y = _ScalerHelpers.round(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.round(arg.x);
-    (out as vec2).y = _ScalerHelpers.round(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.round(arg.x);
+    double y = _ScalerHelpers.round(arg.y);
+    double z = _ScalerHelpers.round(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.round(arg.x);
-    (out as vec3).y = _ScalerHelpers.round(arg.y);
-    (out as vec3).z = _ScalerHelpers.round(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.round(arg.x);
+    double y = _ScalerHelpers.round(arg.y);
+    double z = _ScalerHelpers.round(arg.z);
+    double w = _ScalerHelpers.round(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.round(arg.x);
-    (out as vec4).y = _ScalerHelpers.round(arg.y);
-    (out as vec4).z = _ScalerHelpers.round(arg.z);
-    (out as vec4).w = _ScalerHelpers.round(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -199,30 +259,42 @@ dynamic roundEven(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.roundEven(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.roundEven(arg.x);
+    double y = _ScalerHelpers.roundEven(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.roundEven(arg.x);
-    (out as vec2).y = _ScalerHelpers.roundEven(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.roundEven(arg.x);
+    double y = _ScalerHelpers.roundEven(arg.y);
+    double z = _ScalerHelpers.roundEven(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.roundEven(arg.x);
-    (out as vec3).y = _ScalerHelpers.roundEven(arg.y);
-    (out as vec3).z = _ScalerHelpers.roundEven(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.roundEven(arg.x);
+    double y = _ScalerHelpers.roundEven(arg.y);
+    double z = _ScalerHelpers.roundEven(arg.z);
+    double w = _ScalerHelpers.roundEven(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.roundEven(arg.x);
-    (out as vec4).y = _ScalerHelpers.roundEven(arg.y);
-    (out as vec4).z = _ScalerHelpers.roundEven(arg.z);
-    (out as vec4).w = _ScalerHelpers.roundEven(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -233,30 +305,42 @@ dynamic ceil(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.ceil(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.ceil(arg.x);
+    double y = _ScalerHelpers.ceil(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.ceil(arg.x);
-    (out as vec2).y = _ScalerHelpers.ceil(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.ceil(arg.x);
+    double y = _ScalerHelpers.ceil(arg.y);
+    double z = _ScalerHelpers.ceil(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.ceil(arg.x);
-    (out as vec3).y = _ScalerHelpers.ceil(arg.y);
-    (out as vec3).z = _ScalerHelpers.ceil(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.ceil(arg.x);
+    double y = _ScalerHelpers.ceil(arg.y);
+    double z = _ScalerHelpers.ceil(arg.z);
+    double w = _ScalerHelpers.ceil(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.ceil(arg.x);
-    (out as vec4).y = _ScalerHelpers.ceil(arg.y);
-    (out as vec4).z = _ScalerHelpers.ceil(arg.z);
-    (out as vec4).w = _ScalerHelpers.ceil(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -267,30 +351,42 @@ dynamic fract(dynamic arg, [dynamic out=null]) {
     return _ScalerHelpers.fract(arg);
   }
   if (arg is vec2) {
+    double x = _ScalerHelpers.fract(arg.x);
+    double y = _ScalerHelpers.fract(arg.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x, y);
+    } else {
+      (out as vec2).storage[0] = x;
+      (out as vec2).storage[1] = y;
     }
-    (out as vec2).x = _ScalerHelpers.fract(arg.x);
-    (out as vec2).y = _ScalerHelpers.fract(arg.y);
     return out;
   }
   if (arg is vec3) {
+    double x = _ScalerHelpers.fract(arg.x);
+    double y = _ScalerHelpers.fract(arg.y);
+    double z = _ScalerHelpers.fract(arg.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x, y, z);
+    } else {
+      (out as vec3).storage[0] = x;
+      (out as vec3).storage[1] = y;
+      (out as vec3).storage[2] = z;
     }
-    (out as vec3).x = _ScalerHelpers.fract(arg.x);
-    (out as vec3).y = _ScalerHelpers.fract(arg.y);
-    (out as vec3).z = _ScalerHelpers.fract(arg.z);
     return out;
   }
   if (arg is vec4) {
+    double x = _ScalerHelpers.fract(arg.x);
+    double y = _ScalerHelpers.fract(arg.y);
+    double z = _ScalerHelpers.fract(arg.z);
+    double w = _ScalerHelpers.fract(arg.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x, y, z, w);
+    } else {
+      (out as vec4).storage[0] = x;
+      (out as vec4).storage[1] = y;
+      (out as vec4).storage[2] = z;
+      (out as vec4).storage[3] = w;
     }
-    (out as vec4).x = _ScalerHelpers.fract(arg.x);
-    (out as vec4).y = _ScalerHelpers.fract(arg.y);
-    (out as vec4).z = _ScalerHelpers.fract(arg.z);
-    (out as vec4).w = _ScalerHelpers.fract(arg.w);
     return out;
   }
   throw new ArgumentError(arg);
@@ -301,30 +397,39 @@ dynamic mod(dynamic x, dynamic y, [dynamic out=null]) {
     return _ScalerHelpers.mod(x, y);
   }
   if (x is vec2) {
+    double x_ = _ScalerHelpers.mod(x.x, y.x);
+    double y_ = _ScalerHelpers.mod(x.y, y.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x_, y_);
     }
-    (out as vec2).x = _ScalerHelpers.mod(x.x, y.x);
-    (out as vec2).y = _ScalerHelpers.mod(x.y, y.y);
+    (out as vec2).storage[0] = x;
+    (out as vec2).storage[1] = y;
     return out;
   }
   if (x is vec3) {
+    double x_ = _ScalerHelpers.mod(x.x, y.x);
+    double y_ = _ScalerHelpers.mod(x.y, y.y);
+    double z_ = _ScalerHelpers.mod(x.z, y.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x_, y_, z_);
     }
-    (out as vec3).x = _ScalerHelpers.mod(x.x, y.x);
-    (out as vec3).y = _ScalerHelpers.mod(x.y, y.y);
-    (out as vec3).z = _ScalerHelpers.mod(x.z, y.z);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
     return out;
   }
   if (x is vec4) {
+    double x_ = _ScalerHelpers.mod(x.x, y.x);
+    double y_ = _ScalerHelpers.mod(x.y, y.y);
+    double z_ = _ScalerHelpers.mod(x.z, y.z);
+    double w_ = _ScalerHelpers.mod(x.w, y.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x_, y_, z_, w_);
     }
-    (out as vec4).x = _ScalerHelpers.mod(x.x, y.x);
-    (out as vec4).y = _ScalerHelpers.mod(x.y, y.y);
-    (out as vec4).z = _ScalerHelpers.mod(x.z, y.z);
-    (out as vec4).w = _ScalerHelpers.mod(x.w, y.w);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
+    (out as vec4).storage[3] = w_;
     return out;
   }
   throw new ArgumentError(x);
@@ -335,30 +440,39 @@ dynamic min(dynamic x, dynamic y, [dynamic out=null]) {
     return Math.min(x, y);
   }
   if (x is vec2) {
+    double x_ = Math.min(x.x, y.x);
+    double y_ = Math.min(x.y, y.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x_, y_);
     }
-    (out as vec2).x = Math.min(x.x, y.x);
-    (out as vec2).y = Math.min(x.y, y.y);
+    (out as vec2).storage[0] = x;
+    (out as vec2).storage[1] = y;
     return out;
   }
   if (x is vec3) {
+    double x_ = Math.min(x.x, y.x);
+    double y_ = Math.min(x.y, y.y);
+    double z_ = Math.min(x.z, y.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x_, y_, z_);
     }
-    (out as vec3).x = Math.min(x.x, y.x);
-    (out as vec3).y = Math.min(x.y, y.y);
-    (out as vec3).z = Math.min(x.z, y.z);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
     return out;
   }
   if (x is vec4) {
+    double x_ = Math.min(x.x, y.x);
+    double y_ = Math.min(x.y, y.y);
+    double z_ = Math.min(x.z, y.z);
+    double w_ = Math.min(x.w, y.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x_, y_, z_, w_);
     }
-    (out as vec4).x = Math.min(x.x, y.x);
-    (out as vec4).y = Math.min(x.y, y.y);
-    (out as vec4).z = Math.min(x.z, y.z);
-    (out as vec4).w = Math.min(x.w, y.w);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
+    (out as vec4).storage[3] = w_;
     return out;
   }
   throw new ArgumentError(x);
@@ -369,30 +483,39 @@ dynamic max(dynamic x, dynamic y, [dynamic out=null]) {
     return Math.max(x, y);
   }
   if (x is vec2) {
+    double x_ = Math.max(x.x, y.x);
+    double y_ = Math.max(x.y, y.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x_, y_);
     }
-    (out as vec2).x = Math.max(x.x, y.x);
-    (out as vec2).y = Math.max(x.y, y.y);
+    (out as vec2).storage[0] = x;
+    (out as vec2).storage[1] = y;
     return out;
   }
   if (x is vec3) {
+    double x_ = Math.max(x.x, y.x);
+    double y_ = Math.max(x.y, y.y);
+    double z_ = Math.max(x.z, y.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x_, y_, z_);
     }
-    (out as vec3).x = Math.max(x.x, y.x);
-    (out as vec3).y = Math.max(x.y, y.y);
-    (out as vec3).z = Math.max(x.z, y.z);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
     return out;
   }
   if (x is vec4) {
+    double x_ = Math.max(x.x, y.x);
+    double y_ = Math.max(x.y, y.y);
+    double z_ = Math.max(x.z, y.z);
+    double w_ = Math.max(x.w, y.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x_, y_, z_, w_);
     }
-    (out as vec4).x = Math.max(x.x, y.x);
-    (out as vec4).y = Math.max(x.y, y.y);
-    (out as vec4).z = Math.max(x.z, y.z);
-    (out as vec4).w = Math.max(x.w, y.w);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
+    (out as vec4).storage[3] = w_;
     return out;
   }
   throw new ArgumentError(x);
@@ -403,30 +526,39 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
     return _ScalerHelpers.clamp(x, min_, max_);
   }
   if (x is vec2) {
+    double x_ = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    double y_ = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x_, y_);
     }
-    (out as vec2).x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
-    (out as vec2).y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    (out as vec2).storage[0] = x_;
+    (out as vec2).storage[1] = y_;
     return out;
   }
   if (x is vec3) {
+    double x_ = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    double y_ = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    double z_ = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x_, y_, z_);
     }
-    (out as vec3).x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
-    (out as vec3).y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
-    (out as vec3).z = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
     return out;
   }
   if (x is vec4) {
+    double x_ = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
+    double y_ = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
+    double z_ = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
+    double w_ = _ScalerHelpers.clamp(x.w, min_.w, max_.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x_, y_, z_, w_);
     }
-    (out as vec4).x = _ScalerHelpers.clamp(x.x, min_.x, max_.x);
-    (out as vec4).y = _ScalerHelpers.clamp(x.y, min_.y, max_.y);
-    (out as vec4).z = _ScalerHelpers.clamp(x.z, min_.z, max_.z);
-    (out as vec4).w = _ScalerHelpers.clamp(x.w, min_.w, max_.w);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
+    (out as vec4).storage[3] = w_;
     return out;
   }
   throw new ArgumentError(x);
@@ -477,30 +609,39 @@ dynamic step(dynamic x, dynamic y, [dynamic out=null]) {
     return _ScalerHelpers.step(x, y);
   }
   if (x is vec2) {
+    double x_ = _ScalerHelpers.step(x.x, y.x);
+    double y_ = _ScalerHelpers.step(x.y, y.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x_, y_);
     }
-    (out as vec2).x = _ScalerHelpers.step(x.x, y.x);
-    (out as vec2).y = _ScalerHelpers.step(x.y, y.y);
+    (out as vec2).storage[0] = x_;
+    (out as vec2).storage[1] = y_;
     return out;
   }
   if (x is vec3) {
+    double x_ = _ScalerHelpers.step(x.x, y.x);
+    double y_ = _ScalerHelpers.step(x.y, y.y);
+    double z_ = _ScalerHelpers.step(x.z, y.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x_, y_, z_);
     }
-    (out as vec3).x = _ScalerHelpers.step(x.x, y.x);
-    (out as vec3).y = _ScalerHelpers.step(x.y, y.y);
-    (out as vec3).z = _ScalerHelpers.step(x.z, y.z);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
     return out;
   }
   if (x is vec4) {
+    double x_ = _ScalerHelpers.step(x.x, y.x);
+    double y_ = _ScalerHelpers.step(x.y, y.y);
+    double z_ = _ScalerHelpers.step(x.z, y.z);
+    double w_ = _ScalerHelpers.step(x.w, y.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x_, y_, z_, w_);
     }
-    (out as vec4).x = _ScalerHelpers.step(x.x, y.x);
-    (out as vec4).y = _ScalerHelpers.step(x.y, y.y);
-    (out as vec4).z = _ScalerHelpers.step(x.z, y.z);
-    (out as vec4).w = _ScalerHelpers.step(x.w, y.w);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
+    (out as vec4).storage[3] = w_;
     return out;
   }
   throw new ArgumentError(x);
@@ -511,30 +652,39 @@ dynamic smoothstep(dynamic edge0, dynamic edge1, dynamic x, [dynamic out=null]) 
     return _ScalerHelpers.smoothstep(edge0, edge1, x);
   }
   if (x is vec2) {
+    double x_ = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    double y_ = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
     if (out == null) {
-      out = new vec2();
+      out = new vec2(x_, y_);
     }
-    (out as vec2).x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
-    (out as vec2).y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    (out as vec2).storage[0] = x_;
+    (out as vec2).storage[1] = y_;
     return out;
   }
   if (x is vec3) {
+    double x_ = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    double y_ = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    double z_ = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
     if (out == null) {
-      out = new vec3();
+      out = new vec3(x_, y_, z_);
     }
-    (out as vec3).x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
-    (out as vec3).y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
-    (out as vec3).z = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
+    (out as vec3).storage[0] = x_;
+    (out as vec3).storage[1] = y_;
+    (out as vec3).storage[2] = z_;
     return out;
   }
   if (x is vec4) {
+    double x_ = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
+    double y_ = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
+    double z_ = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
+    double w_ = _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w);
     if (out == null) {
-      out = new vec4();
+      out = new vec4(x_, y_, z_, w_);
     }
-    (out as vec4).x = _ScalerHelpers.smoothstep(edge0.x, edge1.x, x.x);
-    (out as vec4).y = _ScalerHelpers.smoothstep(edge0.y, edge1.y, x.y);
-    (out as vec4).z = _ScalerHelpers.smoothstep(edge0.z, edge1.z, x.z);
-    (out as vec4).w = _ScalerHelpers.smoothstep(edge0.w, edge1.w, x.w);
+    (out as vec4).storage[0] = x_;
+    (out as vec4).storage[1] = y_;
+    (out as vec4).storage[2] = z_;
+    (out as vec4).storage[3] = w_;
     return out;
   }
   throw new ArgumentError(x);
