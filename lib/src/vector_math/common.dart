@@ -565,42 +565,40 @@ dynamic clamp(dynamic x, dynamic min_, dynamic max_, [dynamic out=null]) {
 }
 /// Linear interpolation between [x] and [y] with [t]. [t] must be between 0.0 and 1.0.
 dynamic mix(dynamic x, dynamic y, dynamic t) {
-  if (t is num) {
-      if (x is num) {
-        return _ScalarHelpers.mix(x, y, t);
-      }
-      if (x is vec2) {
-        x = x as vec2;
-        return new vec2(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t));
-      }
-      if (x is vec3) {
-        x = x as vec3;
-        return new vec3(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t), _ScalarHelpers.mix(x.z, y.z, t));
-      }
-      if (x is vec4) {
-        x = x as vec4;
-        return new vec4(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t), _ScalarHelpers.mix(x.z, y.z, t), _ScalarHelpers.mix(x.w, y.w, t));
-      }
-      throw new ArgumentError(x);
-
+  if (t is double) {
+    if (x is double) {
+      return _ScalarHelpers.mix(x, y, t);
+    }
+    if (x is vec2) {
+      x = x as vec2;
+      return new vec2(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t));
+    }
+    if (x is vec3) {
+      x = x as vec3;
+      return new vec3(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t), _ScalarHelpers.mix(x.z, y.z, t));
+    }
+    if (x is vec4) {
+      x = x as vec4;
+      return new vec4(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t), _ScalarHelpers.mix(x.z, y.z, t), _ScalarHelpers.mix(x.w, y.w, t));
+    }
+    throw new ArgumentError(x);
   } else {
-      if (x is num) {
-        return _ScalarHelpers.mix(x, y, t);
-      }
-      if (x is vec2) {
-        x = x as vec2;
-        return new vec2(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y));
-      }
-      if (x is vec3) {
-        x = x as vec3;
-        return new vec3(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y), _ScalarHelpers.mix(x.z, y.z, t.z));
-      }
-      if (x is vec4) {
-        x = x as vec4;
-        return new vec4(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y), _ScalarHelpers.mix(x.z, y.z, t.z), _ScalarHelpers.mix(x.w, y.w, t.w));
-      }
-      throw new ArgumentError(x);
-
+    if (x is double) {
+      return _ScalarHelpers.mix(x, y, t);
+    }
+    if (x is vec2) {
+      x = x as vec2;
+      return new vec2(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y));
+    }
+    if (x is vec3) {
+      x = x as vec3;
+      return new vec3(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y), _ScalarHelpers.mix(x.z, y.z, t.z));
+    }
+    if (x is vec4) {
+      x = x as vec4;
+      return new vec4(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y), _ScalarHelpers.mix(x.z, y.z, t.z), _ScalarHelpers.mix(x.w, y.w, t.w));
+    }
+    throw new ArgumentError(x);
   }
 }
 /// Returns 0.0 if x < [y] and 1.0 otherwise.

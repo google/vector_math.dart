@@ -898,10 +898,9 @@ class mat4 {
     return det;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around X
-  void setRotationX(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotationX(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = 1.0;
     _storage[1] = 0.0;
     _storage[2] = 0.0;
@@ -916,10 +915,9 @@ class mat4 {
     _storage[11] = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Y
-  void setRotationY(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotationY(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = c;
     _storage[1] = 0.0;
     _storage[2] = s;
@@ -934,10 +932,9 @@ class mat4 {
     _storage[11] = 0.0;
   }
   /// Sets the upper 3x3 to a rotation of [radians] around Z
-  void setRotationZ(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotationZ(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = c;
     _storage[1] = s;
     _storage[2] = 0.0;
@@ -952,8 +949,7 @@ class mat4 {
     _storage[11] = 0.0;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  mat4 scaleAdjoint(num scale) {
-    double scale_ = scale.toDouble();
+  mat4 scaleAdjoint(double scale) {
     // Adapted from code by Richard Carling.
     double a1 = _storage[0];
     double b1 = _storage[4];
@@ -971,22 +967,22 @@ class mat4 {
     double b4 = _storage[7];
     double c4 = _storage[11];
     double d4 = _storage[15];
-    _storage[0]  =   (b2 * (c3 * d4 - c4 * d3) - c2 * (b3 * d4 - b4 * d3) + d2 * (b3 * c4 - b4 * c3)) * scale_;
-    _storage[1]  = - (a2 * (c3 * d4 - c4 * d3) - c2 * (a3 * d4 - a4 * d3) + d2 * (a3 * c4 - a4 * c3)) * scale_;
-    _storage[2]  =   (a2 * (b3 * d4 - b4 * d3) - b2 * (a3 * d4 - a4 * d3) + d2 * (a3 * b4 - a4 * b3)) * scale_;
-    _storage[3]  = - (a2 * (b3 * c4 - b4 * c3) - b2 * (a3 * c4 - a4 * c3) + c2 * (a3 * b4 - a4 * b3)) * scale_;
-    _storage[4]  = - (b1 * (c3 * d4 - c4 * d3) - c1 * (b3 * d4 - b4 * d3) + d1 * (b3 * c4 - b4 * c3)) * scale_;
-    _storage[5]  =   (a1 * (c3 * d4 - c4 * d3) - c1 * (a3 * d4 - a4 * d3) + d1 * (a3 * c4 - a4 * c3)) * scale_;
-    _storage[6]  = - (a1 * (b3 * d4 - b4 * d3) - b1 * (a3 * d4 - a4 * d3) + d1 * (a3 * b4 - a4 * b3)) * scale_;
-    _storage[7]  =   (a1 * (b3 * c4 - b4 * c3) - b1 * (a3 * c4 - a4 * c3) + c1 * (a3 * b4 - a4 * b3)) * scale_;
-    _storage[8]  =   (b1 * (c2 * d4 - c4 * d2) - c1 * (b2 * d4 - b4 * d2) + d1 * (b2 * c4 - b4 * c2)) * scale_;
-    _storage[9]  = - (a1 * (c2 * d4 - c4 * d2) - c1 * (a2 * d4 - a4 * d2) + d1 * (a2 * c4 - a4 * c2)) * scale_;
-    _storage[10]  =   (a1 * (b2 * d4 - b4 * d2) - b1 * (a2 * d4 - a4 * d2) + d1 * (a2 * b4 - a4 * b2)) * scale_;
-    _storage[11]  = - (a1 * (b2 * c4 - b4 * c2) - b1 * (a2 * c4 - a4 * c2) + c1 * (a2 * b4 - a4 * b2)) * scale_;
-    _storage[12]  = - (b1 * (c2 * d3 - c3 * d2) - c1 * (b2 * d3 - b3 * d2) + d1 * (b2 * c3 - b3 * c2)) * scale_;
-    _storage[13]  =   (a1 * (c2 * d3 - c3 * d2) - c1 * (a2 * d3 - a3 * d2) + d1 * (a2 * c3 - a3 * c2)) * scale_;
-    _storage[14]  = - (a1 * (b2 * d3 - b3 * d2) - b1 * (a2 * d3 - a3 * d2) + d1 * (a2 * b3 - a3 * b2)) * scale_;
-    _storage[15]  =   (a1 * (b2 * c3 - b3 * c2) - b1 * (a2 * c3 - a3 * c2) + c1 * (a2 * b3 - a3 * b2)) * scale_;
+    _storage[0]  =   (b2 * (c3 * d4 - c4 * d3) - c2 * (b3 * d4 - b4 * d3) + d2 * (b3 * c4 - b4 * c3)) * scale;
+    _storage[1]  = - (a2 * (c3 * d4 - c4 * d3) - c2 * (a3 * d4 - a4 * d3) + d2 * (a3 * c4 - a4 * c3)) * scale;
+    _storage[2]  =   (a2 * (b3 * d4 - b4 * d3) - b2 * (a3 * d4 - a4 * d3) + d2 * (a3 * b4 - a4 * b3)) * scale;
+    _storage[3]  = - (a2 * (b3 * c4 - b4 * c3) - b2 * (a3 * c4 - a4 * c3) + c2 * (a3 * b4 - a4 * b3)) * scale;
+    _storage[4]  = - (b1 * (c3 * d4 - c4 * d3) - c1 * (b3 * d4 - b4 * d3) + d1 * (b3 * c4 - b4 * c3)) * scale;
+    _storage[5]  =   (a1 * (c3 * d4 - c4 * d3) - c1 * (a3 * d4 - a4 * d3) + d1 * (a3 * c4 - a4 * c3)) * scale;
+    _storage[6]  = - (a1 * (b3 * d4 - b4 * d3) - b1 * (a3 * d4 - a4 * d3) + d1 * (a3 * b4 - a4 * b3)) * scale;
+    _storage[7]  =   (a1 * (b3 * c4 - b4 * c3) - b1 * (a3 * c4 - a4 * c3) + c1 * (a3 * b4 - a4 * b3)) * scale;
+    _storage[8]  =   (b1 * (c2 * d4 - c4 * d2) - c1 * (b2 * d4 - b4 * d2) + d1 * (b2 * c4 - b4 * c2)) * scale;
+    _storage[9]  = - (a1 * (c2 * d4 - c4 * d2) - c1 * (a2 * d4 - a4 * d2) + d1 * (a2 * c4 - a4 * c2)) * scale;
+    _storage[10]  =   (a1 * (b2 * d4 - b4 * d2) - b1 * (a2 * d4 - a4 * d2) + d1 * (a2 * b4 - a4 * b2)) * scale;
+    _storage[11]  = - (a1 * (b2 * c4 - b4 * c2) - b1 * (a2 * c4 - a4 * c2) + c1 * (a2 * b4 - a4 * b2)) * scale;
+    _storage[12]  = - (b1 * (c2 * d3 - c3 * d2) - c1 * (b2 * d3 - b3 * d2) + d1 * (b2 * c3 - b3 * c2)) * scale;
+    _storage[13]  =   (a1 * (c2 * d3 - c3 * d2) - c1 * (a2 * d3 - a3 * d2) + d1 * (a2 * c3 - a3 * c2)) * scale;
+    _storage[14]  = - (a1 * (b2 * d3 - b3 * d2) - b1 * (a2 * d3 - a3 * d2) + d1 * (a2 * b3 - a3 * b2)) * scale;
+    _storage[15]  =   (a1 * (b2 * c3 - b3 * c2) - b1 * (a2 * c3 - a3 * c2) + c1 * (a2 * b3 - a3 * b2)) * scale;
     return this;
   }
   /// Rotates [arg] by the absolute rotation of [this]
@@ -1303,7 +1299,7 @@ class mat4 {
     array[i+0] = _storage[0];
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[15] = array[i+15];
     _storage[14] = array[i+14];

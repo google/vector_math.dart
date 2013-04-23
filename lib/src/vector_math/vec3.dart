@@ -65,7 +65,7 @@ class vec3 {
   }
 
   /// Constructs a new [vec3] that is initialized with values from [array] starting at [offset].
-  vec3.array(List<num> array, [int offset=0]) {
+  vec3.array(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[0] = array[i+0];
     _storage[1] = array[i+1];
@@ -232,7 +232,7 @@ class vec3 {
     _storage[0] = _storage[0] * arg;
     return this;
   }
-  vec3 scaled(num arg) {
+  vec3 scaled(double arg) {
     return clone().scale(arg);
   }
   vec3 negate() {
