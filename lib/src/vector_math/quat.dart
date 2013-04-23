@@ -72,7 +72,7 @@ class quat {
   }
 
   /// Rotation of [angle] around [axis].
-  quat.axisAngle(vec3 axis, num angle) {
+  quat.axisAngle(vec3 axis, double angle) {
     setAxisAngle(axis, angle);
   }
 
@@ -149,8 +149,7 @@ class quat {
   }
 
   /// Set quaternion with rotation of [radians] around [axis].
-  void setAxisAngle(vec3 axis, num radians) {
-    radians = radians.toDouble();
+  void setAxisAngle(vec3 axis, double radians) {
     double len = axis.length;
     if (len == 0.0) {
       return;
@@ -163,10 +162,7 @@ class quat {
   }
 
   /** Set quaternion with rotation of [yaw], [pitch] and [roll] */
-  void setEuler(num yaw, num pitch, num roll) {
-    yaw = yaw.toDouble();
-    pitch = pitch.toDouble();
-    roll = roll.toDouble();
+  void setEuler(double yaw, double pitch, double roll) {
     double halfYaw = yaw * 0.5;
     double halfPitch = pitch * 0.5;
     double halfRoll = roll * 0.5;

@@ -61,7 +61,7 @@ class vec4 {
     return this;
   }
   /// Constructs a new [vec4] that is initialized with values from [array] starting at [offset].
-  vec4.array(List<num> array, [int offset=0]) {
+  vec4.array(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[0] = array[i+0];
     _storage[1] = array[i+1];
@@ -231,7 +231,7 @@ class vec4 {
     _storage[3] = _storage[3] * arg;
     return this;
   }
-  vec4 scaled(num arg) {
+  vec4 scaled(double arg) {
     return clone().scale(arg);
   }
   vec4 negate() {
@@ -293,16 +293,12 @@ class vec4 {
     array[i+3] = _storage[3];
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[0] = array[i+0];
-    i++;
     _storage[1] = array[i+1];
-    i++;
     _storage[2] = array[i+2];
-    i++;
     _storage[3] = array[i+3];
-    i++;
   }
   set xy(vec2 arg) {
     _storage[0] = arg._storage[0];

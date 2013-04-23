@@ -5,7 +5,7 @@ class VectorTest extends BaseTest {
   void testVec2DotProduct() {
     final vec2 inputA = new vec2(0.417267069084370, 0.049654430325742);
     final vec2 inputB = new vec2(0.944787189721646, 0.490864092468080);
-    final num expectedOutput = 0.418602158442475;
+    final double expectedOutput = 0.418602158442475;
     relativeTest(dot(inputA, inputB), expectedOutput);
     relativeTest(dot(inputB, inputA), expectedOutput);
   }
@@ -13,14 +13,13 @@ class VectorTest extends BaseTest {
   void testVec2CrossProduct() {
     final vec2 inputA = new vec2(0.417267069084370, 0.049654430325742);
     final vec2 inputB = new vec2(0.944787189721646, 0.490864092468080);
-    num expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
+    double expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
     relativeTest(cross(inputA, inputB), expectedOutputCross);
     relativeTest(cross(1.0, inputA), new vec2(-inputA.y,  inputA.x));
     var result = new vec2.zero();
     cross(inputA, 1.0, result);
     relativeTest(result, new vec2( inputA.y, -inputA.x));
-    // Test passing a num "1" into cross.
-    relativeTest(cross(inputA, 1), new vec2( inputA.y, -inputA.x));
+    relativeTest(cross(inputA, 1.0), new vec2( inputA.y, -inputA.x));
   }
 
   void testVec3DotProduct() {

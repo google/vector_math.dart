@@ -82,7 +82,7 @@ mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
 void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
                           num aspectRatio, num zNear, num zFar) {
   double height = tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
-  double width = height.toDouble() * aspectRatio.toDouble();
+  double width = height * aspectRatio.toDouble();
   setFrustumMatrix(perspectiveMatrix, -width, width, -height, height, zNear,
                    zFar);
 }
@@ -102,7 +102,7 @@ void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
 mat4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
                            num zFar) {
   double height = tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
-  double width = height.toDouble() * aspectRatio.toDouble();
+  double width = height * aspectRatio.toDouble();
   return makeFrustumMatrix(-width, width, -height, height, zNear, zFar);
 }
 

@@ -61,7 +61,7 @@ class vec2 {
   }
 
   /// Initialized with values from [array] starting at [offset].
-  vec2.array(List<num> array, [int offset=0]) {
+  vec2.array(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[1] = array[i+1];
     _storage[0] = array[i+0];
@@ -236,7 +236,7 @@ class vec2 {
     return this;
   }
 
-  vec2 scaled(num arg) {
+  vec2 scaled(double arg) {
     return clone().scale(arg);
   }
 
