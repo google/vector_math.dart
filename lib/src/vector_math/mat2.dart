@@ -305,23 +305,21 @@ class mat2 {
     return det;
   }
   /// Turns the matrix into a rotation of [radians]
-  void setRotation(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotation(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = c;
     _storage[1] = s;
     _storage[2] = -s;
     _storage[3] = c;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  mat2 scaleAdjoint(num scale) {
-    double scale_ = scale.toDouble();
+  mat2 scaleAdjoint(double scale) {
     double temp = _storage[0];
-    _storage[0] = _storage[3] * scale_;
-    _storage[2] = - _storage[2] * scale_;
-    _storage[1] = - _storage[1] * scale_;
-    _storage[3] = temp * scale_;
+    _storage[0] = _storage[3] * scale;
+    _storage[2] = - _storage[2] * scale;
+    _storage[1] = - _storage[1] * scale;
+    _storage[3] = temp * scale;
     return this;
   }
   mat2 clone() {
@@ -423,7 +421,7 @@ class mat2 {
     array[i+0] = _storage[0];
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[3] = array[i+3];
     _storage[2] = array[i+2];

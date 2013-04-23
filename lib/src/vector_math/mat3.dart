@@ -432,10 +432,9 @@ class mat3 {
     return det;
   }
   /// Turns the matrix into a rotation of [radians] around X
-  void setRotationX(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotationX(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = 1.0;
     _storage[1] = 0.0;
     _storage[2] = 0.0;
@@ -447,10 +446,9 @@ class mat3 {
     _storage[8] = c;
   }
   /// Turns the matrix into a rotation of [radians] around Y
-  void setRotationY(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotationY(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = c;
     _storage[1] = 0.0;
     _storage[2] = s;
@@ -462,10 +460,9 @@ class mat3 {
     _storage[8] = c;
   }
   /// Turns the matrix into a rotation of [radians] around Z
-  void setRotationZ(num radians) {
-    double radians_ = radians.toDouble();
-    double c = Math.cos(radians_);
-    double s = Math.sin(radians_);
+  void setRotationZ(double radians) {
+    double c = Math.cos(radians);
+    double s = Math.sin(radians);
     _storage[0] = c;
     _storage[1] = s;
     _storage[2] = 0.0;
@@ -477,8 +474,7 @@ class mat3 {
     _storage[8] = 1.0;
   }
   /// Converts into Adjugate matrix and scales by [scale]
-  mat3 scaleAdjoint(num scale) {
-    double scale_ = scale.toDouble();
+  mat3 scaleAdjoint(double scale) {
     double m00 = _storage[0];
     double m01 = _storage[3];
     double m02 = _storage[6];
@@ -488,15 +484,15 @@ class mat3 {
     double m20 = _storage[2];
     double m21 = _storage[5];
     double m22 = _storage[8];
-    _storage[0] = (m11 * m22 - m12 * m21) * scale_;
-    _storage[1] = (m12 * m20 - m10 * m22) * scale_;
-    _storage[2] = (m10 * m21 - m11 * m20) * scale_;
-    _storage[3] = (m02 * m21 - m01 * m22) * scale_;
-    _storage[4] = (m00 * m22 - m02 * m20) * scale_;
-    _storage[5] = (m01 * m20 - m00 * m21) * scale_;
-    _storage[6] = (m01 * m12 - m02 * m11) * scale_;
-    _storage[7] = (m02 * m10 - m00 * m12) * scale_;
-    _storage[8] = (m00 * m11 - m01 * m10) * scale_;
+    _storage[0] = (m11 * m22 - m12 * m21) * scale;
+    _storage[1] = (m12 * m20 - m10 * m22) * scale;
+    _storage[2] = (m10 * m21 - m11 * m20) * scale;
+    _storage[3] = (m02 * m21 - m01 * m22) * scale;
+    _storage[4] = (m00 * m22 - m02 * m20) * scale;
+    _storage[5] = (m01 * m20 - m00 * m21) * scale;
+    _storage[6] = (m01 * m12 - m02 * m11) * scale;
+    _storage[7] = (m02 * m10 - m00 * m12) * scale;
+    _storage[8] = (m00 * m11 - m01 * m10) * scale;
     return this;
   }
   /// Rotates [arg] by the absolute rotation of [this]
@@ -686,7 +682,7 @@ class mat3 {
     array[i+0] = _storage[0];
   }
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[8] = array[i+8];
     _storage[7] = array[i+7];
