@@ -160,7 +160,7 @@ mat4 makeFrustumMatrix(num left, num right, num bottom, num top, num near,
  *
  * [left], [right] specify the coordinates for the left and right vertical
  * clipping planes.
- * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * [bottom], [top] specify the coordinates for the bottom and top horizontal
  * clipping planes.
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
@@ -194,7 +194,7 @@ void setOrthographicMatrix(mat4 orthographicMatrix, num left, num right,
  *
  * [left], [right] specify the coordinates for the left and right vertical
  * clipping planes.
- * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * [bottom], [top] specify the coordinates for the bottom and top horizontal
  * clipping planes.
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
