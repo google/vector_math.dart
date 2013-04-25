@@ -571,14 +571,17 @@ dynamic mix(dynamic x, dynamic y, dynamic t) {
     }
     if (x is vec2) {
       x = x as vec2;
+      y = y as vec2;
       return new vec2(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t));
     }
     if (x is vec3) {
       x = x as vec3;
+      y = y as vec3;
       return new vec3(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t), _ScalarHelpers.mix(x.z, y.z, t));
     }
     if (x is vec4) {
       x = x as vec4;
+      y = y as vec4;
       return new vec4(_ScalarHelpers.mix(x.x, y.x, t), _ScalarHelpers.mix(x.y, y.y, t), _ScalarHelpers.mix(x.z, y.z, t), _ScalarHelpers.mix(x.w, y.w, t));
     }
     throw new ArgumentError(x);
@@ -588,17 +591,23 @@ dynamic mix(dynamic x, dynamic y, dynamic t) {
     }
     if (x is vec2) {
       x = x as vec2;
+      y = y as vec2;
+      t = t as vec2;
       return new vec2(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y));
     }
     if (x is vec3) {
       x = x as vec3;
+      y = y as vec3;
+      t = t as vec3;
       return new vec3(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y), _ScalarHelpers.mix(x.z, y.z, t.z));
     }
     if (x is vec4) {
       x = x as vec4;
+      y = y as vec4;
+      t = t as vec4;
       return new vec4(_ScalarHelpers.mix(x.x, y.x, t.x), _ScalarHelpers.mix(x.y, y.y, t.y), _ScalarHelpers.mix(x.z, y.z, t.z), _ScalarHelpers.mix(x.w, y.w, t.w));
     }
-    throw new ArgumentError(x);
+    throw new ArgumentError('');
   }
 }
 /// Returns 0.0 if x < [y] and 1.0 otherwise.
