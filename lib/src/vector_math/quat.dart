@@ -161,7 +161,7 @@ class quat {
     _storage[3] = cos(radians * 0.5);
   }
 
-  /** Set quaternion with rotation of [yaw], [pitch] and [roll] */
+  /// Set quaternion with rotation of [yaw], [pitch] and [roll].
   void setEuler(double yaw, double pitch, double roll) {
     double halfYaw = yaw * 0.5;
     double halfPitch = pitch * 0.5;
@@ -178,7 +178,7 @@ class quat {
     _storage[3] = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
   }
 
-  /** Normalize [this] */
+  /// Normalize [this].
   quat normalize() {
     double l = length;
     if (l == 0.0) {
@@ -192,7 +192,7 @@ class quat {
     return this;
   }
 
-  /** Conjugate [this] */
+  /// Conjugate [this].
   quat conjugate() {
     _storage[2] = -_storage[2];
     _storage[1] = -_storage[1];
@@ -200,7 +200,7 @@ class quat {
     return this;
   }
 
-  /** Invert [this]  */
+  /// Invert [this].
   quat inverse() {
     double l = 1.0 / length2;
     _storage[3] = _storage[3] * l;
@@ -210,34 +210,25 @@ class quat {
     return this;
   }
 
-  /** Normalized copy of [this]. Optionally stored in [out]*/
-  quat normalized([quat out=null]) {
-    if (out == null) {
-      out = new quat.copy(this);
-    }
-    return out.normalize();
+  /// Normalized copy of [this].
+  quat normalized() {
+    return new quat.copy(this).normalize();
   }
 
-  /** Conjugated copy of [this]. Optionally stored in [out] */
-  quat conjugated([quat out=null]) {
-    if (out == null) {
-      out = new quat.copy(this);
-    }
-    return out.conjugate();
+  /// Conjugated copy of [this].
+  quat conjugated() {
+    return new quat.copy(this).conjugate();
   }
 
-  /** Inverted copy of [this]. Optionally stored in [out] */
-  quat inverted([quat out=null]) {
-    if (out == null) {
-      out = new quat.copy(this);
-    }
-    return out.inverse();
+  /// Inverted copy of [this].
+  quat inverted() {
+    return new quat.copy(this).inverse();
   }
 
-  /** Radians of rotation */
+  /// Radians of rotation.
   double get radians => 2.0 * acos(_storage[3]);
 
-  /** Axis of rotation */
+  /// Axis of rotation.
   vec3 get axis {
       double scale = 1.0 / (1.0 - (_storage[3] * _storage[3]));
       return new vec3(_storage[0] * scale,
@@ -245,7 +236,7 @@ class quat {
                       _storage[2] * scale);
   }
 
-  /** Squared length */
+  /// Length squared.
   double get length2 {
     double _x = _storage[0];
     double _y = _storage[1];
@@ -254,22 +245,18 @@ class quat {
     return (_x * _x) + (_y * _y) + (_z * _z) + (_w * _w);
   }
 
-  /** Length */
+  /// Length.
   double get length {
     return Math.sqrt(length2);
   }
 
-  /** Returns a copy of [v] rotated by quaternion. Copy optionally stored in [out] */
-  vec3 rotated(vec3 v, [vec3 out=null]) {
-    if (out == null) {
-      out = new vec3.copy(v);
-    } else {
-      out.setFrom(v);
-    }
+  /// Returns a copy of [v] rotated by quaternion.
+  vec3 rotated(vec3 v) {
+    vec3 out = new vec3.copy(v);
     return rotate(out);
   }
 
-  /** Rotates [v] by [this]. Returns [v]. */
+  /// Rotates [v] by [this].
   vec3 rotate(vec3 v) {
     // conjugate(this) * [v,0] * this
     double _w = _storage[3];
@@ -323,7 +310,7 @@ class quat {
                     _w * ow - _x * ox - _y * oy - _z * oz);
   }
 
-  /** Returns copy of [this] - [other] */
+  /// Returns copy of [this] + [other].
   quat operator+(quat other) {
     return new quat(_storage[0] + other._storage[0],
                     _storage[1] + other._storage[1],
@@ -331,7 +318,7 @@ class quat {
                     _storage[3] + other._storage[3]);
   }
 
-  /** Returns copy of [this] + [other] */
+  /// Returns copy of [this] - [other].
   quat operator-(quat other) {
     return new quat(_storage[0] - other._storage[0],
                     _storage[1] - other._storage[1],
@@ -339,7 +326,7 @@ class quat {
                     _storage[3] - other._storage[3]);
   }
 
-  /** Returns negated copy of [this] */
+  /// Returns negated copy of [this].
   quat operator-() {
     return new quat(-_storage[0], -_storage[1], -_storage[2], -_storage[3]);
   }
@@ -350,7 +337,7 @@ class quat {
     _storage[i] = arg;
   }
 
-  /** Returns a rotation matrix containing the same rotation as [this] */
+  /// Returns a rotation matrix containing the same rotation as [this].
   mat3 asRotationMatrix() {
     double d = length2;
     assert(d != 0.0);
@@ -382,12 +369,12 @@ class quat {
                     xz + wy, yz - wx, 1.0 - (xx + yy)); // column 2
   }
 
-  /** Returns a printable string */
+  /// Printable string.
   String toString() {
     return '${_storage[0]}, ${_storage[1]}, ${_storage[2]} @ ${_storage[3]}';
   }
 
-  /** Returns relative error between [this]  and [correct] */
+  /// Relative error between [this] and [correct].
   double relativeError(quat correct) {
     quat diff = correct - this;
     double norm_diff = diff.length;
@@ -395,7 +382,7 @@ class quat {
     return norm_diff/correct_norm;
   }
 
-  /** Returns absolute error between [this] and [correct] */
+  /// Absolute error between [this] and [correct].
   double absoluteError(quat correct) {
     double this_norm = length;
     double correct_norm = correct.length;
