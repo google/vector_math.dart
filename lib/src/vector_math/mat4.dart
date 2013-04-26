@@ -270,7 +270,7 @@ class mat4 {
   /// Sets row 3 to [arg]
   set row3(vec4 arg) => setRow(3, arg);
 
-  /// Assigns the [column] of the matrix [arg]
+  /// Assigns the [row] of the matrix [arg]
   void setRow(int row, vec4 arg) {
     _storage[index(row, 0)] = arg._storage[0];
     _storage[index(row, 1)] = arg._storage[1];

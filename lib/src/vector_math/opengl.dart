@@ -24,7 +24,7 @@ part of vector_math;
  * Constructs an OpenGL view matrix in [viewMatrix].
  *
  * [cameraPosition] specifies the position of the camera.
- * [camearFocusPosition] specifies the position the camera is focused on.
+ * [cameraFocusPosition] specifies the position the camera is focused on.
  * [upDirection] specifies the direction of the up vector (usually, +Y).
  */
 void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
@@ -57,7 +57,7 @@ void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
  * Constructs a new OpenGL view matrix.
  *
  * [cameraPosition] specifies the position of the camera.
- * [camearFocusPosition] specifies the position the camera is focused on.
+ * [cameraFocusPosition] specifies the position the camera is focused on.
  * [upDirection] specifies the direction of the up vector (usually, +Y).
  */
 mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
