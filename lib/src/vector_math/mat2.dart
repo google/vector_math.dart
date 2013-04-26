@@ -408,7 +408,7 @@ class mat2 {
     if (out == null) {
       out = new vec2.copy(arg);
     } else {
-      out.copyFrom(arg);
+      out.setFrom(arg);
     }
     return transform(out);
   }

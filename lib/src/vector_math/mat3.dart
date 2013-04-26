@@ -664,7 +664,7 @@ class mat3 {
     if (out == null) {
       out = new vec3.copy(arg);
     } else {
-      out.copyFrom(arg);
+      out.setFrom(arg);
     }
     return transform(out);
   }

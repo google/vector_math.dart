@@ -111,7 +111,7 @@ mat4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
  *
  * [left], [right] specify the coordinates for the left and right vertical
  * clipping planes.
- * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * [bottom], [top] specify the coordinates for the bottom and top horizontal
  * clipping planes.
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
@@ -143,7 +143,7 @@ void setFrustumMatrix(mat4 perspectiveMatrix, num left, num right, num bottom,
  *
  * [left], [right] specify the coordinates for the left and right vertical
  * clipping planes.
- * [bototm], [top] specify the coordinates for the bottom and top horizontal
+ * [bottom], [top] specify the coordinates for the bottom and top horizontal
  * clipping planes.
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.

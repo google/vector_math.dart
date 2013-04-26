@@ -264,7 +264,7 @@ class quat {
     if (out == null) {
       out = new vec3.copy(v);
     } else {
-      out.copyFrom(v);
+      out.setFrom(v);
     }
     return rotate(out);
   }

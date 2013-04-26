@@ -1238,7 +1238,7 @@ class mat4 {
     if (out == null) {
       out = new vec3.copy(arg);
     } else {
-      out.copyFrom(arg);
+      out.setFrom(arg);
     }
     return rotate3(out);
   }
@@ -1255,7 +1255,7 @@ class mat4 {
     if (out == null) {
       out = new vec3.copy(arg);
     } else {
-      out.copyFrom(arg);
+      out.setFrom(arg);
     }
     return transform3(out);
   }
@@ -1274,7 +1274,7 @@ class mat4 {
     if (out == null) {
       out = new vec4.copy(arg);
     } else {
-      out.copyFrom(arg);
+      out.setFrom(arg);
     }
     return transform(out);
   }
