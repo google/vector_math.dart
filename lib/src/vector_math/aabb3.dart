@@ -44,27 +44,27 @@ class aabb3 {
   }
 
   void copyMinMax(vec3 min_, vec3 max_) {
-    max_.copyFrom(_max);
-    min_.copyFrom(_min);
+    max_.setFrom(_max);
+    min_.setFrom(_min);
   }
 
   void copyCenterAndHalfExtents(vec3 center, vec3 halfExtents) {
-    center.copyFrom(_min);
+    center.setFrom(_min);
     center.add(_max);
     center.scale(0.5);
-    halfExtents.copyFrom(_max);
+    halfExtents.setFrom(_max);
     halfExtents.sub(_min);
     halfExtents.scale(0.5);
   }
 
   void copyFrom(aabb3 o) {
-    _min.copyFrom(o._min);
-    _max.copyFrom(o._max);
+    _min.setFrom(o._min);
+    _max.setFrom(o._max);
   }
 
   void copyInto(aabb3 o) {
-    o._min.copyFrom(_min);
-    o._max.copyFrom(_max);
+    o._min.setFrom(_min);
+    o._max.setFrom(_max);
   }
 
   aabb3 transform(mat4 T) {
@@ -73,8 +73,8 @@ class aabb3 {
     copyCenterAndHalfExtents(center, halfExtents);
     T.transform3(center);
     T.absoluteRotate(halfExtents);
-    _min.copyFrom(center);
-    _max.copyFrom(center);
+    _min.setFrom(center);
+    _max.setFrom(center);
 
     _min.sub(halfExtents);
     _max.add(halfExtents);
@@ -86,8 +86,8 @@ class aabb3 {
     vec3 halfExtents = new vec3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     T.absoluteRotate(halfExtents);
-    _min.copyFrom(center);
-    _max.copyFrom(center);
+    _min.setFrom(center);
+    _max.setFrom(center);
 
     _min.sub(halfExtents);
     _max.add(halfExtents);

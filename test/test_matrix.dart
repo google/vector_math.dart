@@ -336,7 +336,7 @@ class MatrixTest extends BaseTest {
     List<dynamic> output2 = new List<dynamic>();
 
     inputA.add(new mat4.identity());
-    inputB.add(new mat4.translationRaw(1.0, 3.0, 5.7));
+    inputB.add(new mat4.translationValues(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
     output2.add((new mat4.identity()).translate(1.0, 3.0, 5.7));
 
@@ -355,7 +355,7 @@ class MatrixTest extends BaseTest {
     List<dynamic> output2 = new List<dynamic>();
 
     inputA.add(new mat4.identity());
-    inputB.add(new mat4.scaleRaw(1.0, 3.0, 5.7));
+    inputB.add(new mat4.diagonal3Values(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
     output2.add(new mat4.identity().scale(1.0, 3.0, 5.7));
 

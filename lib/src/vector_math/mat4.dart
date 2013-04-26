@@ -37,14 +37,36 @@ class mat4 {
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }
 
   /// Constructs a new mat4.
-  mat4(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15) {
-    setRaw(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
+  mat4(double arg0, double arg1, double arg2, double arg3,
+       double arg4, double arg5, double arg6, double arg7,
+       double arg8, double arg9, double arg10, double arg11,
+       double arg12, double arg13, double arg14, double arg15) {
+    setValues(arg0, arg1, arg2, arg3,
+              arg4, arg5, arg6, arg7,
+              arg8, arg9, arg10, arg11,
+              arg12, arg13, arg14, arg15);
   }
+
+  /// Zero matrix.
+  mat4.zero() {
+  }
+
+  /// Identity matrix.
+  mat4.identity() {
+    setIdentity();
+  }
+
+  /// Copies values from [other].
+  mat4.copy(mat4 other) {
+    setFrom(other);
+  }
+
   /// Constructs a new mat4 from columns.
   mat4.columns(vec4 arg0, vec4 arg1, vec4 arg2, vec4 arg3) {
     setColumns(arg0, arg1, arg2, arg3);
   }
-  /// Constructs a new [mat4] from computing the outer product of [u] and [v].
+
+  /// Outer product of [u] and [v].
   mat4.outer(vec4 u, vec4 v) {
     _storage[0] = u._storage[0] * v._storage[0];
     _storage[1] = u._storage[0] * v._storage[1];
@@ -63,56 +85,54 @@ class mat4 {
     _storage[14] = u._storage[3] * v._storage[2];
     _storage[15] = u._storage[3] * v._storage[3];
   }
-  /// Constructs a new [mat4] filled with zeros.
-  mat4.zero() {
-  }
-  /// Constructs a new identity [mat4].
-  mat4.identity() {
-    setIdentity();
-  }
-  /// Constructs a new [mat4] which is a copy of [other].
-  mat4.copy(mat4 other) {
-    setMatrix(other);
-  }
-  //// Constructs a new [mat4] representation a rotation of [radians] around the X axis
+
+
+  /// Rotation of [radians_] around X.
   mat4.rotationX(double radians_) {
     _storage[15] = 1.0;
     setRotationX(radians_);
   }
-  //// Constructs a new [mat4] representation a rotation of [radians] around the Y axis
+
+  /// Rotation of [radians_] around Y.
   mat4.rotationY(double radians_) {
     _storage[15] = 1.0;
     setRotationY(radians_);
   }
-  //// Constructs a new [mat4] representation a rotation of [radians] around the Z axis
+
+  /// Rotation of [radians_] around Z.
   mat4.rotationZ(double radians_) {
     _storage[15] = 1.0;
     setRotationZ(radians_);
   }
-  /// Constructs a new [mat4] translation matrix from [translation]
+
+  /// Translation matrix.
   mat4.translation(vec3 translation) {
     setIdentity();
     setTranslation(translation);
   }
-  /// Constructs a new [mat4] translation from [x], [y], and [z]
-  mat4.translationRaw(double x, double y, double z) {
+
+  /// Translation matrix.
+  mat4.translationValues(double x, double y, double z) {
     setIdentity();
     setTranslationRaw(x, y, z);
   }
-  //// Constructs a new [mat4] scale of [x], [y], and [z]
-  mat4.scaleVec(vec3 scale_) {
+
+  /// Scale matrix.
+  mat4.diagonal3(vec3 scale_) {
     _storage[15] = 1.0;
     _storage[10] = scale_._storage[2];
     _storage[5] = scale_._storage[1];
     _storage[0] = scale_._storage[0];
   }
-  //// Constructs a new [mat4] representening a scale of [x], [y], and [z]
-  mat4.scaleRaw(double x, double y, double z) {
+
+  /// Scale matrix.
+  mat4.diagonal3Values(double x, double y, double z) {
     _storage[15] = 1.0;
     _storage[10] = z;
     _storage[5] = y;
     _storage[0] = x;
   }
+
   /// Sets the diagonal to [arg].
   mat4 splatDiagonal(double arg) {
     _storage[0] = arg;
@@ -121,8 +141,13 @@ class mat4 {
     _storage[15] = arg;
     return this;
   }
-  /// Sets the entire matrix to the numeric values.
-  mat4 setRaw(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15) {
+
+  /// Sets the matrix with specified values.
+  mat4 setValues(double arg0, double arg1, double arg2,
+                 double arg3, double arg4, double arg5,
+                 double arg6, double arg7, double arg8,
+                 double arg9, double arg10, double arg11,
+                 double arg12, double arg13, double arg14, double arg15) {
     _storage[15] = arg15;
     _storage[14] = arg14;
     _storage[13] = arg13;
@@ -141,6 +166,7 @@ class mat4 {
     _storage[0] = arg0;
     return this;
   }
+
   /// Sets the entire matrix to the column values.
   mat4 setColumns(vec4 arg0, vec4 arg1, vec4 arg2, vec4 arg3) {
     _storage[0] = arg0._storage[0];
@@ -161,8 +187,9 @@ class mat4 {
     _storage[15] = arg3._storage[3];
     return this;
   }
+
   /// Sets the entire matrix to the matrix in [arg].
-  mat4 setMatrix(mat4 arg) {
+  mat4 setFrom(mat4 arg) {
     _storage[15] = arg._storage[15];
     _storage[14] = arg._storage[14];
     _storage[13] = arg._storage[13];
@@ -181,35 +208,25 @@ class mat4 {
     _storage[0] = arg._storage[0];
     return this;
   }
+
   /// Sets the upper 2x2 of the matrix to be [arg].
   mat4 setUpper2x2(mat2 arg) {
     _storage[0] = arg._storage[0];
     _storage[1] = arg._storage[1];
-    _storage[4] = arg._storage[4];
-    _storage[5] = arg._storage[5];
+    _storage[4] = arg._storage[2];
+    _storage[5] = arg._storage[3];
     return this;
   }
+
   /// Sets the diagonal of the matrix to be [arg].
-  mat4 setDiagonal4(vec4 arg) {
+  mat4 setDiagonal(vec4 arg) {
     _storage[0] = arg._storage[0];
     _storage[5] = arg._storage[1];
     _storage[10] = arg._storage[2];
     _storage[15] = arg._storage[3];
     return this;
   }
-  /// Sets the diagonal of the matrix to be [arg].
-  mat4 setDiagonal3(vec3 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[5] = arg._storage[1];
-    _storage[10] = arg._storage[2];
-    return this;
-  }
-  /// Sets the diagonal of the matrix to be [arg].
-  mat4 setDiagonal2(vec2 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[5] = arg._storage[1];
-    return this;
-  }
+
   /// Returns a printable string
   String toString() {
     String s = '';
@@ -219,34 +236,40 @@ class mat4 {
     s = '$s[3] ${getRow(3)}\n';
     return s;
   }
-  /// Returns the dimension of the matrix.
+
+  /// Dimension of the matrix.
   int get dimension => 4;
-  /// Returns the dimension of the matrix.
-  int get length => 4;
-  /// Gets element [i] from the matrix.
-  double operator[](int i) {
-    return _storage[i];
-  }
-  /// Sets element [i] in the matrix.
+
+  double operator[](int i) => _storage[i];
+
   void operator[]=(int i, double v) {
     _storage[i] = v;
   }
+
   /// Returns row 0
   vec4 get row0 => getRow(0);
+
   /// Returns row 1
   vec4 get row1 => getRow(1);
+
   /// Returns row 2
   vec4 get row2 => getRow(2);
+
   /// Returns row 3
   vec4 get row3 => getRow(3);
+
   /// Sets row 0 to [arg]
   set row0(vec4 arg) => setRow(0, arg);
+
   /// Sets row 1 to [arg]
   set row1(vec4 arg) => setRow(1, arg);
+
   /// Sets row 2 to [arg]
   set row2(vec4 arg) => setRow(2, arg);
+
   /// Sets row 3 to [arg]
   set row3(vec4 arg) => setRow(3, arg);
+
   /// Assigns the [column] of the matrix [arg]
   void setRow(int row, vec4 arg) {
     _storage[index(row, 0)] = arg._storage[0];
@@ -254,6 +277,7 @@ class mat4 {
     _storage[index(row, 2)] = arg._storage[2];
     _storage[index(row, 3)] = arg._storage[3];
   }
+
   /// Gets the [row] of the matrix
   vec4 getRow(int row) {
     vec4 r = new vec4.zero();
@@ -263,6 +287,7 @@ class mat4 {
     r._storage[3] = _storage[index(row, 3)];
     return r;
   }
+
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec4 arg) {
     int entry = column * 4;
@@ -271,6 +296,7 @@ class mat4 {
     _storage[entry+1] = arg._storage[1];
     _storage[entry+0] = arg._storage[0];
   }
+
   /// Gets the [column] of the matrix
   vec4 getColumn(int column) {
     vec4 r = new vec4.zero();
@@ -281,6 +307,34 @@ class mat4 {
     r._storage[0] = _storage[entry+0];
     return r;
   }
+
+  /// Clone matrix.
+  mat4 clone() {
+    return new mat4.copy(this);
+  }
+
+  /// Copy into [arg].
+  mat4 copyInto(mat4 arg) {
+    arg._storage[0] = _storage[0];
+    arg._storage[1] = _storage[1];
+    arg._storage[2] = _storage[2];
+    arg._storage[3] = _storage[3];
+    arg._storage[4] = _storage[4];
+    arg._storage[5] = _storage[5];
+    arg._storage[6] = _storage[6];
+    arg._storage[7] = _storage[7];
+    arg._storage[8] = _storage[8];
+    arg._storage[9] = _storage[9];
+    arg._storage[10] = _storage[10];
+    arg._storage[11] = _storage[11];
+    arg._storage[12] = _storage[12];
+    arg._storage[13] = _storage[13];
+    arg._storage[14] = _storage[14];
+    arg._storage[15] = _storage[15];
+    return arg;
+  }
+
+  // TODO: Clean up functions below here.
   mat4 _mul_scale(double arg) {
     mat4 r = new mat4.zero();
     r._storage[15] = _storage[15] * arg;
@@ -1014,47 +1068,7 @@ class mat4 {
     arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
     return arg;
   }
-  mat4 clone() {
-    return new mat4.copy(this);
-  }
-  mat4 copyInto(mat4 arg) {
-    arg._storage[0] = _storage[0];
-    arg._storage[1] = _storage[1];
-    arg._storage[2] = _storage[2];
-    arg._storage[3] = _storage[3];
-    arg._storage[4] = _storage[4];
-    arg._storage[5] = _storage[5];
-    arg._storage[6] = _storage[6];
-    arg._storage[7] = _storage[7];
-    arg._storage[8] = _storage[8];
-    arg._storage[9] = _storage[9];
-    arg._storage[10] = _storage[10];
-    arg._storage[11] = _storage[11];
-    arg._storage[12] = _storage[12];
-    arg._storage[13] = _storage[13];
-    arg._storage[14] = _storage[14];
-    arg._storage[15] = _storage[15];
-    return arg;
-  }
-  mat4 copyFrom(mat4 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[2] = arg._storage[2];
-    _storage[3] = arg._storage[3];
-    _storage[4] = arg._storage[4];
-    _storage[5] = arg._storage[5];
-    _storage[6] = arg._storage[6];
-    _storage[7] = arg._storage[7];
-    _storage[8] = arg._storage[8];
-    _storage[9] = arg._storage[9];
-    _storage[10] = arg._storage[10];
-    _storage[11] = arg._storage[11];
-    _storage[12] = arg._storage[12];
-    _storage[13] = arg._storage[13];
-    _storage[14] = arg._storage[14];
-    _storage[15] = arg._storage[15];
-    return this;
-  }
+
   mat4 add(mat4 o) {
     _storage[0] = _storage[0] + o._storage[0];
     _storage[1] = _storage[1] + o._storage[1];

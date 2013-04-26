@@ -36,16 +36,32 @@ class mat3 {
   /// Set value at [row], [col] to be [v].
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }
 
-
-  /// Constructs a new mat3.
-  mat3(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8) {
-    setRaw(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+  /// New matrix with specified values.
+  mat3(double arg0, double arg1, double arg2,
+       double arg3, double arg4, double arg5,
+       double arg6, double arg7, double arg8) {
+    setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
   }
+
+  /// Constructs a new [mat3] filled with zeros.
+  mat3.zero();
+
+  /// Identity matrix.
+  mat3.identity() {
+    setIdentity();
+  }
+
+  /// Copes values from [other].
+  mat3.copy(mat3 other) {
+    setFrom(other);
+  }
+
   /// Constructs a new mat3 from columns.
   mat3.columns(vec3 arg0, vec3 arg1, vec3 arg2) {
     setColumns(arg0, arg1, arg2);
   }
-  /// Constructs a new [mat3] from computing the outer product of [u] and [v].
+
+  /// Outer product of [u] and [v].
   mat3.outer(vec3 u, vec3 v) {
     _storage[0] = u._storage[0] * v._storage[0];
     _storage[1] = u._storage[0] * v._storage[1];
@@ -57,38 +73,26 @@ class mat3 {
     _storage[7] = u._storage[2] * v._storage[1];
     _storage[8] = u._storage[2] * v._storage[2];
   }
-  /// Constructs a new [mat3] filled with zeros.
-  mat3.zero() {
-  }
-  /// Constructs a new identity [mat3].
-  mat3.identity() {
-    setIdentity();
-  }
-  /// Constructs a new [mat3] which is a copy of [other].
-  mat3.copy(mat3 other) {
-    setMatrix(other);
-  }
-  //// Constructs a new [mat3] representation a rotation of [radians] around the X axis
+
+  //// Rotation of [radians_] around X axis.
   mat3.rotationX(double radians_) {
     setRotationX(radians_);
   }
-  //// Constructs a new [mat3] representation a rotation of [radians] around the Y axis
+
+  //// Rotation of [radians_] around Y axis.
   mat3.rotationY(double radians_) {
     setRotationY(radians_);
   }
-  //// Constructs a new [mat3] representation a rotation of [radians] around the Z axis
+
+  //// Rotation of [radians_] around Z axis.
   mat3.rotationZ(double radians_) {
     setRotationZ(radians_);
   }
-  /// Sets the diagonal to [arg].
-  mat3 splatDiagonal(double arg) {
-    _storage[0] = arg;
-    _storage[4] = arg;
-    _storage[8] = arg;
-    return this;
-  }
-  /// Sets the entire matrix to the numeric values.
-  mat3 setRaw(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8) {
+
+  /// Sets the matrix with specified values.
+  mat3 setValues(double arg0, double arg1, double arg2,
+                 double arg3, double arg4, double arg5,
+                 double arg6, double arg7, double arg8) {
     _storage[8] = arg8;
     _storage[7] = arg7;
     _storage[6] = arg6;
@@ -100,6 +104,7 @@ class mat3 {
     _storage[0] = arg0;
     return this;
   }
+
   /// Sets the entire matrix to the column values.
   mat3 setColumns(vec3 arg0, vec3 arg1, vec3 arg2) {
     _storage[0] = arg0._storage[0];
@@ -113,8 +118,9 @@ class mat3 {
     _storage[8] = arg2._storage[2];
     return this;
   }
+
   /// Sets the entire matrix to the matrix in [arg].
-  mat3 setMatrix(mat3 arg) {
+  mat3 setFrom(mat3 arg) {
     _storage[8] = arg._storage[8];
     _storage[7] = arg._storage[7];
     _storage[6] = arg._storage[6];
@@ -126,27 +132,32 @@ class mat3 {
     _storage[0] = arg._storage[0];
     return this;
   }
-  /// Sets the upper 2x2 of the matrix to be [arg].
-  mat3 setUpper2x2(mat2 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[3] = arg._storage[3];
-    _storage[4] = arg._storage[4];
+
+  /// Set the diagonal of the matrix.
+  mat3 splatDiagonal(double arg) {
+    _storage[0] = arg;
+    _storage[4] = arg;
+    _storage[8] = arg;
     return this;
   }
-  /// Sets the diagonal of the matrix to be [arg].
-  mat3 setDiagonal3(vec3 arg) {
+
+  /// Set the diagonal of the matrix.
+  mat3 setDiagonal(vec3 arg) {
     _storage[0] = arg._storage[0];
     _storage[4] = arg._storage[1];
     _storage[8] = arg._storage[2];
     return this;
   }
-  /// Sets the diagonal of the matrix to be [arg].
-  mat3 setDiagonal2(vec2 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[4] = arg._storage[1];
+
+  /// Sets the upper 2x2 of the matrix to be [arg].
+  mat3 setUpper2x2(mat2 arg) {
+    _storage[0] = _storage[0];
+    _storage[1] = _storage[1];
+    _storage[3] = _storage[2];
+    _storage[4] = _storage[3];
     return this;
   }
+
   /// Returns a printable string
   String toString() {
     String s = '';
@@ -155,36 +166,38 @@ class mat3 {
     s = '$s[2] ${getRow(2)}\n';
     return s;
   }
-  /// Returns the dimension of the matrix.
+  /// Dimension of the matrix.
   int get dimension => 3;
-  /// Returns the dimension of the matrix.
-  int get length => 3;
-  /// Gets element [i] from the matrix.
-  double operator[](int i) {
-    return _storage[i];
-  }
-  /// Sets element [i] in the matrix.
-  void operator[]=(int i, double v) {
-    _storage[i] = v;
-  }
+
+  double operator[](int i) => _storage[i];
+
+  void operator[]=(int i, double v) { _storage[i] = v; }
+
   /// Returns row 0
   vec3 get row0 => getRow(0);
+
   /// Returns row 1
   vec3 get row1 => getRow(1);
+
   /// Returns row 2
   vec3 get row2 => getRow(2);
+
   /// Sets row 0 to [arg]
   set row0(vec3 arg) => setRow(0, arg);
+
   /// Sets row 1 to [arg]
   set row1(vec3 arg) => setRow(1, arg);
+
   /// Sets row 2 to [arg]
   set row2(vec3 arg) => setRow(2, arg);
-  /// Assigns the [column] of the matrix [arg]
+
+  /// Assigns the [row] of to [arg].
   void setRow(int row, vec3 arg) {
     _storage[index(row, 0)] = arg._storage[0];
     _storage[index(row, 1)] = arg._storage[1];
     _storage[index(row, 2)] = arg._storage[2];
   }
+
   /// Gets the [row] of the matrix
   vec3 getRow(int row) {
     vec3 r = new vec3.zero();
@@ -193,6 +206,7 @@ class mat3 {
     r._storage[2] = _storage[index(row, 2)];
     return r;
   }
+
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec3 arg) {
     int entry = column * 3;
@@ -200,6 +214,7 @@ class mat3 {
     _storage[entry+1] = arg._storage[1];
     _storage[entry+0] = arg._storage[0];
   }
+
   /// Gets the [column] of the matrix
   vec3 getColumn(int column) {
     vec3 r = new vec3.zero();
@@ -209,6 +224,28 @@ class mat3 {
     r._storage[0] = _storage[entry+0];
     return r;
   }
+
+  /// Clone of [this].
+  mat3 clone() {
+    return new mat3.copy(this);
+  }
+
+  /// Copy [this] into [arg].
+  mat3 copyInto(mat3 arg) {
+    arg._storage[0] = _storage[0];
+    arg._storage[1] = _storage[1];
+    arg._storage[2] = _storage[2];
+    arg._storage[3] = _storage[3];
+    arg._storage[4] = _storage[4];
+    arg._storage[5] = _storage[5];
+    arg._storage[6] = _storage[6];
+    arg._storage[7] = _storage[7];
+    arg._storage[8] = _storage[8];
+    return arg;
+  }
+
+  // TODO: Clean up functions below here.
+
   mat3 _mul_scale(double arg) {
     mat3 r = new mat3.zero();
     r._storage[8] = _storage[8] * arg;
@@ -525,33 +562,7 @@ class mat3 {
     arg.z = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
     return arg;
   }
-  mat3 clone() {
-    return new mat3.copy(this);
-  }
-  mat3 copyInto(mat3 arg) {
-    arg._storage[0] = _storage[0];
-    arg._storage[1] = _storage[1];
-    arg._storage[2] = _storage[2];
-    arg._storage[3] = _storage[3];
-    arg._storage[4] = _storage[4];
-    arg._storage[5] = _storage[5];
-    arg._storage[6] = _storage[6];
-    arg._storage[7] = _storage[7];
-    arg._storage[8] = _storage[8];
-    return arg;
-  }
-  mat3 copyFrom(mat3 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[2] = arg._storage[2];
-    _storage[3] = arg._storage[3];
-    _storage[4] = arg._storage[4];
-    _storage[5] = arg._storage[5];
-    _storage[6] = arg._storage[6];
-    _storage[7] = arg._storage[7];
-    _storage[8] = arg._storage[8];
-    return this;
-  }
+
   mat3 add(mat3 o) {
     _storage[0] = _storage[0] + o._storage[0];
     _storage[1] = _storage[1] + o._storage[1];

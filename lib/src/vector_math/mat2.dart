@@ -36,50 +36,51 @@ class mat2 {
   /// Set value at [row], [col] to be [v].
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }
 
-  /// Constructs a new mat2.
+  /// New matrix with specified values.
   mat2(double arg0, double arg1, double arg2, double arg3) {
-    setRaw(arg0, arg1, arg2, arg3);
+    setValues(arg0, arg1, arg2, arg3);
   }
-  /// Constructs a new mat2 from columns.
+
+  /// Zero matrix.
+  mat2.zero();
+
+  /// Identity matrix.
+  mat2.identity() {
+    setIdentity();
+  }
+
+  /// Copies values from [other].
+  mat2.copy(mat2 other) {
+    setFrom(other);
+  }
+
+  /// Matrix with values from column arguments.
   mat2.columns(vec2 arg0, vec2 arg1) {
     setColumns(arg0, arg1);
   }
-  /// Constructs a new [mat2] from computing the outer product of [u] and [v].
+
+  /// Outer product of [u] and [v].
   mat2.outer(vec2 u, vec2 v) {
     _storage[0] = u._storage[0] * v._storage[0];
     _storage[1] = u._storage[0] * v._storage[1];
     _storage[2] = u._storage[1] * v._storage[0];
     _storage[3] = u._storage[1] * v._storage[1];
   }
-  /// Constructs a new [mat2] filled with zeros.
-  mat2.zero() {
-  }
-  /// Constructs a new identity [mat2].
-  mat2.identity() {
-    setIdentity();
-  }
-  /// Constructs a new [mat2] which is a copy of [other].
-  mat2.copy(mat2 other) {
-    setMatrix(other);
-  }
-  /// Constructs a new [mat2] representing a rotation by [radians].
+
+  /// Rotation of [radians_].
   mat2.rotation(double radians_) {
     setRotation(radians_);
   }
-  /// Sets the diagonal to [arg].
-  mat2 splatDiagonal(double arg) {
-    _storage[0] = arg;
-    _storage[3] = arg;
-    return this;
-  }
-  /// Sets the entire matrix to the numeric values.
-  mat2 setRaw(double arg0, double arg1, double arg2, double arg3) {
+
+  /// Sets the matrix with specified values.
+  mat2 setValues(double arg0, double arg1, double arg2, double arg3) {
     _storage[3] = arg3;
     _storage[2] = arg2;
     _storage[1] = arg1;
     _storage[0] = arg0;
     return this;
   }
+
   /// Sets the entire matrix to the column values.
   mat2 setColumns(vec2 arg0, vec2 arg1) {
     _storage[0] = arg0._storage[0];
@@ -88,20 +89,30 @@ class mat2 {
     _storage[3] = arg1._storage[1];
     return this;
   }
+
   /// Sets the entire matrix to the matrix in [arg].
-  mat2 setMatrix(mat2 arg) {
+  mat2 setFrom(mat2 arg) {
     _storage[3] = arg._storage[3];
     _storage[2] = arg._storage[2];
     _storage[1] = arg._storage[1];
     _storage[0] = arg._storage[0];
     return this;
   }
+
+  /// Sets the diagonal to [arg].
+  mat2 splatDiagonal(double arg) {
+    _storage[0] = arg;
+    _storage[3] = arg;
+    return this;
+  }
+
   /// Sets the diagonal of the matrix to be [arg].
-  mat2 setDiagonal2(vec2 arg) {
+  mat2 setDiagonal(vec2 arg) {
     _storage[0] = arg._storage[0];
     _storage[3] = arg._storage[1];
     return this;
   }
+
   /// Returns a printable string
   String toString() {
     String s = '';
@@ -109,31 +120,31 @@ class mat2 {
     s = '$s[1] ${getRow(1)}\n';
     return s;
   }
-  /// Returns the dimension of the matrix.
+
+  /// Dimension of the matrix.
   int get dimension => 2;
-  /// Returns the dimension of the matrix.
-  int get length => 2;
-  /// Gets element [i] from the matrix.
-  double operator[](int i) {
-    return _storage[i];
-  }
-  /// Sets element [i] in the matrix.
-  void operator[]=(int i, double v) {
-    _storage[i] = v;
-  }
+
+  double operator[](int i) => _storage[i];
+
+  void operator[]=(int i, double v) { _storage[i] = v; }
   /// Returns row 0
   vec2 get row0 => getRow(0);
+
   /// Returns row 1
   vec2 get row1 => getRow(1);
+
   /// Sets row 0 to [arg]
   set row0(vec2 arg) => setRow(0, arg);
+
   /// Sets row 1 to [arg]
   set row1(vec2 arg) => setRow(1, arg);
-  /// Assigns the [column] of the matrix [arg]
+
+  /// Sets [row] of the matrix to values in [arg]
   void setRow(int row, vec2 arg) {
     _storage[index(row, 0)] = arg._storage[0];
     _storage[index(row, 1)] = arg._storage[1];
   }
+
   /// Gets the [row] of the matrix
   vec2 getRow(int row) {
     vec2 r = new vec2.zero();
@@ -141,12 +152,14 @@ class mat2 {
     r._storage[1] = _storage[index(row, 1)];
     return r;
   }
+
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, vec2 arg) {
     int entry = column * 2;
     _storage[entry+1] = arg._storage[1];
     _storage[entry+0] = arg._storage[0];
   }
+
   /// Gets the [column] of the matrix
   vec2 getColumn(int column) {
     vec2 r = new vec2.zero();
@@ -155,6 +168,22 @@ class mat2 {
     r._storage[0] = _storage[entry+0];
     return r;
   }
+
+  mat2 clone() {
+    return new mat2.copy(this);
+  }
+
+  mat2 copyInto(mat2 arg) {
+    arg._storage[0] = _storage[0];
+    arg._storage[1] = _storage[1];
+    arg._storage[2] = _storage[2];
+    arg._storage[3] = _storage[3];
+    return arg;
+  }
+
+
+
+  // TODO: Clean up functions below here.
   mat2 _mul_scale(double arg) {
     mat2 r = new mat2.zero();
     r._storage[3] = _storage[3] * arg;
@@ -330,23 +359,8 @@ class mat2 {
     _storage[3] = temp * scale;
     return this;
   }
-  mat2 clone() {
-    return new mat2.copy(this);
-  }
-  mat2 copyInto(mat2 arg) {
-    arg._storage[0] = _storage[0];
-    arg._storage[1] = _storage[1];
-    arg._storage[2] = _storage[2];
-    arg._storage[3] = _storage[3];
-    return arg;
-  }
-  mat2 copyFrom(mat2 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[2] = arg._storage[2];
-    _storage[3] = arg._storage[3];
-    return this;
-  }
+
+
   mat2 add(mat2 o) {
     _storage[0] = _storage[0] + o._storage[0];
     _storage[1] = _storage[1] + o._storage[1];
