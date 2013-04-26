@@ -49,7 +49,10 @@ double distance2(dynamic x, dynamic y) {
 /// Returns the cross product between [x] and [y]. [x] and [y] can be vec2, vec3 or double, but not all combinations are supported.
 dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
   if (x is vec3 && y is vec3) {
-    return x.cross(y, out);
+    if (out == null) {
+      out = new vec3.zero();
+    }
+    return x.crossInto(y, out);
   } else if (x is vec2 && y is vec2) {
     assert(out == null);
     return x.cross(y);

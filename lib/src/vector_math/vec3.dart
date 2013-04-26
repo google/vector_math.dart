@@ -180,8 +180,8 @@ class vec3 {
     double _y = _storage[1];
     double _z = _storage[2];
     double ox = other._storage[0];
-    double oy = other._storage[0];
-    double oz = other._storage[0];
+    double oy = other._storage[1];
+    double oz = other._storage[2];
     return new vec3(_y * oz - _z * oy, _z * ox - _x * oz, _x * oy - _y * ox);
   }
 
@@ -191,8 +191,8 @@ class vec3 {
     double _y = _storage[1];
     double _z = _storage[2];
     double ox = other._storage[0];
-    double oy = other._storage[0];
-    double oz = other._storage[0];
+    double oy = other._storage[1];
+    double oz = other._storage[2];
     out._storage[0] = _y * oz - _z * oy;
     out._storage[1] = _z * ox - _x * oz;
     out._storage[2] = _x * oy - _y * ox;
