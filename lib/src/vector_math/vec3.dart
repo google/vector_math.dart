@@ -21,58 +21,57 @@
 
 part of vector_math;
 
-/// 3D vector.
+/// 3D column vector.
 class vec3 {
   final Float32List _storage = new Float32List(3);
   Float32List get storage => _storage;
 
-  /// Constructs a new [vec3] initialized with passed in values.
+  /// Construct a new vector with the specified values.
   vec3(double x_, double y_, double z_) {
-    makeRaw(x_, y_, z_);
+    setValues(x_, y_, z_);
   }
 
-  /// Components of [this] are set to the passed in values.
-  vec3 makeRaw(double x_, double y_, double z_) {
+  /// Initialized with values from [array] starting at [offset].
+  vec3.array(List<double> array, [int offset=0]) {
+    int i = offset;
+    _storage[2] = array[i+2];
+    _storage[1] = array[i+1];
+    _storage[0] = array[i+0];
+  }
+
+  //// Zero vector.
+  vec3.zero();
+
+  /// Copy of [other].
+  vec3.copy(vec3 other) {
+    setFrom(other);
+  }
+
+  /// Set the values of the vector.
+  vec3 setValues(double x_, double y_, double z_) {
     _storage[0] = x_;
     _storage[1] = y_;
     _storage[2] = z_;
     return this;
   }
-  //// Constructs a new [vec3] zero vector.
-  vec3.zero() {
-    makeZero();
-  }
 
-  /// Make [this] the zero vector.
-  vec3 makeZero() {
-    _storage[0] = 0.0;
-    _storage[1] = 0.0;
+  /// Zero vector.
+  vec3 setZero() {
     _storage[2] = 0.0;
+    _storage[1] = 0.0;
+    _storage[0] = 0.0;
     return this;
   }
 
-  /// Constructs a copy of [other].
-  vec3.copy(vec3 other) {
-    makeCopy(other);
-  }
-
-  /// Make [this] a copy of [other] [other].
-  vec3 makeCopy(vec3 other) {
+  /// Set the values by copying them from [other].
+  vec3 setFrom(vec3 other) {
     _storage[0] = other._storage[0];
     _storage[1] = other._storage[1];
     _storage[2] = other._storage[2];
     return this;
   }
 
-  /// Constructs a new [vec3] that is initialized with values from [array] starting at [offset].
-  vec3.array(List<double> array, [int offset=0]) {
-    int i = offset;
-    _storage[0] = array[i+0];
-    _storage[1] = array[i+1];
-    _storage[2] = array[i+2];
-  }
-
-  /// Splats a scalar into all lanes of the vector.
+  /// Splat [arg] into all lanes of the vector.
   vec3 splat(double arg) {
     _storage[2] = arg;
     _storage[1] = arg;
@@ -82,43 +81,54 @@ class vec3 {
 
   /// Returns a printable string
   String toString() => '[${_storage[0]},${_storage[1]},${_storage[2]}]';
-  /// Returns a new vec3 from -this
+
+  /// Negate
   vec3 operator-() => new vec3(- _storage[0], - _storage[1], - _storage[2]);
-  /// Returns a new vec3 from this - [other]
-  vec3 operator-(vec3 other) => new vec3(_storage[0] - other._storage[0], _storage[1] - other._storage[1], _storage[2] - other._storage[2]);
-  /// Returns a new vec3 from this + [other]
-  vec3 operator+(vec3 other) => new vec3(_storage[0] + other._storage[0], _storage[1] + other._storage[1], _storage[2] + other._storage[2]);
-  /// Returns a new vec3 divided by [other]
+
+  /// Subtract two vectors.
+  vec3 operator-(vec3 other) => new vec3(_storage[0] - other._storage[0],
+                                         _storage[1] - other._storage[1],
+                                         _storage[2] - other._storage[2]);
+  /// Add two vectors.
+  vec3 operator+(vec3 other) => new vec3(_storage[0] + other._storage[0],
+                                         _storage[1] + other._storage[1],
+                                         _storage[2] + other._storage[2]);
+
+  /// Scale.
   vec3 operator/(double scale) {
     var o = 1.0 / scale;
     return new vec3(_storage[0] * o, _storage[1] * o, _storage[2] * o);
   }
-  /// Returns a new vec3 scaled by [other]
+
+  /// Scale.
   vec3 operator*(double scale) {
     var o = scale;
     return new vec3(_storage[0] * o, _storage[1] * o, _storage[2] * o);
   }
-  /// Returns a component from vec3. This is indexed as an array with [i]
+
   double operator[](int i) => _storage[i];
-  /// Assigns a component in vec3 the value in [v]. This is indexed as an array with [i]
+
   void operator[]=(int i, double v) { _storage[i] = v; }
-  /// Returns length of this
+
+  /// Length.
   double get length {
-    double sum = 0.0;
-    sum += (_storage[0] * _storage[0]);
+    double sum;
+    sum = (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     sum += (_storage[2] * _storage[2]);
     return Math.sqrt(sum);
   }
-  /// Returns squared length of this
+
+  /// Length squared.
   double get length2 {
-    double sum = 0.0;
-    sum += (_storage[0] * _storage[0]);
+    double sum;
+    sum = (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     sum += (_storage[2] * _storage[2]);
     return sum;
   }
-  /// Normalizes [this]. Returns [this].
+
+  /// Normalizes [this].
   vec3 normalize() {
     double l = length;
     if (l == 0.0) {
@@ -130,7 +140,8 @@ class vec3 {
     _storage[2] *= l;
     return this;
   }
-  /// Normalizes [this]. Returns length.
+
+  /// Normalize [this]. Returns length of vector before normalization.
   double normalizeLength() {
     double l = length;
     if (l == 0.0) {
@@ -142,51 +153,65 @@ class vec3 {
     _storage[2] *= l;
     return l;
   }
-  /// Normalizes [this] returns new vector or optional [out]
-  vec3 normalized([vec3 out = null]) {
-    if (out == null) {
-      out = new vec3(_storage[0], _storage[1], _storage[2]);
-    }
-    double l = out.length;
-    if (l == 0.0) {
-      return out;
-    }
-    l = 1.0 / l;
-    out._storage[0] *= l;
-    out._storage[1] *= l;
-    out._storage[2] *= l;
-    return out;
+
+  /// Normalizes copy of [this].
+  vec3 normalized() {
+    return new vec3.copy(this).normalize();
   }
-  /// Returns the dot product of [this] and [other]
+
+  /// Normalize vector into [out].
+  vec3 normalizeInto(vec3 out) {
+    out.setFrom(this);
+    return out.normalize();
+  }
+
+  /// Inner product.
   double dot(vec3 other) {
-    double sum = 0.0;
-    sum += _storage[0] * other._storage[0];
+    double sum;
+    sum = _storage[0] * other._storage[0];
     sum += _storage[1] * other._storage[1];
     sum += _storage[2] * other._storage[2];
     return sum;
   }
-  /// Returns the cross product of [this] and [other], optionally pass in output storage [out]
-  vec3 cross(vec3 other, [vec3 out=null]) {
-    if (out == null) {
-      out = new vec3.zero();
-    }
-    out._storage[0] = _storage[1] * other._storage[2] - _storage[2] * other._storage[1];
-    out._storage[1] = _storage[2] * other._storage[0] - _storage[0] * other._storage[2];
-    out._storage[2] = _storage[0] * other._storage[1] - _storage[1] * other._storage[0];
+
+  /// Cross product.
+  vec3 cross(vec3 other) {
+    double _x = _storage[0];
+    double _y = _storage[1];
+    double _z = _storage[2];
+    double ox = other._storage[0];
+    double oy = other._storage[0];
+    double oz = other._storage[0];
+    return new vec3(_y * oz - _z * oy, _z * ox - _x * oz, _x * oy - _y * ox);
+  }
+
+  /// Cross product. Stores result in [out].
+  vec3 crossInto(vec3 other, vec3 out) {
+    double _x = _storage[0];
+    double _y = _storage[1];
+    double _z = _storage[2];
+    double ox = other._storage[0];
+    double oy = other._storage[0];
+    double oz = other._storage[0];
+    out._storage[0] = _y * oz - _z * oy;
+    out._storage[1] = _z * ox - _x * oz;
+    out._storage[2] = _x * oy - _y * ox;
     return out;
   }
-  /// Returns the relative error between [this] and [correct]
+
+  /// Relative error between [this] and [correct]
   double relativeError(vec3 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
-  /// Returns the absolute error between [this] and [correct]
+
+  /// Absolute error between [this] and [correct]
   double absoluteError(vec3 correct) {
     return (this - correct).length;
   }
 
-  /// Returns true if any component is infinite.
+  /// True if any component is infinite.
   bool get isInfinite {
     bool is_infinite = false;
     is_infinite = is_infinite || _storage[0].isInfinite;
@@ -194,7 +219,8 @@ class vec3 {
     is_infinite = is_infinite || _storage[2].isInfinite;
     return is_infinite;
   }
-  /// Returns true if any component is NaN.
+
+  /// True if any component is NaN.
   bool get isNaN {
     bool is_nan = false;
     is_nan = is_nan || _storage[0].isNaN;
@@ -202,90 +228,92 @@ class vec3 {
     is_nan = is_nan || _storage[2].isNaN;
     return is_nan;
   }
+
+  /// Add [arg] to [this].
   vec3 add(vec3 arg) {
     _storage[0] = _storage[0] + arg._storage[0];
     _storage[1] = _storage[1] + arg._storage[1];
     _storage[2] = _storage[2] + arg._storage[2];
     return this;
   }
+
+  /// Subtract [arg] from [this].
   vec3 sub(vec3 arg) {
     _storage[0] = _storage[0] - arg._storage[0];
     _storage[1] = _storage[1] - arg._storage[1];
     _storage[2] = _storage[2] - arg._storage[2];
     return this;
   }
+
+  /// Multiply entries in [this] with entries in [arg].
   vec3 multiply(vec3 arg) {
     _storage[0] = _storage[0] * arg._storage[0];
     _storage[1] = _storage[1] * arg._storage[1];
     _storage[2] = _storage[2] * arg._storage[2];
     return this;
   }
-  vec3 div(vec3 arg) {
+
+  /// Divide entries in [this] with entries in [arg].
+  vec3 divide(vec3 arg) {
     _storage[0] = _storage[0] / arg._storage[0];
     _storage[1] = _storage[1] / arg._storage[1];
     _storage[2] = _storage[2] / arg._storage[2];
     return this;
   }
+
+  /// Scale [this].
   vec3 scale(double arg) {
     _storage[2] = _storage[2] * arg;
     _storage[1] = _storage[1] * arg;
     _storage[0] = _storage[0] * arg;
     return this;
   }
+
   vec3 scaled(double arg) {
     return clone().scale(arg);
   }
+
   vec3 negate() {
     _storage[2] = -_storage[2];
     _storage[1] = -_storage[1];
     _storage[0] = -_storage[0];
     return this;
   }
+
+  /// Absoulte value.
   vec3 absolute() {
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
+    _storage[0] = _storage[0].abs();
+    _storage[1] = _storage[1].abs();
+    _storage[2] = _storage[2].abs();
     return this;
   }
 
+  /// Clone of [this].
   vec3 clone() {
     return new vec3.copy(this);
   }
+
   vec3 copyInto(vec3 arg) {
     arg._storage[0] = _storage[0];
     arg._storage[1] = _storage[1];
     arg._storage[2] = _storage[2];
     return arg;
   }
-  vec3 copyFrom(vec3 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[2] = arg._storage[2];
-    return this;
-  }
-  vec3 setComponents(double x_, double y_, double z_) {
-    _storage[0] = x_;
-    _storage[1] = y_;
-    _storage[2] = z_;
-    return this;
-  }
+
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset=0]) {
-    int i = offset;
-    array[i+0] = _storage[0];
-    array[i+1] = _storage[1];
-    array[i+2] = _storage[2];
+  void copyIntoArray(List<double> array, [int offset=0]) {
+    array[offset+2] = _storage[2];
+    array[offset+1] = _storage[1];
+    array[offset+0] = _storage[0];
   }
+
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<num> array, [int offset=0]) {
-    int i = offset;
-    _storage[0] = array[i+0];
-    i++;
-    _storage[1] = array[i+1];
-    i++;
-    _storage[2] = array[i+2];
-    i++;
+  void copyFromArray(List<double> array, [int offset=0]) {
+    _storage[2] = array[offset+2];
+    _storage[1] = array[offset+1];
+    _storage[0] = array[offset+0];
   }
+
   set xy(vec2 arg) {
     _storage[0] = arg._storage[0];
     _storage[1] = arg._storage[1];

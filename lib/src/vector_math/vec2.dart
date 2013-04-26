@@ -21,43 +21,14 @@
 
 part of vector_math;
 
-/// 2D vector.
+/// 2D column vector.
 class vec2 {
   final Float32List _storage = new Float32List(2);
   Float32List get storage => _storage;
 
-  /// Vector.
+  /// Construct a new vector with the specified values.
   vec2(double x_, double y_) {
-    makeRaw(x_, y_);
-  }
-
-  /// Components of [this] are set to the passed in values.
-  vec2 makeRaw(double x_, double y_) {
-    _storage[0] = x_;
-    _storage[1] = y_;
-    return this;
-  }
-
-  /// Zero vector.
-  vec2.zero();
-
-  /// Modify [this] to be the zero vector.
-  vec2 makeZero() {
-    _storage[0] = 0.0;
-    _storage[1] = 0.0;
-    return this;
-  }
-
-  /// Copy of [other].
-  vec2.copy(vec2 other) {
-    makeCopy(other);
-  }
-
-  /// Modify [this] by copying the values in [other].
-  vec2 makeCopy(vec2 other) {
-    _storage[1] = other._storage[1];
-    _storage[0] = other._storage[0];
-    return this;
+    setValues(x_, y_);
   }
 
   /// Initialized with values from [array] starting at [offset].
@@ -67,7 +38,36 @@ class vec2 {
     _storage[0] = array[i+0];
   }
 
-  /// Splats a scalar into all lanes of the vector.
+  /// Zero vector.
+  vec2.zero();
+
+  /// Copy of [other].
+  vec2.copy(vec2 other) {
+    setFrom(other);
+  }
+
+  /// Set the values of the vector.
+  vec2 setValues(double x_, double y_) {
+    _storage[0] = x_;
+    _storage[1] = y_;
+    return this;
+  }
+
+  /// Zero the vector.
+  vec2 setZero() {
+    _storage[0] = 0.0;
+    _storage[1] = 0.0;
+    return this;
+  }
+
+  /// Set the values by copying them from [other].
+  vec2 setFrom(vec2 other) {
+    _storage[1] = other._storage[1];
+    _storage[0] = other._storage[0];
+    return this;
+  }
+
+  /// Splat [arg] into all lanes of the vector.
   vec2 splat(double arg) {
     _storage[0] = arg;
     _storage[1] = arg;
@@ -88,43 +88,42 @@ class vec2 {
   vec2 operator+(vec2 other) => new vec2(_storage[0] + other._storage[0],
                                          _storage[1] + other._storage[1]);
 
-  /// Returns a copy with each entry divided by [scale].
+  /// Scale.
   vec2 operator/(double scale) {
     var o = 1.0 / scale;
     return new vec2(_storage[0] * o, _storage[1] * o);
   }
 
-  /// Returns a copy with each entry multiplied by [scale].
+  /// Scale.
   vec2 operator*(double scale) {
     var o = scale;
     return new vec2(_storage[0] * o, _storage[1] * o);
   }
 
-  /// Returns an entry from [this].
   double operator[](int i) => _storage[i];
 
-  /// Assigns an entry in [this].
   void operator[]=(int i, double v) { _storage[i] = v; }
 
   /// Length.
   double get length {
-    double sum = 0.0;
-    sum += (_storage[0] * _storage[0]);
+    double sum;
+    sum = (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     return Math.sqrt(sum);
   }
 
-  /// Squared length.
+  /// Length squared.
   double get length2 {
-    double sum = 0.0;
-    sum += (_storage[0] * _storage[0]);
+    double sum;
+    sum = (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     return sum;
   }
 
-  /// Normalize [this]. Returns [this].
+  /// Normalize [this].
   vec2 normalize() {
     double l = length;
+    // TODO(johnmccutchan): Use an epsilon.
     if (l == 0.0) {
       return this;
     }
@@ -134,7 +133,7 @@ class vec2 {
     return this;
   }
 
-  /// Normalize [this]. Returns [length].
+  /// Normalize [this]. Returns length of vector before normalization.
   double normalizeLength() {
     double l = length;
     if (l == 0.0) {
@@ -146,47 +145,43 @@ class vec2 {
     return l;
   }
 
-  /// Normalizes [this] returns new vector or optional [out]
-  vec2 normalized([vec2 out = null]) {
-    if (out == null) {
-      out = new vec2(_storage[0], _storage[1]);
-    }
-    double l = out.length;
-    if (l == 0.0) {
-      return out;
-    }
-    l = 1.0 / l;
-    out._storage[0] *= l;
-    out._storage[1] *= l;
-    return out;
+  /// Normalized copy of [this].
+  vec2 normalized() {
+    return new vec2.copy(this).normalize();
   }
 
-  /// Returns the dot product of [this] and [other].
+  /// Normalize vector into [out].
+  vec2 normalizeInto(vec2 out) {
+    out.setFrom(this);
+    return out.normalize();
+  }
+
+  /// Inner product.
   double dot(vec2 other) {
-    double sum = 0.0;
-    sum += _storage[0] * other._storage[0];
+    double sum;
+    sum = _storage[0] * other._storage[0];
     sum += _storage[1] * other._storage[1];
     return sum;
   }
 
-  /// Returns the cross product of [this] and [other].
+  /// Cross product.
   double cross(vec2 other) {
     return _storage[0] * other._storage[1] - _storage[1] * other._storage[0];
   }
 
-  /// Returns the relative error between [this] and [correct]
+  /// Relative error between [this] and [correct]
   double relativeError(vec2 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
 
-  /// Returns the absolute error between [this] and [correct]
+  /// Absolute error between [this] and [correct]
   double absoluteError(vec2 correct) {
     return (this - correct).length;
   }
 
-  /// Returns true if any component is infinite.
+  /// True if any component is infinite.
   bool get isInfinite {
     bool is_infinite = false;
     is_infinite = is_infinite || _storage[0].isInfinite;
@@ -194,7 +189,7 @@ class vec2 {
     return is_infinite;
   }
 
-  /// Returns true if any component is NaN.
+  /// True if any component is NaN.
   bool get isNaN {
     bool is_nan = false;
     is_nan = is_nan || _storage[0].isNaN;
@@ -224,15 +219,16 @@ class vec2 {
   }
 
   /// Divide entries in [this] with entries in [arg].
-  vec2 div(vec2 arg) {
+  vec2 divide(vec2 arg) {
     _storage[0] = _storage[0] / arg._storage[0];
     _storage[1] = _storage[1] / arg._storage[1];
     return this;
   }
 
+  /// Scale [this].
   vec2 scale(double arg) {
-    _storage[0] = _storage[0] * arg;
     _storage[1] = _storage[1] * arg;
+    _storage[0] = _storage[0] * arg;
     return this;
   }
 
@@ -240,54 +236,42 @@ class vec2 {
     return clone().scale(arg);
   }
 
+  /// Negate.
   vec2 negate() {
     _storage[1] = -_storage[1];
     _storage[0] = -_storage[0];
     return this;
   }
 
+  /// Absolute value.
   vec2 absolute() {
-    _storage[1] = -_storage[1].abs();
-    _storage[0] = -_storage[0].abs();
+    _storage[1] = _storage[1].abs();
+    _storage[0] = _storage[0].abs();
     return this;
   }
 
+  /// Clone of [this].
   vec2 clone() {
     return new vec2.copy(this);
   }
 
+  /// Copy [this] into [arg]. Returns [arg].
   vec2 copyInto(vec2 arg) {
-    arg._storage[0] = _storage[0];
     arg._storage[1] = _storage[1];
+    arg._storage[0] = _storage[0];
     return arg;
-  }
-
-  vec2 copyFrom(vec2 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    return this;
-  }
-
-  vec2 setComponents(double x_, double y_) {
-    _storage[0] = x_;
-    _storage[1] = y_;
-    return this;
   }
 
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset=0]) {
-    int i = offset;
-    array[i+0] = _storage[0];
-    array[i+1] = _storage[1];
+    array[offset+1] = _storage[1];
+    array[offset+0] = _storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<double> array, [int offset=0]) {
-    int i = offset;
-    _storage[0] = array[i+0];
-    i++;
-    _storage[1] = array[i+1];
-    i++;
+    _storage[1] = array[offset+1];
+    _storage[0] = array[offset+0];
   }
 
   set xy(vec2 arg) {

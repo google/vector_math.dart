@@ -21,46 +21,17 @@
 
 part of vector_math;
 
+/// 4D column vector.
 class vec4 {
   final Float32List _storage = new Float32List(4);
   Float32List get storage => _storage;
-  /// Constructs a new [vec4] initialized with passed in values.
+
+  /// Constructs a new vector with the specified values.
   vec4(double x_, double y_, double z_, double w_) {
-    makeRaw(x_, y_, z_, w_);
+    setValues(x_, y_, z_, w_);
   }
-  //// Constructs a new [vec4] zero vector.
-  vec4.zero() {
-    makeZero();
-  }
-  /// Make [this] the zero vector.
-  vec4 makeZero() {
-    _storage[0] = 0.0;
-    _storage[1] = 0.0;
-    _storage[2] = 0.0;
-    _storage[3] = 0.0;
-    return this;
-  }
-  /// Constructs a copy of [other].
-  vec4.copy(vec4 other) {
-    makeCopy(other);
-  }
-  /// Make [this] a copy of [other] [other].
-  vec4 makeCopy(vec4 other) {
-    _storage[0] = other._storage[0];
-    _storage[1] = other._storage[1];
-    _storage[2] = other._storage[2];
-    _storage[3] = other._storage[3];
-    return this;
-  }
-  /// Components of [this] are set to the passed in values.
-  vec4 makeRaw(double x_, double y_, double z_, double w_) {
-    _storage[0] = x_;
-    _storage[1] = y_;
-    _storage[2] = z_;
-    _storage[3] = w_;
-    return this;
-  }
-  /// Constructs a new [vec4] that is initialized with values from [array] starting at [offset].
+
+  /// Initialized with values from [array] starting at [offset].
   vec4.array(List<double> array, [int offset=0]) {
     int i = offset;
     _storage[0] = array[i+0];
@@ -68,57 +39,113 @@ class vec4 {
     _storage[2] = array[i+2];
     _storage[3] = array[i+3];
   }
-  /// Splats a scalar into all lanes of the vector.
-  vec4 splat(double arg) {
-    _storage[0] = arg;
-    _storage[1] = arg;
-    _storage[2] = arg;
-    _storage[3] = arg;
+
+  //// Zero vector.
+  vec4.zero();
+
+  /// Copy of [other].
+  vec4.copy(vec4 other) {
+    setFrom(other);
+  }
+
+  /// Set the values of the vector.
+  vec4 setValues(double x_, double y_, double z_, double w_) {
+    _storage[3] = w_;
+    _storage[2] = z_;
+    _storage[1] = y_;
+    _storage[0] = x_;
     return this;
   }
+
+  /// Zero the vector.
+  vec4 setZero() {
+    _storage[0] = 0.0;
+    _storage[1] = 0.0;
+    _storage[2] = 0.0;
+    _storage[3] = 0.0;
+    return this;
+  }
+
+  /// Set the values by copying them from [other].
+  vec4 setFrom(vec4 other) {
+    _storage[3] = other._storage[3];
+    _storage[2] = other._storage[2];
+    _storage[1] = other._storage[1];
+    _storage[0] = other._storage[0];
+    return this;
+  }
+
+  /// Splat [arg] into all lanes of the vector.
+  vec4 splat(double arg) {
+    _storage[3] = arg;
+    _storage[2] = arg;
+    _storage[1] = arg;
+    _storage[0] = arg;
+    return this;
+  }
+
   /// Returns a printable string
-  String toString() => '${_storage[0]},${_storage[1]},${_storage[2]},${_storage[3]}';
-  /// Returns a new vec4 from -this
-  vec4 operator-() => new vec4(- _storage[0], - _storage[1], - _storage[2], - _storage[3]);
-  /// Returns a new vec4 from this - [other]
-  vec4 operator-(vec4 other) => new vec4(_storage[0] - other._storage[0], _storage[1] - other._storage[1], _storage[2] - other._storage[2], _storage[3] - other._storage[3]);
-  /// Returns a new vec4 from this + [other]
-  vec4 operator+(vec4 other) => new vec4(_storage[0] + other._storage[0], _storage[1] + other._storage[1], _storage[2] + other._storage[2], _storage[3] + other._storage[3]);
-  /// Returns a new vec4 divided by [other]
+  String toString() => '${_storage[0]},${_storage[1]},'
+                       '${_storage[2]},${_storage[3]}';
+
+  /// Negate.
+  vec4 operator-() => new vec4(-_storage[0], -_storage[1], -_storage[2],
+                               -_storage[3]);
+
+  /// Subtract two vectors.
+  vec4 operator-(vec4 other) => new vec4(_storage[0] - other._storage[0],
+                                         _storage[1] - other._storage[1],
+                                         _storage[2] - other._storage[2],
+                                         _storage[3] - other._storage[3]);
+
+  /// Add two vectors.
+  vec4 operator+(vec4 other) => new vec4(_storage[0] + other._storage[0],
+                                         _storage[1] + other._storage[1],
+                                         _storage[2] + other._storage[2],
+                                         _storage[3] + other._storage[3]);
+
+  /// Scale.
   vec4 operator/(double scale) {
     var o = 1.0 / scale;
-    return new vec4(_storage[0] * o, _storage[1] * o, _storage[2] * o, _storage[3] * o);
+    return new vec4(_storage[0] * o, _storage[1] * o, _storage[2] * o,
+                    _storage[3] * o);
   }
-  /// Returns a new vec4 scaled by [other]
+
+  /// Scale.
   vec4 operator*(double scale) {
     var o = scale;
-    return new vec4(_storage[0] * o, _storage[1] * o, _storage[2] * o, _storage[3] * o);
+    return new vec4(_storage[0] * o, _storage[1] * o, _storage[2] * o,
+                    _storage[3] * o);
   }
-  /// Returns a component from vec4. This is indexed as an array with [i]
+
   double operator[](int i) => _storage[i];
-  /// Assigns a component in vec4 the value in [v]. This is indexed as an array with [i]
+
   void operator[]=(int i, double v) { _storage[i] = v; }
-  /// Returns length of this
+
+  /// Length.
   double get length {
-    double sum = 0.0;
-    sum += (_storage[0] * _storage[0]);
+    double sum;
+    sum = (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     sum += (_storage[2] * _storage[2]);
     sum += (_storage[3] * _storage[3]);
     return Math.sqrt(sum);
   }
-  /// Returns squared length of this
+
+  /// Length squared.
   double get length2 {
-    double sum = 0.0;
-    sum += (_storage[0] * _storage[0]);
+    double sum;
+    sum = (_storage[0] * _storage[0]);
     sum += (_storage[1] * _storage[1]);
     sum += (_storage[2] * _storage[2]);
     sum += (_storage[3] * _storage[3]);
     return sum;
   }
-  /// Normalizes [this]. Returns [this].
+
+  /// Normalizes [this].
   vec4 normalize() {
     double l = length;
+    // TODO(johnmccutchan): Use an epsilon.
     if (l == 0.0) {
       return this;
     }
@@ -129,7 +156,8 @@ class vec4 {
     _storage[3] *= l;
     return this;
   }
-  /// Normalizes [this]. Returns length.
+
+  /// Normalizes [this]. Returns length of vector before normalization.
   double normalizeLength() {
     double l = length;
     if (l == 0.0) {
@@ -142,43 +170,41 @@ class vec4 {
     _storage[3] *= l;
     return l;
   }
-  /// Normalizes [this] returns new vector or optional [out]
-  vec4 normalized([vec4 out = null]) {
-    if (out == null) {
-      out = new vec4(_storage[0], _storage[1], _storage[2], _storage[3]);
-    }
-    double l = out.length;
-    if (l == 0.0) {
-      return out;
-    }
-    l = 1.0 / l;
-    out._storage[0] *= l;
-    out._storage[1] *= l;
-    out._storage[2] *= l;
-    out._storage[3] *= l;
-    return out;
+
+  /// Normalizes copy of [this].
+  vec4 normalized() {
+    return new vec4.copy(this).normalize();
   }
-  /// Returns the dot product of [this] and [other]
+
+  /// Normalize vector into [out].
+  vec4 normalizeInto(vec4 out) {
+    out.setFrom(this);
+    return out.normalize();
+  }
+
+  /// Inner product.
   double dot(vec4 other) {
-    double sum = 0.0;
-    sum += _storage[0] * other._storage[0];
+    double sum;
+    sum = _storage[0] * other._storage[0];
     sum += _storage[1] * other._storage[1];
     sum += _storage[2] * other._storage[2];
     sum += _storage[3] * other._storage[3];
     return sum;
   }
-  /// Returns the relative error between [this] and [correct]
+
+  /// Relative error between [this] and [correct]
   double relativeError(vec4 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
     return diff_norm/correct_norm;
   }
-  /// Returns the absolute error between [this] and [correct]
+
+  /// Absolute error between [this] and [correct]
   double absoluteError(vec4 correct) {
     return (this - correct).length;
   }
 
-  /// Returns true if any component is infinite.
+  /// True if any component is infinite.
   bool get isInfinite {
     bool is_infinite = false;
     is_infinite = is_infinite || _storage[0].isInfinite;
@@ -187,7 +213,8 @@ class vec4 {
     is_infinite = is_infinite || _storage[3].isInfinite;
     return is_infinite;
   }
-  /// Returns true if any component is NaN.
+
+  /// True if any component is NaN.
   bool get isNaN {
     bool is_nan = false;
     is_nan = is_nan || _storage[0].isNaN;
@@ -196,6 +223,7 @@ class vec4 {
     is_nan = is_nan || _storage[3].isNaN;
     return is_nan;
   }
+
   vec4 add(vec4 arg) {
     _storage[0] = _storage[0] + arg._storage[0];
     _storage[1] = _storage[1] + arg._storage[1];
@@ -203,6 +231,7 @@ class vec4 {
     _storage[3] = _storage[3] + arg._storage[3];
     return this;
   }
+
   vec4 sub(vec4 arg) {
     _storage[0] = _storage[0] - arg._storage[0];
     _storage[1] = _storage[1] - arg._storage[1];
@@ -210,6 +239,7 @@ class vec4 {
     _storage[3] = _storage[3] - arg._storage[3];
     return this;
   }
+
   vec4 multiply(vec4 arg) {
     _storage[0] = _storage[0] * arg._storage[0];
     _storage[1] = _storage[1] * arg._storage[1];
@@ -217,6 +247,7 @@ class vec4 {
     _storage[3] = _storage[3] * arg._storage[3];
     return this;
   }
+
   vec4 div(vec4 arg) {
     _storage[0] = _storage[0] / arg._storage[0];
     _storage[1] = _storage[1] / arg._storage[1];
@@ -224,6 +255,7 @@ class vec4 {
     _storage[3] = _storage[3] / arg._storage[3];
     return this;
   }
+
   vec4 scale(double arg) {
     _storage[0] = _storage[0] * arg;
     _storage[1] = _storage[1] * arg;
@@ -231,9 +263,11 @@ class vec4 {
     _storage[3] = _storage[3] * arg;
     return this;
   }
+
   vec4 scaled(double arg) {
     return clone().scale(arg);
   }
+
   vec4 negate() {
     _storage[0] = -_storage[0];
     _storage[1] = -_storage[1];
@@ -241,28 +275,19 @@ class vec4 {
     _storage[3] = -_storage[3];
     return this;
   }
+
   vec4 absolute() {
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
-    _storage[0] = -_storage[0].abs();
-    _storage[1] = -_storage[1].abs();
-    _storage[2] = -_storage[2].abs();
-    _storage[3] = -_storage[3].abs();
+    _storage[3] = _storage[3].abs();
+    _storage[2] = _storage[2].abs();
+    _storage[1] = _storage[1].abs();
+    _storage[0] = _storage[0].abs();
     return this;
   }
+
   vec4 clone() {
     return new vec4.copy(this);
   }
+
   vec4 copyInto(vec4 arg) {
     arg._storage[0] = _storage[0];
     arg._storage[1] = _storage[1];
@@ -270,36 +295,23 @@ class vec4 {
     arg._storage[3] = _storage[3];
     return arg;
   }
-  vec4 copyFrom(vec4 arg) {
-    _storage[0] = arg._storage[0];
-    _storage[1] = arg._storage[1];
-    _storage[2] = arg._storage[2];
-    _storage[3] = arg._storage[3];
-    return this;
-  }
-  vec4 setComponents(double x_, double y_, double z_, double w_) {
-    _storage[0] = x_;
-    _storage[1] = y_;
-    _storage[2] = z_;
-    _storage[3] = w_;
-    return this;
-  }
+
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset=0]) {
-    int i = offset;
-    array[i+0] = _storage[0];
-    array[i+1] = _storage[1];
-    array[i+2] = _storage[2];
-    array[i+3] = _storage[3];
+  void copyIntoArray(List<double> array, [int offset=0]) {
+    array[offset+0] = _storage[0];
+    array[offset+1] = _storage[1];
+    array[offset+2] = _storage[2];
+    array[offset+3] = _storage[3];
   }
+
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<double> array, [int offset=0]) {
-    int i = offset;
-    _storage[0] = array[i+0];
-    _storage[1] = array[i+1];
-    _storage[2] = array[i+2];
-    _storage[3] = array[i+3];
+    _storage[0] = array[offset+0];
+    _storage[1] = array[offset+1];
+    _storage[2] = array[offset+2];
+    _storage[3] = array[offset+3];
   }
+
   set xy(vec2 arg) {
     _storage[0] = arg._storage[0];
     _storage[1] = arg._storage[1];
