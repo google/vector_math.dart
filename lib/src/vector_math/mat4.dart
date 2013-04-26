@@ -21,13 +21,21 @@
 
 part of vector_math;
 
-/// mat4 is a column major matrix where each column is represented by [vec4]. This matrix has 4 columns and 4 dimension.
+/// 4D Matrix.
+/// Values are stored in column major order.
 class mat4 {
   final Float32List _storage = new Float32List(16);
   Float32List get storage => _storage;
+
+  /// Return index in storage for [row], [col] value.
   int index(int row, int col) => (col * 4) + row;
+
+  /// Value at [row], [col].
   double entry(int row, int col) => _storage[index(row, col)];
+
+  /// Set value at [row], [col] to be [v].
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }
+
   /// Constructs a new mat4.
   mat4(double arg0, double arg1, double arg2, double arg3, double arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double arg10, double arg11, double arg12, double arg13, double arg14, double arg15) {
     setRaw(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);

@@ -21,13 +21,21 @@
 
 part of vector_math;
 
-/// mat2 is a column major matrix where each column is represented by [vec2]. This matrix has 2 columns and 2 dimension.
+/// 2D Matrix.
+/// Values are stored in column major order.
 class mat2 {
   final Float32List _storage = new Float32List(4);
   Float32List get storage => _storage;
+
+  /// Return index in storage for [row], [col] value.
   int index(int row, int col) => (col * 2) + row;
+
+  /// Value at [row], [col].
   double entry(int row, int col) => _storage[index(row, col)];
+
+  /// Set value at [row], [col] to be [v].
   setEntry(int row, int col, double v) { _storage[index(row, col)] = v; }
+
   /// Constructs a new mat2.
   mat2(double arg0, double arg1, double arg2, double arg3) {
     setRaw(arg0, arg1, arg2, arg3);
