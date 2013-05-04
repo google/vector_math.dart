@@ -1,22 +1,13 @@
 part of vector_math_test;
 
-class BaseTest {
-  void testFailure(var output, var expectedOutput, num error) {
-    print('FAILURE!!!');
-    print('$output != $expectedOutput) : ${error}');
-    assert(false);
-  }
-
-  void relativeTest(var output, var expectedOutput) {
-    num error = relativeError(output, expectedOutput);
-    if (error.abs() >= errorThreshold) {
-      testFailure(output, expectedOutput, error);
-    }
-    expect(error >= errorThreshold, isFalse);
-  }
-
+void relativeTest(var output, var expectedOutput) {
   final num errorThreshold = 0.0005;
+  num error = relativeError(output, expectedOutput).abs(); 
+  expect(error >= errorThreshold, isFalse,
+      reason:'$output != $expectedOutput : relativeError = $error');
+}
 
+class BaseTest {
   dynamic makeMatrix(int rows, int cols) {
     if (rows != cols) {
       return null;

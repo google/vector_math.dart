@@ -68,11 +68,10 @@ class OpenGLMatrixTest extends BaseTest {
     relativeTest(ortho.getColumn(3), new vec4(-(r+l)/(r-l), -(t+b)/(t-b), -(f+n)/(f-n), 1.0));
   }
 
-  void test() {
-    print('Running OpenGL Matrix tests');
-    testLookAt();
-    testUnproject();
-    testFrustumMatrix();
-    testOrthographicMatrix();
+  void run() {
+    test('LookAt', testLookAt);
+    test('Unproject', testUnproject);
+    test('Frustum', testFrustumMatrix);
+    test('Orthographic', testOrthographicMatrix);
   }
 }

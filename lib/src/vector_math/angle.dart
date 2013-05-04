@@ -20,14 +20,12 @@
 
 part of vector_math;
 
-final double _degrees_ratio = 180.0/Math.PI;
 /// Convert [radians] to degrees.
 double degrees(double radians) {
-  return radians * _degrees_ratio;
+  return radians * radians2degrees;
 }
 
-final double _radians_ratio = Math.PI/180.0;
 /// Convert [degrees] to radians.
 double radians(double degrees) {
-  return degrees * _radians_ratio;
+  return degrees * degrees2radians;
 }

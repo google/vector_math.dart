@@ -449,22 +449,21 @@ class MatrixTest extends BaseTest {
     expect(m.entry(2, 2), 9.0);
   }
 
-  void test() {
-    print('Running matrix tests');
-    testMatrixTranspose();
-    testDeterminant();
-    testAdjoint();
-    testSelfMultiply();
-    testSelfTransposeMultiply();
-    testSelfMultiplyTranspose();
-    testMatrixMultiplication();
-    testMatrixVectorMultiplication();
-    testTranslationMatrix();
-    testScaleMatrix();
-    testRotateMatrix();
-    testMat2Transform();
-    testMat3Transform();
-    testMat4Column();
-    testMat3ConstructorCopy();
+  void run() {
+    test('Matrix transpose', testMatrixTranspose);
+    test('Determinant', testDeterminant);
+    test('Adjoint', testAdjoint);
+    test('Self multiply', testSelfMultiply);
+    test('Self transpose', testSelfTransposeMultiply);
+    test('Self multiply tranpose', testSelfMultiplyTranspose);
+    test('Matrix multiplication', testMatrixMultiplication);
+    test('Matrix vector multiplication', testMatrixVectorMultiplication);
+    test('Matrix translate', testTranslationMatrix);
+    test('Scale matrix', testScaleMatrix);
+    test('Rotate matrix', testRotateMatrix);
+    test('2D transform', testMat2Transform);
+    test('3D transform', testMat3Transform);
+    test('Set column', testMat4Column);
+    test('3D constructor', testMat3ConstructorCopy);
   }
 }

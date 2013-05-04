@@ -226,7 +226,7 @@ class quat {
   }
 
   /// Radians of rotation.
-  double get radians => 2.0 * acos(storage[3]);
+  double get radians => 2.0 * Math.acos(storage[3]);
 
   /// Axis of rotation.
   vec3 get axis {

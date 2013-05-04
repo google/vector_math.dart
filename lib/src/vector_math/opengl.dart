@@ -81,7 +81,7 @@ mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
  */
 void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
                           num aspectRatio, num zNear, num zFar) {
-  double height = tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
+  double height = Math.tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
   double width = height * aspectRatio.toDouble();
   setFrustumMatrix(perspectiveMatrix, -width, width, -height, height, zNear,
                    zFar);
@@ -218,7 +218,7 @@ mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
   mat4 outer = new mat4.outer(v, v);
   mat4 r = new mat4.zero();
   r = r - outer;
-  vec3 scaledNormal = (planeNormal.scaled(dot(planePoint, planeNormal)));
+  vec3 scaledNormal = (planeNormal.scaled(dot3(planePoint, planeNormal)));
   vec4 T = new vec4(scaledNormal.storage[0],
                     scaledNormal.storage[1],
                     scaledNormal.storage[2],
@@ -240,7 +240,7 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
   outer.scale(2.0);
   mat4 r = new mat4.zero();
   r = r - outer;
-  double scale = 2.0 * dot(planePoint, planeNormal);
+  double scale = 2.0 * dot3(planePoint, planeNormal);
   vec3 scaledNormal = (planeNormal.scaled(scale));
   vec4 T = new vec4(scaledNormal.storage[0],
                     scaledNormal.storage[1],

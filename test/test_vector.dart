@@ -205,15 +205,14 @@ class VectorTest extends BaseTest {
     relativeTest(v.z, -2.0);
   }
   
-  void test() {
-    print('Running vector tests');
-    testVec2DotProduct();
-    testVec2CrossProduct();
-    testVec2Reflect();
-    testVec3DotProduct();
-    testVec3CrossProduct();
-    testVec3Reflect();
-    testDefaultConstructor();
-    testNegate();
+  void run() {
+    test('2D dot product', testVec2DotProduct);
+    test('2D cross product', testVec2CrossProduct);
+    test('2D reflect', testVec2Reflect);
+    test('3D dot product', testVec3DotProduct);
+    test('3D cross product', testVec3CrossProduct);
+    test('3D reflect', testVec3Reflect);
+    test('Constructor', testDefaultConstructor);
+    test('Negate', testNegate);
   }
 }

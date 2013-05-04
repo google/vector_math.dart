@@ -14,39 +14,33 @@ void testCore(Configuration config) {
 }
 
 void main() {
-  group('QuaternionTest', () {
+  group('Quaternion', () {
     QuaternionTest qt = new QuaternionTest();
-    test("test", () {
-      qt.test();
-    });
+    qt.run();
   });
 
-  group('MatrixTest', () {
+  group('Matrix', () {
     MatrixTest mt = new MatrixTest();
-    test("test", () {
-      mt.test();
-    });
+    mt.run();
   });
 
 
-  group('VectorTest', () {
+  group('Vector', () {
     VectorTest vt = new VectorTest();
-    test("test", () {
-      vt.test();
-    });
+    vt.run();
   });
 
-  group('OpenGLMatrixTest', () {
+  group('OpenGL', () {
     OpenGLMatrixTest omt = new OpenGLMatrixTest();
-    test("test", () {
-      omt.test();
-    });;
+    omt.run();
   });
-
-  group('BuiltinTest', () {
-    BuiltinTest bt = new BuiltinTest();
-    test("test", () {
-      //bt.test();
+  
+  group('Utility', () {
+    test('degrees', () {
+      relativeTest(degrees(Math.PI), 180.0);
+    });
+    test('radians', () {
+      relativeTest(radians(90.0), Math.PI/2.0);
     });
   });
 }
