@@ -101,7 +101,7 @@ void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
  */
 mat4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
                            num zFar) {
-  double height = tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
+  double height = Math.tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
   double width = height * aspectRatio.toDouble();
   return makeFrustumMatrix(-width, width, -height, height, zNear, zFar);
 }
