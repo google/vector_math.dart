@@ -111,13 +111,103 @@ class VectorTest extends BaseTest {
     expect(vec.y, equals(-2.0));
     expect(vec.z, equals(-3.0));
   }
+  
+  void testVec2Reflect() {
+    var v = new vec2(0.0, 5.0);
+    v.reflect(new vec2(0.0, -1.0));
+    expect(v.x, equals(0.0));
+    expect(v.y, equals(-5.0));
+    
+    v = new vec2(0.0, -5.0);
+    v.reflect(new vec2(0.0, 1.0));
+    expect(v.x, equals(0.0));
+    expect(v.y, equals(5.0));
+    
+    v = new vec2(3.0, 0.0);
+    v.reflect(new vec2(-1.0, 0.0));
+    expect(v.x, equals(-3.0));
+    expect(v.y, equals(0.0));
+    
+    v = new vec2(-3.0, 0.0);
+    v.reflect(new vec2(1.0, 0.0));
+    expect(v.x, equals(3.0));
+    expect(v.y, equals(0.0));
 
+    v = new vec2(4.0, 4.0);
+    v.reflect(new vec2(-1.0, -1.0).normalized());
+    relativeTest(v.x, -4.0);
+    relativeTest(v.y, -4.0);
+    
+    v = new vec2(-4.0, -4.0);
+    v.reflect(new vec2(1.0, 1.0).normalized());
+    relativeTest(v.x, 4.0);
+    relativeTest(v.y, 4.0);
+  }
+  
+  void testVec3Reflect() {
+    var v = new vec3(5.0, 0.0, 0.0);
+    v.reflect(new vec3(-1.0, 0.0, 0.0));
+    expect(v.x, equals(-5.0));
+    expect(v.y, equals(0.0));
+    expect(v.y, equals(0.0));
+    
+    v = new vec3(0.0, 5.0, 0.0);
+    v.reflect(new vec3(0.0, -1.0, 0.0));
+    expect(v.x, equals(0.0));
+    expect(v.y, equals(-5.0));
+    expect(v.z, equals(0.0));
+    
+    v = new vec3(0.0, 0.0, 5.0);
+    v.reflect(new vec3(0.0, 0.0, -1.0));
+    expect(v.x, equals(0.0));
+    expect(v.y, equals(0.0));
+    expect(v.z, equals(-5.0));
+    
+    v = new vec3(-5.0, 0.0, 0.0);
+    v.reflect(new vec3(1.0, 0.0, 0.0));
+    expect(v.x, equals(5.0));
+    expect(v.y, equals(0.0));
+    expect(v.y, equals(0.0));
+    
+    v = new vec3(0.0, -5.0, 0.0);
+    v.reflect(new vec3(0.0, 1.0, 0.0));
+    expect(v.x, equals(0.0));
+    expect(v.y, equals(5.0));
+    expect(v.z, equals(0.0));
+    
+    v = new vec3(0.0, 0.0, -5.0);
+    v.reflect(new vec3(0.0, 0.0, 1.0));
+    expect(v.x, equals(0.0));
+    expect(v.y, equals(0.0));
+    expect(v.z, equals(5.0));
+
+    v = new vec3(4.0, 4.0, 4.0);
+    v.reflect(new vec3(-1.0, -1.0, -1.0).normalized());
+    relativeTest(v.x, -4.0);
+    relativeTest(v.y, -4.0);
+    relativeTest(v.z, -4.0);
+    
+    v = new vec3(-4.0, -4.0, -4.0);
+    v.reflect(new vec3(1.0, 1.0, 1.0).normalized());
+    relativeTest(v.x, 4.0);
+    relativeTest(v.y, 4.0);
+    relativeTest(v.z, 4.0);
+    
+    v = new vec3(10.0, 20.0, 2.0);
+    v.reflect(new vec3(-10.0, -20.0, -2.0).normalized());
+    relativeTest(v.x, -10.0);
+    relativeTest(v.y, -20.0);
+    relativeTest(v.z, -2.0);
+  }
+  
   void test() {
     print('Running vector tests');
     testVec2DotProduct();
     testVec2CrossProduct();
+    testVec2Reflect();
     testVec3DotProduct();
     testVec3CrossProduct();
+    testVec3Reflect();
     testDefaultConstructor();
     testNegate();
   }
