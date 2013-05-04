@@ -20,90 +20,34 @@
 
 part of vector_math;
 
-/// Returns the dot product between vectors [x] and [y].
-/// The dimension of [x] and [y] must match.
-double dot(dynamic x, dynamic y) {
-  return x.dot(y);
+/// 2D dot product.
+double dot2(vec2 x, vec2 y) => x.dot(y);
+
+/// 3D dot product.
+double dot3(vec3 x, vec3 y) => x.dot(y);
+
+/// 3D Cross product.
+void cross3(vec3 x, vec3 y, vec3 out) {
+  x.crossInto(y, out);
 }
 
-/// Returns the length of vector [x]
-double length(dynamic x) {
-  return x.length;
+/// 2D cross product. vec2 x vec2.
+double cross2(vec2 x, vec2 y) {
+  return x.cross(y);
 }
 
-/// Returns the length squared of vector [x]
-double length2(dynamic x) {
-  return x.length2;
+/// 2D cross product. double x vec2.
+void cross2A(double x, vec2 y, vec2 out) {
+  var tempy = x * y.x;
+  out.x = -x * y.y;
+  out.y = tempy;
 }
 
-/// Returns the distance between vectors [x] and [y]. The dimension of [x] and [y] must match.
-double distance(dynamic x, dynamic y) {
-  return length(x - y);
-}
-
-/// Returns the distance squared between vectors [x] and [y].
-double distance2(dynamic x, dynamic y) {
-  return length2(x - y);
-}
-
-/// Returns the cross product between [x] and [y]. [x] and [y] can be vec2, vec3 or double, but not all combinations are supported.
-dynamic cross(dynamic x, dynamic y, [dynamic out=null]) {
-  if (x is vec3 && y is vec3) {
-    if (out == null) {
-      out = new vec3.zero();
-    }
-    return x.crossInto(y, out);
-  } else if (x is vec2 && y is vec2) {
-    assert(out == null);
-    return x.cross(y);
-  } else if (x is double && y is vec2) {
-    if (out == null) {
-      out = new vec2.zero();
-    }
-    var tempy = x * y.x;
-    out.x = -x * y.y;
-    out.y = tempy;
-    return out;
-  } else if (x is vec2 && y is double) {
-    if (out == null) {
-      out = new vec2.zero();
-    }
-    var tempy = -y * x.x;
-    out.x = y * x.y;
-    out.y = tempy;
-    return out;
-  }
-  throw new ArgumentError('');
-}
-
-/// Returns [x] normalized. Supports [num], [vec2], [vec3], and [vec4] input
-/// types. The return type will match the type of [x]
-dynamic normalize(dynamic x, [dynamic out=null]) {
-  if (x is double) {
-    return 1.0 * sign(x.toDouble());
-  }
-  if (x is vec2) {
-    if (out == null) {
-      out = new vec2.copy(x);
-    }
-    (x as vec2).normalize();
-    return out;
-  }
-  if (x is vec3) {
-    if (out == null) {
-      out = new vec3.copy(x);
-    }
-    (x as vec3).normalize();
-    return out;
-  }
-  if (x is vec4) {
-    if (out == null) {
-      out = new vec4.copy(x);
-    }
-    (x as vec4).normalize();
-    return out;
-  }
-  return null;
+/// 2D cross product. vec2 x double.
+void cross2B(vec2 x, double y, vec2 out) {
+  var tempy = -y * x.x;
+  out.x = y * x.y;
+  out.y = tempy;
 }
 
 /// Sets [u] and [v] to be two vectors orthogonal to each other and

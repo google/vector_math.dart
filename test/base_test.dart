@@ -9,7 +9,6 @@ class BaseTest {
 
   void relativeTest(var output, var expectedOutput) {
     num error = relativeError(output, expectedOutput);
-    //print('$output $expectedOutput $error');
     if (error.abs() >= errorThreshold) {
       testFailure(output, expectedOutput, error);
     }

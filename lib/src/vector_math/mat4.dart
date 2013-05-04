@@ -478,8 +478,8 @@ class mat4 {
     var x = axis.x/len;
     var y = axis.y/len;
     var z = axis.z/len;
-    var c = cos(angle);
-    var s = sin(angle);
+    var c = Math.cos(angle);
+    var s = Math.sin(angle);
     var C = 1.0 - c;
     var m11 = x * x * C + c;
     var m12 = x * y * C - z * s;
@@ -518,8 +518,8 @@ class mat4 {
   }
   /// Rotate this [angle] radians around X
   mat4 rotateX(double angle) {
-    double cosAngle = cos(angle);
-    double sinAngle = sin(angle);
+    double cosAngle = Math.cos(angle);
+    double sinAngle = Math.sin(angle);
     var t1 = storage[0] * 0.0 + storage[4] * cosAngle + storage[8] * sinAngle + storage[12] * 0.0;
     var t2 = storage[1] * 0.0 + storage[5] * cosAngle + storage[9] * sinAngle + storage[13] * 0.0;
     var t3 = storage[2] * 0.0 + storage[6] * cosAngle + storage[10] * sinAngle + storage[14] * 0.0;
@@ -540,8 +540,8 @@ class mat4 {
   }
   /// Rotate this matrix [angle] radians around Y
   mat4 rotateY(double angle) {
-    double cosAngle = cos(angle);
-    double sinAngle = sin(angle);
+    double cosAngle = Math.cos(angle);
+    double sinAngle = Math.sin(angle);
     var t1 = storage[0] * cosAngle + storage[4] * 0.0 + storage[8] * sinAngle + storage[12] * 0.0;
     var t2 = storage[1] * cosAngle + storage[5] * 0.0 + storage[9] * sinAngle + storage[13] * 0.0;
     var t3 = storage[2] * cosAngle + storage[6] * 0.0 + storage[10] * sinAngle + storage[14] * 0.0;
@@ -562,8 +562,8 @@ class mat4 {
   }
   /// Rotate this matrix [angle] radians around Z
   mat4 rotateZ(double angle) {
-    double cosAngle = cos(angle);
-    double sinAngle = sin(angle);
+    double cosAngle = Math.cos(angle);
+    double sinAngle = Math.sin(angle);
     var t1 = storage[0] * cosAngle + storage[4] * sinAngle + storage[8] * 0.0 + storage[12] * 0.0;
     var t2 = storage[1] * cosAngle + storage[5] * sinAngle + storage[9] * 0.0 + storage[13] * 0.0;
     var t3 = storage[2] * cosAngle + storage[6] * sinAngle + storage[10] * 0.0 + storage[14] * 0.0;

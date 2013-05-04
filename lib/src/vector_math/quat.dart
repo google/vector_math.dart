@@ -154,11 +154,11 @@ class quat {
     if (len == 0.0) {
       return;
     }
-    double halfSin = sin(radians * 0.5) / len;
+    double halfSin = Math.sin(radians * 0.5) / len;
     storage[0] = axis.storage[0] * halfSin;
     storage[1] = axis.storage[1] * halfSin;
     storage[2] = axis.storage[2] * halfSin;
-    storage[3] = cos(radians * 0.5);
+    storage[3] = Math.cos(radians * 0.5);
   }
 
   /// Set quaternion with rotation of [yaw], [pitch] and [roll].

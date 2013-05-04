@@ -6,20 +6,24 @@ class VectorTest extends BaseTest {
     final vec2 inputA = new vec2(0.417267069084370, 0.049654430325742);
     final vec2 inputB = new vec2(0.944787189721646, 0.490864092468080);
     final double expectedOutput = 0.418602158442475;
-    relativeTest(dot(inputA, inputB), expectedOutput);
-    relativeTest(dot(inputB, inputA), expectedOutput);
+    relativeTest(dot2(inputA, inputB), expectedOutput);
+    relativeTest(dot2(inputB, inputA), expectedOutput);
   }
 
   void testVec2CrossProduct() {
     final vec2 inputA = new vec2(0.417267069084370, 0.049654430325742);
     final vec2 inputB = new vec2(0.944787189721646, 0.490864092468080);
     double expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
-    relativeTest(cross(inputA, inputB), expectedOutputCross);
-    relativeTest(cross(1.0, inputA), new vec2(-inputA.y,  inputA.x));
-    var result = new vec2.zero();
-    cross(inputA, 1.0, result);
+    var result;
+    result = cross2(inputA, inputB);
+    relativeTest(result, expectedOutputCross);
+    result = new vec2.zero();
+    cross2A(1.0, inputA, result);
+    relativeTest(result, new vec2(-inputA.y,  inputA.x));
+    cross2B(inputA, 1.0, result);
     relativeTest(result, new vec2( inputA.y, -inputA.x));
-    relativeTest(cross(inputA, 1.0), new vec2( inputA.y, -inputA.x));
+    cross2B(inputA, 1.0, result);
+    relativeTest(result, new vec2( inputA.y, -inputA.x));
   }
 
   void testVec3DotProduct() {
@@ -36,8 +40,8 @@ class VectorTest extends BaseTest {
     assert(inputA.length == inputB.length);
     assert(inputB.length == expectedOutput.length);
     for (int i = 0; i < inputA.length; i++) {
-      double output1 = dot(inputA[i], inputB[i]);
-      double output2 = dot(inputB[i], inputA[i]);
+      double output1 = dot3(inputA[i], inputB[i]);
+      double output2 = dot3(inputB[i], inputA[i]);
       relativeTest(output1, expectedOutput[i]);
       relativeTest(output2, expectedOutput[i]);
     }
@@ -71,7 +75,8 @@ class VectorTest extends BaseTest {
     assert(inputB.length == expectedOutput.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      vec3 output = cross(inputA[i], inputB[i]);
+      vec3 output = new vec3.zero();
+      cross3(inputA[i], inputB[i], output);
       relativeTest(output, expectedOutput[i]);
     }
 

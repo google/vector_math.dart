@@ -16,21 +16,28 @@
   2. Altered source versions must be plainly marked as such, and must not be
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
-
 */
 
-library vector_math;
-import 'dart:typed_data';
-import 'dart:math' as Math;
+part of vector_math;
 
-part 'src/vector_math/vec2.dart';
-part 'src/vector_math/vec3.dart';
-part 'src/vector_math/vec4.dart';
-part 'src/vector_math/vector.dart';
-part 'src/vector_math/error_helpers.dart';
-part 'src/vector_math/mat2.dart';
-part 'src/vector_math/mat3.dart';
-part 'src/vector_math/mat4.dart';
-part 'src/vector_math/opengl.dart';
-part 'src/vector_math/quat.dart';
-part 'src/vector_math/aabb3.dart';
+/// Returns relative error between [calculated] and [correct].
+/// The type of [calculated] and [correct] must match and can
+/// be any vector, matrix, or quaternion.
+double relativeError(dynamic calculated, dynamic correct) {
+  if (calculated is double && correct is double) {
+    double diff = (calculated - correct).abs();
+    return diff/correct;
+  }
+  return calculated.relativeError(correct);
+}
+
+/// Returns absolute error between [calculated] and [correct]. 
+/// The type of [calculated] and [correct] must match and can
+/// be any vector, matrix, or quaternion.
+double absoluteError(dynamic calculated, dynamic correct) {
+  if (calculated is double && correct is double) {
+    double diff = (calculated - correct).abs();
+    return diff;
+  }
+  return calculated.absoluteError(correct);
+}
