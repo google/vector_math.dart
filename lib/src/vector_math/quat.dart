@@ -21,23 +21,23 @@
 part of vector_math;
 
 class quat {
-  final Float32List _storage = new Float32List(4);
-  Float32List get storage => _storage;
-  double get x => _storage[0];
-  double get y => _storage[0];
-  double get z => _storage[0];
-  double get w => _storage[0];
-  set x(double x) { _storage[0] = x; }
-  set y(double y) { _storage[1] = y; }
-  set z(double z) { _storage[2] = z; }
-  set w(double w) { _storage[3] = w; }
+  final Float32List storage = new Float32List(4);
+
+  double get x => storage[0];
+  double get y => storage[0];
+  double get z => storage[0];
+  double get w => storage[0];
+  set x(double x) { storage[0] = x; }
+  set y(double y) { storage[1] = y; }
+  set z(double z) { storage[2] = z; }
+  set w(double w) { storage[3] = w; }
 
   /// Constructs a quaternion using the raw values [x], [y], [z], and [w]
   quat(double x, double y, double z, double w) {
-    _storage[0] = x;
-    _storage[1] = y;
-    _storage[2] = z;
-    _storage[3] = w;
+    storage[0] = x;
+    storage[1] = y;
+    storage[2] = z;
+    storage[3] = w;
   }
 
   /// From a rotation matrix [rotationMatrix].
@@ -45,29 +45,29 @@ class quat {
     double trace = rotationMatrix.trace();
     if (trace > 0.0) {
       double s = Math.sqrt(trace + 1.0);
-      _storage[3] = s * 0.5;
+      storage[3] = s * 0.5;
       s = 0.5 / s;
-      _storage[0] = (rotationMatrix._storage[5] -
-                     rotationMatrix._storage[7]) * s;
-      _storage[1] = (rotationMatrix._storage[6] -
-                     rotationMatrix._storage[2]) * s;
-      _storage[2] = (rotationMatrix._storage[1] -
-                     rotationMatrix._storage[3]) * s;
+      storage[0] = (rotationMatrix.storage[5] -
+                     rotationMatrix.storage[7]) * s;
+      storage[1] = (rotationMatrix.storage[6] -
+                     rotationMatrix.storage[2]) * s;
+      storage[2] = (rotationMatrix.storage[1] -
+                     rotationMatrix.storage[3]) * s;
     } else {
-      int i = rotationMatrix._storage[0] < rotationMatrix._storage[4] ?
-              (rotationMatrix._storage[4] < rotationMatrix._storage[8] ? 2 : 1)
+      int i = rotationMatrix.storage[0] < rotationMatrix.storage[4] ?
+              (rotationMatrix.storage[4] < rotationMatrix.storage[8] ? 2 : 1)
               :
-              (rotationMatrix._storage[0] < rotationMatrix._storage[8] ? 2 : 0);
+              (rotationMatrix.storage[0] < rotationMatrix.storage[8] ? 2 : 0);
       int j = (i + 1) % 3;
       int k = (i + 2) % 3;
       double s = Math.sqrt(rotationMatrix.entry(i,i) -
                            rotationMatrix.entry(j,j) -
                            rotationMatrix.entry(k,k) + 1.0);
-      _storage[i] = s * 0.5;
+      storage[i] = s * 0.5;
       s = 0.5 / s;
-      _storage[3] = (rotationMatrix.entry(k,j) - rotationMatrix.entry(j,k)) * s;
-      _storage[j] = (rotationMatrix.entry(j,i) + rotationMatrix.entry(i,j)) * s;
-      _storage[k] = (rotationMatrix.entry(k,i) + rotationMatrix.entry(i,k)) * s;
+      storage[3] = (rotationMatrix.entry(k,j) - rotationMatrix.entry(j,k)) * s;
+      storage[j] = (rotationMatrix.entry(j,i) + rotationMatrix.entry(i,j)) * s;
+      storage[k] = (rotationMatrix.entry(k,i) + rotationMatrix.entry(i,k)) * s;
     }
   }
 
@@ -78,10 +78,10 @@ class quat {
 
   /// Copies [original].
   quat.copy(quat original) {
-    _storage[0] = original._storage[0];
-    _storage[1] = original._storage[1];
-    _storage[2] = original._storage[2];
-    _storage[3] = original._storage[3];
+    storage[0] = original.storage[0];
+    storage[1] = original.storage[1];
+    storage[2] = original.storage[2];
+    storage[3] = original.storage[3];
   }
 
   /// Random rotation.
@@ -97,34 +97,34 @@ class quat {
     double s1 = Math.sin(t1);
     double c2 = Math.cos(t2);
     double s2 = Math.sin(t2);
-    _storage[0] = s1 * r1;
-    _storage[1] = c1 * r1;
-    _storage[2] = s2 * r2;
-    _storage[3] = c2 * r2;
+    storage[0] = s1 * r1;
+    storage[1] = c1 * r1;
+    storage[2] = s2 * r2;
+    storage[3] = c2 * r2;
   }
 
   /// Constructs the identity quaternion
   quat.identity() {
-    _storage[3] = 1.0;
+    storage[3] = 1.0;
   }
 
   /// Time derivative of [q] with angular velocity [omega].
   quat.dq(quat q, vec3 omega) {
-    double qx = q._storage[0];
-    double qy = q._storage[1];
-    double qz = q._storage[2];
-    double qw = q._storage[3];
-    double ox = omega._storage[0];
-    double oy = omega._storage[1];
-    double oz = omega._storage[2];
+    double qx = q.storage[0];
+    double qy = q.storage[1];
+    double qz = q.storage[2];
+    double qw = q.storage[3];
+    double ox = omega.storage[0];
+    double oy = omega.storage[1];
+    double oz = omega.storage[2];
     double _x = ox * qw + oy * qz - oz * qy;
     double _y = oy * qw + oz * qx - ox * qz;
     double _z = oz * qw + ox * qy - oy * qx;
     double _w = -ox * qx - oy * qy - oz * qz;
-    _storage[0] = _x * 0.5;
-    _storage[1] = _y * 0.5;
-    _storage[2] = _z * 0.5;
-    _storage[3] = _w * 0.5;
+    storage[0] = _x * 0.5;
+    storage[1] = _y * 0.5;
+    storage[2] = _z * 0.5;
+    storage[3] = _w * 0.5;
   }
 
   /// Returns a new copy of this
@@ -134,18 +134,18 @@ class quat {
 
   /// Copy [source] into [this]
   void copyFrom(quat source) {
-    _storage[0] = source._storage[0];
-    _storage[1] = source._storage[1];
-    _storage[2] = source._storage[2];
-    _storage[3] = source._storage[3];
+    storage[0] = source.storage[0];
+    storage[1] = source.storage[1];
+    storage[2] = source.storage[2];
+    storage[3] = source.storage[3];
   }
 
   /// Copy [this] into [target].
   void copyTo(quat target) {
-    target._storage[0] = _storage[0];
-    target._storage[1] = _storage[1];
-    target._storage[2] = _storage[2];
-    target._storage[3] = _storage[3];
+    target.storage[0] = storage[0];
+    target.storage[1] = storage[1];
+    target.storage[2] = storage[2];
+    target.storage[3] = storage[3];
   }
 
   /// Set quaternion with rotation of [radians] around [axis].
@@ -155,10 +155,10 @@ class quat {
       return;
     }
     double halfSin = sin(radians * 0.5) / len;
-    _storage[0] = axis._storage[0] * halfSin;
-    _storage[1] = axis._storage[1] * halfSin;
-    _storage[2] = axis._storage[2] * halfSin;
-    _storage[3] = cos(radians * 0.5);
+    storage[0] = axis.storage[0] * halfSin;
+    storage[1] = axis.storage[1] * halfSin;
+    storage[2] = axis.storage[2] * halfSin;
+    storage[3] = cos(radians * 0.5);
   }
 
   /// Set quaternion with rotation of [yaw], [pitch] and [roll].
@@ -172,10 +172,10 @@ class quat {
     double sinPitch = Math.sin(halfPitch);
     double cosRoll = Math.cos(halfRoll);
     double sinRoll = Math.sin(halfRoll);
-    _storage[0] = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
-    _storage[1] = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
-    _storage[2] = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
-    _storage[3] = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
+    storage[0] = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
+    storage[1] = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+    storage[2] = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
+    storage[3] = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
   }
 
   /// Normalize [this].
@@ -185,28 +185,28 @@ class quat {
       return this;
     }
     l = 1.0 / l;
-    _storage[3] = _storage[3] * l;
-    _storage[2] = _storage[2] * l;
-    _storage[1] = _storage[1] * l;
-    _storage[0] = _storage[0] * l;
+    storage[3] = storage[3] * l;
+    storage[2] = storage[2] * l;
+    storage[1] = storage[1] * l;
+    storage[0] = storage[0] * l;
     return this;
   }
 
   /// Conjugate [this].
   quat conjugate() {
-    _storage[2] = -_storage[2];
-    _storage[1] = -_storage[1];
-    _storage[0] = -_storage[0];
+    storage[2] = -storage[2];
+    storage[1] = -storage[1];
+    storage[0] = -storage[0];
     return this;
   }
 
   /// Invert [this].
   quat inverse() {
     double l = 1.0 / length2;
-    _storage[3] = _storage[3] * l;
-    _storage[2] = -_storage[2] * l;
-    _storage[1] = -_storage[1] * l;
-    _storage[0] = -_storage[0] * l;
+    storage[3] = storage[3] * l;
+    storage[2] = -storage[2] * l;
+    storage[1] = -storage[1] * l;
+    storage[0] = -storage[0] * l;
     return this;
   }
 
@@ -226,22 +226,22 @@ class quat {
   }
 
   /// Radians of rotation.
-  double get radians => 2.0 * acos(_storage[3]);
+  double get radians => 2.0 * acos(storage[3]);
 
   /// Axis of rotation.
   vec3 get axis {
-      double scale = 1.0 / (1.0 - (_storage[3] * _storage[3]));
-      return new vec3(_storage[0] * scale,
-                      _storage[1] * scale,
-                      _storage[2] * scale);
+      double scale = 1.0 / (1.0 - (storage[3] * storage[3]));
+      return new vec3(storage[0] * scale,
+                      storage[1] * scale,
+                      storage[2] * scale);
   }
 
   /// Length squared.
   double get length2 {
-    double _x = _storage[0];
-    double _y = _storage[1];
-    double _z = _storage[2];
-    double _w = _storage[3];
+    double _x = storage[0];
+    double _y = storage[1];
+    double _z = storage[2];
+    double _w = storage[3];
     return (_x * _x) + (_y * _y) + (_z * _z) + (_w * _w);
   }
 
@@ -259,10 +259,10 @@ class quat {
   /// Rotates [v] by [this].
   vec3 rotate(vec3 v) {
     // conjugate(this) * [v,0] * this
-    double _w = _storage[3];
-    double _z = _storage[2];
-    double _y = _storage[1];
-    double _x = _storage[0];
+    double _w = storage[3];
+    double _z = storage[2];
+    double _y = storage[1];
+    double _x = storage[0];
     double tiw = _w;
     double tiz = -_z;
     double tiy = -_y;
@@ -274,18 +274,18 @@ class quat {
     double result_x = tw * _x + tx * _w + ty * _z - tz * _y;
     double result_y = tw * _y + ty * _w + tz * _x - tx * _z;
     double result_z = tw * _z + tz * _w + tx * _y - ty * _x;
-    v._storage[2] = result_z;
-    v._storage[1] = result_y;
-    v._storage[0] = result_x;
+    v.storage[2] = result_z;
+    v.storage[1] = result_y;
+    v.storage[0] = result_x;
     return v;
   }
 
   /// Scales [this] by [scale].
   quat scaled(double scale) {
-    _storage[3] = _storage[3] * scale;
-    _storage[2] = _storage[2] * scale;
-    _storage[1] = _storage[1] * scale;
-    _storage[0] = _storage[0] * scale;
+    storage[3] = storage[3] * scale;
+    storage[2] = storage[2] * scale;
+    storage[1] = storage[1] * scale;
+    storage[0] = storage[0] * scale;
     return this;
   }
 
@@ -296,14 +296,14 @@ class quat {
 
   /// [this] rotated by [other].
   quat operator*(quat other) {
-    double _w = _storage[3];
-    double _z = _storage[2];
-    double _y = _storage[1];
-    double _x = _storage[0];
-    double ow = other._storage[3];
-    double oz = other._storage[2];
-    double oy = other._storage[1];
-    double ox = other._storage[0];
+    double _w = storage[3];
+    double _z = storage[2];
+    double _y = storage[1];
+    double _x = storage[0];
+    double ow = other.storage[3];
+    double oz = other.storage[2];
+    double oy = other.storage[1];
+    double ox = other.storage[0];
     return new quat(_w * ox + _x * ow + _y * oz - _z * oy,
                     _w * oy + _y * ow + _z * ox - _x * oz,
                     _w * oz + _z * ow + _x * oy - _y * ox,
@@ -312,29 +312,29 @@ class quat {
 
   /// Returns copy of [this] + [other].
   quat operator+(quat other) {
-    return new quat(_storage[0] + other._storage[0],
-                    _storage[1] + other._storage[1],
-                    _storage[2] + other._storage[2],
-                    _storage[3] + other._storage[3]);
+    return new quat(storage[0] + other.storage[0],
+                    storage[1] + other.storage[1],
+                    storage[2] + other.storage[2],
+                    storage[3] + other.storage[3]);
   }
 
   /// Returns copy of [this] - [other].
   quat operator-(quat other) {
-    return new quat(_storage[0] - other._storage[0],
-                    _storage[1] - other._storage[1],
-                    _storage[2] - other._storage[2],
-                    _storage[3] - other._storage[3]);
+    return new quat(storage[0] - other.storage[0],
+                    storage[1] - other.storage[1],
+                    storage[2] - other.storage[2],
+                    storage[3] - other.storage[3]);
   }
 
   /// Returns negated copy of [this].
   quat operator-() {
-    return new quat(-_storage[0], -_storage[1], -_storage[2], -_storage[3]);
+    return new quat(-storage[0], -storage[1], -storage[2], -storage[3]);
   }
 
-  double operator[](int i) => _storage[i];
+  double operator[](int i) => storage[i];
 
   void operator[]=(int i, double arg) {
-    _storage[i] = arg;
+    storage[i] = arg;
   }
 
   /// Returns a rotation matrix containing the same rotation as [this].
@@ -343,10 +343,10 @@ class quat {
     assert(d != 0.0);
     double s = 2.0 / d;
 
-    double _x = _storage[0];
-    double _y = _storage[1];
-    double _z = _storage[2];
-    double _w = _storage[3];
+    double _x = storage[0];
+    double _y = storage[1];
+    double _z = storage[2];
+    double _w = storage[3];
 
     double xs = _x * s;
     double ys = _y * s;
@@ -371,7 +371,7 @@ class quat {
 
   /// Printable string.
   String toString() {
-    return '${_storage[0]}, ${_storage[1]}, ${_storage[2]} @ ${_storage[3]}';
+    return '${storage[0]}, ${storage[1]}, ${storage[2]} @ ${storage[3]}';
   }
 
   /// Relative error between [this] and [correct].
