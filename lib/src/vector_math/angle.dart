@@ -16,22 +16,18 @@
   2. Altered source versions must be plainly marked as such, and must not be
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
-
 */
 
-library vector_math;
-import 'dart:typed_data';
-import 'dart:math' as Math;
+part of vector_math;
 
-part 'src/vector_math/angle.dart';
-part 'src/vector_math/aabb3.dart';
-part 'src/vector_math/error_helpers.dart';
-part 'src/vector_math/mat2.dart';
-part 'src/vector_math/mat3.dart';
-part 'src/vector_math/mat4.dart';
-part 'src/vector_math/opengl.dart';
-part 'src/vector_math/quat.dart';
-part 'src/vector_math/vector.dart';
-part 'src/vector_math/vec2.dart';
-part 'src/vector_math/vec3.dart';
-part 'src/vector_math/vec4.dart';
+final double _degrees_ratio = 180.0/Math.PI;
+/// Convert [radians] to degrees.
+double degrees(double radians) {
+  return radians * _degrees_ratio;
+}
+
+final double _radians_ratio = Math.PI/180.0;
+/// Convert [degrees] to radians.
+double radians(double degrees) {
+  return degrees * _radians_ratio;
+}
