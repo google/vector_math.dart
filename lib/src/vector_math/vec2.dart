@@ -168,7 +168,18 @@ class vec2 {
   double cross(vec2 other) {
     return _storage[0] * other._storage[1] - _storage[1] * other._storage[0];
   }
-
+  
+  /// Reflect [this].
+  vec2 reflect(vec2 normal) {
+    sub(normal.scaled(2 * normal.dot(this)));
+    return this;
+  }
+  
+  /// Reflected copy of [this].
+  vec2 reflected(vec2 normal) {
+    return new vec2.copy(this).reflect(normal);
+  }
+  
   /// Relative error between [this] and [correct]
   double relativeError(vec2 correct) {
     double correct_norm = correct.length;
