@@ -204,6 +204,17 @@ class vec3 {
     return out;
   }
 
+  /// Reflect [this].
+  vec3 reflect(vec3 normal) {
+    sub(normal.scaled(2 * normal.dot(this)));
+    return this;
+  }
+  
+  /// Reflected copy of [this].
+  vec3 reflected(vec3 normal) {
+    return new vec3.copy(this).reflect(normal);
+  }
+  
   /// Relative error between [this] and [correct]
   double relativeError(vec3 correct) {
     double correct_norm = correct.length;
