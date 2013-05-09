@@ -24,9 +24,9 @@ class quat {
   final Float32List storage = new Float32List(4);
 
   double get x => storage[0];
-  double get y => storage[0];
-  double get z => storage[0];
-  double get w => storage[0];
+  double get y => storage[1];
+  double get z => storage[2];
+  double get w => storage[3];
   set x(double x) { storage[0] = x; }
   set y(double y) { storage[1] = y; }
   set z(double z) { storage[2] = z; }
@@ -281,7 +281,7 @@ class quat {
   }
 
   /// Scales [this] by [scale].
-  quat scaled(double scale) {
+  quat scale(double scale) {
     storage[3] = storage[3] * scale;
     storage[2] = storage[2] * scale;
     storage[1] = storage[1] * scale;
@@ -289,9 +289,10 @@ class quat {
     return this;
   }
 
-  quat scale(double scale) {
+  /// Scaled copy of [this].
+  quat scaled(double scale) {
     quat q = new quat.copy(this);
-    return q.scaled(scale);
+    return q.scale(scale);
   }
 
   /// [this] rotated by [other].
