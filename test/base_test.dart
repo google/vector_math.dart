@@ -2,7 +2,7 @@ part of vector_math_test;
 
 void relativeTest(var output, var expectedOutput) {
   final num errorThreshold = 0.0005;
-  num error = relativeError(output, expectedOutput).abs(); 
+  num error = relativeError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason:'$output != $expectedOutput : relativeError = $error');
 }
@@ -14,13 +14,13 @@ class BaseTest {
     }
 
     if (cols == 2) {
-      return new mat2.zero();
+      return new Matrix2.zero();
     }
     if (cols == 3) {
-      return new mat3.zero();
+      return new Matrix3.zero();
     }
     if (cols == 4) {
-      return new mat4.zero();
+      return new Matrix4.zero();
     }
 
     return null;
@@ -75,11 +75,11 @@ class BaseTest {
 
     dynamic r = null;
     if (values.length == 2) {
-      r = new vec2(values[0], values[1]);
+      r = new Vector2(values[0], values[1]);
     } else if (values.length == 3) {
-      r = new vec3(values[0], values[1], values[2]);
+      r = new Vector3(values[0], values[1], values[2]);
     } else if (values.length == 4) {
-      r = new vec4(values[0], values[1], values[2], values[3]);
+      r = new Vector4(values[0], values[1], values[2], values[3]);
     }
 
     return r;

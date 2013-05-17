@@ -21,30 +21,30 @@
 part of vector_math;
 
 /// 2D dot product.
-double dot2(vec2 x, vec2 y) => x.dot(y);
+double dot2(Vector2 x, Vector2 y) => x.dot(y);
 
 /// 3D dot product.
-double dot3(vec3 x, vec3 y) => x.dot(y);
+double dot3(Vector3 x, Vector3 y) => x.dot(y);
 
 /// 3D Cross product.
-void cross3(vec3 x, vec3 y, vec3 out) {
+void cross3(Vector3 x, Vector3 y, Vector3 out) {
   x.crossInto(y, out);
 }
 
 /// 2D cross product. vec2 x vec2.
-double cross2(vec2 x, vec2 y) {
+double cross2(Vector2 x, Vector2 y) {
   return x.cross(y);
 }
 
 /// 2D cross product. double x vec2.
-void cross2A(double x, vec2 y, vec2 out) {
+void cross2A(double x, Vector2 y, Vector2 out) {
   var tempy = x * y.x;
   out.x = -x * y.y;
   out.y = tempy;
 }
 
 /// 2D cross product. vec2 x double.
-void cross2B(vec2 x, double y, vec2 out) {
+void cross2B(Vector2 x, double y, Vector2 out) {
   var tempy = -y * x.x;
   out.x = y * x.y;
   out.y = tempy;
@@ -52,7 +52,7 @@ void cross2B(vec2 x, double y, vec2 out) {
 
 /// Sets [u] and [v] to be two vectors orthogonal to each other and
 /// [planeNormal].
-void buildPlaneVectors(final vec3 planeNormal, vec3 u, vec3 v) {
+void buildPlaneVectors(final Vector3 planeNormal, Vector3 u, Vector3 v) {
   if (planeNormal.z.abs() > sqrtOneHalf) {
     // choose u in y-z plane
     double a = planeNormal.y*planeNormal.y + planeNormal.z*planeNormal.z;

@@ -27,13 +27,13 @@ part of vector_math;
  * [cameraFocusPosition] specifies the position the camera is focused on.
  * [upDirection] specifies the direction of the up vector (usually, +Y).
  */
-void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
-                   vec3 cameraFocusPosition, vec3 upDirection) {
-  vec3 z = cameraPosition - cameraFocusPosition;
+void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
+                   Vector3 cameraFocusPosition, Vector3 upDirection) {
+  Vector3 z = cameraPosition - cameraFocusPosition;
   z.normalize();
-  vec3 x = upDirection.cross(z);
+  Vector3 x = upDirection.cross(z);
   x.normalize();
-  vec3 y = z.cross(x);
+  Vector3 y = z.cross(x);
   y.normalize();
   viewMatrix.setZero();
   viewMatrix.setEntry(3, 3, 1.0);
@@ -47,7 +47,7 @@ void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
   viewMatrix.setEntry(1, 2, z.y);
   viewMatrix.setEntry(2, 2, z.z);
   viewMatrix.transpose();
-  vec3 rotatedEye = viewMatrix * -cameraPosition;
+  Vector3 rotatedEye = viewMatrix * -cameraPosition;
   viewMatrix.setEntry(0, 3, rotatedEye.x);
   viewMatrix.setEntry(1, 3, rotatedEye.y);
   viewMatrix.setEntry(2, 3, rotatedEye.z);
@@ -60,9 +60,9 @@ void setViewMatrix(mat4 viewMatrix, vec3 cameraPosition,
  * [cameraFocusPosition] specifies the position the camera is focused on.
  * [upDirection] specifies the direction of the up vector (usually, +Y).
  */
-mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
-                    vec3 upDirection) {
-  mat4 r = new mat4.zero();
+Matrix4 makeViewMatrix(Vector3 cameraPosition, Vector3 cameraFocusPosition,
+                    Vector3 upDirection) {
+  Matrix4 r = new Matrix4.zero();
   setViewMatrix(r, cameraPosition, cameraFocusPosition, upDirection);
   return r;
 }
@@ -79,7 +79,7 @@ mat4 makeViewMatrix(vec3 cameraPosition, vec3 cameraFocusPosition,
  * [zFar] specifies the distance from the viewer to the far plane
  * (always positive).
  */
-void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
+void setPerspectiveMatrix(Matrix4 perspectiveMatrix, num fovYRadians,
                           num aspectRatio, num zNear, num zFar) {
   double height = Math.tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
   double width = height * aspectRatio.toDouble();
@@ -99,7 +99,7 @@ void setPerspectiveMatrix(mat4 perspectiveMatrix, num fovYRadians,
  * [zFar] specifies the distance from the viewer to the far plane
  * (always positive).
  */
-mat4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
+Matrix4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
                            num zFar) {
   double height = Math.tan(fovYRadians.toDouble() * 0.5) * zNear.toDouble();
   double width = height * aspectRatio.toDouble();
@@ -116,7 +116,7 @@ mat4 makePerspectiveMatrix(num fovYRadians, num aspectRatio, num zNear,
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
  */
-void setFrustumMatrix(mat4 perspectiveMatrix, num left, num right, num bottom,
+void setFrustumMatrix(Matrix4 perspectiveMatrix, num left, num right, num bottom,
                       num top, num near, num far) {
   left = left.toDouble();
   right = right.toDouble();
@@ -128,7 +128,7 @@ void setFrustumMatrix(mat4 perspectiveMatrix, num left, num right, num bottom,
   double right_minus_left = right - left;
   double top_minus_bottom = top - bottom;
   double far_minus_near = far - near;
-  mat4 view = perspectiveMatrix.setZero();
+  Matrix4 view = perspectiveMatrix.setZero();
   view.setEntry(0, 0, two_near / right_minus_left);
   view.setEntry(1, 1, two_near / top_minus_bottom);
   view.setEntry(0, 2, (right + left) / right_minus_left);
@@ -148,9 +148,9 @@ void setFrustumMatrix(mat4 perspectiveMatrix, num left, num right, num bottom,
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
  */
-mat4 makeFrustumMatrix(num left, num right, num bottom, num top, num near,
+Matrix4 makeFrustumMatrix(num left, num right, num bottom, num top, num near,
                        num far) {
-  mat4 view = new mat4.zero();
+  Matrix4 view = new Matrix4.zero();
   setFrustumMatrix(view, left, right, bottom, top, near, far);
   return view;
 }
@@ -165,7 +165,7 @@ mat4 makeFrustumMatrix(num left, num right, num bottom, num top, num near,
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
  */
-void setOrthographicMatrix(mat4 orthographicMatrix, num left, num right,
+void setOrthographicMatrix(Matrix4 orthographicMatrix, num left, num right,
                            num bottom, num top, num near, num far) {
   left = left.toDouble();
   right = right.toDouble();
@@ -179,7 +179,7 @@ void setOrthographicMatrix(mat4 orthographicMatrix, num left, num right,
   double tpb = top + bottom;
   double fmn = far - near;
   double fpn = far + near;
-  mat4 r = orthographicMatrix.setZero();
+  Matrix4 r = orthographicMatrix.setZero();
   r.setEntry(0, 0, 2.0/rml);
   r.setEntry(1, 1, 2.0/tmb);
   r.setEntry(2, 2, -2.0/fmn);
@@ -199,9 +199,9 @@ void setOrthographicMatrix(mat4 orthographicMatrix, num left, num right,
  * [near], [far] specify the coordinates to the near and far depth clipping
  * planes.
  */
-mat4 makeOrthographicMatrix(num left, num right, num bottom, num top, num near,
+Matrix4 makeOrthographicMatrix(num left, num right, num bottom, num top, num near,
                       num far) {
-  mat4 r = new mat4.zero();
+  Matrix4 r = new Matrix4.zero();
   setOrthographicMatrix(r, left, right, bottom, top, near, far);
   return r;
 }
@@ -210,16 +210,16 @@ mat4 makeOrthographicMatrix(num left, num right, num bottom, num top, num near,
  * Returns a transformation matrix that transforms points onto
  * the plane specified with [planeNormal] and [planePoint]
  */
-mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
-  vec4 v = new vec4(planeNormal.storage[0],
+Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
+  Vector4 v = new Vector4(planeNormal.storage[0],
                     planeNormal.storage[1],
                     planeNormal.storage[2],
                     0.0);
-  mat4 outer = new mat4.outer(v, v);
-  mat4 r = new mat4.zero();
+  Matrix4 outer = new Matrix4.outer(v, v);
+  Matrix4 r = new Matrix4.zero();
   r = r - outer;
-  vec3 scaledNormal = (planeNormal.scaled(dot3(planePoint, planeNormal)));
-  vec4 T = new vec4(scaledNormal.storage[0],
+  Vector3 scaledNormal = (planeNormal.scaled(dot3(planePoint, planeNormal)));
+  Vector4 T = new Vector4(scaledNormal.storage[0],
                     scaledNormal.storage[1],
                     scaledNormal.storage[2],
                     1.0);
@@ -231,18 +231,18 @@ mat4 makePlaneProjection(vec3 planeNormal, vec3 planePoint) {
  * Returns a transformation matrix that transforms points by reflecting
  * them through the plane specified with [planeNormal] and [planePoint]
  */
-mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
-  vec4 v = new vec4(planeNormal.storage[0],
+Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
+  Vector4 v = new Vector4(planeNormal.storage[0],
                     planeNormal.storage[1],
                     planeNormal.storage[2],
                     0.0);
-  mat4 outer = new mat4.outer(v,v);
+  Matrix4 outer = new Matrix4.outer(v,v);
   outer.scale(2.0);
-  mat4 r = new mat4.zero();
+  Matrix4 r = new Matrix4.zero();
   r = r - outer;
   double scale = 2.0 * dot3(planePoint, planeNormal);
-  vec3 scaledNormal = (planeNormal.scaled(scale));
-  vec4 T = new vec4(scaledNormal.storage[0],
+  Vector3 scaledNormal = (planeNormal.scaled(scale));
+  Vector4 T = new Vector4(scaledNormal.storage[0],
                     scaledNormal.storage[1],
                     scaledNormal.storage[2],
                     1.0);
@@ -264,10 +264,10 @@ mat4 makePlaneReflection(vec3 planeNormal, vec3 planePoint) {
  * Returns false on error, for example, the mouse is not in the viewport
  *
  */
-bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
+bool unproject(Matrix4 cameraMatrix, num viewportX, num viewportWidth,
                num viewportY, num viewportHeight,
                num pickX, num pickY, num pickZ,
-               vec3 pickWorld) {
+               Vector3 pickWorld) {
   viewportX = viewportX.toDouble();
   viewportWidth = viewportWidth.toDouble();
   viewportY = viewportY.toDouble();
@@ -287,11 +287,11 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
   }
 
   // Copy camera matrix.
-  mat4 invertedCameraMatrix = new mat4.copy(cameraMatrix);
+  Matrix4 invertedCameraMatrix = new Matrix4.copy(cameraMatrix);
   // Invert the camera matrix.
   invertedCameraMatrix.invert();
   // Determine intersection point.
-  vec4 v = new vec4(pickX, pickY, pickZ, 1.0);
+  Vector4 v = new Vector4(pickX, pickY, pickZ, 1.0);
   invertedCameraMatrix.transform(v);
   if (v.w == 0.0) {
     return false;
@@ -317,10 +317,10 @@ bool unproject(mat4 cameraMatrix, num viewportX, num viewportWidth,
  * Returns false on error, for example, the mouse is not in the viewport
  *
  */
-bool pickRay(mat4 cameraMatrix, num viewportX, num viewportWidth,
+bool pickRay(Matrix4 cameraMatrix, num viewportX, num viewportWidth,
                num viewportY, num viewportHeight,
                num pickX, num pickY,
-               vec3 rayNear, vec3 rayFar) {
+               Vector3 rayNear, Vector3 rayFar) {
 
   bool r;
 

@@ -23,7 +23,7 @@ part of vector_math;
 
 /// 2D Matrix.
 /// Values are stored in column major order.
-class mat2 {
+class Matrix2 {
   final Float32List storage = new Float32List(4);
 
   /// Return index in storage for [row], [col] value.
@@ -36,30 +36,30 @@ class mat2 {
   setEntry(int row, int col, double v) { storage[index(row, col)] = v; }
 
   /// New matrix with specified values.
-  mat2(double arg0, double arg1, double arg2, double arg3) {
+  Matrix2(double arg0, double arg1, double arg2, double arg3) {
     setValues(arg0, arg1, arg2, arg3);
   }
 
   /// Zero matrix.
-  mat2.zero();
+  Matrix2.zero();
 
   /// Identity matrix.
-  mat2.identity() {
+  Matrix2.identity() {
     setIdentity();
   }
 
   /// Copies values from [other].
-  mat2.copy(mat2 other) {
+  Matrix2.copy(Matrix2 other) {
     setFrom(other);
   }
 
   /// Matrix with values from column arguments.
-  mat2.columns(vec2 arg0, vec2 arg1) {
+  Matrix2.columns(Vector2 arg0, Vector2 arg1) {
     setColumns(arg0, arg1);
   }
 
   /// Outer product of [u] and [v].
-  mat2.outer(vec2 u, vec2 v) {
+  Matrix2.outer(Vector2 u, Vector2 v) {
     storage[0] = u.storage[0] * v.storage[0];
     storage[1] = u.storage[0] * v.storage[1];
     storage[2] = u.storage[1] * v.storage[0];
@@ -67,12 +67,12 @@ class mat2 {
   }
 
   /// Rotation of [radians_].
-  mat2.rotation(double radians_) {
+  Matrix2.rotation(double radians_) {
     setRotation(radians_);
   }
 
   /// Sets the matrix with specified values.
-  mat2 setValues(double arg0, double arg1, double arg2, double arg3) {
+  Matrix2 setValues(double arg0, double arg1, double arg2, double arg3) {
     storage[3] = arg3;
     storage[2] = arg2;
     storage[1] = arg1;
@@ -81,7 +81,7 @@ class mat2 {
   }
 
   /// Sets the entire matrix to the column values.
-  mat2 setColumns(vec2 arg0, vec2 arg1) {
+  Matrix2 setColumns(Vector2 arg0, Vector2 arg1) {
     storage[0] = arg0.storage[0];
     storage[1] = arg0.storage[1];
     storage[2] = arg1.storage[0];
@@ -90,7 +90,7 @@ class mat2 {
   }
 
   /// Sets the entire matrix to the matrix in [arg].
-  mat2 setFrom(mat2 arg) {
+  Matrix2 setFrom(Matrix2 arg) {
     storage[3] = arg.storage[3];
     storage[2] = arg.storage[2];
     storage[1] = arg.storage[1];
@@ -99,14 +99,14 @@ class mat2 {
   }
 
   /// Sets the diagonal to [arg].
-  mat2 splatDiagonal(double arg) {
+  Matrix2 splatDiagonal(double arg) {
     storage[0] = arg;
     storage[3] = arg;
     return this;
   }
 
   /// Sets the diagonal of the matrix to be [arg].
-  mat2 setDiagonal(vec2 arg) {
+  Matrix2 setDiagonal(Vector2 arg) {
     storage[0] = arg.storage[0];
     storage[3] = arg.storage[1];
     return this;
@@ -127,52 +127,52 @@ class mat2 {
 
   void operator[]=(int i, double v) { storage[i] = v; }
   /// Returns row 0
-  vec2 get row0 => getRow(0);
+  Vector2 get row0 => getRow(0);
 
   /// Returns row 1
-  vec2 get row1 => getRow(1);
+  Vector2 get row1 => getRow(1);
 
   /// Sets row 0 to [arg]
-  set row0(vec2 arg) => setRow(0, arg);
+  set row0(Vector2 arg) => setRow(0, arg);
 
   /// Sets row 1 to [arg]
-  set row1(vec2 arg) => setRow(1, arg);
+  set row1(Vector2 arg) => setRow(1, arg);
 
   /// Sets [row] of the matrix to values in [arg]
-  void setRow(int row, vec2 arg) {
+  void setRow(int row, Vector2 arg) {
     storage[index(row, 0)] = arg.storage[0];
     storage[index(row, 1)] = arg.storage[1];
   }
 
   /// Gets the [row] of the matrix
-  vec2 getRow(int row) {
-    vec2 r = new vec2.zero();
+  Vector2 getRow(int row) {
+    Vector2 r = new Vector2.zero();
     r.storage[0] = storage[index(row, 0)];
     r.storage[1] = storage[index(row, 1)];
     return r;
   }
 
   /// Assigns the [column] of the matrix [arg]
-  void setColumn(int column, vec2 arg) {
+  void setColumn(int column, Vector2 arg) {
     int entry = column * 2;
     storage[entry+1] = arg.storage[1];
     storage[entry+0] = arg.storage[0];
   }
 
   /// Gets the [column] of the matrix
-  vec2 getColumn(int column) {
-    vec2 r = new vec2.zero();
+  Vector2 getColumn(int column) {
+    Vector2 r = new Vector2.zero();
     int entry = column * 2;
     r.storage[1] = storage[entry+1];
     r.storage[0] = storage[entry+0];
     return r;
   }
 
-  mat2 clone() {
-    return new mat2.copy(this);
+  Matrix2 clone() {
+    return new Matrix2.copy(this);
   }
 
-  mat2 copyInto(mat2 arg) {
+  Matrix2 copyInto(Matrix2 arg) {
     arg.storage[0] = storage[0];
     arg.storage[1] = storage[1];
     arg.storage[2] = storage[2];
@@ -181,8 +181,8 @@ class mat2 {
   }
 
   // TODO: Clean up functions below here.
-  mat2 _mul_scale(double arg) {
-    mat2 r = new mat2.zero();
+  Matrix2 _mul_scale(double arg) {
+    Matrix2 r = new Matrix2.zero();
     r.storage[3] = storage[3] * arg;
     r.storage[2] = storage[2] * arg;
     r.storage[1] = storage[1] * arg;
@@ -190,8 +190,8 @@ class mat2 {
     return r;
   }
 
-  mat2 _mul_matrix(mat2 arg) {
-    var r = new mat2.zero();
+  Matrix2 _mul_matrix(Matrix2 arg) {
+    var r = new Matrix2.zero();
     r.storage[0] = (storage[0] * arg.storage[0]) +
                     (storage[2] * arg.storage[1]);
     r.storage[2] = (storage[0] * arg.storage[2]) +
@@ -203,8 +203,8 @@ class mat2 {
     return r;
   }
 
-  vec2 _mul_vector(vec2 arg) {
-    vec2 r = new vec2.zero();
+  Vector2 _mul_vector(Vector2 arg) {
+    Vector2 r = new Vector2.zero();
     r.storage[1] = (storage[1] * arg.storage[0]) +
                     (storage[3] * arg.storage[1]);
     r.storage[0] = (storage[0] * arg.storage[0]) +
@@ -217,7 +217,7 @@ class mat2 {
     if (arg is double) {
       return _mul_scale(arg);
     }
-    if (arg is vec2) {
+    if (arg is Vector2) {
       return _mul_vector(arg);
     }
     if (2 == arg.dimension) {
@@ -227,8 +227,8 @@ class mat2 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  mat2 operator+(mat2 arg) {
-    mat2 r = new mat2.zero();
+  Matrix2 operator+(Matrix2 arg) {
+    Matrix2 r = new Matrix2.zero();
     r.storage[0] = storage[0] + arg.storage[0];
     r.storage[1] = storage[1] + arg.storage[1];
     r.storage[2] = storage[2] + arg.storage[2];
@@ -237,8 +237,8 @@ class mat2 {
   }
 
   /// Returns new matrix after component wise [this] - [arg]
-  mat2 operator-(mat2 arg) {
-    mat2 r = new mat2.zero();
+  Matrix2 operator-(Matrix2 arg) {
+    Matrix2 r = new Matrix2.zero();
     r.storage[0] = storage[0] - arg.storage[0];
     r.storage[1] = storage[1] - arg.storage[1];
     r.storage[2] = storage[2] - arg.storage[2];
@@ -247,15 +247,15 @@ class mat2 {
   }
 
   /// Returns new matrix -this
-  mat2 operator-() {
-    mat2 r = new mat2.zero();
+  Matrix2 operator-() {
+    Matrix2 r = new Matrix2.zero();
     r[0] = -this[0];
     r[1] = -this[1];
     return r;
   }
 
   /// Zeros [this].
-  mat2 setZero() {
+  Matrix2 setZero() {
     storage[0] = 0.0;
     storage[1] = 0.0;
     storage[2] = 0.0;
@@ -264,7 +264,7 @@ class mat2 {
   }
 
   /// Makes [this] into the identity matrix.
-  mat2 setIdentity() {
+  Matrix2 setIdentity() {
     storage[0] = 1.0;
     storage[1] = 0.0;
     storage[2] = 0.0;
@@ -273,8 +273,8 @@ class mat2 {
   }
 
   /// Returns the tranpose of this.
-  mat2 transposed() {
-    mat2 r = new mat2.zero();
+  Matrix2 transposed() {
+    Matrix2 r = new Matrix2.zero();
     r.storage[0] = storage[0];
     r.storage[1] = storage[2];
     r.storage[2] = storage[1];
@@ -282,7 +282,7 @@ class mat2 {
     return r;
   }
 
-  mat2 transpose() {
+  Matrix2 transpose() {
     double temp;
     temp = storage[2];
     storage[2] = storage[1];
@@ -291,8 +291,8 @@ class mat2 {
   }
 
   /// Returns the component wise absolute value of this.
-  mat2 absolute() {
-    mat2 r = new mat2.zero();
+  Matrix2 absolute() {
+    Matrix2 r = new Matrix2.zero();
     r.storage[0] = storage[0].abs();
     r.storage[1] = storage[1].abs();
     r.storage[2] = storage[2].abs();
@@ -332,15 +332,15 @@ class mat2 {
   }
 
   /// Returns relative error between [this] and [correct]
-  double relativeError(mat2 correct) {
-    mat2 diff = correct - this;
+  double relativeError(Matrix2 correct) {
+    Matrix2 diff = correct - this;
     double correct_norm = correct.infinityNorm();
     double diff_norm = diff.infinityNorm();
     return diff_norm/correct_norm;
   }
 
   /// Returns absolute error between [this] and [correct]
-  double absoluteError(mat2 correct) {
+  double absoluteError(Matrix2 correct) {
     double this_norm = infinityNorm();
     double correct_norm = correct.infinityNorm();
     double diff_norm = (this_norm - correct_norm).abs();
@@ -373,7 +373,7 @@ class mat2 {
   }
 
   /// Converts into Adjugate matrix and scales by [scale]
-  mat2 scaleAdjoint(double scale) {
+  Matrix2 scaleAdjoint(double scale) {
     double temp = storage[0];
     storage[0] = storage[3] * scale;
     storage[2] = - storage[2] * scale;
@@ -382,7 +382,7 @@ class mat2 {
     return this;
   }
 
-  mat2 add(mat2 o) {
+  Matrix2 add(Matrix2 o) {
     storage[0] = storage[0] + o.storage[0];
     storage[1] = storage[1] + o.storage[1];
     storage[2] = storage[2] + o.storage[2];
@@ -390,7 +390,7 @@ class mat2 {
     return this;
   }
 
-  mat2 sub(mat2 o) {
+  Matrix2 sub(Matrix2 o) {
     storage[0] = storage[0] - o.storage[0];
     storage[1] = storage[1] - o.storage[1];
     storage[2] = storage[2] - o.storage[2];
@@ -398,7 +398,7 @@ class mat2 {
     return this;
   }
 
-  mat2 negate() {
+  Matrix2 negate() {
     storage[0] = -storage[0];
     storage[1] = -storage[1];
     storage[2] = -storage[2];
@@ -406,7 +406,7 @@ class mat2 {
     return this;
   }
 
-  mat2 multiply(mat2 arg) {
+  Matrix2 multiply(Matrix2 arg) {
     final double m00 = storage[0];
     final double m01 = storage[2];
     final double m10 = storage[1];
@@ -422,7 +422,7 @@ class mat2 {
     return this;
   }
 
-  mat2 transposeMultiply(mat2 arg) {
+  Matrix2 transposeMultiply(Matrix2 arg) {
     double m00 = storage[0];
     double m01 = storage[1];
     double m10 = storage[2];
@@ -434,7 +434,7 @@ class mat2 {
     return this;
   }
 
-  mat2 multiplyTranspose(mat2 arg) {
+  Matrix2 multiplyTranspose(Matrix2 arg) {
     double m00 = storage[0];
     double m01 = storage[2];
     double m10 = storage[1];
@@ -446,7 +446,7 @@ class mat2 {
     return this;
   }
 
-  vec2 transform(vec2 arg) {
+  Vector2 transform(Vector2 arg) {
     double x_ = (storage[0] * arg.storage[0]) +
                 (storage[2] * arg.storage[1]);
     double y_ = (storage[1] * arg.storage[0]) +
@@ -456,9 +456,9 @@ class mat2 {
     return arg;
   }
 
-  vec2 transformed(vec2 arg, [vec2 out=null]) {
+  Vector2 transformed(Vector2 arg, [Vector2 out=null]) {
     if (out == null) {
-      out = new vec2.copy(arg);
+      out = new Vector2.copy(arg);
     } else {
       out.setFrom(arg);
     }

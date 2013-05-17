@@ -335,10 +335,10 @@ class MatrixTest extends BaseTest {
     List<dynamic> output1 = new List<dynamic>();
     List<dynamic> output2 = new List<dynamic>();
 
-    inputA.add(new mat4.identity());
-    inputB.add(new mat4.translationValues(1.0, 3.0, 5.7));
+    inputA.add(new Matrix4.identity());
+    inputB.add(new Matrix4.translationValues(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
-    output2.add((new mat4.identity()).translate(1.0, 3.0, 5.7));
+    output2.add((new Matrix4.identity()).translate(1.0, 3.0, 5.7));
 
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
@@ -354,10 +354,10 @@ class MatrixTest extends BaseTest {
     List<dynamic> output1 = new List<dynamic>();
     List<dynamic> output2 = new List<dynamic>();
 
-    inputA.add(new mat4.identity());
-    inputB.add(new mat4.diagonal3Values(1.0, 3.0, 5.7));
+    inputA.add(new Matrix4.identity());
+    inputB.add(new Matrix4.diagonal3Values(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
-    output2.add(new mat4.identity().scale(1.0, 3.0, 5.7));
+    output2.add(new Matrix4.identity().scale(1.0, 3.0, 5.7));
 
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
@@ -370,24 +370,24 @@ class MatrixTest extends BaseTest {
   void testRotateMatrix() {
     List<dynamic> output1 = new List<dynamic>();
     List<dynamic> output2 = new List<dynamic>();
-    output1.add(new mat4.rotationX(1.57079632679));
-    output2.add(new mat4.identity().rotateX(1.57079632679));
-    output1.add(new mat4.rotationY(1.57079632679 * 0.5));
-    output2.add(new mat4.identity().rotateY(1.57079632679 * 0.5));
-    output1.add(new mat4.rotationZ(1.57079632679 * 0.25));
-    output2.add(new mat4.identity().rotateZ(1.57079632679 * 0.25));
+    output1.add(new Matrix4.rotationX(1.57079632679));
+    output2.add(new Matrix4.identity().rotateX(1.57079632679));
+    output1.add(new Matrix4.rotationY(1.57079632679 * 0.5));
+    output2.add(new Matrix4.identity().rotateY(1.57079632679 * 0.5));
+    output1.add(new Matrix4.rotationZ(1.57079632679 * 0.25));
+    output2.add(new Matrix4.identity().rotateZ(1.57079632679 * 0.25));
     {
-      vec3 axis = new vec3(1.1, 1.1, 1.1);
+      var axis = new Vector3(1.1, 1.1, 1.1);
       axis.normalize();
       num angle = 1.5;
 
-      quat q = new quat.axisAngle(axis, angle);
-      mat3 R = q.asRotationMatrix();
-      mat4 T = new mat4.identity();
+      Quaternion q = new Quaternion.axisAngle(axis, angle);
+      Matrix3 R = q.asRotationMatrix();
+      Matrix4 T = new Matrix4.identity();
       T.setRotation(R);
       output1.add(T);
 
-      output2.add(new mat4.identity().rotate(axis, angle));
+      output2.add(new Matrix4.identity().rotate(axis, angle));
     }
     assert(output1.length == output2.length);
     for (int i = 0; i < output1.length; i++) {
@@ -397,15 +397,15 @@ class MatrixTest extends BaseTest {
   }
 
   void testMat2Transform() {
-    mat2 rot = new mat2.rotation(Math.PI / 4);
-    final vec2 input = new vec2(0.234245234259, 0.890723489233);
+    var rot = new Matrix2.rotation(Math.PI / 4);
+    final input = new Vector2(0.234245234259, 0.890723489233);
 
-    final vec2 expected = new vec2(rot.entry(0, 0) * input.x +
+    final expected = new Vector2(rot.entry(0, 0) * input.x +
                                    rot.entry(0, 1) * input.y,
                                    rot.entry(1, 0) * input.x +
                                    rot.entry(1, 1) * input.y);
 
-    final vec2 transExpected = new vec2(rot.entry(0, 0) * input.x +
+    final transExpected = new Vector2(rot.entry(0, 0) * input.x +
                                         rot.entry(1, 0) * input.y,
                                         rot.entry(0, 1) * input.x +
                                         rot.entry(1, 1) * input.y);
@@ -414,21 +414,25 @@ class MatrixTest extends BaseTest {
     relativeTest(rot.transposed().transformed(input), transExpected);
   }
 
-  void testMat3Transform() {
-    mat3 rotX = new mat3.rotationX(Math.PI / 4);
-    mat3 rotY = new mat3.rotationY(Math.PI / 4);
-    mat3 rotZ = new mat3.rotationZ(Math.PI / 4);
-    final vec3 input = new vec3(1.0, 0.0, 0.0);
+  void testMatrix3Transform() {
+    Matrix3 rotX = new Matrix3.rotationX(Math.PI / 4);
+    Matrix3 rotY = new Matrix3.rotationY(Math.PI / 4);
+    Matrix3 rotZ = new Matrix3.rotationZ(Math.PI / 4);
+    final input = new Vector3(1.0, 0.0, 0.0);
 
     relativeTest(rotX.transformed(input), input);
-    relativeTest(rotY.transformed(input), new vec3(1 / Math.sqrt(2), 0.0, 1.0 / Math.sqrt(2.0)));
-    relativeTest(rotZ.transformed(input), new vec3(1 / Math.sqrt(2), 1.0 / Math.sqrt(2.0), 0.0));
+    relativeTest(rotY.transformed(input), new Vector3(1.0 / Math.sqrt(2.0),
+                                                      0.0,
+                                                      1.0 / Math.sqrt(2.0)));
+    relativeTest(rotZ.transformed(input), new Vector3(1.0 / Math.sqrt(2.0),
+                                                      1.0 / Math.sqrt(2.0),
+                                                      0.0));
   }
 
-  void testMat4Column() {
-    mat4 I = new mat4.zero();
+  void testMatrix4Column() {
+    Matrix4 I = new Matrix4.zero();
     expect(I[0], 0.0);
-    vec4 c0 = new vec4(1.0, 2.0, 3.0, 4.0);
+    var c0 = new Vector4(1.0, 2.0, 3.0, 4.0);
     I.setColumn(0, c0);
     expect(I[0], 1.0);
     c0.x = 4.0;
@@ -436,11 +440,11 @@ class MatrixTest extends BaseTest {
     expect(c0.x, 4.0);
   }
 
-  void testMat3ConstructorCopy() {
-    vec3 a = new vec3(1.0, 2.0, 3.0);
-    vec3 b = new vec3(4.0, 5.0, 6.0);
-    vec3 c = new vec3(7.0, 8.0, 9.0);
-    mat3 m = new mat3.columns(a, b, c);
+  void testMatrix3ConstructorCopy() {
+    var a = new Vector3(1.0, 2.0, 3.0);
+    var b = new Vector3(4.0, 5.0, 6.0);
+    var c = new Vector3(7.0, 8.0, 9.0);
+    Matrix3 m = new Matrix3.columns(a, b, c);
     expect(m.entry(0, 0), 1.0);
     expect(m.entry(2, 2), 9.0);
     c.z = 5.0;
@@ -462,8 +466,8 @@ class MatrixTest extends BaseTest {
     test('Scale matrix', testScaleMatrix);
     test('Rotate matrix', testRotateMatrix);
     test('2D transform', testMat2Transform);
-    test('3D transform', testMat3Transform);
-    test('Set column', testMat4Column);
-    test('3D constructor', testMat3ConstructorCopy);
+    test('3D transform', testMatrix3Transform);
+    test('Set column', testMatrix4Column);
+    test('3D constructor', testMatrix3ConstructorCopy);
   }
 }

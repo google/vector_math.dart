@@ -22,33 +22,33 @@
 part of vector_math;
 
 class aabb3 {
-  vec3 _min;
-  vec3 _max;
+  Vector3 _min;
+  Vector3 _max;
 
-  vec3 get min => _min;
-  vec3 get max => _max;
+  Vector3 get min => _min;
+  Vector3 get max => _max;
 
   aabb3() {
-    _min = new vec3.zero();
-    _max = new vec3.zero();
+    _min = new Vector3.zero();
+    _max = new Vector3.zero();
   }
 
   aabb3.copy(aabb3 other) {
-    _min = new vec3.copy(other._min);
-    _max = new vec3.copy(other._max);
+    _min = new Vector3.copy(other._min);
+    _max = new Vector3.copy(other._max);
   }
 
-  aabb3.minmax(vec3 min_, vec3 max_) {
-    _min = new vec3.copy(min_);
-    _max = new vec3.copy(max_);
+  aabb3.minmax(Vector3 min_, Vector3 max_) {
+    _min = new Vector3.copy(min_);
+    _max = new Vector3.copy(max_);
   }
 
-  void copyMinMax(vec3 min_, vec3 max_) {
+  void copyMinMax(Vector3 min_, Vector3 max_) {
     max_.setFrom(_max);
     min_.setFrom(_min);
   }
 
-  void copyCenterAndHalfExtents(vec3 center, vec3 halfExtents) {
+  void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     center.setFrom(_min);
     center.add(_max);
     center.scale(0.5);
@@ -67,9 +67,9 @@ class aabb3 {
     o._max.setFrom(_max);
   }
 
-  aabb3 transform(mat4 T) {
-    vec3 center = new vec3.zero();
-    vec3 halfExtents = new vec3.zero();
+  aabb3 transform(Matrix4 T) {
+    Vector3 center = new Vector3.zero();
+    Vector3 halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     T.transform3(center);
     T.absoluteRotate(halfExtents);
@@ -81,9 +81,9 @@ class aabb3 {
     return this;
   }
 
-  aabb3 rotate(mat4 T) {
-    vec3 center = new vec3.zero();
-    vec3 halfExtents = new vec3.zero();
+  aabb3 rotate(Matrix4 T) {
+    Vector3 center = new Vector3.zero();
+    Vector3 halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     T.absoluteRotate(halfExtents);
     _min.setFrom(center);
@@ -94,17 +94,17 @@ class aabb3 {
     return this;
   }
 
-  aabb3 transformed(mat4 T, aabb3 out) {
+  aabb3 transformed(Matrix4 T, aabb3 out) {
     out.copyFrom(this);
     return out.transform(T);
   }
 
-  aabb3 rotated(mat4 T, aabb3 out) {
+  aabb3 rotated(Matrix4 T, aabb3 out) {
     out.copyFrom(this);
     return out.rotate(T);
   }
 
-  void getPN(vec3 planeNormal, vec3 outP, vec3 outN) {
+  void getPN(Vector3 planeNormal, Vector3 outP, Vector3 outN) {
     outP.x = planeNormal.x < 0.0 ? _min.x : _max.x;
     outP.y = planeNormal.y < 0.0 ? _min.y : _max.y;
     outP.z = planeNormal.z < 0.0 ? _min.z : _max.z;

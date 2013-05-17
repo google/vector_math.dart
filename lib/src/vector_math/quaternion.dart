@@ -20,7 +20,8 @@
 
 part of vector_math;
 
-class quat {
+class Quaternion
+{
   final Float32List storage = new Float32List(4);
 
   double get x => storage[0];
@@ -33,7 +34,7 @@ class quat {
   set w(double w) { storage[3] = w; }
 
   /// Constructs a quaternion using the raw values [x], [y], [z], and [w]
-  quat(double x, double y, double z, double w) {
+  Quaternion(double x, double y, double z, double w) {
     storage[0] = x;
     storage[1] = y;
     storage[2] = z;
@@ -41,7 +42,7 @@ class quat {
   }
 
   /// From a rotation matrix [rotationMatrix].
-  quat.fromRotation(mat3 rotationMatrix) {
+  Quaternion.fromRotation(Matrix3 rotationMatrix) {
     double trace = rotationMatrix.trace();
     if (trace > 0.0) {
       double s = Math.sqrt(trace + 1.0);
@@ -72,12 +73,12 @@ class quat {
   }
 
   /// Rotation of [angle] around [axis].
-  quat.axisAngle(vec3 axis, double angle) {
+  Quaternion.axisAngle(Vector3 axis, double angle) {
     setAxisAngle(axis, angle);
   }
 
   /// Copies [original].
-  quat.copy(quat original) {
+  Quaternion.copy(Quaternion original) {
     storage[0] = original.storage[0];
     storage[1] = original.storage[1];
     storage[2] = original.storage[2];
@@ -85,7 +86,7 @@ class quat {
   }
 
   /// Random rotation.
-  quat.random(Math.Random rn) {
+  Quaternion.random(Math.Random rn) {
     // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
     // pg. 124-132.
     double x0 = rn.nextDouble();
@@ -104,12 +105,12 @@ class quat {
   }
 
   /// Constructs the identity quaternion
-  quat.identity() {
+  Quaternion.identity() {
     storage[3] = 1.0;
   }
 
   /// Time derivative of [q] with angular velocity [omega].
-  quat.dq(quat q, vec3 omega) {
+  Quaternion.dq(Quaternion q, Vector3 omega) {
     double qx = q.storage[0];
     double qy = q.storage[1];
     double qz = q.storage[2];
@@ -128,12 +129,12 @@ class quat {
   }
 
   /// Returns a new copy of this
-  quat clone() {
-    return new quat.copy(this);
+  Quaternion clone() {
+    return new Quaternion.copy(this);
   }
 
   /// Copy [source] into [this]
-  void copyFrom(quat source) {
+  void copyFrom(Quaternion source) {
     storage[0] = source.storage[0];
     storage[1] = source.storage[1];
     storage[2] = source.storage[2];
@@ -141,7 +142,7 @@ class quat {
   }
 
   /// Copy [this] into [target].
-  void copyTo(quat target) {
+  void copyTo(Quaternion target) {
     target.storage[0] = storage[0];
     target.storage[1] = storage[1];
     target.storage[2] = storage[2];
@@ -149,7 +150,7 @@ class quat {
   }
 
   /// Set quaternion with rotation of [radians] around [axis].
-  void setAxisAngle(vec3 axis, double radians) {
+  void setAxisAngle(Vector3 axis, double radians) {
     double len = axis.length;
     if (len == 0.0) {
       return;
@@ -179,7 +180,7 @@ class quat {
   }
 
   /// Normalize [this].
-  quat normalize() {
+  Quaternion normalize() {
     double l = length;
     if (l == 0.0) {
       return this;
@@ -193,7 +194,7 @@ class quat {
   }
 
   /// Conjugate [this].
-  quat conjugate() {
+  Quaternion conjugate() {
     storage[2] = -storage[2];
     storage[1] = -storage[1];
     storage[0] = -storage[0];
@@ -201,7 +202,7 @@ class quat {
   }
 
   /// Invert [this].
-  quat inverse() {
+  Quaternion inverse() {
     double l = 1.0 / length2;
     storage[3] = storage[3] * l;
     storage[2] = -storage[2] * l;
@@ -211,27 +212,27 @@ class quat {
   }
 
   /// Normalized copy of [this].
-  quat normalized() {
-    return new quat.copy(this).normalize();
+  Quaternion normalized() {
+    return new Quaternion.copy(this).normalize();
   }
 
   /// Conjugated copy of [this].
-  quat conjugated() {
-    return new quat.copy(this).conjugate();
+  Quaternion conjugated() {
+    return new Quaternion.copy(this).conjugate();
   }
 
   /// Inverted copy of [this].
-  quat inverted() {
-    return new quat.copy(this).inverse();
+  Quaternion inverted() {
+    return new Quaternion.copy(this).inverse();
   }
 
   /// Radians of rotation.
   double get radians => 2.0 * Math.acos(storage[3]);
 
   /// Axis of rotation.
-  vec3 get axis {
+  Vector3 get axis {
       double scale = 1.0 / (1.0 - (storage[3] * storage[3]));
-      return new vec3(storage[0] * scale,
+      return new Vector3(storage[0] * scale,
                       storage[1] * scale,
                       storage[2] * scale);
   }
@@ -251,13 +252,13 @@ class quat {
   }
 
   /// Returns a copy of [v] rotated by quaternion.
-  vec3 rotated(vec3 v) {
-    vec3 out = new vec3.copy(v);
+  Vector3 rotated(Vector3 v) {
+    Vector3 out = new Vector3.copy(v);
     return rotate(out);
   }
 
   /// Rotates [v] by [this].
-  vec3 rotate(vec3 v) {
+  Vector3 rotate(Vector3 v) {
     // conjugate(this) * [v,0] * this
     double _w = storage[3];
     double _z = storage[2];
@@ -281,7 +282,7 @@ class quat {
   }
 
   /// Scales [this] by [scale].
-  quat scale(double scale) {
+  Quaternion scale(double scale) {
     storage[3] = storage[3] * scale;
     storage[2] = storage[2] * scale;
     storage[1] = storage[1] * scale;
@@ -290,13 +291,13 @@ class quat {
   }
 
   /// Scaled copy of [this].
-  quat scaled(double scale) {
-    quat q = new quat.copy(this);
+  Quaternion scaled(double scale) {
+    Quaternion q = new Quaternion.copy(this);
     return q.scale(scale);
   }
 
   /// [this] rotated by [other].
-  quat operator*(quat other) {
+  Quaternion operator*(Quaternion other) {
     double _w = storage[3];
     double _z = storage[2];
     double _y = storage[1];
@@ -305,31 +306,31 @@ class quat {
     double oz = other.storage[2];
     double oy = other.storage[1];
     double ox = other.storage[0];
-    return new quat(_w * ox + _x * ow + _y * oz - _z * oy,
+    return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy,
                     _w * oy + _y * ow + _z * ox - _x * oz,
                     _w * oz + _z * ow + _x * oy - _y * ox,
                     _w * ow - _x * ox - _y * oy - _z * oz);
   }
 
   /// Returns copy of [this] + [other].
-  quat operator+(quat other) {
-    return new quat(storage[0] + other.storage[0],
+  Quaternion operator+(Quaternion other) {
+    return new Quaternion(storage[0] + other.storage[0],
                     storage[1] + other.storage[1],
                     storage[2] + other.storage[2],
                     storage[3] + other.storage[3]);
   }
 
   /// Returns copy of [this] - [other].
-  quat operator-(quat other) {
-    return new quat(storage[0] - other.storage[0],
+  Quaternion operator-(Quaternion other) {
+    return new Quaternion(storage[0] - other.storage[0],
                     storage[1] - other.storage[1],
                     storage[2] - other.storage[2],
                     storage[3] - other.storage[3]);
   }
 
   /// Returns negated copy of [this].
-  quat operator-() {
-    return new quat(-storage[0], -storage[1], -storage[2], -storage[3]);
+  Quaternion operator-() {
+    return new Quaternion(-storage[0], -storage[1], -storage[2], -storage[3]);
   }
 
   double operator[](int i) => storage[i];
@@ -339,7 +340,7 @@ class quat {
   }
 
   /// Returns a rotation matrix containing the same rotation as [this].
-  mat3 asRotationMatrix() {
+  Matrix3 asRotationMatrix() {
     double d = length2;
     assert(d != 0.0);
     double s = 2.0 / d;
@@ -365,7 +366,7 @@ class quat {
     double yz = _y * zs;
     double zz = _z * zs;
 
-    return new mat3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
+    return new Matrix3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
                     xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
                     xz + wy, yz - wx, 1.0 - (xx + yy)); // column 2
   }
@@ -376,15 +377,15 @@ class quat {
   }
 
   /// Relative error between [this] and [correct].
-  double relativeError(quat correct) {
-    quat diff = correct - this;
+  double relativeError(Quaternion correct) {
+    Quaternion diff = correct - this;
     double norm_diff = diff.length;
     double correct_norm = correct.length;
     return norm_diff/correct_norm;
   }
 
   /// Absolute error between [this] and [correct].
-  double absoluteError(quat correct) {
+  double absoluteError(Quaternion correct) {
     double this_norm = length;
     double correct_norm = correct.length;
     double norm_diff = (this_norm - correct_norm).abs();
