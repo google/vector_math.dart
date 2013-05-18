@@ -22,7 +22,7 @@ part of vector_math;
 
 class Quaternion
 {
-  final Float32List storage = new Float32List(4);
+  final Float32List storage;
 
   double get x => storage[0];
   double get y => storage[1];
@@ -34,7 +34,8 @@ class Quaternion
   set w(double w) { storage[3] = w; }
 
   /// Constructs a quaternion using the raw values [x], [y], [z], and [w]
-  Quaternion(double x, double y, double z, double w) {
+  Quaternion(double x, double y, double z, double w) :
+      storage = new Float32List(4) {
     storage[0] = x;
     storage[1] = y;
     storage[2] = z;
@@ -42,7 +43,8 @@ class Quaternion
   }
 
   /// From a rotation matrix [rotationMatrix].
-  Quaternion.fromRotation(Matrix3 rotationMatrix) {
+  Quaternion.fromRotation(Matrix3 rotationMatrix) : 
+      storage = new Float32List(4) {
     double trace = rotationMatrix.trace();
     if (trace > 0.0) {
       double s = Math.sqrt(trace + 1.0);
@@ -73,12 +75,13 @@ class Quaternion
   }
 
   /// Rotation of [angle] around [axis].
-  Quaternion.axisAngle(Vector3 axis, double angle) {
+  Quaternion.axisAngle(Vector3 axis, double angle) :
+      storage = new Float32List(4) {
     setAxisAngle(axis, angle);
   }
 
   /// Copies [original].
-  Quaternion.copy(Quaternion original) {
+  Quaternion.copy(Quaternion original) : storage = new Float32List(4) {
     storage[0] = original.storage[0];
     storage[1] = original.storage[1];
     storage[2] = original.storage[2];
@@ -86,7 +89,7 @@ class Quaternion
   }
 
   /// Random rotation.
-  Quaternion.random(Math.Random rn) {
+  Quaternion.random(Math.Random rn)  : storage = new Float32List(4) {
     // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
     // pg. 124-132.
     double x0 = rn.nextDouble();
@@ -105,12 +108,12 @@ class Quaternion
   }
 
   /// Constructs the identity quaternion
-  Quaternion.identity() {
+  Quaternion.identity() : storage = new Float32List(4) {
     storage[3] = 1.0;
   }
 
   /// Time derivative of [q] with angular velocity [omega].
-  Quaternion.dq(Quaternion q, Vector3 omega) {
+  Quaternion.dq(Quaternion q, Vector3 omega) : storage = new Float32List(4) {
     double qx = q.storage[0];
     double qy = q.storage[1];
     double qz = q.storage[2];
@@ -128,6 +131,9 @@ class Quaternion
     storage[3] = _w * 0.5;
   }
 
+  /// Quaternion view of [storage].
+  Quaternion.view(this.storage);
+  
   /// Returns a new copy of this
   Quaternion clone() {
     return new Quaternion.copy(this);
