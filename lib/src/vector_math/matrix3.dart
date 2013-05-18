@@ -351,9 +351,9 @@ class Matrix3 {
   /// Returns new matrix -this
   Matrix3 operator-() {
     Matrix3 r = new Matrix3.zero();
-    r[0] = -this[0];
-    r[1] = -this[1];
-    r[2] = -this[2];
+    r[0] = -storage[0];
+    r[1] = -storage[1];
+    r[2] = -storage[2];
     return r;
   }
 

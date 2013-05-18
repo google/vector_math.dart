@@ -627,10 +627,10 @@ class Matrix4 {
   /// Returns new matrix -this
   Matrix4 operator-() {
     Matrix4 r = new Matrix4.zero();
-    r[0] = -this[0];
-    r[1] = -this[1];
-    r[2] = -this[2];
-    r[3] = -this[3];
+    r[0] = -storage[0];
+    r[1] = -storage[1];
+    r[2] = -storage[2];
+    r[3] = -storage[3];
     return r;
   }
   /// Zeros [this].

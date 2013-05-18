@@ -249,8 +249,8 @@ class Matrix2 {
   /// Returns new matrix -this
   Matrix2 operator-() {
     Matrix2 r = new Matrix2.zero();
-    r[0] = -this[0];
-    r[1] = -this[1];
+    r[0] = -storage[0];
+    r[1] = -storage[1];
     return r;
   }
 
