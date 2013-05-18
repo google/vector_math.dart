@@ -21,24 +21,24 @@
 
 part of vector_math;
 
-class aabb3 {
+class Aabb3 {
   Vector3 _min;
   Vector3 _max;
 
   Vector3 get min => _min;
   Vector3 get max => _max;
 
-  aabb3() {
+  Aabb3() {
     _min = new Vector3.zero();
     _max = new Vector3.zero();
   }
 
-  aabb3.copy(aabb3 other) {
+  Aabb3.copy(Aabb3 other) {
     _min = new Vector3.copy(other._min);
     _max = new Vector3.copy(other._max);
   }
 
-  aabb3.minmax(Vector3 min_, Vector3 max_) {
+  Aabb3.minmax(Vector3 min_, Vector3 max_) {
     _min = new Vector3.copy(min_);
     _max = new Vector3.copy(max_);
   }
@@ -57,17 +57,17 @@ class aabb3 {
     halfExtents.scale(0.5);
   }
 
-  void copyFrom(aabb3 o) {
+  void copyFrom(Aabb3 o) {
     _min.setFrom(o._min);
     _max.setFrom(o._max);
   }
 
-  void copyInto(aabb3 o) {
+  void copyInto(Aabb3 o) {
     o._min.setFrom(_min);
     o._max.setFrom(_max);
   }
 
-  aabb3 transform(Matrix4 T) {
+  Aabb3 transform(Matrix4 T) {
     Vector3 center = new Vector3.zero();
     Vector3 halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
@@ -81,7 +81,7 @@ class aabb3 {
     return this;
   }
 
-  aabb3 rotate(Matrix4 T) {
+  Aabb3 rotate(Matrix4 T) {
     Vector3 center = new Vector3.zero();
     Vector3 halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
@@ -94,12 +94,12 @@ class aabb3 {
     return this;
   }
 
-  aabb3 transformed(Matrix4 T, aabb3 out) {
+  Aabb3 transformed(Matrix4 T, Aabb3 out) {
     out.copyFrom(this);
     return out.transform(T);
   }
 
-  aabb3 rotated(Matrix4 T, aabb3 out) {
+  Aabb3 rotated(Matrix4 T, Aabb3 out) {
     out.copyFrom(this);
     return out.rotate(T);
   }
