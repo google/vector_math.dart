@@ -21,7 +21,7 @@
 
 part of vector_math_operations;
 
-/// Static methods operating on 4x4 matrices packed column major into
+/// Static methods operating on 4x4 matrices packed column major into a
 /// Float32List.
 class Matrix44Operations {
   /// Compute the determinant of the 4x4 [matrix] starting at [offset].
@@ -179,5 +179,21 @@ class Matrix44Operations {
 
   /// Transpose the upper 3x3 of the 4x4 [matrix] starting at [offset].
   static void transpose33(Float32List matrix, int offset) {
+  }
+}
+
+/// Static methods operating on 4x4 matrices packed column major into a
+/// Float32x4List.
+class Matrix44SIMDOperations {
+  /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
+  static void multiply(Float32x4List out, int outOffset, Float32x4List A,
+                       int aOffset, Float32x4List B, int bOffset) {
+  }
+  
+  /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
+  /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
+  static void transform4(Float32x4List out, int outOffset, Float32x4List matrix,
+                         int matrixOffset, Float32x4List vector,
+                         int vectorOffset) {
   }
 }
