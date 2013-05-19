@@ -256,6 +256,28 @@ class Matrix44Operations {
   /// Transpose the upper 3x3 of the 4x4 [matrix] starting at [offset].
   static void transpose33(Float32List matrix, int offset) {
   }
+  
+  static void zero(Float32List matrix, int offset) {
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+    matrix[offset++] = 0.0;
+  }
 }
 
 /// Static methods operating on 4x4 matrices packed column major into a
@@ -288,10 +310,18 @@ class Matrix44SIMDOperations {
     Float32x4 z = new Float32x4.zero();
     z += xxxx * matrix[0+matrixOffset];
     Float32x4 yyyy = v.yyyy;
-    z += yyyy * m4[1+matrixOffset];
+    z += yyyy * matrix[1+matrixOffset];
     Float32x4 zzzz = v.zzzz;
-    z += zzzz * m4[2+matrixOffset];
-    z += m4[3+matrixOffset];
+    z += zzzz * matrix[2+matrixOffset];
+    z += matrix[3+matrixOffset];
     out[0+outOffset] = z;
+  }
+  
+  static void zero(Float32x4List matrix, int offset) {
+    var z = new Float32x4.zero();
+    matrix[offset++] = z;
+    matrix[offset++] = z;
+    matrix[offset++] = z;
+    matrix[offset++] = z;
   }
 }
