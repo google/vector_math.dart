@@ -145,9 +145,61 @@ class Matrix44Operations {
   static double inverse33(Float32List matrix, int offset) {
   }
 
-  /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
-  static void multiply(Float32List out, int outOffset, Float32List A,
-                       int aOffset, Float32List B, int bOffset) {
+  /// [out] = [a] * [b]; Starting at [outOffset], [aOffset], and [bOffset].
+  static void multiply(Float32List out, int outOffset, Float32List a,
+                       int aOffset, Float32List b, int bOffset) {
+    var a00 = a[aOffset++];
+    var a01 = a[aOffset++];
+    var a02 = a[aOffset++];
+    var a03 = a[aOffset++];
+    var a10 = a[aOffset++];
+    var a11 = a[aOffset++];
+    var a12 = a[aOffset++];
+    var a13 = a[aOffset++];
+    var a20 = a[aOffset++];
+    var a21 = a[aOffset++];
+    var a22 = a[aOffset++];
+    var a23 = a[aOffset++];
+    var a30 = a[aOffset++];
+    var a31 = a[aOffset++];
+    var a32 = a[aOffset++];
+    var a33 = a[aOffset++];
+
+    var b0 = b[bOffset++];
+    var b1 = b[bOffset++];
+    var b2 = b[bOffset++];
+    var b3 = b[bOffset++];
+    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+
+    b0 = b[bOffset++];
+    b1 = b[bOffset++];
+    b2 = b[bOffset++];
+    b3 = b[bOffset++];
+    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+
+    b0 = b[bOffset++];
+    b1 = b[bOffset++];
+    b2 = b[bOffset++];
+    b3 = b[bOffset++];
+    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+
+    b0 = b[bOffset++];
+    b1 = b[bOffset++];
+    b2 = b[bOffset++];
+    b3 = b[bOffset++];
+    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
+    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
+    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
+    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
   }
 
   /// Perform a 4x4 transformation matrix inverse. Assumes the upper
@@ -164,6 +216,30 @@ class Matrix44Operations {
   static void transform4(Float32List out, int outOffset, Float32List matrix,
                          int matrixOffset, Float32List vector,
                          int vectorOffset) {
+    var x = vector[vectorOffset++];
+    var y = vector[vectorOffset++];
+    var z = vector[vectorOffset++];
+    var w = vector[vectorOffset++];
+    double m0 = matrix[matrixOffset];
+    double m4 = matrix[4+matrixOffset];
+    double m8 = matrix[8+matrixOffset];
+    double m12 = matrix[12+matrixOffset];
+    out[outOffset++] = (m0 * x + m4 * y + m8 * z + m12 * w);
+    double m1 = matrix[1+matrixOffset];
+    double m5 = matrix[5+matrixOffset];
+    double m9 = matrix[9+matrixOffset];
+    double m13 = matrix[13+matrixOffset];
+    out[outOffset++] = (m1 * x + m5 * y + m9 * z + m13 * w);
+    double m2 = matrix[2+matrixOffset];
+    double m6 = matrix[6+matrixOffset];
+    double m10 = matrix[10+matrixOffset];
+    double m14 = matrix[14+matrixOffset];
+    out[outOffset++] = (m2 * x + m6 * y + m10 * z + m14 * w);
+    double m3 = matrix[3+matrixOffset];
+    double m7 = matrix[7+matrixOffset];
+    double m11 = matrix[11+matrixOffset];
+    double m15 = matrix[15+matrixOffset];
+    out[outOffset++] = (m3 * x + m7 * y + m11 * z + m15 * w);
   }
 
   /// Transform the 3D [vector] starting at [vectorOffset] by the 4x4 [matrix]
@@ -188,6 +264,18 @@ class Matrix44SIMDOperations {
   /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32x4List out, int outOffset, Float32x4List A,
                        int aOffset, Float32x4List B, int bOffset) {
+    var a0 = A[aOffset++];
+    var a1 = A[aOffset++];
+    var a2 = A[aOffset++];
+    var a3 = A[aOffset++];
+    var b0 = B[bOffset++];
+    out[outOffset++] = b0.xxxx*a0 + b0.yyyy*a1 + b0.zzzz*a2 + b0.wwww*a3;
+    var b1 = B[bOffset++];
+    out[outOffset++] = b1.xxxx*a0 + b1.yyyy*a1 + b1.zzzz*a2 + b1.wwww*a3;
+    var b2 = B[bOffset++];
+    out[outOffset++] = b2.xxxx*a0 + b2.yyyy*a1 + b2.zzzz*a2 + b2.wwww*a3;
+    var b3 = B[bOffset++];
+    out[outOffset++] = b3.xxxx*a0 + b3.yyyy*a1 + b3.zzzz*a2 + b3.wwww*a3;
   }
   
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
@@ -195,5 +283,15 @@ class Matrix44SIMDOperations {
   static void transform4(Float32x4List out, int outOffset, Float32x4List matrix,
                          int matrixOffset, Float32x4List vector,
                          int vectorOffset) {
+    Float32x4 v = vector[vectorOffset];
+    Float32x4 xxxx = v.xxxx;
+    Float32x4 z = new Float32x4.zero();
+    z += xxxx * matrix[0+matrixOffset];
+    Float32x4 yyyy = v.yyyy;
+    z += yyyy * m4[1+matrixOffset];
+    Float32x4 zzzz = v.zzzz;
+    z += zzzz * m4[2+matrixOffset];
+    z += m4[3+matrixOffset];
+    out[0+outOffset] = z;
   }
 }
