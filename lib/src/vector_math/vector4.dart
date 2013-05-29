@@ -44,6 +44,10 @@ class Vector4 {
   //// Zero vector.
   Vector4.zero() : storage = new Float32List(4) ;
 
+  /// Constructs the identity vector.
+  Vector4.identity() : storage = new Float32List(4) {
+    storage[3] = 1.0;
+  }
   /// Copy of [other].
   Vector4.copy(Vector4 other) :
     storage = new Float32List(4) {
