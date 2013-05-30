@@ -204,6 +204,43 @@ class Matrix4 {
     storage[0] = arg.storage[0];
     return this;
   }
+  /// Sets the matrix from translation [arg0] and rotation [arg1].
+  Matrix4 setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
+    double x = arg1[0];
+    double y = arg1[1];
+    double z = arg1[2];
+    double w = arg1[3];
+    double x2 = x + x;
+    double y2 = y + y;
+    double z2 = z + z;
+    double xx = x * x2;
+    double xy = x * y2;
+    double xz = x * z2;
+    double yy = y * y2;
+    double yz = y * z2;
+    double zz = z * z2;
+    double wx = w * x2;
+    double wy = w * y2;
+    double wz = w * z2;
+
+    storage[0] = 1.0 - (yy + zz);
+    storage[1] = xy + wz;
+    storage[2] = xz - wy;
+    storage[3] = 0.0;
+    storage[4] = xy - wz;
+    storage[5] = 1.0 - (xx + zz);
+    storage[6] = yz + wx;
+    storage[7] = 0.0;
+    storage[8] = xz + wy;
+    storage[9] = yz - wx;
+    storage[10] = 1.0 - (xx + yy);
+    storage[11] = 0.0;
+    storage[12] = arg0[0];
+    storage[13] = arg0[1];
+    storage[14] = arg0[2];
+    storage[15] = 1.0;
+    return this;
+  }
 
   /// Sets the upper 2x2 of the matrix to be [arg].
   Matrix4 setUpper2x2(Matrix2 arg) {
