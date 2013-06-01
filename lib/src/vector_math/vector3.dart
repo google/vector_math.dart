@@ -215,6 +215,22 @@ class Vector3 {
     return new Vector3.copy(this).reflect(normal);
   }
 
+  /// Projects [this] using the projection matrix [arg]
+  Vector3 applyProjection(Matrix4 arg) {
+    double _x = storage[0];
+    double _y = storage[1];
+    double _z = storage[2];
+    double d = 1.0 / (arg.storage[3] * _x + arg.storage[7] * _y
+                      + arg.storage[11] * _z + arg.storage[15]);
+    storage[0] = (arg.storage[0] * _x + arg.storage[4] * _y
+                  + arg.storage[8]  * _z + arg.storage[12]) * d;
+    storage[1] = (arg.storage[1] * _x + arg.storage[5] * _y
+                  + arg.storage[9]  * _z + arg.storage[13]) * d;
+    storage[2] = (arg.storage[2] * _x + arg.storage[6] * _y
+                  + arg.storage[10] * _z + arg.storage[14]) * d;
+    return this;
+  }
+
   /// Relative error between [this] and [correct]
   double relativeError(Vector3 correct) {
     double correct_norm = correct.length;
@@ -296,7 +312,7 @@ class Vector3 {
     return this;
   }
 
-  /// Absoulte value.
+  /// Absolute value.
   Vector3 absolute() {
     storage[0] = storage[0].abs();
     storage[1] = storage[1].abs();
