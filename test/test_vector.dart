@@ -205,6 +205,21 @@ class VectorTest extends BaseTest {
     relativeTest(v.z, -2.0);
   }
 
+  void testVec3Projection() {
+    var v = new Vector3(1.0, 1.0, 1.0);
+    var a = 2.0 / 3.0;
+    var b = 1.0 / 3.0;
+    var m = new Matrix4( a, b, -b, 0.0,
+                         b, a,  b, 0.0,
+                        -b, b,  a, 0.0,
+                         0.0, 0.0,  0.0, 1.0);
+
+    v.applyProjection(m);
+    relativeTest(v.x, a);
+    relativeTest(v.y, 4.0/3.0);
+    relativeTest(v.z, a);
+  }
+
   void run() {
     test('2D dot product', testVec2DotProduct);
     test('2D cross product', testVec2CrossProduct);
@@ -212,6 +227,7 @@ class VectorTest extends BaseTest {
     test('3D dot product', testVec3DotProduct);
     test('3D cross product', testVec3CrossProduct);
     test('3D reflect', testVec3Reflect);
+    test('3D projection', testVec3Projection);
     test('Constructor', testDefaultConstructor);
     test('Negate', testNegate);
   }

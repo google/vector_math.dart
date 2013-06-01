@@ -217,11 +217,11 @@ class Vector3 {
 
   /// Projects [this] using the projection matrix [arg]
   Vector3 applyProjection(Matrix4 arg) {
-    double d = 1.0 / (arg.storage[3] * storage[0] + arg.storage[7] * storage[1]
-                      + arg.storage[11] * storage[2] + arg.storage[15]);
     double _x = storage[0];
     double _y = storage[1];
     double _z = storage[2];
+    double d = 1.0 / (arg.storage[3] * _x + arg.storage[7] * _y
+                      + arg.storage[11] * _z + arg.storage[15]);
     storage[0] = (arg.storage[0] * _x + arg.storage[4] * _y
                   + arg.storage[8]  * _z + arg.storage[12]) * d;
     storage[1] = (arg.storage[1] * _x + arg.storage[5] * _y
