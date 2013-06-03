@@ -521,6 +521,44 @@ class Matrix3 {
     return det;
   }
 
+  /// Set this matrix to be the inverse of [arg]
+  double copyInverse(Matrix3 arg) {
+    double det = arg.determinant();
+    if (det == 0.0) {
+      setFrom(arg);
+      return 0.0;
+    }
+    double invDet = 1.0 / det;
+    double ix = invDet * (arg.storage[4] * arg.storage[8]
+                        - arg.storage[5] * arg.storage[7]);
+    double iy = invDet * (arg.storage[2] * arg.storage[7]
+                        - arg.storage[1] * arg.storage[8]);
+    double iz = invDet * (arg.storage[1] * arg.storage[5]
+                        - arg.storage[2] * arg.storage[4]);
+    double jx = invDet * (arg.storage[5] * arg.storage[6]
+                        - arg.storage[3] * arg.storage[8]);
+    double jy = invDet * (arg.storage[0] * arg.storage[8]
+                        - arg.storage[2] * arg.storage[6]);
+    double jz = invDet * (arg.storage[2] * arg.storage[3]
+                        - arg.storage[0] * arg.storage[5]);
+    double kx = invDet * (arg.storage[3] * arg.storage[7]
+                        - arg.storage[4] * arg.storage[6]);
+    double ky = invDet * (arg.storage[1] * arg.storage[6]
+                        - arg.storage[0] * arg.storage[7]);
+    double kz = invDet * (arg.storage[0] * arg.storage[4]
+                        - arg.storage[1] * arg.storage[3]);
+    storage[0] = ix;
+    storage[1] = iy;
+    storage[2] = iz;
+    storage[3] = jx;
+    storage[4] = jy;
+    storage[5] = jz;
+    storage[6] = kx;
+    storage[7] = ky;
+    storage[8] = kz;
+    return det;
+  }
+
   /// Turns the matrix into a rotation of [radians] around X
   void setRotationX(double radians) {
     double c = Math.cos(radians);
