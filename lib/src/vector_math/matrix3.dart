@@ -522,10 +522,11 @@ class Matrix3 {
   }
 
   /// Set this matrix to be the inverse of [arg]
-  Matrix3 getInverse(Matrix3 arg) {
+  double copyInverse(Matrix3 arg) {
     double det = arg.determinant();
     if (det == 0.0) {
-      throw new ArgumentError(arg);
+      setFrom(arg);
+      return 0.0;
     }
     double invDet = 1.0 / det;
     double ix = invDet * (arg.storage[4] * arg.storage[8]
@@ -555,7 +556,7 @@ class Matrix3 {
     storage[6] = kx;
     storage[7] = ky;
     storage[8] = kz;
-    return this;
+    return det;
   }
 
   /// Turns the matrix into a rotation of [radians] around X

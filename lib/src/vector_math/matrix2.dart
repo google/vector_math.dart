@@ -363,17 +363,18 @@ class Matrix2 {
   }
 
   /// Set this matrix to be the inverse of [arg]
-  Matrix2 getInverse(Matrix2 arg) {
+  double copyInverse(Matrix2 arg) {
     double det = arg.determinant();
     if (det == 0.0) {
-      throw new ArgumentError(arg);
+      setFrom(arg);
+      return 0.0;
     }
     double invDet = 1.0 / det;
     storage[0] = arg.storage[3] * invDet;
     storage[1] = -arg.storage[1] * invDet;
     storage[2] = -arg.storage[2] * invDet;
     storage[3] = arg.storage[0] * invDet;
-    return this;
+    return det;
   }
 
   /// Turns the matrix into a rotation of [radians]

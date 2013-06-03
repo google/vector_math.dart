@@ -988,7 +988,7 @@ class Matrix4 {
   }
 
   /// Set this matrix to be the inverse of [arg]
-  Matrix4 getInverse(Matrix4 arg) {
+  double copyInverse(Matrix4 arg) {
     double a00 = arg.storage[0];
     double a01 = arg.storage[1];
     double a02 = arg.storage[2];
@@ -1018,7 +1018,10 @@ class Matrix4 {
     var b10 = a21 * a33 - a23 * a31;
     var b11 = a22 * a33 - a23 * a32;
     var det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
-    if (det == 0.0) { throw new ArgumentError(arg); }
+    if (det == 0.0) {
+      setFrom(arg);
+      return 0.0;
+    }
     var invDet = 1.0 / det;
     storage[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
     storage[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
@@ -1036,7 +1039,7 @@ class Matrix4 {
     storage[13] = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
     storage[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
     storage[15] = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
-    return this;
+    return det;
   }
 
   double invertRotation() {
