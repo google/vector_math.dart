@@ -987,6 +987,61 @@ class Matrix4 {
     return det;
   }
 
+  /// Set this matrix to be the inverse of [arg]
+  double copyInverse(Matrix4 arg) {
+    double a00 = arg.storage[0];
+    double a01 = arg.storage[1];
+    double a02 = arg.storage[2];
+    double a03 = arg.storage[3];
+    double a10 = arg.storage[4];
+    double a11 = arg.storage[5];
+    double a12 = arg.storage[6];
+    double a13 = arg.storage[7];
+    double a20 = arg.storage[8];
+    double a21 = arg.storage[9];
+    double a22 = arg.storage[10];
+    double a23 = arg.storage[11];
+    double a30 = arg.storage[12];
+    double a31 = arg.storage[13];
+    double a32 = arg.storage[14];
+    double a33 = arg.storage[15];
+    var b00 = a00 * a11 - a01 * a10;
+    var b01 = a00 * a12 - a02 * a10;
+    var b02 = a00 * a13 - a03 * a10;
+    var b03 = a01 * a12 - a02 * a11;
+    var b04 = a01 * a13 - a03 * a11;
+    var b05 = a02 * a13 - a03 * a12;
+    var b06 = a20 * a31 - a21 * a30;
+    var b07 = a20 * a32 - a22 * a30;
+    var b08 = a20 * a33 - a23 * a30;
+    var b09 = a21 * a32 - a22 * a31;
+    var b10 = a21 * a33 - a23 * a31;
+    var b11 = a22 * a33 - a23 * a32;
+    var det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+    if (det == 0.0) {
+      setFrom(arg);
+      return 0.0;
+    }
+    var invDet = 1.0 / det;
+    storage[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
+    storage[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
+    storage[2] = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
+    storage[3] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet;
+    storage[4] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet;
+    storage[5] = (a00 * b11 - a02 * b08 + a03 * b07) * invDet;
+    storage[6] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet;
+    storage[7] = (a20 * b05 - a22 * b02 + a23 * b01) * invDet;
+    storage[8] = (a10 * b10 - a11 * b08 + a13 * b06) * invDet;
+    storage[9] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet;
+    storage[10] = (a30 * b04 - a31 * b02 + a33 * b00) * invDet;
+    storage[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet;
+    storage[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet;
+    storage[13] = (a00 * b09 - a01 * b07 + a02 * b06) * invDet;
+    storage[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet;
+    storage[15] = (a20 * b03 - a21 * b01 + a22 * b00) * invDet;
+    return det;
+  }
+
   double invertRotation() {
     double det = determinant();
     if (det == 0.0) {
