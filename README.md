@@ -47,8 +47,8 @@ Read the [docs](http://www.dartgamedevs.org/packages/vector_math/docs/)
 
 ```
 void main() {
-	vec3 x = new vec3.zero(); // Zero vector
-	vec4 y = new vec4.splat(4.0); // Vector with 4.0 in all lanes
+	Vector3 x = new Vector3.zero(); // Zero vector
+	Vector4 y = new Vector4.splat(4.0); // Vector with 4.0 in all lanes
 	x.zyx = y.xzz; // Sets z,y,x the values in x,z,z
 }
 ``` 
@@ -60,9 +60,9 @@ void main() {
 void main() {
 	// Rotation of pi/2 degrees around the Y axis followed by a 
 	// translation of (5.0, 2.0, 3.0).
-	mat4 T = new mat4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
+	Matrix4 T = new Matrix4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
 	// A point.
-	vec3 position = new vec3(1.0, 1.0, 1.0);
+	Vector3 position = new Vector3(1.0, 1.0, 1.0);
 	// Transform position by T.
 	T.transform3(position);
 }
@@ -74,7 +74,7 @@ void main() {
 void main() {
 	// Rotation of 90 degrees around the Y axis followed by a 
 	// translation of (5.0, 2.0, 3.0).
-	mat4 T = new mat4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
+	Matrix4 T = new Matrix4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
 	// Invert T.
 	T.invert();
 	// Invert just the rotation in T.
@@ -87,13 +87,13 @@ void main() {
 ```
 void main() {
 	// The X axis.
-	vec3 axis = new vec3(1.0, 0.0, 0.0);
+	Vector3 axis = new Vector3(1.0, 0.0, 0.0);
 	// 90 degrees.
 	double angle = pi/2.0;
 	// Quaternion encoding a 90 degree rotation along the X axis. 
 	quat q = new quat.axisAngle(axis, angle);
 	// A point.
-	vec3 point = new vec3(1.0, 1.0, 1.0);
+	Vector3 point = new Vector3(1.0, 1.0, 1.0);
 	// Rotate point by q.
 	q.rotate(point);
 }
