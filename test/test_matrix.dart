@@ -453,6 +453,62 @@ class MatrixTest extends BaseTest {
     expect(m.entry(2, 2), 9.0);
   }
 
+  void testMatrix2Inversion() {
+    Matrix2 m = new Matrix2(4.0, 3.0,
+                            3.0, 2.0);
+    Matrix2 result = new Matrix2.zero();
+    double det = result.copyInverse(m);
+    expect(det, -1.0);
+    expect(result.entry(0, 0), -2.0);
+    expect(result.entry(1, 0), 3.0);
+    expect(result.entry(0, 1), 3.0);
+    expect(result.entry(1, 1), -4.0);
+  }
+
+  void testMatrix3Inversion() {
+    Matrix3 m = new Matrix3(1.0, 0.0, 5.0,
+                            2.0, 1.0, 6.0,
+                            3.0, 4.0, 0.0);
+    Matrix3 result = new Matrix3.zero();
+    double det = result.copyInverse(m);
+    expect(det, 1.0);
+    expect(result.entry(0, 0), -24.0);
+    expect(result.entry(1, 0), 20.0);
+    expect(result.entry(2, 0), -5.0);
+    expect(result.entry(0, 1), 18.0);
+    expect(result.entry(1, 1), -15.0);
+    expect(result.entry(2, 1), 4.0);
+    expect(result.entry(0, 2), 5.0);
+    expect(result.entry(1, 2), -4.0);
+    expect(result.entry(2, 2), 1.0);
+  }
+
+  void testMatrix4Inversion() {
+    Matrix4 m = new Matrix4(1.0, 0.0, 2.0, 2.0,
+                            0.0, 2.0, 1.0, 0.0,
+                            0.0, 1.0, 0.0, 1.0,
+                            1.0, 2.0, 1.0, 4.0);
+    Matrix4 result = new Matrix4.zero();
+    double det = result.copyInverse(m);
+    expect(det, 2.0);
+    expect(result.entry(0, 0), -2.0);
+    expect(result.entry(1, 0), 1.0);
+    expect(result.entry(2, 0), -8.0);
+    expect(result.entry(3, 0), 3.0);
+    expect(result.entry(0, 1), -0.5);
+    expect(result.entry(1, 1), 0.5);
+    expect(result.entry(2, 1), -1.0);
+    expect(result.entry(3, 1), 0.5);
+    expect(result.entry(0, 2), 1.0);
+    expect(result.entry(1, 2), 0.0);
+    expect(result.entry(2, 2), 2.0);
+    expect(result.entry(3, 2), -1.0);
+    expect(result.entry(0, 3), 0.5);
+    expect(result.entry(1, 3), -0.5);
+    expect(result.entry(2, 3), 2.0);
+    expect(result.entry(3, 3), -0.5);
+  }
+
   void run() {
     test('Matrix transpose', testMatrixTranspose);
     test('Determinant', testDeterminant);
@@ -469,5 +525,8 @@ class MatrixTest extends BaseTest {
     test('3D transform', testMatrix3Transform);
     test('Set column', testMatrix4Column);
     test('3D constructor', testMatrix3ConstructorCopy);
+    test('Matrix2 inversion', testMatrix2Inversion);
+    test('Matrix3 inversion', testMatrix3Inversion);
+    test('Matrix4 inversion', testMatrix4Inversion);
   }
 }
