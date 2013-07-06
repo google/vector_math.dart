@@ -110,4 +110,34 @@ class Aabb3 {
     outN.y = planeNormal.y < 0.0 ? _max.y : _min.y;
     outN.z = planeNormal.z < 0.0 ? _max.z : _min.z;
   }
+
+  /// Set the min and max of [this] so that [this] is a hull of [this] and [other].
+  void hull(Aabb3 other) {
+    min.x = Math.min(_min.x, other.min.x);
+    min.y = Math.min(_min.y, other.min.y);
+    min.z = Math.min(_min.z, other.min.z);
+    max.x = Math.max(_max.x, other.max.x);
+    max.y = Math.max(_max.y, other.max.y);
+    max.z = Math.max(_max.z, other.max.y);
+  }
+
+  /// Return if [this] contains [other].
+  bool contains(Aabb3 other) {
+    return min.x <= other.min.x &&
+           min.y <= other.min.y &&
+           min.z <= other.min.z &&
+           max.x >= other.max.x &&
+           max.y >= other.max.y &&
+           max.z >= other.max.z;
+  }
+
+  /// Return if [this] intersects with [other].
+  bool intersectsWith(Aabb3 other) {
+    return min.x <= other.max.x &&
+           min.y <= other.max.y &&
+           min.z <= other.max.z &&
+           max.x >= other.min.x &&
+           max.y >= other.min.y &&
+           max.z >= other.min.z;
+  }
 }
