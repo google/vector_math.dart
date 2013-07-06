@@ -26,6 +26,19 @@ class VectorTest extends BaseTest {
     relativeTest(result, new Vector2( inputA.y, -inputA.x));
   }
 
+  void testVec2OrthogonalScale() {
+    final Vector2 input = new Vector2(0.5, 0.75);
+    final Vector2 output = new Vector2.zero();
+
+    input.scaleOrthogonalInto(2.0, output);
+    expect(output.x, equals(-1.5));
+    expect(output.y, equals(1.0));
+
+    input.scaleOrthogonalInto(-2.0, output);
+    expect(output.x, equals(1.5));
+    expect(output.y, equals(-1.0));
+  }
+
   void testVec3DotProduct() {
     List<Vector3> inputA = new List<Vector3>();
     List<Vector3> inputB = new List<Vector3>();
@@ -223,6 +236,7 @@ class VectorTest extends BaseTest {
   void run() {
     test('2D dot product', testVec2DotProduct);
     test('2D cross product', testVec2CrossProduct);
+    test('2D orhtogonal scale', testVec2OrthogonalScale);
     test('2D reflect', testVec2Reflect);
     test('3D dot product', testVec3DotProduct);
     test('3D cross product', testVec3CrossProduct);
