@@ -174,7 +174,7 @@ class Vector2 {
     return storage[0] * other.storage[1] - storage[1] * other.storage[0];
   }
 
-  /// Rotate scaled vector by 90 degrees (counter clockwise) into out.
+  /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
     out.setValues(-scale * storage[1], scale * storage[0]);
     return out;
