@@ -85,7 +85,7 @@ class Aabb2 {
            max.x >= other.max.x;
   }
 
-  /// Return if [this] overlaps with [other].
+  /// Return if [this] intersects with [other].
   bool intersectsWith(Aabb2 other) {
     return min.x <= other.max.x &&
            min.y <= other.max.y &&
