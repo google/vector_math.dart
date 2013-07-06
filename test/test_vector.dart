@@ -37,6 +37,8 @@ class VectorTest extends BaseTest {
     input.scaleOrthogonalInto(-2.0, output);
     expect(output.x, equals(1.5));
     expect(output.y, equals(-1.0));
+
+    expect(0.0, equals(input.dot(output)));
   }
 
   void testVec3DotProduct() {
