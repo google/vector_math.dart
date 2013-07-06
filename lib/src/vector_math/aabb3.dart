@@ -28,6 +28,11 @@ class Aabb3 {
   Vector3 get min => _min;
   Vector3 get max => _max;
 
+  Vector3 get center {
+    Vector3 c = new Vector3.copy(_min);
+    return c.add(_max).scale(.5);
+  }
+
   Aabb3() :
     _min = new Vector3.zero(),
     _max = new Vector3.zero() {}
