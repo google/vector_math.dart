@@ -56,7 +56,7 @@ class AabbTest extends BaseTest {
         reason: 'Touching corners are counted as intersection.');
   }
 
-  void testAabb2Combination() {
+  void testAabb2Hull() {
     final Aabb2 a = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,4.0));
     final Aabb2 b = new Aabb2.minmax(_v(3.0,2.0), _v(6.0,2.0));
 
@@ -79,6 +79,6 @@ class AabbTest extends BaseTest {
     test('AABB2 Center', testAabb2Center);
     test('AABB2 Contains', testAabb2Contains);
     test('AABB2 Intersection', testAabb2Intersection);
-    test('AABB2 Combination', testAabb2Combination);
+    test('AABB2 Hull', testAabb2Hull);
   }
 }
