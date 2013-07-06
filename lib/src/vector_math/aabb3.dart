@@ -22,26 +22,23 @@
 part of vector_math;
 
 class Aabb3 {
-  Vector3 _min;
-  Vector3 _max;
+  final Vector3 _min;
+  final Vector3 _max;
 
   Vector3 get min => _min;
   Vector3 get max => _max;
 
-  Aabb3() {
-    _min = new Vector3.zero();
-    _max = new Vector3.zero();
-  }
+  Aabb3() :
+    _min = new Vector3.zero(),
+    _max = new Vector3.zero() {}
 
-  Aabb3.copy(Aabb3 other) {
-    _min = new Vector3.copy(other._min);
-    _max = new Vector3.copy(other._max);
-  }
+  Aabb3.copy(Aabb3 other) :
+    _min = new Vector3.copy(other._min),
+    _max = new Vector3.copy(other._max) {}
 
-  Aabb3.minmax(Vector3 min_, Vector3 max_) {
-    _min = new Vector3.copy(min_);
-    _max = new Vector3.copy(max_);
-  }
+  Aabb3.minmax(Vector3 min_, Vector3 max_) :
+    _min = new Vector3.copy(min_),
+    _max = new Vector3.copy(max_) {}
 
   void copyMinMax(Vector3 min_, Vector3 max_) {
     max_.setFrom(_max);

@@ -22,8 +22,8 @@
 part of vector_math;
 
 class Aabb2 {
-  Vector2 _min;
-  Vector2 _max;
+  final Vector2 _min;
+  final Vector2 _max;
 
   Vector2 get min => _min;
   Vector2 get max => _max;
@@ -33,20 +33,17 @@ class Aabb2 {
     return c.add(_max).scale(.5);
   }
 
-  Aabb2() {
-    _min = new Vector2.zero();
-    _max = new Vector2.zero();
-  }
+  Aabb2() :
+    _min = new Vector2.zero(),
+    _max = new Vector2.zero() {}
 
-  Aabb2.copy(Aabb2 other) {
-    _min = new Vector2.copy(other._min);
-    _max = new Vector2.copy(other._max);
-  }
+  Aabb2.copy(Aabb2 other) :
+    _min = new Vector2.copy(other._min),
+    _max = new Vector2.copy(other._max) {}
 
-  Aabb2.minmax(Vector2 min_, Vector2 max_) {
-    _min = new Vector2.copy(min_);
-    _max = new Vector2.copy(max_);
-  }
+  Aabb2.minmax(Vector2 min_, Vector2 max_) :
+    _min = new Vector2.copy(min_),
+    _max = new Vector2.copy(max_) {}
 
   void copyMinMax(Vector2 min_, Vector2 max_) {
     max_.setFrom(_max);
