@@ -69,12 +69,12 @@ class Aabb2 {
     o._max.setFrom(_max);
   }
 
-  /// Set the min and max of [this] so that [this] is a hull of [a] and [b].
-  void setFromCombination(Aabb2 a, Aabb2 b) {
-    min.x = Math.min(a.min.x, b.min.x);
-    min.y = Math.min(a.min.y, b.min.y);
-    max.x = Math.max(a.max.x, b.max.x);
-    max.y = Math.max(a.max.y, b.max.y);
+  /// Set the min and max of [this] so that [this] is a hull of [this] and [other].
+  void hull(Aabb2 other) {
+    min.x = Math.min(_min.x, other.min.x);
+    min.y = Math.min(_min.y, other.min.y);
+    max.x = Math.max(_max.x, other.max.x);
+    max.y = Math.max(_max.y, other.max.y);
   }
 
   /// Return if [this] contains [other].

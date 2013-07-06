@@ -60,16 +60,15 @@ class AabbTest extends BaseTest {
     final Aabb2 a = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,4.0));
     final Aabb2 b = new Aabb2.minmax(_v(3.0,2.0), _v(6.0,2.0));
 
-    final Aabb2 result = new Aabb2();
-    result.setFromCombination(a, b);
+    a.hull(b);
 
-    expect(result.min.x, equals(1.0));
-    expect(result.min.y, equals(1.0));
-    expect(result.max.x, equals(6.0));
-    expect(result.max.y, equals(4.0));
+    expect(a.min.x, equals(1.0));
+    expect(a.min.y, equals(1.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
 
-    expect(result.contains(a), isTrue);
-    expect(result.contains(b), isTrue);
+    expect(a.contains(a), isTrue);
+    expect(a.contains(b), isTrue);
   }
 
   Vector2 _v(double x, double y) {
