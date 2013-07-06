@@ -75,10 +75,91 @@ class AabbTest extends BaseTest {
     return new Vector2(x,y);
   }
 
+  Vector3 _v3(double x, double y, double z) {
+    return new Vector3(x,y,z);
+  }
+
+  void testAabb3Center() {
+    final Aabb3 aabb = new Aabb3.minmax(_v3(1.0,2.0, 4.0), _v3(8.0,16.0, 32.0));
+    final Vector3 center = aabb.center;
+
+    expect(center.x, equals(4.5));
+    expect(center.y, equals(9.0));
+    expect(center.z, equals(18.0));
+  }
+
+  void testAabb3Contains() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 child = new Aabb3.minmax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
+    final Aabb3 cutting = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(5.0,5.0,5.0));
+    final Aabb3 outside = new Aabb3.minmax(_v3(10.0,10.0,10.0), _v3(20.0,20.0,20.0));
+    final Aabb3 grandParent = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
+
+    expect(parent.contains(child), isTrue);
+    expect(parent.contains(parent), isTrue);
+    expect(parent.contains(cutting), isFalse);
+    expect(parent.contains(outside), isFalse);
+    expect(parent.contains(grandParent), isFalse);
+  }
+
+  void testAabb3Intersection() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 child = new Aabb3.minmax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
+    final Aabb3 cutting = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(5.0,5.0,5.0));
+    final Aabb3 outside = new Aabb3.minmax(_v3(10.0,10.0,10.0), _v3(20.0,20.0,10.0));
+    final Aabb3 grandParent = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
+
+    final Aabb3 siblingOne = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(3.0,3.0,3.0));
+    final Aabb3 siblingTwo = new Aabb3.minmax(_v3(3.0,0.0,0.0), _v3(6.0,3.0,3.0));
+    final Aabb3 siblingThree = new Aabb3.minmax(_v3(3.0,3.0,3.0), _v3(6.0,6.0,6.0));
+
+    expect(parent.intersectsWith(child), isTrue);
+    expect(child.intersectsWith(parent), isTrue);
+
+    expect(parent.intersectsWith(parent), isTrue);
+
+    expect(parent.intersectsWith(cutting), isTrue);
+    expect(cutting.intersectsWith(parent), isTrue);
+
+    expect(parent.intersectsWith(outside), isFalse);
+    expect(outside.intersectsWith(parent), isFalse);
+
+    expect(parent.intersectsWith(grandParent), isTrue);
+    expect(grandParent.intersectsWith(parent), isTrue);
+
+    expect(siblingOne.intersectsWith(siblingTwo), isTrue,
+        reason: 'Touching edges are counted as intersection.');
+    expect(siblingOne.intersectsWith(siblingThree), isTrue,
+        reason: 'Touching corners are counted as intersection.');
+  }
+
+  void testAabb3Hull() {
+    final Aabb3 a = new Aabb3.minmax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
+    final Aabb3 b = new Aabb3.minmax(_v3(3.0,2.0,3.0), _v3(6.0,2.0,8.0));
+
+    a.hull(b);
+
+    expect(a.min.x, equals(1.0));
+    expect(a.min.y, equals(1.0));
+    expect(a.min.z, equals(3.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
+    expect(a.max.z, equals(10.0));
+
+    expect(a.contains(a), isTrue);
+    expect(a.contains(b), isTrue);
+  }
+
   void run() {
     test('AABB2 Center', testAabb2Center);
     test('AABB2 Contains', testAabb2Contains);
     test('AABB2 Intersection', testAabb2Intersection);
     test('AABB2 Hull', testAabb2Hull);
+
+    test('AABB3 Center', testAabb3Center);
+    test('AABB3 Contains', testAabb3Contains);
+    test('AABB3 Intersection', testAabb3Intersection);
+    test('AABB3 Hull', testAabb3Hull);
+
   }
 }
