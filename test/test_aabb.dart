@@ -24,7 +24,7 @@ class AabbTest extends BaseTest {
     expect(parent.contains(grandParent), isFalse);
   }
 
-  void testAabb2Overlaps() {
+  void testAabb2Intersection() {
     final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
     final Aabb2 child = new Aabb2.minmax(_v(2.0,2.0), _v(7.0,7.0));
     final Aabb2 cutting = new Aabb2.minmax(_v(0.0,0.0), _v(5.0,5.0));
@@ -36,24 +36,24 @@ class AabbTest extends BaseTest {
     final Aabb2 siblingThree = new Aabb2.minmax(_v(3.0,3.0), _v(6.0,6.0));
 
 
-    expect(parent.overlaps(child), isTrue);
-    expect(child.overlaps(parent), isTrue);
+    expect(parent.intersectsWith(child), isTrue);
+    expect(child.intersectsWith(parent), isTrue);
 
-    expect(parent.overlaps(parent), isTrue);
+    expect(parent.intersectsWith(parent), isTrue);
 
-    expect(parent.overlaps(cutting), isTrue);
-    expect(cutting.overlaps(parent), isTrue);
+    expect(parent.intersectsWith(cutting), isTrue);
+    expect(cutting.intersectsWith(parent), isTrue);
 
-    expect(parent.overlaps(outside), isFalse);
-    expect(outside.overlaps(parent), isFalse);
+    expect(parent.intersectsWith(outside), isFalse);
+    expect(outside.intersectsWith(parent), isFalse);
 
-    expect(parent.overlaps(grandParent), isTrue);
-    expect(grandParent.overlaps(parent), isTrue);
+    expect(parent.intersectsWith(grandParent), isTrue);
+    expect(grandParent.intersectsWith(parent), isTrue);
 
-    expect(siblingOne.overlaps(siblingTwo), isTrue,
-        reason: 'Touching edges are counted as overlap.');
-    expect(siblingOne.overlaps(siblingThree), isTrue,
-        reason: 'Touching corners are counted as overlap.');
+    expect(siblingOne.intersectsWith(siblingTwo), isTrue,
+        reason: 'Touching edges are counted as intersection.');
+    expect(siblingOne.intersectsWith(siblingThree), isTrue,
+        reason: 'Touching corners are counted as intersection.');
   }
 
   void testAabb2Combination() {
@@ -79,7 +79,7 @@ class AabbTest extends BaseTest {
   void run() {
     test('AABB2 Center', testAabb2Center);
     test('AABB2 Contains', testAabb2Contains);
-    test('AABB2 Overlaps', testAabb2Overlaps);
+    test('AABB2 Intersection', testAabb2Intersection);
     test('AABB2 Combination', testAabb2Combination);
   }
 }
