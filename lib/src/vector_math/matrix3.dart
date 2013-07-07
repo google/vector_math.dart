@@ -649,6 +649,30 @@ class Matrix3 {
     return arg;
   }
 
+  /// Rotates [arg] by the absolute rotation of [this]
+  /// Returns [arg].
+  /// Primarily used by AABB transformation code.
+  Vector2 absoluteRotate2(Vector2 arg) {
+    double m00 = storage[0].abs();
+    double m01 = storage[3].abs();
+    double m10 = storage[1].abs();
+    double m11 = storage[4].abs();
+    double x = arg.x;
+    double y = arg.y;
+    arg.x = x * m00 + y * m01;
+    arg.y = x * m10 + y * m11;
+    return arg;
+  }
+
+  /// Transforms [arg] with [this].
+  Vector2 transform2(Vector2 arg) {
+    double x_ =  (storage[0] * arg.storage[0]) + (storage[4] * arg.storage[1]) + storage[8];
+    double y_ =  (storage[1] * arg.storage[0]) + (storage[5] * arg.storage[1]) + storage[9];
+    arg.x = x_;
+    arg.y = y_;
+    return arg;
+  }
+
   Matrix3 add(Matrix3 o) {
     storage[0] = storage[0] + o.storage[0];
     storage[1] = storage[1] + o.storage[1];
