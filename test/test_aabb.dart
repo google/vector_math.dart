@@ -71,6 +71,35 @@ class AabbTest extends BaseTest {
     expect(a.contains(b), isTrue);
   }
 
+  void testAabb2Rotate() {
+    final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
+    final Aabb2 input = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,3.0));
+
+    final Aabb2 result = input.rotate(rotation);
+
+    relativeTest(result.min.x, 2-Math.sqrt(2));
+    relativeTest(result.min.y, 2-Math.sqrt(2));
+    relativeTest(result.max.x, 2+Math.sqrt(2));
+    relativeTest(result.max.y, 2+Math.sqrt(2));
+    relativeTest(result.center.x, 2.0);
+    relativeTest(result.center.y, 2.0);
+  }
+
+  void testAabb2Transform() {
+    final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
+    final Aabb2 input = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,3.0));
+
+    final Aabb2 result = input.transform(rotation);
+    final double newCenterY = Math.sqrt(8);
+
+    relativeTest(result.min.x, -Math.sqrt(2));
+    relativeTest(result.min.y, newCenterY-Math.sqrt(2));
+    relativeTest(result.max.x, Math.sqrt(2));
+    relativeTest(result.max.y, newCenterY+Math.sqrt(2));
+    relativeTest(result.center.x, 0.0);
+    relativeTest(result.center.y, newCenterY);
+  }
+
   Vector2 _v(double x, double y) {
     return new Vector2(x,y);
   }
@@ -155,6 +184,9 @@ class AabbTest extends BaseTest {
     test('AABB2 Contains', testAabb2Contains);
     test('AABB2 Intersection', testAabb2Intersection);
     test('AABB2 Hull', testAabb2Hull);
+    test('AABB2 Rotate', testAabb2Rotate);
+    test('AABB2 Transform', testAabb2Transform);
+
 
     test('AABB3 Center', testAabb3Center);
     test('AABB3 Contains', testAabb3Contains);
