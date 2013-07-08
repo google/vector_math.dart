@@ -666,8 +666,8 @@ class Matrix3 {
 
   /// Transforms [arg] with [this].
   Vector2 transform2(Vector2 arg) {
-    double x_ =  (storage[0] * arg.storage[0]) + (storage[4] * arg.storage[1]) + storage[8];
-    double y_ =  (storage[1] * arg.storage[0]) + (storage[5] * arg.storage[1]) + storage[9];
+    double x_ =  (storage[0] * arg.storage[0]) + (storage[3] * arg.storage[1]) + storage[6];
+    double y_ =  (storage[1] * arg.storage[0]) + (storage[4] * arg.storage[1]) + storage[7];
     arg.x = x_;
     arg.y = y_;
     return arg;
