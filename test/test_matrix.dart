@@ -429,6 +429,40 @@ class MatrixTest extends BaseTest {
                                                       0.0));
   }
 
+  void testMatrix3Transform2() {
+    Matrix3 rotZ = new Matrix3.rotationZ(Math.PI / 4);
+    Matrix3 trans = new Matrix3(
+        1.0 , 0.0 , 3.0 ,
+        0.0 , 1.0 , 2.0 ,
+        3.0 , 2.0 , 1.0);
+
+    final input = new Vector2(1.0, 0.0);
+
+    relativeTest(rotZ.transform2(input.clone()),
+        new Vector2(Math.sqrt(0.5),Math.sqrt(0.5)));
+
+    relativeTest(trans.transform2(input.clone()),
+        new Vector2(4.0,2.0));
+
+  }
+
+  void testMatrix3AbsoluteRotate2() {
+    Matrix3 rotZ = new Matrix3.rotationZ(-Math.PI / 4);
+    Matrix3 rotZcw = new Matrix3.rotationZ(Math.PI / 4);
+    // Add translation
+    rotZ.setEntry(3, 0, 3.0);
+    rotZ.setEntry(3, 1, 2.0);
+
+    final input = new Vector2(1.0, 0.0);
+
+    relativeTest(rotZ.absoluteRotate2(input.clone()),
+        new Vector2(Math.sqrt(0.5),Math.sqrt(0.5)));
+
+    relativeTest(rotZcw.absoluteRotate2(input.clone()),
+        new Vector2(Math.sqrt(0.5),Math.sqrt(0.5)));
+
+  }
+
   void testMatrix4Column() {
     Matrix4 I = new Matrix4.zero();
     expect(I[0], 0.0);
@@ -522,6 +556,8 @@ class MatrixTest extends BaseTest {
     test('Scale matrix', testScaleMatrix);
     test('Rotate matrix', testRotateMatrix);
     test('2D transform', testMat2Transform);
+    test('Matrix3 2D transform', testMatrix3Transform2);
+    test('Matrix3 2D rotation', testMatrix3AbsoluteRotate2);
     test('3D transform', testMatrix3Transform);
     test('Set column', testMatrix4Column);
     test('3D constructor', testMatrix3ConstructorCopy);

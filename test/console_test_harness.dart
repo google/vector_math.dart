@@ -34,7 +34,12 @@ void main() {
     OpenGLMatrixTest omt = new OpenGLMatrixTest();
     omt.run();
   });
-  
+
+  group('AABB', () {
+    AabbTest at = new AabbTest();
+    at.run();
+  });
+
   group('Utility', () {
     test('degrees', () {
       relativeTest(degrees(Math.PI), 180.0);
