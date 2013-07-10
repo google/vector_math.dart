@@ -25,6 +25,20 @@ part of vector_math;
 class Vector3 {
   final Float32List storage;
 
+  /// Set the values of [result] to the minimum of [a] and [b] for each line.
+  static void min(Vector3 a, Vector3 b, Vector3 result) {
+    result.x = Math.min(a.x, b.x);
+    result.y = Math.min(a.y, b.y);
+    result.z = Math.min(a.z, b.z);
+  }
+
+  /// Set the values of [result] to the maximum of [a] and [b] for each line.
+  static void max(Vector3 a, Vector3 b, Vector3 result) {
+    result.x = Math.max(a.x, b.x);
+    result.y = Math.max(a.y, b.y);
+    result.z = Math.max(a.z, b.z);
+  }
+
   /// Construct a new vector with the specified values.
   Vector3(double x_, double y_, double z_) :
     storage = new Float32List(3) {
