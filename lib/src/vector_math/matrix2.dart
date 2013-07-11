@@ -26,6 +26,24 @@ part of vector_math;
 class Matrix2 {
   final Float32List storage = new Float32List(4);
 
+  /// Solve A * x = b.
+  static void solve(Matrix2 A, Vector2 x, Vector2 b) {
+    final double a11 = A.entry(0,0);
+    final double a12 = A.entry(0,1);
+    final double a21 = A.entry(1,0);
+    final double a22 = A.entry(1,1);
+    final double bx = b.x;
+    final double by = b.y;
+    double det = a11 * a22 - a12 * a21;
+
+    if (det != 0.0){
+      det = 1.0 / det;
+    }
+
+    x.x = det * (a22 * bx - a12 * by);
+    x.y = det * (a11 * by - a21 * bx);
+  }
+
   /// Return index in storage for [row], [col] value.
   int index(int row, int col) => (col * 2) + row;
 
