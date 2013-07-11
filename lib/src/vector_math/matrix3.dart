@@ -26,14 +26,14 @@ part of vector_math;
 class Matrix3 {
   final Float32List storage = new Float32List(9);
 
-  /// Solve [A] * [x] = [b] taking into account only the upper upper 2x2 of [A].
+  /// Solve [A] * [x] = [b].
   static void solve2(Matrix3 A, Vector2 x, Vector2 b) {
     final double a11 = A.entry(0,0);
     final double a12 = A.entry(0,1);
     final double a21 = A.entry(1,0);
     final double a22 = A.entry(1,1);
-    final double bx = b.x;
-    final double by = b.y;
+    final double bx = b.x - A.storage[6];
+    final double by = b.y - A.storage[7];
     double det = a11 * a22 - a12 * a21;
 
     if (det != 0.0){
@@ -58,34 +58,33 @@ class Matrix3 {
     double rx, ry, rz;
     double det;
 
-    // A.getColumn(1).crossInto(A.getColumn(2), x);
+    // Column1 cross Column 2
     rx = A1y * A2z - A1z * A2y;
     ry = A1z * A2x - A1x * A2z;
     rz = A1x * A2y - A1y * A2x;
 
+    // A.getColumn(0).dot(x)
     det = A0x * rx + A0y * ry + A0z * rz;
     if (det != 0.0){
       det = 1.0 / det;
     }
 
-    //final double x_ = det * b.dot(x);
-    final double x_ = det * b.x * rx + b.y * ry + b.z * rz;
+    // b dot [Column1 cross Column 2]
+    final double x_ = det * (b.x * rx + b.y * ry + b.z * rz);
 
-    //b.crossInto(A.getColumn(2), x);
-    rx = A2y * b.z - A2z * b.y;
-    ry = A2z * b.x - A2x * b.z;
-    rz = A2x * b.y - A2y * b.x;
+    // Column2 cross b
+    rx = -(A2y * b.z - A2z * b.y);
+    ry = -(A2z * b.x - A2x * b.z);
+    rz = -(A2x * b.y - A2y * b.x);
+    // Column0 dot -[Column2 cross b (Column3)]
+    final double y_ = det * (A0x * rx + A0y * ry + A0z * rz);
 
-    //final double y_ = det * A.getColumn(0).dot(x);
-    final double y_ = det * A0x * rx + A0y * ry + A0z * rz;
-
-    //A.getColumn(1).crossInto(b, x);
-    rx = A1y * b.z - A1z * b.y;
-    ry = A1z * b.x - A1x * b.z;
-    rz = A1x * b.y - A1y * b.x;
-
-    //double z_ = det * A.getColumn(0).dot(x);
-    double z_ = det * A0x * rx + A0y * ry + A0z * rz;
+    // b cross Column 1
+    rx = -(b.y * A1z - b.z * A1y);
+    ry = -(b.z * A1x - b.x * A1z);
+    rz = -(b.x * A1y - b.y * A1x);
+    // Column0 dot -[b cross Column 1]
+    final double z_ = det * (A0x * rx + A0y * ry + A0z * rz);
 
     x.x = x_;
     x.y = y_;
