@@ -440,6 +440,20 @@ class Matrix3 {
     return x - y + z;
   }
 
+  /// Returns the dot product of row [i] and [v].
+  double dotRow(int i, Vector3 v) {
+    return entry(i, 0) * v.storage[0]
+         + entry(i, 1) * v.storage[1]
+         + entry(i, 2) * v.storage[2];
+  }
+
+  /// Returns the dot product of column [j] and [v].
+  double dotColumn(int j, Vector3 v) {
+    return entry(0, j) * v.storage[0]
+         + entry(1, j) * v.storage[1]
+         + entry(2, j) * v.storage[2];
+  }
+
   /// Returns the trace of the matrix. The trace of a matrix is the sum of
   /// the diagonal entries.
   double trace() {

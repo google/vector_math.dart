@@ -543,6 +543,49 @@ class MatrixTest extends BaseTest {
     expect(result.entry(3, 3), -0.5);
   }
 
+  void testMatrix2Dot() {
+    final Matrix2 matrix = new Matrix2(1.0, 2.0, 3.0, 4.0);
+
+    final Vector2 v = new Vector2(3.0,4.0);
+
+    expect(matrix.dotRow(0, v), equals(15.0));
+    expect(matrix.dotRow(1, v), equals(22.0));
+    expect(matrix.dotColumn(0, v), equals(11.0));
+    expect(matrix.dotColumn(1, v), equals(25.0));
+  }
+
+  void testMatrix3Dot() {
+    final Matrix3 matrix = new Matrix3(
+        1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+
+    final Vector3 v = new Vector3(2.0,3.0,4.0);
+
+    expect(matrix.dotRow(0, v), equals(42.0));
+    expect(matrix.dotRow(1, v), equals(51.0));
+    expect(matrix.dotRow(2, v), equals(60.0));
+    expect(matrix.dotColumn(0, v), equals(20.0));
+    expect(matrix.dotColumn(1, v), equals(47.0));
+    expect(matrix.dotColumn(2, v), equals(74.0));
+  }
+
+
+  void testMatrix4Dot() {
+    final Matrix4 matrix = new Matrix4(
+        1.0, 2.0, 3.0, 4.0,
+        5.0, 6.0, 7.0, 8.0,
+        9.0, 10.0, 11.0, 12.0,
+        13.0, 14.0, 15.0, 16.0);
+
+    final Vector4 v = new Vector4(1.0, 2.0,3.0,4.0);
+
+    expect(matrix.dotRow(0, v), equals(90.0));
+    expect(matrix.dotRow(1, v), equals(100.0));
+    expect(matrix.dotRow(2, v), equals(110.0));
+    expect(matrix.dotColumn(0, v), equals(30.0));
+    expect(matrix.dotColumn(1, v), equals(70.0));
+    expect(matrix.dotColumn(2, v), equals(110.0));
+  }
+
   void run() {
     test('Matrix transpose', testMatrixTranspose);
     test('Determinant', testDeterminant);
@@ -564,5 +607,8 @@ class MatrixTest extends BaseTest {
     test('Matrix2 inversion', testMatrix2Inversion);
     test('Matrix3 inversion', testMatrix3Inversion);
     test('Matrix4 inversion', testMatrix4Inversion);
+    test('Matrix2 dot product', testMatrix2Dot);
+    test('Matrix3 dot product', testMatrix3Dot);
+    test('Matrix4 dot product', testMatrix4Dot);
   }
 }

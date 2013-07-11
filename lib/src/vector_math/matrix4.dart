@@ -794,6 +794,22 @@ class Matrix4 {
             det3_201_013 * storage[14] + det3_201_012 * storage[15];
   }
 
+  /// Returns the dot product of row [i] and [v].
+  double dotRow(int i, Vector4 v) {
+    return entry(i, 0) * v.storage[0]
+         + entry(i, 1) * v.storage[1]
+         + entry(i, 2) * v.storage[2]
+         + entry(i, 3) * v.storage[3];
+  }
+
+  /// Returns the dot product of column [j] and [v].
+  double dotColumn(int j, Vector4 v) {
+    return entry(0, j) * v.storage[0]
+         + entry(1, j) * v.storage[1]
+         + entry(2, j) * v.storage[2]
+         + entry(3, j) * v.storage[3];
+  }
+
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the
   /// diagonal entries.
   double trace() {
