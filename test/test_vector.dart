@@ -2,6 +2,57 @@ part of vector_math_test;
 
 class VectorTest extends BaseTest {
 
+  void testVec2MinMax() {
+    final Vector2 a = new Vector2(5.0, 7.0);
+    final Vector2 b = new Vector2(3.0, 8.0);
+
+    Vector2 result = new Vector2.zero();
+
+    Vector2.min(a, b, result);
+    expect(result.x, equals(3.0));
+    expect(result.y, equals(7.0));
+
+    Vector2.max(a, b, result);
+    expect(result.x, equals(5.0));
+    expect(result.y, equals(8.0));
+  }
+
+  void testVec3MinMax() {
+    final Vector3 a = new Vector3(5.0, 7.0, -3.0);
+    final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+
+    Vector3 result = new Vector3.zero();
+
+    Vector3.min(a, b, result);
+    expect(result.x, equals(3.0));
+    expect(result.y, equals(7.0));
+    expect(result.z, equals(-3.0));
+
+    Vector3.max(a, b, result);
+    expect(result.x, equals(5.0));
+    expect(result.y, equals(8.0));
+    expect(result.z, equals(2.0));
+  }
+
+  void testVec4MinMax() {
+    final Vector4 a = new Vector4(5.0, 7.0, -3.0, 10.0);
+    final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+
+    Vector4 result = new Vector4.zero();
+
+    Vector4.min(a, b, result);
+    expect(result.x, equals(3.0));
+    expect(result.y, equals(7.0));
+    expect(result.z, equals(-3.0));
+    expect(result.w, equals(2.0));
+
+    Vector4.max(a, b, result);
+    expect(result.x, equals(5.0));
+    expect(result.y, equals(8.0));
+    expect(result.z, equals(2.0));
+    expect(result.w, equals(10.0));
+  }
+
   void testVec2DotProduct() {
     final Vector2 inputA = new Vector2(0.417267069084370, 0.049654430325742);
     final Vector2 inputB = new Vector2(0.944787189721646, 0.490864092468080);
@@ -246,5 +297,9 @@ class VectorTest extends BaseTest {
     test('3D projection', testVec3Projection);
     test('Constructor', testDefaultConstructor);
     test('Negate', testNegate);
+
+    test('2D min/max', testVec2MinMax);
+    test('3D min/max', testVec3MinMax);
+    test('4D min/max', testVec4MinMax);
   }
 }
