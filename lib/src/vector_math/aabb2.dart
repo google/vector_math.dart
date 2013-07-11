@@ -116,10 +116,10 @@ class Aabb2 {
 
   /// Return if [this] contains [other].
   bool contains(Aabb2 other) {
-    return min.x <= other.min.x &&
-           min.y <= other.min.y &&
-           max.y >= other.max.y &&
-           max.x >= other.max.x;
+    return min.x < other.min.x &&
+           min.y < other.min.y &&
+           max.y > other.max.y &&
+           max.x > other.max.x;
   }
 
   /// Return if [this] intersects with [other].

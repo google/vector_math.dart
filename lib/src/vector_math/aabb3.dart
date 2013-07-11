@@ -128,12 +128,12 @@ class Aabb3 {
 
   /// Return if [this] contains [other].
   bool contains(Aabb3 other) {
-    return min.x <= other.min.x &&
-           min.y <= other.min.y &&
-           min.z <= other.min.z &&
-           max.x >= other.max.x &&
-           max.y >= other.max.y &&
-           max.z >= other.max.z;
+    return min.x < other.min.x &&
+           min.y < other.min.y &&
+           min.z < other.min.z &&
+           max.x > other.max.x &&
+           max.y > other.max.y &&
+           max.z > other.max.z;
   }
 
   /// Return if [this] intersects with [other].
