@@ -18,7 +18,7 @@ class AabbTest extends BaseTest {
     final Aabb2 grandParent = new Aabb2.minmax(_v(0.0,0.0), _v(10.0,10.0));
 
     expect(parent.contains(child), isTrue);
-    expect(parent.contains(parent), isTrue);
+    expect(parent.contains(parent), isFalse);
     expect(parent.contains(cutting), isFalse);
     expect(parent.contains(outside), isFalse);
     expect(parent.contains(grandParent), isFalse);
@@ -66,9 +66,6 @@ class AabbTest extends BaseTest {
     expect(a.min.y, equals(1.0));
     expect(a.max.x, equals(6.0));
     expect(a.max.y, equals(4.0));
-
-    expect(a.contains(a), isTrue);
-    expect(a.contains(b), isTrue);
   }
 
   void testAabb2Rotate() {
@@ -125,7 +122,7 @@ class AabbTest extends BaseTest {
     final Aabb3 grandParent = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
 
     expect(parent.contains(child), isTrue);
-    expect(parent.contains(parent), isTrue);
+    expect(parent.contains(parent), isFalse);
     expect(parent.contains(cutting), isFalse);
     expect(parent.contains(outside), isFalse);
     expect(parent.contains(grandParent), isFalse);
@@ -174,9 +171,6 @@ class AabbTest extends BaseTest {
     expect(a.max.x, equals(6.0));
     expect(a.max.y, equals(4.0));
     expect(a.max.z, equals(10.0));
-
-    expect(a.contains(a), isTrue);
-    expect(a.contains(b), isTrue);
   }
 
   void run() {
