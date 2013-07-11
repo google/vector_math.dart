@@ -44,7 +44,7 @@ class Matrix4 {
     x.y = det * (a11 * by - a21 * bx);
   }
 
-/// Solve [A] * [x] = [b].
+  /// Solve [A] * [x] = [b].
   static void solve3(Matrix4 A, Vector3 x, Vector3 b) {
     final double A0x = A.entry(0, 0);
     final double A0y = A.entry(1, 0);
@@ -94,7 +94,7 @@ class Matrix4 {
     x.z = z_;
   }
 
-/// Solve [A] * [x] = [b].
+  /// Solve [A] * [x] = [b].
   static void solve(Matrix4 A, Vector4 x, Vector4 b) {
     final double a00 = A.storage[0];
     final double a01 = A.storage[1];

@@ -26,7 +26,7 @@ part of vector_math;
 class Matrix2 {
   final Float32List storage = new Float32List(4);
 
-  /// Solve A * x = b.
+  /// Solve [A] * [x] = [b].
   static void solve(Matrix2 A, Vector2 x, Vector2 b) {
     final double a11 = A.entry(0,0);
     final double a12 = A.entry(0,1);
