@@ -305,6 +305,16 @@ class Matrix2 {
     return (storage[0] * storage[3]) - (storage[1]*storage[2]);
   }
 
+  /// Returns the dot product of row [i] and [v].
+  double dotRow(int i, Vector2 v) {
+    return storage[i] * v.storage[0] + storage[2 + i] * v.storage[1];
+  }
+
+  /// Returns the dot product of column [j] and [v].
+  double dotColumn(int j, Vector2 v) {
+    return storage[j*2] * v.storage[0] + storage[(j*2)+1] * v.storage[1];
+  }
+
   /// Trace of the matrix.
   double trace() {
     double t = 0.0;
