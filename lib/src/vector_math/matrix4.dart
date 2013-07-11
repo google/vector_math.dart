@@ -125,6 +125,11 @@ class Matrix4 {
     final double b10 = a21 * a33 - a23 * a31;
     final double b11 = a22 * a33 - a23 * a32;
 
+    final double bX = b.storage[0];
+    final double bY = b.storage[1];
+    final double bZ = b.storage[2];
+    final double bW = b.storage[3];
+
     double det = b00 * b11 - b01 * b10 +
                  b02 * b09 + b03 * b08 -
                  b04 * b07 + b05 * b06;
@@ -132,28 +137,28 @@ class Matrix4 {
     if (det != 0.0) { det = 1.0/det;  }
 
     x.x =  det * (
-           (a11 * b11 - a12 * b10 + a13 * b09) * b.storage[0] -
-           (a10 * b11 - a12 * b08 + a13 * b07) * b.storage[1] +
-           (a10 * b10 - a11 * b08 + a13 * b06) * b.storage[2] -
-           (a10 * b09 - a11 * b07 + a12 * b06) * b.storage[3]);
+           (a11 * b11 - a12 * b10 + a13 * b09) * bX -
+           (a10 * b11 - a12 * b08 + a13 * b07) * bY +
+           (a10 * b10 - a11 * b08 + a13 * b06) * bZ -
+           (a10 * b09 - a11 * b07 + a12 * b06) * bW);
 
     x.y =  det * -(
-           (a01 * b11 - a02 * b10 + a03 * b09) * b.storage[0] -
-           (a00 * b11 - a02 * b08 + a03 * b07) * b.storage[1] +
-           (a00 * b10 - a01 * b08 + a03 * b06) * b.storage[2] -
-           (a00 * b09 - a01 * b07 + a02 * b06) * b.storage[3]);
+           (a01 * b11 - a02 * b10 + a03 * b09) * bX -
+           (a00 * b11 - a02 * b08 + a03 * b07) * bY +
+           (a00 * b10 - a01 * b08 + a03 * b06) * bZ -
+           (a00 * b09 - a01 * b07 + a02 * b06) * bW);
 
     x.z =  det * (
-           (a31 * b05 - a32 * b04 + a33 * b03) * b.storage[0] -
-           (a30 * b05 - a32 * b02 + a33 * b01) * b.storage[1] +
-           (a30 * b04 - a31 * b02 + a33 * b00) * b.storage[2] -
-           (a30 * b03 - a31 * b01 + a32 * b00) * b.storage[3]);
+           (a31 * b05 - a32 * b04 + a33 * b03) * bX -
+           (a30 * b05 - a32 * b02 + a33 * b01) * bY +
+           (a30 * b04 - a31 * b02 + a33 * b00) * bZ -
+           (a30 * b03 - a31 * b01 + a32 * b00) * bW);
 
     x.w =  det * -(
-           (a21 * b05 - a22 * b04 + a23 * b03) * b.storage[0] -
-           (a20 * b05 - a22 * b02 + a23 * b01) * b.storage[1] +
-           (a20 * b04 - a21 * b02 + a23 * b00) * b.storage[2] -
-           (a20 * b03 - a21 * b01 + a22 * b00) * b.storage[3]);
+           (a21 * b05 - a22 * b04 + a23 * b03) * bX -
+           (a20 * b05 - a22 * b02 + a23 * b01) * bY +
+           (a20 * b04 - a21 * b02 + a23 * b00) * bZ -
+           (a20 * b03 - a21 * b01 + a22 * b00) * bW);
 
   }
 
