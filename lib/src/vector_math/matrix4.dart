@@ -26,6 +26,142 @@ part of vector_math;
 class Matrix4 {
   final Float32List storage = new Float32List(16);
 
+  /// Solve [A] * [x] = [b].
+  static void solve2(Matrix4 A, Vector2 x, Vector2 b) {
+    final double a11 = A.entry(0,0);
+    final double a12 = A.entry(0,1);
+    final double a21 = A.entry(1,0);
+    final double a22 = A.entry(1,1);
+    final double bx = b.x - A.storage[8];
+    final double by = b.y - A.storage[9];
+    double det = a11 * a22 - a12 * a21;
+
+    if (det != 0.0){
+      det = 1.0 / det;
+    }
+
+    x.x = det * (a22 * bx - a12 * by);
+    x.y = det * (a11 * by - a21 * bx);
+  }
+
+  /// Solve [A] * [x] = [b].
+  static void solve3(Matrix4 A, Vector3 x, Vector3 b) {
+    final double A0x = A.entry(0, 0);
+    final double A0y = A.entry(1, 0);
+    final double A0z = A.entry(2, 0);
+    final double A1x = A.entry(0, 1);
+    final double A1y = A.entry(1, 1);
+    final double A1z = A.entry(2, 1);
+    final double A2x = A.entry(0, 2);
+    final double A2y = A.entry(1, 2);
+    final double A2z = A.entry(2, 2);
+    final double bx = b.x - A.storage[12];
+    final double by = b.y - A.storage[13];
+    final double bz = b.z - A.storage[14];
+    double rx, ry, rz;
+    double det;
+
+    // Column1 cross Column 2
+    rx = A1y * A2z - A1z * A2y;
+    ry = A1z * A2x - A1x * A2z;
+    rz = A1x * A2y - A1y * A2x;
+
+    // A.getColumn(0).dot(x)
+    det = A0x * rx + A0y * ry + A0z * rz;
+    if (det != 0.0){
+      det = 1.0 / det;
+    }
+
+    // b dot [Column1 cross Column 2]
+    final double x_ = det * (bx * rx + by * ry + bz * rz);
+
+    // Column2 cross b
+    rx = -(A2y * bz - A2z * by);
+    ry = -(A2z * bx - A2x * bz);
+    rz = -(A2x * by - A2y * bx);
+    // Column0 dot -[Column2 cross b (Column3)]
+    final double y_ = det * (A0x * rx + A0y * ry + A0z * rz);
+
+    // b cross Column 1
+    rx = -(by * A1z - bz * A1y);
+    ry = -(bz * A1x - bx * A1z);
+    rz = -(bx * A1y - by * A1x);
+    // Column0 dot -[b cross Column 1]
+    final double z_ = det * (A0x * rx + A0y * ry + A0z * rz);
+
+    x.x = x_;
+    x.y = y_;
+    x.z = z_;
+  }
+
+  /// Solve [A] * [x] = [b].
+  static void solve(Matrix4 A, Vector4 x, Vector4 b) {
+    final double a00 = A.storage[0];
+    final double a01 = A.storage[1];
+    final double a02 = A.storage[2];
+    final double a03 = A.storage[3];
+    final double a10 = A.storage[4];
+    final double a11 = A.storage[5];
+    final double a12 = A.storage[6];
+    final double a13 = A.storage[7];
+    final double a20 = A.storage[8];
+    final double a21 = A.storage[9];
+    final double a22 = A.storage[10];
+    final double a23 = A.storage[11];
+    final double a30 = A.storage[12];
+    final double a31 = A.storage[13];
+    final double a32 = A.storage[14];
+    final double a33 = A.storage[15];
+    final double b00 = a00 * a11 - a01 * a10;
+    final double b01 = a00 * a12 - a02 * a10;
+    final double b02 = a00 * a13 - a03 * a10;
+    final double b03 = a01 * a12 - a02 * a11;
+    final double b04 = a01 * a13 - a03 * a11;
+    final double b05 = a02 * a13 - a03 * a12;
+    final double b06 = a20 * a31 - a21 * a30;
+    final double b07 = a20 * a32 - a22 * a30;
+    final double b08 = a20 * a33 - a23 * a30;
+    final double b09 = a21 * a32 - a22 * a31;
+    final double b10 = a21 * a33 - a23 * a31;
+    final double b11 = a22 * a33 - a23 * a32;
+
+    final double bX = b.storage[0];
+    final double bY = b.storage[1];
+    final double bZ = b.storage[2];
+    final double bW = b.storage[3];
+
+    double det = b00 * b11 - b01 * b10 +
+                 b02 * b09 + b03 * b08 -
+                 b04 * b07 + b05 * b06;
+
+    if (det != 0.0) { det = 1.0/det;  }
+
+    x.x =  det * (
+           (a11 * b11 - a12 * b10 + a13 * b09) * bX -
+           (a10 * b11 - a12 * b08 + a13 * b07) * bY +
+           (a10 * b10 - a11 * b08 + a13 * b06) * bZ -
+           (a10 * b09 - a11 * b07 + a12 * b06) * bW);
+
+    x.y =  det * -(
+           (a01 * b11 - a02 * b10 + a03 * b09) * bX -
+           (a00 * b11 - a02 * b08 + a03 * b07) * bY +
+           (a00 * b10 - a01 * b08 + a03 * b06) * bZ -
+           (a00 * b09 - a01 * b07 + a02 * b06) * bW);
+
+    x.z =  det * (
+           (a31 * b05 - a32 * b04 + a33 * b03) * bX -
+           (a30 * b05 - a32 * b02 + a33 * b01) * bY +
+           (a30 * b04 - a31 * b02 + a33 * b00) * bZ -
+           (a30 * b03 - a31 * b01 + a32 * b00) * bW);
+
+    x.w =  det * -(
+           (a21 * b05 - a22 * b04 + a23 * b03) * bX -
+           (a20 * b05 - a22 * b02 + a23 * b01) * bY +
+           (a20 * b04 - a21 * b02 + a23 * b00) * bZ -
+           (a20 * b03 - a21 * b01 + a22 * b00) * bW);
+
+  }
+
   /// Return index in storage for [row], [col] value.
   int index(int row, int col) => (col * 4) + row;
 
