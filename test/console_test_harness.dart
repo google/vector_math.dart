@@ -4,6 +4,7 @@ import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/vm_config.dart';
 import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_lists.dart';
 import 'vector_math_test.dart';
 
 void testCore(Configuration config) {

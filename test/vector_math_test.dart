@@ -2,7 +2,9 @@ library vector_math_test;
 
 import 'package:unittest/unittest.dart';
 import 'dart:math' as Math;
+import 'dart:typed_data';
 import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_lists.dart';
 
 part 'base_test.dart';
 part 'test_quaternion.dart';
