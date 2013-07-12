@@ -586,6 +586,90 @@ class MatrixTest extends BaseTest {
     expect(matrix.dotColumn(2, v), equals(110.0));
   }
 
+  void testMatrix2Solving() {
+    final Matrix2 A = new Matrix2(2.0,2.0,8.0,20.0);
+    final Vector2 b = new Vector2(20.0,64.0);
+    final Vector2 result = new Vector2.zero();
+
+    Matrix2.solve(A, result, b);
+
+    final Vector2 backwards = A.transform(new Vector2.copy(result));
+
+    expect(backwards.x, equals(b.x));
+    expect(backwards.y, equals(b.y));
+  }
+
+
+  void testMatrix3Solving() {
+    final Matrix3 A = new Matrix3(
+        2.0, 12.0, 8.0,
+        20.0, 24.0,26.0,
+        8.0, 4.0, 60.0);
+
+    final Vector3 b = new Vector3(32.0,64.0, 72.0);
+    final Vector3 result = new Vector3.zero();
+
+    final Vector2 b2 = new Vector2(32.0,64.0);
+    final Vector2 result2 = new Vector2.zero();
+
+    Matrix3.solve(A, result, b);
+    Matrix3.solve2(A, result2, b2);
+
+    final Vector3 backwards = A.transform(new Vector3.copy(result));
+    final Vector2 backwards2 = A.transform2(new Vector2.copy(result2));
+
+    expect(backwards.x, equals(b.x));
+    expect(backwards.y, equals(b.y));
+    expect(backwards.z, equals(b.z));
+
+    expect(backwards2.x, equals(b2.x));
+    expect(backwards2.y, equals(b2.y));
+  }
+
+  void testMatrix4Solving() {
+    final Matrix4 A = new Matrix4(
+        2.0, 12.0, 8.0, 8.0,
+        20.0, 24.0,26.0, 4.0,
+        8.0, 4.0, 60.0, 12.0,
+        16.0, 16.0, 14.0, 64.0);
+
+    final Matrix3 A_small = new Matrix3(
+        2.0, 12.0, 8.0,
+        20.0, 24.0,26.0,
+        8.0, 4.0, 60.0
+    );
+
+    final Vector4 b = new Vector4(32.0, 64.0, 72.0, 8.0);
+    final Vector4 result = new Vector4.zero();
+
+    final Vector3 b3 = new Vector3(32.0,64.0, 72.0);
+    final Vector3 result3 = new Vector3.zero();
+
+    final Vector2 b2 = new Vector2(32.0,64.0);
+    final Vector2 result2 = new Vector2.zero();
+
+    Matrix4.solve(A, result, b);
+    Matrix4.solve3(A, result3, b3);
+    Matrix4.solve2(A, result2, b2);
+
+    final Vector4 backwards = A.transform(new Vector4.copy(result));
+    final Vector3 backwards3 = A.transform3(new Vector3.copy(result3));
+    final Vector2 backwards2 = A_small.transform2(new Vector2.copy(result2));
+
+
+    expect(backwards2.x, equals(b.x));
+    expect(backwards2.y, equals(b.y));
+
+    expect(backwards3.x, equals(b.x));
+    expect(backwards3.y, equals(b.y));
+    expect(backwards3.z, equals(b.z));
+
+    expect(backwards.x, equals(b.x));
+    expect(backwards.y, equals(b.y));
+    expect(backwards.z, equals(b.z));
+    expect(backwards.w, equals(b.w));
+  }
+
   void run() {
     test('Matrix transpose', testMatrixTranspose);
     test('Determinant', testDeterminant);
@@ -610,5 +694,9 @@ class MatrixTest extends BaseTest {
     test('Matrix2 dot product', testMatrix2Dot);
     test('Matrix3 dot product', testMatrix3Dot);
     test('Matrix4 dot product', testMatrix4Dot);
+
+    test('Matrix2 solving', testMatrix2Solving);
+    test('Matrix3 solving', testMatrix3Solving);
+    test('Matrix4 solving', testMatrix4Solving);
   }
 }
