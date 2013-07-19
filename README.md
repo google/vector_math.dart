@@ -11,14 +11,17 @@ A Vector math library for 2D and 3D applications.
 
 * 2D,3D, and 4D vector and matrix types.
 * Quaternion type for animating rotations.
-* Syntax that is practically identical to GLSL the WebGL shader language.
-	* Flexible getters and setters, for example, ```position.xwz = color.grb;```.
-	* All GLSL utility functions.
+* Flexible getters and setters, for example, ```position.xwz = color.grb;```.
 * Fully documented.
 * Well tested.
 * Heavily optimized.
 
-## Status: Beta ##
+
+## Libraries using vector_math ##
+
+* [Spectre](http://github.com/johnmccutchan/spectre)
+* [Three.dart](https://github.com/threeDart/)
+* [Box2D](https://github.com/dart-lang/dart-box2d)
 
 ## Getting Started ##
 
@@ -39,7 +42,7 @@ import 'package:vector_math/vector_math.dart';
 
 ## Documentation ##
 
-Read the [docs](http://www.dartgamedevs.org/packages/vector_math/docs/)
+Read the [docs](http://johnmccutchan.github.io/vector_math.html)
 
 ## Examples ##
 
@@ -91,7 +94,7 @@ void main() {
 	// 90 degrees.
 	double angle = pi/2.0;
 	// Quaternion encoding a 90 degree rotation along the X axis. 
-	quat q = new quat.axisAngle(axis, angle);
+	Quaternion q = new Quaternion.axisAngle(axis, angle);
 	// A point.
 	Vector3 point = new Vector3(1.0, 1.0, 1.0);
 	// Rotate point by q.

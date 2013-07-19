@@ -23,7 +23,7 @@ part of vector_math;
 
 /// 2D column vector.
 class Vector2 {
-  final Float32List storage;
+  final Float32List storage = new Float32List(2);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
@@ -38,30 +38,24 @@ class Vector2 {
   }
 
   /// Construct a new vector with the specified values.
-  Vector2(double x_, double y_) :
-    storage = new Float32List(2) {
+  Vector2(double x_, double y_) {
     setValues(x_, y_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector2.array(List<double> array, [int offset=0]) :
-    storage = new Float32List(2) {
+  Vector2.array(List<double> array, [int offset=0]) {
     int i = offset;
     storage[1] = array[i+1];
     storage[0] = array[i+0];
   }
 
   /// Zero vector.
-  Vector2.zero() : storage = new Float32List(2);
+  Vector2.zero();
 
   /// Copy of [other].
-  Vector2.copy(Vector2 other) :
-    storage = new Float32List(2) {
+  Vector2.copy(Vector2 other) {
     setFrom(other);
   }
-
-  /// View of [storage].
-  Vector2.view(this.storage);
 
   /// Set the values of the vector.
   Vector2 setValues(double x_, double y_) {

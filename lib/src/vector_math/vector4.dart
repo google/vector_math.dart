@@ -23,7 +23,7 @@ part of vector_math;
 
 /// 4D column vector.
 class Vector4 {
-  final Float32List storage;
+  final Float32List storage = new Float32List(4);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector4 a, Vector4 b, Vector4 result) {
@@ -42,14 +42,12 @@ class Vector4 {
   }
 
   /// Constructs a new vector with the specified values.
-  Vector4(double x_, double y_, double z_, double w_) :
-    storage = new Float32List(4) {
+  Vector4(double x_, double y_, double z_, double w_) {
     setValues(x_, y_, z_, w_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector4.array(List<double> array, [int offset=0]) :
-    storage = new Float32List(4) {
+  Vector4.array(List<double> array, [int offset=0]) {
     int i = offset;
     storage[0] = array[i+0];
     storage[1] = array[i+1];
@@ -58,20 +56,18 @@ class Vector4 {
   }
 
   //// Zero vector.
-  Vector4.zero() : storage = new Float32List(4) ;
+  Vector4.zero();
 
   /// Constructs the identity vector.
-  Vector4.identity() : storage = new Float32List(4) {
+  Vector4.identity() {
     storage[3] = 1.0;
   }
+
   /// Copy of [other].
-  Vector4.copy(Vector4 other) :
-    storage = new Float32List(4) {
+  Vector4.copy(Vector4 other) {
     setFrom(other);
   }
 
-  /// View of [storage].
-  Vector4.view(this.storage);
 
   /// Set the values of the vector.
   Vector4 setValues(double x_, double y_, double z_, double w_) {

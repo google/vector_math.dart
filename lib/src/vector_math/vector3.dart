@@ -23,7 +23,7 @@ part of vector_math;
 
 /// 3D column vector.
 class Vector3 {
-  final Float32List storage;
+  final Float32List storage = new Float32List(3);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
@@ -40,14 +40,12 @@ class Vector3 {
   }
 
   /// Construct a new vector with the specified values.
-  Vector3(double x_, double y_, double z_) :
-    storage = new Float32List(3) {
+  Vector3(double x_, double y_, double z_) {
     setValues(x_, y_, z_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector3.array(List<double> array, [int offset=0]) :
-    storage = new Float32List(3) {
+  Vector3.array(List<double> array, [int offset=0]) {
     int i = offset;
     storage[2] = array[i+2];
     storage[1] = array[i+1];
@@ -55,16 +53,12 @@ class Vector3 {
   }
 
   //// Zero vector.
-  Vector3.zero() : storage = new Float32List(3);
+  Vector3.zero();
 
   /// Copy of [other].
-  Vector3.copy(Vector3 other) :
-    storage = new Float32List(3) {
+  Vector3.copy(Vector3 other) {
     setFrom(other);
   }
-
-  /// View of [storage].
-  Vector3.view(this.storage);
 
   /// Set the values of the vector.
   Vector3 setValues(double x_, double y_, double z_) {
