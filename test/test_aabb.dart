@@ -68,11 +68,11 @@ class AabbTest extends BaseTest {
     expect(a.max.y, equals(4.0));
   }
 
-  void testAabb2Enclose() {
+  void testAabb2HullPoint() {
     final Aabb2 a = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,4.0));
     final Vector2 b = _v(6.0,2.0);
 
-    a.enclose(b);
+    a.hullPoint(b);
 
     expect(a.min.x, equals(1.0));
     expect(a.min.y, equals(1.0));
@@ -185,11 +185,11 @@ class AabbTest extends BaseTest {
     expect(a.max.z, equals(10.0));
   }
 
-  void testAabb3Enclose() {
+  void testAabb3HullPoint() {
     final Aabb3 a = new Aabb3.minmax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
     final Vector3 b = _v3(6.0,2.0,8.0);
 
-    a.enclose(b);
+    a.hullPoint(b);
 
     expect(a.min.x, equals(1.0));
     expect(a.min.y, equals(1.0));
@@ -204,7 +204,7 @@ class AabbTest extends BaseTest {
     test('AABB2 Contains', testAabb2Contains);
     test('AABB2 Intersection', testAabb2Intersection);
     test('AABB2 Hull', testAabb2Hull);
-    test('AABB2 Enclose', testAabb2Enclose);
+    test('AABB2 Hull Point', testAabb2HullPoint);
     test('AABB2 Rotate', testAabb2Rotate);
     test('AABB2 Transform', testAabb2Transform);
 
@@ -213,7 +213,7 @@ class AabbTest extends BaseTest {
     test('AABB3 Contains', testAabb3Contains);
     test('AABB3 Intersection', testAabb3Intersection);
     test('AABB3 Hull', testAabb3Hull);
-    test('AABB3 Enclose', testAabb3Enclose);
+    test('AABB3 Hull Point', testAabb3HullPoint);
 
   }
 }

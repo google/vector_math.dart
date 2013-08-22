@@ -114,8 +114,8 @@ class Aabb2 {
     max.y = Math.max(_max.y, other.max.y);
   }
 
-  /// Encloses a [point] in [this].
-  void enclose(Vector2 point) {
+  /// Set the min and max of [this] so that [this] contains [point].
+  void hullPoint(Vector2 point) {
     Vector2.min(_min, point, _min);
     Vector2.max(_max, point, _max);
   }
