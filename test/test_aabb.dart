@@ -78,6 +78,15 @@ class AabbTest extends BaseTest {
     expect(a.min.y, equals(1.0));
     expect(a.max.x, equals(6.0));
     expect(a.max.y, equals(4.0));
+
+    final Vector2 c = _v(0.0,1.0);
+
+    a.hullPoint(c);
+
+    expect(a.min.x, equals(0.0));
+    expect(a.min.y, equals(1.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
   }
 
   void testAabb2Rotate() {
@@ -194,6 +203,17 @@ class AabbTest extends BaseTest {
     expect(a.min.x, equals(1.0));
     expect(a.min.y, equals(1.0));
     expect(a.min.z, equals(4.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
+    expect(a.max.z, equals(10.0));
+
+    final Vector3 c = _v3(6.0,0.0,2.0);
+
+    a.hullPoint(c);
+
+    expect(a.min.x, equals(1.0));
+    expect(a.min.y, equals(0.0));
+    expect(a.min.z, equals(2.0));
     expect(a.max.x, equals(6.0));
     expect(a.max.y, equals(4.0));
     expect(a.max.z, equals(10.0));
