@@ -68,6 +68,27 @@ class AabbTest extends BaseTest {
     expect(a.max.y, equals(4.0));
   }
 
+  void testAabb2HullPoint() {
+    final Aabb2 a = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,4.0));
+    final Vector2 b = _v(6.0,2.0);
+
+    a.hullPoint(b);
+
+    expect(a.min.x, equals(1.0));
+    expect(a.min.y, equals(1.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
+
+    final Vector2 c = _v(0.0,1.0);
+
+    a.hullPoint(c);
+
+    expect(a.min.x, equals(0.0));
+    expect(a.min.y, equals(1.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
+  }
+
   void testAabb2Rotate() {
     final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
     final Aabb2 input = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,3.0));
@@ -173,11 +194,37 @@ class AabbTest extends BaseTest {
     expect(a.max.z, equals(10.0));
   }
 
+  void testAabb3HullPoint() {
+    final Aabb3 a = new Aabb3.minmax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
+    final Vector3 b = _v3(6.0,2.0,8.0);
+
+    a.hullPoint(b);
+
+    expect(a.min.x, equals(1.0));
+    expect(a.min.y, equals(1.0));
+    expect(a.min.z, equals(4.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
+    expect(a.max.z, equals(10.0));
+
+    final Vector3 c = _v3(6.0,0.0,2.0);
+
+    a.hullPoint(c);
+
+    expect(a.min.x, equals(1.0));
+    expect(a.min.y, equals(0.0));
+    expect(a.min.z, equals(2.0));
+    expect(a.max.x, equals(6.0));
+    expect(a.max.y, equals(4.0));
+    expect(a.max.z, equals(10.0));
+  }
+
   void run() {
     test('AABB2 Center', testAabb2Center);
     test('AABB2 Contains', testAabb2Contains);
     test('AABB2 Intersection', testAabb2Intersection);
     test('AABB2 Hull', testAabb2Hull);
+    test('AABB2 Hull Point', testAabb2HullPoint);
     test('AABB2 Rotate', testAabb2Rotate);
     test('AABB2 Transform', testAabb2Transform);
 
@@ -186,6 +233,7 @@ class AabbTest extends BaseTest {
     test('AABB3 Contains', testAabb3Contains);
     test('AABB3 Intersection', testAabb3Intersection);
     test('AABB3 Hull', testAabb3Hull);
+    test('AABB3 Hull Point', testAabb3HullPoint);
 
   }
 }
