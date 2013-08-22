@@ -114,6 +114,12 @@ class Aabb2 {
     max.y = Math.max(_max.y, other.max.y);
   }
 
+  /// Encloses a [point] in [this].
+  void enclose(Vector2 point) {
+    Vector2.min(_min, point, _min);
+    Vector2.max(_max, point, _max);
+  }
+
   /// Return if [this] contains [other].
   bool contains(Aabb2 other) {
     return min.x < other.min.x &&

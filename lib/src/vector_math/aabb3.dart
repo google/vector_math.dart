@@ -126,6 +126,12 @@ class Aabb3 {
     max.z = Math.max(_max.z, other.max.y);
   }
 
+  /// Encloses a [point] in [this].
+  void enclose(Vector3 point) {
+    Vector3.min(_min, point, _min);
+    Vector3.max(_max, point, _max);
+  }
+
   /// Return if [this] contains [other].
   bool contains(Aabb3 other) {
     return min.x < other.min.x &&
