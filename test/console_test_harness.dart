@@ -54,5 +54,10 @@ void main() {
     GeometryTest gt = new GeometryTest();
     gt.run();
   });
+
+  group('Sphere', () {
+    SphereTest st = new SphereTest();
+    st.run();
+  });
 }
 
