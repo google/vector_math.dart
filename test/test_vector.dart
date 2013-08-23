@@ -286,6 +286,60 @@ class VectorTest extends BaseTest {
     relativeTest(v.z, a);
   }
 
+  void testVec2DistanceTo() {
+    var a = new Vector2(1.0, 1.0);
+    var b = new Vector2(3.0, 1.0);
+    var c = new Vector2(1.0, -1.0);
+
+    expect(a.distanceTo(b), equals(2.0));
+    expect(a.distanceTo(c), equals(2.0));
+  }
+
+  void testVec3DistanceTo() {
+    var a = new Vector3(1.0, 1.0, 1.0);
+    var b = new Vector3(1.0, 3.0, 1.0);
+    var c = new Vector3(1.0, 1.0, -1.0);
+
+    expect(a.distanceTo(b), equals(2.0));
+    expect(a.distanceTo(c), equals(2.0));
+  }
+
+  void testVec4DistanceTo() {
+    var a = new Vector4(1.0, 1.0, 1.0, 0.0);
+    var b = new Vector4(1.0, 3.0, 1.0, 0.0);
+    var c = new Vector4(1.0, 1.0, -1.0, 0.0);
+
+    expect(a.distanceTo(b), equals(2.0));
+    expect(a.distanceTo(c), equals(2.0));
+  }
+
+  void testVec2DistanceToSquared() {
+    var a = new Vector2(1.0, 1.0);
+    var b = new Vector2(3.0, 1.0);
+    var c = new Vector2(1.0, -1.0);
+
+    expect(a.distanceToSquared(b), equals(4.0));
+    expect(a.distanceToSquared(c), equals(4.0));
+  }
+
+  void testVec3DistanceToSquared() {
+    var a = new Vector3(1.0, 1.0, 1.0);
+    var b = new Vector3(1.0, 3.0, 1.0);
+    var c = new Vector3(1.0, 1.0, -1.0);
+
+    expect(a.distanceToSquared(b), equals(4.0));
+    expect(a.distanceToSquared(c), equals(4.0));
+  }
+
+  void testVec4DistanceToSquared() {
+    var a = new Vector4(1.0, 1.0, 1.0, 0.0);
+    var b = new Vector4(1.0, 3.0, 1.0, 0.0);
+    var c = new Vector4(1.0, 1.0, -1.0, 0.0);
+
+    expect(a.distanceToSquared(b), equals(4.0));
+    expect(a.distanceToSquared(c), equals(4.0));
+  }
+
   void testVec2List() {
     {
       Vector2List list = new Vector2List(10, 1);
@@ -355,6 +409,13 @@ class VectorTest extends BaseTest {
     test('2D min/max', testVec2MinMax);
     test('3D min/max', testVec3MinMax);
     test('4D min/max', testVec4MinMax);
+
+    test('2D distanceTo', testVec2DistanceTo);
+    test('3D distanceTo', testVec3DistanceTo);
+    test('4D distanceTo', testVec4DistanceTo);
+    test('2D distanceToSquared', testVec2DistanceToSquared);
+    test('3D distanceToSquared', testVec3DistanceToSquared);
+    test('4D distanceToSquared', testVec4DistanceToSquared);
 
     test('Vector2 list', testVec2List);
   }

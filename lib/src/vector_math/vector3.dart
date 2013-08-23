@@ -178,6 +178,16 @@ class Vector3 {
     return out.normalize();
   }
 
+  /// Distance from [this] to [arg]
+  double distanceTo(Vector3 arg) {
+    return this.clone().sub(arg).length;
+  }
+
+  /// Squared distance from [this] to [arg]
+  double distanceToSquared(Vector3 arg) {
+    return this.clone().sub(arg).length2;
+  }
+
   /// Inner product.
   double dot(Vector3 other) {
     double sum;
