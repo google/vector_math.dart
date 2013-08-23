@@ -59,5 +59,10 @@ void main() {
     SphereTest st = new SphereTest();
     st.run();
   });
+
+  group('Ray', () {
+    RayTest rt = new RayTest();
+    rt.run();
+  });
 }
 

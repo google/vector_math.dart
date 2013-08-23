@@ -33,6 +33,7 @@ part 'src/vector_math/matrix3.dart';
 part 'src/vector_math/matrix4.dart';
 part 'src/vector_math/opengl.dart';
 part 'src/vector_math/quaternion.dart';
+part 'src/vector_math/ray.dart';
 part 'src/vector_math/sphere.dart';
 part 'src/vector_math/vector.dart';
 part 'src/vector_math/vector2.dart';
