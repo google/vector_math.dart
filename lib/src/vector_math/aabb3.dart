@@ -142,6 +142,16 @@ class Aabb3 {
            max.z > other.max.z;
   }
 
+  /// Return if [this] contains [other].
+  bool containsVector3(Vector3 other) {
+    return min.x < other.x &&
+           min.y < other.y &&
+           min.z < other.z &&
+           max.x > other.x &&
+           max.y > other.y &&
+           max.z > other.z;
+  }
+
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
     return min.x <= other.max.x &&
@@ -150,5 +160,15 @@ class Aabb3 {
            max.x >= other.min.x &&
            max.y >= other.min.y &&
            max.z >= other.min.z;
+  }
+
+  /// Return if [this] intersects with [other].
+  bool intersectsWithVector3(Vector3 other) {
+    return min.x <= other.x &&
+           min.y <= other.y &&
+           min.z <= other.z &&
+           max.x >= other.x &&
+           max.y >= other.y &&
+           max.z >= other.z;
   }
 }

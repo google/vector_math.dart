@@ -128,6 +128,14 @@ class Aabb2 {
            max.x > other.max.x;
   }
 
+  /// Return if [this] contains [other].
+  bool containsVector2(Vector2 other) {
+    return min.x < other.x &&
+           min.y < other.y &&
+           max.x > other.x &&
+           max.y > other.y;
+  }
+
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb2(Aabb2 other) {
     return min.x <= other.max.x &&
@@ -136,4 +144,11 @@ class Aabb2 {
            max.y >= other.min.y;
   }
 
+  /// Return if [this] intersects with [other].
+  bool intersectsWithVector2(Vector2 other) {
+    return min.x <= other.x &&
+           min.y <= other.y &&
+           max.x >= other.x &&
+           max.y >= other.y;
+  }
 }

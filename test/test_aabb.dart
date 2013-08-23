@@ -24,6 +24,17 @@ class AabbTest extends BaseTest {
     expect(parent.containsAabb2(grandParent), isFalse);
   }
 
+  void testAabb2ContainsVector2() {
+    final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
+    final Vector2 child = _v(2.0,2.0);
+    final Vector2 cutting = _v(1.0,8.0);
+    final Vector2 outside = _v(-1.0,0.0);
+
+    expect(parent.containsVector2(child), isTrue);
+    expect(parent.containsVector2(cutting), isFalse);
+    expect(parent.containsVector2(outside), isFalse);
+  }
+
   void testAabb2IntersectionAabb2() {
     final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
     final Aabb2 child = new Aabb2.minmax(_v(2.0,2.0), _v(7.0,7.0));
@@ -54,6 +65,17 @@ class AabbTest extends BaseTest {
         reason: 'Touching edges are counted as intersection.');
     expect(siblingOne.intersectsWithAabb2(siblingThree), isTrue,
         reason: 'Touching corners are counted as intersection.');
+  }
+
+  void testAabb2IntersectionVector2() {
+    final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
+    final Vector2 child = _v(2.0,2.0);
+    final Vector2 cutting = _v(1.0,8.0);
+    final Vector2 outside = _v(-1.0,0.0);
+
+    expect(parent.intersectsWithVector2(child), isTrue);
+    expect(parent.intersectsWithVector2(cutting), isTrue);
+    expect(parent.intersectsWithVector2(outside), isFalse);
   }
 
   void testAabb2Hull() {
@@ -149,6 +171,17 @@ class AabbTest extends BaseTest {
     expect(parent.containsAabb3(grandParent), isFalse);
   }
 
+  void testAabb3ContainsVector3() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Vector3 child = _v3(7.0,7.0,7.0);
+    final Vector3 cutting = _v3(1.0,2.0,1.0);
+    final Vector3 outside = _v3(-10.0,10.0,10.0);
+
+    expect(parent.containsVector3(child), isTrue);
+    expect(parent.containsVector3(cutting), isFalse);
+    expect(parent.containsVector3(outside), isFalse);
+  }
+
   void testAabb3IntersectionAabb3() {
     final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Aabb3 child = new Aabb3.minmax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
@@ -178,6 +211,17 @@ class AabbTest extends BaseTest {
         reason: 'Touching edges are counted as intersection.');
     expect(siblingOne.intersectsWithAabb3(siblingThree), isTrue,
         reason: 'Touching corners are counted as intersection.');
+  }
+
+  void testAabb3IntersectionVector3() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Vector3 child = _v3(7.0,7.0,7.0);
+    final Vector3 cutting = _v3(1.0,2.0,1.0);
+    final Vector3 outside = _v3(-10.0,10.0,10.0);
+
+    expect(parent.intersectsWithVector3(child), isTrue);
+    expect(parent.intersectsWithVector3(cutting), isTrue);
+    expect(parent.intersectsWithVector3(outside), isFalse);
   }
 
   void testAabb3Hull() {
@@ -222,7 +266,9 @@ class AabbTest extends BaseTest {
   void run() {
     test('AABB2 Center', testAabb2Center);
     test('AABB2 Contains Aabb2', testAabb2ContainsAabb2);
+    test('AABB2 Contains Vector2', testAabb2ContainsVector2);
     test('AABB2 Intersection Aabb2', testAabb2IntersectionAabb2);
+    test('AABB2 Intersection Vector2', testAabb2IntersectionVector2);
     test('AABB2 Hull', testAabb2Hull);
     test('AABB2 Hull Point', testAabb2HullPoint);
     test('AABB2 Rotate', testAabb2Rotate);
@@ -231,7 +277,9 @@ class AabbTest extends BaseTest {
 
     test('AABB3 Center', testAabb3Center);
     test('AABB3 Contains Aabb3', testAabb3ContainsAabb3);
+    test('AABB3 Contains Vectro3', testAabb3ContainsVector3);
     test('AABB3 Intersection Aabb3', testAabb3IntersectionAabb3);
+    test('AABB3 Intersection Vector3', testAabb3IntersectionVector3);
     test('AABB3 Hull', testAabb3Hull);
     test('AABB3 Hull Point', testAabb3HullPoint);
 
