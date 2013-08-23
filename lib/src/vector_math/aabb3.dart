@@ -133,7 +133,7 @@ class Aabb3 {
   }
 
   /// Return if [this] contains [other].
-  bool contains(Aabb3 other) {
+  bool containsAabb3(Aabb3 other) {
     return min.x < other.min.x &&
            min.y < other.min.y &&
            min.z < other.min.z &&
@@ -143,7 +143,7 @@ class Aabb3 {
   }
 
   /// Return if [this] intersects with [other].
-  bool intersectsWith(Aabb3 other) {
+  bool intersectsWithAabb3(Aabb3 other) {
     return min.x <= other.max.x &&
            min.y <= other.max.y &&
            min.z <= other.max.z &&
