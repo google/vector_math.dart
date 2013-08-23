@@ -64,5 +64,10 @@ void main() {
     RayTest rt = new RayTest();
     rt.run();
   });
+
+  group('Triangle', () {
+    TriangleTest tt = new TriangleTest();
+    tt.run();
+  });
 }
 

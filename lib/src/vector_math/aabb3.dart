@@ -152,6 +152,13 @@ class Aabb3 {
            max.z > other.z;
   }
 
+  /// Return if [this] contains [other].
+  bool containsTriangle(Triangle other) {
+    return containsVector3(other.point0) &&
+           containsVector3(other.point1) &&
+           containsVector3(other.point2);
+  }
+
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
     return min.x <= other.max.x &&

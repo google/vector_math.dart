@@ -55,7 +55,12 @@ class Ray {
     o._direction.setFrom(_direction);
   }
 
-  /// Return the distance from the orgin of [this] to the intersection with
+  /// Returns the position on [this] with a distance of [t] from [origin].
+  Vector3 at(double t) {
+    return _direction.scaled(t).add(_origin);
+  }
+
+  /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {
     final r2 = other.radius * other.radius;
@@ -72,5 +77,40 @@ class Ray {
     final q = Math.sqrt(r2 - m2);
 
     return (l2 > r2) ? s - q : s + q;
+  }
+
+  /// Return the distance from the origin of [this] to the intersection with
+  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  double intersectsWithTriangle(Triangle other) {
+    const double EPSILON = 10e-5;
+
+    final e1 = other.point1.clone().sub(other.point0);
+    final e2 = other.point2.clone().sub(other.point0);
+
+    final q = direction.cross(e2);
+    final a = e1.dot(q);
+
+    if(a > -EPSILON && a < EPSILON) {
+      return null;
+    }
+
+    final f = 1 / a;
+    final s = origin.clone().sub(other.point0);
+    final u = f * (s.dot(q));
+
+    if(u < 0.0) {
+      return null;
+    }
+
+    final r = s.cross(e1);
+    final v = f * (direction.dot(r));
+
+    if(v < 0.0 || u + v > 1.0) {
+      return null;
+    }
+
+    final t = f * (e2.dot(r));
+
+    return t;
   }
 }

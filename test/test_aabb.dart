@@ -182,6 +182,19 @@ class AabbTest extends BaseTest {
     expect(parent.containsVector3(outside), isFalse);
   }
 
+  void testAabb3ContainsTriangle() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Triangle child = new Triangle.points(_v3(2.0,2.0,2.0), _v3(3.0,3.0,3.0), _v3(4.0,4.0,4.0));
+    final Triangle edge = new Triangle.points(_v3(1.0,1.0,1.0), _v3(3.0,3.0,3.0), _v3(4.0,4.0,4.0));
+    final Triangle cutting = new Triangle.points(_v3(2.0,2.0,2.0), _v3(3.0,3.0,3.0), _v3(14.0,14.0,14.0));
+    final Triangle outside = new Triangle.points(_v3(0.0,0.0,0.0), _v3(-3.0,-3.0,-3.0), _v3(-4.0,-4.0,-4.0));
+
+    expect(parent.containsTriangle(child), isTrue);
+    expect(parent.containsTriangle(edge), isFalse);
+    expect(parent.containsTriangle(cutting), isFalse);
+    expect(parent.containsTriangle(outside), isFalse);
+  }
+
   void testAabb3IntersectionAabb3() {
     final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Aabb3 child = new Aabb3.minmax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
@@ -278,6 +291,7 @@ class AabbTest extends BaseTest {
     test('AABB3 Center', testAabb3Center);
     test('AABB3 Contains Aabb3', testAabb3ContainsAabb3);
     test('AABB3 Contains Vectro3', testAabb3ContainsVector3);
+    test('AABB3 Contains Triangle', testAabb3ContainsTriangle);
     test('AABB3 Intersection Aabb3', testAabb3IntersectionAabb3);
     test('AABB3 Intersection Vector3', testAabb3IntersectionVector3);
     test('AABB3 Hull', testAabb3Hull);
