@@ -113,4 +113,44 @@ class Ray {
 
     return t;
   }
+
+  /// Return the distance from the origin of [this] to the intersection with
+  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  double intersectsWithAabb3(Aabb3 other) {
+    Vector3 t1 = new Vector3.zero(), t2 = new Vector3.zero();
+    double tNear = -double.MAX_FINITE;
+    double tFar = double.MAX_FINITE;
+
+    for(int i = 0; i < 3; ++i){
+      if(direction[i] == 0.0){
+        if((origin[i] < other.min[i]) || (origin[i] > other.max[i])) {
+          return null;
+        }
+      }
+      else {
+        t1[i] = (other.min[i] - origin[i]) / direction[i];
+        t2[i] = (other.max[i] - origin[i]) / direction[i];
+
+        if(t1[i] > t2[i]){
+          final temp = t1;
+          t1 = t2;
+          t2 = temp;
+        }
+
+        if(t1[i] > tNear){
+          tNear = t1[i];
+        }
+
+        if(t2[i] < tFar){
+          tFar = t2[i];
+        }
+
+        if((tNear > tFar) || (tFar < 0)){
+          return null;
+        }
+      }
+    }
+
+    return tNear;
+  }
 }
