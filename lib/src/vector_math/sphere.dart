@@ -59,7 +59,7 @@ class Sphere {
 
   /// Return if [this] intersects with [other].
   bool intersectsWithSphere(Sphere other) {
-    var radiusSum = radius * other.radius;
+    var radiusSum = radius + other.radius;
 
     return other.center.distanceToSquared(center) <= (radiusSum * radiusSum);
   }
