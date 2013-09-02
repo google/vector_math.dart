@@ -171,6 +171,17 @@ class AabbTest extends BaseTest {
     expect(parent.containsAabb3(grandParent), isFalse);
   }
 
+  void testAabb3ContainsSphere() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Sphere child = new Sphere.centerRadius(_v3(3.0, 3.0, 3.0), 1.5);
+    final Sphere cutting = new Sphere.centerRadius(_v3(0.0,0.0,0.0), 6.0);
+    final Sphere outside = new Sphere.centerRadius(_v3(-10.0,-10.0,-10.0), 5.0);
+
+    expect(parent.containsSphere(child), isTrue);
+    expect(parent.containsSphere(cutting), isFalse);
+    expect(parent.containsSphere(outside), isFalse);
+  }
+
   void testAabb3ContainsVector3() {
     final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Vector3 child = _v3(7.0,7.0,7.0);
@@ -224,6 +235,17 @@ class AabbTest extends BaseTest {
         reason: 'Touching edges are counted as intersection.');
     expect(siblingOne.intersectsWithAabb3(siblingThree), isTrue,
         reason: 'Touching corners are counted as intersection.');
+  }
+
+  void testAabb3IntersectionSphere() {
+    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Sphere child = new Sphere.centerRadius(_v3(3.0, 3.0, 3.0), 1.5);
+    final Sphere cutting = new Sphere.centerRadius(_v3(0.0,0.0,0.0), 6.0);
+    final Sphere outside = new Sphere.centerRadius(_v3(-10.0,-10.0,-10.0), 5.0);
+
+    expect(parent.intersectsWithSphere(child), isTrue);
+    expect(parent.intersectsWithSphere(cutting), isTrue);
+    expect(parent.intersectsWithSphere(outside), isFalse);
   }
 
   void testAabb3IntersectionVector3() {
@@ -292,10 +314,11 @@ class AabbTest extends BaseTest {
     test('AABB3 Contains Aabb3', testAabb3ContainsAabb3);
     test('AABB3 Contains Vectro3', testAabb3ContainsVector3);
     test('AABB3 Contains Triangle', testAabb3ContainsTriangle);
+    test('AABB3 Contains Sphere', testAabb3ContainsSphere);
     test('AABB3 Intersection Aabb3', testAabb3IntersectionAabb3);
     test('AABB3 Intersection Vector3', testAabb3IntersectionVector3);
+    test('AABB3 Intersection Sphere', testAabb3IntersectionSphere);
     test('AABB3 Hull', testAabb3Hull);
     test('AABB3 Hull Point', testAabb3HullPoint);
-
   }
 }
