@@ -99,8 +99,8 @@ class Frustum {
       p1.z = plane.normal.z > 0 ? aabb.min.z : aabb.max.z;
       p2.z = plane.normal.z > 0 ? aabb.max.z : aabb.min.z;
 
-      double d1 = plane.distanceToPoint(p1);
-      double d2 = plane.distanceToPoint(p2);
+      double d1 = plane.distanceToVector3(p1);
+      double d2 = plane.distanceToVector3(p2);
 
       if (d1 < 0 && d2 < 0) {
         return false;
