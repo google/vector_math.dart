@@ -69,5 +69,15 @@ void main() {
     TriangleTest tt = new TriangleTest();
     tt.run();
   });
+
+  group('Plane', () {
+    PlaneTest pt = new PlaneTest();
+    pt.run();
+  });
+
+  group('Frustum', () {
+    FrustumTest ft = new FrustumTest();
+    ft.run();
+  });
 }
 
