@@ -174,6 +174,16 @@ class Vector2 {
     sum += storage[1] * other.storage[1];
     return sum;
   }
+  
+  ///Post-multiply by a transformation, [arg]
+  Vector2 postmultiply(Matrix2 arg) {
+    double v0 = storage[0];
+    double v1 = storage[1];
+    storage[0] = v0*arg.storage[0]+v1*arg.storage[1];
+    storage[1] = v0*arg.storage[2]+v1*arg.storage[3];
+    
+    return this;
+  }
 
   /// Cross product.
   double cross(Vector2 other) {
