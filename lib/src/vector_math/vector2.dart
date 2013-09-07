@@ -175,7 +175,12 @@ class Vector2 {
     return sum;
   }
   
-  ///Post-multiply by a transformation, [arg]
+  /**
+   * Transforms [this] into the product of [this] as a row vector,
+   * postmultiplied by matrix, [arg].
+   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
+   * the inverse of the transformation.
+   */
   Vector2 postmultiply(Matrix2 arg) {
     double v0 = storage[0];
     double v1 = storage[1];

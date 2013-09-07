@@ -212,20 +212,6 @@ class Vector4 {
     sum += storage[3] * other.storage[3];
     return sum;
   }
-  
-  ///Post-multiply by a transformation, [arg]
-  Vector4 postmultiply(Matrix4 arg) {
-    double v0 = storage[0];
-    double v1 = storage[1];
-    double v2 = storage[2];
-    double v3 = storage[3];
-    storage[0] = v0*arg.storage[0]+v1*arg.storage[1]+v2*arg.storage[2]+v3*arg.storage[3];
-    storage[1] = v0*arg.storage[4]+v1*arg.storage[5]+v2*arg.storage[6]+v3*arg.storage[7];
-    storage[2] = v0*arg.storage[8]+v1*arg.storage[9]+v2*arg.storage[10]+v3*arg.storage[11];
-    storage[3] = v0*arg.storage[12]+v1*arg.storage[13]+v2*arg.storage[14]+v3*arg.storage[15];
-    
-    return this;
-  }
 
   /// Relative error between [this] and [correct]
   double relativeError(Vector4 correct) {

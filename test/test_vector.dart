@@ -64,10 +64,17 @@ class VectorTest extends BaseTest {
   void testVec2Postmultiplication(){
     Matrix2 inputMatrix = new Matrix2.rotation(.2);
     Vector2 inputVector = new Vector2(1.0,0.0);
+    Matrix2 inputInv = new Matrix2.copy(inputMatrix);
+    inputInv.invert();
+    print("input $inputMatrix");
+    print("input $inputInv");
     Vector2 resultOld = inputMatrix.transposed() * inputVector;
+    Vector2 resultOldvInv = inputInv * inputVector;
     Vector2 resultNew = inputVector.postmultiply(inputMatrix);
     expect(resultNew.x, equals(resultOld.x));
     expect(resultNew.y, equals(resultOld.y));
+    //matrix inversion can introduce a small error
+    assert((resultNew-resultOldvInv).length < .00001);
   }
 
   void testVec2CrossProduct() {
@@ -125,11 +132,18 @@ class VectorTest extends BaseTest {
   void testVec3Postmultiplication(){
     Matrix3 inputMatrix = (new Matrix3.rotationX(.4))*(new Matrix3.rotationZ(.5));
     Vector3 inputVector = new Vector3(1.0,2.0,3.0);
+    Matrix3 inputInv = new Matrix3.copy(inputMatrix);
+    inputInv.invert();
     Vector3 resultOld = inputMatrix.transposed() * inputVector;
+    Vector3 resultOldvInv = inputInv * inputVector;
     Vector3 resultNew = inputVector.postmultiply(inputMatrix);
+    
     expect(resultNew.x, equals(resultOld.x));
     expect(resultNew.y, equals(resultOld.y));
     expect(resultNew.z, equals(resultOld.z));
+    expect(resultNew.x, equals(resultOldvInv.x));
+    expect(resultNew.y, equals(resultOldvInv.y));
+    expect(resultNew.z, equals(resultOldvInv.z));
   }
   
   void testVec3CrossProduct() {
