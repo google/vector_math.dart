@@ -186,6 +186,23 @@ class Vector3 {
     sum += storage[2] * other.storage[2];
     return sum;
   }
+  
+  /**
+   * Transforms [this] into the product of [this] as a row vector,
+   * postmultiplied by matrix, [arg].
+   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
+   * the inverse of the transformation.
+   */
+  Vector3 postmultiply(Matrix3 arg) {
+    double v0 = storage[0];
+    double v1 = storage[1];
+    double v2 = storage[2];
+    storage[0] = v0*arg.storage[0]+v1*arg.storage[1]+v2*arg.storage[2];
+    storage[1] = v0*arg.storage[3]+v1*arg.storage[4]+v2*arg.storage[5];
+    storage[2] = v0*arg.storage[6]+v1*arg.storage[7]+v2*arg.storage[8];
+    
+    return this;
+  }
 
   /// Cross product.
   Vector3 cross(Vector3 other) {

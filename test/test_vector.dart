@@ -60,6 +60,22 @@ class VectorTest extends BaseTest {
     relativeTest(dot2(inputA, inputB), expectedOutput);
     relativeTest(dot2(inputB, inputA), expectedOutput);
   }
+  
+  void testVec2Postmultiplication(){
+    Matrix2 inputMatrix = new Matrix2.rotation(.2);
+    Vector2 inputVector = new Vector2(1.0,0.0);
+    Matrix2 inputInv = new Matrix2.copy(inputMatrix);
+    inputInv.invert();
+    print("input $inputMatrix");
+    print("input $inputInv");
+    Vector2 resultOld = inputMatrix.transposed() * inputVector;
+    Vector2 resultOldvInv = inputInv * inputVector;
+    Vector2 resultNew = inputVector.postmultiply(inputMatrix);
+    expect(resultNew.x, equals(resultOld.x));
+    expect(resultNew.y, equals(resultOld.y));
+    //matrix inversion can introduce a small error
+    assert((resultNew-resultOldvInv).length < .00001);
+  }
 
   void testVec2CrossProduct() {
     final Vector2 inputA = new Vector2(0.417267069084370, 0.049654430325742);
@@ -112,6 +128,24 @@ class VectorTest extends BaseTest {
       relativeTest(output2, expectedOutput[i]);
     }
   }
+  
+  void testVec3Postmultiplication(){
+    Matrix3 inputMatrix = (new Matrix3.rotationX(.4))*(new Matrix3.rotationZ(.5));
+    Vector3 inputVector = new Vector3(1.0,2.0,3.0);
+    Matrix3 inputInv = new Matrix3.copy(inputMatrix);
+    inputInv.invert();
+    Vector3 resultOld = inputMatrix.transposed() * inputVector;
+    Vector3 resultOldvInv = inputInv * inputVector;
+    Vector3 resultNew = inputVector.postmultiply(inputMatrix);
+    
+    expect(resultNew.x, equals(resultOld.x));
+    expect(resultNew.y, equals(resultOld.y));
+    expect(resultNew.z, equals(resultOld.z));
+    expect(resultNew.x, equals(resultOldvInv.x));
+    expect(resultNew.y, equals(resultOldvInv.y));
+    expect(resultNew.z, equals(resultOldvInv.z));
+  }
+  
   void testVec3CrossProduct() {
     List<Vector3> inputA = new List<Vector3>();
     List<Vector3> inputB = new List<Vector3>();
@@ -342,10 +376,12 @@ class VectorTest extends BaseTest {
 
   void run() {
     test('2D dot product', testVec2DotProduct);
+    test('2D postmultiplication', testVec2Postmultiplication);
     test('2D cross product', testVec2CrossProduct);
     test('2D orhtogonal scale', testVec2OrthogonalScale);
     test('2D reflect', testVec2Reflect);
     test('3D dot product', testVec3DotProduct);
+    test('3D postmultiplication', testVec3Postmultiplication);
     test('3D cross product', testVec3CrossProduct);
     test('3D reflect', testVec3Reflect);
     test('3D projection', testVec3Projection);
