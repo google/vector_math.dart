@@ -20,6 +20,7 @@
 */
 
 library vector_math;
+
 import 'dart:typed_data';
 import 'dart:math' as Math;
 
