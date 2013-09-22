@@ -54,5 +54,30 @@ void main() {
     GeometryTest gt = new GeometryTest();
     gt.run();
   });
+
+  group('Sphere', () {
+    SphereTest st = new SphereTest();
+    st.run();
+  });
+
+  group('Ray', () {
+    RayTest rt = new RayTest();
+    rt.run();
+  });
+
+  group('Triangle', () {
+    TriangleTest tt = new TriangleTest();
+    tt.run();
+  });
+
+  group('Plane', () {
+    PlaneTest pt = new PlaneTest();
+    pt.run();
+  });
+
+  group('Frustum', () {
+    FrustumTest ft = new FrustumTest();
+    ft.run();
+  });
 }
 

@@ -167,6 +167,16 @@ class Vector2 {
     return out.normalize();
   }
 
+  /// Distance from [this] to [arg]
+  double distanceTo(Vector2 arg) {
+    return this.clone().sub(arg).length;
+  }
+
+  /// Squared distance from [this] to [arg]
+  double distanceToSquared(Vector2 arg) {
+    return this.clone().sub(arg).length2;
+  }
+
   /// Inner product.
   double dot(Vector2 other) {
     double sum;
