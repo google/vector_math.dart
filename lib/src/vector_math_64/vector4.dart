@@ -19,11 +19,11 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
 /// 4D column vector.
 class Vector4 {
-  final Float32List storage = new Float32List(4);
+  final Float64List storage = new Float64List(4);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector4 a, Vector4 b, Vector4 result) {

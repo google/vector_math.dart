@@ -19,22 +19,9 @@
 
 */
 
-library vector_math;
-
+library vector_math_geometry;
 import 'dart:typed_data';
-import 'dart:math' as Math;
+import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_lists.dart';
 
-part 'src/vector_math/angle.dart';
-part 'src/vector_math/aabb2.dart';
-part 'src/vector_math/aabb3.dart';
-part 'src/vector_math/constants.dart';
-part 'src/vector_math/error_helpers.dart';
-part 'src/vector_math/matrix2.dart';
-part 'src/vector_math/matrix3.dart';
-part 'src/vector_math/matrix4.dart';
-part 'src/vector_math/opengl.dart';
-part 'src/vector_math/quaternion.dart';
-part 'src/vector_math/vector.dart';
-part 'src/vector_math/vector2.dart';
-part 'src/vector_math/vector3.dart';
-part 'src/vector_math/vector4.dart';
+part 'src/vector_math_geometry/attribute_generators.dart';

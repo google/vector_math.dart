@@ -19,22 +19,22 @@
 
 */
 
-library vector_math;
+library vector_math_64;
 
 import 'dart:typed_data';
 import 'dart:math' as Math;
 
-part 'src/vector_math/angle.dart';
-part 'src/vector_math/aabb2.dart';
-part 'src/vector_math/aabb3.dart';
-part 'src/vector_math/constants.dart';
-part 'src/vector_math/error_helpers.dart';
-part 'src/vector_math/matrix2.dart';
-part 'src/vector_math/matrix3.dart';
-part 'src/vector_math/matrix4.dart';
-part 'src/vector_math/opengl.dart';
-part 'src/vector_math/quaternion.dart';
-part 'src/vector_math/vector.dart';
-part 'src/vector_math/vector2.dart';
-part 'src/vector_math/vector3.dart';
-part 'src/vector_math/vector4.dart';
+part 'src/vector_math_64/angle.dart';
+part 'src/vector_math_64/aabb2.dart';
+part 'src/vector_math_64/aabb3.dart';
+part 'src/vector_math_64/constants.dart';
+part 'src/vector_math_64/error_helpers.dart';
+part 'src/vector_math_64/matrix2.dart';
+part 'src/vector_math_64/matrix3.dart';
+part 'src/vector_math_64/matrix4.dart';
+part 'src/vector_math_64/opengl.dart';
+part 'src/vector_math_64/quaternion.dart';
+part 'src/vector_math_64/vector.dart';
+part 'src/vector_math_64/vector2.dart';
+part 'src/vector_math_64/vector3.dart';
+part 'src/vector_math_64/vector4.dart';

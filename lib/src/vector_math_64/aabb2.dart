@@ -19,38 +19,38 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
-class Aabb3 {
-  final Vector3 _min;
-  final Vector3 _max;
+class Aabb2 {
+  final Vector2 _min;
+  final Vector2 _max;
 
-  Vector3 get min => _min;
-  Vector3 get max => _max;
+  Vector2 get min => _min;
+  Vector2 get max => _max;
 
-  Vector3 get center {
-    Vector3 c = new Vector3.copy(_min);
+  Vector2 get center {
+    Vector2 c = new Vector2.copy(_min);
     return c.add(_max).scale(.5);
   }
 
-  Aabb3() :
-    _min = new Vector3.zero(),
-    _max = new Vector3.zero() {}
+  Aabb2() :
+    _min = new Vector2.zero(),
+    _max = new Vector2.zero() {}
 
-  Aabb3.copy(Aabb3 other) :
-    _min = new Vector3.copy(other._min),
-    _max = new Vector3.copy(other._max) {}
+  Aabb2.copy(Aabb2 other) :
+    _min = new Vector2.copy(other._min),
+    _max = new Vector2.copy(other._max) {}
 
-  Aabb3.minmax(Vector3 min_, Vector3 max_) :
-    _min = new Vector3.copy(min_),
-    _max = new Vector3.copy(max_) {}
+  Aabb2.minmax(Vector2 min_, Vector2 max_) :
+    _min = new Vector2.copy(min_),
+    _max = new Vector2.copy(max_) {}
 
-  void copyMinMax(Vector3 min_, Vector3 max_) {
+  void copyMinMax(Vector2 min_, Vector2 max_) {
     max_.setFrom(_max);
     min_.setFrom(_min);
   }
 
-  void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
+  void copyCenterAndHalfExtents(Vector2 center, Vector2 halfExtents) {
     center.setFrom(_min);
     center.add(_max);
     center.scale(0.5);
@@ -59,22 +59,22 @@ class Aabb3 {
     halfExtents.scale(0.5);
   }
 
-  void copyFrom(Aabb3 o) {
+  void copyFrom(Aabb2 o) {
     _min.setFrom(o._min);
     _max.setFrom(o._max);
   }
 
-  void copyInto(Aabb3 o) {
+  void copyInto(Aabb2 o) {
     o._min.setFrom(_min);
     o._max.setFrom(_max);
   }
 
-  Aabb3 transform(Matrix4 T) {
-    Vector3 center = new Vector3.zero();
-    Vector3 halfExtents = new Vector3.zero();
+  Aabb2 transform(Matrix3 T) {
+    Vector2 center = new Vector2.zero();
+    Vector2 halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
-    T.transform3(center);
-    T.absoluteRotate(halfExtents);
+    T.transform2(center);
+    T.absoluteRotate2(halfExtents);
     _min.setFrom(center);
     _max.setFrom(center);
 
@@ -83,11 +83,11 @@ class Aabb3 {
     return this;
   }
 
-  Aabb3 rotate(Matrix4 T) {
-    Vector3 center = new Vector3.zero();
-    Vector3 halfExtents = new Vector3.zero();
+  Aabb2 rotate(Matrix3 T) {
+    Vector2 center = new Vector2.zero();
+    Vector2 halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
-    T.absoluteRotate(halfExtents);
+    T.absoluteRotate2(halfExtents);
     _min.setFrom(center);
     _max.setFrom(center);
 
@@ -96,59 +96,44 @@ class Aabb3 {
     return this;
   }
 
-  Aabb3 transformed(Matrix4 T, Aabb3 out) {
+  Aabb2 transformed(Matrix3 T, Aabb2 out) {
     out.copyFrom(this);
     return out.transform(T);
   }
 
-  Aabb3 rotated(Matrix4 T, Aabb3 out) {
+  Aabb2 rotated(Matrix3 T, Aabb2 out) {
     out.copyFrom(this);
     return out.rotate(T);
   }
 
-  void getPN(Vector3 planeNormal, Vector3 outP, Vector3 outN) {
-    outP.x = planeNormal.x < 0.0 ? _min.x : _max.x;
-    outP.y = planeNormal.y < 0.0 ? _min.y : _max.y;
-    outP.z = planeNormal.z < 0.0 ? _min.z : _max.z;
-
-    outN.x = planeNormal.x < 0.0 ? _max.x : _min.x;
-    outN.y = planeNormal.y < 0.0 ? _max.y : _min.y;
-    outN.z = planeNormal.z < 0.0 ? _max.z : _min.z;
-  }
-
   /// Set the min and max of [this] so that [this] is a hull of [this] and [other].
-  void hull(Aabb3 other) {
+  void hull(Aabb2 other) {
     min.x = Math.min(_min.x, other.min.x);
     min.y = Math.min(_min.y, other.min.y);
-    min.z = Math.min(_min.z, other.min.z);
     max.x = Math.max(_max.x, other.max.x);
     max.y = Math.max(_max.y, other.max.y);
-    max.z = Math.max(_max.z, other.max.y);
   }
 
   /// Set the min and max of [this] so that [this] contains [point].
-  void hullPoint(Vector3 point) {
-    Vector3.min(_min, point, _min);
-    Vector3.max(_max, point, _max);
+  void hullPoint(Vector2 point) {
+    Vector2.min(_min, point, _min);
+    Vector2.max(_max, point, _max);
   }
 
   /// Return if [this] contains [other].
-  bool contains(Aabb3 other) {
+  bool contains(Aabb2 other) {
     return min.x < other.min.x &&
            min.y < other.min.y &&
-           min.z < other.min.z &&
-           max.x > other.max.x &&
            max.y > other.max.y &&
-           max.z > other.max.z;
+           max.x > other.max.x;
   }
 
   /// Return if [this] intersects with [other].
-  bool intersectsWith(Aabb3 other) {
+  bool intersectsWith(Aabb2 other) {
     return min.x <= other.max.x &&
            min.y <= other.max.y &&
-           min.z <= other.max.z &&
            max.x >= other.min.x &&
-           max.y >= other.min.y &&
-           max.z >= other.min.z;
+           max.y >= other.min.y;
   }
+
 }

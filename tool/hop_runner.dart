@@ -16,7 +16,7 @@ void main() {
   //
   // Analyzer
   //
-  addTask('analyze_lib', createDartAnalyzerTask(['lib/vector_math.dart']));
+  addTask('analyze_lib', createAnalyzerTask(['lib/vector_math.dart']));
 
   //
   // Unit test

@@ -19,11 +19,11 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
 /// 3D column vector.
 class Vector3 {
-  final Float32List storage = new Float32List(3);
+  final Float64List storage = new Float64List(3);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
@@ -186,7 +186,7 @@ class Vector3 {
     sum += storage[2] * other.storage[2];
     return sum;
   }
-  
+
   /**
    * Transforms [this] into the product of [this] as a row vector,
    * postmultiplied by matrix, [arg].
@@ -200,7 +200,7 @@ class Vector3 {
     storage[0] = v0*arg.storage[0]+v1*arg.storage[1]+v2*arg.storage[2];
     storage[1] = v0*arg.storage[3]+v1*arg.storage[4]+v2*arg.storage[5];
     storage[2] = v0*arg.storage[6]+v1*arg.storage[7]+v2*arg.storage[8];
-    
+
     return this;
   }
 

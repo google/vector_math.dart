@@ -19,11 +19,11 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
 /// 2D column vector.
 class Vector2 {
-  final Float32List storage = new Float32List(2);
+  final Float64List storage = new Float64List(2);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
@@ -174,7 +174,7 @@ class Vector2 {
     sum += storage[1] * other.storage[1];
     return sum;
   }
-  
+
   /**
    * Transforms [this] into the product of [this] as a row vector,
    * postmultiplied by matrix, [arg].
@@ -186,7 +186,7 @@ class Vector2 {
     double v1 = storage[1];
     storage[0] = v0*arg.storage[0]+v1*arg.storage[1];
     storage[1] = v0*arg.storage[2]+v1*arg.storage[3];
-    
+
     return this;
   }
 

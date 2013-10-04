@@ -19,12 +19,12 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
 /// 4D Matrix.
 /// Values are stored in column major order.
 class Matrix4 {
-  final Float32List storage = new Float32List(16);
+  final Float64List storage = new Float64List(16);
 
   /// Solve [A] * [x] = [b].
   static void solve2(Matrix4 A, Vector2 x, Vector2 b) {

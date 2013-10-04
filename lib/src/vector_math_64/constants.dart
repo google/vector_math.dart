@@ -16,25 +16,10 @@
   2. Altered source versions must be plainly marked as such, and must not be
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
-
 */
 
-library vector_math;
+part of vector_math_64;
 
-import 'dart:typed_data';
-import 'dart:math' as Math;
-
-part 'src/vector_math/angle.dart';
-part 'src/vector_math/aabb2.dart';
-part 'src/vector_math/aabb3.dart';
-part 'src/vector_math/constants.dart';
-part 'src/vector_math/error_helpers.dart';
-part 'src/vector_math/matrix2.dart';
-part 'src/vector_math/matrix3.dart';
-part 'src/vector_math/matrix4.dart';
-part 'src/vector_math/opengl.dart';
-part 'src/vector_math/quaternion.dart';
-part 'src/vector_math/vector.dart';
-part 'src/vector_math/vector2.dart';
-part 'src/vector_math/vector3.dart';
-part 'src/vector_math/vector4.dart';
+const double degrees2radians = Math.PI/180.0;
+const double radians2degrees = 180.0/Math.PI;
+const double sqrtOneHalf = 0.70710678118;

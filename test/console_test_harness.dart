@@ -4,6 +4,8 @@ import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
 import 'package:unittest/vm_config.dart';
 import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_lists.dart';
+import 'package:vector_math/vector_math_geometry.dart';
 import 'vector_math_test.dart';
 
 void testCore(Configuration config) {
@@ -24,7 +26,6 @@ void main() {
     mt.run();
   });
 
-
   group('Vector', () {
     VectorTest vt = new VectorTest();
     vt.run();
@@ -34,7 +35,12 @@ void main() {
     OpenGLMatrixTest omt = new OpenGLMatrixTest();
     omt.run();
   });
-  
+
+  group('AABB', () {
+    AabbTest at = new AabbTest();
+    at.run();
+  });
+
   group('Utility', () {
     test('degrees', () {
       relativeTest(degrees(Math.PI), 180.0);
@@ -42,6 +48,11 @@ void main() {
     test('radians', () {
       relativeTest(radians(90.0), Math.PI/2.0);
     });
+  });
+
+  group('Geometry', () {
+    GeometryTest gt = new GeometryTest();
+    gt.run();
   });
 }
 

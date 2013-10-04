@@ -18,10 +18,10 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-part of vector_math;
+part of vector_math_64;
 
 class Quaternion {
-  final Float32List storage = new Float32List(4);
+  final Float64List storage = new Float64List(4);
 
   double get x => storage[0];
   double get y => storage[1];
