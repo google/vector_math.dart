@@ -27,9 +27,9 @@ part of vector_math_geometry;
 void generateNormals(Vector3List normals, Vector3List positions,
                      Uint16List indices) {
   Vector3 p0 = new Vector3.zero(),
-      p1 = new Vector3.zero(),
-      p2 = new Vector3.zero(),
-      norm = new Vector3.zero();
+          p1 = new Vector3.zero(),
+          p2 = new Vector3.zero(),
+          norm = new Vector3.zero();
 
   // Loop through every polygon, find it's normal, and add that to the vertex
   // normals.
@@ -149,3 +149,4 @@ void generateTangents(Vector4List tangents, Vector3List positions,
     tangents[i] = tan.setValues(p0.x, p0.y, p0.z, sign);
   }
 }
+

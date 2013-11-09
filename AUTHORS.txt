@@ -4,5 +4,6 @@ John McCutchan <john@johnmccutchan.com>
 
 Contributors:
 
-Adam Singer <financeCoding@gmail.com>
+Brandon Jones <bajones@google.com>
 Don Olmstead <don.j.olmstead@gmail.com>
+Adam Singer <financeCoding@gmail.com>
