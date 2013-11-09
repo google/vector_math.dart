@@ -1,5 +1,5 @@
 name: vector_math
-version: 1.3.5
+version: 1.4.0
 author: John McCutchan <john@johnmccutchan.com>
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/johnmccutchan/vector_math
