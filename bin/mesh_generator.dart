@@ -46,6 +46,16 @@ MeshGeometry generateSphere(List<String> args) {
   return geometry;
 }
 
+MeshGeometry generateCircle(List<String> args) {
+  if (args.length != 1) {
+    return null;
+  }
+  num radius = double.parse(args[0]);
+  var generator = new CircleGenerator();
+  MeshGeometry geometry = generator.createCircle(radius);
+  return geometry;
+}
+
 MeshGeometry generateCylinder(List<String> args) {
   if (args.length != 3) {
     return null;
@@ -59,10 +69,23 @@ MeshGeometry generateCylinder(List<String> args) {
   return geometry;
 }
 
+MeshGeometry generateRing(List<String> args) {
+  if (args.length != 2) {
+    return null;
+  }
+  num innerRadius = double.parse(args[0]);
+  num outerRadius = double.parse(args[1]);
+  var generator = new RingGenerator();
+  MeshGeometry geometry = generator.createRing(innerRadius, outerRadius);
+  return geometry;
+}
+
 Map<String, Function> generators = {
   'cube': generateCube,
   'sphere': generateSphere,
-  'cylinder': generateCylinder
+  'circle': generateCircle,
+  'cylinder': generateCylinder,
+  'ring': generateRing
 };
 
 
@@ -75,7 +98,9 @@ main(List<String> args_) {
     print('<type> = cube, sphere, cylinder');
     print('mesh_generator.dart cube width height depth');
     print('mesh_generator.dart sphere radius');
+    print('mesh_generator.dart circle radius');
     print('mesh_generator.dart cylinder topRadius bottomRadius height');
+    print('mesh_generator.dart ring innerRadius outerRadius');
     print('');
     return;
   }
