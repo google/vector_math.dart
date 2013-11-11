@@ -342,13 +342,10 @@ class Matrix4 {
   }
   /// Sets the matrix from translation [arg0] and rotation [arg1].
   Matrix4 setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
-    double vx = arg0.storage[0];
-    double vy = arg0.storage[1];
-    double vz = arg0.storage[2];
-    double x = arg1.storage[0];
-    double y = arg1.storage[1];
-    double z = arg1.storage[2];
-    double w = arg1.storage[3];
+    double x = arg1[0];
+    double y = arg1[1];
+    double z = arg1[2];
+    double w = arg1[3];
     double x2 = x + x;
     double y2 = y + y;
     double z2 = z + z;
@@ -362,34 +359,21 @@ class Matrix4 {
     double wy = w * y2;
     double wz = w * z2;
 
-
-    double m11 = 1.0 - (yy + zz);
-    double m12 = xy + wz;
-    double m13 = xz - wy;
-
-    double m21 = xy - wz;
-    double m22 = 1.0 - (xx + zz);
-    double m23 = yz + wx;
-
-    double m31 = xz + wy;
-    double m32 = yz - wx;
-    double m33 = 1.0 - (xx + yy);
-
-    storage[0] = m11;
-    storage[1] = m12;
-    storage[2] = m13;
+    storage[0] = 1.0 - (yy + zz);
+    storage[1] = xy + wz;
+    storage[2] = xz - wy;
     storage[3] = 0.0;
-    storage[4] = m21;
-    storage[5] = m22;
-    storage[6] = m23;
+    storage[4] = xy - wz;
+    storage[5] = 1.0 - (xx + zz);
+    storage[6] = yz + wx;
     storage[7] = 0.0;
-    storage[8] = m31;
-    storage[9] = m32;
-    storage[10] = m33;
+    storage[8] = xz + wy;
+    storage[9] = yz - wx;
+    storage[10] = 1.0 - (xx + yy);
     storage[11] = 0.0;
-    storage[12] = - (vx * m11 + vy * m21 + vz * m31);
-    storage[13] = - (vx * m12 + vy * m22 + vz * m32);
-    storage[14] = - (vx * m13 + vy * m23 + vz * m33);
+    storage[12] = arg0[0];
+    storage[13] = arg0[1];
+    storage[14] = arg0[2];
     storage[15] = 1.0;
     return this;
   }
