@@ -7,7 +7,7 @@ import 'package:hop/hop_tasks.dart';
 
 import '../test/console_test_harness.dart' as console_test_harness;
 
-void main() {
+void main(List<String> args) {
   //
   // Assert were being called from the proper location.
   //
@@ -31,7 +31,7 @@ void main() {
   //
   // Hop away!
   //
-  runHop();
+  runHop(args);
 }
 
 void _assertKnownPath() {

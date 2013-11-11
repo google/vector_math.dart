@@ -306,7 +306,7 @@ class Matrix44SIMDOperations {
                        b2.shuffle(Float32x4.ZZZZ) * a2 +
                        b2.shuffle(Float32x4.WWWW) * a3;
     var b3 = B[bOffset++];
-    out[outOffset++] = b3.shuffle(Float32x4.XXXX)*a0 +
+    out[outOffset++] = b3.shuffle(Float32x4.XXXX) * a0 +
                        b3.shuffle(Float32x4.YYYY) * a1 +
                        b3.shuffle(Float32x4.ZZZZ) * a2 +
                        b3.shuffle(Float32x4.WWWW) * a3;

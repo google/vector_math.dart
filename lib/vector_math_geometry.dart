@@ -20,8 +20,18 @@
 */
 
 library vector_math_geometry;
+
 import 'dart:typed_data';
+import 'dart:math' as Math;
+
 import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_lists.dart';
 
 part 'src/vector_math_geometry/attribute_generators.dart';
+part 'src/vector_math_geometry/circle_generator.dart';
+part 'src/vector_math_geometry/cube_generator.dart';
+part 'src/vector_math_geometry/cylinder_generator.dart';
+part 'src/vector_math_geometry/geometry_generator.dart';
+part 'src/vector_math_geometry/mesh_geometry.dart';
+part 'src/vector_math_geometry/sphere_generator.dart';
+part 'src/vector_math_geometry/ring_generator.dart';
