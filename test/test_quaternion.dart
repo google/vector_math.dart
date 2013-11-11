@@ -1,6 +1,34 @@
 part of vector_math_test;
 
 class QuaternionTest extends BaseTest {
+
+  void testQuaternionInstacinfFromFloat32List() {
+    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0,4.0]);
+    final Quaternion input = new Quaternion.fromFloat32List(float32List);
+
+    expect(input.x, equals(1.0));
+    expect(input.y, equals(2.0));
+    expect(input.z, equals(3.0));
+    expect(input.w, equals(4.0));
+  }
+
+  void testQuaternionInstacingFromByteBuffer() {
+    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0,4.0,5.0]);
+    final ByteBuffer buffer = float32List.buffer;
+    final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer,0);
+    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+
+    expect(zeroOffset.x, equals(1.0));
+    expect(zeroOffset.y, equals(2.0));
+    expect(zeroOffset.z, equals(3.0));
+    expect(zeroOffset.w, equals(4.0));
+
+    expect(offsetVector.x, equals(2.0));
+    expect(offsetVector.y, equals(3.0));
+    expect(offsetVector.z, equals(4.0));
+    expect(offsetVector.w, equals(5.0));
+  }
+
   void testConjugate(List<Quaternion> input, List<Quaternion> expectedOutput) {
     assert(input.length == expectedOutput.length);
     for (int i = 0; i < input.length; i++) {
@@ -33,6 +61,8 @@ class QuaternionTest extends BaseTest {
   }
 
   void run() {
+    test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
+    test('ByteBuffer instacing', testQuaternionInstacingFromByteBuffer);
     test('Conjugate', () {
       List<Quaternion> input = new List<Quaternion>();
       input.add(new Quaternion.identity());

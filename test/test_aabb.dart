@@ -148,6 +148,27 @@ class AabbTest extends BaseTest {
     return new Vector3(x,y,z);
   }
 
+  void testAabb3ByteBufferInstanciation() {
+    final ByteBuffer buffer = new Float32List.fromList([1.0,2.0,3.0,4.0,5.0,6.0,7.0]).buffer;
+    final Aabb3 aabb = new Aabb3.fromBuffer( buffer, 0);
+    final Aabb3 aabbOffest = new Aabb3.fromBuffer( buffer, Float32List.BYTES_PER_ELEMENT);
+    final Vector3 center = aabb.center;
+
+    expect(aabb.min.x, equals(1.0));
+    expect(aabb.min.y, equals(2.0));
+    expect(aabb.min.z, equals(3.0));
+    expect(aabb.max.x, equals(4.0));
+    expect(aabb.max.y, equals(5.0));
+    expect(aabb.max.z, equals(6.0));
+
+    expect(aabbOffest.min.x, equals(2.0));
+    expect(aabbOffest.min.y, equals(3.0));
+    expect(aabbOffest.min.z, equals(4.0));
+    expect(aabbOffest.max.x, equals(5.0));
+    expect(aabbOffest.max.y, equals(6.0));
+    expect(aabbOffest.max.z, equals(7.0));
+  }
+
   void testAabb3Center() {
     final Aabb3 aabb = new Aabb3.minmax(_v3(1.0,2.0, 4.0), _v3(8.0,16.0, 32.0));
     final Vector3 center = aabb.center;
@@ -309,7 +330,7 @@ class AabbTest extends BaseTest {
     test('AABB2 Rotate', testAabb2Rotate);
     test('AABB2 Transform', testAabb2Transform);
 
-
+    test('AABB3 ByteBuffer instanciation', testAabb3ByteBufferInstanciation);
     test('AABB3 Center', testAabb3Center);
     test('AABB3 Contains Aabb3', testAabb3ContainsAabb3);
     test('AABB3 Contains Vectro3', testAabb3ContainsVector3);

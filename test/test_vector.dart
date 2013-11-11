@@ -2,6 +2,31 @@ part of vector_math_test;
 
 class VectorTest extends BaseTest {
 
+
+  void testVec3InstacinfFromFloat32List() {
+    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0]);
+    final Vector3 input = new Vector3.fromFloat32List(float32List);
+
+    expect(input.x, equals(1.0));
+    expect(input.y, equals(2.0));
+    expect(input.z, equals(3.0));
+  }
+
+  void testVec3InstacingFromByteBuffer() {
+    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0, 4.0]);
+    final ByteBuffer buffer = float32List.buffer;
+    final Vector3 zeroOffset = new Vector3.fromBuffer(buffer,0);
+    final Vector3 offsetVector = new Vector3.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+
+    expect(zeroOffset.x, equals(1.0));
+    expect(zeroOffset.y, equals(2.0));
+    expect(zeroOffset.z, equals(3.0));
+
+    expect(offsetVector.x, equals(2.0));
+    expect(offsetVector.y, equals(3.0));
+    expect(offsetVector.z, equals(4.0));
+  }
+
   void testVec2MinMax() {
     final Vector2 a = new Vector2(5.0, 7.0);
     final Vector2 b = new Vector2(3.0, 8.0);
@@ -60,7 +85,7 @@ class VectorTest extends BaseTest {
     relativeTest(dot2(inputA, inputB), expectedOutput);
     relativeTest(dot2(inputB, inputA), expectedOutput);
   }
-  
+
   void testVec2Postmultiplication(){
     Matrix2 inputMatrix = new Matrix2.rotation(.2);
     Vector2 inputVector = new Vector2(1.0,0.0);
@@ -128,7 +153,7 @@ class VectorTest extends BaseTest {
       relativeTest(output2, expectedOutput[i]);
     }
   }
-  
+
   void testVec3Postmultiplication(){
     Matrix3 inputMatrix = (new Matrix3.rotationX(.4))*(new Matrix3.rotationZ(.5));
     Vector3 inputVector = new Vector3(1.0,2.0,3.0);
@@ -137,7 +162,7 @@ class VectorTest extends BaseTest {
     Vector3 resultOld = inputMatrix.transposed() * inputVector;
     Vector3 resultOldvInv = inputInv * inputVector;
     Vector3 resultNew = inputVector.postmultiply(inputMatrix);
-    
+
     expect(resultNew.x, equals(resultOld.x));
     expect(resultNew.y, equals(resultOld.y));
     expect(resultNew.z, equals(resultOld.z));
@@ -145,7 +170,7 @@ class VectorTest extends BaseTest {
     expect(resultNew.y, equals(resultOldvInv.y));
     expect(resultNew.z, equals(resultOldvInv.z));
   }
-  
+
   void testVec3CrossProduct() {
     List<Vector3> inputA = new List<Vector3>();
     List<Vector3> inputB = new List<Vector3>();
@@ -452,6 +477,9 @@ class VectorTest extends BaseTest {
     test('2D distanceToSquared', testVec2DistanceToSquared);
     test('3D distanceToSquared', testVec3DistanceToSquared);
     test('4D distanceToSquared', testVec4DistanceToSquared);
+
+    test('3D instancing from Float32List', testVec3InstacinfFromFloat32List);
+    test('3D instancing from ByteBuffer', testVec3InstacingFromByteBuffer);
 
     test('Vector2 list', testVec2List);
   }
