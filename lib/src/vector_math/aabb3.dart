@@ -50,6 +50,11 @@ class Aabb3 {
     min_.setFrom(_min);
   }
 
+  /// Constructs Aabb3 with a min/max [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
+  Aabb3.fromBuffer(ByteBuffer buffer, int offset) : _min = new Vector3.fromBuffer(buffer, offset),
+      _max = new Vector3.fromBuffer(buffer, offset + Float32List.BYTES_PER_ELEMENT*3);
+
   void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     center.setFrom(_min);
     center.add(_max);

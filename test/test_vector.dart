@@ -4,7 +4,7 @@ class VectorTest extends BaseTest {
 
 
   void testVec3InstacinfFromFloat32List() {
-    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0, 4.0]);
+    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0]);
     final Vector3 input = new Vector3.fromFloat32List(float32List);
 
     expect(input.x, equals(1.0));

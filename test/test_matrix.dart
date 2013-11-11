@@ -2,6 +2,79 @@ part of vector_math_test;
 
 class MatrixTest extends BaseTest {
 
+  void testMatrixInstacinfFromFloat32List() {
+
+    final Float32List float32List = new Float32List.fromList([1.0,  2.0, 3.0,4.0,
+                                                              5.0,  6.0, 7.0,8.0,
+                                                              9.0, 10.0, 11.0,12.0,
+                                                              13.0,14.0,15.0,16.0]);
+    final Matrix4 input = new Matrix4.fromFloat32List(float32List);
+
+    expect(input.storage[0], equals(1.0));
+    expect(input.storage[1], equals(2.0));
+    expect(input.storage[2], equals(3.0));
+    expect(input.storage[3], equals(4.0));
+
+    expect(input.storage[4], equals(5.0));
+    expect(input.storage[5], equals(6.0));
+    expect(input.storage[6], equals(7.0));
+    expect(input.storage[7], equals(8.0));
+
+    expect(input.storage[8], equals(9.0));
+    expect(input.storage[9], equals(10.0));
+    expect(input.storage[10], equals(11.0));
+    expect(input.storage[11], equals(12.0));
+
+    expect(input.storage[12], equals(13.0));
+    expect(input.storage[13], equals(14.0));
+    expect(input.storage[14], equals(15.0));
+    expect(input.storage[15], equals(16.0));
+  }
+
+  void testMatrixInstacingFromByteBuffer() {
+    final Float32List float32List = new Float32List.fromList([1.0,  2.0, 3.0,4.0,
+                                                              5.0,  6.0, 7.0,8.0,
+                                                              9.0, 10.0, 11.0,12.0,
+                                                              13.0,14.0,15.0,16.0,17.0]);
+    final ByteBuffer buffer = float32List.buffer;
+    final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer,0);
+    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+
+    expect(zeroOffset.storage[0], equals(1.0));
+    expect(zeroOffset.storage[1], equals(2.0));
+    expect(zeroOffset.storage[2], equals(3.0));
+    expect(zeroOffset.storage[3], equals(4.0));
+    expect(zeroOffset.storage[4], equals(5.0));
+    expect(zeroOffset.storage[5], equals(6.0));
+    expect(zeroOffset.storage[6], equals(7.0));
+    expect(zeroOffset.storage[7], equals(8.0));
+    expect(zeroOffset.storage[8], equals(9.0));
+    expect(zeroOffset.storage[9], equals(10.0));
+    expect(zeroOffset.storage[10], equals(11.0));
+    expect(zeroOffset.storage[11], equals(12.0));
+    expect(zeroOffset.storage[12], equals(13.0));
+    expect(zeroOffset.storage[13], equals(14.0));
+    expect(zeroOffset.storage[14], equals(15.0));
+    expect(zeroOffset.storage[15], equals(16.0));
+
+    expect(offsetVector.storage[0], equals(2.0));
+    expect(offsetVector.storage[1], equals(3.0));
+    expect(offsetVector.storage[2], equals(4.0));
+    expect(offsetVector.storage[3], equals(5.0));
+    expect(offsetVector.storage[4], equals(6.0));
+    expect(offsetVector.storage[5], equals(7.0));
+    expect(offsetVector.storage[6], equals(8.0));
+    expect(offsetVector.storage[7], equals(9.0));
+    expect(offsetVector.storage[8], equals(10.0));
+    expect(offsetVector.storage[9], equals(11.0));
+    expect(offsetVector.storage[10], equals(12.0));
+    expect(offsetVector.storage[11], equals(13.0));
+    expect(offsetVector.storage[12], equals(14.0));
+    expect(offsetVector.storage[13], equals(15.0));
+    expect(offsetVector.storage[14], equals(16.0));
+    expect(offsetVector.storage[15], equals(17.0));
+  }
+
   void testMatrixTranspose() {
     List<dynamic> inputA = new List<dynamic>();
     List<dynamic> expectedOutput = new List<dynamic>();
@@ -671,6 +744,8 @@ class MatrixTest extends BaseTest {
   }
 
   void run() {
+    test('Matrix4 instancing from Float32List', testMatrixInstacinfFromFloat32List);
+    test('Matrix4 instancing from ByteBuffer', testMatrixInstacingFromByteBuffer);
     test('Matrix transpose', testMatrixTranspose);
     test('Determinant', testDeterminant);
     test('Adjoint', testAdjoint);
