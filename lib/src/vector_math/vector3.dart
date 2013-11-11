@@ -23,7 +23,7 @@ part of vector_math;
 
 /// 3D column vector.
 class Vector3 {
-  final Float32List storage = new Float32List(3);
+  final Float32List storage;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
@@ -40,12 +40,12 @@ class Vector3 {
   }
 
   /// Construct a new vector with the specified values.
-  Vector3(double x_, double y_, double z_) {
+  Vector3(double x_, double y_, double z_) : storage = new Float32List(3) {
     setValues(x_, y_, z_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector3.array(List<double> array, [int offset=0]) {
+  Vector3.array(List<double> array, [int offset=0]) : storage = new Float32List(3) {
     int i = offset;
     storage[2] = array[i+2];
     storage[1] = array[i+1];
@@ -53,12 +53,19 @@ class Vector3 {
   }
 
   //// Zero vector.
-  Vector3.zero();
+  Vector3.zero() : storage = new Float32List(3);
 
   /// Copy of [other].
-  Vector3.copy(Vector3 other) {
+  Vector3.copy(Vector3 other) : storage = new Float32List(3) {
     setFrom(other);
   }
+
+  /// Constructs Vector3 with given Float32List as [storage].
+  Vector3.fromFloat32List(Float32List this.storage);
+
+  /// Constructs Vector3 with a [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
+  Vector3.fromBuffer(ByteBuffer buffer, int offset) : storage = new Float32List.view(buffer, offset, 3);
 
   /// Set the values of the vector.
   Vector3 setValues(double x_, double y_, double z_) {
@@ -196,7 +203,7 @@ class Vector3 {
     sum += storage[2] * other.storage[2];
     return sum;
   }
-  
+
   /**
    * Transforms [this] into the product of [this] as a row vector,
    * postmultiplied by matrix, [arg].
@@ -210,7 +217,7 @@ class Vector3 {
     storage[0] = v0*arg.storage[0]+v1*arg.storage[1]+v2*arg.storage[2];
     storage[1] = v0*arg.storage[3]+v1*arg.storage[4]+v2*arg.storage[5];
     storage[2] = v0*arg.storage[6]+v1*arg.storage[7]+v2*arg.storage[8];
-    
+
     return this;
   }
 
