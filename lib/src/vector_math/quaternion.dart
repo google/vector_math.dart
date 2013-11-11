@@ -21,7 +21,7 @@
 part of vector_math;
 
 class Quaternion {
-  final Float32List storage;// storage = new Float32List(4);
+  final Float32List storage;
 
   double get x => storage[0];
   double get y => storage[1];
