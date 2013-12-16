@@ -30,12 +30,12 @@ class CubeGenerator extends GeometryGenerator {
   int get indexCount => 36;
 
   MeshGeometry createCube(num width, num height, num depth,
-                          {flags: null}) {
+                          {flags: null, filters: null}) {
     _width = width.toDouble();
     _height = height.toDouble();
     _depth = depth.toDouble();
 
-    return _createGeometry(flags);
+    return _createGeometry(flags, filters);
   }
 
   void _generateIndices(Uint16List indices) {

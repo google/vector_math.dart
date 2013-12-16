@@ -30,12 +30,12 @@ class SphereGenerator extends GeometryGenerator {
   int get indexCount => 6 * _lonSegments * _latSegments;
 
   MeshGeometry createSphere(num radius, {int latSegments: 16,
-                            int lonSegments: 16, flags: null}) {
+                            int lonSegments: 16, flags: null, filters: null}) {
     _radius = radius.toDouble();
     _latSegments = latSegments;
     _lonSegments = lonSegments;
 
-    return _createGeometry(flags);
+    return _createGeometry(flags, filters);
   }
 
   void _generateIndices(Uint16List indices) {

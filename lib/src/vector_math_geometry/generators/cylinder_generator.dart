@@ -31,13 +31,13 @@ class CylinderGenerator extends GeometryGenerator {
   int get indexCount => (_segments * 6) + ((_segments - 2) * 6);
 
   MeshGeometry createCylinder(num topRadius, num bottomRadius,
-                              num height, {int segments: 16, flags: null}) {
+                              num height, {int segments: 16, flags: null, filters: null}) {
     _topRadius = topRadius.toDouble();
     _bottomRadius = bottomRadius.toDouble();
     _height = height.toDouble();
     _segments = segments;
 
-    return _createGeometry(flags);
+    return _createGeometry(flags, filters);
   }
 
   void _generateIndices(Uint16List indices) {

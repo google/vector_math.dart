@@ -35,6 +35,7 @@ class RingGenerator extends GeometryGenerator {
   MeshGeometry createRing(double innerRadius,
                           double outerRadius,
                           {flags: null,
+                           filters: null,
                            segments: 64,
                            thetaStart: 0.0,
                            thetaLength: Math.PI * 2.0,
@@ -45,7 +46,7 @@ class RingGenerator extends GeometryGenerator {
     _thetaStart = thetaStart;
     _thetaLength = thetaLength;
     _stripTextureCoordinates = stripTextureCoordinates;
-    return _createGeometry(flags);
+    return _createGeometry(flags, filters);
   }
 
   void _generatePositions(Vector3List positions, Uint16List indices) {

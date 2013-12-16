@@ -32,6 +32,7 @@ class CircleGenerator extends GeometryGenerator {
 
   MeshGeometry createCircle(double radius,
                             {flags: null,
+                             filters: null,
                              segments: 64,
                              thetaStart: 0.0,
                              thetaLength: Math.PI * 2.0}) {
@@ -39,7 +40,7 @@ class CircleGenerator extends GeometryGenerator {
     _segments = segments;
     _thetaStart = thetaStart;
     _thetaLength = thetaLength;
-    return _createGeometry(flags);
+    return _createGeometry(flags, filters);
   }
 
   void _generatePositions(Vector3List positions, Uint16List indices) {

@@ -25,31 +25,21 @@ class GeometryGeneratorFlags {
   final bool texCoords;
   final bool normals;
   final bool tangents;
-  final bool invertFaces;
 
   GeometryGeneratorFlags({this.texCoords: true,
                           this.normals: true,
-                          this.tangents: true,
-                          this.invertFaces: false});
+                          this.tangents: true});
 }
 
 abstract class GeometryGenerator {
   int get vertexCount;
   int get indexCount;
 
-  MeshGeometry _createGeometry(GeometryGeneratorFlags flags) {
-    MeshGeometry mesh = new MeshGeometry();
+  MeshGeometry _createGeometry(GeometryGeneratorFlags flags,
+                               List filters) {
 
     if (flags == null)
       flags = new GeometryGeneratorFlags();
-
-    int stride = 12; // Position
-    if (flags.texCoords || flags.tangents)
-      stride += 8;
-    if (flags.normals)
-      stride += 12;
-    if (flags.tangents)
-      stride += 16;
 
     VertexAttrib positionAttrib;
     VertexAttrib texCoordAttrib;
@@ -61,47 +51,58 @@ abstract class GeometryGenerator {
     Vector3List normalView;
     Vector4List tangentView;
 
-    mesh.buffer = new Float32List(vertexCount * (stride~/4));
-    mesh.indices = new Uint16List(indexCount);
+    List<VertexAttrib> attribs = new List<VertexAttrib>();
 
+    positionAttrib = new VertexAttrib('POSITION', 3, 'float');
+    attribs.add(positionAttrib);
+
+    if (flags.texCoords || flags.tangents) {
+      texCoordAttrib = new VertexAttrib('TEXCOORD0', 2, 'float');
+      attribs.add(texCoordAttrib);
+    }
+
+    if (flags.normals || flags.tangents) {
+      normalAttrib = new VertexAttrib('NORMAL', 3, 'float');
+      attribs.add(normalAttrib);
+    }
+
+    if (flags.tangents) {
+      tangentAttrib = new VertexAttrib('TANGENT', 4, 'float');
+      attribs.add(tangentAttrib);
+    }
+
+    MeshGeometry mesh = new MeshGeometry(vertexCount, attribs);
+
+    mesh.indices = new Uint16List(indexCount);
     _generateIndices(mesh.indices);
 
-    int offset = 0;
-
-    positionAttrib = new VertexAttrib('POSITION', 3, 'float', stride, offset);
-    mesh.addAttrib(positionAttrib);
-    offset += 12;
     positionView = mesh.getViewForAttrib('POSITION');
     _generatePositions(positionView, mesh.indices);
 
     if (flags.texCoords || flags.tangents) {
-      texCoordAttrib = new VertexAttrib('TEXCOORD0', 2, 'float', stride,
-                                        offset);
-      mesh.addAttrib(texCoordAttrib);
-      offset += 8;
       texCoordView = mesh.getViewForAttrib('TEXCOORD0');
       _generateTexCoords(texCoordView, positionView, mesh.indices);
     }
 
-    if (flags.normals) {
-      normalAttrib = new VertexAttrib('NORMAL', 3, 'float', stride, offset);
-      mesh.addAttrib(normalAttrib);
-      offset += 12;
+    if (flags.normals || flags.tangents) {
       normalView = mesh.getViewForAttrib('NORMAL');
       _generateNormals(normalView, positionView, mesh.indices);
     }
 
     if (flags.tangents) {
-      tangentAttrib = new VertexAttrib('TANGENT', 4, 'float', stride, offset);
-      mesh.addAttrib(tangentAttrib);
-      offset += 16;
       tangentView = mesh.getViewForAttrib('TANGENT');
       _generateTangents(tangentView, positionView, normalView, texCoordView,
           mesh.indices);
     }
 
-    if (flags.invertFaces) {
-      _invertMeshFaces(mesh);
+    if (filters != null) {
+      for(var filter in filters) {
+        if (filter.inplace){
+          filter.filterInplace(mesh);
+        } else {
+          mesh = filter.filter(mesh);
+        }
+      }
     }
 
     return mesh;
@@ -131,23 +132,5 @@ abstract class GeometryGenerator {
                          Vector3List normals, Vector2List texCoords,
                         Uint16List indices) {
     generateTangents(tangents, positions, normals, texCoords, indices);
-  }
-
-  void _invertMeshFaces(MeshGeometry mesh) {
-    // Swap all the triangle indices
-    for (int i=0; i < mesh.indices.length; i += 3) {
-      int tmp = mesh.indices[i];
-      mesh.indices[i] = mesh.indices[i+2];
-      mesh.indices[i+2] = tmp;
-    }
-
-    Vector3List normals = mesh.getViewForAttrib('NORMAL');
-    if (normals != null) {
-      for(int i=0; i < normals.length; ++i) {
-        normals[i] = -normals[i];
-      }
-    }
-
-    // TODO: Do the tangents need to be inverted? Maybe just the W component?
   }
 }

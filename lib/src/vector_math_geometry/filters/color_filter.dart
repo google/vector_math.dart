@@ -19,9 +19,31 @@
 
 */
 
-library vector_math_lists;
-import 'dart:typed_data';
-import 'dart:math' as Math;
-import 'package:vector_math/vector_math.dart';
+part of vector_math_geometry;
 
-part 'src/vector_math_lists/vector.dart';
+class ColorFilter extends GeometryFilter {
+  Vector4 color;
+
+  List<VertexAttrib> get generates => [new VertexAttrib('COLOR', 4, 'float')];
+
+  ColorFilter(Vector4 this.color);
+
+  MeshGeometry filter(MeshGeometry mesh) {
+    MeshGeometry output;
+    if (mesh.getAttrib('COLOR') == null) {
+      List<VertexAttrib> attributes = new List<VertexAttrib>();
+      attributes.addAll(mesh.attribs);
+      attributes.add(new VertexAttrib('COLOR', 4, 'float'));
+      output = new MeshGeometry.resetAttribs(mesh, attributes);
+    } else {
+      output = new MeshGeometry.copy(mesh);
+    }
+
+    Vector4List colors = output.getViewForAttrib('COLOR');
+    for(int i=0; i < colors.length; ++i) {
+      colors[i] = color;
+    }
+
+    return output;
+  }
+}

@@ -19,9 +19,29 @@
 
 */
 
-library vector_math_lists;
-import 'dart:typed_data';
-import 'dart:math' as Math;
-import 'package:vector_math/vector_math.dart';
+part of vector_math_geometry;
 
-part 'src/vector_math_lists/vector.dart';
+abstract class GeometryFilter {
+  bool get inplace => false;
+  List<VertexAttrib> get requires => [];
+  List<VertexAttrib> get generates => [];
+
+  /**
+   * Returns a copy of the mesh with any filter transforms applied
+   */
+  MeshGeometry filter(MeshGeometry mesh);
+}
+
+abstract class InplaceGeometryFilter {
+  bool get inplace => true;
+  MeshGeometry filter(MeshGeometry mesh) {
+    MeshGeometry output = new MeshGeometry.copy(mesh);
+    filterInplace(output);
+    return output;
+  }
+
+  /**
+   * Applies the filter to the mesh
+   */
+  void filterInplace(MeshGeometry mesh);
+}
