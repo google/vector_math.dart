@@ -50,6 +50,26 @@ class RayTest extends BaseTest {
     expect(parent.intersectsWithTriangle(cutting), equals(0.5));
     expect(parent.intersectsWithTriangle(outside), equals(null));
     expect(parent.intersectsWithTriangle(behind), equals(null));
+    
+    // Test cases from real-world failures:
+    // Just barely intersects, but gets rounded out
+    final Ray p2 = new Ray.originDirection(
+        _v3(0.0,-0.16833500564098358,0.7677000164985657), 
+        _v3(-0.0,-0.8124330043792725,-0.5829949975013733));
+    final Triangle t2 = new Triangle.points(
+        _v3(0.03430179879069328,-0.7268069982528687,0.3532710075378418),
+        _v3(0.0,-0.7817990183830261,0.3641969859600067), 
+        _v3(0.0,-0.7293699979782104,0.3516849875450134));
+    expect(p2.intersectsWithTriangle(t2), closeTo(0.7078371874391822, 1e-10));
+    // Ray is not quite perpendicular to triangle, but gets rounded out
+    final Ray p3 = new Ray.originDirection(
+        _v3(0.023712199181318283,-0.15045200288295746,0.7751160264015198),
+        _v3(0.6024960279464722,-0.739005982875824,-0.3013699948787689));
+    final Triangle t3 = new Triangle.points(
+        _v3(0.16174300014972687,-0.3446039855480194,0.7121580243110657),
+        _v3(0.1857299953699112,-0.3468630015850067,0.6926270127296448),
+        _v3(0.18045000731945038,-0.3193660080432892,0.6921690106391907));
+    expect(p3.intersectsWithTriangle(t3), closeTo(0.2538471189773835, 1e-10));
   }
 
   void testRayIntersectionAabb3() {

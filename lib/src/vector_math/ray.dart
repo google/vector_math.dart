@@ -82,7 +82,7 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithTriangle(Triangle other) {
-    const double EPSILON = 10e-5;
+    const double EPSILON = 10e-6;
 
     final e1 = other.point1.clone().sub(other.point0);
     final e2 = other.point2.clone().sub(other.point0);
@@ -105,7 +105,7 @@ class Ray {
     final r = s.cross(e1);
     final v = f * (direction.dot(r));
 
-    if(v < 0.0 || u + v > 1.0) {
+    if(v < -EPSILON || u + v > 1.0+EPSILON) {
       return null;
     }
 
