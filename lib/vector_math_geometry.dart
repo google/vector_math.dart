@@ -29,6 +29,7 @@ import 'package:vector_math/vector_math_lists.dart';
 
 part 'src/vector_math_geometry/mesh_geometry.dart';
 
+part 'src/vector_math_geometry/filters/barycentric_filter.dart';
 part 'src/vector_math_geometry/filters/color_filter.dart';
 part 'src/vector_math_geometry/filters/flat_shade_filter.dart';
 part 'src/vector_math_geometry/filters/geometry_filter.dart';

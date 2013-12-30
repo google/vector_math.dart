@@ -35,8 +35,7 @@ abstract class GeometryGenerator {
   int get vertexCount;
   int get indexCount;
 
-  MeshGeometry _createGeometry(GeometryGeneratorFlags flags,
-                               List filters) {
+  MeshGeometry createGeometry({GeometryGeneratorFlags flags: null, List filters: null}) {
 
     if (flags == null)
       flags = new GeometryGeneratorFlags();
@@ -74,24 +73,24 @@ abstract class GeometryGenerator {
     MeshGeometry mesh = new MeshGeometry(vertexCount, attribs);
 
     mesh.indices = new Uint16List(indexCount);
-    _generateIndices(mesh.indices);
+    generateIndices(mesh.indices);
 
     positionView = mesh.getViewForAttrib('POSITION');
-    _generatePositions(positionView, mesh.indices);
+    generateVertexPositions(positionView, mesh.indices);
 
     if (flags.texCoords || flags.tangents) {
       texCoordView = mesh.getViewForAttrib('TEXCOORD0');
-      _generateTexCoords(texCoordView, positionView, mesh.indices);
+      generateVertexTexCoords(texCoordView, positionView, mesh.indices);
     }
 
     if (flags.normals || flags.tangents) {
       normalView = mesh.getViewForAttrib('NORMAL');
-      _generateNormals(normalView, positionView, mesh.indices);
+      generateVertexNormals(normalView, positionView, mesh.indices);
     }
 
     if (flags.tangents) {
       tangentView = mesh.getViewForAttrib('TANGENT');
-      _generateTangents(tangentView, positionView, normalView, texCoordView,
+      generateVertexTangents(tangentView, positionView, normalView, texCoordView,
           mesh.indices);
     }
 
@@ -108,11 +107,11 @@ abstract class GeometryGenerator {
     return mesh;
   }
 
-  void _generateIndices(Uint16List indices);
+  void generateIndices(Uint16List indices);
 
-  void _generatePositions(Vector3List positions, Uint16List indices);
+  void generateVertexPositions(Vector3List positions, Uint16List indices);
 
-  void _generateTexCoords(Vector2List texCoords, Vector3List positions,
+  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
                          Uint16List indices) {
     for (int i = 0; i < positions.length; ++i) {
       Vector3 p = positions[i];
@@ -123,12 +122,12 @@ abstract class GeometryGenerator {
     }
   }
 
-  void _generateNormals(Vector3List normals, Vector3List positions,
+  void generateVertexNormals(Vector3List normals, Vector3List positions,
                        Uint16List indices) {
     generateNormals(normals, positions, indices);
   }
 
-  void _generateTangents(Vector4List tangents, Vector3List positions,
+  void generateVertexTangents(Vector4List tangents, Vector3List positions,
                          Vector3List normals, Vector2List texCoords,
                         Uint16List indices) {
     generateTangents(tangents, positions, normals, texCoords, indices);

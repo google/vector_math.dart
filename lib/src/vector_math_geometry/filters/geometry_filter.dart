@@ -32,7 +32,7 @@ abstract class GeometryFilter {
   MeshGeometry filter(MeshGeometry mesh);
 }
 
-abstract class InplaceGeometryFilter {
+abstract class InplaceGeometryFilter extends GeometryFilter {
   bool get inplace => true;
   MeshGeometry filter(MeshGeometry mesh) {
     MeshGeometry output = new MeshGeometry.copy(mesh);

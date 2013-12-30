@@ -32,6 +32,13 @@ class VertexAttrib {
     stride = 0,
     offset = 0;
 
+  VertexAttrib.copy(VertexAttrib attrib) :
+    name = attrib.name,
+    size = attrib.size,
+    type = attrib.type,
+    stride = attrib.stride,
+    offset = attrib.offset;
+
   VertexAttrib._internal(this.name, this.size, this.type, this.stride, this.offset);
 
   VertexAttrib._resetStrideOffset(VertexAttrib attrib, this.stride, this.offset) :
@@ -126,6 +133,8 @@ class MeshGeometry {
       indices.setAll(0, mesh.indices);
     }
   }
+
+  int get triangleVertexCount => indices != null ? indices.length : length;
 
   factory MeshGeometry.fromJson(Map json) {
     Float32List buffer = new Float32List.fromList(json["buffer"]);

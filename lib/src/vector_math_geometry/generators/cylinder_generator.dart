@@ -37,10 +37,10 @@ class CylinderGenerator extends GeometryGenerator {
     _height = height.toDouble();
     _segments = segments;
 
-    return _createGeometry(flags, filters);
+    return createGeometry(flags: flags, filters: filters);
   }
 
-  void _generateIndices(Uint16List indices) {
+  void generateIndices(Uint16List indices) {
     int i = 0;
 
     // Sides
@@ -73,7 +73,7 @@ class CylinderGenerator extends GeometryGenerator {
     }
   }
 
-  void _generatePositions(Vector3List positions, Uint16List indices) {
+  void generateVertexPositions(Vector3List positions, Uint16List indices) {
     int i = 0;
 
     // Top
@@ -121,7 +121,7 @@ class CylinderGenerator extends GeometryGenerator {
     }
   }
 
-  void _generateTexCoords(Vector2List texCoords, Vector3List positions,
+  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
                           Uint16List indices) {
     int i = 0;
 

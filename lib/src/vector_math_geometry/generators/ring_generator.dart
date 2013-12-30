@@ -46,10 +46,10 @@ class RingGenerator extends GeometryGenerator {
     _thetaStart = thetaStart;
     _thetaLength = thetaLength;
     _stripTextureCoordinates = stripTextureCoordinates;
-    return _createGeometry(flags, filters);
+    return createGeometry(flags: flags, filters: filters);
   }
 
-  void _generatePositions(Vector3List positions, Uint16List indices) {
+  void generateVertexPositions(Vector3List positions, Uint16List indices) {
     Vector3 v = new Vector3.zero();
     int index = 0;
     for (int i = 0; i <= _segments; i++) {
@@ -66,7 +66,7 @@ class RingGenerator extends GeometryGenerator {
     assert(index == vertexCount);
   }
 
-  void _generateTexCoords(Vector2List texCoords, Vector3List positions,
+  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
                           Uint16List indices) {
     if (_stripTextureCoordinates) {
       Vector2 v = new Vector2.zero();
@@ -105,7 +105,7 @@ class RingGenerator extends GeometryGenerator {
     }
   }
 
-  void _generateIndices(Uint16List indices) {
+  void generateIndices(Uint16List indices) {
     int index = 0;
     int length = _segments * 2;
     for (int i = 0; i < length; i += 2) {
