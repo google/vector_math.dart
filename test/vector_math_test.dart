@@ -10,6 +10,7 @@ import 'package:vector_math/vector_math_geometry.dart';
 part 'base_test.dart';
 part 'test_quaternion.dart';
 part 'test_matrix.dart';
+part 'test_noise.dart';
 part 'test_vector.dart';
 part 'test_aabb.dart';
 part 'test_opengl_matrix.dart';

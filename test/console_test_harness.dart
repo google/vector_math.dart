@@ -79,5 +79,10 @@ void main() {
     FrustumTest ft = new FrustumTest();
     ft.run();
   });
+
+  group('Noise', () {
+    NoiseTest nt = new NoiseTest();
+    nt.run();
+  });
 }
 
