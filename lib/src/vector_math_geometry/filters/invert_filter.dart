@@ -19,9 +19,26 @@
 
 */
 
-library vector_math_lists;
-import 'dart:typed_data';
-import 'dart:math' as Math;
-import 'package:vector_math/vector_math.dart';
+part of vector_math_geometry;
 
-part 'src/vector_math_lists/vector.dart';
+class InvertFilter extends InplaceGeometryFilter {
+  void filterInplace(MeshGeometry mesh) {
+    // TODO: Do the tangents need to be inverted? Maybe just the W component?
+    // TODO: Should modify in-place be allowed, or should it be required
+    // to return a new geometry?
+
+    // Swap all the triangle indices
+    for (int i=0; i < mesh.indices.length; i += 3) {
+      int tmp = mesh.indices[i];
+      mesh.indices[i] = mesh.indices[i+2];
+      mesh.indices[i+2] = tmp;
+    }
+
+    Vector3List normals = mesh.getViewForAttrib('NORMAL');
+    if (normals != null) {
+      for(int i=0; i < normals.length; ++i) {
+        normals[i] = -normals[i];
+      }
+    }
+  }
+}

@@ -32,6 +32,7 @@ class CircleGenerator extends GeometryGenerator {
 
   MeshGeometry createCircle(double radius,
                             {flags: null,
+                             filters: null,
                              segments: 64,
                              thetaStart: 0.0,
                              thetaLength: Math.PI * 2.0}) {
@@ -39,10 +40,10 @@ class CircleGenerator extends GeometryGenerator {
     _segments = segments;
     _thetaStart = thetaStart;
     _thetaLength = thetaLength;
-    return _createGeometry(flags);
+    return createGeometry(flags: flags, filters: filters);
   }
 
-  void _generatePositions(Vector3List positions, Uint16List indices) {
+  void generateVertexPositions(Vector3List positions, Uint16List indices) {
     Vector3 v = new Vector3.zero();
     positions[0] = v;
     int index = 1;
@@ -56,7 +57,7 @@ class CircleGenerator extends GeometryGenerator {
     assert(index == vertexCount);
   }
 
-  void _generateTexCoords(Vector2List texCoords, Vector3List positions,
+  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
                           Uint16List indices) {
     Vector2 v = new Vector2(0.5, 0.5);
     texCoords[0] = v;
@@ -73,7 +74,7 @@ class CircleGenerator extends GeometryGenerator {
     assert(index == vertexCount);
   }
 
-  void _generateIndices(Uint16List indices) {
+  void generateIndices(Uint16List indices) {
     int index = 0;
     for (int i = 1; i <= _segments; i++) {
       indices[index] = i;

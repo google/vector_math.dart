@@ -30,15 +30,15 @@ class SphereGenerator extends GeometryGenerator {
   int get indexCount => 6 * _lonSegments * _latSegments;
 
   MeshGeometry createSphere(num radius, {int latSegments: 16,
-                            int lonSegments: 16, flags: null}) {
+                            int lonSegments: 16, flags: null, filters: null}) {
     _radius = radius.toDouble();
     _latSegments = latSegments;
     _lonSegments = lonSegments;
 
-    return _createGeometry(flags);
+    return createGeometry(flags: flags, filters: filters);
   }
 
-  void _generateIndices(Uint16List indices) {
+  void generateIndices(Uint16List indices) {
     int i = 0;
     for (int y = 0; y < _latSegments; ++y) {
       int base1 = (_lonSegments + 1) * y;
@@ -56,7 +56,7 @@ class SphereGenerator extends GeometryGenerator {
     }
   }
 
-  void _generatePositions(Vector3List positions, Uint16List indices) {
+  void generateVertexPositions(Vector3List positions, Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
       double v = y / _latSegments;
@@ -75,7 +75,7 @@ class SphereGenerator extends GeometryGenerator {
     }
   }
 
-  void _generateTexCoords(Vector2List texCoords, Vector3List positions,
+  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
                           Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
@@ -88,7 +88,7 @@ class SphereGenerator extends GeometryGenerator {
     }
   }
 
-  void _generateNormals(Vector3List normals, Vector3List positions,
+  void generateVertexNormals(Vector3List normals, Vector3List positions,
                         Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {

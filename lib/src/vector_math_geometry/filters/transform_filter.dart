@@ -19,9 +19,20 @@
 
 */
 
-library vector_math_lists;
-import 'dart:typed_data';
-import 'dart:math' as Math;
-import 'package:vector_math/vector_math.dart';
+part of vector_math_geometry;
 
-part 'src/vector_math_lists/vector.dart';
+class TransformFilter extends InplaceGeometryFilter {
+  Matrix4 transform;
+  List<VertexAttrib> get requires => [new VertexAttrib('POSITION', 3, 'float')];
+
+  TransformFilter(Matrix4 this.transform);
+
+  void filterInplace(MeshGeometry mesh) {
+    Vector3List position = mesh.getViewForAttrib('POSITION');
+    if (position != null) {
+      for(int i=0; i < position.length; ++i) {
+        position[i] = transform * position[i];
+      }
+    }
+  }
+}
