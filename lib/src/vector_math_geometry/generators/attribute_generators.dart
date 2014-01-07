@@ -134,19 +134,22 @@ void generateTangents(Vector4List tangents, Vector3List positions,
     tan1[i2] = p0.add(vdir);
   }
 
-  for (int i = 0; i < tangents.length; ++i) {
-    normals.load(i, n);
-    tan0.load(i, t);
+
+  for (int i = 0; i < indices.length; i+=3) {
+    int j = indices[i];
+
+    normals.load(j, n);
+    tan0.load(j, t);
 
     p1.setFrom(n).scale(n.dot(t));
     p0.setFrom(t).sub(p1).normalize();
 
-    tan1.load(i, p1);
+    tan1.load(j, p1);
     n.crossInto(t, p2);
     double sign = (p2.dot(p1) < 0.0) ? -1.0 : 1.0;
 
-    tangents.load(i, tan);
-    tangents[i] = tan.setValues(p0.x, p0.y, p0.z, sign);
+    tangents.load(j, tan);
+    tangents[j] = tan.setValues(p0.x, p0.y, p0.z, sign);
   }
 }
 
