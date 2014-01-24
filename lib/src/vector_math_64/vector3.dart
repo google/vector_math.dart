@@ -23,7 +23,7 @@ part of vector_math_64;
 
 /// 3D column vector.
 class Vector3 {
-  final Float64List storage = new Float64List(3);
+  final Float64List storage;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
@@ -40,12 +40,12 @@ class Vector3 {
   }
 
   /// Construct a new vector with the specified values.
-  Vector3(double x_, double y_, double z_) {
+  Vector3(double x_, double y_, double z_) : storage = new Float64List(3) {
     setValues(x_, y_, z_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector3.array(List<double> array, [int offset=0]) {
+  Vector3.array(List<double> array, [int offset=0]) : storage = new Float64List(3) {
     int i = offset;
     storage[2] = array[i+2];
     storage[1] = array[i+1];
@@ -53,12 +53,19 @@ class Vector3 {
   }
 
   //// Zero vector.
-  Vector3.zero();
+  Vector3.zero() : storage = new Float64List(3);
 
   /// Copy of [other].
-  Vector3.copy(Vector3 other) {
+  Vector3.copy(Vector3 other) : storage = new Float64List(3) {
     setFrom(other);
   }
+
+  /// Constructs Vector3 with given Float64List as [storage].
+  Vector3.fromFloat64List(Float64List this.storage);
+
+  /// Constructs Vector3 with a [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
+  Vector3.fromBuffer(ByteBuffer buffer, int offset) : storage = new Float64List.view(buffer, offset, 3);
 
   /// Set the values of the vector.
   Vector3 setValues(double x_, double y_, double z_) {
@@ -176,6 +183,16 @@ class Vector3 {
   Vector3 normalizeInto(Vector3 out) {
     out.setFrom(this);
     return out.normalize();
+  }
+
+  /// Distance from [this] to [arg]
+  double distanceTo(Vector3 arg) {
+    return this.clone().sub(arg).length;
+  }
+
+  /// Squared distance from [this] to [arg]
+  double distanceToSquared(Vector3 arg) {
+    return this.clone().sub(arg).length2;
   }
 
   /// Inner product.

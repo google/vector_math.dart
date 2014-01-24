@@ -19,7 +19,7 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
 class Plane {
   final Vector3 _normal;

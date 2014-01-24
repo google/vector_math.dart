@@ -24,7 +24,7 @@ part of vector_math_64;
 /// 4D Matrix.
 /// Values are stored in column major order.
 class Matrix4 {
-  final Float64List storage = new Float64List(16);
+  final Float64List storage;
 
   /// Solve [A] * [x] = [b].
   static void solve2(Matrix4 A, Vector2 x, Vector2 b) {
@@ -175,31 +175,31 @@ class Matrix4 {
   Matrix4(double arg0, double arg1, double arg2, double arg3,
           double arg4, double arg5, double arg6, double arg7,
           double arg8, double arg9, double arg10, double arg11,
-          double arg12, double arg13, double arg14, double arg15) {
+          double arg12, double arg13, double arg14, double arg15) : storage = new Float64List(16) {
     setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,
               arg11, arg12, arg13, arg14, arg15);
   }
 
   /// Zero matrix.
-  Matrix4.zero();
+  Matrix4.zero() : storage = new Float64List(16);
 
   /// Identity matrix.
-  Matrix4.identity() {
+  Matrix4.identity() : storage = new Float64List(16) {
     setIdentity();
   }
 
   /// Copies values from [other].
-  Matrix4.copy(Matrix4 other) {
+  Matrix4.copy(Matrix4 other) : storage = new Float64List(16) {
     setFrom(other);
   }
 
   /// Constructs a new mat4 from columns.
-  Matrix4.columns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) {
+  Matrix4.columns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) : storage = new Float64List(16) {
     setColumns(arg0, arg1, arg2, arg3);
   }
 
   /// Outer product of [u] and [v].
-  Matrix4.outer(Vector4 u, Vector4 v) {
+  Matrix4.outer(Vector4 u, Vector4 v) : storage = new Float64List(16) {
     storage[0] = u.storage[0] * v.storage[0];
     storage[1] = u.storage[0] * v.storage[1];
     storage[2] = u.storage[0] * v.storage[2];
@@ -220,37 +220,37 @@ class Matrix4 {
 
 
   /// Rotation of [radians_] around X.
-  Matrix4.rotationX(double radians_) {
+  Matrix4.rotationX(double radians_) : storage = new Float64List(16) {
     storage[15] = 1.0;
     setRotationX(radians_);
   }
 
   /// Rotation of [radians_] around Y.
-  Matrix4.rotationY(double radians_) {
+  Matrix4.rotationY(double radians_) : storage = new Float64List(16) {
     storage[15] = 1.0;
     setRotationY(radians_);
   }
 
   /// Rotation of [radians_] around Z.
-  Matrix4.rotationZ(double radians_) {
+  Matrix4.rotationZ(double radians_) : storage = new Float64List(16) {
     storage[15] = 1.0;
     setRotationZ(radians_);
   }
 
   /// Translation matrix.
-  Matrix4.translation(Vector3 translation) {
+  Matrix4.translation(Vector3 translation) : storage = new Float64List(16) {
     setIdentity();
     setTranslation(translation);
   }
 
   /// Translation matrix.
-  Matrix4.translationValues(double x, double y, double z) {
+  Matrix4.translationValues(double x, double y, double z) : storage = new Float64List(16) {
     setIdentity();
     setTranslationRaw(x, y, z);
   }
 
   /// Scale matrix.
-  Matrix4.diagonal3(Vector3 scale_) {
+  Matrix4.diagonal3(Vector3 scale_) : storage = new Float64List(16) {
     storage[15] = 1.0;
     storage[10] = scale_.storage[2];
     storage[5] = scale_.storage[1];
@@ -258,12 +258,19 @@ class Matrix4 {
   }
 
   /// Scale matrix.
-  Matrix4.diagonal3Values(double x, double y, double z) {
+  Matrix4.diagonal3Values(double x, double y, double z) : storage = new Float64List(16) {
     storage[15] = 1.0;
     storage[10] = z;
     storage[5] = y;
     storage[0] = x;
   }
+
+  /// Constructs Matrix4 with given Float64List as [storage].
+  Matrix4.fromFloat64List(Float64List this.storage);
+
+  /// Constructs Matrix4 with a [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
+  Matrix4.fromBuffer(ByteBuffer buffer, int offset) : storage = new Float64List.view(buffer, offset, 16);
 
   /// Sets the diagonal to [arg].
   Matrix4 splatDiagonal(double arg) {
@@ -565,8 +572,8 @@ class Matrix4 {
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
   dynamic operator*(dynamic arg) {
-    if (arg is double) {
-      return _mul_scale(arg);
+    if (arg is num) {
+      return _mul_scale(arg.toDouble());
     }
     if (arg is Vector4) {
       return _mul_vector(arg);

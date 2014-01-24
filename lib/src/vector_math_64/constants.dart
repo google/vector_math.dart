@@ -18,7 +18,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-part of vector_math_64;
+part of vector_math;
 
 const double degrees2radians = Math.PI/180.0;
 const double radians2degrees = 180.0/Math.PI;
