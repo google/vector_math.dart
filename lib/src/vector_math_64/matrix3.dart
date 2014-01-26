@@ -65,7 +65,7 @@ class Matrix3 {
 
     // A.getColumn(0).dot(x)
     det = A0x * rx + A0y * ry + A0z * rz;
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 

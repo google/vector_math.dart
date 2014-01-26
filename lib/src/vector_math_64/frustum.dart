@@ -89,7 +89,7 @@ class Frustum {
     final p1 = new Vector3.zero();
     final p2 = new Vector3.zero();
 
-    for(var i = 0; i < 6 ; ++i) {
+    for (var i = 0; i < 6; ++i) {
       var plane = _planes[i];
 
       p1.x = plane.normal.x > 0 ? aabb.min.x : aabb.max.x;
@@ -113,7 +113,7 @@ class Frustum {
   bool intersectsWithSphere(Sphere sphere) {
     var negativeRadius = -sphere.radius;
 
-    for(var i = 0; i < 6; ++i) {
+    for (var i = 0; i < 6; ++i) {
       double distance = _planes[i].distanceToVector3(sphere.center);
 
       if (distance < negativeRadius) {

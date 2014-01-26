@@ -47,12 +47,12 @@ class Vector4 {
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector4.array(List<double> array, [int offset=0]) {
+  Vector4.array(List<double> array, [int offset = 0]) {
     int i = offset;
-    storage[0] = array[i+0];
-    storage[1] = array[i+1];
-    storage[2] = array[i+2];
-    storage[3] = array[i+3];
+    storage[0] = array[i + 0];
+    storage[1] = array[i + 1];
+    storage[2] = array[i + 2];
+    storage[3] = array[i + 3];
   }
 
   //// Zero vector.
@@ -227,7 +227,7 @@ class Vector4 {
   double relativeError(Vector4 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
-    return diff_norm/correct_norm;
+    return diff_norm / correct_norm;
   }
 
   /// Absolute error between [this] and [correct]
@@ -328,19 +328,19 @@ class Vector4 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<double> array, [int offset=0]) {
-    array[offset+0] = storage[0];
-    array[offset+1] = storage[1];
-    array[offset+2] = storage[2];
-    array[offset+3] = storage[3];
+  void copyIntoArray(List<double> array, [int offset = 0]) {
+    array[offset + 0] = storage[0];
+    array[offset + 1] = storage[1];
+    array[offset + 2] = storage[2];
+    array[offset + 3] = storage[3];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset=0]) {
-    storage[0] = array[offset+0];
-    storage[1] = array[offset+1];
-    storage[2] = array[offset+2];
-    storage[3] = array[offset+3];
+  void copyFromArray(List<double> array, [int offset = 0]) {
+    storage[0] = array[offset + 0];
+    storage[1] = array[offset + 1];
+    storage[2] = array[offset + 2];
+    storage[3] = array[offset + 3];
   }
 
   set xy(Vector2 arg) {

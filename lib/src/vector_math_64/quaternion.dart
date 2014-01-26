@@ -388,7 +388,7 @@ class Quaternion {
     Quaternion diff = correct - this;
     double norm_diff = diff.length;
     double correct_norm = correct.length;
-    return norm_diff/correct_norm;
+    return norm_diff / correct_norm;
   }
 
   /// Absolute error between [this] and [correct].

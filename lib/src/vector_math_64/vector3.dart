@@ -277,7 +277,7 @@ class Vector3 {
   double relativeError(Vector3 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
-    return diff_norm/correct_norm;
+    return diff_norm / correct_norm;
   }
 
   /// Absolute error between [this] and [correct]
@@ -375,17 +375,17 @@ class Vector3 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<double> array, [int offset=0]) {
-    array[offset+2] = storage[2];
-    array[offset+1] = storage[1];
-    array[offset+0] = storage[0];
+  void copyIntoArray(List<double> array, [int offset = 0]) {
+    array[offset + 2] = storage[2];
+    array[offset + 1] = storage[1];
+    array[offset + 0] = storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset=0]) {
-    storage[2] = array[offset+2];
-    storage[1] = array[offset+1];
-    storage[0] = array[offset+0];
+  void copyFromArray(List<double> array, [int offset = 0]) {
+    storage[2] = array[offset + 2];
+    storage[1] = array[offset + 1];
+    storage[0] = array[offset + 0];
   }
 
   set xy(Vector2 arg) {

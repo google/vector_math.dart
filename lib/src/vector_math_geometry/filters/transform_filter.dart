@@ -30,7 +30,7 @@ class TransformFilter extends InplaceGeometryFilter {
   void filterInplace(MeshGeometry mesh) {
     Vector3List position = mesh.getViewForAttrib('POSITION');
     if (position != null) {
-      for(int i=0; i < position.length; ++i) {
+      for (int i = 0; i < position.length; ++i) {
         position[i] = transform * position[i];
       }
     }

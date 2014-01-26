@@ -28,15 +28,15 @@ class InvertFilter extends InplaceGeometryFilter {
     // to return a new geometry?
 
     // Swap all the triangle indices
-    for (int i=0; i < mesh.indices.length; i += 3) {
+    for (int i = 0; i < mesh.indices.length; i += 3) {
       int tmp = mesh.indices[i];
-      mesh.indices[i] = mesh.indices[i+2];
-      mesh.indices[i+2] = tmp;
+      mesh.indices[i] = mesh.indices[i + 2];
+      mesh.indices[i + 2] = tmp;
     }
 
     Vector3List normals = mesh.getViewForAttrib('NORMAL');
     if (normals != null) {
-      for(int i=0; i < normals.length; ++i) {
+      for (int i = 0; i < normals.length; ++i) {
         normals[i] = -normals[i];
       }
     }

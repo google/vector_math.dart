@@ -20,6 +20,6 @@
 
 part of vector_math_64;
 
-const double degrees2radians = Math.PI/180.0;
-const double radians2degrees = 180.0/Math.PI;
+const double degrees2radians = Math.PI / 180.0;
+const double radians2degrees = 180.0 / Math.PI;
 const double sqrtOneHalf = 0.70710678118;

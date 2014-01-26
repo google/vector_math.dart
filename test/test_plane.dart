@@ -3,11 +3,11 @@ part of vector_math_test;
 class PlaneTest extends BaseTest {
 
   Vector3 _v3(double x, double y, double z) {
-    return new Vector3(x,y,z);
+    return new Vector3(x, y, z);
   }
 
   void testPlaneNormalize() {
-    final Plane plane = new Plane.normalconstant(_v3(2.0,0.0,0.0), 2.0);
+    final Plane plane = new Plane.normalconstant(_v3(2.0, 0.0, 0.0), 2.0);
 
     plane.normalize();
 
@@ -19,7 +19,7 @@ class PlaneTest extends BaseTest {
   }
 
   void testPlaneDistanceToVector3() {
-    final Plane plane = new Plane.normalconstant(_v3(2.0,0.0,0.0), -2.0);
+    final Plane plane = new Plane.normalconstant(_v3(2.0, 0.0, 0.0), -2.0);
 
     plane.normalize();
 

@@ -101,7 +101,7 @@ abstract class VectorList {
 
   void copy(VectorList src, {int srcOffset: 0, int offset: 0, int count: 0}) {
     if (count == 0) {
-      count = Math.min(length-offset, src.length-srcOffset);
+      count = Math.min(length - offset, src.length - srcOffset);
     }
     int minVectorLength = Math.min(_vectorLength, src._vectorLength);
     for (int i = 0; i < count; i++) {
@@ -113,13 +113,13 @@ abstract class VectorList {
     }
   }
 
-  dynamic operator[](int index) {
+  dynamic operator [](int index) {
     var r = newVector();
     load(index, r);
     return r;
   }
 
-  void operator[]=(int index, dynamic v) {
+  void operator []=(int index, dynamic v) {
     store(index, v);
   }
 }

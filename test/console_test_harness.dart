@@ -43,7 +43,7 @@ void main() {
       relativeTest(degrees(Math.PI), 180.0);
     });
     test('radians', () {
-      relativeTest(radians(90.0), Math.PI/2.0);
+      relativeTest(radians(90.0), Math.PI / 2.0);
     });
   });
 

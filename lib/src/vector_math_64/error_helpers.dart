@@ -26,7 +26,7 @@ part of vector_math_64;
 double relativeError(dynamic calculated, dynamic correct) {
   if (calculated is double && correct is double) {
     double diff = (calculated - correct).abs();
-    return diff/correct;
+    return diff / correct;
   }
   return calculated.relativeError(correct);
 }
