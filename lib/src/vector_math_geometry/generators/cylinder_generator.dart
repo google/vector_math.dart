@@ -46,7 +46,7 @@ class CylinderGenerator extends GeometryGenerator {
     // Sides
     int base1 = 0;
     int base2 = _segments + 1;
-    for(int x = 0; x < _segments; ++x) {
+    for (int x = 0; x < _segments; ++x) {
       indices[i++] = base1 + x;
       indices[i++] = base1 + x + 1;
       indices[i++] = base2 + x;
@@ -58,7 +58,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Top cap
     base1 = (_segments + 1) * 2;
-    for(int x = 1; x < _segments - 1; ++x) {
+    for (int x = 1; x < _segments - 1; ++x) {
       indices[i++] = base1;
       indices[i++] = base1 + x + 1;
       indices[i++] = base1 + x;
@@ -66,7 +66,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Bottom cap
     base1 = (_segments + 1) * 2 + _segments;
-    for(int x = 1; x < _segments - 1; ++x) {
+    for (int x = 1; x < _segments - 1; ++x) {
       indices[i++] = base1;
       indices[i++] = base1 + x;
       indices[i++] = base1 + x + 1;

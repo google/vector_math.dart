@@ -50,26 +50,26 @@ class BarycentricFilter extends GeometryFilter {
 
     int i0, i1, i2;
 
-    for (int i=0; i < output.length; i += 3) {
+    for (int i = 0; i < output.length; i += 3) {
       if (mesh.indices != null) {
         i0 = mesh.indices[i];
-        i1 = mesh.indices[i+1];
-        i2 = mesh.indices[i+2];
+        i1 = mesh.indices[i + 1];
+        i2 = mesh.indices[i + 2];
       } else {
         i0 = i;
-        i1 = i+1;
-        i2 = i+2;
+        i1 = i + 1;
+        i2 = i + 2;
       }
 
       barycentricCoords[i] = b0;
-      barycentricCoords[i+1] = b1;
-      barycentricCoords[i+2] = b2;
+      barycentricCoords[i + 1] = b1;
+      barycentricCoords[i + 2] = b2;
 
       // Copy the remaining attributes over
-      for (int j=0; j < srcAttribs.length; ++j) {
+      for (int j = 0; j < srcAttribs.length; ++j) {
         destAttribs[j][i] = srcAttribs[j][i0];
-        destAttribs[j][i+1] = srcAttribs[j][i1];
-        destAttribs[j][i+2] = srcAttribs[j][i2];
+        destAttribs[j][i + 1] = srcAttribs[j][i1];
+        destAttribs[j][i + 2] = srcAttribs[j][i2];
       }
     }
 

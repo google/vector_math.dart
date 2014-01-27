@@ -4,7 +4,7 @@ class VectorTest extends BaseTest {
 
 
   void testVec3InstacinfFromFloat32List() {
-    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0]);
+    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0]);
     final Vector3 input = new Vector3.fromFloat32List(float32List);
 
     expect(input.x, equals(1.0));
@@ -13,10 +13,10 @@ class VectorTest extends BaseTest {
   }
 
   void testVec3InstacingFromByteBuffer() {
-    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0, 4.0]);
+    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
     final ByteBuffer buffer = float32List.buffer;
-    final Vector3 zeroOffset = new Vector3.fromBuffer(buffer,0);
-    final Vector3 offsetVector = new Vector3.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+    final Vector3 zeroOffset = new Vector3.fromBuffer(buffer, 0);
+    final Vector3 offsetVector = new Vector3.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
 
     expect(zeroOffset.x, equals(1.0));
     expect(zeroOffset.y, equals(2.0));
@@ -86,9 +86,9 @@ class VectorTest extends BaseTest {
     relativeTest(dot2(inputB, inputA), expectedOutput);
   }
 
-  void testVec2Postmultiplication(){
+  void testVec2Postmultiplication() {
     Matrix2 inputMatrix = new Matrix2.rotation(.2);
-    Vector2 inputVector = new Vector2(1.0,0.0);
+    Vector2 inputVector = new Vector2(1.0, 0.0);
     Matrix2 inputInv = new Matrix2.copy(inputMatrix);
     inputInv.invert();
     print("input $inputMatrix");
@@ -111,11 +111,11 @@ class VectorTest extends BaseTest {
     relativeTest(result, expectedOutputCross);
     result = new Vector2.zero();
     cross2A(1.0, inputA, result);
-    relativeTest(result, new Vector2(-inputA.y,  inputA.x));
+    relativeTest(result, new Vector2(-inputA.y, inputA.x));
     cross2B(inputA, 1.0, result);
-    relativeTest(result, new Vector2( inputA.y, -inputA.x));
+    relativeTest(result, new Vector2(inputA.y, -inputA.x));
     cross2B(inputA, 1.0, result);
-    relativeTest(result, new Vector2( inputA.y, -inputA.x));
+    relativeTest(result, new Vector2(inputA.y, -inputA.x));
   }
 
   void testVec2OrthogonalScale() {
@@ -341,7 +341,7 @@ class VectorTest extends BaseTest {
 
     v.applyProjection(m);
     relativeTest(v.x, a);
-    relativeTest(v.y, 4.0/3.0);
+    relativeTest(v.y, 4.0 / 3.0);
     relativeTest(v.z, a);
   }
 

@@ -28,15 +28,15 @@ class Matrix3 {
 
   /// Solve [A] * [x] = [b].
   static void solve2(Matrix3 A, Vector2 x, Vector2 b) {
-    final double a11 = A.entry(0,0);
-    final double a12 = A.entry(0,1);
-    final double a21 = A.entry(1,0);
-    final double a22 = A.entry(1,1);
+    final double a11 = A.entry(0, 0);
+    final double a12 = A.entry(0, 1);
+    final double a21 = A.entry(1, 0);
+    final double a22 = A.entry(1, 1);
     final double bx = b.x - A.storage[6];
     final double by = b.y - A.storage[7];
     double det = a11 * a22 - a12 * a21;
 
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 
@@ -65,7 +65,7 @@ class Matrix3 {
 
     // A.getColumn(0).dot(x)
     det = A0x * rx + A0y * ry + A0z * rz;
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 
@@ -233,7 +233,7 @@ class Matrix3 {
   /// Dimension of the matrix.
   int get dimension => 3;
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
 
@@ -274,18 +274,18 @@ class Matrix3 {
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector3 arg) {
     int entry = column * 3;
-    storage[entry+2] = arg.storage[2];
-    storage[entry+1] = arg.storage[1];
-    storage[entry+0] = arg.storage[0];
+    storage[entry + 2] = arg.storage[2];
+    storage[entry + 1] = arg.storage[1];
+    storage[entry + 0] = arg.storage[0];
   }
 
   /// Gets the [column] of the matrix
   Vector3 getColumn(int column) {
     Vector3 r = new Vector3.zero();
     int entry = column * 3;
-    r.storage[2] = storage[entry+2];
-    r.storage[1] = storage[entry+1];
-    r.storage[0] = storage[entry+0];
+    r.storage[2] = storage[entry + 2];
+    r.storage[1] = storage[entry + 1];
+    r.storage[0] = storage[entry + 0];
     return r;
   }
 
@@ -370,7 +370,7 @@ class Matrix3 {
     return r;
   }
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator*(dynamic arg) {
+  dynamic operator *(dynamic arg) {
     if (arg is double) {
       return _mul_scale(arg);
     }
@@ -384,7 +384,7 @@ class Matrix3 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix3 operator+(Matrix3 arg) {
+  Matrix3 operator +(Matrix3 arg) {
     Matrix3 r = new Matrix3.zero();
     r.storage[0] = storage[0] + arg.storage[0];
     r.storage[1] = storage[1] + arg.storage[1];
@@ -399,7 +399,7 @@ class Matrix3 {
   }
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix3 operator-(Matrix3 arg) {
+  Matrix3 operator -(Matrix3 arg) {
     Matrix3 r = new Matrix3.zero();
     r.storage[0] = storage[0] - arg.storage[0];
     r.storage[1] = storage[1] - arg.storage[1];
@@ -414,7 +414,7 @@ class Matrix3 {
   }
 
   /// Returns new matrix -this
-  Matrix3 operator-() {
+  Matrix3 operator -() {
     Matrix3 r = new Matrix3.zero();
     r[0] = -storage[0];
     r[1] = -storage[1];
@@ -561,7 +561,7 @@ class Matrix3 {
     Matrix3 diff = correct - this;
     double correct_norm = correct.infinityNorm();
     double diff_norm = diff.infinityNorm();
-    return diff_norm/correct_norm;
+    return diff_norm / correct_norm;
   }
 
   /// Returns absolute error between [this] and [correct]
@@ -899,7 +899,7 @@ class Matrix3 {
     arg.z = z_;
     return arg;
   }
-  Vector3 transformed(Vector3 arg, [Vector3 out=null]) {
+  Vector3 transformed(Vector3 arg, [Vector3 out = null]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -923,7 +923,7 @@ class Matrix3 {
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset = 0]) {
     int i = offset;
     storage[8] = array[i+8];
     storage[7] = array[i+7];

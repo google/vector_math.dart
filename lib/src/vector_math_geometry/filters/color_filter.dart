@@ -40,7 +40,7 @@ class ColorFilter extends GeometryFilter {
     }
 
     Vector4List colors = output.getViewForAttrib('COLOR');
-    for(int i=0; i < colors.length; ++i) {
+    for (int i = 0; i < colors.length; ++i) {
       colors[i] = color;
     }
 

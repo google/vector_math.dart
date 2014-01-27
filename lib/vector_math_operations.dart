@@ -21,7 +21,6 @@
 
 library vector_math_operations;
 import 'dart:typed_data';
-import 'dart:math' as Math;
 
 part 'src/vector_math_operations/vector.dart';
 part 'src/vector_math_operations/matrix.dart';

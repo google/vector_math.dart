@@ -3,7 +3,7 @@ part of vector_math_test;
 class QuaternionTest extends BaseTest {
 
   void testQuaternionInstacinfFromFloat32List() {
-    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0,4.0]);
+    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
     final Quaternion input = new Quaternion.fromFloat32List(float32List);
 
     expect(input.x, equals(1.0));
@@ -13,10 +13,10 @@ class QuaternionTest extends BaseTest {
   }
 
   void testQuaternionInstacingFromByteBuffer() {
-    final Float32List float32List = new Float32List.fromList([1.0,2.0,3.0,4.0,5.0]);
+    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
     final ByteBuffer buffer = float32List.buffer;
-    final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer,0);
-    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+    final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer, 0);
+    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
 
     expect(zeroOffset.x, equals(1.0));
     expect(zeroOffset.y, equals(2.0));
@@ -112,7 +112,7 @@ class QuaternionTest extends BaseTest {
 
       inputA.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510).normalize());
       inputB.add(new Vector3(1.0, 0.0, 0.0));
-      expectedOutput.add(new Vector3(-0.6667,-0.3333,0.6667));
+      expectedOutput.add(new Vector3(-0.6667, -0.3333, 0.6667));
 
       {
         inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0).normalize());

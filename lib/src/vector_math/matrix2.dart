@@ -28,15 +28,15 @@ class Matrix2 {
 
   /// Solve [A] * [x] = [b].
   static void solve(Matrix2 A, Vector2 x, Vector2 b) {
-    final double a11 = A.entry(0,0);
-    final double a12 = A.entry(0,1);
-    final double a21 = A.entry(1,0);
-    final double a22 = A.entry(1,1);
+    final double a11 = A.entry(0, 0);
+    final double a12 = A.entry(0, 1);
+    final double a21 = A.entry(1, 0);
+    final double a22 = A.entry(1, 1);
     final double bx = b.x;
     final double by = b.y;
     double det = a11 * a22 - a12 * a21;
 
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 
@@ -173,16 +173,16 @@ class Matrix2 {
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector2 arg) {
     int entry = column * 2;
-    storage[entry+1] = arg.storage[1];
-    storage[entry+0] = arg.storage[0];
+    storage[entry + 1] = arg.storage[1];
+    storage[entry + 0] = arg.storage[0];
   }
 
   /// Gets the [column] of the matrix
   Vector2 getColumn(int column) {
     Vector2 r = new Vector2.zero();
     int entry = column * 2;
-    r.storage[1] = storage[entry+1];
-    r.storage[0] = storage[entry+0];
+    r.storage[1] = storage[entry + 1];
+    r.storage[0] = storage[entry + 0];
     return r;
   }
 
@@ -245,7 +245,7 @@ class Matrix2 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix2 operator+(Matrix2 arg) {
+  Matrix2 operator +(Matrix2 arg) {
     Matrix2 r = new Matrix2.zero();
     r.storage[0] = storage[0] + arg.storage[0];
     r.storage[1] = storage[1] + arg.storage[1];
@@ -255,7 +255,7 @@ class Matrix2 {
   }
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix2 operator-(Matrix2 arg) {
+  Matrix2 operator -(Matrix2 arg) {
     Matrix2 r = new Matrix2.zero();
     r.storage[0] = storage[0] - arg.storage[0];
     r.storage[1] = storage[1] - arg.storage[1];
@@ -265,7 +265,7 @@ class Matrix2 {
   }
 
   /// Returns new matrix -this
-  Matrix2 operator-() {
+  Matrix2 operator -() {
     Matrix2 r = new Matrix2.zero();
     r[0] = -storage[0];
     r[1] = -storage[1];
@@ -320,7 +320,7 @@ class Matrix2 {
 
   /// Returns the determinant of this matrix.
   double determinant() {
-    return (storage[0] * storage[3]) - (storage[1]*storage[2]);
+    return (storage[0] * storage[3]) - (storage[1] * storage[2]);
   }
 
   /// Returns the dot product of row [i] and [v].
@@ -330,7 +330,7 @@ class Matrix2 {
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector2 v) {
-    return storage[j*2] * v.storage[0] + storage[(j*2)+1] * v.storage[1];
+    return storage[j * 2] * v.storage[0] + storage[(j * 2) + 1] * v.storage[1];
   }
 
   /// Trace of the matrix.
@@ -364,7 +364,7 @@ class Matrix2 {
     Matrix2 diff = correct - this;
     double correct_norm = correct.infinityNorm();
     double diff_norm = diff.infinityNorm();
-    return diff_norm/correct_norm;
+    return diff_norm / correct_norm;
   }
 
   /// Returns absolute error between [this] and [correct]
@@ -419,8 +419,8 @@ class Matrix2 {
   Matrix2 scaleAdjoint(double scale) {
     double temp = storage[0];
     storage[0] = storage[3] * scale;
-    storage[2] = - storage[2] * scale;
-    storage[1] = - storage[1] * scale;
+    storage[2] = -storage[2] * scale;
+    storage[1] = -storage[1] * scale;
     storage[3] = temp * scale;
     return this;
   }
@@ -458,10 +458,10 @@ class Matrix2 {
     final double n01 = arg.storage[2];
     final double n10 = arg.storage[1];
     final double n11 = arg.storage[3];
-    storage[0] =  (m00 * n00) + (m01 * n10);
-    storage[2] =  (m00 * n01) + (m01 * n11);
-    storage[1] =  (m10 * n00) + (m11 * n10);
-    storage[3] =  (m10 * n01) + (m11 * n11);
+    storage[0] = (m00 * n00) + (m01 * n10);
+    storage[2] = (m00 * n01) + (m01 * n11);
+    storage[1] = (m10 * n00) + (m11 * n10);
+    storage[3] = (m10 * n01) + (m11 * n11);
     return this;
   }
 
@@ -470,10 +470,10 @@ class Matrix2 {
     double m01 = storage[1];
     double m10 = storage[2];
     double m11 = storage[3];
-    storage[0] =  (m00 * arg.storage[0]) + (m01 * arg.storage[1]);
-    storage[2] =  (m00 * arg.storage[2]) + (m01 * arg.storage[3]);
-    storage[1] =  (m10 * arg.storage[0]) + (m11 * arg.storage[1]);
-    storage[3] =  (m10 * arg.storage[2]) + (m11 * arg.storage[3]);
+    storage[0] = (m00 * arg.storage[0]) + (m01 * arg.storage[1]);
+    storage[2] = (m00 * arg.storage[2]) + (m01 * arg.storage[3]);
+    storage[1] = (m10 * arg.storage[0]) + (m11 * arg.storage[1]);
+    storage[3] = (m10 * arg.storage[2]) + (m11 * arg.storage[3]);
     return this;
   }
 
@@ -482,10 +482,10 @@ class Matrix2 {
     double m01 = storage[2];
     double m10 = storage[1];
     double m11 = storage[3];
-    storage[0] =  (m00 * arg.storage[0]) + (m01 * arg.storage[2]);
-    storage[2] =  (m00 * arg.storage[1]) + (m01 * arg.storage[3]);
-    storage[1] =  (m10 * arg.storage[0]) + (m11 * arg.storage[2]);
-    storage[3] =  (m10 * arg.storage[1]) + (m11 * arg.storage[3]);
+    storage[0] = (m00 * arg.storage[0]) + (m01 * arg.storage[2]);
+    storage[2] = (m00 * arg.storage[1]) + (m01 * arg.storage[3]);
+    storage[1] = (m10 * arg.storage[0]) + (m11 * arg.storage[2]);
+    storage[3] = (m10 * arg.storage[1]) + (m11 * arg.storage[3]);
     return this;
   }
 
@@ -499,7 +499,7 @@ class Matrix2 {
     return arg;
   }
 
-  Vector2 transformed(Vector2 arg, [Vector2 out=null]) {
+  Vector2 transformed(Vector2 arg, [Vector2 out = null]) {
     if (out == null) {
       out = new Vector2.copy(arg);
     } else {
@@ -509,20 +509,20 @@ class Matrix2 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset=0]) {
+  void copyIntoArray(List<num> array, [int offset = 0]) {
     int i = offset;
-    array[i+3] = storage[3];
-    array[i+2] = storage[2];
-    array[i+1] = storage[1];
-    array[i+0] = storage[0];
+    array[i + 3] = storage[3];
+    array[i + 2] = storage[2];
+    array[i + 1] = storage[1];
+    array[i + 0] = storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset = 0]) {
     int i = offset;
-    storage[3] = array[i+3];
-    storage[2] = array[i+2];
-    storage[1] = array[i+1];
-    storage[0] = array[i+0];
+    storage[3] = array[i + 3];
+    storage[2] = array[i + 2];
+    storage[1] = array[i + 1];
+    storage[0] = array[i + 0];
   }
 }

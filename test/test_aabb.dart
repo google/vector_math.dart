@@ -3,7 +3,7 @@ part of vector_math_test;
 class AabbTest extends BaseTest {
 
   void testAabb2Center() {
-    final Aabb2 aabb = new Aabb2.minmax(_v(1.0,2.0), _v(8.0,16.0));
+    final Aabb2 aabb = new Aabb2.minmax(_v(1.0, 2.0), _v(8.0, 16.0));
     final Vector2 center = aabb.center;
 
     expect(center.x, equals(4.5));
@@ -11,11 +11,11 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2ContainsAabb2() {
-    final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
-    final Aabb2 child = new Aabb2.minmax(_v(2.0,2.0), _v(7.0,7.0));
-    final Aabb2 cutting = new Aabb2.minmax(_v(0.0,0.0), _v(5.0,5.0));
-    final Aabb2 outside = new Aabb2.minmax(_v(10.0,10.0), _v(20.0,20.0));
-    final Aabb2 grandParent = new Aabb2.minmax(_v(0.0,0.0), _v(10.0,10.0));
+    final Aabb2 parent = new Aabb2.minmax(_v(1.0, 1.0), _v(8.0, 8.0));
+    final Aabb2 child = new Aabb2.minmax(_v(2.0, 2.0), _v(7.0, 7.0));
+    final Aabb2 cutting = new Aabb2.minmax(_v(0.0, 0.0), _v(5.0, 5.0));
+    final Aabb2 outside = new Aabb2.minmax(_v(10.0, 10.0), _v(20.0, 20.0));
+    final Aabb2 grandParent = new Aabb2.minmax(_v(0.0, 0.0), _v(10.0, 10.0));
 
     expect(parent.containsAabb2(child), isTrue);
     expect(parent.containsAabb2(parent), isFalse);

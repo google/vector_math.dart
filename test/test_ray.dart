@@ -73,12 +73,12 @@ class RayTest extends BaseTest {
   }
 
   void testRayIntersectionAabb3() {
-    final Ray parent = new Ray.originDirection(_v3(1.0,1.0,1.0), _v3(0.0,1.0,0.0));
-    final Aabb3 hitting = new Aabb3.minmax(_v3(0.5,3.5,-10.0), _v3(2.5,5.5,10.0));
-    final Aabb3 cutting = new Aabb3.minmax(_v3(0.0,2.0,1.0), _v3(2.0,3.0,2.0));
-    final Aabb3 outside = new Aabb3.minmax(_v3(2.0,0.0,0.0), _v3(6.0,6.0,6.0));
-    final Aabb3 behind = new Aabb3.minmax(_v3(0.0,-2.0,0.0), _v3(2.0,0.0,2.0));
-    final Aabb3 inside = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(2.0,2.0,2.0));
+    final Ray parent = new Ray.originDirection(_v3(1.0, 1.0, 1.0), _v3(0.0, 1.0, 0.0));
+    final Aabb3 hitting = new Aabb3.minmax(_v3(0.5, 3.5, -10.0), _v3(2.5, 5.5, 10.0));
+    final Aabb3 cutting = new Aabb3.minmax(_v3(0.0, 2.0, 1.0), _v3(2.0, 3.0, 2.0));
+    final Aabb3 outside = new Aabb3.minmax(_v3(2.0, 0.0, 0.0), _v3(6.0, 6.0, 6.0));
+    final Aabb3 behind = new Aabb3.minmax(_v3(0.0, -2.0, 0.0), _v3(2.0, 0.0, 2.0));
+    final Aabb3 inside = new Aabb3.minmax(_v3(0.0, 0.0, 0.0), _v3(2.0, 2.0, 2.0));
 
     expect(parent.intersectsWithAabb3(hitting), equals(2.5));
     expect(parent.intersectsWithAabb3(cutting), equals(1.0));

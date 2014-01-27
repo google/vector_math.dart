@@ -28,15 +28,15 @@ class Matrix4 {
 
   /// Solve [A] * [x] = [b].
   static void solve2(Matrix4 A, Vector2 x, Vector2 b) {
-    final double a11 = A.entry(0,0);
-    final double a12 = A.entry(0,1);
-    final double a21 = A.entry(1,0);
-    final double a22 = A.entry(1,1);
+    final double a11 = A.entry(0, 0);
+    final double a12 = A.entry(0, 1);
+    final double a21 = A.entry(1, 0);
+    final double a22 = A.entry(1, 1);
     final double bx = b.x - A.storage[8];
     final double by = b.y - A.storage[9];
     double det = a11 * a22 - a12 * a21;
 
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 
@@ -68,7 +68,7 @@ class Matrix4 {
 
     // A.getColumn(0).dot(x)
     det = A0x * rx + A0y * ry + A0z * rz;
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 
@@ -416,9 +416,9 @@ class Matrix4 {
   /// Dimension of the matrix.
   int get dimension => 4;
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
-  void operator[]=(int i, double v) {
+  void operator []=(int i, double v) {
     storage[i] = v;
   }
 
@@ -467,20 +467,20 @@ class Matrix4 {
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector4 arg) {
     int entry = column * 4;
-    storage[entry+3] = arg.storage[3];
-    storage[entry+2] = arg.storage[2];
-    storage[entry+1] = arg.storage[1];
-    storage[entry+0] = arg.storage[0];
+    storage[entry + 3] = arg.storage[3];
+    storage[entry + 2] = arg.storage[2];
+    storage[entry + 1] = arg.storage[1];
+    storage[entry + 0] = arg.storage[0];
   }
 
   /// Gets the [column] of the matrix
   Vector4 getColumn(int column) {
     Vector4 r = new Vector4.zero();
     int entry = column * 4;
-    r.storage[3] = storage[entry+3];
-    r.storage[2] = storage[entry+2];
-    r.storage[1] = storage[entry+1];
-    r.storage[0] = storage[entry+0];
+    r.storage[3] = storage[entry + 3];
+    r.storage[2] = storage[entry + 2];
+    r.storage[1] = storage[entry + 1];
+    r.storage[0] = storage[entry + 0];
     return r;
   }
 
@@ -571,7 +571,7 @@ class Matrix4 {
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator*(dynamic arg) {
+  dynamic operator *(dynamic arg) {
     if (arg is double) {
       return _mul_scale(arg);
     }
@@ -588,7 +588,7 @@ class Matrix4 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix4 operator+(Matrix4 arg) {
+  Matrix4 operator +(Matrix4 arg) {
     Matrix4 r = new Matrix4.zero();
     r.storage[0] = storage[0] + arg.storage[0];
     r.storage[1] = storage[1] + arg.storage[1];
@@ -610,7 +610,7 @@ class Matrix4 {
   }
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix4 operator-(Matrix4 arg) {
+  Matrix4 operator -(Matrix4 arg) {
     Matrix4 r = new Matrix4.zero();
     r.storage[0] = storage[0] - arg.storage[0];
     r.storage[1] = storage[1] - arg.storage[1];
@@ -660,9 +660,9 @@ class Matrix4 {
   /// Rotate this [angle] radians around [axis]
   Matrix4 rotate(Vector3 axis, double angle) {
     var len = axis.length;
-    var x = axis.x/len;
-    var y = axis.y/len;
-    var z = axis.z/len;
+    var x = axis.x / len;
+    var y = axis.y / len;
+    var z = axis.z / len;
     var c = Math.cos(angle);
     var s = Math.sin(angle);
     var C = 1.0 - c;
@@ -805,7 +805,7 @@ class Matrix4 {
     return this;
   }
   /// Returns new matrix -this
-  Matrix4 operator-() {
+  Matrix4 operator -() {
     Matrix4 r = new Matrix4.zero();
     r[0] = -storage[0];
     r[1] = -storage[1];
@@ -1007,7 +1007,7 @@ class Matrix4 {
     Matrix4 diff = correct - this;
     double correct_norm = correct.infinityNorm();
     double diff_norm = diff.infinityNorm();
-    return diff_norm/correct_norm;
+    return diff_norm / correct_norm;
   }
 
   /// Returns absolute error between [this] and [correct]
@@ -1535,16 +1535,16 @@ class Matrix4 {
   }
 
   Vector3 rotate3(Vector3 arg) {
-    double x_ =  (storage[0] * arg.storage[0]) + (storage[4] * arg.storage[1]) + (storage[8] * arg.storage[2]);
-    double y_ =  (storage[1] * arg.storage[0]) + (storage[5] * arg.storage[1]) + (storage[9] * arg.storage[2]);
-    double z_ =  (storage[2] * arg.storage[0]) + (storage[6] * arg.storage[1]) + (storage[10] * arg.storage[2]);
+    double x_ = (storage[0] * arg.storage[0]) + (storage[4] * arg.storage[1]) + (storage[8] * arg.storage[2]);
+    double y_ = (storage[1] * arg.storage[0]) + (storage[5] * arg.storage[1]) + (storage[9] * arg.storage[2]);
+    double z_ = (storage[2] * arg.storage[0]) + (storage[6] * arg.storage[1]) + (storage[10] * arg.storage[2]);
     arg.x = x_;
     arg.y = y_;
     arg.z = z_;
     return arg;
   }
 
-  Vector3 rotated3(Vector3 arg, [Vector3 out=null]) {
+  Vector3 rotated3(Vector3 arg, [Vector3 out = null]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -1584,7 +1584,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector4 transformed(Vector4 arg, [Vector4 out=null]) {
+  Vector4 transformed(Vector4 arg, [Vector4 out = null]) {
     if (out == null) {
       out = new Vector4.copy(arg);
     } else {
@@ -1594,45 +1594,45 @@ class Matrix4 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset=0]) {
+  void copyIntoArray(List<num> array, [int offset = 0]) {
     int i = offset;
-    array[i+15] = storage[15];
-    array[i+14] = storage[14];
-    array[i+13] = storage[13];
-    array[i+12] = storage[12];
-    array[i+11] = storage[11];
-    array[i+10] = storage[10];
-    array[i+9] = storage[9];
-    array[i+8] = storage[8];
-    array[i+7] = storage[7];
-    array[i+6] = storage[6];
-    array[i+5] = storage[5];
-    array[i+4] = storage[4];
-    array[i+3] = storage[3];
-    array[i+2] = storage[2];
-    array[i+1] = storage[1];
-    array[i+0] = storage[0];
+    array[i + 15] = storage[15];
+    array[i + 14] = storage[14];
+    array[i + 13] = storage[13];
+    array[i + 12] = storage[12];
+    array[i + 11] = storage[11];
+    array[i + 10] = storage[10];
+    array[i + 9] = storage[9];
+    array[i + 8] = storage[8];
+    array[i + 7] = storage[7];
+    array[i + 6] = storage[6];
+    array[i + 5] = storage[5];
+    array[i + 4] = storage[4];
+    array[i + 3] = storage[3];
+    array[i + 2] = storage[2];
+    array[i + 1] = storage[1];
+    array[i + 0] = storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset=0]) {
+  void copyFromArray(List<double> array, [int offset = 0]) {
     int i = offset;
-    storage[15] = array[i+15];
-    storage[14] = array[i+14];
-    storage[13] = array[i+13];
-    storage[12] = array[i+12];
-    storage[11] = array[i+11];
-    storage[10] = array[i+10];
-    storage[9] = array[i+9];
-    storage[8] = array[i+8];
-    storage[7] = array[i+7];
-    storage[6] = array[i+6];
-    storage[5] = array[i+5];
-    storage[4] = array[i+4];
-    storage[3] = array[i+3];
-    storage[2] = array[i+2];
-    storage[1] = array[i+1];
-    storage[0] = array[i+0];
+    storage[15] = array[i + 15];
+    storage[14] = array[i + 14];
+    storage[13] = array[i + 13];
+    storage[12] = array[i + 12];
+    storage[11] = array[i + 11];
+    storage[10] = array[i + 10];
+    storage[9] = array[i + 9];
+    storage[8] = array[i + 8];
+    storage[7] = array[i + 7];
+    storage[6] = array[i + 6];
+    storage[5] = array[i + 5];
+    storage[4] = array[i + 4];
+    storage[3] = array[i + 3];
+    storage[2] = array[i + 2];
+    storage[1] = array[i + 1];
+    storage[0] = array[i + 0];
   }
 
   Vector3 get right {

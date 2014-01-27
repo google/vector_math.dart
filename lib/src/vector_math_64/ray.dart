@@ -67,11 +67,11 @@ class Ray {
     final l = other.center.clone().sub(origin);
     final s = l.dot(direction);
     final l2 = l.dot(l);
-    if(s < 0 && l2 > r2) {
+    if (s < 0 && l2 > r2) {
       return null;
     }
     final m2 = l2 - s * s;
-    if(m2 > r2) {
+    if (m2 > r2) {
       return null;
     }
     final q = Math.sqrt(r2 - m2);
@@ -90,7 +90,7 @@ class Ray {
     final q = direction.cross(e2);
     final a = e1.dot(q);
 
-    if(a > -EPSILON && a < EPSILON) {
+    if (a > -EPSILON && a < EPSILON) {
       return null;
     }
 
@@ -98,14 +98,14 @@ class Ray {
     final s = origin.clone().sub(other.point0);
     final u = f * (s.dot(q));
 
-    if(u < 0.0) {
+    if (u < 0.0) {
       return null;
     }
 
     final r = s.cross(e1);
     final v = f * (direction.dot(r));
 
-    if(v < -EPSILON || u + v > 1.0+EPSILON) {
+    if (v < -EPSILON || u + v > 1.0 + EPSILON) {
       return null;
     }
 
@@ -121,31 +121,30 @@ class Ray {
     double tNear = -double.MAX_FINITE;
     double tFar = double.MAX_FINITE;
 
-    for(int i = 0; i < 3; ++i){
-      if(direction[i] == 0.0){
-        if((origin[i] < other.min[i]) || (origin[i] > other.max[i])) {
+    for (int i = 0; i < 3; ++i) {
+      if (direction[i] == 0.0) {
+        if ((origin[i] < other.min[i]) || (origin[i] > other.max[i])) {
           return null;
         }
-      }
-      else {
+      } else {
         t1[i] = (other.min[i] - origin[i]) / direction[i];
         t2[i] = (other.max[i] - origin[i]) / direction[i];
 
-        if(t1[i] > t2[i]){
+        if (t1[i] > t2[i]) {
           final temp = t1;
           t1 = t2;
           t2 = temp;
         }
 
-        if(t1[i] > tNear){
+        if (t1[i] > tNear) {
           tNear = t1[i];
         }
 
-        if(t2[i] < tFar){
+        if (t2[i] < tFar) {
           tFar = t2[i];
         }
 
-        if((tNear > tFar) || (tFar < 0)){
+        if ((tNear > tFar) || (tFar < 0)) {
           return null;
         }
       }

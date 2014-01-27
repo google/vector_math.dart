@@ -26,14 +26,14 @@ part of vector_math_operations;
 class Matrix44Operations {
   /// Compute the determinant of the 4x4 [matrix] starting at [offset].
   static double determinant(Float32List matrix, int offset) {
-    double m0 = matrix[0+offset];
-    double m1 = matrix[1+offset];
-    double m2 = matrix[2+offset];
-    double m3 = matrix[3+offset];
-    double m4 = matrix[4+offset];
-    double m5 = matrix[5+offset];
-    double m6 = matrix[6+offset];
-    double m7 = matrix[7+offset];
+    double m0 = matrix[0 + offset];
+    double m1 = matrix[1 + offset];
+    double m2 = matrix[2 + offset];
+    double m3 = matrix[3 + offset];
+    double m4 = matrix[4 + offset];
+    double m5 = matrix[5 + offset];
+    double m6 = matrix[6 + offset];
+    double m7 = matrix[7 + offset];
 
     double det2_01_01 = m0 * m5 - m1 * m4;
     double det2_01_02 = m0 * m6 - m2 * m4;

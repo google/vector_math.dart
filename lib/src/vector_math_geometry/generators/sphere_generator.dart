@@ -42,9 +42,9 @@ class SphereGenerator extends GeometryGenerator {
     int i = 0;
     for (int y = 0; y < _latSegments; ++y) {
       int base1 = (_lonSegments + 1) * y;
-      int base2 = (_lonSegments + 1) * (y+1);
+      int base2 = (_lonSegments + 1) * (y + 1);
 
-      for(int x = 0; x < _lonSegments; ++x) {
+      for (int x = 0; x < _lonSegments; ++x) {
         indices[i++] = base1 + x;
         indices[i++] = base1 + x + 1;
         indices[i++] = base2 + x;
