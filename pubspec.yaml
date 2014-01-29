@@ -1,11 +1,12 @@
 name: vector_math
-version: 1.4.2
+version: 1.4.2+1
 author: John McCutchan <john@johnmccutchan.com>
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/johnmccutchan/vector_math
-dependencies:
-  benchmark_harness: any
+environment:
+  sdk: '>=1.0.0'
 dev_dependencies:
+  benchmark_harness: any
   browser: any
   hop: any
   unittest: any
