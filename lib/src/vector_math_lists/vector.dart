@@ -36,7 +36,7 @@ abstract class VectorList {
     return offset + width * length;
   }
 
-  VectorList(int length, int vectorLength, [int offset=0, int stride=0])
+  VectorList(int length, int vectorLength, [int offset = 0, int stride = 0])
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,

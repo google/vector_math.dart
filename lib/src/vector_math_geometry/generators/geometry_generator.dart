@@ -43,7 +43,7 @@ abstract class GeometryGenerator {
     VertexAttrib positionAttrib;
     VertexAttrib texCoordAttrib;
     VertexAttrib normalAttrib;
-    VertexAttrib tangentAttrib;;
+    VertexAttrib tangentAttrib;
 
     Vector2List texCoordView;
     Vector3List positionView;
@@ -95,8 +95,8 @@ abstract class GeometryGenerator {
     }
 
     if (filters != null) {
-      for(var filter in filters) {
-        if (filter.inplace){
+      for (var filter in filters) {
+        if (filter.inplace) {
           filter.filterInplace(mesh);
         } else {
           mesh = filter.filter(mesh);

@@ -126,7 +126,7 @@ class Vector4 {
                                          storage[3] + other.storage[3]);
 
   /// Scale.
-  Vector4 operator/(double scale) {
+  Vector4 operator /(double scale) {
     var o = 1.0 / scale;
     return new Vector4(storage[0] * o, storage[1] * o, storage[2] * o,
                     storage[3] * o);

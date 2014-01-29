@@ -91,8 +91,8 @@ class Quaternion {
     double x0 = rn.nextDouble();
     double r1 = Math.sqrt(1.0 - x0);
     double r2 = Math.sqrt(x0);
-    double t1 = Math.PI*2.0 * rn.nextDouble();
-    double t2 = Math.PI*2.0 * rn.nextDouble();
+    double t1 = Math.PI * 2.0 * rn.nextDouble();
+    double t2 = Math.PI * 2.0 * rn.nextDouble();
     double c1 = Math.cos(t1);
     double s1 = Math.sin(t1);
     double c2 = Math.cos(t2);
@@ -336,13 +336,13 @@ class Quaternion {
   }
 
   /// Returns negated copy of [this].
-  Quaternion operator-() {
+  Quaternion operator -() {
     return new Quaternion(-storage[0], -storage[1], -storage[2], -storage[3]);
   }
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
-  void operator[]=(int i, double arg) {
+  void operator []=(int i, double arg) {
     storage[i] = arg;
   }
 

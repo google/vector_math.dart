@@ -49,7 +49,7 @@ class VertexAttrib {
   VectorList getView(Float32List buffer) {
     int viewOffset = offset ~/ buffer.elementSizeInBytes;
     int viewStride = stride ~/ buffer.elementSizeInBytes;
-    switch(size) {
+    switch (size) {
       case 2:
         return new Vector2List.view(buffer, viewOffset, viewStride);
       case 3:
@@ -244,16 +244,14 @@ class MeshGeometry {
 
   VertexAttrib getAttrib(String name) {
     for (VertexAttrib attrib in attribs) {
-      if (attrib.name == name)
-        return attrib;
+      if (attrib.name == name) return attrib;
     }
     return null;
   }
 
   dynamic getViewForAttrib(String name) {
     for (VertexAttrib attrib in attribs) {
-      if (attrib.name == name)
-        return attrib.getView(buffer);
+      if (attrib.name == name) return attrib.getView(buffer);
     }
     return null;
   }

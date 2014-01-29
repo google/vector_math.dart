@@ -68,7 +68,7 @@ class Matrix4 {
 
     // A.getColumn(0).dot(x)
     det = A0x * rx + A0y * ry + A0z * rz;
-    if (det != 0.0){
+    if (det != 0.0) {
       det = 1.0 / det;
     }
 
@@ -571,7 +571,7 @@ class Matrix4 {
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator*(dynamic arg) {
+  dynamic operator *(dynamic arg) {
     if (arg is num) {
       return _mul_scale(arg.toDouble());
     }
@@ -588,7 +588,7 @@ class Matrix4 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix4 operator+(Matrix4 arg) {
+  Matrix4 operator +(Matrix4 arg) {
     Matrix4 r = new Matrix4.zero();
     r.storage[0] = storage[0] + arg.storage[0];
     r.storage[1] = storage[1] + arg.storage[1];
@@ -610,7 +610,7 @@ class Matrix4 {
   }
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix4 operator-(Matrix4 arg) {
+  Matrix4 operator -(Matrix4 arg) {
     Matrix4 r = new Matrix4.zero();
     r.storage[0] = storage[0] - arg.storage[0];
     r.storage[1] = storage[1] - arg.storage[1];
@@ -660,9 +660,9 @@ class Matrix4 {
   /// Rotate this [angle] radians around [axis]
   Matrix4 rotate(Vector3 axis, double angle) {
     var len = axis.length;
-    var x = axis.x/len;
-    var y = axis.y/len;
-    var z = axis.z/len;
+    var x = axis.x / len;
+    var y = axis.y / len;
+    var z = axis.z / len;
     var c = Math.cos(angle);
     var s = Math.sin(angle);
     var C = 1.0 - c;
@@ -805,7 +805,7 @@ class Matrix4 {
     return this;
   }
   /// Returns new matrix -this
-  Matrix4 operator-() {
+  Matrix4 operator -() {
     Matrix4 r = new Matrix4.zero();
     r[0] = -storage[0];
     r[1] = -storage[1];

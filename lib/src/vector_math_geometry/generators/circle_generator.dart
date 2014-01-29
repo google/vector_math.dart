@@ -78,8 +78,8 @@ class CircleGenerator extends GeometryGenerator {
     int index = 0;
     for (int i = 1; i <= _segments; i++) {
       indices[index] = i;
-      indices[index+1] = i + 1;
-      indices[index+2] = 0;
+      indices[index + 1] = i + 1;
+      indices[index + 2] = 0;
       index += 3;
     }
     assert(index == indexCount);

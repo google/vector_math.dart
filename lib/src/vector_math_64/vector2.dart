@@ -100,18 +100,18 @@ class Vector2 {
                                          storage[1] + other.storage[1]);
 
   /// Scale.
-  Vector2 operator/(double scale) {
+  Vector2 operator /(double scale) {
     var o = 1.0 / scale;
     return new Vector2(storage[0] * o, storage[1] * o);
   }
 
   /// Scale.
-  Vector2 operator*(double scale) {
+  Vector2 operator *(double scale) {
     var o = scale;
     return new Vector2(storage[0] * o, storage[1] * o);
   }
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
 

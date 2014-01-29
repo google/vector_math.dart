@@ -47,9 +47,9 @@ class Vector3 {
   /// Initialized with values from [array] starting at [offset].
   Vector3.array(List<double> array, [int offset=0]) : storage = new Float64List(3) {
     int i = offset;
-    storage[2] = array[i+2];
-    storage[1] = array[i+1];
-    storage[0] = array[i+0];
+    storage[2] = array[i + 2];
+    storage[1] = array[i + 1];
+    storage[0] = array[i + 0];
   }
 
   //// Zero vector.
@@ -115,18 +115,18 @@ class Vector3 {
                                          storage[2] + other.storage[2]);
 
   /// Scale.
-  Vector3 operator/(double scale) {
+  Vector3 operator /(double scale) {
     var o = 1.0 / scale;
     return new Vector3(storage[0] * o, storage[1] * o, storage[2] * o);
   }
 
   /// Scale.
-  Vector3 operator*(double scale) {
+  Vector3 operator *(double scale) {
     var o = scale;
     return new Vector3(storage[0] * o, storage[1] * o, storage[2] * o);
   }
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
 

@@ -51,11 +51,11 @@ class SimplexNoise {
   ];
 
   static double dot(g, x, y) {
-    return g[0]*x + g[1]*y;
+    return g[0] * x + g[1] * y;
   }
 
   static double dot3(g, x, y, z) {
-    return g[0]*x + g[1]*y + g[2]*z;
+    return g[0] * x + g[1] * y + g[2] * z;
   }
 
   Uint8List perm = new Uint8List(512);
@@ -68,7 +68,7 @@ class SimplexNoise {
     p.map((E) => r.nextInt(256));
 
     // To remove the need for index wrapping, double the permutation table length
-    for(int i = 0; i < 512; ++i) {
+    for (int i = 0; i < 512; ++i) {
       perm[i] = p[i & 255];
     }
   }
@@ -76,17 +76,17 @@ class SimplexNoise {
   double noise2D(num xin, num yin) {
     double n0, n1, n2; // Noise contributions from the three corners
     // Skew the input space to determine which simplex cell we're in
-    double F2 = 0.5*(Math.sqrt(3.0)-1.0);
-    double G2 = (3.0-Math.sqrt(3.0))/6.0;
+    double F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
+    double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
 
-    double s = (xin+yin)*F2; // Hairy factor for 2D
-    int i = (xin+s).floor();
-    int j = (yin+s).floor();
-    double t = (i+j)*G2;
-    double X0 = i-t; // Unskew the cell origin back to (x,y) space
-    double Y0 = j-t;
-    double x0 = xin-X0; // The x,y distances from the cell origin
-    double y0 = yin-Y0;
+    double s = (xin + yin) * F2; // Hairy factor for 2D
+    int i = (xin + s).floor();
+    int j = (yin + s).floor();
+    double t = (i + j) * G2;
+    double X0 = i - t; // Unskew the cell origin back to (x,y) space
+    double Y0 = j - t;
+    double x0 = xin - X0; // The x,y distances from the cell origin
+    double y0 = yin - Y0;
     // For the 2D case, the simplex shape is an equilateral triangle.
     // Determine which simplex we are in.
     int i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
@@ -105,26 +105,26 @@ class SimplexNoise {
     // Work out the hashed gradient indices of the three simplex corners
     int ii = i & 255;
     int jj = j & 255;
-    int gi0 = perm[ii+perm[jj]] % 12;
-    int gi1 = perm[ii+i1+perm[jj+j1]] % 12;
-    int gi2 = perm[ii+1+perm[jj+1]] % 12;
+    int gi0 = perm[ii + perm[jj]] % 12;
+    int gi1 = perm[ii + i1 + perm[jj + j1]] % 12;
+    int gi2 = perm[ii + 1 + perm[jj + 1]] % 12;
     // Calculate the contribution from the three corners
-    double t0 = 0.5 - x0*x0-y0*y0;
-    if (t0<0) {
+    double t0 = 0.5 - x0 * x0 - y0 * y0;
+    if (t0 < 0) {
       n0 = 0.0;
     } else {
       t0 *= t0;
       n0 = t0 * t0 * dot(grad3[gi0], x0, y0);  // (x,y) of grad3 used for 2D gradient
     }
-    double t1 = 0.5 - x1*x1-y1*y1;
-    if (t1<0) {
+    double t1 = 0.5 - x1 * x1 - y1 * y1;
+    if (t1 < 0) {
       n1 = 0.0;
     } else {
       t1 *= t1;
       n1 = t1 * t1 * dot(grad3[gi1], x1, y1);
     }
-    double t2 = 0.5 - x2*x2-y2*y2;
-    if (t2<0) {
+    double t2 = 0.5 - x2 * x2 - y2 * y2;
+    if (t2 < 0) {
       n2 = 0.0;
     } else {
       t2 *= t2;
@@ -138,21 +138,22 @@ class SimplexNoise {
   double noise3D(num xin, num yin, num zin) {
     double n0, n1, n2, n3; // Noise contributions from the four corners
     // Skew the input space to determine which simplex cell we're in
-    double F3 = 1.0/3.0;
-    double G3 = 1.0/6.0; // Very nice and simple unskew factor, too
+    double F3 = 1.0 / 3.0;
+    double G3 = 1.0 / 6.0; // Very nice and simple unskew factor, too
 
-    double s = (xin+yin+zin)*F3; // Very nice and simple skew factor for 3D
-    int i = (xin+s).floor();
-    int j = (yin+s).floor();
-    int k = (zin+s).floor();
+    double s = (xin + yin + zin) * F3;
+    // Very nice and simple skew factor for 3D
+    int i = (xin + s).floor();
+    int j = (yin + s).floor();
+    int k = (zin + s).floor();
 
-    double t = (i+j+k)*G3;
-    double X0 = i-t; // Unskew the cell origin back to (x,y,z) space
-    double Y0 = j-t;
-    double Z0 = k-t;
-    double x0 = xin-X0; // The x,y,z distances from the cell origin
-    double y0 = yin-Y0;
-    double z0 = zin-Z0;
+    double t = (i + j + k) * G3;
+    double X0 = i - t; // Unskew the cell origin back to (x,y,z) space
+    double Y0 = j - t;
+    double Z0 = k - t;
+    double x0 = xin - X0; // The x,y,z distances from the cell origin
+    double y0 = yin - Y0;
+    double z0 = zin - Z0;
     // For the 3D case, the simplex shape is a slightly irregular tetrahedron.
     // Determine which simplex we are in.
     int i1, j1, k1; // Offsets for second corner of simplex in (i,j,k) coords
