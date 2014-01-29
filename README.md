@@ -1,13 +1,12 @@
-# vector_math #
-==============
+# vector_math
 
 [![Build Status](https://drone.io/johnmccutchan/vector_math/status.png)](https://drone.io/johnmccutchan/vector_math/latest)
 
-## Introduction ##
+## Introduction
 
 A Vector math library for 2D and 3D applications.
 
-## Features ##
+## Features
 
 * 2D,3D, and 4D vector and matrix types.
 * Quaternion type for animating rotations.
@@ -17,13 +16,13 @@ A Vector math library for 2D and 3D applications.
 * Heavily optimized.
 
 
-## Libraries using vector_math ##
+## Libraries using vector_math
 
 * [Spectre](http://github.com/johnmccutchan/spectre)
 * [Three.dart](https://github.com/threeDart/)
 * [Box2D](https://github.com/dart-lang/dart-box2d)
 
-## Getting Started ##
+## Getting Started
 
 1\. Add the following to your project's **pubspec.yaml** and run ```pub install```.
 
@@ -40,11 +39,11 @@ import 'package:vector_math/vector_math.dart';
 ```
 
 
-## Documentation ##
+## Documentation
 
 Read the [docs](http://johnmccutchan.github.io/vector_math.html)
 
-## Examples ##
+## Examples
 
 1\. Using the GLSL getter and setter syntax.
 
