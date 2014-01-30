@@ -43,7 +43,7 @@ class Frustum {
   }
 
   void copyFrom(Frustum o) {
-    for(var i = 0; i < 6; ++i) {
+    for (var i = 0; i < 6; ++i) {
       _planes[i].copyFrom(o._planes[i]);
     }
   }
@@ -56,28 +56,28 @@ class Frustum {
     var me12 = me[12], me13 = me[13], me14 = me[14], me15 = me[15];
 
     _planes[0]
-      ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
-      ..normalize();
+        ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
+        ..normalize();
     _planes[1]
-      ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
-      ..normalize();
+        ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
+        ..normalize();
     _planes[2]
-      ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
-      ..normalize();
+        ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
+        ..normalize();
     _planes[3]
-      ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
-      ..normalize();
+        ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
+        ..normalize();
     _planes[4]
-      ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
-      ..normalize();
+        ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
+        ..normalize();
     _planes[5]
-      ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
-      ..normalize();
+        ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
+        ..normalize();
   }
 
   bool containsVector3(Vector3 point) {
-    for(var i = 0; i < 6; ++i) {
-      if(_planes[ i ].distanceToVector3(point) < 0.0) {
+    for (var i = 0; i < 6; ++i) {
+      if (_planes[i].distanceToVector3(point) < 0.0) {
         return false;
       }
     }

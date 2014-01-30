@@ -180,12 +180,12 @@ void setOrthographicMatrix(Matrix4 orthographicMatrix, num left, num right,
   double fmn = far - near;
   double fpn = far + near;
   Matrix4 r = orthographicMatrix.setZero();
-  r.setEntry(0, 0, 2.0/rml);
-  r.setEntry(1, 1, 2.0/tmb);
-  r.setEntry(2, 2, -2.0/fmn);
-  r.setEntry(0, 3, -rpl/rml);
-  r.setEntry(1, 3, -tpb/tmb);
-  r.setEntry(2, 3, -fpn/fmn);
+  r.setEntry(0, 0, 2.0 / rml);
+  r.setEntry(1, 1, 2.0 / tmb);
+  r.setEntry(2, 2, -2.0 / fmn);
+  r.setEntry(0, 3, -rpl / rml);
+  r.setEntry(1, 3, -tpb / tmb);
+  r.setEntry(2, 3, -fpn / fmn);
   r.setEntry(3, 3, 1.0);
 }
 

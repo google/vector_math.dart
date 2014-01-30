@@ -68,15 +68,15 @@ class Matrix44Operations {
   /// Compute the determinant of the upper 3x3 of the 4x4 [matrix] starting at
   /// [offset].
   static double determinant33(Float32List matrix, int offset) {
-    double m0 = matrix[0+offset];
-    double m1 = matrix[1+offset];
-    double m2 = matrix[2+offset];
-    double m4 = matrix[4+offset];
-    double m5 = matrix[5+offset];
-    double m6 = matrix[6+offset];
-    double m8 = matrix[8+offset];
-    double m9 = matrix[9+offset];
-    double m10 = matrix[10+offset];
+    double m0 = matrix[0 + offset];
+    double m1 = matrix[1 + offset];
+    double m2 = matrix[2 + offset];
+    double m4 = matrix[4 + offset];
+    double m5 = matrix[5 + offset];
+    double m6 = matrix[6 + offset];
+    double m8 = matrix[8 + offset];
+    double m9 = matrix[9 + offset];
+    double m10 = matrix[10 + offset];
     double x = m0 * ((m5 * m10) - (m6 * m8));
     double y = m1 * ((m4 * m10) - (m6 * m8));
     double z = m2 * ((m4 * m9) - (m5 * m8));
@@ -169,37 +169,37 @@ class Matrix44Operations {
     var b1 = b[bOffset++];
     var b2 = b[bOffset++];
     var b3 = b[bOffset++];
-    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+    out[outOffset++] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+    out[outOffset++] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+    out[outOffset++] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+    out[outOffset++] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
     b0 = b[bOffset++];
     b1 = b[bOffset++];
     b2 = b[bOffset++];
     b3 = b[bOffset++];
-    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+    out[outOffset++] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+    out[outOffset++] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+    out[outOffset++] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+    out[outOffset++] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
     b0 = b[bOffset++];
     b1 = b[bOffset++];
     b2 = b[bOffset++];
     b3 = b[bOffset++];
-    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+    out[outOffset++] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+    out[outOffset++] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+    out[outOffset++] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+    out[outOffset++] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
     b0 = b[bOffset++];
     b1 = b[bOffset++];
     b2 = b[bOffset++];
     b3 = b[bOffset++];
-    out[outOffset++] = b0*a00 + b1*a10 + b2*a20 + b3*a30;
-    out[outOffset++] = b0*a01 + b1*a11 + b2*a21 + b3*a31;
-    out[outOffset++] = b0*a02 + b1*a12 + b2*a22 + b3*a32;
-    out[outOffset++] = b0*a03 + b1*a13 + b2*a23 + b3*a33;
+    out[outOffset++] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+    out[outOffset++] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+    out[outOffset++] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+    out[outOffset++] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
   }
 
   /// Perform a 4x4 transformation matrix inverse. Assumes the upper
@@ -221,24 +221,24 @@ class Matrix44Operations {
     var z = vector[vectorOffset++];
     var w = vector[vectorOffset++];
     double m0 = matrix[matrixOffset];
-    double m4 = matrix[4+matrixOffset];
-    double m8 = matrix[8+matrixOffset];
-    double m12 = matrix[12+matrixOffset];
+    double m4 = matrix[4 + matrixOffset];
+    double m8 = matrix[8 + matrixOffset];
+    double m12 = matrix[12 + matrixOffset];
     out[outOffset++] = (m0 * x + m4 * y + m8 * z + m12 * w);
-    double m1 = matrix[1+matrixOffset];
-    double m5 = matrix[5+matrixOffset];
-    double m9 = matrix[9+matrixOffset];
-    double m13 = matrix[13+matrixOffset];
+    double m1 = matrix[1 + matrixOffset];
+    double m5 = matrix[5 + matrixOffset];
+    double m9 = matrix[9 + matrixOffset];
+    double m13 = matrix[13 + matrixOffset];
     out[outOffset++] = (m1 * x + m5 * y + m9 * z + m13 * w);
-    double m2 = matrix[2+matrixOffset];
-    double m6 = matrix[6+matrixOffset];
-    double m10 = matrix[10+matrixOffset];
-    double m14 = matrix[14+matrixOffset];
+    double m2 = matrix[2 + matrixOffset];
+    double m6 = matrix[6 + matrixOffset];
+    double m10 = matrix[10 + matrixOffset];
+    double m14 = matrix[14 + matrixOffset];
     out[outOffset++] = (m2 * x + m6 * y + m10 * z + m14 * w);
-    double m3 = matrix[3+matrixOffset];
-    double m7 = matrix[7+matrixOffset];
-    double m11 = matrix[11+matrixOffset];
-    double m15 = matrix[15+matrixOffset];
+    double m3 = matrix[3 + matrixOffset];
+    double m7 = matrix[7 + matrixOffset];
+    double m11 = matrix[11 + matrixOffset];
+    double m15 = matrix[15 + matrixOffset];
     out[outOffset++] = (m3 * x + m7 * y + m11 * z + m15 * w);
   }
 
@@ -320,13 +320,13 @@ class Matrix44SIMDOperations {
     Float32x4 v = vector[vectorOffset];
     Float32x4 xxxx = v.shuffle(Float32x4.XXXX);
     Float32x4 z = new Float32x4.zero();
-    z += xxxx * matrix[0+matrixOffset];
+    z += xxxx * matrix[0 + matrixOffset];
     Float32x4 yyyy = v.shuffle(Float32x4.YYYY);
-    z += yyyy * matrix[1+matrixOffset];
+    z += yyyy * matrix[1 + matrixOffset];
     Float32x4 zzzz = v.shuffle(Float32x4.ZZZZ);
-    z += zzzz * matrix[2+matrixOffset];
-    z += matrix[3+matrixOffset];
-    out[0+outOffset] = z;
+    z += zzzz * matrix[2 + matrixOffset];
+    z += matrix[3 + matrixOffset];
+    out[0 + outOffset] = z;
   }
 
   static void zero(Float32x4List matrix, int offset) {
