@@ -24,6 +24,11 @@ part of vector_math;
 /// Contains functions for converting between different color models and 
 /// manipulating colors.
 class Colors {
+  /// Convert a color with [r], [g], [b] and [a] component between 0 and 255 to
+  /// a color with values between 0.0 and 1.0 and store it in [result].
+  static void fromRGBA(int r, int g, int b, int a, Vector4 result) {
+    result.setValues(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
+  }
 
   /// Convert a [input] color to a gray scaled color and store it in [result].
   static void toGrayscale(Vector4 input, Vector4 result) {
