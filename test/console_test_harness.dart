@@ -38,6 +38,11 @@ void main() {
     at.run();
   });
 
+  group('Colors', () {
+    ColorsTest ct = new ColorsTest();
+    ct.run();
+  });
+
   group('Utility', () {
     test('degrees', () {
       relativeTest(degrees(Math.PI), 180.0);

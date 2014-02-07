@@ -19,29 +19,21 @@
 
 */
 
-library vector_math;
+part of vector_math;
 
-import 'dart:typed_data';
-import 'dart:math' as Math;
+/// Contains functions for converting between different color models and 
+/// manipulating colors.
+class Colors {
 
-part 'src/vector_math/angle.dart';
-part 'src/vector_math/aabb2.dart';
-part 'src/vector_math/aabb3.dart';
-part 'src/vector_math/colors.dart';
-part 'src/vector_math/constants.dart';
-part 'src/vector_math/error_helpers.dart';
-part 'src/vector_math/frustum.dart';
-part 'src/vector_math/matrix2.dart';
-part 'src/vector_math/matrix3.dart';
-part 'src/vector_math/matrix4.dart';
-part 'src/vector_math/noise.dart';
-part 'src/vector_math/opengl.dart';
-part 'src/vector_math/plane.dart';
-part 'src/vector_math/quaternion.dart';
-part 'src/vector_math/ray.dart';
-part 'src/vector_math/sphere.dart';
-part 'src/vector_math/triangle.dart';
-part 'src/vector_math/vector.dart';
-part 'src/vector_math/vector2.dart';
-part 'src/vector_math/vector3.dart';
-part 'src/vector_math/vector4.dart';
+  /// Convert a [input] color to a gray scaled color and store it in [result].
+  static void toGrayscale(Vector4 input, Vector4 result) {
+    final value = 0.21 * input.r + 0.71 * input.g + 0.07 * input.b;
+
+    result.r = value;
+    result.g = value;
+    result.b = value;
+    result.a = input.a;
+  }
+
+  Colors._();
+}
