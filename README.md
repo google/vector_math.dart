@@ -10,6 +10,7 @@ A Vector math library for 2D and 3D applications.
 
 * 2D,3D, and 4D vector and matrix types.
 * Quaternion type for animating rotations.
+* Collision detection: AABB, rays, spheres, ...
 * Flexible getters and setters, for example, ```position.xwz = color.grb;```.
 * Fully documented.
 * Well tested.
@@ -24,7 +25,16 @@ A Vector math library for 2D and 3D applications.
 
 ## Getting Started
 
-1\. Add the following to your project's **pubspec.yaml** and run ```pub install```.
+1\. Add the following to your project's **pubspec.yaml** and run ```pub get```.
+
+```
+dependencies:
+  vector_math: any
+```
+
+If you want to stay on the latest developent version, add a dependency to the 
+Git repository. You may also need to use it if another library uses the Git 
+dependency.
 
 ```
 dependencies:
@@ -38,7 +48,6 @@ dependencies:
 import 'package:vector_math/vector_math.dart';
 ```
 
-
 ## Documentation
 
 Read the [docs](http://johnmccutchan.github.io/vector_math.html)
@@ -48,6 +57,8 @@ Read the [docs](http://johnmccutchan.github.io/vector_math.html)
 1\. Using the GLSL getter and setter syntax.
 
 ```
+import 'package:vector_math/vector_math.dart';
+
 void main() {
 	Vector3 x = new Vector3.zero(); // Zero vector
 	Vector4 y = new Vector4.splat(4.0); // Vector with 4.0 in all lanes
@@ -59,10 +70,13 @@ void main() {
 
 
 ```
+import 'dart:math';
+import 'package:vector_math/vector_math.dart';
+
 void main() {
-	// Rotation of pi/2 degrees around the Y axis followed by a 
+	// Rotation of PI/2 degrees around the Y axis followed by a 
 	// translation of (5.0, 2.0, 3.0).
-	Matrix4 T = new Matrix4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
+	Matrix4 T = new Matrix4.rotationY(PI*0.5).translate(5.0, 2.0, 3.0);
 	// A point.
 	Vector3 position = new Vector3(1.0, 1.0, 1.0);
 	// Transform position by T.
@@ -73,10 +87,13 @@ void main() {
 3\. Invert a matrix
 
 ```
+import 'dart:math';
+import 'package:vector_math/vector_math.dart';
+
 void main() {
 	// Rotation of 90 degrees around the Y axis followed by a 
 	// translation of (5.0, 2.0, 3.0).
-	Matrix4 T = new Matrix4.rotationY(pi*0.5).translate(5.0, 2.0, 3.0);
+	Matrix4 T = new Matrix4.rotationY(PI*0.5).translate(5.0, 2.0, 3.0);
 	// Invert T.
 	T.invert();
 	// Invert just the rotation in T.
@@ -87,11 +104,14 @@ void main() {
 4\. Rotate a vector using a quaternion
 
 ```
+import 'dart:math';
+import 'package:vector_math/vector_math.dart';
+
 void main() {
 	// The X axis.
 	Vector3 axis = new Vector3(1.0, 0.0, 0.0);
 	// 90 degrees.
-	double angle = pi/2.0;
+	double angle = PI/2.0;
 	// Quaternion encoding a 90 degree rotation along the X axis. 
 	Quaternion q = new Quaternion.axisAngle(axis, angle);
 	// A point.
