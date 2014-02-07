@@ -333,7 +333,7 @@ class AabbTest extends BaseTest {
     test('AABB3 ByteBuffer instanciation', testAabb3ByteBufferInstanciation);
     test('AABB3 Center', testAabb3Center);
     test('AABB3 Contains Aabb3', testAabb3ContainsAabb3);
-    test('AABB3 Contains Vectro3', testAabb3ContainsVector3);
+    test('AABB3 Contains Vector3', testAabb3ContainsVector3);
     test('AABB3 Contains Triangle', testAabb3ContainsTriangle);
     test('AABB3 Contains Sphere', testAabb3ContainsSphere);
     test('AABB3 Intersection Aabb3', testAabb3IntersectionAabb3);
