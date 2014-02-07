@@ -25,6 +25,31 @@ class Plane {
   final Vector3 _normal;
   double _constant;
 
+  /// Find the intersection point between the three planes [a], [b] and [c] and
+  /// copy it into [result].
+  static void intersection(Plane a, Plane b, Plane c, Vector3 result)
+  {
+    final cross = new Vector3.zero();
+
+    b.normal.crossInto(c.normal, cross);
+
+    final f = -a.normal.dot(cross);
+
+    final v1 = cross.scaled(a.constant);
+
+    c.normal.crossInto(a.normal, cross);
+
+    final v2 = cross.scaled(b.constant);
+
+    a.normal.crossInto(b.normal, cross);
+
+    final v3 = cross.scaled(c.constant);
+
+    result.x = (v1.x + v2.x + v3.x) / f;
+    result.y = (v1.y + v2.y + v3.y) / f;
+    result.z = (v1.z + v2.z + v3.z) / f;
+  }
+
   Vector3 get normal => _normal;
   double get constant => _constant;
          set constant(double value) => _constant = value;
