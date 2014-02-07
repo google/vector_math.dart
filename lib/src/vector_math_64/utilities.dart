@@ -29,3 +29,9 @@ double degrees(double radians) {
 double radians(double degrees) {
   return degrees * degrees2radians;
 }
+
+// Interpolate between [min] and [max] with the amount of [a] using a linear 
+// interpolation. The computation is equivalent to the GLSL function mix.
+double mix(double min, double max, double a) {
+  return min + a * (max - min);
+}

@@ -39,6 +39,14 @@ class Vector3 {
     result.z = Math.max(a.z, b.z);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector3 min, Vector3 max, double a, Vector3 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+    result.z = min.z + a * (max.z - min.z);
+  }
+
   /// Construct a new vector with the specified values.
   Vector3(double x_, double y_, double z_) : storage = new Float64List(3) {
     setValues(x_, y_, z_);
@@ -47,14 +55,17 @@ class Vector3 {
   /// Initialized with values from [array] starting at [offset].
   Vector3.array(List<double> array, [int offset=0]) : storage = new Float64List(3) {
     int i = offset;
-    storage[2] = array[i + 2];
-    storage[1] = array[i + 1];
-    storage[0] = array[i + 0];
+    storage[2] = array[i+2];
+    storage[1] = array[i+1];
+    storage[0] = array[i+0];
   }
 
   //// Zero vector.
   Vector3.zero() : storage = new Float64List(3);
 
+  /// Splat [value] into all lanes of the vector.
+  Vector3.splatter(double value) : this(value, value, value);
+  
   /// Copy of [other].
   Vector3.copy(Vector3 other) : storage = new Float64List(3) {
     setFrom(other);
@@ -115,18 +126,18 @@ class Vector3 {
                                          storage[2] + other.storage[2]);
 
   /// Scale.
-  Vector3 operator /(double scale) {
+  Vector3 operator/(double scale) {
     var o = 1.0 / scale;
     return new Vector3(storage[0] * o, storage[1] * o, storage[2] * o);
   }
 
   /// Scale.
-  Vector3 operator *(double scale) {
+  Vector3 operator*(double scale) {
     var o = scale;
     return new Vector3(storage[0] * o, storage[1] * o, storage[2] * o);
   }
 
-  double operator [](int i) => storage[i];
+  double operator[](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
 
@@ -277,7 +288,7 @@ class Vector3 {
   double relativeError(Vector3 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
-    return diff_norm / correct_norm;
+    return diff_norm/correct_norm;
   }
 
   /// Absolute error between [this] and [correct]
@@ -308,6 +319,14 @@ class Vector3 {
     storage[0] = storage[0] + arg.storage[0];
     storage[1] = storage[1] + arg.storage[1];
     storage[2] = storage[2] + arg.storage[2];
+    return this;
+  }
+
+  /// Add [arg] scaled by [factor] to [this].
+  Vector3 addScaled(Vector3 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
+    storage[2] = storage[2] + arg.storage[2] * factor;
     return this;
   }
 
@@ -375,17 +394,17 @@ class Vector3 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<double> array, [int offset = 0]) {
-    array[offset + 2] = storage[2];
-    array[offset + 1] = storage[1];
-    array[offset + 0] = storage[0];
+  void copyIntoArray(List<double> array, [int offset=0]) {
+    array[offset+2] = storage[2];
+    array[offset+1] = storage[1];
+    array[offset+0] = storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset = 0]) {
-    storage[2] = array[offset + 2];
-    storage[1] = array[offset + 1];
-    storage[0] = array[offset + 0];
+  void copyFromArray(List<double> array, [int offset=0]) {
+    storage[2] = array[offset+2];
+    storage[1] = array[offset+1];
+    storage[0] = array[offset+0];
   }
 
   set xy(Vector2 arg) {

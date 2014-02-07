@@ -188,16 +188,15 @@ class Aabb3 {
     double d = 0.0;
     double e = 0.0;
 
-    for(int i = 0; i < 3; ++i) {
-      if((e = other.center[i] - min[i]) < 0.0) {
-        if(e < -other.radius) {
+    for (int i = 0; i < 3; ++i) {
+      if ((e = other.center[i] - min[i]) < 0.0) {
+        if (e < -other.radius) {
           return false;
         }
 
         d = d + e * e;
-      }
-      else if((e = other.center[i] - max[i]) > 0.0) {
-        if(e > other.radius) {
+      } else if ((e = other.center[i] - max[i]) > 0.0) {
+        if (e > other.radius) {
           return false;
         }
 

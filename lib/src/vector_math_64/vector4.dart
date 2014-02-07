@@ -41,6 +41,15 @@ class Vector4 {
     result.w = Math.max(a.w, b.w);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector4 min, Vector4 max, double a, Vector4 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+    result.z = min.z + a * (max.z - min.z);
+    result.w = min.w + a * (max.w - min.w);
+  }
+
   /// Constructs a new vector with the specified values.
   Vector4(double x_, double y_, double z_, double w_) {
     setValues(x_, y_, z_, w_);
@@ -63,11 +72,13 @@ class Vector4 {
     storage[3] = 1.0;
   }
 
+  /// Splat [value] into all lanes of the vector.
+  Vector4.splatter(double value) : this(value, value, value, value);
+
   /// Copy of [other].
   Vector4.copy(Vector4 other) {
     setFrom(other);
   }
-
 
   /// Set the values of the vector.
   Vector4 setValues(double x_, double y_, double z_, double w_) {
@@ -139,7 +150,7 @@ class Vector4 {
                     storage[3] * o);
   }
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
 
@@ -260,6 +271,15 @@ class Vector4 {
     storage[1] = storage[1] + arg.storage[1];
     storage[2] = storage[2] + arg.storage[2];
     storage[3] = storage[3] + arg.storage[3];
+    return this;
+  }
+
+  /// Add [arg] scaled by [factor] to [this].
+  Vector4 addScaled(Vector4 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
+    storage[2] = storage[2] + arg.storage[2] * factor;
+    storage[3] = storage[3] + arg.storage[3] * factor;
     return this;
   }
 

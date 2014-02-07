@@ -141,7 +141,7 @@ class Matrix2 {
   /// Dimension of the matrix.
   int get dimension => 2;
 
-  double operator [](int i) => storage[i];
+  double operator[](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
   /// Returns row 0
@@ -231,7 +231,7 @@ class Matrix2 {
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator *(dynamic arg) {
+  dynamic operator*(dynamic arg) {
     if (arg is double) {
       return _mul_scale(arg);
     }
@@ -330,7 +330,7 @@ class Matrix2 {
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector2 v) {
-    return storage[j*2] * v.storage[0] + storage[(j*2)+1] * v.storage[1];
+    return storage[j * 2] * v.storage[0] + storage[(j * 2) + 1] * v.storage[1];
   }
 
   /// Trace of the matrix.
@@ -499,7 +499,7 @@ class Matrix2 {
     return arg;
   }
 
-  Vector2 transformed(Vector2 arg, [Vector2 out=null]) {
+  Vector2 transformed(Vector2 arg, [Vector2 out = null]) {
     if (out == null) {
       out = new Vector2.copy(arg);
     } else {

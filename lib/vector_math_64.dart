@@ -24,7 +24,7 @@ library vector_math_64;
 import 'dart:typed_data';
 import 'dart:math' as Math;
 
-part 'src/vector_math_64/angle.dart';
+part 'src/vector_math_64/utilities.dart';
 part 'src/vector_math_64/aabb2.dart';
 part 'src/vector_math_64/aabb3.dart';
 part 'src/vector_math_64/constants.dart';
@@ -33,6 +33,7 @@ part 'src/vector_math_64/frustum.dart';
 part 'src/vector_math_64/matrix2.dart';
 part 'src/vector_math_64/matrix3.dart';
 part 'src/vector_math_64/matrix4.dart';
+part 'src/vector_math_64/noise.dart';
 part 'src/vector_math_64/opengl.dart';
 part 'src/vector_math_64/plane.dart';
 part 'src/vector_math_64/quaternion.dart';
