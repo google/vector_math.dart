@@ -294,10 +294,25 @@ class VectorTest extends BaseTest {
     }
   }
 
-  void testDefaultConstructor() {
-    var v = new Vector2(2.0, 4.0);
-    expect(v.x, equals(2.0));
-    expect(v.y, equals(4.0));
+  void testDefaultConstructor2() {
+    var v1 = new Vector2(2.0, 4.0);
+    expect(v1.x, equals(2.0));
+    expect(v1.y, equals(4.0));
+  }
+
+  void testDefaultConstructor3() {
+    var v1 = new Vector3(2.0, 4.0, -1.5);
+    expect(v1.x, equals(2.0));
+    expect(v1.y, equals(4.0));
+    expect(v1.z, equals(-1.5));
+  }
+
+  void testDefaultConstructor4() {
+    var v1 = new Vector4(2.0, 4.0, -1.5, 10.0);
+    expect(v1.x, equals(2.0));
+    expect(v1.y, equals(4.0));
+    expect(v1.z, equals(-1.5));
+    expect(v1.w, equals(10.0));
   }
 
   void testNegate() {
@@ -530,8 +545,11 @@ class VectorTest extends BaseTest {
     test('3D cross product', testVec3CrossProduct);
     test('3D reflect', testVec3Reflect);
     test('3D projection', testVec3Projection);
-    test('Constructor', testDefaultConstructor);
     test('Negate', testNegate);
+
+    test('2D Constructor', testDefaultConstructor2);
+    test('3D Constructor', testDefaultConstructor3);
+    test('4D Constructor', testDefaultConstructor4);
 
     test('2D min/max', testVec2MinMax);
     test('3D min/max', testVec3MinMax);
