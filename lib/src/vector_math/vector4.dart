@@ -72,11 +72,13 @@ class Vector4 {
     storage[3] = 1.0;
   }
 
+  /// Splat [value] into all lanes of the vector.
+  Vector4.splatter(double value) : this(value, value, value, value);
+
   /// Copy of [other].
   Vector4.copy(Vector4 other) {
     setFrom(other);
   }
-
 
   /// Set the values of the vector.
   Vector4 setValues(double x_, double y_, double z_, double w_) {

@@ -340,33 +340,60 @@ class VectorTest extends BaseTest {
     }
   }
 
-  void testDefaultConstructor2() {
+  void testVec2Constructor() {
     var v1 = new Vector2(2.0, 4.0);
     expect(v1.x, equals(2.0));
     expect(v1.y, equals(4.0));
+
+    var v2 = new Vector2.splatter(2.0);
+    expect(v2.x, equals(2.0));
+    expect(v2.y, equals(2.0));
   }
 
-  void testDefaultConstructor3() {
+  void testVec3Constructor() {
     var v1 = new Vector3(2.0, 4.0, -1.5);
     expect(v1.x, equals(2.0));
     expect(v1.y, equals(4.0));
     expect(v1.z, equals(-1.5));
+
+    var v2 = new Vector3.splatter(2.0);
+    expect(v2.x, equals(2.0));
+    expect(v2.y, equals(2.0));
+    expect(v2.z, equals(2.0));
   }
 
-  void testDefaultConstructor4() {
+  void testVec4Constructor() {
     var v1 = new Vector4(2.0, 4.0, -1.5, 10.0);
     expect(v1.x, equals(2.0));
     expect(v1.y, equals(4.0));
     expect(v1.z, equals(-1.5));
     expect(v1.w, equals(10.0));
+
+    var v2 = new Vector4.splatter(2.0);
+    expect(v2.x, equals(2.0));
+    expect(v2.y, equals(2.0));
+    expect(v2.z, equals(2.0));
+    expect(v2.w, equals(2.0));
   }
 
   void testNegate() {
-    var vec = new Vector3(1.0, 2.0, 3.0);
-    vec.negate();
-    expect(vec.x, equals(-1.0));
-    expect(vec.y, equals(-2.0));
-    expect(vec.z, equals(-3.0));
+    var vec1 = new Vector2(1.0, 2.0);
+    vec1.negate();
+    expect(vec1.x, equals(-1.0));
+    expect(vec1.y, equals(-2.0));
+
+    var vec2 = new Vector3(1.0, 2.0, 3.0);
+    vec2.negate();
+    expect(vec2.x, equals(-1.0));
+    expect(vec2.y, equals(-2.0));
+    expect(vec2.z, equals(-3.0));
+
+    var vec3 = new Vector4(1.0, 2.0, 3.0, 4.0);
+    vec3.negate();
+    expect(vec3.x, equals(-1.0));
+    expect(vec3.y, equals(-2.0));
+    expect(vec3.z, equals(-3.0));
+    expect(vec3.w, equals(-4.0));
   }
 
   void testVec2Reflect() {
@@ -593,9 +620,9 @@ class VectorTest extends BaseTest {
     test('3D projection', testVec3Projection);
     test('Negate', testNegate);
 
-    test('2D Constructor', testDefaultConstructor2);
-    test('3D Constructor', testDefaultConstructor3);
-    test('4D Constructor', testDefaultConstructor4);
+    test('2D Constructor', testVec2Constructor);
+    test('3D Constructor', testVec3Constructor);
+    test('4D Constructor', testVec4Constructor);
 
     test('2D add', testVec2Add);
     test('3D add', testVec3Add);

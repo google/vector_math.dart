@@ -61,7 +61,7 @@ import 'package:vector_math/vector_math.dart';
 
 void main() {
 	Vector3 x = new Vector3.zero(); // Zero vector
-	Vector4 y = new Vector4(4.0, 4.0, 4.0); // Vector with 4.0 in all lanes
+	Vector4 y = new Vector4.splatter(4.0); // Vector with 4.0 in all lanes
 	x.zyx = y.xzz; // Sets z,y,x the values in x,z,z
 }
 ``` 

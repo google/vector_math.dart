@@ -59,6 +59,9 @@ class Vector2 {
   /// Zero vector.
   Vector2.zero();
 
+  /// Splat [value] into all lanes of the vector.
+  Vector2.splatter(double value) : this(value, value);
+
   /// Copy of [other].
   Vector2.copy(Vector2 other) {
     setFrom(other);
