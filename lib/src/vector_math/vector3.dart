@@ -39,6 +39,14 @@ class Vector3 {
     result.z = Math.max(a.z, b.z);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector3 min, Vector3 max, double a, Vector3 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+    result.z = min.z + a * (max.z - min.z);
+  }
+
   /// Construct a new vector with the specified values.
   Vector3(double x_, double y_, double z_) : storage = new Float32List(3) {
     setValues(x_, y_, z_);

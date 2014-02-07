@@ -37,6 +37,13 @@ class Vector2 {
     result.y = Math.max(a.y, b.y);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector2 min, Vector2 max, double a, Vector2 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+  }
+
   /// Construct a new vector with the specified values.
   Vector2(double x_, double y_) {
     setValues(x_, y_);

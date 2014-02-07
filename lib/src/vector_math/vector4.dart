@@ -41,6 +41,15 @@ class Vector4 {
     result.w = Math.max(a.w, b.w);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector4 min, Vector4 max, double a, Vector4 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+    result.z = min.z + a * (max.z - min.z);
+    result.w = min.w + a * (max.w - min.w);
+  }
+
   /// Constructs a new vector with the specified values.
   Vector4(double x_, double y_, double z_, double w_) {
     setValues(x_, y_, z_, w_);

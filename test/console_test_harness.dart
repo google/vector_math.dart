@@ -38,13 +38,9 @@ void main() {
     at.run();
   });
 
-  group('Utility', () {
-    test('degrees', () {
-      relativeTest(degrees(Math.PI), 180.0);
-    });
-    test('radians', () {
-      relativeTest(radians(90.0), Math.PI / 2.0);
-    });
+  group('Utilities', () {
+    var ut = new UtilitiesTest();    
+    ut.run();
   });
 
   group('Geometry', () {
