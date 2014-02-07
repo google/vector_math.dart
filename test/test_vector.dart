@@ -27,6 +27,52 @@ class VectorTest extends BaseTest {
     expect(offsetVector.z, equals(4.0));
   }
 
+
+  void testVec2Add() {
+    final Vector2 a = new Vector2(5.0, 7.0);
+    final Vector2 b = new Vector2(3.0, 8.0);
+
+    a.add(b);
+    expect(a.x, equals(8.0));
+    expect(a.y, equals(15.0));
+
+    b.addScaled(a, 0.5);
+    expect(b.x, equals(7.0));
+    expect(b.y, equals(15.5));
+  }
+
+  void testVec3Add() {
+    final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+    final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+
+    a.add(b);
+    expect(a.x, equals(8.0));
+    expect(a.y, equals(15.0));
+    expect(a.z, equals(5.0));
+
+    b.addScaled(a, 0.5);
+    expect(b.x, equals(7.0));
+    expect(b.y, equals(15.5));
+    expect(b.z, equals(4.5));
+  }
+
+  void testVec4Add() {
+    final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+    final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+
+    a.add(b);
+    expect(a.x, equals(8.0));
+    expect(a.y, equals(15.0));
+    expect(a.z, equals(5.0));
+    expect(a.w, equals(12.0));
+
+    b.addScaled(a, 0.5);
+    expect(b.x, equals(7.0));
+    expect(b.y, equals(15.5));
+    expect(b.z, equals(4.5));
+    expect(b.w, equals(8.0));
+  }
+
   void testVec2MinMax() {
     final Vector2 a = new Vector2(5.0, 7.0);
     final Vector2 b = new Vector2(3.0, 8.0);
@@ -550,6 +596,10 @@ class VectorTest extends BaseTest {
     test('2D Constructor', testDefaultConstructor2);
     test('3D Constructor', testDefaultConstructor3);
     test('4D Constructor', testDefaultConstructor4);
+
+    test('2D add', testVec2Add);
+    test('3D add', testVec3Add);
+    test('4D add', testVec4Add);
 
     test('2D min/max', testVec2MinMax);
     test('3D min/max', testVec3MinMax);

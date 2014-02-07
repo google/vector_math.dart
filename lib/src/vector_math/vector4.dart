@@ -272,6 +272,15 @@ class Vector4 {
     return this;
   }
 
+  /// Add [arg] scaled by [factor] to [this].
+  Vector4 addScaled(Vector4 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
+    storage[2] = storage[2] + arg.storage[2] * factor;
+    storage[3] = storage[3] + arg.storage[3] * factor;
+    return this;
+  }
+
   Vector4 sub(Vector4 arg) {
     storage[0] = storage[0] - arg.storage[0];
     storage[1] = storage[1] - arg.storage[1];

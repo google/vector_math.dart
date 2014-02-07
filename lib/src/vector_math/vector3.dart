@@ -319,6 +319,14 @@ class Vector3 {
     return this;
   }
 
+  /// Add [arg] scaled by [factor] to [this].
+  Vector3 addScaled(Vector3 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
+    storage[2] = storage[2] + arg.storage[2] * factor;
+    return this;
+  }
+
   /// Subtract [arg] from [this].
   Vector3 sub(Vector3 arg) {
     storage[0] = storage[0] - arg.storage[0];
