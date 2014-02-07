@@ -53,7 +53,7 @@ void cross2B(Vector2 x, double y, Vector2 out) {
 /// Sets [u] and [v] to be two vectors orthogonal to each other and
 /// [planeNormal].
 void buildPlaneVectors(final Vector3 planeNormal, Vector3 u, Vector3 v) {
-  if (planeNormal.z.abs() > sqrtOneHalf) {
+  if (planeNormal.z.abs() > Math.SQRT1_2) {
     // choose u in y-z plane
     double a = planeNormal.y*planeNormal.y + planeNormal.z*planeNormal.z;
     double k = 1.0/Math.sqrt(a);
