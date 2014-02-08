@@ -76,17 +76,17 @@ class Colors {
   /// Blend the [foreground] color over [background] color and store the color
   /// in [result].
   static void alphaBlend(Vector4 foreground, Vector4 background, Vector4 result) {
-    result.a = foreground.a + (1.0 - foreground.a) * background.a;
+    final a = foreground.a + (1.0 - foreground.a) * background.a;
+    final factor = 1.0 / a;
 
-    final factor = 1.0 / result.a;
-
-    result
-        ..r = factor * (foreground.a * foreground.r + (1.0 - foreground.a) * 
-          background.a * background.r)
-        ..g = factor * (foreground.a * foreground.g + (1.0 - foreground.a) * 
-          background.a * background.g)
-        ..b = factor * (foreground.a * foreground.b + (1.0 - foreground.a) * 
+    final r = factor * (foreground.a * foreground.r + (1.0 - foreground.a) * 
+          background.a * background.r);
+    final g = factor * (foreground.a * foreground.g + (1.0 - foreground.a) * 
+          background.a * background.g);
+    final b = factor * (foreground.a * foreground.b + (1.0 - foreground.a) * 
           background.a * background.b);
+
+    result.setValues(r, g, b, a);
   }
 
   /// Convert a [input] color to a gray scaled color and store it in [result].
@@ -129,80 +129,56 @@ class Colors {
   /// Convert [rgbColor] from rgb color model to the hue, saturation, and value
   /// (HSV) color model and store it in [hsvColor].
   static void rgbToHsv(Vector4 rgbColor, Vector4 hsvColor) {
-    // h, s, v => x, y, z
     final max = Math.max(Math.max(rgbColor.r, rgbColor.g), rgbColor.b);
     final min = Math.min(Math.min(rgbColor.r, rgbColor.g), rgbColor.b);
     final d = max - min;
-
-    hsvColor
-        ..a = rgbColor.a
-        ..z = max
-        ..y = max == 0.0 ? 0.0 : d / max;
+    final v = max;
+    final s = max == 0.0 ? 0.0 : d / max;
+    var h = 0.0;
  
-    if (max == min) {
-      hsvColor.x = 0.0;
-    } else {
+    if (max != min) {
       if (max == rgbColor.r) {
-        hsvColor.x = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ? 
+        h = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ? 
           6.0 : 0.0);
       } else if (max == rgbColor.g) {
-        hsvColor.x = (rgbColor.b - rgbColor.r) / d + 2.0;
+        h = (rgbColor.b - rgbColor.r) / d + 2.0;
       } else {
-        hsvColor.x = (rgbColor.r - rgbColor.g) / d + 4.0;
+        h = (rgbColor.r - rgbColor.g) / d + 4.0;
       }
 
-      hsvColor.x /= 6.0;
+      h /= 6.0;
     }
+
+    hsvColor.setValues(h, s, v, rgbColor.a);
   }
 
   /// Convert [hsvColor] from hue, saturation, and value (HSV) color model to 
   /// the RGB color model and store it in [rgbColor].
   static void hsvToRgb(Vector4 hsvColor, Vector4 rgbColor) {
-    // h, s, v => x, y, z
     final i = (hsvColor.x * 6.0).floor();
     final f = hsvColor.x * 6.0 - i.toDouble();
     final p = hsvColor.z * (1.0 - hsvColor.y);
     final q = hsvColor.z * (1.0 - f * hsvColor.y);
     final t = hsvColor.z * (1.0 - (1.0 - f) * hsvColor.y);
  
-    rgbColor.a = hsvColor.a;
-
     switch (i % 6) {
       case 0: 
-        rgbColor
-          ..r = hsvColor.z
-          ..g = t
-          ..b = p;
+        rgbColor.setValues(hsvColor.z, t, p, hsvColor.a);
         break;
       case 1: 
-        rgbColor
-          ..r = q
-          ..g = hsvColor.z
-          ..b = p;
+        rgbColor.setValues(q, hsvColor.z, p, hsvColor.a);
         break;
       case 2: 
-        rgbColor
-          ..r = p
-          ..g = hsvColor.z
-          ..b = t;
+        rgbColor.setValues(p, hsvColor.z, t, hsvColor.a);
         break;
       case 3: 
-        rgbColor
-          ..r = p
-          ..g = q
-          ..b = hsvColor.z;
+        rgbColor.setValues(p, q, hsvColor.z, hsvColor.a);
         break;
       case 4: 
-        rgbColor
-          ..r = t
-          ..g = p
-          ..b = hsvColor.z;
+        rgbColor.setValues(t, p, hsvColor.z, hsvColor.a);
         break;
       case 5: 
-        rgbColor
-          ..r = hsvColor.z
-          ..g = p
-          ..b = q;
+        rgbColor.setValues(hsvColor.z, p, q, hsvColor.a);
         break;
     }
   }
@@ -210,60 +186,51 @@ class Colors {
   /// Convert [rgbColor] from rgb color model to the hue, saturation, and 
   /// lightness (HSL) color model and store it in [hslColor].
   static void rgbToHsl(Vector4 rgbColor, Vector4 hslColor) {
-    // h, s, l => x, y, z
     final max = Math.max(Math.max(rgbColor.r, rgbColor.g), rgbColor.b);
     final min = Math.min(Math.min(rgbColor.r, rgbColor.g), rgbColor.b);
+    final l = (max + min) / 2.0;
+    var h = 0.0;
+    var s = 0.0;
 
-    hslColor
-        ..a = rgbColor.a
-        ..z = (max + min) / 2.0;
-
-    if (max == min) {
-      hslColor
-          ..x = 0.0
-          ..y = 0.0;
-    } else {
+    if (max != min) {
       final d = max - min;
 
-      hslColor.y = hslColor.z > 0.5 ? d / (2.0 - max - min) : d / (max + min);
+      s = l > 0.5 ? d / (2.0 - max - min) : d / (max + min);
 
       if (max == rgbColor.r) {
-        hslColor.x = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ? 
+        h = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ? 
           6.0 : 0.0);
       } else if (max == rgbColor.g) {
-        hslColor.x = (rgbColor.b - rgbColor.r) / d + 2.0;
+        h = (rgbColor.b - rgbColor.r) / d + 2.0;
       } else {
-        hslColor.x = (rgbColor.r - rgbColor.g) / d + 4.0;
+        h = (rgbColor.r - rgbColor.g) / d + 4.0;
       }
 
-      hslColor.x /= 6.0;
+      h /= 6.0;
     }
+
+    hslColor.setValues(h, s, l, rgbColor.a);
   }
 
   /// Convert [hslColor] from hue, saturation, and lightness (HSL) color model  
   /// to the RGB color model and store it in [rgbColor].
   static void hslToRgb(Vector4 hslColor, Vector4 rgbColor) {
-    // h, s, l => x, y, z
-    rgbColor.a = hslColor.a;
-
     if (hslColor.y == 0.0) {
-      rgbColor
-          ..r = hslColor.z
-          ..g = hslColor.z
-          ..b = hslColor.z;
+      rgbColor.setValues(hslColor.z, hslColor.z, hslColor.z, hslColor.a);
     } else {
       final q = hslColor.z < 0.5 ? hslColor.z * (1.0 + s) : 
         hslColor.z + hslColor.y - hslColor.z * hslColor.y;
       final p = 2.0 * hslColor.z - q;
 
-      rgbColor
-          ..r = _hueToRgb(p, q, hslColor.x + 1.0 / 3.0)
-          ..g = _hueToRgb(p, q, hslColor.x)
-          ..b = _hueToRgb(p, q, hslColor.x - 1.0 / 3.0);
+      final r = _hueToRgb(p, q, hslColor.x + 1.0 / 3.0);
+      final g = _hueToRgb(p, q, hslColor.x);
+      final b = _hueToRgb(p, q, hslColor.x - 1.0 / 3.0);
+
+      rgbColor.setValues(r, g, b, hslColor.a);
     }
   }
 
-  static void _hueToRgb(double p, double q, double t) {
+  static double _hueToRgb(double p, double q, double t) {
     if (t < 0.0) {
       t += 1.0;
     } else if (t > 1.0) {
