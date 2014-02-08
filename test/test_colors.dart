@@ -68,9 +68,46 @@ class ColorsTest extends BaseTest {
  	expect(output.w, equals(1.0));
   }
 
+  void testAlphaBlend() {
+  	final output = new Vector4.zero();
+  	final foreground1 = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+  	final foreground2 = new Vector4(0.3921, 0.5843, 0.9294, 0.5);
+  	final background1 = new Vector4(1.0, 0.0, 0.0, 1.0);
+  	final background2 = new Vector4(1.0, 0.5, 0.0, 0.5);
+
+  	Colors.alphaBlend(foreground1, background1, output);
+ 	
+ 	relativeTest(output.r, 0.3921);
+ 	relativeTest(output.g, 0.5843);
+ 	relativeTest(output.b, 0.9294);
+ 	expect(output.w, equals(1.0));
+
+  	Colors.alphaBlend(foreground1, background2, output);
+
+ 	relativeTest(output.r, 0.3921);
+ 	relativeTest(output.g, 0.5843);
+ 	relativeTest(output.b, 0.9294);
+ 	expect(output.w, equals(1.0));
+
+  	Colors.alphaBlend(foreground2, background1, output);
+
+ 	relativeTest(output.r, 0.6960);
+ 	relativeTest(output.g, 0.2921);
+ 	relativeTest(output.b, 0.4647);
+ 	expect(output.w, equals(1.0));
+
+  	Colors.alphaBlend(foreground2, background2, output);
+
+ 	relativeTest(output.r, 0.5947);
+ 	relativeTest(output.g, 0.5561);
+ 	relativeTest(output.b, 0.6195);
+ 	expect(output.w, equals(0.75));
+  }
+
   void run() {
     test('Colors From RGBA', testFromRGBA);
     test('Colors Hex String', testHexString);
     test('Colors To Grayscale', testToGrayscale);
+    test('Colors Alpha Blend', testAlphaBlend);
   }
 }

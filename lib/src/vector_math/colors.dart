@@ -72,6 +72,21 @@ class Colors {
     return color.toRadixString(16);
   }
 
+  /// Blend the [foreground] color over [background] color and store the color
+  /// in [result].
+  static void alphaBlend(Vector4 foreground, Vector4 background, Vector4 result) {
+    result.a = foreground.a + (1.0 - foreground.a) * background.a;
+
+    final factor = 1.0 / result.a;
+
+    result.r = factor * (foreground.a * foreground.r + (1.0 - foreground.a) * 
+      background.a * background.r);
+    result.g = factor * (foreground.a * foreground.g + (1.0 - foreground.a) * 
+      background.a * background.g);
+    result.b = factor * (foreground.a * foreground.b + (1.0 - foreground.a) * 
+      background.a * background.b);
+  }
+
   /// Convert a [input] color to a gray scaled color and store it in [result].
   static void toGrayscale(Vector4 input, Vector4 result) {
     final value = 0.21 * input.r + 0.71 * input.g + 0.07 * input.b;
