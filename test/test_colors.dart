@@ -124,11 +124,53 @@ class ColorsTest extends BaseTest {
  	expect(linear.a, equals(foreground.a));
   }
 
+  void testRgbHsl() {
+  	final hsl = new Vector4.zero();
+  	final rgb = new Vector4.zero();
+  	final input = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+
+  	Colors.rgbToHsl(input, hsl);
+ 	
+ 	relativeTest(hsl.x, 0.6070);
+ 	relativeTest(hsl.y, 0.7920);
+ 	relativeTest(hsl.z, 0.6607);
+ 	expect(hsl.a, equals(input.a));
+
+  	Colors.hslToRgb(hsl, rgb);
+
+ 	relativeTest(rgb.r, input.r);
+ 	relativeTest(rgb.g, input.g);
+ 	relativeTest(rgb.b, input.b);
+ 	expect(rgb.a, equals(input.a));
+  }
+
+  void testRgbHsv() {
+  	final hsv = new Vector4.zero();
+  	final rgb = new Vector4.zero();
+  	final input = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+
+  	Colors.rgbToHsv(input, hsv);
+ 	
+ 	relativeTest(hsv.x, 0.6070);
+ 	relativeTest(hsv.y, 0.5781);
+ 	relativeTest(hsv.z, 0.9294);
+ 	expect(hsv.a, equals(input.a));
+
+  	Colors.hsvToRgb(hsv, rgb);
+
+ 	relativeTest(rgb.r, input.r);
+ 	relativeTest(rgb.g, input.g);
+ 	relativeTest(rgb.b, input.b);
+ 	expect(rgb.a, equals(input.a));
+  }
+
   void run() {
     test('Colors From RGBA', testFromRgba);
     test('Colors Hex String', testHexString);
     test('Colors To Grayscale', testToGrayscale);
     test('Colors Alpha Blend', testAlphaBlend);
     test('Colors Linear/Gamma', testLinearGamma);
+    test('Colors RGB/HSL', testRgbHsl);
+    test('Colors RGB/HSV', testRgbHsv);
   }
 }
