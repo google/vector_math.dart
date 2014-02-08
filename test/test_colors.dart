@@ -11,7 +11,7 @@ class ColorsTest extends BaseTest {
  	relativeTest(output.r, 0.745);
  	relativeTest(output.g, 0.745);
  	relativeTest(output.b, 0.745);
- 	expect(output.w, equals(1.0));
+ 	expect(output.a, equals(1.0));
   }
 
   void testHexString() {
@@ -65,7 +65,7 @@ class ColorsTest extends BaseTest {
  	relativeTest(output.r, 0.3921);
  	relativeTest(output.g, 0.5843);
  	relativeTest(output.b, 0.9294);
- 	expect(output.w, equals(1.0));
+ 	expect(output.a, equals(1.0));
   }
 
   void testAlphaBlend() {
@@ -80,28 +80,48 @@ class ColorsTest extends BaseTest {
  	relativeTest(output.r, 0.3921);
  	relativeTest(output.g, 0.5843);
  	relativeTest(output.b, 0.9294);
- 	expect(output.w, equals(1.0));
+ 	expect(output.a, equals(1.0));
 
   	Colors.alphaBlend(foreground1, background2, output);
 
  	relativeTest(output.r, 0.3921);
  	relativeTest(output.g, 0.5843);
  	relativeTest(output.b, 0.9294);
- 	expect(output.w, equals(1.0));
+ 	expect(output.a, equals(1.0));
 
   	Colors.alphaBlend(foreground2, background1, output);
 
  	relativeTest(output.r, 0.6960);
  	relativeTest(output.g, 0.2921);
  	relativeTest(output.b, 0.4647);
- 	expect(output.w, equals(1.0));
+ 	expect(output.a, equals(1.0));
 
   	Colors.alphaBlend(foreground2, background2, output);
 
  	relativeTest(output.r, 0.5947);
  	relativeTest(output.g, 0.5561);
  	relativeTest(output.b, 0.6195);
- 	expect(output.w, equals(0.75));
+ 	expect(output.a, equals(0.75));
+  }
+
+  void testLinearGamma() {
+  	final gamma = new Vector4.zero();
+  	final linear = new Vector4.zero();
+  	final foreground = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+
+  	Colors.linearToGamma(foreground, gamma);
+ 	
+ 	relativeTest(gamma.r, 0.6534);
+ 	relativeTest(gamma.g, 0.7832);
+ 	relativeTest(gamma.b, 0.9672);
+ 	expect(gamma.a, equals(foreground.a));
+
+  	Colors.gammaToLinear(gamma, linear);
+
+ 	relativeTest(linear.r, foreground.r);
+ 	relativeTest(linear.g, foreground.g);
+ 	relativeTest(linear.b, foreground.b);
+ 	expect(linear.a, equals(foreground.a));
   }
 
   void run() {
@@ -109,5 +129,6 @@ class ColorsTest extends BaseTest {
     test('Colors Hex String', testHexString);
     test('Colors To Grayscale', testToGrayscale);
     test('Colors Alpha Blend', testAlphaBlend);
+    test('Colors Linear/Gamma', testLinearGamma);
   }
 }

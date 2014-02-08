@@ -97,5 +97,29 @@ class Colors {
     result.a = input.a;
   }
 
+  /// Convert [linearColor] from linear space into gamma color space and store 
+  /// the result in [gammaColor]. It is possible to specify a optional [gamma], 
+  /// the default value is 2.2.
+  static void linearToGamma(Vector4 linearColor, Vector4 gammaColor, 
+    [double gamma = 2.2]) {
+    final exponent = 1.0 / gamma;
+
+    gammaColor.r = Math.pow(linearColor.r, exponent);
+    gammaColor.g = Math.pow(linearColor.g, exponent);
+    gammaColor.b = Math.pow(linearColor.b, exponent);
+    gammaColor.a = linearColor.a;
+  }
+
+  /// Convert [gammaColor] from gamma space into linear color space and store 
+  /// the result in [linearColor]. It is possible to specify a optional [gamma], 
+  /// the default value is 2.2.
+  static void gammaToLinear(Vector4 gammaColor, Vector4 linearColor, 
+    [double gamma = 2.2]) {
+    linearColor.r = Math.pow(gammaColor.r, gamma);
+    linearColor.g = Math.pow(gammaColor.g, gamma);
+    linearColor.b = Math.pow(gammaColor.b, gamma);
+    linearColor.a = gammaColor.a;
+  }
+
   Colors._();
 }
