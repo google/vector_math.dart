@@ -57,10 +57,10 @@ class ColorsTest extends BaseTest {
  		throwsA(new isInstanceOf<FormatException>()));
   }
 
-  void testFromRGBA() {
+  void testFromRgba() {
   	final output = new Vector4.zero();
 
-  	Colors.fromRGBA(100, 149, 237, 255, output);
+  	Colors.fromRgba(100, 149, 237, 255, output);
  	
  	relativeTest(output.r, 0.3921);
  	relativeTest(output.g, 0.5843);
@@ -125,7 +125,7 @@ class ColorsTest extends BaseTest {
   }
 
   void run() {
-    test('Colors From RGBA', testFromRGBA);
+    test('Colors From RGBA', testFromRgba);
     test('Colors Hex String', testHexString);
     test('Colors To Grayscale', testToGrayscale);
     test('Colors Alpha Blend', testAlphaBlend);

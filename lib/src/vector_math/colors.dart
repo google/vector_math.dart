@@ -31,7 +31,7 @@ class Colors {
 
   /// Convert a color with [r], [g], [b] and [a] component between 0 and 255 to
   /// a color with values between 0.0 and 1.0 and store it in [result].
-  static void fromRGBA(int r, int g, int b, int a, Vector4 result) {
+  static void fromRgba(int r, int g, int b, int a, Vector4 result) {
     result.setValues(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
   }
 
@@ -46,7 +46,7 @@ class Colors {
       final g = int.parse(fullMatch[2], radix: 16);
       final b = int.parse(fullMatch[3], radix: 16);
 
-      fromRGBA(r, g, b, 255, result);
+      fromRgba(r, g, b, 255, result);
       return;
     }
 
@@ -57,7 +57,7 @@ class Colors {
       final g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
       final b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
 
-      fromRGBA(r, g, b, 255, result);
+      fromRgba(r, g, b, 255, result);
       return;
     }
 
