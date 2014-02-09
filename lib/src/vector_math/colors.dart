@@ -26,9 +26,9 @@ part of vector_math;
 /// for fast prototyping.
 class Colors {
   static final _hexStringFullRegex = new RegExp(
-    r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})', caseSensitive: false);
+    r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})(?:([0-9a-f]{2}))?', caseSensitive: false);
   static final _hexStringSmallRegex = new RegExp(
-    r'\#?([0-9a-f])([0-9a-f])([0-9a-f])', caseSensitive: false);
+    r'\#?([0-9a-f])([0-9a-f])([0-9a-f])(?:([0-9a-f]))?', caseSensitive: false);
 
   /// Convert a color with [r], [g], [b] and [a] component between 0 and 255 to
   /// a color with values between 0.0 and 1.0 and store it in [result].
@@ -36,39 +36,65 @@ class Colors {
     result.setValues(r / 255.0, g / 255.0, b / 255.0, a / 255.0);
   }
 
-  /// Convert the color as a string in the format '#FF0F00' or '#FF0' (with or 
-  /// without a leading '#', case insensitive) to the corresponding color value 
-  /// and store it in [result].
+  /// Convert the color as a string in the format '#FF0F00', '#FFFF0F00', '#FF0'
+  /// or '#FFF0' (with or without a leading '#', case insensitive) to the 
+  /// corresponding color value and store it in [result]. The first group is 
+  /// treated as the alpha channel if a [value] with four groups is passed.
   static void fromHexString(String value, Vector4 result) {
     final fullMatch = _hexStringFullRegex.matchAsPrefix(value);
 
     if (fullMatch != null) {
-      final r = int.parse(fullMatch[1], radix: 16);
-      final g = int.parse(fullMatch[2], radix: 16);
-      final b = int.parse(fullMatch[3], radix: 16);
+      if(fullMatch[4] == null) {
+        final r = int.parse(fullMatch[1], radix: 16);
+        final g = int.parse(fullMatch[2], radix: 16);
+        final b = int.parse(fullMatch[3], radix: 16);
 
-      fromRgba(r, g, b, 255, result);
-      return;
+        fromRgba(r, g, b, 255, result);
+        return;
+      } else {
+        final a = int.parse(fullMatch[1], radix: 16);
+        final r = int.parse(fullMatch[2], radix: 16);
+        final g = int.parse(fullMatch[3], radix: 16);
+        final b = int.parse(fullMatch[4], radix: 16);
+
+        fromRgba(r, g, b, a, result);
+        return;
+      }
     }
 
     final smallMatch = _hexStringSmallRegex.matchAsPrefix(value);
 
     if (smallMatch != null) {
-      final r = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
-      final g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
-      final b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
+      if(smallMatch[4] == null) {
+        final r = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
+        final g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
+        final b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
 
-      fromRgba(r, g, b, 255, result);
-      return;
+        fromRgba(r, g, b, 255, result);
+        return;
+      } else {
+        final a = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
+        final r = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
+        final g = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
+        final b = int.parse(smallMatch[4] + smallMatch[4], radix: 16);
+
+        fromRgba(r, g, b, a, result);
+        return;
+      }
     }
 
     throw new FormatException('Could not parse hex color $value');
   }
 
-  /// Convert a [input] color to a hex string without a leading '#'.
-  static String toHexString(Vector4 input) {
-    final color = (input.r * 255).floor() << 16 | (input.g * 255).floor() << 8 | 
+  /// Convert a [input] color to a hex string without a leading '#'. To include
+  /// the alpha channel, set [alpha] to true, it is false by default.
+  static String toHexString(Vector4 input, {bool alpha: false}) {
+    var color = (input.r * 255).floor() << 16 | (input.g * 255).floor() << 8 | 
       (input.b * 255).floor();
+
+    if(alpha) {
+      color |= (input.a * 255).floor() << 24;
+    }
 
     return color.toRadixString(16);
   }
