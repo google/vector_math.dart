@@ -244,7 +244,7 @@ class Colors {
     if (hslColor.y == 0.0) {
       rgbColor.setValues(hslColor.z, hslColor.z, hslColor.z, hslColor.a);
     } else {
-      final q = hslColor.z < 0.5 ? hslColor.z * (1.0 + s) : 
+      final q = hslColor.z < 0.5 ? hslColor.z * (1.0 + hslColor.x) : 
         hslColor.z + hslColor.y - hslColor.z * hslColor.y;
       final p = 2.0 * hslColor.z - q;
 
