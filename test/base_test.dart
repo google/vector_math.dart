@@ -7,6 +7,13 @@ void relativeTest(var output, var expectedOutput) {
       reason:'$output != $expectedOutput : relativeError = $error');
 }
 
+void absoluteTest(var output, var expectedOutput) {
+  final num errorThreshold = 0.0005;
+  num error = absoluteError(output, expectedOutput).abs();
+  expect(error >= errorThreshold, isFalse,
+      reason:'$output != $expectedOutput : absoluteError = $error');
+}
+
 class BaseTest {
   dynamic makeMatrix(int rows, int cols) {
     if (rows != cols) {

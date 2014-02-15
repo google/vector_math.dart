@@ -7,7 +7,7 @@ class ColorsTest extends BaseTest {
     final output = input.clone();
 
     Colors.toGrayscale(output, output);
-   
+
     relativeTest(output.r, 0.745);
     relativeTest(output.g, 0.745);
     relativeTest(output.b, 0.745);
@@ -71,7 +71,7 @@ class ColorsTest extends BaseTest {
 
     expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
 
-    expect(() => Colors.fromHexString('vector_math rules!', color), 
+    expect(() => Colors.fromHexString('vector_math rules!', color),
       throwsA(new isInstanceOf<FormatException>()));
   }
 
@@ -79,7 +79,7 @@ class ColorsTest extends BaseTest {
     final output = new Vector4.zero();
 
     Colors.fromRgba(100, 149, 237, 255, output);
-   
+
     relativeTest(output.r, 0.3921);
     relativeTest(output.g, 0.5843);
     relativeTest(output.b, 0.9294);
@@ -95,7 +95,7 @@ class ColorsTest extends BaseTest {
 
     output.setFrom(foreground1);
     Colors.alphaBlend(output, background1, output);
-   
+
     relativeTest(output.r, 0.3921);
     relativeTest(output.g, 0.5843);
     relativeTest(output.b, 0.9294);
@@ -131,7 +131,7 @@ class ColorsTest extends BaseTest {
 
     gamma.setFrom(foreground);
     Colors.linearToGamma(gamma, gamma);
-   
+
     relativeTest(gamma.r, 0.6534);
     relativeTest(gamma.g, 0.7832);
     relativeTest(gamma.b, 0.9672);
@@ -153,7 +153,7 @@ class ColorsTest extends BaseTest {
 
     hsl.setFrom(input);
     Colors.rgbToHsl(hsl, hsl);
-   
+
     relativeTest(hsl.x, 0.6070);
     relativeTest(hsl.y, 0.7920);
     relativeTest(hsl.z, 0.6607);
@@ -166,6 +166,27 @@ class ColorsTest extends BaseTest {
     relativeTest(rgb.g, input.g);
     relativeTest(rgb.b, input.b);
     expect(rgb.a, equals(input.a));
+
+    void testRoundtrip(Vector4 input) {
+      final result = input.clone();
+
+      Colors.rgbToHsl(result, result);
+      Colors.hslToRgb(result, result);
+
+      absoluteTest(result.r, input.r);
+      absoluteTest(result.g, input.g);
+      absoluteTest(result.b, input.b);
+      expect(result.a, equals(input.a));
+    }
+
+    testRoundtrip(Colors.red);
+    testRoundtrip(Colors.green);
+    testRoundtrip(Colors.blue);
+    testRoundtrip(Colors.black);
+    testRoundtrip(Colors.white);
+    testRoundtrip(Colors.gray);
+    testRoundtrip(Colors.yellow);
+    testRoundtrip(Colors.fuchsia);
   }
 
   void testRgbHsv() {
@@ -175,7 +196,7 @@ class ColorsTest extends BaseTest {
 
     hsv.setFrom(input);
     Colors.rgbToHsv(hsv, hsv);
-   
+
     relativeTest(hsv.x, 0.6070);
     relativeTest(hsv.y, 0.5781);
     relativeTest(hsv.z, 0.9294);
@@ -188,6 +209,27 @@ class ColorsTest extends BaseTest {
     relativeTest(rgb.g, input.g);
     relativeTest(rgb.b, input.b);
     expect(rgb.a, equals(input.a));
+
+    void testRoundtrip(Vector4 input) {
+      final result = input.clone();
+
+      Colors.rgbToHsv(result, result);
+      Colors.hsvToRgb(result, result);
+
+      absoluteTest(result.r, input.r);
+      absoluteTest(result.g, input.g);
+      absoluteTest(result.b, input.b);
+      expect(result.a, equals(input.a));
+    }
+
+    testRoundtrip(Colors.red);
+    testRoundtrip(Colors.green);
+    testRoundtrip(Colors.blue);
+    testRoundtrip(Colors.black);
+    testRoundtrip(Colors.white);
+    testRoundtrip(Colors.gray);
+    testRoundtrip(Colors.yellow);
+    testRoundtrip(Colors.fuchsia);
   }
 
   void run() {
