@@ -38,9 +38,14 @@ void main() {
     at.run();
   });
 
+  group('Colors', () {
+    ColorsTest ct = new ColorsTest();
+    ct.run();
+  });
+
   group('Utilities', () {
     var ut = new UtilitiesTest();    
-    ut.run();
+    ut.run();  
   });
 
   group('Geometry', () {
