@@ -27,6 +27,7 @@ import 'dart:math' as Math;
 part 'src/vector_math_64/utilities.dart';
 part 'src/vector_math_64/aabb2.dart';
 part 'src/vector_math_64/aabb3.dart';
+part 'src/vector_math_64/colors.dart';
 part 'src/vector_math_64/constants.dart';
 part 'src/vector_math_64/error_helpers.dart';
 part 'src/vector_math_64/frustum.dart';
