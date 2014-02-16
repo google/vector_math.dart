@@ -60,7 +60,7 @@ class Vector2 {
   Vector2.zero();
 
   /// Splat [value] into all lanes of the vector.
-  Vector2.splatter(double value) : this(value, value);
+  Vector2.all(double value) : this(value, value);
 
   /// Copy of [other].
   Vector2.copy(Vector2 other) {

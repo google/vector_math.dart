@@ -64,7 +64,7 @@ class Vector3 {
   Vector3.zero() : storage = new Float64List(3);
 
   /// Splat [value] into all lanes of the vector.
-  Vector3.splatter(double value) : this(value, value, value);
+  Vector3.all(double value) : this(value, value, value);
   
   /// Copy of [other].
   Vector3.copy(Vector3 other) : storage = new Float64List(3) {

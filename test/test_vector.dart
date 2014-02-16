@@ -345,7 +345,7 @@ class VectorTest extends BaseTest {
     expect(v1.x, equals(2.0));
     expect(v1.y, equals(4.0));
 
-    var v2 = new Vector2.splatter(2.0);
+    var v2 = new Vector2.all(2.0);
     expect(v2.x, equals(2.0));
     expect(v2.y, equals(2.0));
   }
@@ -356,7 +356,7 @@ class VectorTest extends BaseTest {
     expect(v1.y, equals(4.0));
     expect(v1.z, equals(-1.5));
 
-    var v2 = new Vector3.splatter(2.0);
+    var v2 = new Vector3.all(2.0);
     expect(v2.x, equals(2.0));
     expect(v2.y, equals(2.0));
     expect(v2.z, equals(2.0));
@@ -369,7 +369,7 @@ class VectorTest extends BaseTest {
     expect(v1.z, equals(-1.5));
     expect(v1.w, equals(10.0));
 
-    var v2 = new Vector4.splatter(2.0);
+    var v2 = new Vector4.all(2.0);
     expect(v2.x, equals(2.0));
     expect(v2.y, equals(2.0));
     expect(v2.z, equals(2.0));

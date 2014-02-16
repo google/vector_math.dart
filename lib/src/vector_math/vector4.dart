@@ -73,7 +73,7 @@ class Vector4 {
   }
 
   /// Splat [value] into all lanes of the vector.
-  Vector4.splatter(double value) : this(value, value, value, value);
+  Vector4.all(double value) : this(value, value, value, value);
 
   /// Copy of [other].
   Vector4.copy(Vector4 other) {
