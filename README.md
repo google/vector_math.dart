@@ -128,9 +128,9 @@ import 'package:vector_math/vector_math.dart';
 
 void main() {
 	// Define the first box with a minimum and a maximum.
-	Aabb2 aabbOne = new Aabb2.minmax(new Vector2.zero(), new Vector2(4.0, 4.0));
+	Aabb2 aabbOne = new Aabb2.minMax(new Vector2.zero(), new Vector2(4.0, 4.0));
 	// Define the second box
-	Aabb2 aabbTwo = new Aabb2.minmax(new Vector2(5.0, 5.0), new Vector2(6.0, 6.0));
+	Aabb2 aabbTwo = new Aabb2.minMax(new Vector2(5.0, 5.0), new Vector2(6.0, 6.0));
 	// Extend the second box to contain a point
 	aabbTwo.hullPoint(new Vector2(3.0, 3.0));
 	// Check if the two boxes intersect, returns true in this case.

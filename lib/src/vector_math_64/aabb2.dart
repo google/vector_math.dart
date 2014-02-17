@@ -41,7 +41,12 @@ class Aabb2 {
     _min = new Vector2.copy(other._min),
     _max = new Vector2.copy(other._max) {}
 
+  @deprecated
   Aabb2.minmax(Vector2 min_, Vector2 max_) :
+    _min = new Vector2.copy(min_),
+    _max = new Vector2.copy(max_) {}
+
+  Aabb2.minMax(Vector2 min_, Vector2 max_) :
     _min = new Vector2.copy(min_),
     _max = new Vector2.copy(max_) {}
 

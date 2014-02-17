@@ -3,7 +3,7 @@ part of vector_math_test;
 class AabbTest extends BaseTest {
 
   void testAabb2Center() {
-    final Aabb2 aabb = new Aabb2.minmax(_v(1.0, 2.0), _v(8.0, 16.0));
+    final Aabb2 aabb = new Aabb2.minMax(_v(1.0, 2.0), _v(8.0, 16.0));
     final Vector2 center = aabb.center;
 
     expect(center.x, equals(4.5));
@@ -11,11 +11,11 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2ContainsAabb2() {
-    final Aabb2 parent = new Aabb2.minmax(_v(1.0, 1.0), _v(8.0, 8.0));
-    final Aabb2 child = new Aabb2.minmax(_v(2.0, 2.0), _v(7.0, 7.0));
-    final Aabb2 cutting = new Aabb2.minmax(_v(0.0, 0.0), _v(5.0, 5.0));
-    final Aabb2 outside = new Aabb2.minmax(_v(10.0, 10.0), _v(20.0, 20.0));
-    final Aabb2 grandParent = new Aabb2.minmax(_v(0.0, 0.0), _v(10.0, 10.0));
+    final Aabb2 parent = new Aabb2.minMax(_v(1.0, 1.0), _v(8.0, 8.0));
+    final Aabb2 child = new Aabb2.minMax(_v(2.0, 2.0), _v(7.0, 7.0));
+    final Aabb2 cutting = new Aabb2.minMax(_v(0.0, 0.0), _v(5.0, 5.0));
+    final Aabb2 outside = new Aabb2.minMax(_v(10.0, 10.0), _v(20.0, 20.0));
+    final Aabb2 grandParent = new Aabb2.minMax(_v(0.0, 0.0), _v(10.0, 10.0));
 
     expect(parent.containsAabb2(child), isTrue);
     expect(parent.containsAabb2(parent), isFalse);
@@ -25,7 +25,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2ContainsVector2() {
-    final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
+    final Aabb2 parent = new Aabb2.minMax(_v(1.0,1.0), _v(8.0,8.0));
     final Vector2 child = _v(2.0,2.0);
     final Vector2 cutting = _v(1.0,8.0);
     final Vector2 outside = _v(-1.0,0.0);
@@ -36,15 +36,15 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2IntersectionAabb2() {
-    final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
-    final Aabb2 child = new Aabb2.minmax(_v(2.0,2.0), _v(7.0,7.0));
-    final Aabb2 cutting = new Aabb2.minmax(_v(0.0,0.0), _v(5.0,5.0));
-    final Aabb2 outside = new Aabb2.minmax(_v(10.0,10.0), _v(20.0,20.0));
-    final Aabb2 grandParent = new Aabb2.minmax(_v(0.0,0.0), _v(10.0,10.0));
+    final Aabb2 parent = new Aabb2.minMax(_v(1.0,1.0), _v(8.0,8.0));
+    final Aabb2 child = new Aabb2.minMax(_v(2.0,2.0), _v(7.0,7.0));
+    final Aabb2 cutting = new Aabb2.minMax(_v(0.0,0.0), _v(5.0,5.0));
+    final Aabb2 outside = new Aabb2.minMax(_v(10.0,10.0), _v(20.0,20.0));
+    final Aabb2 grandParent = new Aabb2.minMax(_v(0.0,0.0), _v(10.0,10.0));
 
-    final Aabb2 siblingOne = new Aabb2.minmax(_v(0.0,0.0), _v(3.0,3.0));
-    final Aabb2 siblingTwo = new Aabb2.minmax(_v(3.0,0.0), _v(6.0,3.0));
-    final Aabb2 siblingThree = new Aabb2.minmax(_v(3.0,3.0), _v(6.0,6.0));
+    final Aabb2 siblingOne = new Aabb2.minMax(_v(0.0,0.0), _v(3.0,3.0));
+    final Aabb2 siblingTwo = new Aabb2.minMax(_v(3.0,0.0), _v(6.0,3.0));
+    final Aabb2 siblingThree = new Aabb2.minMax(_v(3.0,3.0), _v(6.0,6.0));
 
 
     expect(parent.intersectsWithAabb2(child), isTrue);
@@ -68,7 +68,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2IntersectionVector2() {
-    final Aabb2 parent = new Aabb2.minmax(_v(1.0,1.0), _v(8.0,8.0));
+    final Aabb2 parent = new Aabb2.minMax(_v(1.0,1.0), _v(8.0,8.0));
     final Vector2 child = _v(2.0,2.0);
     final Vector2 cutting = _v(1.0,8.0);
     final Vector2 outside = _v(-1.0,0.0);
@@ -79,8 +79,8 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2Hull() {
-    final Aabb2 a = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,4.0));
-    final Aabb2 b = new Aabb2.minmax(_v(3.0,2.0), _v(6.0,2.0));
+    final Aabb2 a = new Aabb2.minMax(_v(1.0,1.0), _v(3.0,4.0));
+    final Aabb2 b = new Aabb2.minMax(_v(3.0,2.0), _v(6.0,2.0));
 
     a.hull(b);
 
@@ -91,7 +91,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb2HullPoint() {
-    final Aabb2 a = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,4.0));
+    final Aabb2 a = new Aabb2.minMax(_v(1.0,1.0), _v(3.0,4.0));
     final Vector2 b = _v(6.0,2.0);
 
     a.hullPoint(b);
@@ -113,7 +113,7 @@ class AabbTest extends BaseTest {
 
   void testAabb2Rotate() {
     final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
-    final Aabb2 input = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,3.0));
+    final Aabb2 input = new Aabb2.minMax(_v(1.0,1.0), _v(3.0,3.0));
 
     final Aabb2 result = input.rotate(rotation);
 
@@ -127,7 +127,7 @@ class AabbTest extends BaseTest {
 
   void testAabb2Transform() {
     final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
-    final Aabb2 input = new Aabb2.minmax(_v(1.0,1.0), _v(3.0,3.0));
+    final Aabb2 input = new Aabb2.minMax(_v(1.0,1.0), _v(3.0,3.0));
 
     final Aabb2 result = input.transform(rotation);
     final double newCenterY = Math.sqrt(8);
@@ -170,7 +170,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3Center() {
-    final Aabb3 aabb = new Aabb3.minmax(_v3(1.0,2.0, 4.0), _v3(8.0,16.0, 32.0));
+    final Aabb3 aabb = new Aabb3.minMax(_v3(1.0,2.0, 4.0), _v3(8.0,16.0, 32.0));
     final Vector3 center = aabb.center;
 
     expect(center.x, equals(4.5));
@@ -179,11 +179,11 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3ContainsAabb3() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
-    final Aabb3 child = new Aabb3.minmax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
-    final Aabb3 cutting = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(5.0,5.0,5.0));
-    final Aabb3 outside = new Aabb3.minmax(_v3(10.0,10.0,10.0), _v3(20.0,20.0,20.0));
-    final Aabb3 grandParent = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 child = new Aabb3.minMax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
+    final Aabb3 cutting = new Aabb3.minMax(_v3(0.0,0.0,0.0), _v3(5.0,5.0,5.0));
+    final Aabb3 outside = new Aabb3.minMax(_v3(10.0,10.0,10.0), _v3(20.0,20.0,20.0));
+    final Aabb3 grandParent = new Aabb3.minMax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
 
     expect(parent.containsAabb3(child), isTrue);
     expect(parent.containsAabb3(parent), isFalse);
@@ -193,7 +193,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3ContainsSphere() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Sphere child = new Sphere.centerRadius(_v3(3.0, 3.0, 3.0), 1.5);
     final Sphere cutting = new Sphere.centerRadius(_v3(0.0,0.0,0.0), 6.0);
     final Sphere outside = new Sphere.centerRadius(_v3(-10.0,-10.0,-10.0), 5.0);
@@ -204,7 +204,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3ContainsVector3() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Vector3 child = _v3(7.0,7.0,7.0);
     final Vector3 cutting = _v3(1.0,2.0,1.0);
     final Vector3 outside = _v3(-10.0,10.0,10.0);
@@ -215,7 +215,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3ContainsTriangle() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Triangle child = new Triangle.points(_v3(2.0,2.0,2.0), _v3(3.0,3.0,3.0), _v3(4.0,4.0,4.0));
     final Triangle edge = new Triangle.points(_v3(1.0,1.0,1.0), _v3(3.0,3.0,3.0), _v3(4.0,4.0,4.0));
     final Triangle cutting = new Triangle.points(_v3(2.0,2.0,2.0), _v3(3.0,3.0,3.0), _v3(14.0,14.0,14.0));
@@ -228,15 +228,15 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3IntersectionAabb3() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
-    final Aabb3 child = new Aabb3.minmax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
-    final Aabb3 cutting = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(5.0,5.0,5.0));
-    final Aabb3 outside = new Aabb3.minmax(_v3(10.0,10.0,10.0), _v3(20.0,20.0,10.0));
-    final Aabb3 grandParent = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 child = new Aabb3.minMax(_v3(2.0,2.0,2.0), _v3(7.0,7.0,7.0));
+    final Aabb3 cutting = new Aabb3.minMax(_v3(0.0,0.0,0.0), _v3(5.0,5.0,5.0));
+    final Aabb3 outside = new Aabb3.minMax(_v3(10.0,10.0,10.0), _v3(20.0,20.0,10.0));
+    final Aabb3 grandParent = new Aabb3.minMax(_v3(0.0,0.0,0.0), _v3(10.0,10.0,10.0));
 
-    final Aabb3 siblingOne = new Aabb3.minmax(_v3(0.0,0.0,0.0), _v3(3.0,3.0,3.0));
-    final Aabb3 siblingTwo = new Aabb3.minmax(_v3(3.0,0.0,0.0), _v3(6.0,3.0,3.0));
-    final Aabb3 siblingThree = new Aabb3.minmax(_v3(3.0,3.0,3.0), _v3(6.0,6.0,6.0));
+    final Aabb3 siblingOne = new Aabb3.minMax(_v3(0.0,0.0,0.0), _v3(3.0,3.0,3.0));
+    final Aabb3 siblingTwo = new Aabb3.minMax(_v3(3.0,0.0,0.0), _v3(6.0,3.0,3.0));
+    final Aabb3 siblingThree = new Aabb3.minMax(_v3(3.0,3.0,3.0), _v3(6.0,6.0,6.0));
 
     expect(parent.intersectsWithAabb3(child), isTrue);
     expect(child.intersectsWithAabb3(parent), isTrue);
@@ -259,7 +259,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3IntersectionSphere() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Sphere child = new Sphere.centerRadius(_v3(3.0, 3.0, 3.0), 1.5);
     final Sphere cutting = new Sphere.centerRadius(_v3(0.0,0.0,0.0), 6.0);
     final Sphere outside = new Sphere.centerRadius(_v3(-10.0,-10.0,-10.0), 5.0);
@@ -270,7 +270,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3IntersectionVector3() {
-    final Aabb3 parent = new Aabb3.minmax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
+    final Aabb3 parent = new Aabb3.minMax(_v3(1.0,1.0,1.0), _v3(8.0,8.0,8.0));
     final Vector3 child = _v3(7.0,7.0,7.0);
     final Vector3 cutting = _v3(1.0,2.0,1.0);
     final Vector3 outside = _v3(-10.0,10.0,10.0);
@@ -281,8 +281,8 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3Hull() {
-    final Aabb3 a = new Aabb3.minmax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
-    final Aabb3 b = new Aabb3.minmax(_v3(3.0,2.0,3.0), _v3(6.0,2.0,8.0));
+    final Aabb3 a = new Aabb3.minMax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
+    final Aabb3 b = new Aabb3.minMax(_v3(3.0,2.0,3.0), _v3(6.0,2.0,8.0));
 
     a.hull(b);
 
@@ -295,7 +295,7 @@ class AabbTest extends BaseTest {
   }
 
   void testAabb3HullPoint() {
-    final Aabb3 a = new Aabb3.minmax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
+    final Aabb3 a = new Aabb3.minMax(_v3(1.0,1.0,4.0), _v3(3.0,4.0,10.0));
     final Vector3 b = _v3(6.0,2.0,8.0);
 
     a.hullPoint(b);
