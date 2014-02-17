@@ -120,3 +120,62 @@ void main() {
 	q.rotate(point);
 }
 ```
+
+5\. Check if two axis aligned bounding boxes intersect
+
+```
+import 'package:vector_math/vector_math.dart';
+
+void main() {
+	// Define the first box with a minimum and a maximum.
+	Aabb2 aabbOne = new Aabb2.minmax(new Vector2.zero(), new Vector2(4.0, 4.0));
+	// Define the second box
+	Aabb2 aabbTwo = new Aabb2.minmax(new Vector2(5.0, 5.0), new Vector2(6.0, 6.0));
+	// Extend the second box to contain a point
+	aabbTwo.hullPoint(new Vector2(3.0, 3.0));
+	// Check if the two boxes intersect, returns true in this case.
+	bool intersect = aabbOne.intersectsWithAabb2(aabbTwo);
+}
+```
+
+6\. Check where a ray and a sphere intersect
+
+```
+import 'package:vector_math/vector_math.dart';
+
+void main() {
+	// Define a ray starting at the origin and going into positive x-direction.
+	Ray ray = new Ray.originDirection(new Vector3.zero(), new Vector3(1.0, 0.0, 0.0));
+	// Defines a sphere with the center (5.0 0.0 0.0) and a radius of 2.
+	Sphere sphere = new Sphere.centerRadius(new Vector3(5.0, 0.0, 0.0), 2);
+	// Checks if the ray intersect with the sphere and returns the distance of the 
+	// intersection from the origin of the ray. Would return null if no intersection
+	// is found.
+	double distancFromOrigin = ray.intersectsWithSphere(sphere);
+	// Evaluate the position of the intersection, in this case (3.0 0.0 0.0).
+	Vector3 position = ray.at(distancFromOrigin);
+}
+```
+
+7\. Work with colors
+
+```
+import 'package:vector_math/vector_math.dart';
+
+void main() {
+	// Access a build-in color, colors are stored in 4-dimensional vectors.
+	Vector4 red = Colors.red;
+	Vector4 gray = new Vector4.zero();
+	// Convert the red color to a grayscaled color.
+	Colors.toGrayscale(red, gray);
+	// Parse a blue color from a hex string.
+	Vector4 blue = new Vector4.zero();
+	Colors.fromHexString('#0000FF', blue);
+	// Convert the blue color from RGB to HSL.
+	Colors.rgbToHsl(blue, blue);
+	// Reduce the lightness of the color by 50%.
+	blue.z *= 0.5;
+	// Convert the HSL color back to RGB.
+	Colors.hslToRgb(blue, blue);
+}
+```
