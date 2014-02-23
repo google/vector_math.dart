@@ -123,4 +123,19 @@ class Frustum {
 
     return true;
   }
+
+  /// Calculate the corners of a [frustum] at write them into [corner0] to 
+  // [corner7].
+  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3 corner2, 
+    Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3 corner6, 
+    Vector3 corner7) {
+    Plane.intersection(planes[0], planes[2], planes[4], corner0);
+    Plane.intersection(planes[0], planes[3], planes[4], corner1);
+    Plane.intersection(planes[0], planes[3], planes[5], corner2);
+    Plane.intersection(planes[0], planes[2], planes[5], corner3);
+    Plane.intersection(planes[1], planes[2], planes[4], corner4);
+    Plane.intersection(planes[1], planes[3], planes[4], corner5);
+    Plane.intersection(planes[1], planes[3], planes[5], corner6);
+    Plane.intersection(planes[1], planes[2], planes[5], corner7);
+  }
 }

@@ -909,31 +909,31 @@ class Matrix3 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<num> array, [int offset = 0]) {
+  void copyIntoArray(List<num> array, [int offset=0]) {
     int i = offset;
-    array[i + 8] = storage[8];
-    array[i + 7] = storage[7];
-    array[i + 6] = storage[6];
-    array[i + 5] = storage[5];
-    array[i + 4] = storage[4];
-    array[i + 3] = storage[3];
-    array[i + 2] = storage[2];
-    array[i + 1] = storage[1];
-    array[i + 0] = storage[0];
+    array[i+8] = storage[8];
+    array[i+7] = storage[7];
+    array[i+6] = storage[6];
+    array[i+5] = storage[5];
+    array[i+4] = storage[4];
+    array[i+3] = storage[3];
+    array[i+2] = storage[2];
+    array[i+1] = storage[1];
+    array[i+0] = storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
     int i = offset;
-    storage[8] = array[i + 8];
-    storage[7] = array[i + 7];
-    storage[6] = array[i + 6];
-    storage[5] = array[i + 5];
-    storage[4] = array[i + 4];
-    storage[3] = array[i + 3];
-    storage[2] = array[i + 2];
-    storage[1] = array[i + 1];
-    storage[0] = array[i + 0];
+    storage[8] = array[i+8];
+    storage[7] = array[i+7];
+    storage[6] = array[i+6];
+    storage[5] = array[i+5];
+    storage[4] = array[i+4];
+    storage[3] = array[i+3];
+    storage[2] = array[i+2];
+    storage[1] = array[i+1];
+    storage[0] = array[i+0];
   }
 
   Vector3 get right {

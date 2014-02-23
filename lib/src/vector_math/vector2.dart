@@ -37,6 +37,13 @@ class Vector2 {
     result.y = Math.max(a.y, b.y);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector2 min, Vector2 max, double a, Vector2 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+  }
+
   /// Construct a new vector with the specified values.
   Vector2(double x_, double y_) {
     setValues(x_, y_);
@@ -51,6 +58,9 @@ class Vector2 {
 
   /// Zero vector.
   Vector2.zero();
+
+  /// Splat [value] into all lanes of the vector.
+  Vector2.all(double value) : this(value, value);
 
   /// Copy of [other].
   Vector2.copy(Vector2 other) {
@@ -254,6 +264,13 @@ class Vector2 {
   Vector2 add(Vector2 arg) {
     storage[0] = storage[0] + arg.storage[0];
     storage[1] = storage[1] + arg.storage[1];
+    return this;
+  }
+
+  /// Add [arg] scaled by [factor] to [this].
+  Vector2 addScaled(Vector2 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
     return this;
   }
 

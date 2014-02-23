@@ -27,6 +27,52 @@ class VectorTest extends BaseTest {
     expect(offsetVector.z, equals(4.0));
   }
 
+
+  void testVec2Add() {
+    final Vector2 a = new Vector2(5.0, 7.0);
+    final Vector2 b = new Vector2(3.0, 8.0);
+
+    a.add(b);
+    expect(a.x, equals(8.0));
+    expect(a.y, equals(15.0));
+
+    b.addScaled(a, 0.5);
+    expect(b.x, equals(7.0));
+    expect(b.y, equals(15.5));
+  }
+
+  void testVec3Add() {
+    final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+    final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+
+    a.add(b);
+    expect(a.x, equals(8.0));
+    expect(a.y, equals(15.0));
+    expect(a.z, equals(5.0));
+
+    b.addScaled(a, 0.5);
+    expect(b.x, equals(7.0));
+    expect(b.y, equals(15.5));
+    expect(b.z, equals(4.5));
+  }
+
+  void testVec4Add() {
+    final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+    final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+
+    a.add(b);
+    expect(a.x, equals(8.0));
+    expect(a.y, equals(15.0));
+    expect(a.z, equals(5.0));
+    expect(a.w, equals(12.0));
+
+    b.addScaled(a, 0.5);
+    expect(b.x, equals(7.0));
+    expect(b.y, equals(15.5));
+    expect(b.z, equals(4.5));
+    expect(b.w, equals(8.0));
+  }
+
   void testVec2MinMax() {
     final Vector2 a = new Vector2(5.0, 7.0);
     final Vector2 b = new Vector2(3.0, 8.0);
@@ -76,6 +122,72 @@ class VectorTest extends BaseTest {
     expect(result.y, equals(8.0));
     expect(result.z, equals(2.0));
     expect(result.w, equals(10.0));
+  }
+
+  void testVec2Mix() {
+    final Vector2 a = new Vector2(5.0, 7.0);
+    final Vector2 b = new Vector2(3.0, 8.0);
+
+    Vector2 result = new Vector2.zero();
+
+    Vector2.mix(a, b, 0.5, result);
+    expect(result.x, equals(4.0));
+    expect(result.y, equals(7.5));
+
+    Vector2.mix(a, b, 0.0, result);
+    expect(result.x, equals(5.0));
+    expect(result.y, equals(7.0));
+
+    Vector2.mix(a, b, 1.0, result);
+    expect(result.x, equals(3.0));
+    expect(result.y, equals(8.0));
+  }
+
+  void testVec3Mix() {
+    final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+    final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+
+    Vector3 result = new Vector3.zero();
+
+    Vector3.mix(a, b, 0.5, result);
+    expect(result.x, equals(4.0));
+    expect(result.y, equals(7.5));
+    expect(result.z, equals(2.5));
+
+    Vector3.mix(a, b, 0.0, result);
+    expect(result.x, equals(5.0));
+    expect(result.y, equals(7.0));
+    expect(result.z, equals(3.0));
+
+    Vector3.mix(a, b, 1.0, result);
+    expect(result.x, equals(3.0));
+    expect(result.y, equals(8.0));
+    expect(result.z, equals(2.0));
+  }
+
+  void testVec4Mix() {
+    final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+    final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+
+    Vector4 result = new Vector4.zero();
+
+    Vector4.mix(a, b, 0.5, result);
+    expect(result.x, equals(4.0));
+    expect(result.y, equals(7.5));
+    expect(result.z, equals(2.5));
+    expect(result.w, equals(6.0));
+
+    Vector4.mix(a, b, 0.0, result);
+    expect(result.x, equals(5.0));
+    expect(result.y, equals(7.0));
+    expect(result.z, equals(3.0));
+    expect(result.w, equals(10.0));
+
+    Vector4.mix(a, b, 1.0, result);
+    expect(result.x, equals(3.0));
+    expect(result.y, equals(8.0));
+    expect(result.z, equals(2.0));
+    expect(result.w, equals(2.0));
   }
 
   void testVec2DotProduct() {
@@ -228,18 +340,60 @@ class VectorTest extends BaseTest {
     }
   }
 
-  void testDefaultConstructor() {
-    var v = new Vector2(2.0, 4.0);
-    expect(v.x, equals(2.0));
-    expect(v.y, equals(4.0));
+  void testVec2Constructor() {
+    var v1 = new Vector2(2.0, 4.0);
+    expect(v1.x, equals(2.0));
+    expect(v1.y, equals(4.0));
+
+    var v2 = new Vector2.all(2.0);
+    expect(v2.x, equals(2.0));
+    expect(v2.y, equals(2.0));
+  }
+
+  void testVec3Constructor() {
+    var v1 = new Vector3(2.0, 4.0, -1.5);
+    expect(v1.x, equals(2.0));
+    expect(v1.y, equals(4.0));
+    expect(v1.z, equals(-1.5));
+
+    var v2 = new Vector3.all(2.0);
+    expect(v2.x, equals(2.0));
+    expect(v2.y, equals(2.0));
+    expect(v2.z, equals(2.0));
+  }
+
+  void testVec4Constructor() {
+    var v1 = new Vector4(2.0, 4.0, -1.5, 10.0);
+    expect(v1.x, equals(2.0));
+    expect(v1.y, equals(4.0));
+    expect(v1.z, equals(-1.5));
+    expect(v1.w, equals(10.0));
+
+    var v2 = new Vector4.all(2.0);
+    expect(v2.x, equals(2.0));
+    expect(v2.y, equals(2.0));
+    expect(v2.z, equals(2.0));
+    expect(v2.w, equals(2.0));
   }
 
   void testNegate() {
-    var vec = new Vector3(1.0, 2.0, 3.0);
-    vec.negate();
-    expect(vec.x, equals(-1.0));
-    expect(vec.y, equals(-2.0));
-    expect(vec.z, equals(-3.0));
+    var vec1 = new Vector2(1.0, 2.0);
+    vec1.negate();
+    expect(vec1.x, equals(-1.0));
+    expect(vec1.y, equals(-2.0));
+
+    var vec2 = new Vector3(1.0, 2.0, 3.0);
+    vec2.negate();
+    expect(vec2.x, equals(-1.0));
+    expect(vec2.y, equals(-2.0));
+    expect(vec2.z, equals(-3.0));
+
+    var vec3 = new Vector4(1.0, 2.0, 3.0, 4.0);
+    vec3.negate();
+    expect(vec3.x, equals(-1.0));
+    expect(vec3.y, equals(-2.0));
+    expect(vec3.z, equals(-3.0));
+    expect(vec3.w, equals(-4.0));
   }
 
   void testVec2Reflect() {
@@ -464,12 +618,23 @@ class VectorTest extends BaseTest {
     test('3D cross product', testVec3CrossProduct);
     test('3D reflect', testVec3Reflect);
     test('3D projection', testVec3Projection);
-    test('Constructor', testDefaultConstructor);
     test('Negate', testNegate);
+
+    test('2D Constructor', testVec2Constructor);
+    test('3D Constructor', testVec3Constructor);
+    test('4D Constructor', testVec4Constructor);
+
+    test('2D add', testVec2Add);
+    test('3D add', testVec3Add);
+    test('4D add', testVec4Add);
 
     test('2D min/max', testVec2MinMax);
     test('3D min/max', testVec3MinMax);
     test('4D min/max', testVec4MinMax);
+
+    test('2D mix', testVec2Mix);
+    test('3D mix', testVec3Mix);
+    test('4D mix', testVec4Mix);
 
     test('2D distanceTo', testVec2DistanceTo);
     test('3D distanceTo', testVec3DistanceTo);

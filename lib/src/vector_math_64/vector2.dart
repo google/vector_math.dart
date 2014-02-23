@@ -37,20 +37,30 @@ class Vector2 {
     result.y = Math.max(a.y, b.y);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector2 min, Vector2 max, double a, Vector2 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+  }
+
   /// Construct a new vector with the specified values.
   Vector2(double x_, double y_) {
     setValues(x_, y_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector2.array(List<double> array, [int offset = 0]) {
+  Vector2.array(List<double> array, [int offset=0]) {
     int i = offset;
-    storage[1] = array[i + 1];
-    storage[0] = array[i + 0];
+    storage[1] = array[i+1];
+    storage[0] = array[i+0];
   }
 
   /// Zero vector.
   Vector2.zero();
+
+  /// Splat [value] into all lanes of the vector.
+  Vector2.all(double value) : this(value, value);
 
   /// Copy of [other].
   Vector2.copy(Vector2 other) {
@@ -100,18 +110,18 @@ class Vector2 {
                                          storage[1] + other.storage[1]);
 
   /// Scale.
-  Vector2 operator /(double scale) {
+  Vector2 operator/(double scale) {
     var o = 1.0 / scale;
     return new Vector2(storage[0] * o, storage[1] * o);
   }
 
   /// Scale.
-  Vector2 operator *(double scale) {
+  Vector2 operator*(double scale) {
     var o = scale;
     return new Vector2(storage[0] * o, storage[1] * o);
   }
 
-  double operator [](int i) => storage[i];
+  double operator[](int i) => storage[i];
 
   void operator[]=(int i, double v) { storage[i] = v; }
 
@@ -184,7 +194,7 @@ class Vector2 {
     sum += storage[1] * other.storage[1];
     return sum;
   }
-
+  
   /**
    * Transforms [this] into the product of [this] as a row vector,
    * postmultiplied by matrix, [arg].
@@ -194,9 +204,9 @@ class Vector2 {
   Vector2 postmultiply(Matrix2 arg) {
     double v0 = storage[0];
     double v1 = storage[1];
-    storage[0] = v0 * arg.storage[0] + v1 * arg.storage[1];
-    storage[1] = v0 * arg.storage[2] + v1 * arg.storage[3];
-
+    storage[0] = v0*arg.storage[0]+v1*arg.storage[1];
+    storage[1] = v0*arg.storage[2]+v1*arg.storage[3];
+    
     return this;
   }
 
@@ -226,7 +236,7 @@ class Vector2 {
   double relativeError(Vector2 correct) {
     double correct_norm = correct.length;
     double diff_norm = (this - correct).length;
-    return diff_norm / correct_norm;
+    return diff_norm/correct_norm;
   }
 
   /// Absolute error between [this] and [correct]
@@ -254,6 +264,13 @@ class Vector2 {
   Vector2 add(Vector2 arg) {
     storage[0] = storage[0] + arg.storage[0];
     storage[1] = storage[1] + arg.storage[1];
+    return this;
+  }
+
+  /// Add [arg] scaled by [factor] to [this].
+  Vector2 addScaled(Vector2 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
     return this;
   }
 
@@ -316,15 +333,15 @@ class Vector2 {
   }
 
   /// Copies [this] into [array] starting at [offset].
-  void copyIntoArray(List<double> array, [int offset = 0]) {
-    array[offset + 1] = storage[1];
-    array[offset + 0] = storage[0];
+  void copyIntoArray(List<double> array, [int offset=0]) {
+    array[offset+1] = storage[1];
+    array[offset+0] = storage[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
-  void copyFromArray(List<double> array, [int offset = 0]) {
-    storage[1] = array[offset + 1];
-    storage[0] = array[offset + 0];
+  void copyFromArray(List<double> array, [int offset=0]) {
+    storage[1] = array[offset+1];
+    storage[0] = array[offset+0];
   }
 
   set xy(Vector2 arg) {

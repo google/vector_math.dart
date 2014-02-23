@@ -41,7 +41,12 @@ class Aabb3 {
     _min = new Vector3.copy(other._min),
     _max = new Vector3.copy(other._max) {}
 
+  @deprecated
   Aabb3.minmax(Vector3 min_, Vector3 max_) :
+    _min = new Vector3.copy(min_),
+    _max = new Vector3.copy(max_) {}
+
+  Aabb3.minMax(Vector3 min_, Vector3 max_) :
     _min = new Vector3.copy(min_),
     _max = new Vector3.copy(max_) {}
 
@@ -150,7 +155,7 @@ class Aabb3 {
   /// Return if [this] contains [other].
   bool containsSphere(Sphere other) {
     final sphereExtends = new Vector3.zero().splat(other.radius);
-    final sphereBox = new Aabb3.minmax(other.center.clone().sub(sphereExtends),
+    final sphereBox = new Aabb3.minMax(other.center.clone().sub(sphereExtends),
                                        other.center.clone().add(sphereExtends));
 
     return containsAabb3(sphereBox);
@@ -188,16 +193,15 @@ class Aabb3 {
     double d = 0.0;
     double e = 0.0;
 
-    for(int i = 0; i < 3; ++i) {
-      if((e = other.center[i] - min[i]) < 0.0) {
-        if(e < -other.radius) {
+    for (int i = 0; i < 3; ++i) {
+      if ((e = other.center[i] - min[i]) < 0.0) {
+        if (e < -other.radius) {
           return false;
         }
 
         d = d + e * e;
-      }
-      else if((e = other.center[i] - max[i]) > 0.0) {
-        if(e > other.radius) {
+      } else if ((e = other.center[i] - max[i]) > 0.0) {
+        if (e > other.radius) {
           return false;
         }
 

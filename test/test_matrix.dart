@@ -37,8 +37,8 @@ class MatrixTest extends BaseTest {
                                                               9.0, 10.0, 11.0,12.0,
                                                               13.0,14.0,15.0,16.0,17.0]);
     final ByteBuffer buffer = float32List.buffer;
-    final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer,0);
-    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+    final Matrix4 zeroOffset = new Matrix4.fromBuffer(buffer,0);
+    final Matrix4 offsetVector = new Matrix4.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
 
     expect(zeroOffset.storage[0], equals(1.0));
     expect(zeroOffset.storage[1], equals(2.0));

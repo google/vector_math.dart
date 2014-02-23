@@ -56,28 +56,28 @@ class Frustum {
     var me12 = me[12], me13 = me[13], me14 = me[14], me15 = me[15];
 
     _planes[0]
-        ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
-        ..normalize();
+      ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
+      ..normalize();
     _planes[1]
-        ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
-        ..normalize();
+      ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
+      ..normalize();
     _planes[2]
-        ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
-        ..normalize();
+      ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
+      ..normalize();
     _planes[3]
-        ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
-        ..normalize();
+      ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
+      ..normalize();
     _planes[4]
-        ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
-        ..normalize();
+      ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
+      ..normalize();
     _planes[5]
-        ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
-        ..normalize();
+      ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
+      ..normalize();
   }
 
   bool containsVector3(Vector3 point) {
-    for (var i = 0; i < 6; ++i) {
-      if (_planes[i].distanceToVector3(point) < 0.0) {
+    for(var i = 0; i < 6; ++i) {
+      if(_planes[ i ].distanceToVector3(point) < 0.0) {
         return false;
       }
     }
@@ -122,5 +122,20 @@ class Frustum {
     }
 
     return true;
+  }
+
+  /// Calculate the corners of a [frustum] at write them into [corner0] to 
+  // [corner7].
+  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3 corner2, 
+    Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3 corner6, 
+    Vector3 corner7) {
+    Plane.intersection(planes[0], planes[2], planes[4], corner0);
+    Plane.intersection(planes[0], planes[3], planes[4], corner1);
+    Plane.intersection(planes[0], planes[3], planes[5], corner2);
+    Plane.intersection(planes[0], planes[2], planes[5], corner3);
+    Plane.intersection(planes[1], planes[2], planes[4], corner4);
+    Plane.intersection(planes[1], planes[3], planes[4], corner5);
+    Plane.intersection(planes[1], planes[3], planes[5], corner6);
+    Plane.intersection(planes[1], planes[2], planes[5], corner7);
   }
 }

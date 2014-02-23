@@ -40,7 +40,7 @@ class SphereTest extends BaseTest {
   }
 
   void run() {
-    test('Sphere Contains Vectro3', testSphereContainsVector3);
+    test('Sphere Contains Vector3', testSphereContainsVector3);
     test('Sphere Intersection Vector3', testSphereIntersectionVector3);
     test('Sphere Intersection Sphere', testSphereIntersectionSphere);
   }

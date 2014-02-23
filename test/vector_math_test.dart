@@ -16,6 +16,7 @@ part 'test_vector.dart';
 part 'test_aabb.dart';
 part 'test_opengl_matrix.dart';
 part 'test_geometry.dart';
+part 'test_utilities.dart';
 part 'test_sphere.dart';
 part 'test_ray.dart';
 part 'test_triangle.dart';
