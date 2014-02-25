@@ -1,5 +1,12 @@
 # Changelog - vector_math
 
+## v 1.4.3 - February 2014
+
+- Add color conversion routines (Contributed by Oliver Sand)
+- More collision and geometry routines (Contributed by Oliver Sand)
+- More tests (Contributed by Oliver Sand)
+- v 1.4.3 pub release
+
 ## v 1.4.1 - January 2014
 
 - Better mesh generators (contributed by Brandon Jones)
