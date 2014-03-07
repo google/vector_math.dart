@@ -21,6 +21,20 @@
 part of vector_math;
 
 /**
+ * Constructs a rotation matrix in [rotationMatrix].
+ *
+ * [frontDirection] specifies the direction of the front vector.
+ * [upDirection] specifies the direction of the up vector.
+ */
+void setRotationMatrix(Matrix4 rotationMatrix, Vector3 frontDirection, upDirection) {
+  Vector3 right = frontDirection.cross(upDirection).normalize();
+  rotationMatrix.setValues(frontDirection[0], upDirection[0], right[0], 0.0,
+    frontDirection[1], upDirection[1], right[1], 0.0,
+	frontDirection[2], upDirection[2], right[2], 0.0,
+	0.0, 0.0, 0.0, 1.0);
+}
+
+/**
  * Constructs an OpenGL view matrix in [viewMatrix].
  *
  * [cameraPosition] specifies the position of the camera.
