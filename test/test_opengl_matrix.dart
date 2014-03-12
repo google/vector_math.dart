@@ -68,10 +68,26 @@ class OpenGLMatrixTest extends BaseTest {
     relativeTest(ortho.getColumn(3), new Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
   }
 
+  void testRotationFromForwardUp() {
+    final Matrix4 rotation = new Matrix4.zero();
+    final Vector3 forward = new Vector3(1.0, 0.0, 0.0);
+    final Vector3 up = new Vector3(0.0, 1.0, 0.0);
+
+    setRotationMatrix(rotation, forward, up);    
+
+    final Vector3 right = new Vector3(0.0, 0.0, 1.0);
+
+    relativeTest(rotation, new Matrix4(forward[0], up[0], right[0], 0.0,
+        forward[1], up[1], right[1], 0.0,
+	forward[2], up[2], right[2], 0.0,
+	0.0, 0.0, 0.0, 1.0));
+  }
+
   void run() {
     test('LookAt', testLookAt);
     test('Unproject', testUnproject);
     test('Frustum', testFrustumMatrix);
     test('Orthographic', testOrthographicMatrix);
+    test('RotationFromForwardUp', testRotationFromForwardUp);
   }
 }
