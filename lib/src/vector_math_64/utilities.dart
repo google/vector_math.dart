@@ -22,16 +22,16 @@ part of vector_math_64;
 
 /// Convert [radians] to degrees.
 double degrees(double radians) {
-  return radians * radians2degrees;
+  return radians * RADIANS_2_DEGREES;
 }
 
 /// Convert [degrees] to radians.
 double radians(double degrees) {
-  return degrees * degrees2radians;
+  return degrees * DEGREES_2_RADIANS;
 }
 
-// Interpolate between [min] and [max] with the amount of [a] using a linear 
-// interpolation. The computation is equivalent to the GLSL function mix.
+/// Interpolate between [min] and [max] with the amount of [a] using a linear
+/// interpolation. The computation is equivalent to the GLSL function mix.
 double mix(double min, double max, double a) {
   return min + a * (max - min);
 }
