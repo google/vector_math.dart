@@ -28,7 +28,7 @@ void main(List<String> args) {
   //addTask('docs', createDartDocTask(_getLibs));
 
   //
-  // Doc generation
+  // Vector Math 64 generation
   //
   addTask('generate_vector_math_64', createGenerateVectorMath64Task());
 
