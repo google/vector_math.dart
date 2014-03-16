@@ -22,7 +22,13 @@ void main(List<String> args) {
   addTask('test', createUnitTestTask(console_test_harness.main));
 
   //
-  // Generate Vector Math 64
+  // Doc generation
+  //
+  //TODO (fox32): Fix dartdoc generation in hop runner
+  //addTask('docs', createDartDocTask(_getLibs));
+
+  //
+  // Vector Math 64 generation
   //
   addTask('generate_vector_math_64', createGenerateVectorMath64Task());
 
