@@ -21,6 +21,8 @@
 
 part of vector_math_64;
 
+//TODO (fox32): Update documentation comments!
+
 /// 3D column vector.
 class Vector3 {
   final Float64List _storage;
@@ -206,12 +208,11 @@ class Vector3 {
     return sum;
   }
 
-  /**
-   * Transforms [this] into the product of [this] as a row vector,
-   * postmultiplied by matrix, [arg].
-   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
-   * the inverse of the transformation.
-   */
+  /// Transforms [this] into the product of [this] as a row vector,
+  /// postmultiplied by matrix, [arg].
+  /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
+  /// the inverse of the transformation.
+  ///
   void postmultiply(Matrix3 arg) {
     final argStorage = arg.storage;
     final v0 = _storage[0];
@@ -240,7 +241,7 @@ class Vector3 {
     final x = _storage[0];
     final y = _storage[1];
     final z = _storage[2];
-    final otherStorage = other.storage;
+    final otherStorage = other._storage;
     final ox = otherStorage[0];
     final oy = otherStorage[1];
     final oz = otherStorage[2];
@@ -305,7 +306,7 @@ class Vector3 {
 
   /// Add [arg] to [this].
   void add(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = _storage[0] + argStorage[0];
     _storage[1] = _storage[1] + argStorage[1];
     _storage[2] = _storage[2] + argStorage[2];
@@ -391,67 +392,67 @@ class Vector3 {
   }
 
   set xy(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[1] = argStorage[1];
   }
   set xz(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[2] = argStorage[1];
   }
   set yx(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[0] = argStorage[1];
   }
   set yz(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[2] = argStorage[1];
   }
   set zx(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[0] = argStorage[1];
   }
   set zy(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[1] = argStorage[1];
   }
   set xyz(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[1] = argStorage[1];
     _storage[2] = argStorage[2];
   }
   set xzy(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[2] = argStorage[1];
     _storage[1] = argStorage[2];
   }
   set yxz(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[0] = argStorage[1];
     _storage[2] = argStorage[2];
   }
   set yzx(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[2] = argStorage[1];
     _storage[0] = argStorage[2];
   }
   set zxy(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[0] = argStorage[1];
     _storage[1] = argStorage[2];
   }
   set zyx(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[1] = argStorage[1];
     _storage[0] = argStorage[2];
@@ -466,32 +467,32 @@ class Vector3 {
   set y(double arg) => _storage[1] = arg;
   set z(double arg) => _storage[2] = arg;
   set rg(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[1] = argStorage[1];
   }
   set rb(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[2] = argStorage[1];
   }
   set gr(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[0] = argStorage[1];
   }
   set gb(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[2] = argStorage[1];
   }
   set br(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[0] = argStorage[1];
   }
   set bg(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[1] = argStorage[1];
   }
@@ -532,67 +533,67 @@ class Vector3 {
     _storage[0] = argStorage[2];
   }
   set st(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[1] = argStorage[1];
   }
   set sp(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[2] = argStorage[1];
   }
   set ts(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[0] = argStorage[1];
   }
   set tp(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[2] = argStorage[1];
   }
   set ps(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[0] = argStorage[1];
   }
   set pt(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[1] = argStorage[1];
   }
   set stp(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[1] = argStorage[1];
     _storage[2] = argStorage[2];
   }
   set spt(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[0] = argStorage[0];
     _storage[2] = argStorage[1];
     _storage[1] = argStorage[2];
   }
   set tsp(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[0] = argStorage[1];
     _storage[2] = argStorage[2];
   }
   set tps(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[1] = argStorage[0];
     _storage[2] = argStorage[1];
     _storage[0] = argStorage[2];
   }
   set pst(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[0] = argStorage[1];
     _storage[1] = argStorage[2];
   }
   set pts(Vector3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     _storage[2] = argStorage[0];
     _storage[1] = argStorage[1];
     _storage[0] = argStorage[2];

@@ -207,7 +207,7 @@ class VectorTest extends BaseTest {
     print("input $inputInv");
     Vector2 resultOld = inputMatrix.transposed() * inputVector;
     Vector2 resultOldvInv = inputInv * inputVector;
-    Vector2 resultNew = inputVector.postmultiply(inputMatrix);
+    Vector2 resultNew = inputVector..postmultiply(inputMatrix);
     expect(resultNew.x, equals(resultOld.x));
     expect(resultNew.y, equals(resultOld.y));
     //matrix inversion can introduce a small error
