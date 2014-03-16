@@ -273,7 +273,7 @@ class VectorTest extends BaseTest {
     inputInv.invert();
     Vector3 resultOld = inputMatrix.transposed() * inputVector;
     Vector3 resultOldvInv = inputInv * inputVector;
-    Vector3 resultNew = inputVector.postmultiply(inputMatrix);
+    Vector3 resultNew = inputVector..postmultiply(inputMatrix);
 
     expect(resultNew.x, equals(resultOld.x));
     expect(resultNew.y, equals(resultOld.y));
