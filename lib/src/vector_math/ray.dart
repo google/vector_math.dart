@@ -21,57 +21,59 @@
 
 part of vector_math;
 
+/// Defines a ray by an [origin] and a [direction].
 class Ray {
   final Vector3 _origin;
   final Vector3 _direction;
 
+  /// The [origin] of the ray.
   Vector3 get origin => _origin;
+  /// The [direction] of the ray.
   Vector3 get direction => _direction;
 
-  Ray() :
-    _origin = new Vector3.zero(),
-    _direction = new Vector3.zero() {}
+  /// Create a new, uninitialized ray.
+  Ray()
+      : _origin = new Vector3.zero(),
+        _direction = new Vector3.zero();
 
-  Ray.copy(Ray other) :
-    _origin = new Vector3.copy(other._origin),
-    _direction = new Vector3.copy(other._direction) {}
+  /// Create a ray as a copy of [other].
+  Ray.copy(Ray other)
+      : _origin = new Vector3.copy(other._origin),
+        _direction = new Vector3.copy(other._direction);
 
-  Ray.originDirection(Vector3 origin_, Vector3 direction_) :
-    _origin = new Vector3.copy(origin_),
-    _direction = new Vector3.copy(direction_) {}
+  /// Create a ray with an [origin] and a [direction].
+  Ray.originDirection(Vector3 origin, Vector3 direction)
+      : _origin = new Vector3.copy(origin),
+        _direction = new Vector3.copy(direction);
 
-  void copyOriginDirection(Vector3 origin_, Vector3 direction_) {
-    origin_.setFrom(_origin);
-    direction_.setFrom(_direction);
+  /// Copy the [origin] and [direction] from [other] into [this].
+  void copyFrom(Ray other) {
+    _origin.setFrom(other._origin);
+    _direction.setFrom(other._direction);
   }
 
-  void copyFrom(Ray o) {
-    _origin.setFrom(o._origin);
-    _direction.setFrom(o._direction);
-  }
-
-  void copyInto(Ray o) {
-    o._origin.setFrom(_origin);
-    o._direction.setFrom(_direction);
+  /// Copy the [origin] and [direction] from [this] into [other].
+  void copyInto(Ray other) {
+    other._origin.setFrom(_origin);
+    other._direction.setFrom(_direction);
   }
 
   /// Returns the position on [this] with a distance of [t] from [origin].
-  Vector3 at(double t) {
-    return _direction.scaled(t).add(_origin);
-  }
+  Vector3 at(double t) => direction.scaled(t)..add(origin);
 
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {
-    final r2 = other.radius * other.radius;
-    final l = other.center.clone().sub(origin);
+    final r = other.radius;
+    final r2 = r * r;
+    final l = other.center.clone()..sub(origin);
     final s = l.dot(direction);
     final l2 = l.dot(l);
-    if(s < 0 && l2 > r2) {
+    if (s < 0 && l2 > r2) {
       return null;
     }
     final m2 = l2 - s * s;
-    if(m2 > r2) {
+    if (m2 > r2) {
       return null;
     }
     final q = Math.sqrt(r2 - m2);
@@ -84,28 +86,32 @@ class Ray {
   double intersectsWithTriangle(Triangle other) {
     const double EPSILON = 10e-6;
 
-    final e1 = other.point1.clone().sub(other.point0);
-    final e2 = other.point2.clone().sub(other.point0);
+    final point0 = other._point0;
+    final point1 = other._point1;
+    final point2 = other._point2;
 
-    final q = direction.cross(e2);
+    final e1 = point1.clone()..sub(point0);
+    final e2 = point2.clone()..sub(point0);
+
+    final q = _direction.cross(e2);
     final a = e1.dot(q);
 
-    if(a > -EPSILON && a < EPSILON) {
+    if (a > -EPSILON && a < EPSILON) {
       return null;
     }
 
     final f = 1 / a;
-    final s = origin.clone().sub(other.point0);
+    final s = _origin.clone()..sub(point0);
     final u = f * (s.dot(q));
 
-    if(u < 0.0) {
+    if (u < 0.0) {
       return null;
     }
 
     final r = s.cross(e1);
-    final v = f * (direction.dot(r));
+    final v = f * (_direction.dot(r));
 
-    if(v < -EPSILON || u + v > 1.0+EPSILON) {
+    if (v < -EPSILON || u + v > 1.0 + EPSILON) {
       return null;
     }
 
@@ -117,35 +123,38 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithAabb3(Aabb3 other) {
-    Vector3 t1 = new Vector3.zero(), t2 = new Vector3.zero();
-    double tNear = -double.MAX_FINITE;
-    double tFar = double.MAX_FINITE;
+    final otherMin = other.min;
+    final otherMax = other.max;
 
-    for(int i = 0; i < 3; ++i){
-      if(direction[i] == 0.0){
-        if((origin[i] < other.min[i]) || (origin[i] > other.max[i])) {
+    var t1 = new Vector3.zero();
+    var t2 = new Vector3.zero();
+    var tNear = -double.MAX_FINITE;
+    var tFar = double.MAX_FINITE;
+
+    for (var i = 0; i < 3; ++i) {
+      if (_direction[i] == 0.0) {
+        if (_origin[i] < otherMin[i] || _origin[i] > otherMax[i]) {
           return null;
         }
-      }
-      else {
-        t1[i] = (other.min[i] - origin[i]) / direction[i];
-        t2[i] = (other.max[i] - origin[i]) / direction[i];
+      } else {
+        t1[i] = (otherMin[i] - _origin[i]) / _direction[i];
+        t2[i] = (otherMax[i] - _origin[i]) / _direction[i];
 
-        if(t1[i] > t2[i]){
+        if (t1[i] > t2[i]) {
           final temp = t1;
           t1 = t2;
           t2 = temp;
         }
 
-        if(t1[i] > tNear){
+        if (t1[i] > tNear) {
           tNear = t1[i];
         }
 
-        if(t2[i] < tFar){
+        if (t2[i] < tFar) {
           tFar = t2[i];
         }
 
-        if((tNear > tFar) || (tFar < 0)){
+        if (tNear > tFar || tFar < 0) {
           return null;
         }
       }
