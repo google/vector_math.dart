@@ -146,7 +146,7 @@ void generateTangents(Vector4List tangents, Vector3List positions,
     double sign = (p2.dot(p1) < 0.0) ? -1.0 : 1.0;
 
     tangents.load(i, tan);
-    tangents[i] = tan.setValues(p0.x, p0.y, p0.z, sign);
+    tangents[i] = tan..setValues(p0.x, p0.y, p0.z, sign);
   }
 }
 
