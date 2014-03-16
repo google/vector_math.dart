@@ -25,7 +25,7 @@ part of vector_math_64;
 class Frustum {
   final List<Plane> _planes;
 
-  /// A list of 8 planes that define the bounce of the frustum.
+  /// A list of six planes that define the bounce of the frustum.
   List<Plane> get planes => _planes;
 
   /// Create a new frustum without initializing its bounds.
