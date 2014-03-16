@@ -13,6 +13,7 @@ void main(List<String> args) {
   //
   // Analyzer
   //
+  //TODO (fox32): Analyse all libraries
   addTask('analyze_lib', createAnalyzerTask(['lib/vector_math.dart']));
 
   //
@@ -21,7 +22,7 @@ void main(List<String> args) {
   addTask('test', createUnitTestTask(console_test_harness.main));
 
   //
-  // Doc generation
+  // Generate Vector Math 64
   //
   addTask('generate_vector_math_64', createGenerateVectorMath64Task());
 
