@@ -152,18 +152,38 @@ class Aabb2 {
   }
 
   /// Return if [this] contains [other].
-  bool containsAabb2(Aabb2 other) => _min.x < other._min.x && _min.y <
-      other._min.y && _max.y > other._max.y && _max.x > other._max.x;
+  bool containsAabb2(Aabb2 other) {
+    final otherMax = other._max;
+    final otherMin = other._min;
+
+    return _min.x < otherMin.x && _min.y < otherMin.y && _max.y > otherMax.y &&
+        _max.x > otherMax.x;
+  }
 
   /// Return if [this] contains [other].
-  bool containsVector2(Vector2 other) => _min.x < other.x && _min.y < other.y &&
-      _max.x > other.x && _max.y > other.y;
+  bool containsVector2(Vector2 other) {
+    final otherX = other[0];
+    final otherY = other[1];
+
+    return _min.x < otherX && _min.y < otherY && _max.x > otherX && _max.y >
+        otherY;
+  }
 
   /// Return if [this] intersects with [other].
-  bool intersectsWithAabb2(Aabb2 other) => _min.x <= other._max.x && _min.y <=
-      other._max.y && _max.x >= other._min.x && _max.y >= other._min.y;
+  bool intersectsWithAabb2(Aabb2 other) {
+    final otherMax = other._max;
+    final otherMin = other._min;
+
+    return _min.x <= otherMax.x && _min.y <= otherMax.y && _max.x >= otherMin.x
+        && _max.y >= otherMin.y;
+  }
 
   /// Return if [this] intersects with [other].
-  bool intersectsWithVector2(Vector2 other) => _min.x <= other.x && _min.y <=
-      other.y && _max.x >= other.x && _max.y >= other.y;
+  bool intersectsWithVector2(Vector2 other) {
+    final otherX = other[0];
+    final otherY = other[1];
+
+    return _min.x <= otherX && _min.y <= otherY && _max.x >= otherX && _max.y >=
+        otherY;
+  }
 }
