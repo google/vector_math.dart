@@ -63,7 +63,13 @@ class Aabb2 {
       : _min = new Vector2.copy(center)..sub(halfExtents),
         _max = new Vector2.copy(center)..add(halfExtents);
 
-  //TODO (fox32): A fromBuffer constructor is missing here?
+  /// Constructs [Aabb2] with a min/max [storage] that views given [buffer]
+  /// starting at [offset]. [offset] has to be multiple of
+  /// [Float32List.BYTES_PER_ELEMENT].
+  Aabb2.fromBuffer(ByteBuffer buffer, int offset)
+      : _min = new Vector2.fromBuffer(buffer, offset),
+        _max = new Vector2.fromBuffer(buffer, offset +
+          Float32List.BYTES_PER_ELEMENT * 2);
 
   /// DEPREACTED: Removed copy min and max yourself
   @deprecated
