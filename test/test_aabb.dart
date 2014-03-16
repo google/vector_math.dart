@@ -115,7 +115,7 @@ class AabbTest extends BaseTest {
     final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
     final Aabb2 input = new Aabb2.minMax(_v(1.0,1.0), _v(3.0,3.0));
 
-    final Aabb2 result = input.rotate(rotation);
+    final Aabb2 result = input..rotate(rotation);
 
     relativeTest(result.min.x, 2-Math.sqrt(2));
     relativeTest(result.min.y, 2-Math.sqrt(2));
@@ -129,7 +129,7 @@ class AabbTest extends BaseTest {
     final Matrix3 rotation = new Matrix3.rotationZ(Math.PI/4);
     final Aabb2 input = new Aabb2.minMax(_v(1.0,1.0), _v(3.0,3.0));
 
-    final Aabb2 result = input.transform(rotation);
+    final Aabb2 result = input..transform(rotation);
     final double newCenterY = Math.sqrt(8);
 
     relativeTest(result.min.x, -Math.sqrt(2));
