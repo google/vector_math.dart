@@ -21,8 +21,6 @@
 
 part of vector_math_64;
 
-//TODO (fox32): Update documentation comments!
-
 /// 4D Matrix.
 /// Values are stored in column major order.
 class Matrix4 {
@@ -319,6 +317,7 @@ class Matrix4 {
     _storage44[1] = argStorage[1];
     _storage44[0] = argStorage[0];
   }
+
   /// Sets the matrix from translation [arg0] and rotation [arg1].
   void setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
     final arg1Storage = arg1._storage41;
@@ -500,7 +499,7 @@ class Matrix4 {
     argStorage[13] = _storage44[13];
     argStorage[14] = _storage44[14];
     argStorage[15] = _storage44[15];
-    return arg; //TODO (fox32): Remove this return value?
+    return arg;
   }
 
   /// Returns new matrix -this
@@ -705,23 +704,26 @@ class Matrix4 {
     _storage44[15] *= sw;
   }
 
-  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
+  /// Scale this matrix by a [Vector3].
   void scale3(Vector3 arg) {
     final argStorage = arg._storage3;
     scale(argStorage[0], argStorage[1], argStorage[2]);
   }
 
-  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
+  /// Scale this matrix by a [Vector4].
   void scale4(Vector4 arg) {
     final argStorage = arg._storage4;
     scale(argStorage[0], argStorage[1], argStorage[2], argStorage[3]);
   }
 
+  /// Create a copy of [this] scaled by [x],[y],[z] and a optional [w].
   Matrix4 scaled(double x, [double y = null, double z = null, double w = 1.0])
       => clone()..scale(x, y, z, w);
 
+  /// Create a copy of [this] scaled by a [Vector3].
   Matrix4 scaled3(Vector3 arg) => clone()..scale3(arg);
 
+  /// Create a copy of [this] scaled by a [Vector4].
   Matrix4 scaled4(Vector4 arg) => clone()..scale4(arg);
 
   /// Zeros [this].
@@ -767,6 +769,7 @@ class Matrix4 {
   /// Returns the tranpose of this.
   Matrix4 transposed() => clone()..transpose();
 
+  // Transpose [this].
   void transpose() {
     var temp;
     temp = _storage44[4];
@@ -993,9 +996,10 @@ class Matrix4 {
     _storage44[6] = temp;
   }
 
+  /// Invert [this].
   double invert() => copyInverse(this);
 
-  /// Set this matrix to be the inverse of [arg]
+  /// Set [this] matrix to be the inverse of [arg]
   double copyInverse(Matrix4 arg) {
     final argStorage = arg._storage44;
     final a00 = argStorage[0];
@@ -1052,6 +1056,7 @@ class Matrix4 {
     return det;
   }
 
+  /// Invert the rotation of [this] and return the determinant.
   double invertRotation() {
     final det = determinant();
     if (det == 0.0) {
@@ -1215,9 +1220,10 @@ class Matrix4 {
     argStorage[0] = x * m00 + y * m01 + z * m02 + 0.0 * 0.0;
     argStorage[1] = x * m10 + y * m11 + z * m12 + 0.0 * 0.0;
     argStorage[2] = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
-    return arg; //TODO (fox32): Remove this return type?
+    return arg;
   }
 
+  /// Adds [o] to [this].
   void add(Matrix4 o) {
     final oStorage = o._storage44;
     _storage44[0] = _storage44[0] + oStorage[0];
@@ -1238,6 +1244,7 @@ class Matrix4 {
     _storage44[15] = _storage44[15] + oStorage[15];
   }
 
+  /// Subtracts [o] to [this].
   void sub(Matrix4 o) {
     final oStorage = o._storage44;
     _storage44[0] = _storage44[0] - oStorage[0];
@@ -1258,6 +1265,7 @@ class Matrix4 {
     _storage44[15] = _storage44[15] - oStorage[15];
   }
 
+  /// Negate [this].
   void negate() {
     _storage44[0] = -_storage44[0];
     _storage44[1] = -_storage44[1];
@@ -1277,6 +1285,7 @@ class Matrix4 {
     _storage44[15] = -_storage44[15];
   }
 
+  /// Multiply [this] by [arg].
   void multiply(Matrix4 arg) {
     final m00 = _storage44[0];
     final m01 = _storage44[4];
@@ -1329,8 +1338,10 @@ class Matrix4 {
     _storage44[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
   }
 
+  /// Multiply a copy of [this] with [arg].
   Matrix4 multiplied(Matrix4 arg) => clone()..multiply(arg);
 
+  /// Multiply a transposed [this] with [arg].
   void transposeMultiply(Matrix4 arg) {
     final m00 = _storage44[0];
     final m01 = _storage44[1];
@@ -1383,6 +1394,7 @@ class Matrix4 {
         argStorage[14]) + (m33 * argStorage[15]);
   }
 
+  /// Multiply [this] with a transposed [arg].
   void multiplyTranspose(Matrix4 arg) {
     final m00 = _storage44[0];
     final m01 = _storage44[4];
@@ -1435,6 +1447,7 @@ class Matrix4 {
         argStorage[11]) + (m33 * argStorage[15]);
   }
 
+  /// Rotate [arg] of type [Vector3] using the rotation defined by [this].
   Vector3 rotate3(Vector3 arg) {
     final argStorage = arg._storage3;
     final x_ = (_storage44[0] * argStorage[0]) + (_storage44[4] * argStorage[1])
@@ -1446,11 +1459,13 @@ class Matrix4 {
     argStorage[0] = x_;
     argStorage[1] = y_;
     argStorage[2] = z_;
-    return arg; //TODO (fox32): Remove this return value?
+    return arg;
   }
 
+  /// Rotate a copy of [arg] of type [Vector3] using the rotation defined by
+  /// [this]. If a [out] parameter is supplied, the copy is stored in [out].
   Vector3 rotated3(Vector3 arg, [Vector3 out = null]) {
-    if (out == null) { //TODO (fox32): Doesn't match the library style?
+    if (out == null) {
       out = new Vector3.copy(arg);
     } else {
       out.setFrom(arg);
@@ -1458,6 +1473,8 @@ class Matrix4 {
     return rotate3(out);
   }
 
+  /// Transform [arg] of type [Vector3] using the transformation defined by
+  /// [this].
   Vector3 transform3(Vector3 arg) {
     final argStorage = arg._storage3;
     final x_ = (_storage44[0] * argStorage[0]) + (_storage44[4] * argStorage[1])
@@ -1469,18 +1486,23 @@ class Matrix4 {
     argStorage[0] = x_;
     argStorage[1] = y_;
     argStorage[2] = z_;
-    return arg; //TODO (fox32): Remove this return value?
+    return arg;
   }
 
+  /// Transform a copy of [arg] of type [Vector3] using the transformation
+  /// defined by [this]. If a [out] parameter is supplied, the copy is stored in
+  /// [out].
   Vector3 transformed3(Vector3 arg, [Vector3 out = null]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
       out.setFrom(arg);
     }
-    return transform3(out);//TODO (fox32): Doesn't match the library style?
+    return transform3(out);
   }
 
+  /// Transform [arg] of type [Vector4] using the transformation defined by
+  /// [this].
   Vector4 transform(Vector4 arg) {
     final argStorage = arg._storage4;
     double x_ = (_storage44[0] * argStorage[0]) + (_storage44[4] *
@@ -1499,11 +1521,14 @@ class Matrix4 {
     argStorage[1] = y_;
     argStorage[2] = z_;
     argStorage[3] = w_;
-    return arg;//TODO (fox32): Remove this return value?
+    return arg;
   }
 
+  /// Transform a copy of [arg] of type [Vector4] using the transformation
+  /// defined by [this]. If a [out] parameter is supplied, the copy is stored in
+  /// [out].
   Vector4 transformed(Vector4 arg, [Vector4 out = null]) {
-    if (out == null) {//TODO (fox32): Doesn't match the library style?
+    if (out == null) {
       out = new Vector4.copy(arg);
     } else {
       out.setFrom(arg);
@@ -1553,6 +1578,7 @@ class Matrix4 {
     _storage44[0] = array[i + 0];
   }
 
+  /// Access the right vector of [this].
   Vector3 get right {
     final x = _storage44[0];
     final y = _storage44[1];
@@ -1560,6 +1586,7 @@ class Matrix4 {
     return new Vector3(x, y, z);
   }
 
+  /// Access the up vector of [this].
   Vector3 get up {
     final x = _storage44[4];
     final y = _storage44[5];
@@ -1567,6 +1594,7 @@ class Matrix4 {
     return new Vector3(x, y, z);
   }
 
+  /// Access the forward vector of [this].
   Vector3 get forward {
     final x = _storage44[8];
     final y = _storage44[9];
