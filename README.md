@@ -76,7 +76,7 @@ import 'package:vector_math/vector_math.dart';
 void main() {
 	// Rotation of PI/2 degrees around the Y axis followed by a 
 	// translation of (5.0, 2.0, 3.0).
-	Matrix4 T = new Matrix4.rotationY(PI*0.5).translate(5.0, 2.0, 3.0);
+	Matrix4 T = new Matrix4.rotationY(PI * 0.5).translate(5.0, 2.0, 3.0);
 	// A point.
 	Vector3 position = new Vector3(1.0, 1.0, 1.0);
 	// Transform position by T.
