@@ -62,9 +62,9 @@ class Vector3 {
   Vector3.array(List<double> array, [int offset = 0])
       : _storage = new Float64List(3) {
     int i = offset;
-    storage[2] = array[i + 2];
-    storage[1] = array[i + 1];
-    storage[0] = array[i + 0];
+    _storage[2] = array[i + 2];
+    _storage[1] = array[i + 1];
+    _storage[0] = array[i + 0];
   }
 
   /// Zero vector.
@@ -224,7 +224,7 @@ class Vector3 {
   /// the inverse of the transformation.
   ///
   void postmultiply(Matrix3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     final v0 = _storage[0];
     final v1 = _storage[1];
     final v2 = _storage[2];
@@ -272,7 +272,7 @@ class Vector3 {
 
   /// Projects [this] using the projection matrix [arg]
   void applyProjection(Matrix4 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._storage;
     final x = _storage[0];
     final y = _storage[1];
     final z = _storage[2];
@@ -500,213 +500,213 @@ class Vector3 {
   set tps(Vector3 arg) => yzx = arg;
   set pst(Vector3 arg) => zxy = arg;
   set pts(Vector3 arg) => zyx = arg;
-  Vector2 get xx => new Vector2(storage[0], storage[0]);
-  Vector2 get xy => new Vector2(storage[0], storage[1]);
-  Vector2 get xz => new Vector2(storage[0], storage[2]);
-  Vector2 get yx => new Vector2(storage[1], storage[0]);
-  Vector2 get yy => new Vector2(storage[1], storage[1]);
-  Vector2 get yz => new Vector2(storage[1], storage[2]);
-  Vector2 get zx => new Vector2(storage[2], storage[0]);
-  Vector2 get zy => new Vector2(storage[2], storage[1]);
-  Vector2 get zz => new Vector2(storage[2], storage[2]);
-  Vector3 get xxx => new Vector3(storage[0], storage[0], storage[0]);
-  Vector3 get xxy => new Vector3(storage[0], storage[0], storage[1]);
-  Vector3 get xxz => new Vector3(storage[0], storage[0], storage[2]);
-  Vector3 get xyx => new Vector3(storage[0], storage[1], storage[0]);
-  Vector3 get xyy => new Vector3(storage[0], storage[1], storage[1]);
-  Vector3 get xyz => new Vector3(storage[0], storage[1], storage[2]);
-  Vector3 get xzx => new Vector3(storage[0], storage[2], storage[0]);
-  Vector3 get xzy => new Vector3(storage[0], storage[2], storage[1]);
-  Vector3 get xzz => new Vector3(storage[0], storage[2], storage[2]);
-  Vector3 get yxx => new Vector3(storage[1], storage[0], storage[0]);
-  Vector3 get yxy => new Vector3(storage[1], storage[0], storage[1]);
-  Vector3 get yxz => new Vector3(storage[1], storage[0], storage[2]);
-  Vector3 get yyx => new Vector3(storage[1], storage[1], storage[0]);
-  Vector3 get yyy => new Vector3(storage[1], storage[1], storage[1]);
-  Vector3 get yyz => new Vector3(storage[1], storage[1], storage[2]);
-  Vector3 get yzx => new Vector3(storage[1], storage[2], storage[0]);
-  Vector3 get yzy => new Vector3(storage[1], storage[2], storage[1]);
-  Vector3 get yzz => new Vector3(storage[1], storage[2], storage[2]);
-  Vector3 get zxx => new Vector3(storage[2], storage[0], storage[0]);
-  Vector3 get zxy => new Vector3(storage[2], storage[0], storage[1]);
-  Vector3 get zxz => new Vector3(storage[2], storage[0], storage[2]);
-  Vector3 get zyx => new Vector3(storage[2], storage[1], storage[0]);
-  Vector3 get zyy => new Vector3(storage[2], storage[1], storage[1]);
-  Vector3 get zyz => new Vector3(storage[2], storage[1], storage[2]);
-  Vector3 get zzx => new Vector3(storage[2], storage[2], storage[0]);
-  Vector3 get zzy => new Vector3(storage[2], storage[2], storage[1]);
-  Vector3 get zzz => new Vector3(storage[2], storage[2], storage[2]);
-  Vector4 get xxxx => new Vector4(storage[0], storage[0], storage[0], storage[0]
-      );
-  Vector4 get xxxy => new Vector4(storage[0], storage[0], storage[0], storage[1]
-      );
-  Vector4 get xxxz => new Vector4(storage[0], storage[0], storage[0], storage[2]
-      );
-  Vector4 get xxyx => new Vector4(storage[0], storage[0], storage[1], storage[0]
-      );
-  Vector4 get xxyy => new Vector4(storage[0], storage[0], storage[1], storage[1]
-      );
-  Vector4 get xxyz => new Vector4(storage[0], storage[0], storage[1], storage[2]
-      );
-  Vector4 get xxzx => new Vector4(storage[0], storage[0], storage[2], storage[0]
-      );
-  Vector4 get xxzy => new Vector4(storage[0], storage[0], storage[2], storage[1]
-      );
-  Vector4 get xxzz => new Vector4(storage[0], storage[0], storage[2], storage[2]
-      );
-  Vector4 get xyxx => new Vector4(storage[0], storage[1], storage[0], storage[0]
-      );
-  Vector4 get xyxy => new Vector4(storage[0], storage[1], storage[0], storage[1]
-      );
-  Vector4 get xyxz => new Vector4(storage[0], storage[1], storage[0], storage[2]
-      );
-  Vector4 get xyyx => new Vector4(storage[0], storage[1], storage[1], storage[0]
-      );
-  Vector4 get xyyy => new Vector4(storage[0], storage[1], storage[1], storage[1]
-      );
-  Vector4 get xyyz => new Vector4(storage[0], storage[1], storage[1], storage[2]
-      );
-  Vector4 get xyzx => new Vector4(storage[0], storage[1], storage[2], storage[0]
-      );
-  Vector4 get xyzy => new Vector4(storage[0], storage[1], storage[2], storage[1]
-      );
-  Vector4 get xyzz => new Vector4(storage[0], storage[1], storage[2], storage[2]
-      );
-  Vector4 get xzxx => new Vector4(storage[0], storage[2], storage[0], storage[0]
-      );
-  Vector4 get xzxy => new Vector4(storage[0], storage[2], storage[0], storage[1]
-      );
-  Vector4 get xzxz => new Vector4(storage[0], storage[2], storage[0], storage[2]
-      );
-  Vector4 get xzyx => new Vector4(storage[0], storage[2], storage[1], storage[0]
-      );
-  Vector4 get xzyy => new Vector4(storage[0], storage[2], storage[1], storage[1]
-      );
-  Vector4 get xzyz => new Vector4(storage[0], storage[2], storage[1], storage[2]
-      );
-  Vector4 get xzzx => new Vector4(storage[0], storage[2], storage[2], storage[0]
-      );
-  Vector4 get xzzy => new Vector4(storage[0], storage[2], storage[2], storage[1]
-      );
-  Vector4 get xzzz => new Vector4(storage[0], storage[2], storage[2], storage[2]
-      );
-  Vector4 get yxxx => new Vector4(storage[1], storage[0], storage[0], storage[0]
-      );
-  Vector4 get yxxy => new Vector4(storage[1], storage[0], storage[0], storage[1]
-      );
-  Vector4 get yxxz => new Vector4(storage[1], storage[0], storage[0], storage[2]
-      );
-  Vector4 get yxyx => new Vector4(storage[1], storage[0], storage[1], storage[0]
-      );
-  Vector4 get yxyy => new Vector4(storage[1], storage[0], storage[1], storage[1]
-      );
-  Vector4 get yxyz => new Vector4(storage[1], storage[0], storage[1], storage[2]
-      );
-  Vector4 get yxzx => new Vector4(storage[1], storage[0], storage[2], storage[0]
-      );
-  Vector4 get yxzy => new Vector4(storage[1], storage[0], storage[2], storage[1]
-      );
-  Vector4 get yxzz => new Vector4(storage[1], storage[0], storage[2], storage[2]
-      );
-  Vector4 get yyxx => new Vector4(storage[1], storage[1], storage[0], storage[0]
-      );
-  Vector4 get yyxy => new Vector4(storage[1], storage[1], storage[0], storage[1]
-      );
-  Vector4 get yyxz => new Vector4(storage[1], storage[1], storage[0], storage[2]
-      );
-  Vector4 get yyyx => new Vector4(storage[1], storage[1], storage[1], storage[0]
-      );
-  Vector4 get yyyy => new Vector4(storage[1], storage[1], storage[1], storage[1]
-      );
-  Vector4 get yyyz => new Vector4(storage[1], storage[1], storage[1], storage[2]
-      );
-  Vector4 get yyzx => new Vector4(storage[1], storage[1], storage[2], storage[0]
-      );
-  Vector4 get yyzy => new Vector4(storage[1], storage[1], storage[2], storage[1]
-      );
-  Vector4 get yyzz => new Vector4(storage[1], storage[1], storage[2], storage[2]
-      );
-  Vector4 get yzxx => new Vector4(storage[1], storage[2], storage[0], storage[0]
-      );
-  Vector4 get yzxy => new Vector4(storage[1], storage[2], storage[0], storage[1]
-      );
-  Vector4 get yzxz => new Vector4(storage[1], storage[2], storage[0], storage[2]
-      );
-  Vector4 get yzyx => new Vector4(storage[1], storage[2], storage[1], storage[0]
-      );
-  Vector4 get yzyy => new Vector4(storage[1], storage[2], storage[1], storage[1]
-      );
-  Vector4 get yzyz => new Vector4(storage[1], storage[2], storage[1], storage[2]
-      );
-  Vector4 get yzzx => new Vector4(storage[1], storage[2], storage[2], storage[0]
-      );
-  Vector4 get yzzy => new Vector4(storage[1], storage[2], storage[2], storage[1]
-      );
-  Vector4 get yzzz => new Vector4(storage[1], storage[2], storage[2], storage[2]
-      );
-  Vector4 get zxxx => new Vector4(storage[2], storage[0], storage[0], storage[0]
-      );
-  Vector4 get zxxy => new Vector4(storage[2], storage[0], storage[0], storage[1]
-      );
-  Vector4 get zxxz => new Vector4(storage[2], storage[0], storage[0], storage[2]
-      );
-  Vector4 get zxyx => new Vector4(storage[2], storage[0], storage[1], storage[0]
-      );
-  Vector4 get zxyy => new Vector4(storage[2], storage[0], storage[1], storage[1]
-      );
-  Vector4 get zxyz => new Vector4(storage[2], storage[0], storage[1], storage[2]
-      );
-  Vector4 get zxzx => new Vector4(storage[2], storage[0], storage[2], storage[0]
-      );
-  Vector4 get zxzy => new Vector4(storage[2], storage[0], storage[2], storage[1]
-      );
-  Vector4 get zxzz => new Vector4(storage[2], storage[0], storage[2], storage[2]
-      );
-  Vector4 get zyxx => new Vector4(storage[2], storage[1], storage[0], storage[0]
-      );
-  Vector4 get zyxy => new Vector4(storage[2], storage[1], storage[0], storage[1]
-      );
-  Vector4 get zyxz => new Vector4(storage[2], storage[1], storage[0], storage[2]
-      );
-  Vector4 get zyyx => new Vector4(storage[2], storage[1], storage[1], storage[0]
-      );
-  Vector4 get zyyy => new Vector4(storage[2], storage[1], storage[1], storage[1]
-      );
-  Vector4 get zyyz => new Vector4(storage[2], storage[1], storage[1], storage[2]
-      );
-  Vector4 get zyzx => new Vector4(storage[2], storage[1], storage[2], storage[0]
-      );
-  Vector4 get zyzy => new Vector4(storage[2], storage[1], storage[2], storage[1]
-      );
-  Vector4 get zyzz => new Vector4(storage[2], storage[1], storage[2], storage[2]
-      );
-  Vector4 get zzxx => new Vector4(storage[2], storage[2], storage[0], storage[0]
-      );
-  Vector4 get zzxy => new Vector4(storage[2], storage[2], storage[0], storage[1]
-      );
-  Vector4 get zzxz => new Vector4(storage[2], storage[2], storage[0], storage[2]
-      );
-  Vector4 get zzyx => new Vector4(storage[2], storage[2], storage[1], storage[0]
-      );
-  Vector4 get zzyy => new Vector4(storage[2], storage[2], storage[1], storage[1]
-      );
-  Vector4 get zzyz => new Vector4(storage[2], storage[2], storage[1], storage[2]
-      );
-  Vector4 get zzzx => new Vector4(storage[2], storage[2], storage[2], storage[0]
-      );
-  Vector4 get zzzy => new Vector4(storage[2], storage[2], storage[2], storage[1]
-      );
-  Vector4 get zzzz => new Vector4(storage[2], storage[2], storage[2], storage[2]
-      );
+  Vector2 get xx => new Vector2(_storage[0], _storage[0]);
+  Vector2 get xy => new Vector2(_storage[0], _storage[1]);
+  Vector2 get xz => new Vector2(_storage[0], _storage[2]);
+  Vector2 get yx => new Vector2(_storage[1], _storage[0]);
+  Vector2 get yy => new Vector2(_storage[1], _storage[1]);
+  Vector2 get yz => new Vector2(_storage[1], _storage[2]);
+  Vector2 get zx => new Vector2(_storage[2], _storage[0]);
+  Vector2 get zy => new Vector2(_storage[2], _storage[1]);
+  Vector2 get zz => new Vector2(_storage[2], _storage[2]);
+  Vector3 get xxx => new Vector3(_storage[0], _storage[0], _storage[0]);
+  Vector3 get xxy => new Vector3(_storage[0], _storage[0], _storage[1]);
+  Vector3 get xxz => new Vector3(_storage[0], _storage[0], _storage[2]);
+  Vector3 get xyx => new Vector3(_storage[0], _storage[1], _storage[0]);
+  Vector3 get xyy => new Vector3(_storage[0], _storage[1], _storage[1]);
+  Vector3 get xyz => new Vector3(_storage[0], _storage[1], _storage[2]);
+  Vector3 get xzx => new Vector3(_storage[0], _storage[2], _storage[0]);
+  Vector3 get xzy => new Vector3(_storage[0], _storage[2], _storage[1]);
+  Vector3 get xzz => new Vector3(_storage[0], _storage[2], _storage[2]);
+  Vector3 get yxx => new Vector3(_storage[1], _storage[0], _storage[0]);
+  Vector3 get yxy => new Vector3(_storage[1], _storage[0], _storage[1]);
+  Vector3 get yxz => new Vector3(_storage[1], _storage[0], _storage[2]);
+  Vector3 get yyx => new Vector3(_storage[1], _storage[1], _storage[0]);
+  Vector3 get yyy => new Vector3(_storage[1], _storage[1], _storage[1]);
+  Vector3 get yyz => new Vector3(_storage[1], _storage[1], _storage[2]);
+  Vector3 get yzx => new Vector3(_storage[1], _storage[2], _storage[0]);
+  Vector3 get yzy => new Vector3(_storage[1], _storage[2], _storage[1]);
+  Vector3 get yzz => new Vector3(_storage[1], _storage[2], _storage[2]);
+  Vector3 get zxx => new Vector3(_storage[2], _storage[0], _storage[0]);
+  Vector3 get zxy => new Vector3(_storage[2], _storage[0], _storage[1]);
+  Vector3 get zxz => new Vector3(_storage[2], _storage[0], _storage[2]);
+  Vector3 get zyx => new Vector3(_storage[2], _storage[1], _storage[0]);
+  Vector3 get zyy => new Vector3(_storage[2], _storage[1], _storage[1]);
+  Vector3 get zyz => new Vector3(_storage[2], _storage[1], _storage[2]);
+  Vector3 get zzx => new Vector3(_storage[2], _storage[2], _storage[0]);
+  Vector3 get zzy => new Vector3(_storage[2], _storage[2], _storage[1]);
+  Vector3 get zzz => new Vector3(_storage[2], _storage[2], _storage[2]);
+  Vector4 get xxxx => new Vector4(_storage[0], _storage[0], _storage[0],
+      _storage[0]);
+  Vector4 get xxxy => new Vector4(_storage[0], _storage[0], _storage[0],
+      _storage[1]);
+  Vector4 get xxxz => new Vector4(_storage[0], _storage[0], _storage[0],
+      _storage[2]);
+  Vector4 get xxyx => new Vector4(_storage[0], _storage[0], _storage[1],
+      _storage[0]);
+  Vector4 get xxyy => new Vector4(_storage[0], _storage[0], _storage[1],
+      _storage[1]);
+  Vector4 get xxyz => new Vector4(_storage[0], _storage[0], _storage[1],
+      _storage[2]);
+  Vector4 get xxzx => new Vector4(_storage[0], _storage[0], _storage[2],
+      _storage[0]);
+  Vector4 get xxzy => new Vector4(_storage[0], _storage[0], _storage[2],
+      _storage[1]);
+  Vector4 get xxzz => new Vector4(_storage[0], _storage[0], _storage[2],
+      _storage[2]);
+  Vector4 get xyxx => new Vector4(_storage[0], _storage[1], _storage[0],
+      _storage[0]);
+  Vector4 get xyxy => new Vector4(_storage[0], _storage[1], _storage[0],
+      _storage[1]);
+  Vector4 get xyxz => new Vector4(_storage[0], _storage[1], _storage[0],
+      _storage[2]);
+  Vector4 get xyyx => new Vector4(_storage[0], _storage[1], _storage[1],
+      _storage[0]);
+  Vector4 get xyyy => new Vector4(_storage[0], _storage[1], _storage[1],
+      _storage[1]);
+  Vector4 get xyyz => new Vector4(_storage[0], _storage[1], _storage[1],
+      _storage[2]);
+  Vector4 get xyzx => new Vector4(_storage[0], _storage[1], _storage[2],
+      _storage[0]);
+  Vector4 get xyzy => new Vector4(_storage[0], _storage[1], _storage[2],
+      _storage[1]);
+  Vector4 get xyzz => new Vector4(_storage[0], _storage[1], _storage[2],
+      _storage[2]);
+  Vector4 get xzxx => new Vector4(_storage[0], _storage[2], _storage[0],
+      _storage[0]);
+  Vector4 get xzxy => new Vector4(_storage[0], _storage[2], _storage[0],
+      _storage[1]);
+  Vector4 get xzxz => new Vector4(_storage[0], _storage[2], _storage[0],
+      _storage[2]);
+  Vector4 get xzyx => new Vector4(_storage[0], _storage[2], _storage[1],
+      _storage[0]);
+  Vector4 get xzyy => new Vector4(_storage[0], _storage[2], _storage[1],
+      _storage[1]);
+  Vector4 get xzyz => new Vector4(_storage[0], _storage[2], _storage[1],
+      _storage[2]);
+  Vector4 get xzzx => new Vector4(_storage[0], _storage[2], _storage[2],
+      _storage[0]);
+  Vector4 get xzzy => new Vector4(_storage[0], _storage[2], _storage[2],
+      _storage[1]);
+  Vector4 get xzzz => new Vector4(_storage[0], _storage[2], _storage[2],
+      _storage[2]);
+  Vector4 get yxxx => new Vector4(_storage[1], _storage[0], _storage[0],
+      _storage[0]);
+  Vector4 get yxxy => new Vector4(_storage[1], _storage[0], _storage[0],
+      _storage[1]);
+  Vector4 get yxxz => new Vector4(_storage[1], _storage[0], _storage[0],
+      _storage[2]);
+  Vector4 get yxyx => new Vector4(_storage[1], _storage[0], _storage[1],
+      _storage[0]);
+  Vector4 get yxyy => new Vector4(_storage[1], _storage[0], _storage[1],
+      _storage[1]);
+  Vector4 get yxyz => new Vector4(_storage[1], _storage[0], _storage[1],
+      _storage[2]);
+  Vector4 get yxzx => new Vector4(_storage[1], _storage[0], _storage[2],
+      _storage[0]);
+  Vector4 get yxzy => new Vector4(_storage[1], _storage[0], _storage[2],
+      _storage[1]);
+  Vector4 get yxzz => new Vector4(_storage[1], _storage[0], _storage[2],
+      _storage[2]);
+  Vector4 get yyxx => new Vector4(_storage[1], _storage[1], _storage[0],
+      _storage[0]);
+  Vector4 get yyxy => new Vector4(_storage[1], _storage[1], _storage[0],
+      _storage[1]);
+  Vector4 get yyxz => new Vector4(_storage[1], _storage[1], _storage[0],
+      _storage[2]);
+  Vector4 get yyyx => new Vector4(_storage[1], _storage[1], _storage[1],
+      _storage[0]);
+  Vector4 get yyyy => new Vector4(_storage[1], _storage[1], _storage[1],
+      _storage[1]);
+  Vector4 get yyyz => new Vector4(_storage[1], _storage[1], _storage[1],
+      _storage[2]);
+  Vector4 get yyzx => new Vector4(_storage[1], _storage[1], _storage[2],
+      _storage[0]);
+  Vector4 get yyzy => new Vector4(_storage[1], _storage[1], _storage[2],
+      _storage[1]);
+  Vector4 get yyzz => new Vector4(_storage[1], _storage[1], _storage[2],
+      _storage[2]);
+  Vector4 get yzxx => new Vector4(_storage[1], _storage[2], _storage[0],
+      _storage[0]);
+  Vector4 get yzxy => new Vector4(_storage[1], _storage[2], _storage[0],
+      _storage[1]);
+  Vector4 get yzxz => new Vector4(_storage[1], _storage[2], _storage[0],
+      _storage[2]);
+  Vector4 get yzyx => new Vector4(_storage[1], _storage[2], _storage[1],
+      _storage[0]);
+  Vector4 get yzyy => new Vector4(_storage[1], _storage[2], _storage[1],
+      _storage[1]);
+  Vector4 get yzyz => new Vector4(_storage[1], _storage[2], _storage[1],
+      _storage[2]);
+  Vector4 get yzzx => new Vector4(_storage[1], _storage[2], _storage[2],
+      _storage[0]);
+  Vector4 get yzzy => new Vector4(_storage[1], _storage[2], _storage[2],
+      _storage[1]);
+  Vector4 get yzzz => new Vector4(_storage[1], _storage[2], _storage[2],
+      _storage[2]);
+  Vector4 get zxxx => new Vector4(_storage[2], _storage[0], _storage[0],
+      _storage[0]);
+  Vector4 get zxxy => new Vector4(_storage[2], _storage[0], _storage[0],
+      _storage[1]);
+  Vector4 get zxxz => new Vector4(_storage[2], _storage[0], _storage[0],
+      _storage[2]);
+  Vector4 get zxyx => new Vector4(_storage[2], _storage[0], _storage[1],
+      _storage[0]);
+  Vector4 get zxyy => new Vector4(_storage[2], _storage[0], _storage[1],
+      _storage[1]);
+  Vector4 get zxyz => new Vector4(_storage[2], _storage[0], _storage[1],
+      _storage[2]);
+  Vector4 get zxzx => new Vector4(_storage[2], _storage[0], _storage[2],
+      _storage[0]);
+  Vector4 get zxzy => new Vector4(_storage[2], _storage[0], _storage[2],
+      _storage[1]);
+  Vector4 get zxzz => new Vector4(_storage[2], _storage[0], _storage[2],
+      _storage[2]);
+  Vector4 get zyxx => new Vector4(_storage[2], _storage[1], _storage[0],
+      _storage[0]);
+  Vector4 get zyxy => new Vector4(_storage[2], _storage[1], _storage[0],
+      _storage[1]);
+  Vector4 get zyxz => new Vector4(_storage[2], _storage[1], _storage[0],
+      _storage[2]);
+  Vector4 get zyyx => new Vector4(_storage[2], _storage[1], _storage[1],
+      _storage[0]);
+  Vector4 get zyyy => new Vector4(_storage[2], _storage[1], _storage[1],
+      _storage[1]);
+  Vector4 get zyyz => new Vector4(_storage[2], _storage[1], _storage[1],
+      _storage[2]);
+  Vector4 get zyzx => new Vector4(_storage[2], _storage[1], _storage[2],
+      _storage[0]);
+  Vector4 get zyzy => new Vector4(_storage[2], _storage[1], _storage[2],
+      _storage[1]);
+  Vector4 get zyzz => new Vector4(_storage[2], _storage[1], _storage[2],
+      _storage[2]);
+  Vector4 get zzxx => new Vector4(_storage[2], _storage[2], _storage[0],
+      _storage[0]);
+  Vector4 get zzxy => new Vector4(_storage[2], _storage[2], _storage[0],
+      _storage[1]);
+  Vector4 get zzxz => new Vector4(_storage[2], _storage[2], _storage[0],
+      _storage[2]);
+  Vector4 get zzyx => new Vector4(_storage[2], _storage[2], _storage[1],
+      _storage[0]);
+  Vector4 get zzyy => new Vector4(_storage[2], _storage[2], _storage[1],
+      _storage[1]);
+  Vector4 get zzyz => new Vector4(_storage[2], _storage[2], _storage[1],
+      _storage[2]);
+  Vector4 get zzzx => new Vector4(_storage[2], _storage[2], _storage[2],
+      _storage[0]);
+  Vector4 get zzzy => new Vector4(_storage[2], _storage[2], _storage[2],
+      _storage[1]);
+  Vector4 get zzzz => new Vector4(_storage[2], _storage[2], _storage[2],
+      _storage[2]);
   double get r => x;
   double get g => y;
   double get b => z;
   double get s => x;
   double get t => y;
   double get p => z;
-  double get x => storage[0];
-  double get y => storage[1];
-  double get z => storage[2];
+  double get x => _storage[0];
+  double get y => _storage[1];
+  double get z => _storage[2];
   Vector2 get rr => xx;
   Vector2 get rg => xy;
   Vector2 get rb => xz;

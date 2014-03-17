@@ -34,8 +34,8 @@ class Matrix4 {
     final a12 = A.entry(0, 1);
     final a21 = A.entry(1, 0);
     final a22 = A.entry(1, 1);
-    final bx = b.x - A.storage[8];
-    final by = b.y - A.storage[9];
+    final bx = b.x - A._storage[8];
+    final by = b.y - A._storage[9];
     var det = a11 * a22 - a12 * a21;
 
     if (det != 0.0) {
@@ -57,9 +57,9 @@ class Matrix4 {
     final A2x = A.entry(0, 2);
     final A2y = A.entry(1, 2);
     final A2z = A.entry(2, 2);
-    final bx = b.x - A.storage[12];
-    final by = b.y - A.storage[13];
-    final bz = b.z - A.storage[14];
+    final bx = b.x - A._storage[12];
+    final by = b.y - A._storage[13];
+    final bz = b.z - A._storage[14];
     var rx, ry, rz;
     var det;
 
@@ -98,22 +98,22 @@ class Matrix4 {
 
   /// Solve [A] * [x] = [b].
   static void solve(Matrix4 A, Vector4 x, Vector4 b) {
-    final a00 = A.storage[0];
-    final a01 = A.storage[1];
-    final a02 = A.storage[2];
-    final a03 = A.storage[3];
-    final a10 = A.storage[4];
-    final a11 = A.storage[5];
-    final a12 = A.storage[6];
-    final a13 = A.storage[7];
-    final a20 = A.storage[8];
-    final a21 = A.storage[9];
-    final a22 = A.storage[10];
-    final a23 = A.storage[11];
-    final a30 = A.storage[12];
-    final a31 = A.storage[13];
-    final a32 = A.storage[14];
-    final a33 = A.storage[15];
+    final a00 = A._storage[0];
+    final a01 = A._storage[1];
+    final a02 = A._storage[2];
+    final a03 = A._storage[3];
+    final a10 = A._storage[4];
+    final a11 = A._storage[5];
+    final a12 = A._storage[6];
+    final a13 = A._storage[7];
+    final a20 = A._storage[8];
+    final a21 = A._storage[9];
+    final a22 = A._storage[10];
+    final a23 = A._storage[11];
+    final a30 = A._storage[12];
+    final a31 = A._storage[13];
+    final a32 = A._storage[14];
+    final a33 = A._storage[15];
     final b00 = a00 * a11 - a01 * a10;
     final b01 = a00 * a12 - a02 * a10;
     final b02 = a00 * a13 - a03 * a10;
@@ -127,10 +127,10 @@ class Matrix4 {
     final b10 = a21 * a33 - a23 * a31;
     final b11 = a22 * a33 - a23 * a32;
 
-    final bX = b.storage[0];
-    final bY = b.storage[1];
-    final bZ = b.storage[2];
-    final bW = b.storage[3];
+    final bX = b._storage[0];
+    final bY = b._storage[1];
+    final bZ = b._storage[2];
+    final bW = b._storage[3];
 
     var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 *
         b06;
@@ -645,14 +645,14 @@ class Matrix4 {
     final t6 = _storage[5] * -sinAngle + _storage[9] * cosAngle;
     final t7 = _storage[6] * -sinAngle + _storage[10] * cosAngle;
     final t8 = _storage[7] * -sinAngle + _storage[11] * cosAngle;
-    storage[4] = t1;
-    storage[5] = t2;
-    storage[6] = t3;
-    storage[7] = t4;
-    storage[8] = t5;
-    storage[9] = t6;
-    storage[10] = t7;
-    storage[11] = t8;
+    _storage[4] = t1;
+    _storage[5] = t2;
+    _storage[6] = t3;
+    _storage[7] = t4;
+    _storage[8] = t5;
+    _storage[9] = t6;
+    _storage[10] = t7;
+    _storage[11] = t8;
   }
 
   /// Rotate this matrix [angle] radians around Y
@@ -788,24 +788,24 @@ class Matrix4 {
 
   void transpose() {
     var temp;
-    temp = storage[4];
-    storage[4] = storage[1];
-    storage[1] = temp;
-    temp = storage[8];
-    storage[8] = storage[2];
-    storage[2] = temp;
-    temp = storage[12];
-    storage[12] = storage[3];
-    storage[3] = temp;
-    temp = storage[9];
-    storage[9] = storage[6];
-    storage[6] = temp;
-    temp = storage[13];
-    storage[13] = storage[7];
-    storage[7] = temp;
-    temp = storage[14];
-    storage[14] = storage[11];
-    storage[11] = temp;
+    temp = _storage[4];
+    _storage[4] = _storage[1];
+    _storage[1] = temp;
+    temp = _storage[8];
+    _storage[8] = _storage[2];
+    _storage[2] = temp;
+    temp = _storage[12];
+    _storage[12] = _storage[3];
+    _storage[3] = temp;
+    temp = _storage[9];
+    _storage[9] = _storage[6];
+    _storage[6] = temp;
+    temp = _storage[13];
+    _storage[13] = _storage[7];
+    _storage[7] = temp;
+    temp = _storage[14];
+    _storage[14] = _storage[11];
+    _storage[11] = temp;
   }
 
   /// Returns the component wise absolute value of this.
@@ -1353,37 +1353,37 @@ class Matrix4 {
     final m32 = _storage[14];
     final m33 = _storage[15];
     final argStorage = arg._storage;
-    storage[0] = (m00 * argStorage[0]) + (m01 * argStorage[1]) + (m02 *
+    _storage[0] = (m00 * argStorage[0]) + (m01 * argStorage[1]) + (m02 *
         argStorage[2]) + (m03 * argStorage[3]);
-    storage[4] = (m00 * argStorage[4]) + (m01 * argStorage[5]) + (m02 *
+    _storage[4] = (m00 * argStorage[4]) + (m01 * argStorage[5]) + (m02 *
         argStorage[6]) + (m03 * argStorage[7]);
-    storage[8] = (m00 * argStorage[8]) + (m01 * argStorage[9]) + (m02 *
+    _storage[8] = (m00 * argStorage[8]) + (m01 * argStorage[9]) + (m02 *
         argStorage[10]) + (m03 * argStorage[11]);
-    storage[12] = (m00 * argStorage[12]) + (m01 * argStorage[13]) + (m02 *
+    _storage[12] = (m00 * argStorage[12]) + (m01 * argStorage[13]) + (m02 *
         argStorage[14]) + (m03 * argStorage[15]);
-    storage[1] = (m10 * argStorage[0]) + (m11 * argStorage[1]) + (m12 *
+    _storage[1] = (m10 * argStorage[0]) + (m11 * argStorage[1]) + (m12 *
         argStorage[2]) + (m13 * argStorage[3]);
-    storage[5] = (m10 * argStorage[4]) + (m11 * argStorage[5]) + (m12 *
+    _storage[5] = (m10 * argStorage[4]) + (m11 * argStorage[5]) + (m12 *
         argStorage[6]) + (m13 * argStorage[7]);
-    storage[9] = (m10 * argStorage[8]) + (m11 * argStorage[9]) + (m12 *
+    _storage[9] = (m10 * argStorage[8]) + (m11 * argStorage[9]) + (m12 *
         argStorage[10]) + (m13 * argStorage[11]);
-    storage[13] = (m10 * argStorage[12]) + (m11 * argStorage[13]) + (m12 *
+    _storage[13] = (m10 * argStorage[12]) + (m11 * argStorage[13]) + (m12 *
         argStorage[14]) + (m13 * argStorage[15]);
-    storage[2] = (m20 * argStorage[0]) + (m21 * argStorage[1]) + (m22 *
+    _storage[2] = (m20 * argStorage[0]) + (m21 * argStorage[1]) + (m22 *
         argStorage[2]) + (m23 * argStorage[3]);
-    storage[6] = (m20 * argStorage[4]) + (m21 * argStorage[5]) + (m22 *
+    _storage[6] = (m20 * argStorage[4]) + (m21 * argStorage[5]) + (m22 *
         argStorage[6]) + (m23 * argStorage[7]);
-    storage[10] = (m20 * argStorage[8]) + (m21 * argStorage[9]) + (m22 *
+    _storage[10] = (m20 * argStorage[8]) + (m21 * argStorage[9]) + (m22 *
         argStorage[10]) + (m23 * argStorage[11]);
-    storage[14] = (m20 * argStorage[12]) + (m21 * argStorage[13]) + (m22 *
+    _storage[14] = (m20 * argStorage[12]) + (m21 * argStorage[13]) + (m22 *
         argStorage[14]) + (m23 * argStorage[15]);
-    storage[3] = (m30 * argStorage[0]) + (m31 * argStorage[1]) + (m32 *
+    _storage[3] = (m30 * argStorage[0]) + (m31 * argStorage[1]) + (m32 *
         argStorage[2]) + (m33 * argStorage[3]);
-    storage[7] = (m30 * argStorage[4]) + (m31 * argStorage[5]) + (m32 *
+    _storage[7] = (m30 * argStorage[4]) + (m31 * argStorage[5]) + (m32 *
         argStorage[6]) + (m33 * argStorage[7]);
-    storage[11] = (m30 * argStorage[8]) + (m31 * argStorage[9]) + (m32 *
+    _storage[11] = (m30 * argStorage[8]) + (m31 * argStorage[9]) + (m32 *
         argStorage[10]) + (m33 * argStorage[11]);
-    storage[15] = (m30 * argStorage[12]) + (m31 * argStorage[13]) + (m32 *
+    _storage[15] = (m30 * argStorage[12]) + (m31 * argStorage[13]) + (m32 *
         argStorage[14]) + (m33 * argStorage[15]);
   }
 
@@ -1465,9 +1465,9 @@ class Matrix4 {
   Vector3 transform3(Vector3 arg) {
     final argStorage = arg._storage;
     final x_ = (_storage[0] * argStorage[0]) + (_storage[4] * argStorage[1]) +
-        (_storage[8] * argStorage[2]) + storage[12];
+        (_storage[8] * argStorage[2]) + _storage[12];
     final y_ = (_storage[1] * argStorage[0]) + (_storage[5] * argStorage[1]) +
-        (_storage[9] * argStorage[2]) + storage[13];
+        (_storage[9] * argStorage[2]) + _storage[13];
     final z_ = (_storage[2] * argStorage[0]) + (_storage[6] * argStorage[1]) +
         (_storage[10] * argStorage[2]) + _storage[14];
     argStorage[0] = x_;

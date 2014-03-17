@@ -58,7 +58,7 @@ class Frustum {
 
   /// Set [this] from [matrix].
   void setFromMatrix(Matrix4 matrix) {
-    var me = matrix.storage;
+    var me = matrix._storage;
     var me0 = me[0],
         me1 = me[1],
         me2 = me[2],
@@ -131,7 +131,7 @@ class Frustum {
   /// Check if [this] intersects with [sphere].
   bool intersectsWithSphere(Sphere sphere) {
     final negativeRadius = -sphere._radius;
-    final center = sphere.center;
+    final center = sphere._center;
 
     for (var i = 0; i < 6; ++i) {
       final distance = _planes[i].distanceToVector3(center);

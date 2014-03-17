@@ -110,10 +110,10 @@ class Aabb3 {
     t
         ..transform3(center)
         ..absoluteRotate(halfExtents);
-    min
+    _min
         ..setFrom(center)
         ..sub(halfExtents);
-    max
+    _max
         ..setFrom(center)
         ..add(halfExtents);
   }
@@ -124,10 +124,10 @@ class Aabb3 {
     final halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t.absoluteRotate(halfExtents);
-    min
+    _min
         ..setFrom(center)
         ..sub(halfExtents);
-    max
+    _max
         ..setFrom(center)
         ..add(halfExtents);
   }
@@ -179,8 +179,8 @@ class Aabb3 {
 
   /// Return if [this] contains [other].
   bool containsSphere(Sphere other) {
-    final boxExtends = new Vector3.all(other.radius);
-    final sphereBox = new Aabb3.centerAndHalfExtents(other.center, boxExtends);
+    final boxExtends = new Vector3.all(other._radius);
+    final sphereBox = new Aabb3.centerAndHalfExtents(other._center, boxExtends);
 
     return containsAabb3(sphereBox);
   }
@@ -196,8 +196,8 @@ class Aabb3 {
   }
 
   /// Return if [this] contains [other].
-  bool containsTriangle(Triangle other) => containsVector3(other.point0) &&
-      containsVector3(other.point1) && containsVector3(other.point2);
+  bool containsTriangle(Triangle other) => containsVector3(other._point0) &&
+      containsVector3(other._point1) && containsVector3(other._point2);
 
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {

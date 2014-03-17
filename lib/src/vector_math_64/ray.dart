@@ -59,15 +59,15 @@ class Ray {
   }
 
   /// Returns the position on [this] with a distance of [t] from [origin].
-  Vector3 at(double t) => direction.scaled(t)..add(origin);
+  Vector3 at(double t) => _direction.scaled(t)..add(_origin);
 
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {
-    final r = other.radius;
+    final r = other._radius;
     final r2 = r * r;
-    final l = other.center.clone()..sub(origin);
-    final s = l.dot(direction);
+    final l = other._center.clone()..sub(_origin);
+    final s = l.dot(_direction);
     final l2 = l.dot(l);
     if (s < 0 && l2 > r2) {
       return null;
@@ -123,8 +123,8 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithAabb3(Aabb3 other) {
-    final otherMin = other.min;
-    final otherMax = other.max;
+    final otherMin = other._min;
+    final otherMax = other._max;
 
     var t1 = new Vector3.zero();
     var t2 = new Vector3.zero();

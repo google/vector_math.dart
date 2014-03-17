@@ -64,7 +64,7 @@ class Plane {
 
   /// Create a plane as a copy of [other].
   Plane.copy(Plane other)
-      : _normal = new Vector3.copy(other.normal),
+      : _normal = new Vector3.copy(other._normal),
         _constant = other._constant;
 
   /// Create a plane with its components.

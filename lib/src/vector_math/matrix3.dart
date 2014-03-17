@@ -237,11 +237,11 @@ class Matrix3 {
   int get dimension => 3;
 
   /// Access the element of the matrix at the index [i].
-  double operator [](int i) => storage[i];
+  double operator [](int i) => _storage[i];
 
   /// Set the element of the matrix at the index [i].
   void operator []=(int i, double v) {
-    storage[i] = v;
+    _storage[i] = v;
   }
 
   /// Returns row 0
@@ -636,9 +636,9 @@ class Matrix3 {
   Vector2 transform2(Vector2 arg) {
     final argStorage = arg._storage;
     final x_ = (_storage[0] * argStorage[0]) + (_storage[3] * argStorage[1]) +
-        storage[6];
+        _storage[6];
     final y_ = (_storage[1] * argStorage[0]) + (_storage[4] * argStorage[1]) +
-        storage[7];
+        _storage[7];
     argStorage[0] = x_;
     argStorage[1] = y_;
     return arg;//TODO (fox32): Remove the return value?

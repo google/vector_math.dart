@@ -56,7 +56,7 @@ class Quaternion {
   /// From a rotation matrix [rotationMatrix].
   Quaternion.fromRotation(Matrix3 rotationMatrix)
       : _storage = new Float64List(4) {
-    final rotationMatrixStorage = rotationMatrix.storage;
+    final rotationMatrixStorage = rotationMatrix._storage;
     final trace = rotationMatrix.trace();
     if (trace > 0.0) {
       var s = Math.sqrt(trace + 1.0);

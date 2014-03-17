@@ -141,8 +141,8 @@ class Matrix2 {
   /// Sets the diagonal of the matrix to be [arg].
   void setDiagonal(Vector2 arg) {
     final argStorage = arg._storage;
-    storage[0] = argStorage[0];
-    storage[3] = argStorage[1];
+    _storage[0] = argStorage[0];
+    _storage[3] = argStorage[1];
   }
 
   /// Returns a printable string
@@ -476,8 +476,8 @@ class Matrix2 {
 
   Vector2 transform(Vector2 arg) {
     final argStorage = arg._storage;
-    double x = (storage[0] * argStorage[0]) + (storage[2] * argStorage[1]);
-    double y = (storage[1] * argStorage[0]) + (storage[3] * argStorage[1]);
+    double x = (_storage[0] * argStorage[0]) + (_storage[2] * argStorage[1]);
+    double y = (_storage[1] * argStorage[0]) + (_storage[3] * argStorage[1]);
     argStorage[0] = x;
     argStorage[1] = y;
     return arg; //TODO (fox32): Remove the return type here?
