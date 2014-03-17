@@ -142,10 +142,20 @@ class Vector4 {
   Vector4 operator -() => clone()..negate();
 
   /// Subtract two vectors.
-  Vector4 operator -(Vector4 other) => clone()..sub(other);
+  Vector4 operator -(Vector4 other) {
+    if (other is Vector4) {
+      return clone()..sub(other);
+    }
+    throw new ArgumentError(other);
+  }
 
   /// Add two vectors.
-  Vector4 operator +(Vector4 other) => clone()..add(other);
+  Vector4 operator +(Vector4 other) {
+    if (other is Vector4) {
+      return clone()..add(other);
+    }
+    throw new ArgumentError(other);
+  }
 
   /// Scale.
   Vector4 operator /(double scale) => clone()..scale(1.0 / scale);

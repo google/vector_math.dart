@@ -117,10 +117,20 @@ class Vector2 {
   Vector2 operator -() => clone()..negate();
 
   /// Subtract two vectors.
-  Vector2 operator -(Vector2 other) => clone()..sub(other);
+  Vector2 operator -(Vector2 other) {
+    if (other is Vector2) {
+      return clone()..sub(other);
+    }
+    throw new ArgumentError(other);
+  }
 
   /// Add two vectors.
-  Vector2 operator +(Vector2 other) => clone()..add(other);
+  Vector2 operator +(Vector2 other) {
+    if (other is Vector2) {
+      return clone()..add(other);
+    }
+    throw new ArgumentError(other);
+  }
 
   /// Scale.
   Vector2 operator /(double scale) => clone()..scale(1.0 / scale);

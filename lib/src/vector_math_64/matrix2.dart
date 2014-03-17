@@ -232,10 +232,20 @@ class Matrix2 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix2 operator +(Matrix2 arg) => clone()..add(arg);
+  Matrix2 operator +(Matrix2 arg) {
+    if (arg is Matrix2) {
+      return clone()..add(arg);
+    }
+    throw new ArgumentError(arg);
+  }
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix2 operator -(Matrix2 arg) => clone()..sub(arg);
+  Matrix2 operator -(Matrix2 arg) {
+    if (arg is Matrix2) {
+      return clone()..sub(arg);
+    }
+    throw new ArgumentError(arg);
+  }
 
   /// Returns new matrix -this
   Matrix2 operator -() => clone()..negate();

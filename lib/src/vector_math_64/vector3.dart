@@ -126,10 +126,20 @@ class Vector3 {
   Vector3 operator -() => clone()..negate();
 
   /// Subtract two vectors.
-  Vector3 operator -(Vector3 other) => clone()..sub(other);
+  Vector3 operator -(Vector3 other) {
+    if (other is Vector3) {
+      return clone()..sub(other);
+    }
+    throw new ArgumentError(other);
+  }
 
   /// Add two vectors.
-  Vector3 operator +(Vector3 other) => clone()..add(other);
+  Vector3 operator +(Vector3 other) {
+    if (other is Vector3) {
+      return clone()..add(other);
+    }
+    throw new ArgumentError(other);
+  }
 
   /// Scale.
   Vector3 operator /(double scale) => scaled(1.0 / scale);

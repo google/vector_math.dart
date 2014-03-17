@@ -314,32 +314,41 @@ class Quaternion {
 
   /// [this] rotated by [other].
   Quaternion operator *(Quaternion other) {
-    double _w = _storage[3];
-    double _z = _storage[2];
-    double _y = _storage[1];
-    double _x = _storage[0];
-    final otherStorage = other._storage;
-    double ow = otherStorage[3];
-    double oz = otherStorage[2];
-    double oy = otherStorage[1];
-    double ox = otherStorage[0];
-    return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy, _w * oy + _y *
-        ow + _z * ox - _x * oz, _w * oz + _z * ow + _x * oy - _y * ox, _w * ow - _x * ox
-        - _y * oy - _z * oz);
+    if (other is Quaternion) {
+      double _w = _storage[3];
+      double _z = _storage[2];
+      double _y = _storage[1];
+      double _x = _storage[0];
+      final otherStorage = other._storage;
+      double ow = otherStorage[3];
+      double oz = otherStorage[2];
+      double oy = otherStorage[1];
+      double ox = otherStorage[0];
+      return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy, _w * oy + _y
+          * ow + _z * ox - _x * oz, _w * oz + _z * ow + _x * oy - _y * ox, _w * ow - _x *
+          ox - _y * oy - _z * oz);
+    }
+    throw new ArgumentError(other);
   }
 
   /// Returns copy of [this] + [other].
   Quaternion operator +(Quaternion other) {
-    final otherStorage = other._storage;
-    return new Quaternion(_storage[0] + otherStorage[0], _storage[1] +
-        otherStorage[1], _storage[2] + otherStorage[2], _storage[3] + otherStorage[3]);
+    if (other is Quaternion) {
+      final otherStorage = other._storage;
+      return new Quaternion(_storage[0] + otherStorage[0], _storage[1] +
+          otherStorage[1], _storage[2] + otherStorage[2], _storage[3] + otherStorage[3]);
+    }
+    throw new ArgumentError(other);
   }
 
   /// Returns copy of [this] - [other].
   Quaternion operator -(Quaternion other) {
-    final otherStorage = other._storage;
-    return new Quaternion(_storage[0] - otherStorage[0], _storage[1] -
-        otherStorage[1], _storage[2] - otherStorage[2], _storage[3] - otherStorage[3]);
+    if (other is Quaternion) {
+      final otherStorage = other._storage;
+      return new Quaternion(_storage[0] - otherStorage[0], _storage[1] -
+          otherStorage[1], _storage[2] - otherStorage[2], _storage[3] - otherStorage[3]);
+    }
+    throw new ArgumentError(other);
   }
 
   /// Returns negated copy of [this].

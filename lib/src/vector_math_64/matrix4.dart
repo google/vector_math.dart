@@ -545,10 +545,20 @@ class Matrix4 {
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix4 operator +(Matrix4 arg) => clone()..add(arg);
+  Matrix4 operator +(Matrix4 arg) {
+    if (arg is Matrix4) {
+      return clone()..add(arg);
+    }
+    throw new ArgumentError(arg);
+  }
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
+  Matrix4 operator -(Matrix4 arg)  {
+    if (arg is Matrix4) {
+      return clone()..sub(arg);
+    }
+    throw new ArgumentError(arg);
+  }
 
   /// Translate this matrix by a [x],[y],[z] and a optional [w].
   void translate(double x, double y, double z, [double w = 1.0]) {
