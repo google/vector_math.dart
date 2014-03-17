@@ -6,7 +6,8 @@ import 'package:hop/hop.dart';
 
 
 Task createGenerateVectorMath64Task()
-  => new Task((ctx) => generateVectorMath64());
+  => new Task((ctx) => generateVectorMath64()
+  .then((_) => ctx.info('GENERATED vector_math_64')));
 
 Future generateVectorMath64() {
   final directory = new Directory('lib/src/vector_math_64/');

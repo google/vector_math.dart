@@ -11,10 +11,14 @@ import '../test/console_test_harness.dart' as console_test_harness;
 void main(List<String> args) {
 
   //
-  // Analyzer
+  // Analyzer for library
   //
-  //TODO (fox32): Analyse all libraries
-  addTask('analyze_lib', createAnalyzerTask(['lib/vector_math.dart']));
+  addTask('analyze_lib', createAnalyzerTask(_getLibs()));
+
+  //
+  // Analyzer for unit tests
+  //
+  addTask('analyze_test', createAnalyzerTask(['test/console_test_harness.dart']));
 
   //
   // Unit test
