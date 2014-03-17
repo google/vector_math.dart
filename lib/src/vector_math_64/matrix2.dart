@@ -61,49 +61,29 @@ class Matrix2 {
   }
 
   /// New matrix with specified values.
-  Matrix2(double arg0, double arg1, double arg2, double arg3)
-      : _storage22 = new Float64List(4) {
-    setValues(arg0, arg1, arg2, arg3);
-  }
+  factory Matrix2(double arg0, double arg1, double arg2, double arg3) =>
+      new Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
 
   /// Zero matrix.
   Matrix2.zero()
       : _storage22 = new Float64List(4);
 
   /// Identity matrix.
-  Matrix2.identity()
-      : _storage22 = new Float64List(4) {
-    setIdentity();
-  }
+  factory Matrix2.identity() => new Matrix2.zero()..setIdentity();
 
   /// Copies values from [other].
-  Matrix2.copy(Matrix2 other)
-      : _storage22 = new Float64List(4) {
-    setFrom(other);
-  }
+  factory Matrix2.copy(Matrix2 other) => new Matrix2.zero()..setFrom(other);
 
   /// Matrix with values from column arguments.
-  Matrix2.columns(Vector2 arg0, Vector2 arg1)
-      : _storage22 = new Float64List(4) {
-    setColumns(arg0, arg1);
-  }
+  factory Matrix2.columns(Vector2 arg0, Vector2 arg1) => new Matrix2.zero(
+      )..setColumns(arg0, arg1);
 
   /// Outer product of [u] and [v].
-  Matrix2.outer(Vector2 u, Vector2 v)
-      : _storage22 = new Float64List(4) {
-    final uStorage = u._storage2;
-    final vStorage = v._storage2;
-    _storage22[0] = uStorage[0] * vStorage[0];
-    _storage22[1] = uStorage[0] * vStorage[1];
-    _storage22[2] = uStorage[1] * vStorage[0];
-    _storage22[3] = uStorage[1] * vStorage[1];
-  }
+  factory Matrix2.outer(Vector2 u, Vector2 v) => new Matrix2.zero()..setOuter(u, v);
 
   /// Rotation of [radians_].
-  Matrix2.rotation(double radians)
-      : _storage22 = new Float64List(4) {
-    setRotation(radians);
-  }
+  factory Matrix2.rotation(double radians) => new Matrix2.zero()..setRotation(
+      radians);
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3) {
@@ -130,6 +110,15 @@ class Matrix2 {
     _storage22[2] = argStorage[2];
     _storage22[1] = argStorage[1];
     _storage22[0] = argStorage[0];
+  }
+
+  void setOuter(Vector2 u, Vector2 v) {
+    final uStorage = u._storage2;
+    final vStorage = v._storage2;
+    _storage22[0] = uStorage[0] * vStorage[0];
+    _storage22[1] = uStorage[0] * vStorage[1];
+    _storage22[2] = uStorage[1] * vStorage[0];
+    _storage22[3] = uStorage[1] * vStorage[1];
   }
 
   /// Sets the diagonal to [arg].

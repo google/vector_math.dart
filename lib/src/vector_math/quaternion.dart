@@ -20,6 +20,7 @@
 
 part of vector_math;
 
+//TODO (fox32): Update documentation comments!
 //TODO (fox32): Add a non operator interface? (add, sub, mul) but share one implementation!
 
 class Quaternion {
@@ -44,18 +45,94 @@ class Quaternion {
     _storage41[3] = w;
   }
 
+  Quaternion._()
+      : _storage41 = new Float32List(4);
+
   /// Constructs a quaternion using the raw values [x], [y], [z], and [w]
-  Quaternion(double x, double y, double z, double w)
-      : _storage41 = new Float32List(4) {
+  factory Quaternion(double x, double y, double z, double w) =>
+      new Quaternion._()..setValues(x, y, z, w);
+
+  /// From a rotation matrix [rotationMatrix].
+  factory Quaternion.fromRotation(Matrix3 rotationMatrix) => new Quaternion._(
+      )..setFromRotation(rotationMatrix);
+
+  /// Rotation of [angle] around [axis].
+  factory Quaternion.axisAngle(Vector3 axis, double angle) => new Quaternion._(
+      )..setAxisAngle(axis, angle);
+
+  /// Copies [original].
+  factory Quaternion.copy(Quaternion original) => new Quaternion._()..setFrom(
+      original);
+
+  /// Random rotation.
+  factory Quaternion.random(Math.Random rn) => new Quaternion._()..setRandom(rn
+      );
+
+  /// Constructs the identity quaternion
+  factory Quaternion.identity() => new Quaternion._().._storage41[3] = 1.0;
+
+  /// Time derivative of [q] with angular velocity [omega].
+  factory Quaternion.dq(Quaternion q, Vector3 omega) => new Quaternion._(
+      )..setDQ(q, omega);
+
+  factory Quaternion.euler(double yaw, double pitch, double roll) =>
+      new Quaternion._()..setEuler(yaw, pitch, roll);
+
+  /// Constructs Quaternion with given Float32List as [storage].
+  Quaternion.fromFloat32List(this._storage41);
+
+  /// Constructs Quaternion with a [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
+  Quaternion.fromBuffer(ByteBuffer buffer, int offset)
+      : _storage41 = new Float32List.view(buffer, offset, 4);
+
+  /// Returns a new copy of this
+  Quaternion clone() => new Quaternion.copy(this);
+
+  /// DEPRRECATED: Replaced by [setFrom]
+  @deprecated
+  void copyFrom(Quaternion source) => setFrom(source);
+
+  /// Copy [source] into [this]
+  void setFrom(Quaternion source) {
+    final sourceStorage = source._storage41;
+    _storage41[0] = sourceStorage[0];
+    _storage41[1] = sourceStorage[1];
+    _storage41[2] = sourceStorage[2];
+    _storage41[3] = sourceStorage[3];
+  }
+
+  /// Copy [this] into [target].
+  void copyTo(Quaternion target) {
+    final targetStorage = target._storage41;
+    targetStorage[0] = _storage41[0];
+    targetStorage[1] = _storage41[1];
+    targetStorage[2] = _storage41[2];
+    targetStorage[3] = _storage41[3];
+  }
+
+  void setValues(double x, double y, double z, double w) {
     _storage41[0] = x;
     _storage41[1] = y;
     _storage41[2] = z;
     _storage41[3] = w;
   }
 
-  /// From a rotation matrix [rotationMatrix].
-  Quaternion.fromRotation(Matrix3 rotationMatrix)
-      : _storage41 = new Float32List(4) {
+  /// Set quaternion with rotation of [radians] around [axis].
+  void setAxisAngle(Vector3 axis, double radians) {
+    final len = axis.length;
+    if (len == 0.0) {
+      return;
+    }
+    final halfSin = Math.sin(radians * 0.5) / len;
+    final axisStorage = axis._storage3;
+    _storage41[0] = axisStorage[0] * halfSin;
+    _storage41[1] = axisStorage[1] * halfSin;
+    _storage41[2] = axisStorage[2] * halfSin;
+    _storage41[3] = Math.cos(radians * 0.5);
+  }
+
+  void setFromRotation(Matrix3 rotationMatrix) {
     final rotationMatrixStorage = rotationMatrix._storage33;
     final trace = rotationMatrix.trace();
     if (trace > 0.0) {
@@ -85,25 +162,7 @@ class Quaternion {
     }
   }
 
-  /// Rotation of [angle] around [axis].
-  Quaternion.axisAngle(Vector3 axis, double angle)
-      : _storage41 = new Float32List(4) {
-    setAxisAngle(axis, angle);
-  }
-
-  /// Copies [original].
-  Quaternion.copy(Quaternion original)
-      : _storage41 = new Float32List(4) {
-    final originalStorage = original._storage41;
-    _storage41[0] = originalStorage[0];
-    _storage41[1] = originalStorage[1];
-    _storage41[2] = originalStorage[2];
-    _storage41[3] = originalStorage[3];
-  }
-
-  /// Random rotation.
-  Quaternion.random(Math.Random rn)
-      : _storage41 = new Float32List(4) {
+  void setRandom(Math.Random rn) {
     // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
     // pg. 124-132.
     final x0 = rn.nextDouble();
@@ -121,15 +180,7 @@ class Quaternion {
     _storage41[3] = c2 * r2;
   }
 
-  /// Constructs the identity quaternion
-  Quaternion.identity()
-      : _storage41 = new Float32List(4) {
-    _storage41[3] = 1.0;
-  }
-
-  /// Time derivative of [q] with angular velocity [omega].
-  Quaternion.dq(Quaternion q, Vector3 omega)
-      : _storage41 = new Float32List(4) {
+  void setDQ(Quaternion q, Vector3 omega) {
     final qStorage = q._storage41;
     final omegaStorage = omega._storage3;
     final qx = qStorage[0];
@@ -147,49 +198,6 @@ class Quaternion {
     _storage41[1] = _y * 0.5;
     _storage41[2] = _z * 0.5;
     _storage41[3] = _w * 0.5;
-  }
-
-  /// Constructs Quaternion with given Float32List as [storage].
-  Quaternion.fromFloat32List(this._storage41);
-
-  /// Constructs Quaternion with a [storage] that views given [buffer] starting at [offset].
-  /// [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
-  Quaternion.fromBuffer(ByteBuffer buffer, int offset)
-      : _storage41 = new Float32List.view(buffer, offset, 4);
-
-  /// Returns a new copy of this
-  Quaternion clone() => new Quaternion.copy(this);
-
-  /// Copy [source] into [this]
-  void copyFrom(Quaternion source) {
-    final sourceStorage = source._storage41;
-    _storage41[0] = sourceStorage[0];
-    _storage41[1] = sourceStorage[1];
-    _storage41[2] = sourceStorage[2];
-    _storage41[3] = sourceStorage[3];
-  }
-
-  /// Copy [this] into [target].
-  void copyTo(Quaternion target) {
-    final targetStorage = target._storage41;
-    targetStorage[0] = _storage41[0];
-    targetStorage[1] = _storage41[1];
-    targetStorage[2] = _storage41[2];
-    targetStorage[3] = _storage41[3];
-  }
-
-  /// Set quaternion with rotation of [radians] around [axis].
-  void setAxisAngle(Vector3 axis, double radians) {
-    final len = axis.length;
-    if (len == 0.0) {
-      return;
-    }
-    final halfSin = Math.sin(radians * 0.5) / len;
-    final axisStorage = axis._storage3;
-    _storage41[0] = axisStorage[0] * halfSin;
-    _storage41[1] = axisStorage[1] * halfSin;
-    _storage41[2] = axisStorage[2] * halfSin;
-    _storage41[3] = Math.cos(radians * 0.5);
   }
 
   /// Set quaternion with rotation of [yaw], [pitch] and [roll].

@@ -172,112 +172,70 @@ class Matrix4 {
   }
 
   /// Constructs a new mat4.
-  Matrix4(double arg0, double arg1, double arg2, double arg3, double
+  factory Matrix4(double arg0, double arg1, double arg2, double arg3, double
       arg4, double arg5, double arg6, double arg7, double arg8, double arg9, double
-      arg10, double arg11, double arg12, double arg13, double arg14, double arg15)
-      : _storage44 = new Float32List(16) {
-    setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,
-        arg11, arg12, arg13, arg14, arg15);
-  }
+      arg10, double arg11, double arg12, double arg13, double arg14, double arg15) =>
+      new Matrix4.zero()..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7,
+      arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
 
   /// Zero matrix.
   Matrix4.zero()
       : _storage44 = new Float32List(16);
 
   /// Identity matrix.
-  Matrix4.identity()
-      : _storage44 = new Float32List(16) {
-    setIdentity();
-  }
+  factory Matrix4.identity() => new Matrix4.zero()..setIdentity();
 
   /// Copies values from [other].
-  Matrix4.copy(Matrix4 other)
-      : _storage44 = new Float32List(16) {
-    setFrom(other);
-  }
+  factory Matrix4.copy(Matrix4 other) => new Matrix4.zero()..setFrom(other);
 
   /// Constructs a new mat4 from columns.
-  Matrix4.columns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3)
-      : _storage44 = new Float32List(16) {
-    setColumns(arg0, arg1, arg2, arg3);
-  }
+  factory Matrix4.columns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4
+      arg3) => new Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
 
   /// Outer product of [u] and [v].
-  Matrix4.outer(Vector4 u, Vector4 v)
-      : _storage44 = new Float32List(16) {
-    final uStorage = u._storage4;
-    final vStorage = v._storage4;
-    _storage44[0] = uStorage[0] * vStorage[0];
-    _storage44[1] = uStorage[0] * vStorage[1];
-    _storage44[2] = uStorage[0] * vStorage[2];
-    _storage44[3] = uStorage[0] * vStorage[3];
-    _storage44[4] = uStorage[1] * vStorage[0];
-    _storage44[5] = uStorage[1] * vStorage[1];
-    _storage44[6] = uStorage[1] * vStorage[2];
-    _storage44[7] = uStorage[1] * vStorage[3];
-    _storage44[8] = uStorage[2] * vStorage[0];
-    _storage44[9] = uStorage[2] * vStorage[1];
-    _storage44[10] = uStorage[2] * vStorage[2];
-    _storage44[11] = uStorage[2] * vStorage[3];
-    _storage44[12] = uStorage[3] * vStorage[0];
-    _storage44[13] = uStorage[3] * vStorage[1];
-    _storage44[14] = uStorage[3] * vStorage[2];
-    _storage44[15] = uStorage[3] * vStorage[3];
-  }
-
+  factory Matrix4.outer(Vector4 u, Vector4 v) => new Matrix4.zero()..setOuter(u,
+      v);
 
   /// Rotation of [radians_] around X.
-  Matrix4.rotationX(double radians)
-      : _storage44 = new Float32List(16) {
-    _storage44[15] = 1.0;
-    setRotationX(radians);
-  }
+  factory Matrix4.rotationX(double radians) => new Matrix4.zero()
+      .._storage44[15] = 1.0
+      ..setRotationX(radians);
 
   /// Rotation of [radians_] around Y.
-  Matrix4.rotationY(double radians)
-      : _storage44 = new Float32List(16) {
-    _storage44[15] = 1.0;
-    setRotationY(radians);
-  }
+  factory Matrix4.rotationY(double radians) => new Matrix4.zero()
+      .._storage44[15] = 1.0
+      ..setRotationY(radians);
 
   /// Rotation of [radians_] around Z.
-  Matrix4.rotationZ(double radians)
-      : _storage44 = new Float32List(16) {
-    _storage44[15] = 1.0;
-    setRotationZ(radians);
-  }
+  factory Matrix4.rotationZ(double radians) => new Matrix4.zero()
+      .._storage44[15] = 1.0
+      ..setRotationZ(radians);
 
   /// Translation matrix.
-  Matrix4.translation(Vector3 translation)
-      : _storage44 = new Float32List(16) {
-    setIdentity();
-    setTranslation3(translation);
-  }
+  factory Matrix4.translation(Vector3 translation) => new Matrix4.zero()
+      ..setIdentity()
+      ..setTranslation3(translation);
 
   /// Translation matrix.
-  Matrix4.translationValues(double x, double y, double z)
-      : _storage44 = new Float32List(16) {
-    setIdentity();
-    setTranslation(x, y, z);
-  }
+  factory Matrix4.translationValues(double x, double y, double z) =>
+      new Matrix4.zero()
+      ..setIdentity()
+      ..setTranslation(x, y, z);
 
   /// Scale matrix.
-  Matrix4.diagonal3(Vector3 scale)
-      : _storage44 = new Float32List(16) {
-    _storage44[15] = 1.0;
-    _storage44[10] = scale._storage3[2];
-    _storage44[5] = scale._storage3[1];
-    _storage44[0] = scale._storage3[0];
-  }
+  factory Matrix4.diagonal3(Vector3 scale) => new Matrix4.zero()
+      .._storage44[15] = 1.0
+      .._storage44[10] = scale._storage3[2]
+      .._storage44[5] = scale._storage3[1]
+      .._storage44[0] = scale._storage3[0];
 
   /// Scale matrix.
-  Matrix4.diagonal3Values(double x, double y, double z)
-      : _storage44 = new Float32List(16) {
-    _storage44[15] = 1.0;
-    _storage44[10] = z;
-    _storage44[5] = y;
-    _storage44[0] = x;
-  }
+  factory Matrix4.diagonal3Values(double x, double y, double z) =>
+      new Matrix4.zero()
+      .._storage44[15] = 1.0
+      .._storage44[10] = z
+      .._storage44[5] = y
+      .._storage44[0] = x;
 
   /// Constructs Matrix4 with given Float32List as [storage].
   Matrix4.fromFloat32List(this._storage44);
@@ -416,6 +374,27 @@ class Matrix4 {
     _storage44[5] = argStorage[1];
     _storage44[10] = argStorage[2];
     _storage44[15] = argStorage[3];
+  }
+
+  void setOuter(Vector4 u, Vector4 v) {
+    final uStorage = u._storage4;
+    final vStorage = v._storage4;
+    _storage44[0] = uStorage[0] * vStorage[0];
+    _storage44[1] = uStorage[0] * vStorage[1];
+    _storage44[2] = uStorage[0] * vStorage[2];
+    _storage44[3] = uStorage[0] * vStorage[3];
+    _storage44[4] = uStorage[1] * vStorage[0];
+    _storage44[5] = uStorage[1] * vStorage[1];
+    _storage44[6] = uStorage[1] * vStorage[2];
+    _storage44[7] = uStorage[1] * vStorage[3];
+    _storage44[8] = uStorage[2] * vStorage[0];
+    _storage44[9] = uStorage[2] * vStorage[1];
+    _storage44[10] = uStorage[2] * vStorage[2];
+    _storage44[11] = uStorage[2] * vStorage[3];
+    _storage44[12] = uStorage[3] * vStorage[0];
+    _storage44[13] = uStorage[3] * vStorage[1];
+    _storage44[14] = uStorage[3] * vStorage[2];
+    _storage44[15] = uStorage[3] * vStorage[3];
   }
 
   /// Returns a printable string

@@ -53,33 +53,22 @@ class Vector3 {
   Float32List get storage => _storage3;
 
   /// Construct a new vector with the specified values.
-  Vector3(double x, double y, double z)
-      : _storage3 = new Float32List(3) {
-    setValues(x, y, z);
-  }
+  factory Vector3(double x, double y, double z) => new Vector3.zero(
+      )..setValues(x, y, z);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector3.array(List<double> array, [int offset = 0])
-      : _storage3 = new Float32List(3) {
-    int i = offset;
-    _storage3[2] = array[i + 2];
-    _storage3[1] = array[i + 1];
-    _storage3[0] = array[i + 0];
-  }
+  factory Vector3.array(List<double> array, [int offset = 0]) =>
+      new Vector3.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector3.zero()
       : _storage3 = new Float32List(3);
 
   /// Splat [value] into all lanes of the vector.
-  Vector3.all(double value)
-      : this(value, value, value);
+  factory Vector3.all(double value) => new Vector3.zero()..splat(value);
 
   /// Copy of [other].
-  Vector3.copy(Vector3 other)
-      : _storage3 = new Float32List(3) {
-    setFrom(other);
-  }
+  factory Vector3.copy(Vector3 other) => new Vector3.zero()..setFrom(other);
 
   /// Constructs Vector3 with given Float32List as [storage].
   Vector3.fromFloat32List(this._storage3);

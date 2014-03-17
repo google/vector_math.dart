@@ -50,32 +50,21 @@ class Vector2 {
   Float32List get storage => _storage2;
 
   /// Construct a new vector with the specified values.
-  Vector2(double x, double y)
-      : _storage2 = new Float32List(2) {
-    setValues(x, y);
-  }
+  factory Vector2(double x, double y) => new Vector2.zero()..setValues(x, y);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector2.array(List<double> array, [int offset = 0])
-      : _storage2 = new Float32List(2) {
-    int i = offset;
-    _storage2[1] = array[i + 1];
-    _storage2[0] = array[i + 0];
-  }
+  factory Vector2.array(List<double> array, [int offset = 0]) =>
+      new Vector2.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector2.zero()
       : _storage2 = new Float32List(2);
 
   /// Splat [value] into all lanes of the vector.
-  Vector2.all(double value)
-      : this(value, value);
+  factory Vector2.all(double value) => new Vector2.zero()..splat(value);
 
   /// Copy of [other].
-  Vector2.copy(Vector2 other)
-      : _storage2 = new Float32List(2) {
-    setFrom(other);
-  }
+  factory Vector2.copy(Vector2 other) => new Vector2.zero()..setFrom(other);
 
   /// Constructs Vector2 with given Float32List as [storage].
   Vector2.fromFloat32List(this._storage2);

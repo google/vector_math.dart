@@ -55,42 +55,26 @@ class Vector4 {
   /// The components of the vector.
   Float64List get storage => _storage4;
 
-
   /// Construct a new vector with the specified values.
-  Vector4(double x, double y, double z, double w)
-      : _storage4 = new Float64List(4) {
-    setValues(x, y, z, w);
-  }
+  factory Vector4(double x, double y, double z, double w) => new Vector4.zero(
+      )..setValues(x, y, z, w);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector4.array(List<double> array, [int offset = 0])
-      : _storage4 = new Float64List(4) {
-    int i = offset;
-    _storage4[3] = array[i + 3];
-    _storage4[2] = array[i + 2];
-    _storage4[1] = array[i + 1];
-    _storage4[0] = array[i + 0];
-  }
+  factory Vector4.array(List<double> array, [int offset = 0]) =>
+      new Vector4.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector4.zero()
       : _storage4 = new Float64List(4);
 
   /// Constructs the identity vector.
-  Vector4.identity()
-      : _storage4 = new Float64List(4) {
-    _storage4[3] = 1.0;
-  }
+  factory Vector4.identity() => new Vector4.zero()..setIdentity();
 
   /// Splat [value] into all lanes of the vector.
-  Vector4.all(double value)
-      : this(value, value, value, value);
+  factory Vector4.all(double value) => new Vector4.zero()..splat(value);
 
   /// Copy of [other].
-  Vector4.copy(Vector4 other)
-      : _storage4 = new Float64List(4) {
-    setFrom(other);
-  }
+  factory Vector4.copy(Vector4 other) => new Vector4.zero()..setFrom(other);
 
   /// Constructs Vector4 with given Float64List as [storage].
   Vector4.fromFloat64List(this._storage4);
@@ -99,7 +83,6 @@ class Vector4 {
   /// [offset]. [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
   Vector4.fromBuffer(ByteBuffer buffer, int offset)
       : _storage4 = new Float64List.view(buffer, offset, 4);
-
 
   /// Set the values of the vector.
   void setValues(double x, double y, double z, double w) {
@@ -115,6 +98,14 @@ class Vector4 {
     _storage4[1] = 0.0;
     _storage4[2] = 0.0;
     _storage4[3] = 0.0;
+  }
+
+  /// Set to the identity vector.
+  void setIdentity() {
+    _storage4[0] = 0.0;
+    _storage4[1] = 0.0;
+    _storage4[2] = 0.0;
+    _storage4[3] = 1.0;
   }
 
   /// Set the values by copying them from [other].

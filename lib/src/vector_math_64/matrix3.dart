@@ -109,67 +109,39 @@ class Matrix3 {
   }
 
   /// New matrix with specified values.
-  Matrix3(double arg0, double arg1, double arg2, double arg3, double
-      arg4, double arg5, double arg6, double arg7, double arg8)
-      : _storage33 = new Float64List(9) {
-    setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-  }
+  factory Matrix3(double arg0, double arg1, double arg2, double arg3, double
+      arg4, double arg5, double arg6, double arg7, double arg8) => new Matrix3.zero(
+      )..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
   /// Constructs a new [Matrix3] filled with zeros.
   Matrix3.zero()
       : _storage33 = new Float64List(9);
 
   /// Identity matrix.
-  Matrix3.identity()
-      : _storage33 = new Float64List(9) {
-    setIdentity();
-  }
+  factory Matrix3.identity() => new Matrix3.zero()..setIdentity();
 
   /// Copes values from [other].
-  Matrix3.copy(Matrix3 other)
-      : _storage33 = new Float64List(9) {
-    setFrom(other);
-  }
+  factory Matrix3.copy(Matrix3 other) => new Matrix3.zero()..setFrom(other);
 
   /// Constructs a new mat3 from columns.
-  Matrix3.columns(Vector3 arg0, Vector3 arg1, Vector3 arg2)
-      : _storage33 = new Float64List(9) {
-    setColumns(arg0, arg1, arg2);
-  }
+  factory Matrix3.columns(Vector3 arg0, Vector3 arg1, Vector3 arg2) =>
+      new Matrix3.zero()..setColumns(arg0, arg1, arg2);
 
   /// Outer product of [u] and [v].
-  Matrix3.outer(Vector3 u, Vector3 v)
-      : _storage33 = new Float64List(9) {
-    final uStorage = u._storage3;
-    final vStorage = v._storage3;
-    _storage33[0] = uStorage[0] * vStorage[0];
-    _storage33[1] = uStorage[0] * vStorage[1];
-    _storage33[2] = uStorage[0] * vStorage[2];
-    _storage33[3] = uStorage[1] * vStorage[0];
-    _storage33[4] = uStorage[1] * vStorage[1];
-    _storage33[5] = uStorage[1] * vStorage[2];
-    _storage33[6] = uStorage[2] * vStorage[0];
-    _storage33[7] = uStorage[2] * vStorage[1];
-    _storage33[8] = uStorage[2] * vStorage[2];
-  }
+  factory Matrix3.outer(Vector3 u, Vector3 v) => new Matrix3.zero()..setOuter(u,
+      v);
 
-  //// Rotation of [radians_] around X axis.
-  Matrix3.rotationX(double radians)
-      : _storage33 = new Float64List(9) {
-    setRotationX(radians);
-  }
+  /// Rotation of [radians_] around X axis.
+  factory Matrix3.rotationX(double radians) => new Matrix3.zero()..setRotationX(
+      radians);
 
-  //// Rotation of [radians_] around Y axis.
-  Matrix3.rotationY(double radians)
-      : _storage33 = new Float64List(9) {
-    setRotationY(radians);
-  }
+  /// Rotation of [radians_] around Y axis.
+  factory Matrix3.rotationY(double radians) => new Matrix3.zero()..setRotationY(
+      radians);
 
-  //// Rotation of [radians_] around Z axis.
-  Matrix3.rotationZ(double radians)
-      : _storage33 = new Float64List(9) {
-    setRotationZ(radians);
-  }
+  /// Rotation of [radians_] around Z axis.
+  factory Matrix3.rotationZ(double radians) => new Matrix3.zero()..setRotationZ(
+      radians);
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3, double
@@ -213,6 +185,20 @@ class Matrix3 {
     _storage33[2] = argStorage[2];
     _storage33[1] = argStorage[1];
     _storage33[0] = argStorage[0];
+  }
+
+  void setOuter(Vector3 u, Vector3 v) {
+    final uStorage = u._storage3;
+    final vStorage = v._storage3;
+    _storage33[0] = uStorage[0] * vStorage[0];
+    _storage33[1] = uStorage[0] * vStorage[1];
+    _storage33[2] = uStorage[0] * vStorage[2];
+    _storage33[3] = uStorage[1] * vStorage[0];
+    _storage33[4] = uStorage[1] * vStorage[1];
+    _storage33[5] = uStorage[1] * vStorage[2];
+    _storage33[6] = uStorage[2] * vStorage[0];
+    _storage33[7] = uStorage[2] * vStorage[1];
+    _storage33[8] = uStorage[2] * vStorage[2];
   }
 
   /// Set the diagonal of the matrix.

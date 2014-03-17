@@ -71,7 +71,7 @@ class Aabb3 {
         _max3 = new Vector3.fromBuffer(buffer, offset +
           Float32List.BYTES_PER_ELEMENT * 3);
 
-  /// DEPREACTED: Removed copy min and max yourself
+  /// DEPREACTED: Removed, copy min and max yourself
   @deprecated
   void copyMinMax(Vector3 min_, Vector3 max_) {
     max_.setFrom(_max3);

@@ -71,7 +71,7 @@ class Aabb2 {
         _max2 = new Vector2.fromBuffer(buffer, offset +
           Float64List.BYTES_PER_ELEMENT * 2);
 
-  /// DEPREACTED: Removed copy min and max yourself
+  /// DEPREACTED: Removed, copy min and max yourself
   @deprecated
   void copyMinMax(Vector2 min, Vector2 max) {
     max.setFrom(_max2);
