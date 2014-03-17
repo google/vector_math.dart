@@ -66,5 +66,13 @@ class Triangle {
     other._point2.setFrom(_point2);
   }
 
-  //TODO (fox32): Add getter/method for the normal of the tirangle.
+  /// Copy the normal of [this] into [normal].
+  void copyNormalInto(Vector3 normal) {
+    final v0 = point0.clone()..sub(point1);
+    normal
+        ..setFrom(point2)
+        ..sub(point1)
+        ..crossInto(v0, normal)
+        ..normalize();
+  }
 }
