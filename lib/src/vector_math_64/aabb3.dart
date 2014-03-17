@@ -24,82 +24,82 @@ part of vector_math_64;
 /// Defines a 3-dimensional axis-aligned bounding box between a [min] and a
 /// [max] position.
 class Aabb3 {
-  final Vector3 _min;
-  final Vector3 _max;
+  final Vector3 _min3;
+  final Vector3 _max3;
 
   /// The minimum point defining the AABB.
-  Vector3 get min => _min;
+  Vector3 get min => _min3;
   /// The maximum point defining the AABB.
-  Vector3 get max => _max;
+  Vector3 get max => _max3;
 
   /// The center of the AABB.
-  Vector3 get center => _min.clone()
-      ..add(_max)
+  Vector3 get center => _min3.clone()
+      ..add(_max3)
       ..scale(0.5);
 
   /// Create a new AABB with [min] and [max] set to the origin.
   Aabb3()
-      : _min = new Vector3.zero(),
-        _max = new Vector3.zero();
+      : _min3 = new Vector3.zero(),
+        _max3 = new Vector3.zero();
 
   /// Create a new AABB as a copy of [other].
   Aabb3.copy(Aabb3 other)
-      : _min = new Vector3.copy(other._min),
-        _max = new Vector3.copy(other._max);
+      : _min3 = new Vector3.copy(other._min3),
+        _max3 = new Vector3.copy(other._max3);
 
   /// DEPRECATED: Use [minMax] instead
   @deprecated
   Aabb3.minmax(Vector3 min, Vector3 max)
-      : _min = new Vector3.copy(min),
-        _max = new Vector3.copy(max);
+      : _min3 = new Vector3.copy(min),
+        _max3 = new Vector3.copy(max);
 
   /// Create a new AABB with a [min] and [max].
   Aabb3.minMax(Vector3 min, Vector3 max)
-      : _min = new Vector3.copy(min),
-        _max = new Vector3.copy(max);
+      : _min3 = new Vector3.copy(min),
+        _max3 = new Vector3.copy(max);
 
   /// Create a new AABB with a [center] and [max_].
   Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
-      : _min = new Vector3.copy(center)..sub(halfExtents),
-        _max = new Vector3.copy(center)..add(halfExtents);
+      : _min3 = new Vector3.copy(center)..sub(halfExtents),
+        _max3 = new Vector3.copy(center)..add(halfExtents);
 
   /// Constructs [Aabb3] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float64List.BYTES_PER_ELEMENT].
   Aabb3.fromBuffer(ByteBuffer buffer, int offset)
-      : _min = new Vector3.fromBuffer(buffer, offset),
-        _max = new Vector3.fromBuffer(buffer, offset +
+      : _min3 = new Vector3.fromBuffer(buffer, offset),
+        _max3 = new Vector3.fromBuffer(buffer, offset +
           Float64List.BYTES_PER_ELEMENT * 3);
 
   /// DEPREACTED: Removed copy min and max yourself
   @deprecated
   void copyMinMax(Vector3 min_, Vector3 max_) {
-    max_.setFrom(_max);
-    min_.setFrom(_min);
+    max_.setFrom(_max3);
+    min_.setFrom(_min3);
   }
 
   /// Copy the [center] and the [halfExtends] of [this].
   void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     center
-        ..setFrom(_min)
-        ..add(_max)
+        ..setFrom(_min3)
+        ..add(_max3)
         ..scale(0.5);
     halfExtents
-        ..setFrom(_max)
-        ..sub(_min)
+        ..setFrom(_max3)
+        ..sub(_min3)
         ..scale(0.5);
   }
 
   /// Copy the [min] and [max] from [other] into [this].
   void copyFrom(Aabb3 other) {
-    _min.setFrom(other._min);
-    _max.setFrom(other._max);
+    _min3.setFrom(other._min3);
+    _max3.setFrom(other._max3);
   }
 
   /// Copy the [min] and [max] from [this] into [other].
   void copyInto(Aabb3 other) {
-    other._min.setFrom(_min);
-    other._max.setFrom(_max);
+    other._min3.setFrom(_min3);
+    other._max3.setFrom(_max3);
   }
 
   /// Transform [this] by the transform [t].
@@ -110,10 +110,10 @@ class Aabb3 {
     t
         ..transform3(center)
         ..absoluteRotate(halfExtents);
-    _min
+    _min3
         ..setFrom(center)
         ..sub(halfExtents);
-    _max
+    _max3
         ..setFrom(center)
         ..add(halfExtents);
   }
@@ -124,10 +124,10 @@ class Aabb3 {
     final halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t.absoluteRotate(halfExtents);
-    _min
+    _min3
         ..setFrom(center)
         ..sub(halfExtents);
-    _max
+    _max3
         ..setFrom(center)
         ..add(halfExtents);
   }
@@ -146,35 +146,35 @@ class Aabb3 {
 
   //TODO (fox32): Add a documentation comment
   void getPN(Vector3 planeNormal, Vector3 outP, Vector3 outN) {
-    outP.x = planeNormal.x < 0.0 ? _min.x : _max.x;
-    outP.y = planeNormal.y < 0.0 ? _min.y : _max.y;
-    outP.z = planeNormal.z < 0.0 ? _min.z : _max.z;
+    outP.x = planeNormal.x < 0.0 ? _min3.x : _max3.x;
+    outP.y = planeNormal.y < 0.0 ? _min3.y : _max3.y;
+    outP.z = planeNormal.z < 0.0 ? _min3.z : _max3.z;
 
-    outN.x = planeNormal.x < 0.0 ? _max.x : _min.x;
-    outN.y = planeNormal.y < 0.0 ? _max.y : _min.y;
-    outN.z = planeNormal.z < 0.0 ? _max.z : _min.z;
+    outN.x = planeNormal.x < 0.0 ? _max3.x : _min3.x;
+    outN.y = planeNormal.y < 0.0 ? _max3.y : _min3.y;
+    outN.z = planeNormal.z < 0.0 ? _max3.z : _min3.z;
   }
 
   /// Set the min and max of [this] so that [this] is a hull of [this] and
   /// [other].
   void hull(Aabb3 other) {
-    Vector3.min(_min, other._min, _min);
-    Vector3.max(_max, other._max, _max);
+    Vector3.min(_min3, other._min3, _min3);
+    Vector3.max(_max3, other._max3, _max3);
   }
 
   /// Set the min and max of [this] so that [this] contains [point].
   void hullPoint(Vector3 point) {
-    Vector3.min(_min, point, _min);
-    Vector3.max(_max, point, _max);
+    Vector3.min(_min3, point, _min3);
+    Vector3.max(_max3, point, _max3);
   }
 
   /// Return if [this] contains [other].
   bool containsAabb3(Aabb3 other) {
-    final otherMax = other._max;
-    final otherMin = other._min;
+    final otherMax = other._max3;
+    final otherMin = other._min3;
 
-    return _min.x < otherMin.x && _min.y < otherMin.y && _min.z < otherMin.z &&
-        _max.x > otherMax.x && _max.y > otherMax.y && _max.z > otherMax.z;
+    return _min3.x < otherMin.x && _min3.y < otherMin.y && _min3.z < otherMin.z
+        && _max3.x > otherMax.x && _max3.y > otherMax.y && _max3.z > otherMax.z;
   }
 
   /// Return if [this] contains [other].
@@ -191,8 +191,8 @@ class Aabb3 {
     final otherY = other[1];
     final otherZ = other[2];
 
-    return _min.x < otherX && _min.y < otherY && _min.z < otherZ && _max.x >
-        otherX && _max.y > otherY && _max.z > otherZ;
+    return _min3.x < otherX && _min3.y < otherY && _min3.z < otherZ && _max3.x >
+        otherX && _max3.y > otherY && _max3.z > otherZ;
   }
 
   /// Return if [this] contains [other].
@@ -201,11 +201,12 @@ class Aabb3 {
 
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
-    final otherMax = other._max;
-    final otherMin = other._min;
+    final otherMax = other._max3;
+    final otherMin = other._min3;
 
-    return _min.x <= otherMax.x && _min.y <= otherMax.y && _min.z <= otherMax.z
-        && _max.x >= otherMin.x && _max.y >= otherMin.y && _max.z >= otherMin.z;
+    return _min3.x <= otherMax.x && _min3.y <= otherMax.y && _min3.z <=
+        otherMax.z && _max3.x >= otherMin.x && _max3.y >= otherMin.y && _max3.z >=
+        otherMin.z;
   }
 
   /// Return if [this] intersects with [other].
@@ -216,14 +217,14 @@ class Aabb3 {
     var e = 0.0;
 
     for (var i = 0; i < 3; ++i) {
-      if ((e = center[i] - _min[i]) < 0.0) {
+      if ((e = center[i] - _min3[i]) < 0.0) {
         if (e < -radius) {
           return false;
         }
 
         d = d + e * e;
       } else {
-        if ((e = center[i] - _max[i]) > 0.0) {
+        if ((e = center[i] - _max3[i]) > 0.0) {
           if (e > radius) {
             return false;
           }
@@ -242,7 +243,7 @@ class Aabb3 {
     final otherY = other[1];
     final otherZ = other[2];
 
-    return _min.x <= otherX && _min.y <= otherY && _min.z <= otherZ && _max.x >=
-        otherX && _max.y >= otherY && _max.z >= otherZ;
+    return _min3.x <= otherX && _min3.y <= otherY && _min3.z <= otherZ &&
+        _max3.x >= otherX && _max3.y >= otherY && _max3.z >= otherZ;
   }
 }

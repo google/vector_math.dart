@@ -58,7 +58,7 @@ class Frustum {
 
   /// Set [this] from [matrix].
   void setFromMatrix(Matrix4 matrix) {
-    var me = matrix._storage;
+    var me = matrix._storage44;
     var me0 = me[0],
         me1 = me[1],
         me2 = me[2],
