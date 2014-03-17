@@ -25,7 +25,7 @@ part of vector_math;
 
 /// 2D column vector.
 class Vector2 {
-  final Float32List _storage;
+  final Float32List _storage2;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
@@ -47,71 +47,60 @@ class Vector2 {
   }
 
   /// The components of the vector.
-  Float32List get storage => _storage;
+  Float32List get storage => _storage2;
 
   /// Construct a new vector with the specified values.
-  Vector2(double x, double y)
-      : _storage = new Float32List(2) {
-    setValues(x, y);
-  }
+  factory Vector2(double x, double y) => new Vector2.zero()..setValues(x, y);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector2.array(List<double> array, [int offset = 0])
-      : _storage = new Float32List(2) {
-    int i = offset;
-    _storage[1] = array[i + 1];
-    _storage[0] = array[i + 0];
-  }
+  factory Vector2.array(List<double> array, [int offset = 0]) =>
+      new Vector2.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector2.zero()
-      : _storage = new Float32List(2);
+      : _storage2 = new Float32List(2);
 
   /// Splat [value] into all lanes of the vector.
-  Vector2.all(double value)
-      : this(value, value);
+  factory Vector2.all(double value) => new Vector2.zero()..splat(value);
 
   /// Copy of [other].
-  Vector2.copy(Vector2 other)
-      : _storage = new Float32List(2) {
-    setFrom(other);
-  }
+  factory Vector2.copy(Vector2 other) => new Vector2.zero()..setFrom(other);
 
   /// Constructs Vector2 with given Float32List as [storage].
-  Vector2.fromFloat32List(this._storage);
+  Vector2.fromFloat32List(this._storage2);
 
   /// Constructs Vector2 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
   Vector2.fromBuffer(ByteBuffer buffer, int offset)
-      : _storage = new Float32List.view(buffer, offset, 2);
+      : _storage2 = new Float32List.view(buffer, offset, 2);
 
   /// Set the values of the vector.
   void setValues(double x, double y) {
-    _storage[0] = x;
-    _storage[1] = y;
+    _storage2[0] = x;
+    _storage2[1] = y;
   }
 
   /// Zero the vector.
   void setZero() {
-    _storage[0] = 0.0;
-    _storage[1] = 0.0;
+    _storage2[0] = 0.0;
+    _storage2[1] = 0.0;
   }
 
   /// Set the values by copying them from [other].
   void setFrom(Vector2 other) {
-    final otherStorage = other._storage;
-    _storage[1] = otherStorage[1];
-    _storage[0] = otherStorage[0];
+    final otherStorage = other._storage2;
+    _storage2[1] = otherStorage[1];
+    _storage2[0] = otherStorage[0];
   }
 
   /// Splat [arg] into all lanes of the vector.
   void splat(double arg) {
-    _storage[0] = arg;
-    _storage[1] = arg;
+    _storage2[0] = arg;
+    _storage2[1] = arg;
   }
 
   /// Returns a printable string
-  String toString() => '[${_storage[0]},${_storage[1]}]';
+  String toString() => '[${_storage2[0]},${_storage2[1]}]';
 
   /// Negate.
   Vector2 operator -() => clone()..negate();
@@ -139,11 +128,11 @@ class Vector2 {
   Vector2 operator *(double scale) => clone()..scale(scale);
 
   /// Access the component of the vector at the index [i].
-  double operator [](int i) => _storage[i];
+  double operator [](int i) => _storage2[i];
 
   /// Set the component of the vector at the index [i].
   void operator []=(int i, double v) {
-    _storage[i] = v;
+    _storage2[i] = v;
   }
 
   /// Length.
@@ -152,8 +141,8 @@ class Vector2 {
   /// Length squared.
   double get length2 {
     var sum;
-    sum = (_storage[0] * _storage[0]);
-    sum += (_storage[1] * _storage[1]);
+    sum = (_storage2[0] * _storage2[0]);
+    sum += (_storage2[1] * _storage2[1]);
     return sum;
   }
 
@@ -165,8 +154,8 @@ class Vector2 {
       return;
     }
     l = 1.0 / l;
-    _storage[0] *= l;
-    _storage[1] *= l;
+    _storage2[0] *= l;
+    _storage2[1] *= l;
   }
 
   /// Normalize [this]. Returns length of vector before normalization.
@@ -176,8 +165,8 @@ class Vector2 {
       return 0.0;
     }
     l = 1.0 / l;
-    _storage[0] *= l;
-    _storage[1] *= l;
+    _storage2[0] *= l;
+    _storage2[1] *= l;
     return l;
   }
 
@@ -199,10 +188,10 @@ class Vector2 {
 
   /// Inner product.
   double dot(Vector2 other) {
-    final otherStorage = other._storage;
+    final otherStorage = other._storage2;
     var sum;
-    sum = _storage[0] * otherStorage[0];
-    sum += _storage[1] * otherStorage[1];
+    sum = _storage2[0] * otherStorage[0];
+    sum += _storage2[1] * otherStorage[1];
     return sum;
   }
 
@@ -211,22 +200,22 @@ class Vector2 {
   /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
   /// the inverse of the transformation.
   void postmultiply(Matrix2 arg) {
-    final argStorage = arg._storage;
-    var v0 = _storage[0];
-    var v1 = _storage[1];
-    _storage[0] = v0 * argStorage[0] + v1 * argStorage[1];
-    _storage[1] = v0 * argStorage[2] + v1 * argStorage[3];
+    final argStorage = arg._storage22;
+    var v0 = _storage2[0];
+    var v1 = _storage2[1];
+    _storage2[0] = v0 * argStorage[0] + v1 * argStorage[1];
+    _storage2[1] = v0 * argStorage[2] + v1 * argStorage[3];
   }
 
   /// Cross product.
   double cross(Vector2 other) {
-    final otherStorage = other._storage;
-    return _storage[0] * otherStorage[1] - _storage[1] * otherStorage[0];
+    final otherStorage = other._storage2;
+    return _storage2[0] * otherStorage[1] - _storage2[1] * otherStorage[0];
   }
 
   /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
-    out.setValues(-scale * _storage[1], scale * _storage[0]);
+    out.setValues(-scale * _storage2[1], scale * _storage2[0]);
     return out; //TODO (fox32): Remove return type?
   }
 
@@ -251,72 +240,72 @@ class Vector2 {
   /// True if any component is infinite.
   bool get isInfinite {
     bool is_infinite = false;
-    is_infinite = is_infinite || _storage[0].isInfinite;
-    is_infinite = is_infinite || _storage[1].isInfinite;
+    is_infinite = is_infinite || _storage2[0].isInfinite;
+    is_infinite = is_infinite || _storage2[1].isInfinite;
     return is_infinite;
   }
 
   /// True if any component is NaN.
   bool get isNaN {
     bool is_nan = false;
-    is_nan = is_nan || _storage[0].isNaN;
-    is_nan = is_nan || _storage[1].isNaN;
+    is_nan = is_nan || _storage2[0].isNaN;
+    is_nan = is_nan || _storage2[1].isNaN;
     return is_nan;
   }
 
   /// Add [arg] to [this].
   void add(Vector2 arg) {
-    final argStorage = arg._storage;
-    _storage[0] = _storage[0] + argStorage[0];
-    _storage[1] = _storage[1] + argStorage[1];
+    final argStorage = arg._storage2;
+    _storage2[0] = _storage2[0] + argStorage[0];
+    _storage2[1] = _storage2[1] + argStorage[1];
   }
 
   /// Add [arg] scaled by [factor] to [this].
   void addScaled(Vector2 arg, double factor) {
-    final argStorage = arg._storage;
-    _storage[0] = _storage[0] + argStorage[0] * factor;
-    _storage[1] = _storage[1] + argStorage[1] * factor;
+    final argStorage = arg._storage2;
+    _storage2[0] = _storage2[0] + argStorage[0] * factor;
+    _storage2[1] = _storage2[1] + argStorage[1] * factor;
   }
 
   /// Subtract [arg] from [this].
   void sub(Vector2 arg) {
-    final argStorage = arg._storage;
-    _storage[0] = _storage[0] - argStorage[0];
-    _storage[1] = _storage[1] - argStorage[1];
+    final argStorage = arg._storage2;
+    _storage2[0] = _storage2[0] - argStorage[0];
+    _storage2[1] = _storage2[1] - argStorage[1];
   }
 
   /// Multiply entries in [this] with entries in [arg].
   void multiply(Vector2 arg) {
-    final argStorage = arg._storage;
-    _storage[0] = _storage[0] * argStorage[0];
-    _storage[1] = _storage[1] * argStorage[1];
+    final argStorage = arg._storage2;
+    _storage2[0] = _storage2[0] * argStorage[0];
+    _storage2[1] = _storage2[1] * argStorage[1];
   }
 
   /// Divide entries in [this] with entries in [arg].
   void divide(Vector2 arg) {
-    final argStorage = arg._storage;
-    _storage[0] = _storage[0] / argStorage[0];
-    _storage[1] = _storage[1] / argStorage[1];
+    final argStorage = arg._storage2;
+    _storage2[0] = _storage2[0] / argStorage[0];
+    _storage2[1] = _storage2[1] / argStorage[1];
   }
 
   /// Scale [this].
   void scale(double arg) {
-    _storage[1] = _storage[1] * arg;
-    _storage[0] = _storage[0] * arg;
+    _storage2[1] = _storage2[1] * arg;
+    _storage2[0] = _storage2[0] * arg;
   }
 
   Vector2 scaled(double arg) => clone()..scale(arg);
 
   /// Negate.
   void negate() {
-    _storage[1] = -_storage[1];
-    _storage[0] = -_storage[0];
+    _storage2[1] = -_storage2[1];
+    _storage2[0] = -_storage2[0];
   }
 
   /// Absolute value.
   void absolute() {
-    _storage[1] = _storage[1].abs();
-    _storage[0] = _storage[0].abs();
+    _storage2[1] = _storage2[1].abs();
+    _storage2[0] = _storage2[0].abs();
   }
 
   /// Clone of [this].
@@ -324,93 +313,93 @@ class Vector2 {
 
   /// Copy [this] into [arg]. Returns [arg].
   void copyInto(Vector2 arg) {
-    final argStorage = arg._storage;
-    argStorage[1] = _storage[1];
-    argStorage[0] = _storage[0];
+    final argStorage = arg._storage2;
+    argStorage[1] = _storage2[1];
+    argStorage[0] = _storage2[0];
   }
 
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
-    array[offset + 1] = _storage[1];
-    array[offset + 0] = _storage[0];
+    array[offset + 1] = _storage2[1];
+    array[offset + 0] = _storage2[0];
   }
 
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    _storage[1] = array[offset + 1];
-    _storage[0] = array[offset + 0];
+    _storage2[1] = array[offset + 1];
+    _storage2[0] = array[offset + 0];
   }
 
   set xy(Vector2 arg) {
-    final argStorage = arg._storage;
-    _storage[0] = argStorage[0];
-    _storage[1] = argStorage[1];
+    final argStorage = arg._storage2;
+    _storage2[0] = argStorage[0];
+    _storage2[1] = argStorage[1];
   }
   set yx(Vector2 arg) {
-    final argStorage = arg._storage;
-    _storage[1] = argStorage[0];
-    _storage[0] = argStorage[1];
+    final argStorage = arg._storage2;
+    _storage2[1] = argStorage[0];
+    _storage2[0] = argStorage[1];
   }
   set r(double arg) => x = arg;
   set g(double arg) => y = arg;
   set s(double arg) => x = arg;
   set t(double arg) => y = arg;
-  set x(double arg) => _storage[0] = arg;
-  set y(double arg) => _storage[1] = arg;
+  set x(double arg) => _storage2[0] = arg;
+  set y(double arg) => _storage2[1] = arg;
   set rg(Vector2 arg) => xy = arg;
   set gr(Vector2 arg) => yx = arg;
   set st(Vector2 arg) => xy = arg;
   set ts(Vector2 arg) => yx = arg;
-  Vector2 get xx => new Vector2(_storage[0], _storage[0]);
-  Vector2 get xy => new Vector2(_storage[0], _storage[1]);
-  Vector2 get yx => new Vector2(_storage[1], _storage[0]);
-  Vector2 get yy => new Vector2(_storage[1], _storage[1]);
-  Vector3 get xxx => new Vector3(_storage[0], _storage[0], _storage[0]);
-  Vector3 get xxy => new Vector3(_storage[0], _storage[0], _storage[1]);
-  Vector3 get xyx => new Vector3(_storage[0], _storage[1], _storage[0]);
-  Vector3 get xyy => new Vector3(_storage[0], _storage[1], _storage[1]);
-  Vector3 get yxx => new Vector3(_storage[1], _storage[0], _storage[0]);
-  Vector3 get yxy => new Vector3(_storage[1], _storage[0], _storage[1]);
-  Vector3 get yyx => new Vector3(_storage[1], _storage[1], _storage[0]);
-  Vector3 get yyy => new Vector3(_storage[1], _storage[1], _storage[1]);
-  Vector4 get xxxx => new Vector4(_storage[0], _storage[0], _storage[0],
-      _storage[0]);
-  Vector4 get xxxy => new Vector4(_storage[0], _storage[0], _storage[0],
-      _storage[1]);
-  Vector4 get xxyx => new Vector4(_storage[0], _storage[0], _storage[1],
-      _storage[0]);
-  Vector4 get xxyy => new Vector4(_storage[0], _storage[0], _storage[1],
-      _storage[1]);
-  Vector4 get xyxx => new Vector4(_storage[0], _storage[1], _storage[0],
-      _storage[0]);
-  Vector4 get xyxy => new Vector4(_storage[0], _storage[1], _storage[0],
-      _storage[1]);
-  Vector4 get xyyx => new Vector4(_storage[0], _storage[1], _storage[1],
-      _storage[0]);
-  Vector4 get xyyy => new Vector4(_storage[0], _storage[1], _storage[1],
-      _storage[1]);
-  Vector4 get yxxx => new Vector4(_storage[1], _storage[0], _storage[0],
-      _storage[0]);
-  Vector4 get yxxy => new Vector4(_storage[1], _storage[0], _storage[0],
-      _storage[1]);
-  Vector4 get yxyx => new Vector4(_storage[1], _storage[0], _storage[1],
-      _storage[0]);
-  Vector4 get yxyy => new Vector4(_storage[1], _storage[0], _storage[1],
-      _storage[1]);
-  Vector4 get yyxx => new Vector4(_storage[1], _storage[1], _storage[0],
-      _storage[0]);
-  Vector4 get yyxy => new Vector4(_storage[1], _storage[1], _storage[0],
-      _storage[1]);
-  Vector4 get yyyx => new Vector4(_storage[1], _storage[1], _storage[1],
-      _storage[0]);
-  Vector4 get yyyy => new Vector4(_storage[1], _storage[1], _storage[1],
-      _storage[1]);
+  Vector2 get xx => new Vector2(_storage2[0], _storage2[0]);
+  Vector2 get xy => new Vector2(_storage2[0], _storage2[1]);
+  Vector2 get yx => new Vector2(_storage2[1], _storage2[0]);
+  Vector2 get yy => new Vector2(_storage2[1], _storage2[1]);
+  Vector3 get xxx => new Vector3(_storage2[0], _storage2[0], _storage2[0]);
+  Vector3 get xxy => new Vector3(_storage2[0], _storage2[0], _storage2[1]);
+  Vector3 get xyx => new Vector3(_storage2[0], _storage2[1], _storage2[0]);
+  Vector3 get xyy => new Vector3(_storage2[0], _storage2[1], _storage2[1]);
+  Vector3 get yxx => new Vector3(_storage2[1], _storage2[0], _storage2[0]);
+  Vector3 get yxy => new Vector3(_storage2[1], _storage2[0], _storage2[1]);
+  Vector3 get yyx => new Vector3(_storage2[1], _storage2[1], _storage2[0]);
+  Vector3 get yyy => new Vector3(_storage2[1], _storage2[1], _storage2[1]);
+  Vector4 get xxxx => new Vector4(_storage2[0], _storage2[0], _storage2[0],
+      _storage2[0]);
+  Vector4 get xxxy => new Vector4(_storage2[0], _storage2[0], _storage2[0],
+      _storage2[1]);
+  Vector4 get xxyx => new Vector4(_storage2[0], _storage2[0], _storage2[1],
+      _storage2[0]);
+  Vector4 get xxyy => new Vector4(_storage2[0], _storage2[0], _storage2[1],
+      _storage2[1]);
+  Vector4 get xyxx => new Vector4(_storage2[0], _storage2[1], _storage2[0],
+      _storage2[0]);
+  Vector4 get xyxy => new Vector4(_storage2[0], _storage2[1], _storage2[0],
+      _storage2[1]);
+  Vector4 get xyyx => new Vector4(_storage2[0], _storage2[1], _storage2[1],
+      _storage2[0]);
+  Vector4 get xyyy => new Vector4(_storage2[0], _storage2[1], _storage2[1],
+      _storage2[1]);
+  Vector4 get yxxx => new Vector4(_storage2[1], _storage2[0], _storage2[0],
+      _storage2[0]);
+  Vector4 get yxxy => new Vector4(_storage2[1], _storage2[0], _storage2[0],
+      _storage2[1]);
+  Vector4 get yxyx => new Vector4(_storage2[1], _storage2[0], _storage2[1],
+      _storage2[0]);
+  Vector4 get yxyy => new Vector4(_storage2[1], _storage2[0], _storage2[1],
+      _storage2[1]);
+  Vector4 get yyxx => new Vector4(_storage2[1], _storage2[1], _storage2[0],
+      _storage2[0]);
+  Vector4 get yyxy => new Vector4(_storage2[1], _storage2[1], _storage2[0],
+      _storage2[1]);
+  Vector4 get yyyx => new Vector4(_storage2[1], _storage2[1], _storage2[1],
+      _storage2[0]);
+  Vector4 get yyyy => new Vector4(_storage2[1], _storage2[1], _storage2[1],
+      _storage2[1]);
   double get r => x;
   double get g => y;
   double get s => x;
   double get t => y;
-  double get x => _storage[0];
-  double get y => _storage[1];
+  double get x => _storage2[0];
+  double get y => _storage2[1];
   Vector2 get rr => xx;
   Vector2 get rg => xy;
   Vector2 get gr => yx;

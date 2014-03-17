@@ -31,21 +31,13 @@ class Frustum {
   /// Create a new frustum without initializing its bounds.
   Frustum()
       : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-          new Plane(), new Plane()].toList(growable: false);
+                          new Plane(), new Plane()].toList(growable: false);
 
   /// Create a new frustum as a copy of [other].
-  Frustum.copy(Frustum other)
-      : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-          new Plane(), new Plane()].toList(growable: false) {
-    copyFrom(other);
-  }
+  factory Frustum.copy(Frustum other) => new Frustum()..copyFrom(other);
 
   /// Create a new furstum from a [matrix].
-  Frustum.matrix(Matrix4 matrix)
-      : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-          new Plane(), new Plane()].toList(growable: false) {
-    setFromMatrix(matrix);
-  }
+  factory Frustum.matrix(Matrix4 matrix) => new Frustum()..setFromMatrix(matrix);
 
   /// Copy the [other] frustum into [this].
   void copyFrom(Frustum other) {
@@ -58,7 +50,7 @@ class Frustum {
 
   /// Set [this] from [matrix].
   void setFromMatrix(Matrix4 matrix) {
-    var me = matrix._storage;
+    var me = matrix._storage44;
     var me0 = me[0],
         me1 = me[1],
         me2 = me[2],

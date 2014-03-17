@@ -21,7 +21,7 @@
 
 part of vector_math;
 
-/// Defines a ray by an [origin] and a [direction].
+/// Defines a [Ray] by an [origin] and a [direction].
 class Ray {
   final Vector3 _origin;
   final Vector3 _direction;
@@ -123,8 +123,8 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithAabb3(Aabb3 other) {
-    final otherMin = other._min;
-    final otherMax = other._max;
+    final otherMin = other._min3;
+    final otherMax = other._max3;
 
     var t1 = new Vector3.zero();
     var t2 = new Vector3.zero();

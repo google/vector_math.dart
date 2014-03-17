@@ -90,7 +90,6 @@ void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition, Vector3
   viewMatrix.setEntry(1, 2, z.y);
   viewMatrix.setEntry(2, 2, z.z);
   viewMatrix.transpose();
-  //TODO (fox32): Why transpose? Can't we set the components right in the first place?
   final rotatedEye = cameraPosition.clone()..negate();
   viewMatrix.transform3(rotatedEye);
   viewMatrix.setEntry(0, 3, rotatedEye.x);
@@ -228,13 +227,13 @@ Matrix4 makeOrthographicMatrix(double left, double right, double bottom, double
 /// Returns a transformation matrix that transforms points onto
 /// the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
-  final v = new Vector4(planeNormal._storage[0], planeNormal._storage[1],
-      planeNormal._storage[2], 0.0);
+  final v = new Vector4(planeNormal._storage3[0], planeNormal._storage3[1],
+      planeNormal._storage3[2], 0.0);
   final outer = new Matrix4.outer(v, v);
   final r = new Matrix4.zero()..sub(outer);
   final scaledNormal = planeNormal.scaled(dot3(planePoint, planeNormal));
-  final t = new Vector4(scaledNormal._storage[0], scaledNormal._storage[1],
-      scaledNormal._storage[2], 1.0);
+  final t = new Vector4(scaledNormal._storage3[0], scaledNormal._storage3[1],
+      scaledNormal._storage3[2], 1.0);
   r.setColumn(3, t);
   return r;
 }
@@ -242,14 +241,14 @@ Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
 /// Returns a transformation matrix that transforms points by reflecting
 /// them through the plane specified with [planeNormal] and [planePoint]
 Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
-  final v = new Vector4(planeNormal._storage[0], planeNormal._storage[1],
-      planeNormal._storage[2], 0.0);
+  final v = new Vector4(planeNormal._storage3[0], planeNormal._storage3[1],
+      planeNormal._storage3[2], 0.0);
   final outer = new Matrix4.outer(v, v)..scale(2.0);
   final r = new Matrix4.zero()..sub(outer);
   final scale = 2.0 * dot3(planePoint, planeNormal);
   final scaledNormal = planeNormal.scaled(scale);
-  final t = new Vector4(scaledNormal._storage[0], scaledNormal._storage[1],
-      scaledNormal._storage[2], 1.0);
+  final t = new Vector4(scaledNormal._storage3[0], scaledNormal._storage3[1],
+      scaledNormal._storage3[2], 1.0);
   r.setColumn(3, t);
   return r;
 }
