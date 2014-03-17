@@ -90,7 +90,6 @@ void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition, Vector3
   viewMatrix.setEntry(1, 2, z.y);
   viewMatrix.setEntry(2, 2, z.z);
   viewMatrix.transpose();
-  //TODO (fox32): Why transpose? Can't we set the components right in the first place?
   final rotatedEye = cameraPosition.clone()..negate();
   viewMatrix.transform3(rotatedEye);
   viewMatrix.setEntry(0, 3, rotatedEye.x);

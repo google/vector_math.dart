@@ -21,7 +21,7 @@
 
 part of vector_math;
 
-/// Defines a ray by an [origin] and a [direction].
+/// Defines a [Ray] by an [origin] and a [direction].
 class Ray {
   final Vector3 _origin;
   final Vector3 _direction;
