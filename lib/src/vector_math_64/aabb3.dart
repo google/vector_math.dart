@@ -144,15 +144,30 @@ class Aabb3 {
       ..copyFrom(this)
       ..rotate(t);
 
-  //TODO (fox32): Add a documentation comment
   void getPN(Vector3 planeNormal, Vector3 outP, Vector3 outN) {
-    outP.x = planeNormal.x < 0.0 ? _min3.x : _max3.x;
-    outP.y = planeNormal.y < 0.0 ? _min3.y : _max3.y;
-    outP.z = planeNormal.z < 0.0 ? _min3.z : _max3.z;
+    if (planeNormal.x < 0.0) {
+      outP.x = _min3.x;
+      outN.x = _max3.x;
+    } else {
+      outP.x = _max3.x;
+      outN.x = _min3.x;
+    }
 
-    outN.x = planeNormal.x < 0.0 ? _max3.x : _min3.x;
-    outN.y = planeNormal.y < 0.0 ? _max3.y : _min3.y;
-    outN.z = planeNormal.z < 0.0 ? _max3.z : _min3.z;
+    if (planeNormal.y < 0.0) {
+      outP.y = _min3.y;
+      outN.y = _max3.y;
+    } else {
+      outP.y = _max3.y;
+      outN.y = _min3.y;
+    }
+
+    if (planeNormal.z < 0.0) {
+      outP.z = _min3.z;
+      outN.z = _max3.z;
+    } else {
+      outP.z = _max3.z;
+      outN.z = _min3.z;
+    }
   }
 
   /// Set the min and max of [this] so that [this] is a hull of [this] and
