@@ -22,7 +22,6 @@
 part of vector_math_64;
 
 //TODO (fox32): Update documentation comments!
-//TODO (fox32): Readd setUpper2x2 but now the right way!
 
 /// 3D Matrix.
 /// Values are stored in column major order.
@@ -206,6 +205,15 @@ class Matrix3 {
     _storage33[0] = arg;
     _storage33[4] = arg;
     _storage33[8] = arg;
+  }
+
+  /// Sets the upper 2x2 of the matrix to be [arg].
+  void setUpper2x2(Matrix2 arg) {
+    final argStorage = arg._storage22;
+    _storage33[0] = argStorage[0];
+    _storage33[1] = argStorage[1];
+    _storage33[3] = argStorage[2];
+    _storage33[4] = argStorage[3];
   }
 
   /// Set the diagonal of the matrix.
