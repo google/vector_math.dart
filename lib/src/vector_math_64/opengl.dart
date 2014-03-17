@@ -159,7 +159,7 @@ void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double
   final right_minus_left = right - left;
   final top_minus_bottom = top - bottom;
   final far_minus_near = far - near;
-  final view = perspectiveMatrix.setZero();
+  final view = perspectiveMatrix..setZero();
   view.setEntry(0, 0, two_near / right_minus_left);
   view.setEntry(1, 1, two_near / top_minus_bottom);
   view.setEntry(0, 2, (right + left) / right_minus_left);
@@ -200,7 +200,7 @@ void setOrthographicMatrix(Matrix4 orthographicMatrix, double left, double
   final tpb = top + bottom;
   final fmn = far - near;
   final fpn = far + near;
-  final r = orthographicMatrix.setZero();
+  final r = orthographicMatrix..setZero();
   r.setEntry(0, 0, 2.0 / rml);
   r.setEntry(1, 1, 2.0 / tmb);
   r.setEntry(2, 2, -2.0 / fmn);

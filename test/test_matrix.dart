@@ -411,7 +411,7 @@ class MatrixTest extends BaseTest {
     inputA.add(new Matrix4.identity());
     inputB.add(new Matrix4.translationValues(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
-    output2.add((new Matrix4.identity()).translate(1.0, 3.0, 5.7));
+    output2.add(new Matrix4.identity()..translate(1.0, 3.0, 5.7));
 
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
@@ -430,7 +430,7 @@ class MatrixTest extends BaseTest {
     inputA.add(new Matrix4.identity());
     inputB.add(new Matrix4.diagonal3Values(1.0, 3.0, 5.7));
     output1.add(inputA[0] * inputB[0]);
-    output2.add(new Matrix4.identity().scale(1.0, 3.0, 5.7));
+    output2.add(new Matrix4.identity()..scale(1.0, 3.0, 5.7));
 
     assert(inputA.length == inputB.length);
     assert(output1.length == output2.length);
@@ -444,11 +444,11 @@ class MatrixTest extends BaseTest {
     List<dynamic> output1 = new List<dynamic>();
     List<dynamic> output2 = new List<dynamic>();
     output1.add(new Matrix4.rotationX(1.57079632679));
-    output2.add(new Matrix4.identity().rotateX(1.57079632679));
+    output2.add(new Matrix4.identity()..rotateX(1.57079632679));
     output1.add(new Matrix4.rotationY(1.57079632679 * 0.5));
-    output2.add(new Matrix4.identity().rotateY(1.57079632679 * 0.5));
+    output2.add(new Matrix4.identity()..rotateY(1.57079632679 * 0.5));
     output1.add(new Matrix4.rotationZ(1.57079632679 * 0.25));
-    output2.add(new Matrix4.identity().rotateZ(1.57079632679 * 0.25));
+    output2.add(new Matrix4.identity()..rotateZ(1.57079632679 * 0.25));
     {
       var axis = new Vector3(1.1, 1.1, 1.1);
       axis.normalize();
@@ -460,7 +460,7 @@ class MatrixTest extends BaseTest {
       T.setRotation(R);
       output1.add(T);
 
-      output2.add(new Matrix4.identity().rotate(axis, angle));
+      output2.add(new Matrix4.identity()..rotate(axis, angle));
     }
     assert(output1.length == output2.length);
     for (int i = 0; i < output1.length; i++) {

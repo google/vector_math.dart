@@ -225,7 +225,7 @@ class Matrix2 {
     if (arg is Vector2) {
       return transformed(arg);
     }
-    if (2 == arg.dimension) {
+    if (arg is Matrix2) {
       return multiplied(arg);
     }
     throw new ArgumentError(arg);

@@ -22,6 +22,7 @@
 part of vector_math_64;
 
 //TODO (fox32): Update documentation comments!
+//TODO (fox32): Readd setUpper2x2 but now the right way!
 
 /// 3D Matrix.
 /// Values are stored in column major order.
@@ -325,7 +326,7 @@ class Matrix3 {
     if (arg is Vector3) {
       return transformed(arg);
     }
-    if (3 == arg.dimension) {
+    if (arg is Matrix3) {
       return multiplied(arg);
     }
     throw new ArgumentError(arg);
@@ -474,32 +475,7 @@ class Matrix3 {
   }
 
   /// Invert the matrix. Returns the determinant.
-  double invert() {
-    final det = determinant();
-    if (det == 0.0) {
-      return 0.0;
-    }
-    final invDet = 1.0 / det;
-    final ix = invDet * (_storage[4] * _storage[8] - _storage[5] * _storage[7]);
-    final iy = invDet * (_storage[2] * _storage[7] - _storage[1] * _storage[8]);
-    final iz = invDet * (_storage[1] * _storage[5] - _storage[2] * _storage[4]);
-    final jx = invDet * (_storage[5] * _storage[6] - _storage[3] * _storage[8]);
-    final jy = invDet * (_storage[0] * _storage[8] - _storage[2] * _storage[6]);
-    final jz = invDet * (_storage[2] * _storage[3] - _storage[0] * _storage[5]);
-    final kx = invDet * (_storage[3] * _storage[7] - _storage[4] * _storage[6]);
-    final ky = invDet * (_storage[1] * _storage[6] - _storage[0] * _storage[7]);
-    final kz = invDet * (_storage[0] * _storage[4] - _storage[1] * _storage[3]);
-    _storage[0] = ix;
-    _storage[1] = iy;
-    _storage[2] = iz;
-    _storage[3] = jx;
-    _storage[4] = jy;
-    _storage[5] = jz;
-    _storage[6] = kx;
-    _storage[7] = ky;
-    _storage[8] = kz;
-    return det;
-  }
+  double invert() => copyInverse(this);
 
   /// Set this matrix to be the inverse of [arg]
   double copyInverse(Matrix3 arg) {
