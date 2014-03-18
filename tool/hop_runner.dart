@@ -18,12 +18,7 @@ void main(List<String> args) {
   //
   // Unit test
   //
-  addTask('test', createUnitTestTask(console_test_harness.testCore));
-
-  //
-  // Doc generation
-  //
-  addTask('docs', createDartDocTask(_getLibs));
+  addTask('test', createUnitTestTask(console_test_harness.main));
 
   //
   // Doc generation

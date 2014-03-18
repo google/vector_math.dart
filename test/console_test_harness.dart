@@ -1,18 +1,11 @@
 library console_test_harness;
 
-import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math.dart';
 import 'vector_math_test.dart';
 
-void testCore(Configuration config) {
-  unittestConfiguration = config;
+void main() {
   groupSep = ' - ';
 
-  main();
-}
-
-void main() {
   group('Quaternion', () {
     QuaternionTest qt = new QuaternionTest();
     qt.run();
@@ -44,8 +37,8 @@ void main() {
   });
 
   group('Utilities', () {
-    var ut = new UtilitiesTest();    
-    ut.run();  
+    var ut = new UtilitiesTest();
+    ut.run();
   });
 
   group('Geometry', () {
