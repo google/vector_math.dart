@@ -21,8 +21,6 @@
 
 part of vector_math;
 
-//TODO (fox32): Update documentation comments!
-
 /// 2D Matrix.
 /// Values are stored in column major order.
 class Matrix2 {
@@ -112,6 +110,7 @@ class Matrix2 {
     _storage22[0] = argStorage[0];
   }
 
+  /// Set [this] to the outer product of [u] and [v].
   void setOuter(Vector2 u, Vector2 v) {
     final uStorage = u._storage2;
     final vStorage = v._storage2;
@@ -203,7 +202,7 @@ class Matrix2 {
     argStorage[1] = _storage22[1];
     argStorage[2] = _storage22[2];
     argStorage[3] = _storage22[3];
-    return arg; //TODO (fox32): Remove return value?
+    return arg;
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
@@ -440,6 +439,7 @@ class Matrix2 {
   /// Multiply [this] with [arg] and return the product.
   Matrix2 multiplied(Matrix2 arg) => clone()..multiply(arg);
 
+  /// Multiply a transposed [this] with [arg].
   void transposeMultiply(Matrix2 arg) {
     final m00 = _storage22[0];
     final m01 = _storage22[1];
@@ -452,6 +452,7 @@ class Matrix2 {
     _storage22[3] = (m10 * argStorage[2]) + (m11 * argStorage[3]);
   }
 
+  /// Multiply [this] with a transposed [arg].
   void multiplyTranspose(Matrix2 arg) {
     final m00 = _storage22[0];
     final m01 = _storage22[2];
@@ -464,6 +465,8 @@ class Matrix2 {
     _storage22[3] = (m10 * argStorage[1]) + (m11 * argStorage[3]);
   }
 
+  /// Transform [arg] of type [Vector2] using the transformation defined by
+  /// [this].
   Vector2 transform(Vector2 arg) {
     final argStorage = arg._storage2;
     double x = (_storage22[0] * argStorage[0]) + (_storage22[2] *
@@ -472,11 +475,13 @@ class Matrix2 {
         argStorage[1]);
     argStorage[0] = x;
     argStorage[1] = y;
-    return arg; //TODO (fox32): Remove the return type here?
+    return arg;
   }
 
+  /// Transform a copy of [arg] of type [Vector2] using the transformation
+  /// defined by [this]. If a [out] parameter is supplied, the copy is stored in
+  /// [out].
   Vector2 transformed(Vector2 arg, [Vector2 out = null]) {
-    //TODO (fox32): The style with the out parameter doesn't match the style of the library, remove?
     if (out == null) {
       out = new Vector2.copy(arg);
     } else {
