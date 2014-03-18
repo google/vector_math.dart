@@ -22,7 +22,7 @@
 part of vector_math;
 
 /// 3D column vector.
-class Vector3 {
+class Vector3 implements Vector{
   final Float32List storage;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
