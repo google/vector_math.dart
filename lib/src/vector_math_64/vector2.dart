@@ -21,8 +21,6 @@
 
 part of vector_math_64;
 
-//TODO (fox32): Update documentation comments!
-
 /// 2D column vector.
 class Vector2 {
   final Float64List _storage2;
@@ -175,7 +173,6 @@ class Vector2 {
 
   /// Normalize vector into [out].
   Vector2 normalizeInto(Vector2 out) {
-    //TODO (fox32): Remove this method?
     out.setFrom(this);
     return out..normalize();
   }
@@ -216,7 +213,7 @@ class Vector2 {
   /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
     out.setValues(-scale * _storage2[1], scale * _storage2[0]);
-    return out; //TODO (fox32): Remove return type?
+    return out;
   }
 
   /// Reflect [this].
