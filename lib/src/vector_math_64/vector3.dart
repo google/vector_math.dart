@@ -21,8 +21,6 @@
 
 part of vector_math_64;
 
-//TODO (fox32): Update documentation comments!
-
 /// 3D column vector.
 class Vector3 {
   final Float64List _storage3;
@@ -186,7 +184,6 @@ class Vector3 {
 
   /// Normalize vector into [out].
   Vector3 normalizeInto(Vector3 out) {
-    //TODO (fox32): Remove this method?
     out.setFrom(this);
     return out..normalize();
   }
@@ -211,7 +208,6 @@ class Vector3 {
   /// postmultiplied by matrix, [arg].
   /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
   /// the inverse of the transformation.
-  ///
   void postmultiply(Matrix3 arg) {
     final argStorage = arg._storage33;
     final v0 = _storage3[0];
@@ -248,7 +244,7 @@ class Vector3 {
     outStorage[0] = y * oz - z * oy;
     outStorage[1] = z * ox - x * oz;
     outStorage[2] = x * oy - y * ox;
-    return out; //TODO (fox32): Remove return type?
+    return out;
   }
 
   /// Reflect [this].
@@ -350,8 +346,10 @@ class Vector3 {
     _storage3[0] = _storage3[0] * arg;
   }
 
+  /// Create a copy of [this] and scale it by [arg].
   Vector3 scaled(double arg) => clone()..scale(arg);
 
+  /// Negate [this].
   void negate() {
     _storage3[2] = -_storage3[2];
     _storage3[1] = -_storage3[1];
@@ -368,12 +366,13 @@ class Vector3 {
   /// Clone of [this].
   Vector3 clone() => new Vector3.copy(this);
 
+  /// Copy [this] into [arg].
   Vector3 copyInto(Vector3 arg) {
     final argStorage = arg._storage3;
     argStorage[0] = _storage3[0];
     argStorage[1] = _storage3[1];
     argStorage[2] = _storage3[2];
-    return arg; //TODO (fox32): Remove return value?
+    return arg;
   }
 
   /// Copies [this] into [array] starting at [offset].
