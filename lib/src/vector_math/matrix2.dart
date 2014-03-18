@@ -213,27 +213,17 @@ class Matrix2 {
     if (arg is Vector2) {
       return transformed(arg);
     }
-    if (arg is Matrix2) {
+    if (arg.dimension == 2) {
       return multiplied(arg);
     }
     throw new ArgumentError(arg);
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix2 operator +(Matrix2 arg) {
-    if (arg is Matrix2) {
-      return clone()..add(arg);
-    }
-    throw new ArgumentError(arg);
-  }
+  Matrix2 operator +(Matrix2 arg) => clone()..add(arg);
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix2 operator -(Matrix2 arg) {
-    if (arg is Matrix2) {
-      return clone()..sub(arg);
-    }
-    throw new ArgumentError(arg);
-  }
+  Matrix2 operator -(Matrix2 arg) => clone()..sub(arg);
 
   /// Returns new matrix -this
   Matrix2 operator -() => clone()..negate();

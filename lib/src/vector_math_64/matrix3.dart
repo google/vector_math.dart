@@ -319,27 +319,17 @@ class Matrix3 {
     if (arg is Vector3) {
       return transformed(arg);
     }
-    if (arg is Matrix3) {
+    if (arg.dimension == 3) {
       return multiplied(arg);
     }
     throw new ArgumentError(arg);
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix3 operator +(Matrix3 arg) {
-    if (arg is Matrix3) {
-      return clone()..add(arg);
-    }
-    throw new ArgumentError(arg);
-  }
+  Matrix3 operator +(Matrix3 arg) => clone()..add(arg);
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix3 operator -(Matrix3 arg) {
-    if (arg is Matrix3) {
-      return clone()..sub(arg);
-    }
-    throw new ArgumentError(arg);
-  }
+  Matrix3 operator -(Matrix3 arg) => clone()..sub(arg);
 
   /// Returns new matrix -this
   Matrix3 operator -() => clone()..negate();

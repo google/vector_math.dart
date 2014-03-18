@@ -516,27 +516,17 @@ class Matrix4 {
     if (arg is Vector3) {
       return transformed3(arg);
     }
-    if (arg is Matrix4) {
+    if (arg.dimension == 4) {
       return multiplied(arg);
     }
     throw new ArgumentError(arg);
   }
 
   /// Returns new matrix after component wise [this] + [arg]
-  Matrix4 operator +(Matrix4 arg) {
-    if (arg is Matrix4) {
-      return clone()..add(arg);
-    }
-    throw new ArgumentError(arg);
-  }
+  Matrix4 operator +(Matrix4 arg) => clone()..add(arg);
 
   /// Returns new matrix after component wise [this] - [arg]
-  Matrix4 operator -(Matrix4 arg) {
-    if (arg is Matrix4) {
-      return clone()..sub(arg);
-    }
-    throw new ArgumentError(arg);
-  }
+  Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
 
   /// Translate this matrix by a [x],[y],[z] and a optional [w].
   void translate(double x, double y, double z, [double w = 1.0]) {

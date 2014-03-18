@@ -359,38 +359,25 @@ class Quaternion {
 
   /// [this] rotated by [other].
   Quaternion operator *(Quaternion other) {
-    if (other is Quaternion) {
-      double _w = _storage41[3];
-      double _z = _storage41[2];
-      double _y = _storage41[1];
-      double _x = _storage41[0];
-      final otherStorage = other._storage41;
-      double ow = otherStorage[3];
-      double oz = otherStorage[2];
-      double oy = otherStorage[1];
-      double ox = otherStorage[0];
-      return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy, _w * oy + _y
-          * ow + _z * ox - _x * oz, _w * oz + _z * ow + _x * oy - _y * ox, _w * ow - _x *
-          ox - _y * oy - _z * oz);
-    }
-    throw new ArgumentError(other);
+    double _w = _storage41[3];
+    double _z = _storage41[2];
+    double _y = _storage41[1];
+    double _x = _storage41[0];
+    final otherStorage = other._storage41;
+    double ow = otherStorage[3];
+    double oz = otherStorage[2];
+    double oy = otherStorage[1];
+    double ox = otherStorage[0];
+    return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy, _w * oy + _y
+        * ow + _z * ox - _x * oz, _w * oz + _z * ow + _x * oy - _y * ox, _w * ow - _x *
+        ox - _y * oy - _z * oz);
   }
 
   /// Returns copy of [this] + [other].
-  Quaternion operator +(Quaternion other) {
-    if (other is Quaternion) {
-      return clone()..add(other);
-    }
-    throw new ArgumentError(other);
-  }
+  Quaternion operator +(Quaternion other) => clone()..add(other);
 
   /// Returns copy of [this] - [other].
-  Quaternion operator -(Quaternion other) {
-    if (other is Quaternion) {
-      return clone()..sub(other);
-    }
-    throw new ArgumentError(other);
-  }
+  Quaternion operator -(Quaternion other) => clone()..sub(other);
 
   /// Returns negated copy of [this].
   Quaternion operator -() => conjugated();
