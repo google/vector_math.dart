@@ -21,8 +21,6 @@
 
 part of vector_math;
 
-//TODO (fox32): Update documentation comments!
-
 /// 4D column vector.
 class Vector4 {
   final Float32List _storage4;
@@ -260,6 +258,7 @@ class Vector4 {
     return is_nan;
   }
 
+  /// Add [arg] to [this].
   void add(Vector4 arg) {
     final argStorage = arg._storage4;
     _storage4[0] = _storage4[0] + argStorage[0];
@@ -277,6 +276,7 @@ class Vector4 {
     _storage4[3] = _storage4[3] + argStorage[3] * factor;
   }
 
+  /// Subtract [arg] from [this].
   void sub(Vector4 arg) {
     final argStorage = arg._storage4;
     _storage4[0] = _storage4[0] - argStorage[0];
@@ -285,6 +285,7 @@ class Vector4 {
     _storage4[3] = _storage4[3] - argStorage[3];
   }
 
+  /// Multiply [this] by [arg].
   void multiply(Vector4 arg) {
     final argStorage = arg._storage4;
     _storage4[0] = _storage4[0] * argStorage[0];
@@ -293,6 +294,7 @@ class Vector4 {
     _storage4[3] = _storage4[3] * argStorage[3];
   }
 
+  /// Divide [this] by [arg].
   void div(Vector4 arg) {
     final argStorage = arg._storage4;
     _storage4[0] = _storage4[0] / argStorage[0];
@@ -301,6 +303,7 @@ class Vector4 {
     _storage4[3] = _storage4[3] / argStorage[3];
   }
 
+  /// Scale [this] by [arg].
   void scale(double arg) {
     _storage4[0] = _storage4[0] * arg;
     _storage4[1] = _storage4[1] * arg;
@@ -308,8 +311,10 @@ class Vector4 {
     _storage4[3] = _storage4[3] * arg;
   }
 
+  /// Create a copy of [this] scaled by [arg].
   Vector4 scaled(double arg) => clone()..scale(arg);
 
+  /// Negate [this].
   void negate() {
     _storage4[0] = -_storage4[0];
     _storage4[1] = -_storage4[1];
@@ -317,6 +322,7 @@ class Vector4 {
     _storage4[3] = -_storage4[3];
   }
 
+  /// Set [this] to the absolute.
   void absolute() {
     _storage4[3] = _storage4[3].abs();
     _storage4[2] = _storage4[2].abs();
@@ -324,8 +330,10 @@ class Vector4 {
     _storage4[0] = _storage4[0].abs();
   }
 
+  /// Create a copy of [this].
   Vector4 clone() => new Vector4.copy(this);
 
+  /// Copy [this]
   Vector4 copyInto(Vector4 arg) {
     final argStorage = arg._storage4;
     argStorage[0] = _storage4[0];
