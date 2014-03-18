@@ -21,8 +21,6 @@
 
 part of vector_math_64;
 
-//TODO (fox32): Update documentation comments!
-
 /// 3D Matrix.
 /// Values are stored in column major order.
 class Matrix3 {
@@ -186,6 +184,7 @@ class Matrix3 {
     _storage33[0] = argStorage[0];
   }
 
+  /// Set [this] to the outer product of [u] and [v].
   void setOuter(Vector3 u, Vector3 v) {
     final uStorage = u._storage3;
     final vStorage = v._storage3;
@@ -309,7 +308,7 @@ class Matrix3 {
     argStorage[6] = _storage33[6];
     argStorage[7] = _storage33[7];
     argStorage[8] = _storage33[8];
-    return arg; //TODO (fox32): Remove this return value?
+    return arg;
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
@@ -374,6 +373,7 @@ class Matrix3 {
   /// Returns the tranpose of this.
   Matrix3 transposed() => clone()..transpose();
 
+  /// Transpose [this].
   void transpose() {
     var temp;
     temp = _storage33[3];
@@ -607,7 +607,7 @@ class Matrix3 {
     argStorage[0] = x * m00 + y * m01 + z * m02;
     argStorage[1] = x * m10 + y * m11 + z * m12;
     argStorage[2] = x * m20 + y * m21 + z * m22;
-    return arg; //TODO (fox32): Remove the return value?
+    return arg;
   }
 
   /// Rotates [arg] by the absolute rotation of [this]
@@ -623,10 +623,10 @@ class Matrix3 {
     final y = argStorage[1];
     argStorage[0] = x * m00 + y * m01;
     argStorage[1] = x * m10 + y * m11;
-    return arg;//TODO (fox32): Remove the return value?
+    return arg;
   }
 
-  /// Transforms [arg] with [this].
+  /// Transforms [arg] of type [Vector2] with [this].
   Vector2 transform2(Vector2 arg) {
     final argStorage = arg._storage2;
     final x_ = (_storage33[0] * argStorage[0]) + (_storage33[3] * argStorage[1])
@@ -635,9 +635,10 @@ class Matrix3 {
         + _storage33[7];
     argStorage[0] = x_;
     argStorage[1] = y_;
-    return arg;//TODO (fox32): Remove the return value?
+    return arg;
   }
 
+  /// Scales [this] by [scale].
   void scale(double scale) {
     _storage33[0] = _storage33[0] * scale;
     _storage33[1] = _storage33[1] * scale;
@@ -650,8 +651,10 @@ class Matrix3 {
     _storage33[8] = _storage33[8] * scale;
   }
 
+  /// Create a copy of [this] and scale it by [scale].
   Matrix3 scaled(double scale) => clone()..scale(scale);
 
+  /// Add [o] to [this].
   void add(Matrix3 o) {
     final oStorage = o._storage33;
     _storage33[0] = _storage33[0] + oStorage[0];
@@ -665,6 +668,7 @@ class Matrix3 {
     _storage33[8] = _storage33[8] + oStorage[8];
   }
 
+  /// Subtract [o] from [this].
   void sub(Matrix3 o) {
     final oStorage = o._storage33;
     _storage33[0] = _storage33[0] - oStorage[0];
@@ -678,6 +682,7 @@ class Matrix3 {
     _storage33[8] = _storage33[8] - oStorage[8];
   }
 
+  /// Negate [this].
   void negate() {
     _storage33[0] = -_storage33[0];
     _storage33[1] = -_storage33[1];
@@ -690,6 +695,7 @@ class Matrix3 {
     _storage33[8] = -_storage33[8];
   }
 
+  /// Multiply [this] by [arg].
   void multiply(Matrix3 arg) {
     final m00 = _storage33[0];
     final m01 = _storage33[3];
@@ -721,8 +727,10 @@ class Matrix3 {
     _storage33[8] = (m20 * n02) + (m21 * n12) + (m22 * n22);
   }
 
+  /// Create a copy of [this] and multiply it by [arg].
   Matrix3 multiplied(Matrix3 arg) => clone()..multiply(arg);
 
+  /// Multiply a transposed [this] with [arg].
   void transposeMultiply(Matrix3 arg) {
     final m00 = _storage33[0];
     final m01 = _storage33[1];
@@ -754,6 +762,7 @@ class Matrix3 {
         argStorage[8]);
   }
 
+  /// Multiply [this] with a transposed [arg].
   void multiplyTranspose(Matrix3 arg) {
     final m00 = _storage33[0];
     final m01 = _storage33[3];
@@ -785,6 +794,8 @@ class Matrix3 {
         argStorage[8]);
   }
 
+  /// Transform [arg] of type [Vector3] using the transformation defined by
+  /// [this].
   Vector3 transform(Vector3 arg) {
     final argStorage = arg._storage3;
     final x_ = (_storage33[0] * argStorage[0]) + (_storage33[3] * argStorage[1])
@@ -796,10 +807,13 @@ class Matrix3 {
     argStorage[0] = x_;
     argStorage[1] = y_;
     argStorage[2] = z_;
-    return arg; //TODO (fox32): Remove return type?
+    return arg;
   }
+
+  /// Transform a copy of [arg] of type [Vector3] using the transformation
+  /// defined by [this]. If a [out] parameter is supplied, the copy is stored in
+  /// [out].
   Vector3 transformed(Vector3 arg, [Vector3 out = null]) {
-    //TODO (fox32): The style with the out parameter doesn't match the style of the library, remove?
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -836,6 +850,7 @@ class Matrix3 {
     _storage33[0] = array[i + 0];
   }
 
+  /// Access the right vector of [this].
   Vector3 get right {
     final x = _storage33[0];
     final y = _storage33[1];
@@ -843,6 +858,7 @@ class Matrix3 {
     return new Vector3(x, y, z);
   }
 
+  /// Access the up vector of [this].
   Vector3 get up {
     final x = _storage33[3];
     final y = _storage33[4];
@@ -850,6 +866,7 @@ class Matrix3 {
     return new Vector3(x, y, z);
   }
 
+  /// Access the forward vector of [this].
   Vector3 get forward {
     final x = _storage33[6];
     final y = _storage33[7];
