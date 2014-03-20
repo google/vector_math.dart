@@ -75,3 +75,7 @@ void buildPlaneVectors(final Vector3 planeNormal, Vector3 u, Vector3 v) {
     v.z = a*k;
   }
 }
+
+abstract class Vector {
+  List<double> get storage;
+}
