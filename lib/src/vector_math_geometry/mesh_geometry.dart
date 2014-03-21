@@ -57,7 +57,7 @@ class VertexAttrib {
       case 4:
         return new Vector4List.view(buffer, viewOffset, viewStride);
       default:
-        throw new ArgumentError();
+        throw new StateError('size of $size is not supported');
     }
   }
 

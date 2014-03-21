@@ -21,15 +21,9 @@ void main(List<String> args) {
   addTask('analyze_test', createAnalyzerTask(['test/console_test_harness.dart']));
 
   //
-  // Unit test
+  // Unit tests
   //
-  addTask('test', createUnitTestTask(console_test_harness.testCore));
-
-  //
-  // Doc generation
-  //
-  //TODO (fox32): Fix dartdoc generation in hop runner
-  //addTask('docs', createDartDocTask(_getLibs));
+  addTask('test', createUnitTestTask(console_test_harness.main));
 
   //
   // Vector Math 64 generation

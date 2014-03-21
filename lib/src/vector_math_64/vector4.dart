@@ -22,7 +22,7 @@
 part of vector_math_64;
 
 /// 4D column vector.
-class Vector4 {
+class Vector4 implements Vector {
   final Float64List _storage4;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.

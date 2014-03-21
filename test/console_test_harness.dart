@@ -3,14 +3,9 @@ library console_test_harness;
 import 'package:unittest/unittest.dart';
 import 'vector_math_test.dart';
 
-void testCore(Configuration config) {
-  unittestConfiguration = config;
+void main() {
   groupSep = ' - ';
 
-  main();
-}
-
-void main() {
   group('Quaternion', () {
     QuaternionTest qt = new QuaternionTest();
     qt.run();

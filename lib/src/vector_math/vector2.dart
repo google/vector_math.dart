@@ -22,7 +22,7 @@
 part of vector_math;
 
 /// 2D column vector.
-class Vector2 {
+class Vector2 implements Vector {
   final Float32List _storage2;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
