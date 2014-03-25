@@ -561,8 +561,8 @@ class Matrix4 {
     final len = axis.length;
     final axisStorage = axis._storage3;
     final x = axisStorage[0] / len;
-    final y = axisStorage[0] / len;
-    final z = axisStorage[0] / len;
+    final y = axisStorage[1] / len;
+    final z = axisStorage[2] / len;
     final c = Math.cos(angle);
     final s = Math.sin(angle);
     final C = 1.0 - c;
