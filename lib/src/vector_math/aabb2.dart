@@ -71,7 +71,7 @@ class Aabb2 {
           Float32List.BYTES_PER_ELEMENT * 2);
 
   /// Set the AABB by a [center] and [halfExtents].
-  void setCenterAndHalfExtends(Vector2 center, Vector2 halfExtents) {
+  void setCenterAndHalfExtents(Vector2 center, Vector2 halfExtents) {
     _min2
         ..setFrom(center)
         ..sub(halfExtents);

@@ -60,7 +60,7 @@ class Aabb3 {
 
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
-      => new Aabb3()..setCenterAndHalfExtends(center, halfExtents);
+      => new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
 
   /// Constructs [Aabb3] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
@@ -71,7 +71,7 @@ class Aabb3 {
           Float32List.BYTES_PER_ELEMENT * 3);
 
   /// Set the AABB by a [center] and [halfExtents].
-  void setCenterAndHalfExtends(Vector3 center, Vector3 halfExtents) {
+  void setCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     _min3
         ..setFrom(center)
         ..sub(halfExtents);
