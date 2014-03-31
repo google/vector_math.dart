@@ -60,7 +60,7 @@ class Aabb2 {
 
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents)
-      => new Aabb2()..setCenterAndHalfExtends(center, halfExtents);
+      => new Aabb2()..setCenterAndHalfExtents(center, halfExtents);
 
   /// Constructs [Aabb2] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
