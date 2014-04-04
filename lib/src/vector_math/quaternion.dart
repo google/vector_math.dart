@@ -62,29 +62,29 @@ class Quaternion {
       new Quaternion._()..setValues(x, y, z, w);
 
   /// Constructs a quaternion from a rotation matrix [rotationMatrix].
-  factory Quaternion.fromRotation(Matrix3 rotationMatrix) => new Quaternion._(
-      )..setFromRotation(rotationMatrix);
+  factory Quaternion.fromRotation(Matrix3 rotationMatrix) => 
+      new Quaternion._()..setFromRotation(rotationMatrix);
 
   /// Constructs a quaternion from a rotation of [angle] around [axis].
-  factory Quaternion.axisAngle(Vector3 axis, double angle) => new Quaternion._(
-      )..setAxisAngle(axis, angle);
+  factory Quaternion.axisAngle(Vector3 axis, double angle) => 
+      new Quaternion._()..setAxisAngle(axis, angle);
 
   /// Constructs a quaternion as a copy of [original].
-  factory Quaternion.copy(Quaternion original) => new Quaternion._()..setFrom(
-      original);
+  factory Quaternion.copy(Quaternion original) => 
+      new Quaternion._()..setFrom(original);
 
   /// Constructs a quaternion with a random rotation. The random number
   /// generator [rn] is used to generate the random numbers for the rotation.
-  factory Quaternion.random(Math.Random rn) => new Quaternion._()..setRandom(rn
-      );
+  factory Quaternion.random(Math.Random rn) => 
+      new Quaternion._()..setRandom(rn);
 
   /// Constructs a quaternion set to the identity quaternion.
   factory Quaternion.identity() => new Quaternion._().._storage41[3] = 1.0;
 
   /// Constructs a quaternion from time derivative of [q] with angular
   /// velocity [omega].
-  factory Quaternion.dq(Quaternion q, Vector3 omega) => new Quaternion._(
-      )..setDQ(q, omega);
+  factory Quaternion.dq(Quaternion q, Vector3 omega) => 
+      new Quaternion._()..setDQ(q, omega);
 
   /// Constructs a quaternion from [yaw], [pitch] and [roll].
   factory Quaternion.euler(double yaw, double pitch, double roll) =>
@@ -368,9 +368,10 @@ class Quaternion {
     double oz = otherStorage[2];
     double oy = otherStorage[1];
     double ox = otherStorage[0];
-    return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy, _w * oy + _y
-        * ow + _z * ox - _x * oz, _w * oz + _z * ow + _x * oy - _y * ox, _w * ow - _x *
-        ox - _y * oy - _z * oz);
+    return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy, 
+                          _w * oy + _y * ow + _z * ox - _x * oz, 
+                          _w * oz + _z * ow + _x * oy - _y * ox, 
+                          _w * ow - _x * ox - _y * oy - _z * oz);
   }
 
   /// Returns copy of [this] + [other].
