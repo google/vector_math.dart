@@ -54,12 +54,12 @@ class Sphere {
   }
 
   /// Return if [this] contains [other].
-  bool containsVector3(Vector3 other) => other.distanceToSquared(_center) <
-      _radius * _radius;
+  bool containsVector3(Vector3 other) => 
+      other.distanceToSquared(_center) < _radius * _radius;
 
   /// Return if [this] intersects with [other].
-  bool intersectsWithVector3(Vector3 other) => other.distanceToSquared(_center)
-      <= _radius * _radius;
+  bool intersectsWithVector3(Vector3 other) =>
+      other.distanceToSquared(_center) <= _radius * _radius;
 
   /// Return if [this] intersects with [other].
   bool intersectsWithSphere(Sphere other) {

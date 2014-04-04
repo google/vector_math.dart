@@ -73,15 +73,16 @@ class Matrix2 {
   factory Matrix2.copy(Matrix2 other) => new Matrix2.zero()..setFrom(other);
 
   /// Matrix with values from column arguments.
-  factory Matrix2.columns(Vector2 arg0, Vector2 arg1) => new Matrix2.zero(
-      )..setColumns(arg0, arg1);
+  factory Matrix2.columns(Vector2 arg0, Vector2 arg1) => 
+      new Matrix2.zero()..setColumns(arg0, arg1);
 
   /// Outer product of [u] and [v].
-  factory Matrix2.outer(Vector2 u, Vector2 v) => new Matrix2.zero()..setOuter(u, v);
+  factory Matrix2.outer(Vector2 u, Vector2 v) => 
+      new Matrix2.zero()..setOuter(u, v);
 
   /// Rotation of [radians_].
-  factory Matrix2.rotation(double radians) => new Matrix2.zero()..setRotation(
-      radians);
+  factory Matrix2.rotation(double radians) => 
+      new Matrix2.zero()..setRotation(radians);
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3) {
@@ -459,10 +460,8 @@ class Matrix2 {
   /// [this].
   Vector2 transform(Vector2 arg) {
     final argStorage = arg._storage2;
-    double x = (_storage22[0] * argStorage[0]) + (_storage22[2] *
-        argStorage[1]);
-    double y = (_storage22[1] * argStorage[0]) + (_storage22[3] *
-        argStorage[1]);
+    final x = (_storage22[0] * argStorage[0]) + (_storage22[2] * argStorage[1]);
+    final y = (_storage22[1] * argStorage[0]) + (_storage22[3] * argStorage[1]);
     argStorage[0] = x;
     argStorage[1] = y;
     return arg;
@@ -482,7 +481,7 @@ class Matrix2 {
 
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset = 0]) {
-    int i = offset;
+    final i = offset;
     array[i + 3] = _storage22[3];
     array[i + 2] = _storage22[2];
     array[i + 1] = _storage22[1];
@@ -491,7 +490,7 @@ class Matrix2 {
 
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    int i = offset;
+    final i = offset;
     _storage22[3] = array[i + 3];
     _storage22[2] = array[i + 2];
     _storage22[1] = array[i + 1];

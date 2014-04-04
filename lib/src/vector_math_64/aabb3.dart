@@ -58,10 +58,9 @@ class Aabb3 {
       : _min3 = new Vector3.copy(min),
         _max3 = new Vector3.copy(max);
 
-  /// Create a new AABB with a [center] and [max_].
-  Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
-      : _min3 = new Vector3.copy(center)..sub(halfExtents),
-        _max3 = new Vector3.copy(center)..add(halfExtents);
+  /// Create a new AABB with a [center] and [halfExtents].
+  factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
+      => new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
 
   /// Constructs [Aabb3] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
@@ -70,6 +69,16 @@ class Aabb3 {
       : _min3 = new Vector3.fromBuffer(buffer, offset),
         _max3 = new Vector3.fromBuffer(buffer, offset +
           Float64List.BYTES_PER_ELEMENT * 3);
+
+  /// Set the AABB by a [center] and [halfExtents].
+  void setCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
+    _min3
+        ..setFrom(center)
+        ..sub(halfExtents);
+    _max3
+        ..setFrom(center)
+        ..add(halfExtents);
+  }
 
   /// DEPREACTED: Removed, copy min and max yourself
   @deprecated
@@ -188,8 +197,12 @@ class Aabb3 {
     final otherMax = other._max3;
     final otherMin = other._min3;
 
-    return _min3.x < otherMin.x && _min3.y < otherMin.y && _min3.z < otherMin.z
-        && _max3.x > otherMax.x && _max3.y > otherMax.y && _max3.z > otherMax.z;
+    return _min3.x < otherMin.x &&
+           _min3.y < otherMin.y &&
+           _min3.z < otherMin.z &&
+           _max3.x > otherMax.x &&
+           _max3.y > otherMax.y &&
+           _max3.z > otherMax.z;
   }
 
   /// Return if [this] contains [other].
@@ -206,8 +219,12 @@ class Aabb3 {
     final otherY = other[1];
     final otherZ = other[2];
 
-    return _min3.x < otherX && _min3.y < otherY && _min3.z < otherZ && _max3.x >
-        otherX && _max3.y > otherY && _max3.z > otherZ;
+    return _min3.x < otherX &&
+           _min3.y < otherY &&
+           _min3.z < otherZ &&
+           _max3.x > otherX &&
+           _max3.y > otherY &&
+           _max3.z > otherZ;
   }
 
   /// Return if [this] contains [other].
@@ -219,9 +236,12 @@ class Aabb3 {
     final otherMax = other._max3;
     final otherMin = other._min3;
 
-    return _min3.x <= otherMax.x && _min3.y <= otherMax.y && _min3.z <=
-        otherMax.z && _max3.x >= otherMin.x && _max3.y >= otherMin.y && _max3.z >=
-        otherMin.z;
+    return _min3.x <= otherMax.x &&
+           _min3.y <= otherMax.y &&
+           _min3.z <= otherMax.z &&
+           _max3.x >= otherMin.x &&
+           _max3.y >= otherMin.y &&
+           _max3.z >= otherMin.z;
   }
 
   /// Return if [this] intersects with [other].
@@ -258,7 +278,11 @@ class Aabb3 {
     final otherY = other[1];
     final otherZ = other[2];
 
-    return _min3.x <= otherX && _min3.y <= otherY && _min3.z <= otherZ &&
-        _max3.x >= otherX && _max3.y >= otherY && _max3.z >= otherZ;
+    return _min3.x <= otherX &&
+           _min3.y <= otherY &&
+           _min3.z <= otherZ &&
+           _max3.x >= otherX &&
+           _max3.y >= otherY &&
+           _max3.z >= otherZ;
   }
 }

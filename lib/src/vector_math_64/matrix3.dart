@@ -107,8 +107,9 @@ class Matrix3 {
 
   /// New matrix with specified values.
   factory Matrix3(double arg0, double arg1, double arg2, double arg3, double
-      arg4, double arg5, double arg6, double arg7, double arg8) => new Matrix3.zero(
-      )..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+      arg4, double arg5, double arg6, double arg7, double arg8) => 
+      new Matrix3.zero()
+          ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
   /// Constructs a new [Matrix3] filled with zeros.
   Matrix3.zero()
@@ -125,20 +126,20 @@ class Matrix3 {
       new Matrix3.zero()..setColumns(arg0, arg1, arg2);
 
   /// Outer product of [u] and [v].
-  factory Matrix3.outer(Vector3 u, Vector3 v) => new Matrix3.zero()..setOuter(u,
-      v);
+  factory Matrix3.outer(Vector3 u, Vector3 v) => 
+      new Matrix3.zero()..setOuter(u, v);
 
   /// Rotation of [radians_] around X axis.
-  factory Matrix3.rotationX(double radians) => new Matrix3.zero()..setRotationX(
-      radians);
+  factory Matrix3.rotationX(double radians) => 
+      new Matrix3.zero()..setRotationX(radians);
 
   /// Rotation of [radians_] around Y axis.
-  factory Matrix3.rotationY(double radians) => new Matrix3.zero()..setRotationY(
-      radians);
+  factory Matrix3.rotationY(double radians) => 
+      new Matrix3.zero()..setRotationY(radians);
 
   /// Rotation of [radians_] around Z axis.
-  factory Matrix3.rotationZ(double radians) => new Matrix3.zero()..setRotationZ(
-      radians);
+  factory Matrix3.rotationZ(double radians) => 
+      new Matrix3.zero()..setRotationZ(radians);
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3, double

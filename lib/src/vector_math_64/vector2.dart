@@ -200,7 +200,8 @@ class Vector2 implements Vector {
     return _storage2[0] * otherStorage[1] - _storage2[1] * otherStorage[0];
   }
 
-  /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return [out].
+  /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return 
+  /// [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
     out.setValues(-scale * _storage2[1], scale * _storage2[0]);
     return out;
@@ -349,38 +350,22 @@ class Vector2 implements Vector {
   Vector3 get yxy => new Vector3(_storage2[1], _storage2[0], _storage2[1]);
   Vector3 get yyx => new Vector3(_storage2[1], _storage2[1], _storage2[0]);
   Vector3 get yyy => new Vector3(_storage2[1], _storage2[1], _storage2[1]);
-  Vector4 get xxxx => new Vector4(_storage2[0], _storage2[0], _storage2[0],
-      _storage2[0]);
-  Vector4 get xxxy => new Vector4(_storage2[0], _storage2[0], _storage2[0],
-      _storage2[1]);
-  Vector4 get xxyx => new Vector4(_storage2[0], _storage2[0], _storage2[1],
-      _storage2[0]);
-  Vector4 get xxyy => new Vector4(_storage2[0], _storage2[0], _storage2[1],
-      _storage2[1]);
-  Vector4 get xyxx => new Vector4(_storage2[0], _storage2[1], _storage2[0],
-      _storage2[0]);
-  Vector4 get xyxy => new Vector4(_storage2[0], _storage2[1], _storage2[0],
-      _storage2[1]);
-  Vector4 get xyyx => new Vector4(_storage2[0], _storage2[1], _storage2[1],
-      _storage2[0]);
-  Vector4 get xyyy => new Vector4(_storage2[0], _storage2[1], _storage2[1],
-      _storage2[1]);
-  Vector4 get yxxx => new Vector4(_storage2[1], _storage2[0], _storage2[0],
-      _storage2[0]);
-  Vector4 get yxxy => new Vector4(_storage2[1], _storage2[0], _storage2[0],
-      _storage2[1]);
-  Vector4 get yxyx => new Vector4(_storage2[1], _storage2[0], _storage2[1],
-      _storage2[0]);
-  Vector4 get yxyy => new Vector4(_storage2[1], _storage2[0], _storage2[1],
-      _storage2[1]);
-  Vector4 get yyxx => new Vector4(_storage2[1], _storage2[1], _storage2[0],
-      _storage2[0]);
-  Vector4 get yyxy => new Vector4(_storage2[1], _storage2[1], _storage2[0],
-      _storage2[1]);
-  Vector4 get yyyx => new Vector4(_storage2[1], _storage2[1], _storage2[1],
-      _storage2[0]);
-  Vector4 get yyyy => new Vector4(_storage2[1], _storage2[1], _storage2[1],
-      _storage2[1]);
+  Vector4 get xxxx => new Vector4(_storage2[0], _storage2[0], _storage2[0], _storage2[0]);
+  Vector4 get xxxy => new Vector4(_storage2[0], _storage2[0], _storage2[0], _storage2[1]);
+  Vector4 get xxyx => new Vector4(_storage2[0], _storage2[0], _storage2[1], _storage2[0]);
+  Vector4 get xxyy => new Vector4(_storage2[0], _storage2[0], _storage2[1], _storage2[1]);
+  Vector4 get xyxx => new Vector4(_storage2[0], _storage2[1], _storage2[0], _storage2[0]);
+  Vector4 get xyxy => new Vector4(_storage2[0], _storage2[1], _storage2[0], _storage2[1]);
+  Vector4 get xyyx => new Vector4(_storage2[0], _storage2[1], _storage2[1], _storage2[0]);
+  Vector4 get xyyy => new Vector4(_storage2[0], _storage2[1], _storage2[1], _storage2[1]);
+  Vector4 get yxxx => new Vector4(_storage2[1], _storage2[0], _storage2[0], _storage2[0]);
+  Vector4 get yxxy => new Vector4(_storage2[1], _storage2[0], _storage2[0], _storage2[1]);
+  Vector4 get yxyx => new Vector4(_storage2[1], _storage2[0], _storage2[1], _storage2[0]);
+  Vector4 get yxyy => new Vector4(_storage2[1], _storage2[0], _storage2[1], _storage2[1]);
+  Vector4 get yyxx => new Vector4(_storage2[1], _storage2[1], _storage2[0], _storage2[0]);
+  Vector4 get yyxy => new Vector4(_storage2[1], _storage2[1], _storage2[0], _storage2[1]);
+  Vector4 get yyyx => new Vector4(_storage2[1], _storage2[1], _storage2[1], _storage2[0]);
+  Vector4 get yyyy => new Vector4(_storage2[1], _storage2[1], _storage2[1], _storage2[1]);
   double get r => x;
   double get g => y;
   double get s => x;

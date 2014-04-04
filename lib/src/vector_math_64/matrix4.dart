@@ -137,22 +137,29 @@ class Matrix4 {
       det = 1.0 / det;
     }
 
-    x.x = det * ((a11 * b11 - a12 * b10 + a13 * b09) * bX - (a10 * b11 - a12 *
-        b08 + a13 * b07) * bY + (a10 * b10 - a11 * b08 + a13 * b06) * bZ - (a10 * b09 -
-        a11 * b07 + a12 * b06) * bW);
+    x.x = det * (
+        (a11 * b11 - a12 * b10 + a13 * b09) * bX - 
+        (a10 * b11 - a12 * b08 + a13 * b07) * bY +
+        (a10 * b10 - a11 * b08 + a13 * b06) * bZ -
+        (a10 * b09 - a11 * b07 + a12 * b06) * bW);
 
-    x.y = det * -((a01 * b11 - a02 * b10 + a03 * b09) * bX - (a00 * b11 - a02 *
-        b08 + a03 * b07) * bY + (a00 * b10 - a01 * b08 + a03 * b06) * bZ - (a00 * b09 -
-        a01 * b07 + a02 * b06) * bW);
+    x.y = det * -(
+        (a01 * b11 - a02 * b10 + a03 * b09) * bX - 
+        (a00 * b11 - a02 * b08 + a03 * b07) * bY + 
+        (a00 * b10 - a01 * b08 + a03 * b06) * bZ - 
+        (a00 * b09 - a01 * b07 + a02 * b06) * bW);
 
-    x.z = det * ((a31 * b05 - a32 * b04 + a33 * b03) * bX - (a30 * b05 - a32 *
-        b02 + a33 * b01) * bY + (a30 * b04 - a31 * b02 + a33 * b00) * bZ - (a30 * b03 -
-        a31 * b01 + a32 * b00) * bW);
+    x.z = det * (
+        (a31 * b05 - a32 * b04 + a33 * b03) * bX - 
+        (a30 * b05 - a32 * b02 + a33 * b01) * bY + 
+        (a30 * b04 - a31 * b02 + a33 * b00) * bZ -
+        (a30 * b03 - a31 * b01 + a32 * b00) * bW);
 
-    x.w = det * -((a21 * b05 - a22 * b04 + a23 * b03) * bX - (a20 * b05 - a22 *
-        b02 + a23 * b01) * bY + (a20 * b04 - a21 * b02 + a23 * b00) * bZ - (a20 * b03 -
-        a21 * b01 + a22 * b00) * bW);
-
+    x.w = det * -(
+        (a21 * b05 - a22 * b04 + a23 * b03) * bX - 
+        (a20 * b05 - a22 * b02 + a23 * b01) * bY + 
+        (a20 * b04 - a21 * b02 + a23 * b00) * bZ - 
+        (a20 * b03 - a21 * b01 + a22 * b00) * bW);
   }
 
   /// The components of the matrix.
@@ -191,8 +198,8 @@ class Matrix4 {
       arg3) => new Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
 
   /// Outer product of [u] and [v].
-  factory Matrix4.outer(Vector4 u, Vector4 v) => new Matrix4.zero()..setOuter(u,
-      v);
+  factory Matrix4.outer(Vector4 u, Vector4 v) => 
+      new Matrix4.zero()..setOuter(u, v);
 
   /// Rotation of [radians_] around X.
   factory Matrix4.rotationX(double radians) => new Matrix4.zero()
@@ -561,8 +568,8 @@ class Matrix4 {
     final len = axis.length;
     final axisStorage = axis._storage3;
     final x = axisStorage[0] / len;
-    final y = axisStorage[0] / len;
-    final z = axisStorage[0] / len;
+    final y = axisStorage[1] / len;
+    final z = axisStorage[2] / len;
     final c = Math.cos(angle);
     final s = Math.sin(angle);
     final C = 1.0 - c;
@@ -585,10 +592,8 @@ class Matrix4 {
     final t8 = _storage44[3] * m12 + _storage44[7] * m22 + _storage44[11] * m32;
     final t9 = _storage44[0] * m13 + _storage44[4] * m23 + _storage44[8] * m33;
     final t10 = _storage44[1] * m13 + _storage44[5] * m23 + _storage44[9] * m33;
-    final t11 = _storage44[2] * m13 + _storage44[6] * m23 + _storage44[10] *
-        m33;
-    final t12 = _storage44[3] * m13 + _storage44[7] * m23 + _storage44[11] *
-        m33;
+    final t11 = _storage44[2] * m13 + _storage44[6] * m23 + _storage44[10] * m33;
+    final t12 = _storage44[3] * m13 + _storage44[7] * m23 + _storage44[11] * m33;
     _storage44[0] = t1;
     _storage44[1] = t2;
     _storage44[2] = t3;
@@ -1495,16 +1500,16 @@ class Matrix4 {
   /// [this].
   Vector4 transform(Vector4 arg) {
     final argStorage = arg._storage4;
-    double x_ = (_storage44[0] * argStorage[0]) + (_storage44[4] *
+    final x_ = (_storage44[0] * argStorage[0]) + (_storage44[4] *
         argStorage[1]) + (_storage44[8] * argStorage[2]) + (_storage44[12] *
         argStorage[3]);
-    double y_ = (_storage44[1] * argStorage[0]) + (_storage44[5] *
+    final y_ = (_storage44[1] * argStorage[0]) + (_storage44[5] *
         argStorage[1]) + (_storage44[9] * argStorage[2]) + (_storage44[13] *
         argStorage[3]);
-    double z_ = (_storage44[2] * argStorage[0]) + (_storage44[6] *
+    final z_ = (_storage44[2] * argStorage[0]) + (_storage44[6] *
         argStorage[1]) + (_storage44[10] * argStorage[2]) + (_storage44[14] *
         argStorage[3]);
-    double w_ = (_storage44[3] * argStorage[0]) + (_storage44[7] *
+    final w_ = (_storage44[3] * argStorage[0]) + (_storage44[7] *
         argStorage[1]) + (_storage44[11] * argStorage[2]) + (_storage44[15] *
         argStorage[3]);
     argStorage[0] = x_;

@@ -59,9 +59,8 @@ class Aabb2 {
         _max2 = new Vector2.copy(max);
 
   /// Create a new AABB with a [center] and [halfExtents].
-  Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents)
-      : _min2 = new Vector2.copy(center)..sub(halfExtents),
-        _max2 = new Vector2.copy(center)..add(halfExtents);
+  factory Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents)
+      => new Aabb2()..setCenterAndHalfExtents(center, halfExtents);
 
   /// Constructs [Aabb2] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
@@ -70,6 +69,16 @@ class Aabb2 {
       : _min2 = new Vector2.fromBuffer(buffer, offset),
         _max2 = new Vector2.fromBuffer(buffer, offset +
           Float64List.BYTES_PER_ELEMENT * 2);
+
+  /// Set the AABB by a [center] and [halfExtents].
+  void setCenterAndHalfExtents(Vector2 center, Vector2 halfExtents) {
+    _min2
+        ..setFrom(center)
+        ..sub(halfExtents);
+    _max2
+        ..setFrom(center)
+        ..add(halfExtents);
+  }
 
   /// DEPREACTED: Removed, copy min and max yourself
   @deprecated
@@ -162,8 +171,10 @@ class Aabb2 {
     final otherMax = other._max2;
     final otherMin = other._min2;
 
-    return _min2.x < otherMin.x && _min2.y < otherMin.y && _max2.y > otherMax.y
-        && _max2.x > otherMax.x;
+    return _min2.x < otherMin.x &&
+           _min2.y < otherMin.y &&
+           _max2.y > otherMax.y &&
+           _max2.x > otherMax.x;
   }
 
   /// Return if [this] contains [other].
@@ -171,8 +182,10 @@ class Aabb2 {
     final otherX = other[0];
     final otherY = other[1];
 
-    return _min2.x < otherX && _min2.y < otherY && _max2.x > otherX && _max2.y >
-        otherY;
+    return _min2.x < otherX &&
+           _min2.y < otherY &&
+           _max2.x > otherX &&
+           _max2.y > otherY;
   }
 
   /// Return if [this] intersects with [other].
@@ -180,8 +193,10 @@ class Aabb2 {
     final otherMax = other._max2;
     final otherMin = other._min2;
 
-    return _min2.x <= otherMax.x && _min2.y <= otherMax.y && _max2.x >=
-        otherMin.x && _max2.y >= otherMin.y;
+    return _min2.x <= otherMax.x &&
+           _min2.y <= otherMax.y &&
+           _max2.x >= otherMin.x &&
+           _max2.y >= otherMin.y;
   }
 
   /// Return if [this] intersects with [other].
@@ -189,7 +204,9 @@ class Aabb2 {
     final otherX = other[0];
     final otherY = other[1];
 
-    return _min2.x <= otherX && _min2.y <= otherY && _max2.x >= otherX &&
-        _max2.y >= otherY;
+    return _min2.x <= otherX &&
+           _min2.y <= otherY &&
+           _max2.x >= otherX &&
+           _max2.y >= otherY;
   }
 }
