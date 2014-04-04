@@ -405,15 +405,17 @@ class Matrix3 {
   /// Returns the dot product of row [i] and [v].
   double dotRow(int i, Vector3 v) {
     final vStorage = v._storage3;
-    return _storage33[i] * vStorage[0] + _storage33[3 + i] * vStorage[1] +
-        _storage33[6 + i] * vStorage[2];
+    return _storage33[i] * vStorage[0] +
+           _storage33[3 + i] * vStorage[1] +
+           _storage33[6 + i] * vStorage[2];
   }
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector3 v) {
     final vStorage = v._storage3;
-    return _storage33[j * 3] * vStorage[0] + _storage33[j * 3 + 1] * vStorage[1]
-        + _storage33[j * 3 + 2] * vStorage[2];
+    return _storage33[j * 3] * vStorage[0] +
+           _storage33[j * 3 + 1] * vStorage[1] +
+           _storage33[j * 3 + 2] * vStorage[2];
   }
 
   /// Returns the trace of the matrix. The trace of a matrix is the sum of

@@ -138,9 +138,9 @@ class Frustum {
 
   /// Calculate the corners of a [frustum] at write them into [corner0] to
   // [corner7].
-  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3
-      corner2, Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3
-      corner6, Vector3 corner7) {
+  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3 corner2,
+      Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3 corner6,
+      Vector3 corner7) {
     Plane.intersection(_planes[0], _planes[2], _planes[4], corner0);
     Plane.intersection(_planes[0], _planes[3], _planes[4], corner1);
     Plane.intersection(_planes[0], _planes[3], _planes[5], corner2);
