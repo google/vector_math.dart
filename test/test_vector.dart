@@ -76,37 +76,37 @@ class VectorTest extends BaseTest {
   void testVec2Length() {
     final Vector2 a = new Vector2(5.0, 7.0);
 
-    relativeTest(a.length, 8.6);
-    relativeTest(a.length2, 74.0);
+    expect(a.length, relativeEquals(8.6));
+    expect(a.length2, relativeEquals(74.0));
 
-    relativeTest(a.normalizeLength(), 8.6);
-    relativeTest(a.x, 0.5812);
-    relativeTest(a.y, 0.8137);
+    expect(a.normalizeLength(), relativeEquals(8.6));
+    expect(a.x, relativeEquals(0.5812));
+    expect(a.y, relativeEquals(0.8137));
   }
 
   void testVec3Length() {
     final Vector3 a = new Vector3(5.0, 7.0, 3.0);
 
-    relativeTest(a.length, 9.1104);
-    relativeTest(a.length2, 83.0);
+    expect(a.length, relativeEquals(9.1104));
+    expect(a.length2, relativeEquals(83.0));
 
-    relativeTest(a.normalizeLength(), 9.1104);
-    relativeTest(a.x, 0.5488);
-    relativeTest(a.y, 0.7683);
-    relativeTest(a.z, 0.3292);
+    expect(a.normalizeLength(), relativeEquals(9.1104));
+    expect(a.x, relativeEquals(0.5488));
+    expect(a.y, relativeEquals(0.7683));
+    expect(a.z, relativeEquals(0.3292));
   }
 
   void testVec4Length() {
     final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
 
-    relativeTest(a.length, 13.5277);
-    relativeTest(a.length2, 183.0);
+    expect(a.length, relativeEquals(13.5277));
+    expect(a.length2, relativeEquals(183.0));
 
-    relativeTest(a.normalizeLength(), 13.5277);
-    relativeTest(a.x, 0.3696);
-    relativeTest(a.y, 0.5174);
-    relativeTest(a.z, 0.2217);
-    relativeTest(a.w, 0.7392);
+    expect(a.normalizeLength(), relativeEquals(13.5277));
+    expect(a.x, relativeEquals(0.3696));
+    expect(a.y, relativeEquals(0.5174));
+    expect(a.z, relativeEquals(0.2217));
+    expect(a.w, relativeEquals(0.7392));
   }
 
   void testVec2MinMax() {
@@ -230,8 +230,8 @@ class VectorTest extends BaseTest {
     final Vector2 inputA = new Vector2(0.417267069084370, 0.049654430325742);
     final Vector2 inputB = new Vector2(0.944787189721646, 0.490864092468080);
     final double expectedOutput = 0.418602158442475;
-    relativeTest(dot2(inputA, inputB), expectedOutput);
-    relativeTest(dot2(inputB, inputA), expectedOutput);
+    expect(dot2(inputA, inputB), relativeEquals(expectedOutput));
+    expect(dot2(inputB, inputA), relativeEquals(expectedOutput));
   }
 
   void testVec2Postmultiplication() {
@@ -256,14 +256,14 @@ class VectorTest extends BaseTest {
     double expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
     var result;
     result = cross2(inputA, inputB);
-    relativeTest(result, expectedOutputCross);
+    expect(result, relativeEquals(expectedOutputCross));
     result = new Vector2.zero();
     cross2A(1.0, inputA, result);
-    relativeTest(result, new Vector2(-inputA.y, inputA.x));
+    expect(result, relativeEquals(new Vector2(-inputA.y, inputA.x)));
     cross2B(inputA, 1.0, result);
-    relativeTest(result, new Vector2(inputA.y, -inputA.x));
+    expect(result, relativeEquals(new Vector2(inputA.y, -inputA.x)));
     cross2B(inputA, 1.0, result);
-    relativeTest(result, new Vector2(inputA.y, -inputA.x));
+    expect(result, relativeEquals(new Vector2(inputA.y, -inputA.x)));
   }
 
   void testVec2OrthogonalScale() {
@@ -297,8 +297,8 @@ class VectorTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       double output1 = dot3(inputA[i], inputB[i]);
       double output2 = dot3(inputB[i], inputA[i]);
-      relativeTest(output1, expectedOutput[i]);
-      relativeTest(output2, expectedOutput[i]);
+      expect(output1, relativeEquals(expectedOutput[i]));
+      expect(output2, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -350,7 +350,7 @@ class VectorTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       Vector3 output = new Vector3.zero();
       cross3(inputA[i], inputB[i], output);
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
 
     {
@@ -360,19 +360,19 @@ class VectorTest extends BaseTest {
       Vector3 output;
 
       output = x.cross(y);
-      relativeTest(output, new Vector3(0.0, 0.0, 1.0));
+      expect(output, relativeEquals(new Vector3(0.0, 0.0, 1.0)));
       output = y.cross(x);
-      relativeTest(output, new Vector3(0.0, 0.0, -1.0));
+      expect(output, relativeEquals(new Vector3(0.0, 0.0, -1.0)));
 
       output = x.cross(z);
-      relativeTest(output, new Vector3(0.0, -1.0, 0.0));
+      expect(output, relativeEquals(new Vector3(0.0, -1.0, 0.0)));
       output = z.cross(x);
-      relativeTest(output, new Vector3(0.0, 1.0, 0.0));
+      expect(output, relativeEquals(new Vector3(0.0, 1.0, 0.0)));
 
       output = y.cross(z);
-      relativeTest(output, new Vector3(1.0, 0.0, 0.0));
+      expect(output, relativeEquals(new Vector3(1.0, 0.0, 0.0)));
       output = z.cross(y);
-      relativeTest(output, new Vector3(-1.0, 0.0, 0.0));
+      expect(output, relativeEquals(new Vector3(-1.0, 0.0, 0.0)));
     }
   }
 
@@ -455,13 +455,13 @@ class VectorTest extends BaseTest {
 
     v = new Vector2(4.0, 4.0);
     v.reflect(new Vector2(-1.0, -1.0).normalized());
-    relativeTest(v.x, -4.0);
-    relativeTest(v.y, -4.0);
+    expect(v.x, relativeEquals(-4.0));
+    expect(v.y, relativeEquals(-4.0));
 
     v = new Vector2(-4.0, -4.0);
     v.reflect(new Vector2(1.0, 1.0).normalized());
-    relativeTest(v.x, 4.0);
-    relativeTest(v.y, 4.0);
+    expect(v.x, relativeEquals(4.0));
+    expect(v.y, relativeEquals(4.0));
   }
 
   void testVec3Reflect() {
@@ -503,21 +503,21 @@ class VectorTest extends BaseTest {
 
     v = new Vector3(4.0, 4.0, 4.0);
     v.reflect(new Vector3(-1.0, -1.0, -1.0).normalized());
-    relativeTest(v.x, -4.0);
-    relativeTest(v.y, -4.0);
-    relativeTest(v.z, -4.0);
+    expect(v.x, relativeEquals(-4.0));
+    expect(v.y, relativeEquals(-4.0));
+    expect(v.z, relativeEquals(-4.0));
 
     v = new Vector3(-4.0, -4.0, -4.0);
     v.reflect(new Vector3(1.0, 1.0, 1.0).normalized());
-    relativeTest(v.x, 4.0);
-    relativeTest(v.y, 4.0);
-    relativeTest(v.z, 4.0);
+    expect(v.x, relativeEquals(4.0));
+    expect(v.y, relativeEquals(4.0));
+    expect(v.z, relativeEquals(4.0));
 
     v = new Vector3(10.0, 20.0, 2.0);
     v.reflect(new Vector3(-10.0, -20.0, -2.0).normalized());
-    relativeTest(v.x, -10.0);
-    relativeTest(v.y, -20.0);
-    relativeTest(v.z, -2.0);
+    expect(v.x, relativeEquals(-10.0));
+    expect(v.y, relativeEquals(-20.0));
+    expect(v.z, relativeEquals(-2.0));
   }
 
   void testVec3Projection() {
@@ -530,9 +530,9 @@ class VectorTest extends BaseTest {
                          0.0, 0.0,  0.0, 1.0);
 
     v.applyProjection(m);
-    relativeTest(v.x, a);
-    relativeTest(v.y, 4.0 / 3.0);
-    relativeTest(v.z, a);
+    expect(v.x, relativeEquals(a));
+    expect(v.y, relativeEquals(4.0 / 3.0));
+    expect(v.z, relativeEquals(a));
   }
 
   void testVec2DistanceTo() {
@@ -593,12 +593,12 @@ class VectorTest extends BaseTest {
     {
       Vector2List list = new Vector2List(10, 1);
       list[0] = new Vector2(1.0, 2.0);
-      relativeTest(list[0].x, 1.0);
-      relativeTest(list[0].y, 2.0);
-      relativeTest(list.buffer[0], 0.0);  // unset
-      relativeTest(list.buffer[1], 1.0);
-      relativeTest(list.buffer[2], 2.0);
-      relativeTest(list.buffer[3], 0.0);  // unset
+      expect(list[0].x, relativeEquals(1.0));
+      expect(list[0].y, relativeEquals(2.0));
+      expect(list.buffer[0], relativeEquals(0.0));  // unset
+      expect(list.buffer[1], relativeEquals(1.0));
+      expect(list.buffer[2], relativeEquals(2.0));
+      expect(list.buffer[3], relativeEquals(0.0));  // unset
     }
     {
       Float32List buffer = new Float32List(8);

@@ -1,17 +1,57 @@
 part of vector_math_test;
 
-void relativeTest(var output, var expectedOutput) {
-  final num errorThreshold = 0.0005;
-  num error = relativeError(output, expectedOutput).abs();
-  expect(error >= errorThreshold, isFalse,
-      reason:'$output != $expectedOutput : relativeError = $error');
+Matcher relativeEquals(expectedOutput, {double errorThreshold: 0.0005}) =>
+    new _RelativeEqualsMatcher(expectedOutput, errorThreshold: errorThreshold);
+
+Matcher absoluteEquals(expectedOutput, {double errorThreshold: 0.0005}) =>
+    new _AbsoluteEqualsMatcher(expectedOutput, errorThreshold: errorThreshold);
+
+class _RelativeEqualsMatcher extends Matcher {
+  final double errorThreshold;
+  final expectedOutput;
+
+  _RelativeEqualsMatcher(this.expectedOutput, {this.errorThreshold: 0.0005});
+
+  @override
+  Description describe(Description description) =>
+      description
+        .addDescriptionOf(expectedOutput)
+        .add(' (relative errorThreshold = $errorThreshold)');
+
+  Description describeMismatch(item, Description mismatchDescription,
+      Map matchState, bool verbose) {
+    final error = relativeError(item, expectedOutput).abs();
+
+    return mismatchDescription.replace('$item != $expectedOutput : relativeError = $error (errorThreshold = $errorThreshold)');
+  }
+
+  @override
+  bool matches(item, Map matchState) =>
+      !(relativeError(item, expectedOutput).abs() >= errorThreshold);
 }
 
-void absoluteTest(var output, var expectedOutput) {
-  final num errorThreshold = 0.0005;
-  num error = absoluteError(output, expectedOutput).abs();
-  expect(error >= errorThreshold, isFalse,
-      reason:'$output != $expectedOutput : absoluteError = $error');
+class _AbsoluteEqualsMatcher extends Matcher {
+  final double errorThreshold;
+  final expectedOutput;
+
+  _AbsoluteEqualsMatcher(this.expectedOutput, {this.errorThreshold: 0.0005});
+
+  @override
+  Description describe(Description description) =>
+      description
+        .addDescriptionOf(expectedOutput)
+        .add(' (absolute errorThreshold = $errorThreshold)');
+
+  Description describeMismatch(item, Description mismatchDescription,
+      Map matchState, bool verbose) {
+    final error = absoluteError(item, expectedOutput).abs();
+
+    return mismatchDescription.replace('$item != $expectedOutput : absoluteError = $error (errorThreshold = $errorThreshold)');
+  }
+
+  @override
+  bool matches(item, Map matchState) =>
+      !(absoluteError(item, expectedOutput).abs() >= errorThreshold);
 }
 
 class BaseTest {

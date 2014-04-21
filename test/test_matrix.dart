@@ -86,7 +86,7 @@ class MatrixTest extends BaseTest {
 
     for (int i = 0; i < inputA.length; i++) {
       inputA[i].transpose();
-      relativeTest(inputA[i], expectedOutput[i]);
+      expect(inputA[i], relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -121,7 +121,7 @@ class MatrixTest extends BaseTest {
 
     for (int i = 0; i < inputA.length; i++) {
       dynamic output = inputA[i] * inputB[i];
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -159,7 +159,7 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       dynamic output = inputA[i] * inputB[i];
       //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -218,7 +218,7 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < input.length; i++) {
       dynamic output = input[i].clone();
       output.scaleAdjoint(1.0);
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -256,7 +256,7 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < input.length; i++) {
       double output = input[i].determinant();
       //print('${input[i].cols}x${input[i].rows} = $output');
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -303,7 +303,7 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       dynamic output = inputA[i].clone();
       output.transposeMultiply(inputB[i]);
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -350,7 +350,7 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       dynamic output = inputA[i].clone();
       output.multiply(inputB[i]);
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -397,7 +397,7 @@ class MatrixTest extends BaseTest {
     for (int i = 0; i < inputA.length; i++) {
       dynamic output = inputA[i].clone();
       output.multiplyTranspose(inputB[i]);
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -417,7 +417,7 @@ class MatrixTest extends BaseTest {
     assert(output1.length == output2.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      relativeTest(output1[i], output2[i]);
+      expect(output1[i], relativeEquals(output2[i]));
     }
   }
 
@@ -436,7 +436,7 @@ class MatrixTest extends BaseTest {
     assert(output1.length == output2.length);
 
     for (int i = 0; i < inputA.length; i++) {
-      relativeTest(output1[i], output2[i]);
+      expect(output1[i], relativeEquals(output2[i]));
     }
   }
 
@@ -464,7 +464,7 @@ class MatrixTest extends BaseTest {
     }
     assert(output1.length == output2.length);
     for (int i = 0; i < output1.length; i++) {
-      relativeTest(output1[i], output2[i]);
+      expect(output1[i], relativeEquals(output2[i]));
     }
     return;
   }
@@ -483,8 +483,8 @@ class MatrixTest extends BaseTest {
                                         rot.entry(0, 1) * input.x +
                                         rot.entry(1, 1) * input.y);
 
-    relativeTest(rot.transformed(input), expected);
-    relativeTest(rot.transposed().transformed(input), transExpected);
+    expect(rot.transformed(input), relativeEquals(expected));
+    expect(rot.transposed().transformed(input), relativeEquals(transExpected));
   }
 
   void testMatrix3Transform() {
@@ -493,13 +493,13 @@ class MatrixTest extends BaseTest {
     Matrix3 rotZ = new Matrix3.rotationZ(Math.PI / 4);
     final input = new Vector3(1.0, 0.0, 0.0);
 
-    relativeTest(rotX.transformed(input), input);
-    relativeTest(rotY.transformed(input), new Vector3(1.0 / Math.sqrt(2.0),
+    expect(rotX.transformed(input), relativeEquals(input));
+    expect(rotY.transformed(input), relativeEquals(new Vector3(1.0 / Math.sqrt(2.0),
                                                       0.0,
-                                                      1.0 / Math.sqrt(2.0)));
-    relativeTest(rotZ.transformed(input), new Vector3(1.0 / Math.sqrt(2.0),
+                                                      1.0 / Math.sqrt(2.0))));
+    expect(rotZ.transformed(input), relativeEquals(new Vector3(1.0 / Math.sqrt(2.0),
                                                       1.0 / Math.sqrt(2.0),
-                                                      0.0));
+                                                      0.0)));
   }
 
   void testMatrix3Transform2() {
@@ -511,11 +511,11 @@ class MatrixTest extends BaseTest {
 
     final input = new Vector2(1.0, 0.0);
 
-    relativeTest(rotZ.transform2(input.clone()),
-        new Vector2(Math.sqrt(0.5),Math.sqrt(0.5)));
+    expect(rotZ.transform2(input.clone()),
+        relativeEquals(new Vector2(Math.sqrt(0.5),Math.sqrt(0.5))));
 
-    relativeTest(trans.transform2(input.clone()),
-        new Vector2(4.0,2.0));
+    expect(trans.transform2(input.clone()),
+        relativeEquals(new Vector2(4.0,2.0)));
 
   }
 
@@ -528,11 +528,11 @@ class MatrixTest extends BaseTest {
 
     final input = new Vector2(1.0, 0.0);
 
-    relativeTest(rotZ.absoluteRotate2(input.clone()),
-        new Vector2(Math.sqrt(0.5),Math.sqrt(0.5)));
+    expect(rotZ.absoluteRotate2(input.clone()),
+        relativeEquals(new Vector2(Math.sqrt(0.5),Math.sqrt(0.5))));
 
-    relativeTest(rotZcw.absoluteRotate2(input.clone()),
-        new Vector2(Math.sqrt(0.5),Math.sqrt(0.5)));
+    expect(rotZcw.absoluteRotate2(input.clone()),
+        relativeEquals(new Vector2(Math.sqrt(0.5),Math.sqrt(0.5))));
 
   }
 

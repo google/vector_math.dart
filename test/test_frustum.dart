@@ -67,30 +67,30 @@ class FrustumTest extends BaseTest {
 
     frustum.calculateCorners(c0, c1, c2, c3, c4, c5, c6, c7);
 
-    relativeTest(c0.x, 100.0);
-    relativeTest(c0.y, -100.0);
-    relativeTest(c0.z, -100.0);
-    relativeTest(c1.x, 100.0);
-    relativeTest(c1.y, 100.0);
-    relativeTest(c1.z, -100.0);
-    relativeTest(c2.x, 1.0);
-    relativeTest(c2.y, 1.0);
-    relativeTest(c2.z, -1.0);
-    relativeTest(c3.x, 1.0);
-    relativeTest(c3.y, -1.0);
-    relativeTest(c3.z, -1.0);
-    relativeTest(c4.x, -100.0);
-    relativeTest(c4.y, -100.0);
-    relativeTest(c4.z, -100.0);
-    relativeTest(c5.x, -100.0);
-    relativeTest(c5.y, 100.0);
-    relativeTest(c5.z, -100.0);
-    relativeTest(c6.x, -1.0);
-    relativeTest(c6.y, 1.0);
-    relativeTest(c6.z, -1.0);
-    relativeTest(c7.x, -1.0);
-    relativeTest(c7.y, -1.0);
-    relativeTest(c7.z, -1.0);
+    expect(c0.x, relativeEquals(100.0));
+    expect(c0.y, relativeEquals(-100.0));
+    expect(c0.z, relativeEquals(-100.0));
+    expect(c1.x, relativeEquals(100.0));
+    expect(c1.y, relativeEquals(100.0));
+    expect(c1.z, relativeEquals(-100.0));
+    expect(c2.x, relativeEquals(1.0));
+    expect(c2.y, relativeEquals(1.0));
+    expect(c2.z, relativeEquals(-1.0));
+    expect(c3.x, relativeEquals(1.0));
+    expect(c3.y, relativeEquals(-1.0));
+    expect(c3.z, relativeEquals(-1.0));
+    expect(c4.x, relativeEquals(-100.0));
+    expect(c4.y, relativeEquals(-100.0));
+    expect(c4.z, relativeEquals(-100.0));
+    expect(c5.x, relativeEquals(-100.0));
+    expect(c5.y, relativeEquals(100.0));
+    expect(c5.z, relativeEquals(-100.0));
+    expect(c6.x, relativeEquals(-1.0));
+    expect(c6.y, relativeEquals(1.0));
+    expect(c6.z, relativeEquals(-1.0));
+    expect(c7.x, relativeEquals(-1.0));
+    expect(c7.y, relativeEquals(-1.0));
+    expect(c7.z, relativeEquals(-1.0));
   }
 
   void run() {

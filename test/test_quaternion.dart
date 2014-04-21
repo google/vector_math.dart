@@ -33,7 +33,7 @@ class QuaternionTest extends BaseTest {
     assert(input.length == expectedOutput.length);
     for (int i = 0; i < input.length; i++) {
       Quaternion output = input[i]..conjugate();
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -41,14 +41,14 @@ class QuaternionTest extends BaseTest {
     for (int i = 0; i < input.length; i++) {
       Matrix3 R = input[i].asRotationMatrix();
       Quaternion output = new Quaternion.fromRotation(R);
-      relativeTest(output, input[i]);
+      expect(output, relativeEquals(input[i]));
     }
   }
 
   void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB, List<Quaternion> expectedOutput) {
     for (int i = 0; i < inputA.length; i++) {
       Quaternion output = inputA[i] * inputB[i];
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 
@@ -56,7 +56,7 @@ class QuaternionTest extends BaseTest {
     assert((inputA.length == inputB.length) && (inputB.length == expectedOutput.length));
     for (int i = 0; i < inputA.length; i++) {
       Vector3 output = inputA[i].rotate(inputB[i]);
-      relativeTest(output, expectedOutput[i]);
+      expect(output, relativeEquals(expectedOutput[i]));
     }
   }
 

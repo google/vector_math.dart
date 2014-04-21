@@ -18,10 +18,10 @@ class GeometryTest extends BaseTest {
 
     generateNormals(normals, positions, indices);
 
-    relativeTest(normals[0], new Vector3(0.0, 1.0, 0.0));
-    relativeTest(normals[1], new Vector3(0.70710, 0.70710, 0.0));
-    relativeTest(normals[2], new Vector3(0.70710, 0.70710, 0.0));
-    relativeTest(normals[3], new Vector3(1.0, 0.0, 0.0));
+    expect(normals[0], relativeEquals(new Vector3(0.0, 1.0, 0.0)));
+    expect(normals[1], relativeEquals(new Vector3(0.70710, 0.70710, 0.0)));
+    expect(normals[2], relativeEquals(new Vector3(0.70710, 0.70710, 0.0)));
+    expect(normals[3], relativeEquals(new Vector3(1.0, 0.0, 0.0)));
   }
 
   void testGenerateTangents() {
@@ -55,10 +55,10 @@ class GeometryTest extends BaseTest {
 
     generateTangents(tangents, positions, normals, texCoords, indices);
 
-    relativeTest(tangents[0], new Vector4(1.0, 0.0, 0.0, -1.0));
-    relativeTest(tangents[1], new Vector4(0.70710, 0.70710, 0.0, 1.0));
-    relativeTest(tangents[2], new Vector4(0.70710, 0.70710, 0.0, 1.0));
-    relativeTest(tangents[3], new Vector4(0.0, 1.0, 0.0, 1.0));
+    expect(tangents[0], relativeEquals(new Vector4(1.0, 0.0, 0.0, -1.0)));
+    expect(tangents[1], relativeEquals(new Vector4(0.70710, 0.70710, 0.0, 1.0)));
+    expect(tangents[2], relativeEquals(new Vector4(0.70710, 0.70710, 0.0, 1.0)));
+    expect(tangents[3], relativeEquals(new Vector4(0.0, 1.0, 0.0, 1.0)));
   }
 
   MeshGeometry filterUnitCube(GeometryFilter filter) {
@@ -111,7 +111,7 @@ class GeometryTest extends BaseTest {
     Vector4List colors = cube.getViewForAttrib("COLOR");
     for(int i = 0; i < colors.length; ++i) {
       Vector4 color = colors[i];
-      relativeTest(color, filterColor);
+      expect(color, relativeEquals(filterColor));
     }
   }
 

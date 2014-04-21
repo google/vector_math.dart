@@ -26,14 +26,14 @@ class OpenGLMatrixTest extends BaseTest {
     Vector3 upDirection = new Vector3(0.0, 1.0, 0.0);
 
     Matrix4 lookat = makeViewMatrix(eyePosition, lookAtPosition, upDirection);
-    assert(lookat.getColumn(0).w == 0.0);
-    assert(lookat.getColumn(1).w == 0.0);
-    assert(lookat.getColumn(2).w == 0.0);
-    assert(lookat.getColumn(3).w == 1.0);
+    expect(lookat.getColumn(0).w, equals(0.0));
+    expect(lookat.getColumn(1).w, equals(0.0));
+    expect(lookat.getColumn(2).w, equals(0.0));
+    expect(lookat.getColumn(3).w, equals(1.0));
 
-    relativeTest(lookat.getColumn(0), new Vector4(1.0, 0.0, 0.0, 0.0));
-    relativeTest(lookat.getColumn(1), new Vector4(0.0, 1.0, 0.0, 0.0));
-    relativeTest(lookat.getColumn(2), new Vector4(0.0, 0.0, 1.0, 0.0));
+    expect(lookat.getColumn(0), relativeEquals(new Vector4(1.0, 0.0, 0.0, 0.0)));
+    expect(lookat.getColumn(1), relativeEquals(new Vector4(0.0, 1.0, 0.0, 0.0)));
+    expect(lookat.getColumn(2), relativeEquals(new Vector4(0.0, 0.0, 1.0, 0.0)));
   }
 
   void testFrustumMatrix() {
@@ -44,14 +44,14 @@ class OpenGLMatrixTest extends BaseTest {
     num b = -1.0;
     num t = 1.0;
     Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
-    relativeTest(frustum.getColumn(0),
-                 new Vector4(2*n/(r-l), 0.0, 0.0, 0.0));
-    relativeTest(frustum.getColumn(1),
-                 new Vector4(0.0, 2*n/(t-b), 0.0, 0.0));
-    relativeTest(frustum.getColumn(2),
-                 new Vector4((r+l)/(r-l), (t+b)/(t-b), -(f+n)/(f-n), -1.0));
-    relativeTest(frustum.getColumn(3),
-                 new Vector4(0.0, 0.0, -2.0*f*n/(f-n), 0.0));
+    expect(frustum.getColumn(0),
+           relativeEquals(new Vector4(2*n/(r-l), 0.0, 0.0, 0.0)));
+    expect(frustum.getColumn(1),
+           relativeEquals(new Vector4(0.0, 2*n/(t-b), 0.0, 0.0)));
+    expect(frustum.getColumn(2),
+           relativeEquals(new Vector4((r+l)/(r-l), (t+b)/(t-b), -(f+n)/(f-n), -1.0)));
+    expect(frustum.getColumn(3),
+           relativeEquals(new Vector4(0.0, 0.0, -2.0*f*n/(f-n), 0.0)));
   }
 
   void testOrthographicMatrix() {
@@ -62,10 +62,10 @@ class OpenGLMatrixTest extends BaseTest {
     num b = -1.0;
     num t = 1.0;
     Matrix4 ortho = makeOrthographicMatrix(l, r, b, t, n, f);
-    relativeTest(ortho.getColumn(0), new Vector4(2 / (r - l), 0.0, 0.0, 0.0));
-    relativeTest(ortho.getColumn(1), new Vector4(0.0, 2 / (t - b), 0.0, 0.0));
-    relativeTest(ortho.getColumn(2), new Vector4(0.0, 0.0, -2 / (f - n), 0.0));
-    relativeTest(ortho.getColumn(3), new Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
+    expect(ortho.getColumn(0), relativeEquals(new Vector4(2 / (r - l), 0.0, 0.0, 0.0)));
+    expect(ortho.getColumn(1), relativeEquals(new Vector4(0.0, 2 / (t - b), 0.0, 0.0)));
+    expect(ortho.getColumn(2), relativeEquals(new Vector4(0.0, 0.0, -2 / (f - n), 0.0)));
+    expect(ortho.getColumn(3), relativeEquals(new Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0)));
   }
 
   void testRotationFromForwardUp() {
@@ -73,14 +73,14 @@ class OpenGLMatrixTest extends BaseTest {
     final Vector3 forward = new Vector3(1.0, 0.0, 0.0);
     final Vector3 up = new Vector3(0.0, 1.0, 0.0);
 
-    setRotationMatrix(rotation, forward, up);    
+    setRotationMatrix(rotation, forward, up);
 
     final Vector3 right = new Vector3(0.0, 0.0, 1.0);
 
-    relativeTest(rotation, new Matrix4(forward[0], up[0], right[0], 0.0,
+    expect(rotation, relativeEquals(new Matrix4(forward[0], up[0], right[0], 0.0,
         forward[1], up[1], right[1], 0.0,
 	forward[2], up[2], right[2], 0.0,
-	0.0, 0.0, 0.0, 1.0));
+	0.0, 0.0, 0.0, 1.0)));
   }
 
   void run() {

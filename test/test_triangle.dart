@@ -7,9 +7,9 @@ class TriangleTest extends BaseTest {
 
     triangle.copyNormalInto(normal);
 
-    relativeTest(normal.x, -0.666666666);
-    relativeTest(normal.y, -0.333333333);
-    relativeTest(normal.z, -0.666666666);
+    expect(normal.x, relativeEquals(-0.666666666));
+    expect(normal.y, relativeEquals(-0.333333333));
+    expect(normal.z, relativeEquals(-0.666666666));
   }
 
   void run() {

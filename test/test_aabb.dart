@@ -117,12 +117,12 @@ class AabbTest extends BaseTest {
 
     final Aabb2 result = input..rotate(rotation);
 
-    relativeTest(result.min.x, 2-Math.sqrt(2));
-    relativeTest(result.min.y, 2-Math.sqrt(2));
-    relativeTest(result.max.x, 2+Math.sqrt(2));
-    relativeTest(result.max.y, 2+Math.sqrt(2));
-    relativeTest(result.center.x, 2.0);
-    relativeTest(result.center.y, 2.0);
+    expect(result.min.x, relativeEquals(2 - Math.sqrt(2)));
+    expect(result.min.y, relativeEquals(2 - Math.sqrt(2)));
+    expect(result.max.x, relativeEquals(2 + Math.sqrt(2)));
+    expect(result.max.y, relativeEquals(2 + Math.sqrt(2)));
+    expect(result.center.x, relativeEquals(2.0));
+    expect(result.center.y, relativeEquals(2.0));
   }
 
   void testAabb2Transform() {
@@ -132,12 +132,12 @@ class AabbTest extends BaseTest {
     final Aabb2 result = input..transform(rotation);
     final double newCenterY = Math.sqrt(8);
 
-    relativeTest(result.min.x, -Math.sqrt(2));
-    relativeTest(result.min.y, newCenterY-Math.sqrt(2));
-    relativeTest(result.max.x, Math.sqrt(2));
-    relativeTest(result.max.y, newCenterY+Math.sqrt(2));
-    relativeTest(result.center.x, 0.0);
-    relativeTest(result.center.y, newCenterY);
+    expect(result.min.x, relativeEquals(-Math.sqrt(2)));
+    expect(result.min.y, relativeEquals(newCenterY-Math.sqrt(2)));
+    expect(result.max.x, relativeEquals(Math.sqrt(2)));
+    expect(result.max.y, relativeEquals(newCenterY+Math.sqrt(2)));
+    expect(result.center.x, relativeEquals(0.0));
+    expect(result.center.y, relativeEquals(newCenterY));
   }
 
   Vector2 _v(double x, double y) {

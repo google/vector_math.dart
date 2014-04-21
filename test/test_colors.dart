@@ -8,9 +8,9 @@ class ColorsTest extends BaseTest {
 
     Colors.toGrayscale(output, output);
 
-    relativeTest(output.r, 0.745);
-    relativeTest(output.g, 0.745);
-    relativeTest(output.b, 0.745);
+    expect(output.r, relativeEquals(0.745));
+    expect(output.g, relativeEquals(0.745));
+    expect(output.b, relativeEquals(0.745));
     expect(output.a, equals(1.0));
   }
 
@@ -19,55 +19,55 @@ class ColorsTest extends BaseTest {
 
     Colors.fromHexString('#6495ED', color);
 
-    relativeTest(color.r, 0.3921);
-    relativeTest(color.g, 0.5843);
-    relativeTest(color.b, 0.9294);
-    relativeTest(color.a, 1.0);
+    expect(color.r, relativeEquals(0.3921));
+    expect(color.g, relativeEquals(0.5843));
+    expect(color.b, relativeEquals(0.9294));
+    expect(color.a, relativeEquals(1.0));
 
     expect(Colors.toHexString(color), equals('6495ed'));
 
     Colors.fromHexString('#6495eD', color);
 
-    relativeTest(color.r, 0.3921);
-    relativeTest(color.g, 0.5843);
-    relativeTest(color.b, 0.9294);
-    relativeTest(color.a, 1.0);
+    expect(color.r, relativeEquals(0.3921));
+    expect(color.g, relativeEquals(0.5843));
+    expect(color.b, relativeEquals(0.9294));
+    expect(color.a, relativeEquals(1.0));
 
     expect(Colors.toHexString(color), equals('6495ed'));
 
     Colors.fromHexString('6495eD', color);
 
-    relativeTest(color.r, 0.3921);
-    relativeTest(color.g, 0.5843);
-    relativeTest(color.b, 0.9294);
-    relativeTest(color.a, 1.0);
+    expect(color.r, relativeEquals(0.3921));
+    expect(color.g, relativeEquals(0.5843));
+    expect(color.b, relativeEquals(0.9294));
+    expect(color.a, relativeEquals(1.0));
 
     expect(Colors.toHexString(color), equals('6495ed'));
 
     Colors.fromHexString('#F0F', color);
 
-    relativeTest(color.r, 1.0);
-    relativeTest(color.g, 0.0);
-    relativeTest(color.b, 1.0);
-    relativeTest(color.a, 1.0);
+    expect(color.r, relativeEquals(1.0));
+    expect(color.g, relativeEquals(0.0));
+    expect(color.b, relativeEquals(1.0));
+    expect(color.a, relativeEquals(1.0));
 
     expect(Colors.toHexString(color), equals('ff00ff'));
 
     Colors.fromHexString('#88FF00fF', color);
 
-    relativeTest(color.r, 1.0);
-    relativeTest(color.g, 0.0);
-    relativeTest(color.b, 1.0);
-    relativeTest(color.a, 0.5333);
+    expect(color.r, relativeEquals(1.0));
+    expect(color.g, relativeEquals(0.0));
+    expect(color.b, relativeEquals(1.0));
+    expect(color.a, relativeEquals(0.5333));
 
     expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
 
     Colors.fromHexString('#8F0f', color);
 
-    relativeTest(color.r, 1.0);
-    relativeTest(color.g, 0.0);
-    relativeTest(color.b, 1.0);
-    relativeTest(color.a, 0.5333);
+    expect(color.r, relativeEquals(1.0));
+    expect(color.g, relativeEquals(0.0));
+    expect(color.b, relativeEquals(1.0));
+    expect(color.a, relativeEquals(0.5333));
 
     expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
 
@@ -80,9 +80,9 @@ class ColorsTest extends BaseTest {
 
     Colors.fromRgba(100, 149, 237, 255, output);
 
-    relativeTest(output.r, 0.3921);
-    relativeTest(output.g, 0.5843);
-    relativeTest(output.b, 0.9294);
+    expect(output.r, relativeEquals(0.3921));
+    expect(output.g, relativeEquals(0.5843));
+    expect(output.b, relativeEquals(0.9294));
     expect(output.a, equals(1.0));
   }
 
@@ -96,31 +96,31 @@ class ColorsTest extends BaseTest {
     output.setFrom(foreground1);
     Colors.alphaBlend(output, background1, output);
 
-    relativeTest(output.r, 0.3921);
-    relativeTest(output.g, 0.5843);
-    relativeTest(output.b, 0.9294);
+    expect(output.r, relativeEquals(0.3921));
+    expect(output.g, relativeEquals(0.5843));
+    expect(output.b, relativeEquals(0.9294));
     expect(output.a, equals(1.0));
 
     output.setFrom(background2);
     Colors.alphaBlend(foreground1, output, output);
 
-    relativeTest(output.r, 0.3921);
-    relativeTest(output.g, 0.5843);
-    relativeTest(output.b, 0.9294);
+    expect(output.r, relativeEquals(0.3921));
+    expect(output.g, relativeEquals(0.5843));
+    expect(output.b, relativeEquals(0.9294));
     expect(output.a, equals(1.0));
 
     Colors.alphaBlend(foreground2, background1, output);
 
-    relativeTest(output.r, 0.6960);
-    relativeTest(output.g, 0.2921);
-    relativeTest(output.b, 0.4647);
+    expect(output.r, relativeEquals(0.6960));
+    expect(output.g, relativeEquals(0.2921));
+    expect(output.b, relativeEquals(0.4647));
     expect(output.a, equals(1.0));
 
     Colors.alphaBlend(foreground2, background2, output);
 
-    relativeTest(output.r, 0.5947);
-    relativeTest(output.g, 0.5561);
-    relativeTest(output.b, 0.6195);
+    expect(output.r, relativeEquals(0.5947));
+    expect(output.g, relativeEquals(0.5561));
+    expect(output.b, relativeEquals(0.6195));
     expect(output.a, equals(0.75));
   }
 
@@ -132,17 +132,17 @@ class ColorsTest extends BaseTest {
     gamma.setFrom(foreground);
     Colors.linearToGamma(gamma, gamma);
 
-    relativeTest(gamma.r, 0.6534);
-    relativeTest(gamma.g, 0.7832);
-    relativeTest(gamma.b, 0.9672);
+    expect(gamma.r, relativeEquals(0.6534));
+    expect(gamma.g, relativeEquals(0.7832));
+    expect(gamma.b, relativeEquals(0.9672));
     expect(gamma.a, equals(foreground.a));
 
     linear.setFrom(gamma);
     Colors.gammaToLinear(linear, linear);
 
-    relativeTest(linear.r, foreground.r);
-    relativeTest(linear.g, foreground.g);
-    relativeTest(linear.b, foreground.b);
+    expect(linear.r, relativeEquals(foreground.r));
+    expect(linear.g, relativeEquals(foreground.g));
+    expect(linear.b, relativeEquals(foreground.b));
     expect(linear.a, equals(foreground.a));
   }
 
@@ -154,17 +154,17 @@ class ColorsTest extends BaseTest {
     hsl.setFrom(input);
     Colors.rgbToHsl(hsl, hsl);
 
-    relativeTest(hsl.x, 0.6070);
-    relativeTest(hsl.y, 0.7920);
-    relativeTest(hsl.z, 0.6607);
+    expect(hsl.x, relativeEquals(0.6070));
+    expect(hsl.y, relativeEquals(0.7920));
+    expect(hsl.z, relativeEquals(0.6607));
     expect(hsl.a, equals(input.a));
 
     rgb.setFrom(hsl);
     Colors.hslToRgb(rgb, rgb);
 
-    relativeTest(rgb.r, input.r);
-    relativeTest(rgb.g, input.g);
-    relativeTest(rgb.b, input.b);
+    expect(rgb.r, relativeEquals(input.r));
+    expect(rgb.g, relativeEquals(input.g));
+    expect(rgb.b, relativeEquals(input.b));
     expect(rgb.a, equals(input.a));
 
     void testRoundtrip(Vector4 input) {
@@ -173,9 +173,9 @@ class ColorsTest extends BaseTest {
       Colors.rgbToHsl(result, result);
       Colors.hslToRgb(result, result);
 
-      absoluteTest(result.r, input.r);
-      absoluteTest(result.g, input.g);
-      absoluteTest(result.b, input.b);
+      expect(result.r, absoluteEquals(input.r));
+      expect(result.g, absoluteEquals(input.g));
+      expect(result.b, absoluteEquals(input.b));
       expect(result.a, equals(input.a));
     }
 
@@ -197,17 +197,17 @@ class ColorsTest extends BaseTest {
     hsv.setFrom(input);
     Colors.rgbToHsv(hsv, hsv);
 
-    relativeTest(hsv.x, 0.6070);
-    relativeTest(hsv.y, 0.5781);
-    relativeTest(hsv.z, 0.9294);
+    expect(hsv.x, relativeEquals(0.6070));
+    expect(hsv.y, relativeEquals(0.5781));
+    expect(hsv.z, relativeEquals(0.9294));
     expect(hsv.a, equals(input.a));
 
     rgb.setFrom(hsv);
     Colors.hsvToRgb(rgb, rgb);
 
-    relativeTest(rgb.r, input.r);
-    relativeTest(rgb.g, input.g);
-    relativeTest(rgb.b, input.b);
+    expect(rgb.r, relativeEquals(input.r));
+    expect(rgb.g, relativeEquals(input.g));
+    expect(rgb.b, relativeEquals(input.b));
     expect(rgb.a, equals(input.a));
 
     void testRoundtrip(Vector4 input) {
@@ -216,9 +216,9 @@ class ColorsTest extends BaseTest {
       Colors.rgbToHsv(result, result);
       Colors.hsvToRgb(result, result);
 
-      absoluteTest(result.r, input.r);
-      absoluteTest(result.g, input.g);
-      absoluteTest(result.b, input.b);
+      expect(result.r, absoluteEquals(input.r));
+      expect(result.g, absoluteEquals(input.g));
+      expect(result.b, absoluteEquals(input.b));
       expect(result.a, equals(input.a));
     }
 
