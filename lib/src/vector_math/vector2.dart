@@ -148,13 +148,13 @@ class Vector2 implements Vector {
 
   /// Normalize [this]. Returns length of vector before normalization.
   double normalizeLength() {
-    var l = length;
+    final l = length;
     if (l == 0.0) {
       return 0.0;
     }
-    l = 1.0 / l;
-    _storage2[0] *= l;
-    _storage2[1] *= l;
+    final d = 1.0 / l;
+    _storage2[0] *= d;
+    _storage2[1] *= d;
     return l;
   }
 
@@ -200,7 +200,7 @@ class Vector2 implements Vector {
     return _storage2[0] * otherStorage[1] - _storage2[1] * otherStorage[0];
   }
 
-  /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return 
+  /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return
   /// [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
     out.setValues(-scale * _storage2[1], scale * _storage2[0]);

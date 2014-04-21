@@ -73,6 +73,42 @@ class VectorTest extends BaseTest {
     expect(b.w, equals(8.0));
   }
 
+  void testVec2Length() {
+    final Vector2 a = new Vector2(5.0, 7.0);
+
+    relativeTest(a.length, 8.6);
+    relativeTest(a.length2, 74.0);
+
+    relativeTest(a.normalizeLength(), 8.6);
+    relativeTest(a.x, 0.5812);
+    relativeTest(a.y, 0.8137);
+  }
+
+  void testVec3Length() {
+    final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+
+    relativeTest(a.length, 9.1104);
+    relativeTest(a.length2, 83.0);
+
+    relativeTest(a.normalizeLength(), 9.1104);
+    relativeTest(a.x, 0.5488);
+    relativeTest(a.y, 0.7683);
+    relativeTest(a.z, 0.3292);
+  }
+
+  void testVec4Length() {
+    final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+
+    relativeTest(a.length, 13.5277);
+    relativeTest(a.length2, 183.0);
+
+    relativeTest(a.normalizeLength(), 13.5277);
+    relativeTest(a.x, 0.3696);
+    relativeTest(a.y, 0.5174);
+    relativeTest(a.z, 0.2217);
+    relativeTest(a.w, 0.7392);
+  }
+
   void testVec2MinMax() {
     final Vector2 a = new Vector2(5.0, 7.0);
     final Vector2 b = new Vector2(3.0, 8.0);
@@ -627,6 +663,10 @@ class VectorTest extends BaseTest {
     test('2D add', testVec2Add);
     test('3D add', testVec3Add);
     test('4D add', testVec4Add);
+
+    test('2D length', testVec2Length);
+    test('3D length', testVec3Length);
+    test('4D length', testVec4Length);
 
     test('2D min/max', testVec2MinMax);
     test('3D min/max', testVec3MinMax);
