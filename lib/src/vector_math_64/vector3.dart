@@ -39,7 +39,7 @@ class Vector3 {
     result.z = Math.max(a.z, b.z);
   }
 
-  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear
   // interpolation and set the values to [result].
   static void mix(Vector3 min, Vector3 max, double a, Vector3 result) {
     result.x = min.x + a * (max.x - min.x);
@@ -65,7 +65,7 @@ class Vector3 {
 
   /// Splat [value] into all lanes of the vector.
   Vector3.all(double value) : this(value, value, value);
-  
+
   /// Copy of [other].
   Vector3.copy(Vector3 other) : storage = new Float64List(3) {
     setFrom(other);
@@ -159,7 +159,33 @@ class Vector3 {
     return sum;
   }
 
-  /// Normalizes [this].
+  /**
+   * Set length of [this].
+   * If [newLength] is less than or equal to 0.0, has same effect as calling [setZero()].
+   * if [length] is 0.0, has no effect.
+   */
+  Vector3 setLength(double newLength) {
+    double l = length;
+    if (l == 0.0) {
+      return this;
+    }
+    if (newLength <= 0.0) {
+      storage[0] = 0.0;
+      storage[1] = 0.0;
+      storage[2] = 0.0;
+    } else {
+      l = newLength / l;
+      storage[0] *= l;
+      storage[1] *= l;
+      storage[2] *= l;
+    }
+    return this;
+  }
+
+  /**
+   * Normalizes [this].
+   * if [length] is 0.0, has no effect.
+   */
   Vector3 normalize() {
     double l = length;
     if (l == 0.0) {

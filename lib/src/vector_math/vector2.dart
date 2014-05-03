@@ -20,7 +20,6 @@
 */
 
 part of vector_math;
-
 /// 2D column vector.
 class Vector2 implements Vector {
   final Float32List storage = new Float32List(2);
@@ -141,7 +140,31 @@ class Vector2 implements Vector {
     return sum;
   }
 
-  /// Normalize [this].
+  /**
+   * Set length of [this].
+   * If [newLength] is less than or equal to 0.0, has same effect as calling [setZero()].
+   * if [length] is 0.0, has no effect.
+   */
+  Vector2 setLength(double newLength) {
+    double l = length;
+    if (l == 0.0) {
+      return this;
+    }
+    if (newLength <= 0.0) {
+      storage[0] = 0.0;
+      storage[1] = 0.0;
+    } else {
+      l = newLength / l;
+      storage[0] *= l;
+      storage[1] *= l;
+    }
+    return this;
+  }
+
+  /**
+   * Normalizes [this].
+   * if [length] is 0.0, has no effect.
+   */
   Vector2 normalize() {
     double l = length;
     // TODO(johnmccutchan): Use an epsilon.

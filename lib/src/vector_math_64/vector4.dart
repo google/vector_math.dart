@@ -41,7 +41,7 @@ class Vector4 {
     result.w = Math.max(a.w, b.w);
   }
 
-  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear
   // interpolation and set the values to [result].
   static void mix(Vector4 min, Vector4 max, double a, Vector4 result) {
     result.x = min.x + a * (max.x - min.x);
@@ -174,7 +174,35 @@ class Vector4 {
     return sum;
   }
 
-  /// Normalizes [this].
+  /**
+   * Set length of [this].
+   * If [newLength] is less than or equal to 0.0, has same effect as calling [setZero()].
+   * if [length] is 0.0, has no effect.
+   */
+  Vector4 setLength(double newLength) {
+    double l = length;
+    if (l == 0.0) {
+      return this;
+    }
+    if (newLength <= 0.0) {
+      storage[0] = 0.0;
+      storage[1] = 0.0;
+      storage[2] = 0.0;
+      storage[3] = 0.0;
+    } else {
+      l = newLength / l;
+      storage[0] *= l;
+      storage[1] *= l;
+      storage[2] *= l;
+      storage[3] *= l;
+    }
+    return this;
+  }
+
+  /**
+   * Normalizes [this].
+   * if [length] is 0.0, has no effect.
+   */
   Vector4 normalize() {
     double l = length;
     // TODO(johnmccutchan): Use an epsilon.
