@@ -55,8 +55,8 @@ class AabbTest extends BaseTest {
     expect(parent.intersectsWithAabb2(cutting), isTrue);
     expect(cutting.intersectsWithAabb2(parent), isTrue);
 
-    expect(parent.intersectsWithAabb2(outside), isFalse);
-    expect(outside.intersectsWithAabb2(parent), isFalse);
+    expect(parent.intersectsWithAabb2(outside), isTrue);
+    expect(outside.intersectsWithAabb2(parent), isTrue);
 
     expect(parent.intersectsWithAabb2(grandParent), isTrue);
     expect(grandParent.intersectsWithAabb2(parent), isTrue);
@@ -246,8 +246,8 @@ class AabbTest extends BaseTest {
     expect(parent.intersectsWithAabb3(cutting), isTrue);
     expect(cutting.intersectsWithAabb3(parent), isTrue);
 
-    expect(parent.intersectsWithAabb3(outside), isFalse);
-    expect(outside.intersectsWithAabb3(parent), isFalse);
+    expect(parent.intersectsWithAabb3(outside), isTrue);
+    expect(outside.intersectsWithAabb3(parent), isTrue);
 
     expect(parent.intersectsWithAabb3(grandParent), isTrue);
     expect(grandParent.intersectsWithAabb3(parent), isTrue);
