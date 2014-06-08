@@ -193,10 +193,10 @@ class Aabb2 {
     final otherMax = other._max2;
     final otherMin = other._min2;
 
-    return _min2.x <= otherMax.x &&
-           _min2.y <= otherMax.y &&
-           _max2.x >= otherMin.x &&
-           _max2.y >= otherMin.y;
+    return !(_min2.x > otherMax.x ||
+           _min2.y > otherMax.y ||
+           _max2.x < otherMin.x ||
+           _max2.y < otherMin.y);
   }
 
   /// Return if [this] intersects with [other].
