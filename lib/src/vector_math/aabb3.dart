@@ -236,11 +236,11 @@ class Aabb3 {
     final otherMax = other._max3;
     final otherMin = other._min3;
 
-    return _min3.x <= otherMax.x ||
-           _min3.y <= otherMax.y ||
-           _min3.z <= otherMax.z ||
-           _max3.x >= otherMin.x ||
-           _max3.y >= otherMin.y ||
+    return _min3.x <= otherMax.x &&
+           _min3.y <= otherMax.y &&
+           _min3.z <= otherMax.z &&
+           _max3.x >= otherMin.x &&
+           _max3.y >= otherMin.y &&
            _max3.z >= otherMin.z;
   }
 
