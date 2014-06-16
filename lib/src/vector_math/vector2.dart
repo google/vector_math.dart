@@ -168,10 +168,15 @@ class Vector2 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector2 arg) => (clone()..sub(arg)).length;
+  double distanceTo(Vector2 arg) => Math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
-  double distanceToSquared(Vector2 arg) => (clone()..sub(arg)).length2;
+  double distanceToSquared(Vector2 arg) {
+    final dx = x - arg.x;
+    final dy = y - arg.y;
+
+    return dx * dx + dy * dy;
+  }
 
   /// Inner product.
   double dot(Vector2 other) {

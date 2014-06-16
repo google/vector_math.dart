@@ -201,10 +201,17 @@ class Vector4 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector4 arg) => (clone()..sub(arg)).length;
+  double distanceTo(Vector4 arg) => Math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
-  double distanceToSquared(Vector4 arg) => (clone()..sub(arg)).length2;
+  double distanceToSquared(Vector4 arg) {
+    final dx = x - arg.x;
+    final dy = y - arg.y;
+    final dz = z - arg.z;
+    final dw = w - arg.w;
+
+    return dx * dx + dy * dy + dz * dz + dw * dw;
+  }
 
   /// Inner product.
   double dot(Vector4 other) {
