@@ -51,7 +51,7 @@ class Vector3 implements Vector {
   Float64List get storage => _storage3;
 
   /// Construct a new vector with the specified values.
-  factory Vector3(double x, double y, double z) => 
+  factory Vector3(double x, double y, double z) =>
       new Vector3.zero()..setValues(x, y, z);
 
   /// Initialized with values from [array] starting at [offset].
@@ -158,14 +158,14 @@ class Vector3 implements Vector {
 
   /// Normalize [this]. Returns length of vector before normalization.
   double normalizeLength() {
-    var l = length;
+    final l = length;
     if (l == 0.0) {
       return 0.0;
     }
-    l = 1.0 / l;
-    _storage3[0] *= l;
-    _storage3[1] *= l;
-    _storage3[2] *= l;
+    final d = 1.0 / l;
+    _storage3[0] *= d;
+    _storage3[1] *= d;
+    _storage3[2] *= d;
     return l;
   }
 
@@ -179,10 +179,16 @@ class Vector3 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector3 arg) => (clone()..sub(arg)).length;
+  double distanceTo(Vector3 arg) => Math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
-  double distanceToSquared(Vector3 arg) => (clone()..sub(arg)).length2;
+  double distanceToSquared(Vector3 arg) {
+    final dx = x - arg.x;
+    final dy = y - arg.y;
+    final dz = z - arg.z;
+
+    return dx * dx + dy * dy + dz * dz;
+  }
 
   /// Inner product.
   double dot(Vector3 other) {

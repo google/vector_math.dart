@@ -22,6 +22,24 @@ class RayTest extends BaseTest {
     expect(atNegative.x, equals(3.0));
     expect(atNegative.y, equals(-1.0));
     expect(atNegative.z, equals(-1.0));
+
+    atOrigin.setZero();
+    atPositive.setZero();
+    atNegative.setZero();
+
+    parent.copyAt(atOrigin, 0.0);
+    parent.copyAt(atPositive, 1.0);
+    parent.copyAt(atNegative, -2.0);
+
+    expect(atOrigin.x, equals(1.0));
+    expect(atOrigin.y, equals(1.0));
+    expect(atOrigin.z, equals(1.0));
+    expect(atPositive.x, equals(0.0));
+    expect(atPositive.y, equals(2.0));
+    expect(atPositive.z, equals(2.0));
+    expect(atNegative.x, equals(3.0));
+    expect(atNegative.y, equals(-1.0));
+    expect(atNegative.z, equals(-1.0));
   }
 
   void testRayIntersectionSphere() {
@@ -50,15 +68,15 @@ class RayTest extends BaseTest {
     expect(parent.intersectsWithTriangle(cutting), equals(0.5));
     expect(parent.intersectsWithTriangle(outside), equals(null));
     expect(parent.intersectsWithTriangle(behind), equals(null));
-    
+
     // Test cases from real-world failures:
     // Just barely intersects, but gets rounded out
     final Ray p2 = new Ray.originDirection(
-        _v3(0.0,-0.16833500564098358,0.7677000164985657), 
+        _v3(0.0,-0.16833500564098358,0.7677000164985657),
         _v3(-0.0,-0.8124330043792725,-0.5829949975013733));
     final Triangle t2 = new Triangle.points(
         _v3(0.03430179879069328,-0.7268069982528687,0.3532710075378418),
-        _v3(0.0,-0.7817990183830261,0.3641969859600067), 
+        _v3(0.0,-0.7817990183830261,0.3641969859600067),
         _v3(0.0,-0.7293699979782104,0.3516849875450134));
     expect(p2.intersectsWithTriangle(t2), closeTo(0.7078371874391822, 1e-10));
     // Ray is not quite perpendicular to triangle, but gets rounded out

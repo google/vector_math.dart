@@ -61,6 +61,15 @@ class Ray {
   /// Returns the position on [this] with a distance of [t] from [origin].
   Vector3 at(double t) => _direction.scaled(t)..add(_origin);
 
+  /// Copy the position on [this] with a distance of [t] from [origin] into
+  /// [other].
+  void copyAt(Vector3 other, double t) {
+    other
+      ..setFrom(_direction)
+      ..scale(t)
+      ..add(_origin);
+  }
+
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {

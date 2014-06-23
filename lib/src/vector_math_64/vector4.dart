@@ -179,15 +179,15 @@ class Vector4 implements Vector {
 
   /// Normalizes [this]. Returns length of vector before normalization.
   double normalizeLength() {
-    var l = length;
+    final l = length;
     if (l == 0.0) {
       return 0.0;
     }
-    l = 1.0 / l;
-    _storage4[0] *= l;
-    _storage4[1] *= l;
-    _storage4[2] *= l;
-    _storage4[3] *= l;
+    final d = 1.0 / l;
+    _storage4[0] *= d;
+    _storage4[1] *= d;
+    _storage4[2] *= d;
+    _storage4[3] *= d;
     return l;
   }
 
@@ -196,16 +196,22 @@ class Vector4 implements Vector {
 
   /// Normalize vector into [out].
   Vector4 normalizeInto(Vector4 out) {
-    //TODO (fox32): Remove this method?
     out.setFrom(this);
     return out..normalize();
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector4 arg) => (clone()..sub(arg)).length;
+  double distanceTo(Vector4 arg) => Math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
-  double distanceToSquared(Vector4 arg) => (clone()..sub(arg)).length2;
+  double distanceToSquared(Vector4 arg) {
+    final dx = x - arg.x;
+    final dy = y - arg.y;
+    final dz = z - arg.z;
+    final dw = w - arg.w;
+
+    return dx * dx + dy * dy + dz * dz + dw * dw;
+  }
 
   /// Inner product.
   double dot(Vector4 other) {
