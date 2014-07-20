@@ -135,8 +135,6 @@ class Ray {
     final otherMin = other._min3;
     final otherMax = other._max3;
 
-    var t1 = new Vector3.zero();
-    var t2 = new Vector3.zero();
     var tNear = -double.MAX_FINITE;
     var tFar = double.MAX_FINITE;
 
@@ -146,21 +144,21 @@ class Ray {
           return null;
         }
       } else {
-        t1[i] = (otherMin[i] - _origin[i]) / _direction[i];
-        t2[i] = (otherMax[i] - _origin[i]) / _direction[i];
+        var t1 = (otherMin[i] - _origin[i]) / _direction[i];
+        var t2 = (otherMax[i] - _origin[i]) / _direction[i];
 
-        if (t1[i] > t2[i]) {
+        if (t1 > t2) {
           final temp = t1;
           t1 = t2;
           t2 = temp;
         }
 
-        if (t1[i] > tNear) {
-          tNear = t1[i];
+        if (t1 > tNear) {
+          tNear = t1;
         }
 
-        if (t2[i] < tFar) {
-          tFar = t2[i];
+        if (t2 < tFar) {
+          tFar = t2;
         }
 
         if (tNear > tFar || tFar < 0) {
