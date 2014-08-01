@@ -69,8 +69,7 @@ abstract class VectorList<T extends Vector> {
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
-        _length = (buffer.length-offset) ~/
-                  (stride == 0 ? vectorLength : stride),
+        _length = buffer.length ~/ (stride == 0 ? vectorLength : stride),
         _buffer = buffer {
     if (_stride < _vectorLength) {
       throw new ArgumentError('Stride cannot be smaller than the vector size.');
