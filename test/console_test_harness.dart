@@ -6,6 +6,11 @@ import 'vector_math_test.dart';
 void main() {
   groupSep = ' - ';
 
+  group('Quadernion', () {
+    QuadTest qt = new QuadTest();
+    qt.run();
+  });
+
   group('Quaternion', () {
     QuaternionTest qt = new QuaternionTest();
     qt.run();

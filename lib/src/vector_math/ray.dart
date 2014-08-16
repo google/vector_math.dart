@@ -90,6 +90,15 @@ class Ray {
     return (l2 > r2) ? s - q : s + q;
   }
 
+  // Some varaibles that are used for intersectsWithTriangle and
+  // intersectsWithQuad. The performance is better in Dart and JS if we avoid
+  // to create temporary instance over and over. Also reduce GC.
+  static final _e1 = new Vector3.zero();
+  static final _e2 = new Vector3.zero();
+  static final _q = new Vector3.zero();
+  static final _s = new Vector3.zero();
+  static final _r = new Vector3.zero();
+
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithTriangle(Triangle other) {
@@ -99,34 +108,117 @@ class Ray {
     final point1 = other._point1;
     final point2 = other._point2;
 
-    final e1 = point1.clone()..sub(point0);
-    final e2 = point2.clone()..sub(point0);
+    _e1
+        ..setFrom(point1)
+        ..sub(point0);
+    _e2
+        ..setFrom(point2)
+        ..sub(point0);
 
-    final q = _direction.cross(e2);
-    final a = e1.dot(q);
+    _direction.crossInto(_e2, _q);
+    final a = _e1.dot(_q);
 
     if (a > -EPSILON && a < EPSILON) {
       return null;
     }
 
     final f = 1 / a;
-    final s = _origin.clone()..sub(point0);
-    final u = f * (s.dot(q));
+    _s
+        ..setFrom(_origin)
+        ..sub(point0);
+    final u = f * (_s.dot(_q));
 
     if (u < 0.0) {
       return null;
     }
 
-    final r = s.cross(e1);
-    final v = f * (_direction.dot(r));
+    _s.crossInto(_e1, _r);
+    final v = f * (_direction.dot(_r));
 
     if (v < -EPSILON || u + v > 1.0 + EPSILON) {
       return null;
     }
 
-    final t = f * (e2.dot(r));
+    final t = f * (_e2.dot(_r));
 
     return t;
+  }
+
+  /// Return the distance from the origin of [this] to the intersection with
+  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  double intersectsWithQuad(Quad other) {
+    const double EPSILON = 10e-6;
+
+    // First triangle
+    var point0 = other._point0;
+    var point1 = other._point1;
+    var point2 = other._point2;
+
+    _e1
+        ..setFrom(point1)
+        ..sub(point0);
+    _e2
+        ..setFrom(point2)
+        ..sub(point0);
+
+    _direction.crossInto(_e2, _q);
+    final a0 = _e1.dot(_q);
+
+    if (!(a0 > -EPSILON && a0 < EPSILON)) {
+      final f = 1 / a0;
+      _s
+          ..setFrom(_origin)
+          ..sub(point0);
+      final u = f * (_s.dot(_q));
+
+      if (u >= 0.0) {
+        _s.crossInto(_e1, _r);
+        final v = f * (_direction.dot(_r));
+
+        if (!(v < -EPSILON || u + v > 1.0 + EPSILON)) {
+          final t = f * (_e2.dot(_r));
+
+          return t;
+        }
+      }
+    }
+
+    // Second triangle
+    point0 = other._point3;
+    point1 = other._point0;
+    point2 = other._point2;
+
+    _e1
+        ..setFrom(point1)
+        ..sub(point0);
+    _e2
+        ..setFrom(point2)
+        ..sub(point0);
+
+    _direction.crossInto(_e2, _q);
+    final a1 = _e1.dot(_q);
+
+    if (!(a1 > -EPSILON && a1 < EPSILON)) {
+
+      final f = 1 / a1;
+      _s
+          ..setFrom(_origin)
+          ..sub(point0);
+      final u = f * (_s.dot(_q));
+
+      if (u >= 0.0) {
+        _s.crossInto(_e1, _r);
+        final v = f * (_direction.dot(_r));
+
+        if (!(v < -EPSILON || u + v > 1.0 + EPSILON)) {
+          final t = f * (_e2.dot(_r));
+
+          return t;
+        }
+      }
+    }
+
+    return null;
   }
 
   /// Return the distance from the origin of [this] to the intersection with

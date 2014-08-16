@@ -9,6 +9,7 @@ import 'package:vector_math/vector_math_geometry.dart';
 
 part 'base_test.dart';
 part 'test_quaternion.dart';
+part 'test_quad.dart';
 part 'test_matrix.dart';
 part 'test_colors.dart';
 part 'test_noise.dart';
