@@ -80,6 +80,30 @@ class Aabb3 {
           Math.max(triangle._point0.z,
           Math.max(triangle._point1.z, triangle._point2.z)));
 
+  /// Create a new AABB that encloses a limited [ray] (or line segment) that has
+  /// a minLimit and maxLimit.
+  Aabb3.fromRay(Ray ray, double limitMin, double limitMax)
+      : _min3 = ray.at(limitMin),
+        _max3 = ray.at(limitMax) {
+    if (_max3.x < _min3.x) {
+      var temp = _max3.x;
+      _max3.x = _min3.x;
+      _min3.x = temp;
+    }
+
+    if (_max3.y < _min3.y) {
+      var temp = _max3.y;
+      _max3.y = _min3.y;
+      _min3.y = temp;
+    }
+
+    if (_max3.z < _min3.z) {
+      var temp = _max3.z;
+      _max3.z = _min3.z;
+      _min3.z = temp;
+    }
+  }
+
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
       => new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
@@ -128,6 +152,32 @@ class Aabb3 {
       Math.max(triangle._point1.y, triangle._point2.y)),
       Math.max(triangle._point0.z,
       Math.max(triangle._point1.z, triangle._point2.z)));
+  }
+
+
+  /// Set the AABB to enclose a limited [ray] (or line segment) that has
+  /// a minLimit and maxLimit.
+  void setRay(Ray ray, double limitMin, double limitMax) {
+    ray.copyAt(_min3, limitMin);
+    ray.copyAt(_max3, limitMax);
+
+    if (_max3.x < _min3.x) {
+      var temp = _max3.x;
+      _max3.x = _min3.x;
+      _min3.x = temp;
+    }
+
+    if (_max3.y < _min3.y) {
+      var temp = _max3.y;
+      _max3.y = _min3.y;
+      _min3.y = temp;
+    }
+
+    if (_max3.z < _min3.z) {
+      var temp = _max3.z;
+      _max3.z = _min3.z;
+      _min3.z = temp;
+    }
   }
 
   /// DEPREACTED: Removed, copy min and max yourself
