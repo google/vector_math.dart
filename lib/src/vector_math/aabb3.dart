@@ -58,6 +58,11 @@ class Aabb3 {
       : _min3 = new Vector3.copy(min),
         _max3 = new Vector3.copy(max);
 
+  /// Create a new AABB that encloses a [sphere].
+  Aabb3.fromSphere(Sphere sphere)
+      : _min3 = new Vector3.all(-sphere._radius)..add(sphere._center),
+        _max3 = new Vector3.all(sphere._radius)..add(sphere._center);
+
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
       => new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
@@ -78,6 +83,16 @@ class Aabb3 {
     _max3
         ..setFrom(center)
         ..add(halfExtents);
+  }
+
+  /// Set the AABB to enclose a [sphere].
+  void setSphere(Sphere sphere) {
+    _min3
+        ..splat(-sphere._radius)
+        ..add(sphere._center);
+    _max3
+        ..splat(sphere._radius)
+        ..add(sphere._center);
   }
 
   /// DEPREACTED: Removed, copy min and max yourself
