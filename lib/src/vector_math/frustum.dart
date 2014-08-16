@@ -101,16 +101,44 @@ class Frustum {
 
   /// Check if [this] intersects with [aabb].
   bool intersectsWithAabb3(Aabb3 aabb) {
-    final p1 = new Vector3.zero();
-    final p2 = new Vector3.zero();
-
     for (var i = 0; i < 6; ++i) {
       final plane = _planes[i];
+      var outPx, outPy, outPz, outNx, outNy, outNz;
 
-      aabb.getPN(plane._normal, p1, p2);
+      if (plane._normal.x < 0.0) {
+        outPx = aabb._min3.x;
+        outNx = aabb._max3.x;
+      } else {
+        outPx = aabb._max3.x;
+        outNx = aabb._min3.x;
+      }
 
-      final d1 = plane.distanceToVector3(p1);
-      final d2 = plane.distanceToVector3(p2);
+      if (plane._normal.y < 0.0) {
+        outPy = aabb._min3.y;
+        outNy = aabb._max3.y;
+      } else {
+        outPy = aabb._max3.y;
+        outNy = aabb._min3.y;
+      }
+
+      if (plane._normal.z < 0.0) {
+        outPz = aabb._min3.z;
+        outNz = aabb._max3.z;
+      } else {
+        outPz = aabb._max3.z;
+        outNz = aabb._min3.z;
+      }
+
+      final d1 =
+          plane._normal.x * outPx +
+          plane._normal.y * outPy +
+          plane._normal.z * outPz +
+          plane._constant;
+      final d2 =
+          plane._normal.x * outNx +
+          plane._normal.y * outNy +
+          plane._normal.z * outNz +
+          plane._constant;
 
       if (d1 < 0 && d2 < 0) {
         return false;
