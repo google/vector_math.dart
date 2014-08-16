@@ -63,6 +63,23 @@ class Aabb3 {
       : _min3 = new Vector3.all(-sphere._radius)..add(sphere._center),
         _max3 = new Vector3.all(sphere._radius)..add(sphere._center);
 
+  /// Create a new AABB that encloses a [triangle].
+  Aabb3.fromTriangle(Triangle triangle)
+      : _min3 = new Vector3(
+          Math.min(triangle._point0.x,
+          Math.min(triangle._point1.x, triangle._point2.x)),
+          Math.min(triangle._point0.y,
+          Math.min(triangle._point1.y, triangle._point2.y)),
+          Math.min(triangle._point0.z,
+          Math.min(triangle._point1.z, triangle._point2.z))),
+        _max3 = new Vector3(
+          Math.max(triangle._point0.x,
+          Math.max(triangle._point1.x, triangle._point2.x)),
+          Math.max(triangle._point0.y,
+          Math.max(triangle._point1.y, triangle._point2.y)),
+          Math.max(triangle._point0.z,
+          Math.max(triangle._point1.z, triangle._point2.z)));
+
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
       => new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
@@ -93,6 +110,24 @@ class Aabb3 {
     _max3
         ..splat(sphere._radius)
         ..add(sphere._center);
+  }
+
+  /// Set the AABB to enclose a [triangle].
+  void setTriangle(Triangle triangle) {
+    _min3.setValues(
+      Math.min(triangle._point0.x,
+      Math.min(triangle._point1.x, triangle._point2.x)),
+      Math.min(triangle._point0.y,
+      Math.min(triangle._point1.y, triangle._point2.y)),
+      Math.min(triangle._point0.z,
+      Math.min(triangle._point1.z, triangle._point2.z)));
+    _max3.setValues(
+      Math.max(triangle._point0.x,
+      Math.max(triangle._point1.x, triangle._point2.x)),
+      Math.max(triangle._point0.y,
+      Math.max(triangle._point1.y, triangle._point2.y)),
+      Math.max(triangle._point0.z,
+      Math.max(triangle._point1.z, triangle._point2.z)));
   }
 
   /// DEPREACTED: Removed, copy min and max yourself
