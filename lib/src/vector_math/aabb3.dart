@@ -99,6 +99,14 @@ class Aabb3 {
         ..scale(0.5);
   }
 
+  /// Copy the [center] of [this].
+  void copyCenter(Vector3 center) {
+    center
+        ..setFrom(_min3)
+        ..add(_max3)
+        ..scale(0.5);
+  }
+
   /// Copy the [min] and [max] from [other] into [this].
   void copyFrom(Aabb3 other) {
     _min3.setFrom(other._min3);
