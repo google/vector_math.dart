@@ -2,6 +2,23 @@ part of vector_math_test;
 
 class VectorTest extends BaseTest {
 
+  void testAngleBetween() {
+    final v0 = new Vector3(1.0, 0.0, 0.0);
+    final v1 = new Vector3(0.0, 1.0, 0.0);
+
+    expect(angleBetween(v0, v0), equals(0.0));
+    expect(angleBetween(v0, v1), absoluteEquals(Math.PI / 2.0));
+  }
+
+  void testAngleBetweenSigned() {
+    final v0 = new Vector3(1.0, 0.0, 0.0);
+    final v1 = new Vector3(0.0, 1.0, 0.0);
+    final n = new Vector3(0.0, 0.0, 1.0);
+
+    expect(angleBetweenSigned(v0, v0, n), equals(0.0));
+    expect(angleBetweenSigned(v0, v1, n), absoluteEquals(Math.PI / 2.0));
+    expect(angleBetweenSigned(v1, v0, n), absoluteEquals(-Math.PI / 2.0));
+  }
 
   void testVec3InstacinfFromFloat32List() {
     final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0]);
@@ -644,6 +661,9 @@ class VectorTest extends BaseTest {
   }
 
   void run() {
+    test('angle between', testAngleBetween);
+    test('angle between singed', testAngleBetweenSigned);
+
     test('2D dot product', testVec2DotProduct);
     test('2D postmultiplication', testVec2Postmultiplication);
     test('2D cross product', testVec2CrossProduct);
