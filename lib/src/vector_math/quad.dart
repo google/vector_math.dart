@@ -92,11 +92,11 @@ class Quad {
     t.transform3(_point3);
   }
 
-  /// Translate [this] by [value].
-  void translate(Vector3 value) {
-    _point0.add(value);
-    _point1.add(value);
-    _point2.add(value);
-    _point3.add(value);
+  /// Translate [this] by [offset].
+  void translate(Vector3 offset) {
+    _point0.add(offset);
+    _point1.add(offset);
+    _point2.add(offset);
+    _point3.add(offset);
   }
 }

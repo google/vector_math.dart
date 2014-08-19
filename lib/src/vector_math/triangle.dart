@@ -83,10 +83,10 @@ class Triangle {
     t.transform3(_point2);
   }
 
-  /// Translate [this] by [value].
-  void translate(Vector3 value) {
-    _point0.add(value);
-    _point1.add(value);
-    _point2.add(value);
+  /// Translate [this] by [offset].
+  void translate(Vector3 offset) {
+    _point0.add(offset);
+    _point1.add(offset);
+    _point2.add(offset);
   }
 }

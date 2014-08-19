@@ -26,6 +26,11 @@ void main() {
     vt.run();
   });
 
+  group('OBB', () {
+    ObbTest ot = new ObbTest();
+    ot.run();
+  });
+
   group('OpenGL', () {
     OpenGLMatrixTest omt = new OpenGLMatrixTest();
     omt.run();

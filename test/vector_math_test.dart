@@ -15,6 +15,7 @@ part 'test_colors.dart';
 part 'test_noise.dart';
 part 'test_vector.dart';
 part 'test_aabb.dart';
+part 'test_obb.dart';
 part 'test_opengl_matrix.dart';
 part 'test_geometry.dart';
 part 'test_utilities.dart';
