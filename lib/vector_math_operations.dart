@@ -19,7 +19,12 @@
 
 */
 
+/// A library containing matrix operations ([Matrix44Operations]) that can be
+/// performed on [Float32List] instances and SIMD optimized operations
+/// ([Matrix44SIMDOperations]) that can be performed on [Float32x4List]
+/// instances.
 library vector_math_operations;
+
 import 'dart:typed_data';
 
 part 'src/vector_math_operations/vector.dart';

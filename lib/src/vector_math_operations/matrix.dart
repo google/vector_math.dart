@@ -256,6 +256,7 @@ class Matrix44Operations {
   static void transpose33(Float32List matrix, int offset) =>
       throw new UnimplementedError();
 
+  /// Set all components of [matrix] to zero.
   static void zero(Float32List matrix, int offset) {
     matrix[offset++] = 0.0;
     matrix[offset++] = 0.0;
@@ -328,6 +329,7 @@ class Matrix44SIMDOperations {
     out[0 + outOffset] = z;
   }
 
+  /// Set all components of [matrix] to zero.
   static void zero(Float32x4List matrix, int offset) {
     var z = new Float32x4.zero();
     matrix[offset++] = z;
