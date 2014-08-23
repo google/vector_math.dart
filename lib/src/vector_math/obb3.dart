@@ -303,7 +303,7 @@ class Obb3 {
     }
 
     // Since no separating axis is found, the OBBs must be intersecting
-    return false;
+    return true;
   }
 
   //TODO: IntersectsWithQuad
