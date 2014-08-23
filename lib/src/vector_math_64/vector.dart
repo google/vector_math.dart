@@ -74,6 +74,27 @@ void buildPlaneVectors(Vector3 planeNormal, Vector3 u, Vector3 v) {
   }
 }
 
+/// Returns the angle between two vectors in radians.
+double angleBetween(Vector3 a, Vector3 b) {
+  if (a == b) {
+    return 0.0;
+  }
+
+  final dot = a.dot(b);
+
+  return Math.acos(dot);
+}
+
+/// Returns the signed angle between two vectors in radians.
+double angleBetweenSigned(Vector3 a, Vector3 b, Vector3 normal) {
+  final angle = angleBetween(a, b);
+  final cross = a.cross(b);
+  final dot = cross.dot(normal);
+
+  return dot < 0 ? -angle : angle;
+}
+
+/// Base class for vectors
 abstract class Vector {
   List<double> get storage;
 }

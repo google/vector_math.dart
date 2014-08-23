@@ -261,23 +261,18 @@ class Colors {
   static double _hueToRgb(double p, double q, double t) {
     if (t < 0.0) {
       t += 1.0;
-    } else {
-      if (t > 1.0) {
-        t -= 1.0;
-      }
+    } else if (t > 1.0) {
+      t -= 1.0;
     }
+
     if (t < 1.0 / 6.0) {
       return p + (q - p) * 6.0 * t;
+    } else if (t < 1.0 / 2.0) {
+      return q;
+    } else  if (t < 2.0 / 3.0) {
+      return p + (q - p) * (2.0 / 3.0 - t) * 6.0;
     } else {
-      if (t < 1.0 / 2.0) {
-        return q;
-      } else {
-        if (t < 2.0 / 3.0) {
-          return p + (q - p) * (2.0 / 3.0 - t) * 6.0;
-        } else {
-          return p;
-        }
-      }
+      return p;
     }
   }
 
@@ -423,5 +418,6 @@ class Colors {
   static Vector4 get yellow => new Vector4(255.0 / 255.0, 255.0 / 255.0, 0.0 / 255.0, 255.0 / 255.0);
   static Vector4 get yellowGreen => new Vector4(154.0 / 255.0, 205.0 / 255.0, 50.0 / 255.0, 255.0 / 255.0);
 
+  Colors._();
+}
 
-  Colors._();}

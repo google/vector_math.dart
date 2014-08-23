@@ -138,27 +138,27 @@ class Matrix4 {
     }
 
     x.x = det * (
-        (a11 * b11 - a12 * b10 + a13 * b09) * bX - 
+        (a11 * b11 - a12 * b10 + a13 * b09) * bX -
         (a10 * b11 - a12 * b08 + a13 * b07) * bY +
         (a10 * b10 - a11 * b08 + a13 * b06) * bZ -
         (a10 * b09 - a11 * b07 + a12 * b06) * bW);
 
     x.y = det * -(
-        (a01 * b11 - a02 * b10 + a03 * b09) * bX - 
-        (a00 * b11 - a02 * b08 + a03 * b07) * bY + 
-        (a00 * b10 - a01 * b08 + a03 * b06) * bZ - 
+        (a01 * b11 - a02 * b10 + a03 * b09) * bX -
+        (a00 * b11 - a02 * b08 + a03 * b07) * bY +
+        (a00 * b10 - a01 * b08 + a03 * b06) * bZ -
         (a00 * b09 - a01 * b07 + a02 * b06) * bW);
 
     x.z = det * (
-        (a31 * b05 - a32 * b04 + a33 * b03) * bX - 
-        (a30 * b05 - a32 * b02 + a33 * b01) * bY + 
+        (a31 * b05 - a32 * b04 + a33 * b03) * bX -
+        (a30 * b05 - a32 * b02 + a33 * b01) * bY +
         (a30 * b04 - a31 * b02 + a33 * b00) * bZ -
         (a30 * b03 - a31 * b01 + a32 * b00) * bW);
 
     x.w = det * -(
-        (a21 * b05 - a22 * b04 + a23 * b03) * bX - 
-        (a20 * b05 - a22 * b02 + a23 * b01) * bY + 
-        (a20 * b04 - a21 * b02 + a23 * b00) * bZ - 
+        (a21 * b05 - a22 * b04 + a23 * b03) * bX -
+        (a20 * b05 - a22 * b02 + a23 * b01) * bY +
+        (a20 * b04 - a21 * b02 + a23 * b00) * bZ -
         (a20 * b03 - a21 * b01 + a22 * b00) * bW);
   }
 
@@ -198,7 +198,7 @@ class Matrix4 {
       arg3) => new Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
 
   /// Outer product of [u] and [v].
-  factory Matrix4.outer(Vector4 u, Vector4 v) => 
+  factory Matrix4.outer(Vector4 u, Vector4 v) =>
       new Matrix4.zero()..setOuter(u, v);
 
   /// Rotation of [radians_] around X.
@@ -1481,6 +1481,24 @@ class Matrix4 {
     argStorage[0] = x_;
     argStorage[1] = y_;
     argStorage[2] = z_;
+    return arg;
+  }
+
+  /// Transform [arg] of type [Vector3] using the perspective transformation
+  /// defined by [this].
+  Vector3 perspectiveTransform(Vector3 arg) {
+    final argStorage = arg._storage3;
+    final x_ = (_storage44[0] * argStorage[0]) + (_storage44[4] *
+        argStorage[1]) + (_storage44[8] * argStorage[2]) + _storage44[12];
+    final y_ = (_storage44[1] * argStorage[0]) + (_storage44[5] *
+        argStorage[1]) + (_storage44[9] * argStorage[2]) + _storage44[13];
+    final z_ = (_storage44[2] * argStorage[0]) + (_storage44[6] *
+        argStorage[1]) + (_storage44[10] * argStorage[2]) + _storage44[14];
+    final w_ = (_storage44[3] * argStorage[0]) + (_storage44[7] *
+        argStorage[1]) + (_storage44[11] * argStorage[2]) + _storage44[15];
+    argStorage[0] = x_ / w_;
+    argStorage[1] = y_ / w_;
+    argStorage[2] = z_ / w_;
     return arg;
   }
 

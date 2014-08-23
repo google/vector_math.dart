@@ -58,6 +58,24 @@ class Aabb3 {
       : _min3 = new Vector3.copy(min),
         _max3 = new Vector3.copy(max);
 
+  /// Create a new AABB that encloses a [sphere].
+  factory Aabb3.fromSphere(Sphere sphere) => new Aabb3()..setSphere(sphere);
+
+  /// Create a new AABB that encloses a [triangle].
+  factory Aabb3.fromTriangle(Triangle triangle) =>
+      new Aabb3()..setTriangle(triangle);
+
+  /// Create a new AABB that encloses a [quad].
+  factory Aabb3.fromQuad(Quad quad) => new Aabb3()..setQuad(quad);
+
+  /// Create a new AABB that encloses a [obb].
+  factory Aabb3.fromObb3(Obb3 obb) => new Aabb3()..setObb3(obb);
+
+  /// Create a new AABB that encloses a limited [ray] (or line segment) that has
+  /// a minLimit and maxLimit.
+  factory Aabb3.fromRay(Ray ray, double limitMin, double limitMax) =>
+      new Aabb3()..setRay(ray, limitMin, limitMax);
+
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents)
       => new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
@@ -80,6 +98,114 @@ class Aabb3 {
         ..add(halfExtents);
   }
 
+  /// Set the AABB to enclose a [sphere].
+  void setSphere(Sphere sphere) {
+    _min3
+        ..splat(-sphere._radius)
+        ..add(sphere._center);
+    _max3
+        ..splat(sphere._radius)
+        ..add(sphere._center);
+  }
+
+  /// Set the AABB to enclose a [triangle].
+  void setTriangle(Triangle triangle) {
+    _min3.setValues(
+      Math.min(triangle._point0.x,
+      Math.min(triangle._point1.x, triangle._point2.x)),
+      Math.min(triangle._point0.y,
+      Math.min(triangle._point1.y, triangle._point2.y)),
+      Math.min(triangle._point0.z,
+      Math.min(triangle._point1.z, triangle._point2.z)));
+    _max3.setValues(
+      Math.max(triangle._point0.x,
+      Math.max(triangle._point1.x, triangle._point2.x)),
+      Math.max(triangle._point0.y,
+      Math.max(triangle._point1.y, triangle._point2.y)),
+      Math.max(triangle._point0.z,
+      Math.max(triangle._point1.z, triangle._point2.z)));
+  }
+
+  /// Set the AABB to enclose a [quad].
+  void setQuad(Quad quad) {
+    _min3.setValues(
+      Math.min(quad._point0.x,
+      Math.min(quad._point1.x,
+      Math.min(quad._point2.x, quad._point3.x))),
+      Math.min(quad._point0.y,
+      Math.min(quad._point1.y,
+      Math.min(quad._point2.y, quad._point3.y))),
+      Math.min(quad._point0.z,
+      Math.min(quad._point1.z,
+      Math.min(quad._point2.z, quad._point3.z))));
+    _max3.setValues(
+      Math.max(quad._point0.x,
+      Math.max(quad._point1.x,
+      Math.max(quad._point2.x, quad._point3.x))),
+      Math.max(quad._point0.y,
+      Math.max(quad._point1.y,
+      Math.max(quad._point2.y, quad._point3.y))),
+      Math.max(quad._point0.z,
+      Math.max(quad._point1.z,
+      Math.max(quad._point2.z, quad._point3.z))));
+  }
+
+  /// Set the AABB to enclose a [obb].
+  void setObb3(Obb3 obb) {
+    final corner = new Vector3.zero();
+
+    obb.copyCorner(0, corner);
+    _min3.setFrom(corner);
+    _max3.setFrom(corner);
+
+    obb.copyCorner(1, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(2, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(3, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(4, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(5, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(6, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(7, corner);
+    hullPoint(corner);
+
+  }
+
+  /// Set the AABB to enclose a limited [ray] (or line segment) that has
+  /// a minLimit and maxLimit.
+  void setRay(Ray ray, double limitMin, double limitMax) {
+    ray.copyAt(_min3, limitMin);
+    ray.copyAt(_max3, limitMax);
+
+    if (_max3.x < _min3.x) {
+      var temp = _max3.x;
+      _max3.x = _min3.x;
+      _min3.x = temp;
+    }
+
+    if (_max3.y < _min3.y) {
+      var temp = _max3.y;
+      _max3.y = _min3.y;
+      _min3.y = temp;
+    }
+
+    if (_max3.z < _min3.z) {
+      var temp = _max3.z;
+      _max3.z = _min3.z;
+      _min3.z = temp;
+    }
+  }
+
   /// DEPREACTED: Removed, copy min and max yourself
   @deprecated
   void copyMinMax(Vector3 min_, Vector3 max_) {
@@ -96,6 +222,14 @@ class Aabb3 {
     halfExtents
         ..setFrom(_max3)
         ..sub(_min3)
+        ..scale(0.5);
+  }
+
+  /// Copy the [center] of [this].
+  void copyCenter(Vector3 center) {
+    center
+        ..setFrom(_min3)
+        ..add(_max3)
         ..scale(0.5);
   }
 
