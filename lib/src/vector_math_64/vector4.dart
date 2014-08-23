@@ -163,23 +163,10 @@ class Vector4 implements Vector {
     return sum;
   }
 
-  /// Normalizes [this].
-  void normalize() {
+  /// Normalizes [this]. Returns length of vector before normalization.
+  double normalize() {
     var l = length;
     // TODO(johnmccutchan): Use an epsilon.
-    if (l == 0.0) {
-      return;
-    }
-    l = 1.0 / l;
-    _storage4[0] *= l;
-    _storage4[1] *= l;
-    _storage4[2] *= l;
-    _storage4[3] *= l;
-  }
-
-  /// Normalizes [this]. Returns length of vector before normalization.
-  double normalizeLength() {
-    final l = length;
     if (l == 0.0) {
       return 0.0;
     }
@@ -190,6 +177,12 @@ class Vector4 implements Vector {
     _storage4[3] *= d;
     return l;
   }
+
+  /// Normalizes [this]. Returns length of vector before normalization.
+  ///
+  /// DEPREACTED: [normalize] does the same now.
+  @deprecated
+  double normalizeLength() => normalize();
 
   /// Normalizes copy of [this].
   Vector4 normalized() => clone()..normalize();

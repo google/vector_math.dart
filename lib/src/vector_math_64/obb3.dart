@@ -93,9 +93,9 @@ class Obb3 {
     t.transform(_axis0..scale(_extents.x));
     t.transform(_axis1..scale(_extents.y));
     t.transform(_axis2..scale(_extents.z));
-    _extents.x = _axis0.normalizeLength();
-    _extents.y = _axis1.normalizeLength();
-    _extents.z = _axis2.normalizeLength();
+    _extents.x = _axis0.normalize();
+    _extents.y = _axis1.normalize();
+    _extents.z = _axis2.normalize();
   }
 
   /// Transform [this] by the transform [t].
@@ -104,9 +104,9 @@ class Obb3 {
     t.rotate3(_axis0..scale(_extents.x));
     t.rotate3(_axis1..scale(_extents.y));
     t.rotate3(_axis2..scale(_extents.z));
-    _extents.x = _axis0.normalizeLength();
-    _extents.y = _axis1.normalizeLength();
-    _extents.z = _axis2.normalizeLength();
+    _extents.x = _axis0.normalize();
+    _extents.y = _axis1.normalize();
+    _extents.z = _axis2.normalize();
   }
 
   void copyCorner(int cornerIndex, Vector3 corner) {

@@ -134,21 +134,10 @@ class Vector2 implements Vector {
     return sum;
   }
 
-  /// Normalize [this].
-  void normalize() {
+  /// Normalize [this]. Returns length of vector before normalization.
+  double normalize() {
     var l = length;
     // TODO(johnmccutchan): Use an epsilon.
-    if (l == 0.0) {
-      return;
-    }
-    l = 1.0 / l;
-    _storage2[0] *= l;
-    _storage2[1] *= l;
-  }
-
-  /// Normalize [this]. Returns length of vector before normalization.
-  double normalizeLength() {
-    final l = length;
     if (l == 0.0) {
       return 0.0;
     }
@@ -157,6 +146,12 @@ class Vector2 implements Vector {
     _storage2[1] *= d;
     return l;
   }
+
+  /// Normalize [this]. Returns length of vector before normalization.
+  ///
+  /// DEPREACTED: [normalize] does the same now.
+  @deprecated
+  double normalizeLength() => normalize();
 
   /// Normalized copy of [this].
   Vector2 normalized() => clone()..normalize();

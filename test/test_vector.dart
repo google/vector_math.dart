@@ -96,7 +96,7 @@ class VectorTest extends BaseTest {
     expect(a.length, relativeEquals(8.6));
     expect(a.length2, relativeEquals(74.0));
 
-    expect(a.normalizeLength(), relativeEquals(8.6));
+    expect(a.normalize(), relativeEquals(8.6));
     expect(a.x, relativeEquals(0.5812));
     expect(a.y, relativeEquals(0.8137));
   }
@@ -107,7 +107,7 @@ class VectorTest extends BaseTest {
     expect(a.length, relativeEquals(9.1104));
     expect(a.length2, relativeEquals(83.0));
 
-    expect(a.normalizeLength(), relativeEquals(9.1104));
+    expect(a.normalize(), relativeEquals(9.1104));
     expect(a.x, relativeEquals(0.5488));
     expect(a.y, relativeEquals(0.7683));
     expect(a.z, relativeEquals(0.3292));
@@ -119,7 +119,7 @@ class VectorTest extends BaseTest {
     expect(a.length, relativeEquals(13.5277));
     expect(a.length2, relativeEquals(183.0));
 
-    expect(a.normalizeLength(), relativeEquals(13.5277));
+    expect(a.normalize(), relativeEquals(13.5277));
     expect(a.x, relativeEquals(0.3696));
     expect(a.y, relativeEquals(0.5174));
     expect(a.z, relativeEquals(0.2217));

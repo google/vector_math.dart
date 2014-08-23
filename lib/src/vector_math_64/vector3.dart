@@ -144,21 +144,9 @@ class Vector3 implements Vector {
     return sum;
   }
 
-  /// Normalizes [this].
-  void normalize() {
+  /// Normalizes [this]. Returns length of vector before normalization.
+  double normalize() {
     var l = length;
-    if (l == 0.0) {
-      return;
-    }
-    l = 1.0 / l;
-    _storage3[0] *= l;
-    _storage3[1] *= l;
-    _storage3[2] *= l;
-  }
-
-  /// Normalize [this]. Returns length of vector before normalization.
-  double normalizeLength() {
-    final l = length;
     if (l == 0.0) {
       return 0.0;
     }
@@ -168,6 +156,12 @@ class Vector3 implements Vector {
     _storage3[2] *= d;
     return l;
   }
+
+  /// Normalize [this]. Returns length of vector before normalization.
+  ///
+  /// DEPREACTED: [normalize] does the same now.
+  @deprecated
+  double normalizeLength() => normalize();
 
   /// Normalizes copy of [this].
   Vector3 normalized() => new Vector3.copy(this)..normalize();
