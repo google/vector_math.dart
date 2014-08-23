@@ -204,12 +204,12 @@ class Matrix44Operations {
 
   /// Perform a 4x4 transformation matrix inverse. Assumes the upper
   /// 3x3 is orthonormal (i.e. does not contain any scale).
-  static void orthoInverse(Float32List matrix, int offset) {
-  }
+  static void orthoInverse(Float32List matrix, int offset) =>
+      throw new UnimplementedError();
 
   /// Normalize the upper 3x3 of the 4x4 [matrix] starting at [offset].
-  static void normalize33(Float32List matrix, int offset) {
-  }
+  static void normalize33(Float32List matrix, int offset) =>
+      throw new UnimplementedError();
 
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
@@ -246,16 +246,15 @@ class Matrix44Operations {
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
   static void transform3(Float32List out, int outOffset, Float32List matrix,
                          int matrixOffset, Float32List vector,
-                         int vectorOffset) {
-  }
+                         int vectorOffset) => throw new UnimplementedError();
 
   /// Transpose the 4x4 [matrix] starting at [offset].
-  static void transpose(Float32List matrix, int offset) {
-  }
+  static void transpose(Float32List matrix, int offset) =>
+      throw new UnimplementedError();
 
   /// Transpose the upper 3x3 of the 4x4 [matrix] starting at [offset].
-  static void transpose33(Float32List matrix, int offset) {
-  }
+  static void transpose33(Float32List matrix, int offset) =>
+      throw new UnimplementedError();
 
   static void zero(Float32List matrix, int offset) {
     matrix[offset++] = 0.0;
