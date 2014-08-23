@@ -1,8 +1,8 @@
-library test_matrix3;
+library test_matrix3_64;
 
 import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'test_helpers.dart';
 
 void testAdjoint() {

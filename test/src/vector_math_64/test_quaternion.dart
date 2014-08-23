@@ -1,13 +1,13 @@
-library test_quaternion;
+library test_quaternion_64;
 
 import 'dart:typed_data';
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'test_helpers.dart';
 
-void testQuaternionInstacinfFromFloat32List() {
-  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
-  final Quaternion input = new Quaternion.fromFloat32List(float32List);
+void testQuaternionInstacinfFromFloat64List() {
+  final Float64List float32List = new Float64List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final Quaternion input = new Quaternion.fromFloat64List(float32List);
 
   expect(input.x, equals(1.0));
   expect(input.y, equals(2.0));
@@ -16,10 +16,10 @@ void testQuaternionInstacinfFromFloat32List() {
 }
 
 void testQuaternionInstacingFromByteBuffer() {
-  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
+  final Float64List float32List = new Float64List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
   final ByteBuffer buffer = float32List.buffer;
   final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer, 0);
-  final Quaternion offsetVector = new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+  final Quaternion offsetVector = new Quaternion.fromBuffer(buffer, Float64List.BYTES_PER_ELEMENT);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
@@ -65,7 +65,7 @@ void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB, L
 
 void main() {
   group('Quaternion', () {
-    test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
+    test('Float64List instacing', testQuaternionInstacingFromByteBuffer);
     test('ByteBuffer instacing', testQuaternionInstacingFromByteBuffer);
     test('Conjugate', () {
       List<Quaternion> input = new List<Quaternion>();

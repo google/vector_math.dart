@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:unittest/unittest.dart';
 import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_lists.dart';
-import '../test_helpers.dart';
+import '../vector_math/test_helpers.dart';
 
 void testVec2NewList() {
   Vector2List list = new Vector2List(10, 1);

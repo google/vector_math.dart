@@ -1,7 +1,7 @@
-library test_vector2;
+library test_vector2_64;
 
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'test_helpers.dart';
 
 void testAdd() {

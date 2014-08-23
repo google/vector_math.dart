@@ -5,7 +5,7 @@ import 'package:unittest/unittest.dart';
 import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_lists.dart';
 import 'package:vector_math/vector_math_geometry.dart';
-import '../test_helpers.dart';
+import '../vector_math/test_helpers.dart';
 
 void testGenerateNormals() {
   final Vector3List positions = new Vector3List.fromList([

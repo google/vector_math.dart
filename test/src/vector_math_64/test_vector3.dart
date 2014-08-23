@@ -1,9 +1,9 @@
-library test_vector3;
+library test_vector3_64;
 
 import 'dart:math' as Math;
 import 'dart:typed_data';
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'test_helpers.dart';
 
 void testAngleBetween() {
@@ -24,9 +24,9 @@ void testAngleBetweenSigned() {
   expect(angleBetweenSigned(v1, v0, n), absoluteEquals(-Math.PI / 2.0));
 }
 
-void testInstacinfFromFloat32List() {
-  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0]);
-  final Vector3 input = new Vector3.fromFloat32List(float32List);
+void testInstacinfFromFloat64List() {
+  final Float64List float32List = new Float64List.fromList([1.0, 2.0, 3.0]);
+  final Vector3 input = new Vector3.fromFloat64List(float32List);
 
   expect(input.x, equals(1.0));
   expect(input.y, equals(2.0));
@@ -34,10 +34,10 @@ void testInstacinfFromFloat32List() {
 }
 
 void testInstacingFromByteBuffer() {
-  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final Float64List float32List = new Float64List.fromList([1.0, 2.0, 3.0, 4.0]);
   final ByteBuffer buffer = float32List.buffer;
   final Vector3 zeroOffset = new Vector3.fromBuffer(buffer, 0);
-  final Vector3 offsetVector = new Vector3.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+  final Vector3 offsetVector = new Vector3.fromBuffer(buffer, Float64List.BYTES_PER_ELEMENT);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
@@ -319,7 +319,7 @@ void main() {
     test('mix', testMix);
     test('distanceTo', testDistanceTo);
     test('distanceToSquared', testDistanceToSquared);
-    test('instancing from Float32List', testInstacinfFromFloat32List);
+    test('instancing from Float64List', testInstacinfFromFloat64List);
     test('instancing from ByteBuffer', testInstacingFromByteBuffer);
   });
 }

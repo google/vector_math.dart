@@ -1,16 +1,16 @@
-library test_matrix4;
+library test_matrix4_64;
 
 import 'dart:typed_data';
 import 'package:unittest/unittest.dart';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'test_helpers.dart';
 
-void testMatrixInstacinfFromFloat32List() {
-  final Float32List float32List = new Float32List.fromList([1.0,  2.0, 3.0,4.0,
+void testMatrixInstacinfFromFloat64List() {
+  final Float64List float32List = new Float64List.fromList([1.0,  2.0, 3.0,4.0,
                                                             5.0,  6.0, 7.0,8.0,
                                                             9.0, 10.0, 11.0,12.0,
                                                             13.0,14.0,15.0,16.0]);
-  final Matrix4 input = new Matrix4.fromFloat32List(float32List);
+  final Matrix4 input = new Matrix4.fromFloat64List(float32List);
 
   expect(input.storage[0], equals(1.0));
   expect(input.storage[1], equals(2.0));
@@ -34,13 +34,13 @@ void testMatrixInstacinfFromFloat32List() {
 }
 
 void testMatrixInstacingFromByteBuffer() {
-  final Float32List float32List = new Float32List.fromList([1.0,  2.0, 3.0,4.0,
+  final Float64List float32List = new Float64List.fromList([1.0,  2.0, 3.0,4.0,
                                                             5.0,  6.0, 7.0,8.0,
                                                             9.0, 10.0, 11.0,12.0,
                                                             13.0,14.0,15.0,16.0,17.0]);
   final ByteBuffer buffer = float32List.buffer;
   final Matrix4 zeroOffset = new Matrix4.fromBuffer(buffer,0);
-  final Matrix4 offsetVector = new Matrix4.fromBuffer(buffer,Float32List.BYTES_PER_ELEMENT);
+  final Matrix4 offsetVector = new Matrix4.fromBuffer(buffer,Float64List.BYTES_PER_ELEMENT);
 
   expect(zeroOffset.storage[0], equals(1.0));
   expect(zeroOffset.storage[1], equals(2.0));
@@ -454,7 +454,7 @@ void testSolving() {
 
 void maib() {
   group('Matrix4', () {
-    test('instancing from Float32List', testMatrixInstacinfFromFloat32List);
+    test('instancing from Float64List', testMatrixInstacinfFromFloat64List);
     test('instancing from ByteBuffer', testMatrixInstacingFromByteBuffer);
     test('Matrix transpose', testMatrixTranspose);
     test('Determinant', testDeterminant);

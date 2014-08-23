@@ -2,7 +2,7 @@ library test_quad;
 
 import 'package:unittest/unittest.dart';
 import 'package:vector_math/vector_math.dart';
-import '../test_helpers.dart';
+import 'test_helpers.dart';
 
 void testCopyNormalInto() {
   final quad = new Quad.points(new Vector3(1.0, 0.0, 1.0), new Vector3(0.0, 2.0, 1.0), new Vector3(1.0, 2.0, 0.0), new Vector3(0.0, 2.0, 0.0));
