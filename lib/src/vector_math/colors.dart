@@ -21,6 +21,10 @@
 
 part of vector_math;
 
+//TODO (fox32): Consider moving the this into an own library. Move the code into
+// top-level scope and let users import it using:
+// import 'package:vector_math/vector_math_colors.dart' as colors;
+
 /// Contains functions for converting between different color models and
 /// manipulating colors. In addition to that, some known colors can be accessed
 /// for fast prototyping.
@@ -269,7 +273,7 @@ class Colors {
       return p + (q - p) * 6.0 * t;
     } else if (t < 1.0 / 2.0) {
       return q;
-    } else  if (t < 2.0 / 3.0) {
+    } else if (t < 2.0 / 3.0) {
       return p + (q - p) * (2.0 / 3.0 - t) * 6.0;
     } else {
       return p;
