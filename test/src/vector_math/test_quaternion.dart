@@ -1,66 +1,70 @@
-part of vector_math_test;
+library test_quaternion;
 
-class QuaternionTest extends BaseTest {
+import 'dart:typed_data';
+import 'package:unittest/unittest.dart';
+import 'package:vector_math/vector_math.dart';
+import '../test_helpers.dart';
 
-  void testQuaternionInstacinfFromFloat32List() {
-    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
-    final Quaternion input = new Quaternion.fromFloat32List(float32List);
+void testQuaternionInstacinfFromFloat32List() {
+  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final Quaternion input = new Quaternion.fromFloat32List(float32List);
 
-    expect(input.x, equals(1.0));
-    expect(input.y, equals(2.0));
-    expect(input.z, equals(3.0));
-    expect(input.w, equals(4.0));
+  expect(input.x, equals(1.0));
+  expect(input.y, equals(2.0));
+  expect(input.z, equals(3.0));
+  expect(input.w, equals(4.0));
+}
+
+void testQuaternionInstacingFromByteBuffer() {
+  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
+  final ByteBuffer buffer = float32List.buffer;
+  final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer, 0);
+  final Quaternion offsetVector = new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+
+  expect(zeroOffset.x, equals(1.0));
+  expect(zeroOffset.y, equals(2.0));
+  expect(zeroOffset.z, equals(3.0));
+  expect(zeroOffset.w, equals(4.0));
+
+  expect(offsetVector.x, equals(2.0));
+  expect(offsetVector.y, equals(3.0));
+  expect(offsetVector.z, equals(4.0));
+  expect(offsetVector.w, equals(5.0));
+}
+
+void testConjugate(List<Quaternion> input, List<Quaternion> expectedOutput) {
+  assert(input.length == expectedOutput.length);
+  for (int i = 0; i < input.length; i++) {
+    Quaternion output = input[i]..conjugate();
+    expect(output, relativeEquals(expectedOutput[i]));
   }
+}
 
-  void testQuaternionInstacingFromByteBuffer() {
-    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
-    final ByteBuffer buffer = float32List.buffer;
-    final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer, 0);
-    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
-
-    expect(zeroOffset.x, equals(1.0));
-    expect(zeroOffset.y, equals(2.0));
-    expect(zeroOffset.z, equals(3.0));
-    expect(zeroOffset.w, equals(4.0));
-
-    expect(offsetVector.x, equals(2.0));
-    expect(offsetVector.y, equals(3.0));
-    expect(offsetVector.z, equals(4.0));
-    expect(offsetVector.w, equals(5.0));
+void testQuaternionMatrixRoundTrip(List<Quaternion> input) {
+  for (int i = 0; i < input.length; i++) {
+    Matrix3 R = input[i].asRotationMatrix();
+    Quaternion output = new Quaternion.fromRotation(R);
+    expect(output, relativeEquals(input[i]));
   }
+}
 
-  void testConjugate(List<Quaternion> input, List<Quaternion> expectedOutput) {
-    assert(input.length == expectedOutput.length);
-    for (int i = 0; i < input.length; i++) {
-      Quaternion output = input[i]..conjugate();
-      expect(output, relativeEquals(expectedOutput[i]));
-    }
+void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB, List<Quaternion> expectedOutput) {
+  for (int i = 0; i < inputA.length; i++) {
+    Quaternion output = inputA[i] * inputB[i];
+    expect(output, relativeEquals(expectedOutput[i]));
   }
+}
 
-  void testQuaternionMatrixRoundTrip(List<Quaternion> input) {
-    for (int i = 0; i < input.length; i++) {
-      Matrix3 R = input[i].asRotationMatrix();
-      Quaternion output = new Quaternion.fromRotation(R);
-      expect(output, relativeEquals(input[i]));
-    }
+void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB, List<Vector3> expectedOutput) {
+  assert((inputA.length == inputB.length) && (inputB.length == expectedOutput.length));
+  for (int i = 0; i < inputA.length; i++) {
+    Vector3 output = inputA[i].rotate(inputB[i]);
+    expect(output, relativeEquals(expectedOutput[i]));
   }
+}
 
-  void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB, List<Quaternion> expectedOutput) {
-    for (int i = 0; i < inputA.length; i++) {
-      Quaternion output = inputA[i] * inputB[i];
-      expect(output, relativeEquals(expectedOutput[i]));
-    }
-  }
-
-  void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB, List<Vector3> expectedOutput) {
-    assert((inputA.length == inputB.length) && (inputB.length == expectedOutput.length));
-    for (int i = 0; i < inputA.length; i++) {
-      Vector3 output = inputA[i].rotate(inputB[i]);
-      expect(output, relativeEquals(expectedOutput[i]));
-    }
-  }
-
-  void run() {
+void main() {
+  group('Quaternion', () {
     test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
     test('ByteBuffer instacing', testQuaternionInstacingFromByteBuffer);
     test('Conjugate', () {
@@ -158,5 +162,5 @@ class QuaternionTest extends BaseTest {
 
       testQuaternionVectorRotate(inputA, inputB, expectedOutput);
     });
-  }
+  });
 }
