@@ -23,15 +23,34 @@ part of vector_math;
 
 /// Defines a frustum constructed out of six [planes].
 class Frustum {
-  final List<Plane> _planes;
+  final Plane _plane0;
+  final Plane _plane1;
+  final Plane _plane2;
+  final Plane _plane3;
+  final Plane _plane4;
+  final Plane _plane5;
 
-  /// A list of six planes that define the bounce of the frustum.
-  List<Plane> get planes => _planes;
+  /// The first plane that defines the bounds of this frustum.
+  Plane get plane0 => _plane0;
+  /// The second plane that defines the bounds of this frustum.
+  Plane get plane1 => _plane1;
+  /// The third plane that defines the bounds of this frustum.
+  Plane get plane2 => _plane2;
+  /// The fourth plane that defines the bounds of this frustum.
+  Plane get plane3 => _plane3;
+  /// The fifth plane that defines the bounds of this frustum.
+  Plane get plane4 => _plane4;
+  /// The sixed plane that defines the bounds of this frustum.
+  Plane get plane5 => _plane5;
 
   /// Create a new frustum without initializing its bounds.
   Frustum()
-      : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-                          new Plane(), new Plane()].toList(growable: false);
+      : _plane0 = new Plane(),
+        _plane1 = new Plane(),
+        _plane2 = new Plane(),
+        _plane3 = new Plane(),
+        _plane4 = new Plane(),
+        _plane5 = new Plane();
 
   /// Create a new frustum as a copy of [other].
   factory Frustum.copy(Frustum other) => new Frustum()..copyFrom(other);
@@ -41,11 +60,12 @@ class Frustum {
 
   /// Copy the [other] frustum into [this].
   void copyFrom(Frustum other) {
-    final otherPlanes = other._planes;
-
-    for (var i = 0; i < 6; ++i) {
-      _planes[i].copyFrom(otherPlanes[i]);
-    }
+    _plane0.copyFrom(other._plane0);
+    _plane1.copyFrom(other._plane1);
+    _plane2.copyFrom(other._plane2);
+    _plane3.copyFrom(other._plane3);
+    _plane4.copyFrom(other._plane4);
+    _plane5.copyFrom(other._plane5);
   }
 
   /// Set [this] from [matrix].
@@ -68,32 +88,50 @@ class Frustum {
         me14 = me[14],
         me15 = me[15];
 
-    _planes[0]
+    _plane0
         ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
         ..normalize();
-    _planes[1]
+    _plane1
         ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
         ..normalize();
-    _planes[2]
+    _plane2
         ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
         ..normalize();
-    _planes[3]
+    _plane3
         ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
         ..normalize();
-    _planes[4]
+    _plane4
         ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
         ..normalize();
-    _planes[5]
+    _plane5
         ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
         ..normalize();
   }
 
   /// Check if [this] contains a [point].
   bool containsVector3(Vector3 point) {
-    for (var i = 0; i < 6; ++i) {
-      if (_planes[i].distanceToVector3(point) < 0.0) {
-        return false;
-      }
+    if (_plane0.distanceToVector3(point) < 0.0) {
+      return false;
+    }
+
+    if (_plane1.distanceToVector3(point) < 0.0) {
+      return false;
+    }
+
+    if (_plane2.distanceToVector3(point) < 0.0) {
+      return false;
+    }
+
+    if (_plane3.distanceToVector3(point) < 0.0) {
+      return false;
+    }
+
+    if (_plane4.distanceToVector3(point) < 0.0) {
+      return false;
+    }
+
+    if (_plane5.distanceToVector3(point) < 0.0) {
+      return false;
     }
 
     return true;
@@ -101,51 +139,72 @@ class Frustum {
 
   /// Check if [this] intersects with [aabb].
   bool intersectsWithAabb3(Aabb3 aabb) {
-    for (var i = 0; i < 6; ++i) {
-      final plane = _planes[i];
-      var outPx, outPy, outPz, outNx, outNy, outNz;
+    if (_intersectsWithAabb3CheckPlane(aabb, _plane0)) {
+      return false;
+    }
 
-      if (plane._normal.x < 0.0) {
-        outPx = aabb._min3.x;
-        outNx = aabb._max3.x;
-      } else {
-        outPx = aabb._max3.x;
-        outNx = aabb._min3.x;
-      }
+    if (_intersectsWithAabb3CheckPlane(aabb, _plane1)) {
+      return false;
+    }
 
-      if (plane._normal.y < 0.0) {
-        outPy = aabb._min3.y;
-        outNy = aabb._max3.y;
-      } else {
-        outPy = aabb._max3.y;
-        outNy = aabb._min3.y;
-      }
+    if (_intersectsWithAabb3CheckPlane(aabb, _plane2)) {
+      return false;
+    }
 
-      if (plane._normal.z < 0.0) {
-        outPz = aabb._min3.z;
-        outNz = aabb._max3.z;
-      } else {
-        outPz = aabb._max3.z;
-        outNz = aabb._min3.z;
-      }
+    if (_intersectsWithAabb3CheckPlane(aabb, _plane3)) {
+      return false;
+    }
 
-      final d1 =
-          plane._normal.x * outPx +
-          plane._normal.y * outPy +
-          plane._normal.z * outPz +
-          plane._constant;
-      final d2 =
-          plane._normal.x * outNx +
-          plane._normal.y * outNy +
-          plane._normal.z * outNz +
-          plane._constant;
+    if (_intersectsWithAabb3CheckPlane(aabb, _plane4)) {
+      return false;
+    }
 
-      if (d1 < 0 && d2 < 0) {
-        return false;
-      }
+    if (_intersectsWithAabb3CheckPlane(aabb, _plane5)) {
+      return false;
     }
 
     return true;
+  }
+
+  bool _intersectsWithAabb3CheckPlane(Aabb3 aabb, Plane plane) {
+    var outPx, outPy, outPz, outNx, outNy, outNz;
+
+    if (plane._normal.x < 0.0) {
+      outPx = aabb._min3.x;
+      outNx = aabb._max3.x;
+    } else {
+      outPx = aabb._max3.x;
+      outNx = aabb._min3.x;
+    }
+
+    if (plane._normal.y < 0.0) {
+      outPy = aabb._min3.y;
+      outNy = aabb._max3.y;
+    } else {
+      outPy = aabb._max3.y;
+      outNy = aabb._min3.y;
+    }
+
+    if (plane._normal.z < 0.0) {
+      outPz = aabb._min3.z;
+      outNz = aabb._max3.z;
+    } else {
+      outPz = aabb._max3.z;
+      outNz = aabb._min3.z;
+    }
+
+    final d1 =
+        plane._normal.x * outPx +
+        plane._normal.y * outPy +
+        plane._normal.z * outPz +
+        plane._constant;
+    final d2 =
+        plane._normal.x * outNx +
+        plane._normal.y * outNy +
+        plane._normal.z * outNz +
+        plane._constant;
+
+    return d1 < 0 && d2 < 0;
   }
 
   /// Check if [this] intersects with [sphere].
@@ -153,12 +212,28 @@ class Frustum {
     final negativeRadius = -sphere._radius;
     final center = sphere._center;
 
-    for (var i = 0; i < 6; ++i) {
-      final distance = _planes[i].distanceToVector3(center);
+    if (_plane0.distanceToVector3(center) < negativeRadius) {
+      return false;
+    }
 
-      if (distance < negativeRadius) {
-        return false;
-      }
+    if (_plane1.distanceToVector3(center) < negativeRadius) {
+      return false;
+    }
+
+    if (_plane2.distanceToVector3(center) < negativeRadius) {
+      return false;
+    }
+
+    if (_plane3.distanceToVector3(center) < negativeRadius) {
+      return false;
+    }
+
+    if (_plane4.distanceToVector3(center) < negativeRadius) {
+      return false;
+    }
+
+    if (_plane5.distanceToVector3(center) < negativeRadius) {
+      return false;
     }
 
     return true;
@@ -169,13 +244,13 @@ class Frustum {
   void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3 corner2,
       Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3 corner6,
       Vector3 corner7) {
-    Plane.intersection(_planes[0], _planes[2], _planes[4], corner0);
-    Plane.intersection(_planes[0], _planes[3], _planes[4], corner1);
-    Plane.intersection(_planes[0], _planes[3], _planes[5], corner2);
-    Plane.intersection(_planes[0], _planes[2], _planes[5], corner3);
-    Plane.intersection(_planes[1], _planes[2], _planes[4], corner4);
-    Plane.intersection(_planes[1], _planes[3], _planes[4], corner5);
-    Plane.intersection(_planes[1], _planes[3], _planes[5], corner6);
-    Plane.intersection(_planes[1], _planes[2], _planes[5], corner7);
+    Plane.intersection(_plane0, _plane2, _plane4, corner0);
+    Plane.intersection(_plane0, _plane3, _plane4, corner1);
+    Plane.intersection(_plane0, _plane3, _plane5, corner2);
+    Plane.intersection(_plane0, _plane2, _plane5, corner3);
+    Plane.intersection(_plane1, _plane2, _plane4, corner4);
+    Plane.intersection(_plane1, _plane3, _plane4, corner5);
+    Plane.intersection(_plane1, _plane3, _plane5, corner6);
+    Plane.intersection(_plane1, _plane2, _plane5, corner7);
   }
 }
