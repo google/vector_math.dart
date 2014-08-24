@@ -51,10 +51,18 @@ class Matrix2 {
   int index(int row, int col) => (col * 2) + row;
 
   /// Value at [row], [col].
-  double entry(int row, int col) => _storage22[index(row, col)];
+  double entry(int row, int col) {
+    assert(row >= 0 && row < dimension);
+    assert(col >= 0 && col < dimension);
+
+    return _storage22[index(row, col)];
+  }
 
   /// Set value at [row], [col] to be [v].
   void setEntry(int row, int col, double v) {
+    assert(row >= 0 && row < dimension);
+    assert(col >= 0 && col < dimension);
+
     _storage22[index(row, col)] = v;
   }
 
@@ -73,15 +81,15 @@ class Matrix2 {
   factory Matrix2.copy(Matrix2 other) => new Matrix2.zero()..setFrom(other);
 
   /// Matrix with values from column arguments.
-  factory Matrix2.columns(Vector2 arg0, Vector2 arg1) => 
+  factory Matrix2.columns(Vector2 arg0, Vector2 arg1) =>
       new Matrix2.zero()..setColumns(arg0, arg1);
 
   /// Outer product of [u] and [v].
-  factory Matrix2.outer(Vector2 u, Vector2 v) => 
+  factory Matrix2.outer(Vector2 u, Vector2 v) =>
       new Matrix2.zero()..setOuter(u, v);
 
   /// Rotation of [radians_].
-  factory Matrix2.rotation(double radians) => 
+  factory Matrix2.rotation(double radians) =>
       new Matrix2.zero()..setRotation(radians);
 
   /// Sets the matrix with specified values.
