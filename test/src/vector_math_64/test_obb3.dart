@@ -1,5 +1,6 @@
 library test_obb3_64;
 
+import 'dart:math' as Math;
 import 'package:unittest/unittest.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'test_helpers.dart';
@@ -135,6 +136,33 @@ void testTransform() {
 
   a.copyCorner(7, corner);
   expect(corner, absoluteEquals(new Vector3( 15.0,  15.0,  15.0)));
+}
+
+void testClosestPointTo() {
+  final a = new Obb3()
+      ..center.setValues(0.0, 0.0, 0.0)
+      ..halfExtents.setValues(2.0, 2.0, 2.0);
+  final b = new Vector3(3.0, 3.0, 3.0);
+  final c = new Vector3(3.0, 3.0, -3.0);
+  final closestPoint = new Vector3.zero();
+
+  a.closestPointTo(b, closestPoint);
+
+  expect(closestPoint, absoluteEquals(new Vector3( 2.0,  2.0,  2.0)));
+
+  a.closestPointTo(c, closestPoint);
+
+  expect(closestPoint, absoluteEquals(new Vector3( 2.0,  2.0,  -2.0)));
+
+  a.rotate(new Matrix3.rotationZ(radians(45.0)));
+
+  a.closestPointTo(b, closestPoint);
+
+  expect(closestPoint, absoluteEquals(new Vector3(Math.SQRT2, Math.SQRT2, 2.0)));
+
+  a.closestPointTo(c, closestPoint);
+
+  expect(closestPoint, absoluteEquals(new Vector3(Math.SQRT2, Math.SQRT2, -2.0)));
 }
 
 void testIntersectionObb3() {
@@ -274,6 +302,7 @@ void main() {
     test('Translate', testTranslate);
     test('Rotate', testRotate);
     test('Transforn', testTransform);
+    test('Closest Point To', testClosestPointTo);
     test('Intersection Obb3', testIntersectionObb3);
   });
 }

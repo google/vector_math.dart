@@ -167,6 +167,25 @@ class Obb3 {
     }
   }
 
+  /// Find the closest point [q] on the OBB to the point [p] and store it in [q].
+  void closestPointTo(Vector3 p, Vector3 q) {
+    final d = p - _center;
+
+    q.setFrom(_center);
+
+    var dist = d.dot(_axis0);
+    dist = dist.clamp(-_halfExtents.x, _halfExtents.x);
+    q.addScaled(_axis0, dist);
+
+    dist = d.dot(_axis1);
+    dist = dist.clamp(-_halfExtents.y, _halfExtents.y);
+    q.addScaled(_axis1, dist);
+
+    dist = d.dot(_axis2);
+    dist = dist.clamp(-_halfExtents.z, _halfExtents.z);
+    q.addScaled(_axis2, dist);
+  }
+
   // Avoid allocating these isntance on every call to intersectsWithObb3
   static final _r = new Matrix3.zero();
   static final _absR = new Matrix3.zero();
