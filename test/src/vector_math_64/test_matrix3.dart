@@ -185,8 +185,8 @@ void testAbsoluteRotate2() {
   Matrix3 rotZ = new Matrix3.rotationZ(-Math.PI / 4);
   Matrix3 rotZcw = new Matrix3.rotationZ(Math.PI / 4);
   // Add translation
-  rotZ.setEntry(3, 0, 3.0);
-  rotZ.setEntry(3, 1, 2.0);
+  rotZ.setEntry(2, 0, 3.0);
+  rotZ.setEntry(2, 1, 2.0);
 
   final input = new Vector2(1.0, 0.0);
 
