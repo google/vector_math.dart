@@ -109,6 +109,7 @@ class Obb3 {
     _halfExtents.z = _axis2.normalize();
   }
 
+  /// Store the corner with [cornerIndex] in [corner].
   void copyCorner(int cornerIndex, Vector3 corner) {
     assert(cornerIndex >= 0 || cornerIndex < 8);
 
