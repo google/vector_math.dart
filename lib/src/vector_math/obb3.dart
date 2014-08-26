@@ -327,6 +327,20 @@ class Obb3 {
     return true;
   }
 
+  bool intersectsWithTriangle(Triangle other) {
+    final triangle = new Triangle.copy(other);
+
+    triangle.point0.sub(_center);
+    triangle.point0.setValues(triangle.point0.dot(axis0), triangle.point0.dot(axis1), triangle.point0.dot(axis2));
+    triangle.point1.sub(_center);
+    triangle.point1.setValues(triangle.point1.dot(axis0), triangle.point1.dot(axis1), triangle.point1.dot(axis2));
+    triangle.point2.sub(_center);
+    triangle.point2.setValues(triangle.point2.dot(axis0), triangle.point2.dot(axis1), triangle.point2.dot(axis2));
+
+    final aabb3 = new Aabb3.centerAndHalfExtents(new Vector3(0.0, 0.0, 0.0), _halfExtents);
+
+    return aabb3.intersectsWithTriangle(triangle);
+  }
+
   //TODO: IntersectsWithQuad
-  //TODO: IntersectsWithTriangle
 }

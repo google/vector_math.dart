@@ -419,4 +419,178 @@ class Aabb3 {
            _max3.y >= otherY &&
            _max3.z >= otherZ;
   }
+
+
+  bool intersectsWithTriangle(Triangle other) {
+    double p0, p1, p2, r, len;
+    Vector3 axis;
+
+    final u0 = new Vector3(1.0, 0.0, 0.0);
+    final u1 = new Vector3(0.0, 1.0, 0.0);
+    final u2 = new Vector3(0.0, 0.0, 1.0);
+
+    final center = new Vector3.zero();
+    final extents = new Vector3.zero();
+    copyCenterAndHalfExtents(center, extents);
+
+    final triangle = new Triangle.copy(other);
+
+    // Translate triangle as conceptually moving AABB to origin
+    Vector3 v0 = triangle.point0..sub(center);
+    Vector3 v1 = triangle.point1..sub(center);
+    Vector3 v2 = triangle.point2..sub(center);
+
+    // Translate triangle as conceptually moving AABB to origin
+    Vector3 f0 = new Vector3.copy(v1)..sub(v0);
+    Vector3 f1 = new Vector3.copy(v2)..sub(v1);
+    Vector3 f2 = new Vector3.copy(v0)..sub(v2);
+
+    // Test axes a00..a22 (category 3)
+    // Test axis a00
+    axis = u0.cross(f0);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.z*v1.y - v0.y*v1.z;
+      p2 = v2.z*(v1.y - v0.y) - v2.z*(v1.z - v0.z);
+      r = extents[1] * f0.z.abs() + extents[2] * f0.y.abs();
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a01
+    axis = u0.cross(f1);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.z*(v2.y - v1.y) - v0.y*(v2.z - v1.z);
+      p1 = v1.z*v2.y - v1.y*v2.z;
+      r = extents[1] * f1.z.abs() + extents[2] * f1.y.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a02
+    axis = u0.cross(f2);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.y*v2.z - v0.z*v2.y;
+      p1 = v1.z*(v0.y - v2.y) - v1.y*(v0.z - v2.z);
+      r = extents[1] * f2.z.abs() + extents[2] * f2.y.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a10
+    axis = u1.cross(f0);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.x*v1.z - v0.z*v1.x;
+      p2 = v2.x*(v1.z - v0.z) - v2.z*(v1.x - v0.x);
+      r = extents[0] * f0.z.abs() + extents[2] * f0.x.abs();
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a11
+    axis = u1.cross(f1);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.x*(v2.z - v1.z) - v0.z*(v2.x - v1.x);
+      p1 = v1.x*v2.z - v1.z*v2.x;
+      r = extents[0] * f1.z.abs() + extents[2] * f1.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a12
+    axis = u1.cross(f2);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.z*v2.x - v0.x*v2.z;
+      p1 = v1.x*(v0.z - v2.z) - v1.z*(v0.x - v2.x);
+      r = extents[0] * f1.z.abs() + extents[2] * f1.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a20
+    axis = u2.cross(f0);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.y*v1.x - v0.x*v1.y;
+      p2 = v2.y*(v1.x - v0.x) - v2.x*(v1.y - v0.y);
+      r = extents[0] * f0.y.abs() + extents[1] * f0.x.abs();
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a21
+    axis = u2.cross(f1);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.y*(v2.x - v1.x) - v0.x*(v2.y - v1.y);
+      p1 = v1.y*v2.x - v1.x*v2.y;
+      r = extents[0] * f1.y.abs() + extents[1] * f1.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test axis a22
+    axis = u2.cross(f2);
+    len = axis.length2;
+    if (len > 1e-4) { // Ignore tests on degenerate axes.
+      p0 = v0.x*v2.y - v0.y*v2.x;
+      p1 = v1.y*(v0.x - v2.x) - v1.x*(v0.y - v2.y);
+      r = extents[0] * f1.y.abs() + extents[1] * f1.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+        return false; // Axis is a separating axis
+      }
+    }
+
+    // Test the three axes corresponding to the face normals of AABB b (category 1). // Exit if...
+    // ... [-e0, e0] and [min(v0.x,v1.x,v2.x), max(v0.x,v1.x,v2.x)] do not overlap
+    if (Math.max(v0.x, Math.max(v1.x, v2.x)) < -extents[0] || Math.min(v0.x, Math.min(v1.x, v2.x)) > extents[0]) {
+      return false;
+    }
+    // ... [-e1, e1] and [min(v0.y,v1.y,v2.y), max(v0.y,v1.y,v2.y)] do not overlap
+    if (Math.max(v0.y, Math.max(v1.y, v2.y)) < -extents[1] || Math.min(v0.y, Math.min(v1.y, v2.y)) > extents[1]) {
+      return false;
+    }
+    // ... [-e2, e2] and [min(v0.z,v1.z,v2.z), max(v0.z,v1.z,v2.z)] do not overlap
+    if (Math.max(v0.z, Math.max(v1.z, v2.z)) < -extents[2] || Math.min(v0.z, Math.min(v1.z, v2.z)) > extents[2]) {
+      return false;
+    }
+
+    // It seems like that wee need to move the edges before creating the
+    // plane
+    f0.add(center);
+    f1.add(center);
+    v0.add(center);
+
+    // Test separating axis corresponding to triangle face normal (category 2)
+    final normal = f0.cross(f1);
+    Plane p = new Plane.normalConstant(normal, normal.dot(v0));
+    return intersectsWithPlane(p);
+  }
+
+  bool intersectsWithPlane(Plane other) {
+    // These two lines not necessary with a (center, extents) AABB representation
+    Vector3 c = new Vector3.zero();
+    Vector3 e = new Vector3.zero();
+    copyCenterAndHalfExtents(c, e);
+
+    // Compute the projection interval radius of b onto L(t) = b.c + t * p.n
+    double r = e[0]*other.normal[0].abs() + e[1]*other.normal[1].abs() + e[2]*other.normal[2].abs();
+    // Compute distance of box center from plane
+    double s = other.normal.dot(c) - other.constant;
+    // Intersection occurs when distance s falls within [-r,+r] interval
+    return s.abs() <= r;
+  }
 }
