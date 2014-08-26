@@ -570,8 +570,6 @@ class Aabb3 {
 
     // It seems like that wee need to move the edges before creating the
     // plane
-    f0.add(center);
-    f1.add(center);
     v0.add(center);
 
     // Test separating axis corresponding to triangle face normal (category 2)
