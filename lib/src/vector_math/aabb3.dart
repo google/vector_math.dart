@@ -512,7 +512,7 @@ class Aabb3 {
     if (len > 1e-4) { // Ignore tests on degenerate axes.
       p0 = v0.z*v2.x - v0.x*v2.z;
       p1 = v1.x*(v0.z - v2.z) - v1.z*(v0.x - v2.x);
-      r = extents[0] * f1.z.abs() + extents[2] * f1.x.abs();
+      r = extents[0] * f2.z.abs() + extents[2] * f2.x.abs();
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
         return false; // Axis is a separating axis
       }
@@ -548,7 +548,7 @@ class Aabb3 {
     if (len > 1e-4) { // Ignore tests on degenerate axes.
       p0 = v0.x*v2.y - v0.y*v2.x;
       p1 = v1.y*(v0.x - v2.x) - v1.x*(v0.y - v2.y);
-      r = extents[0] * f1.y.abs() + extents[1] * f1.x.abs();
+      r = extents[0] * f2.y.abs() + extents[1] * f2.x.abs();
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
         return false; // Axis is a separating axis
       }
