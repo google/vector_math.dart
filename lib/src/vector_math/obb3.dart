@@ -327,19 +327,30 @@ class Obb3 {
     return true;
   }
 
+  final _triangle = new Triangle();
+  final _aabb3 = new Aabb3();
+  final _zeroVector = new Vector3.zero();
   bool intersectsWithTriangle(Triangle other) {
-    final triangle = new Triangle.copy(other);
+    _triangle.copyFrom(other);
 
-    triangle.point0.sub(_center);
-    triangle.point0.setValues(triangle.point0.dot(axis0), triangle.point0.dot(axis1), triangle.point0.dot(axis2));
-    triangle.point1.sub(_center);
-    triangle.point1.setValues(triangle.point1.dot(axis0), triangle.point1.dot(axis1), triangle.point1.dot(axis2));
-    triangle.point2.sub(_center);
-    triangle.point2.setValues(triangle.point2.dot(axis0), triangle.point2.dot(axis1), triangle.point2.dot(axis2));
+    _triangle.point0.sub(_center);
+    _triangle.point0.setValues(_triangle.point0.dot(axis0), _triangle.point0.dot(axis1), _triangle.point0.dot(axis2));
+    _triangle.point1.sub(_center);
+    _triangle.point1.setValues(_triangle.point1.dot(axis0), _triangle.point1.dot(axis1), _triangle.point1.dot(axis2));
+    _triangle.point2.sub(_center);
+    _triangle.point2.setValues(_triangle.point2.dot(axis0), _triangle.point2.dot(axis1), _triangle.point2.dot(axis2));
 
-    final aabb3 = new Aabb3.centerAndHalfExtents(new Vector3(0.0, 0.0, 0.0), _halfExtents);
+    _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 
-    return aabb3.intersectsWithTriangle(triangle);
+    return _aabb3.intersectsWithTriangle(_triangle);
+  }
+
+  final _quadTriangle0 = new Triangle();
+  final _quadTriangle1 = new Triangle();
+  bool intersectsWithQuad(Quad quad) {
+    quad.copyTriangles(_quadTriangle0, _quadTriangle1);
+
+    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle0);
   }
 
   //TODO: IntersectsWithQuad

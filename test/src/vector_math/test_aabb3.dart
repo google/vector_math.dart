@@ -152,6 +152,17 @@ void testIntersectionTriangle() {
   final Aabb3 testAabb = new Aabb3.minMax(_v(20.458911895751953,-36.607460021972656,2.549999952316284), _v(21.017810821533203,-36.192543029785156,3.049999952316284));
   final Triangle testTriangle = new Triangle.points(_v(20.5,-36.5,3.5), _v(21.5,-36.5,2.5), _v(20.5,-36.5,2.5));
   expect(testAabb.intersectsWithTriangle(testTriangle), isTrue);
+
+  final Aabb3 aabb = new Aabb3.minMax(_v(19.07674217224121,-39.46818161010742,2.299999952316284), _v(19.40754508972168,-38.9503288269043,2.799999952316284));
+  final Triangle triangle4 = new Triangle.points(_v(18.5,-39.5,2.5), _v(19.5,-39.5,2.5), _v(19.5,-38.5,2.5));
+  final Triangle triangle4_1 = new Triangle.points(_v(19.5,-38.5,2.5), _v(19.5,-39.5,2.5), _v(18.5,-39.5,2.5));
+  final Triangle triangle4_2 = new Triangle.points(_v(18.5,-39.5,2.5), _v(19.5,-38.5,2.5), _v(18.5,-38.5,2.5));
+  final Triangle triangle4_3 = new Triangle.points(_v(18.5,-38.5,2.5), _v(19.5,-38.5,2.5), _v(18.5,-39.5,2.5));
+
+  expect(aabb.intersectsWithTriangle(triangle4), isTrue);
+  expect(aabb.intersectsWithTriangle(triangle4_1), isTrue);
+  expect(aabb.intersectsWithTriangle(triangle4_2), isFalse);
+  expect(aabb.intersectsWithTriangle(triangle4_3), isFalse);
 }
 
 void testHull() {

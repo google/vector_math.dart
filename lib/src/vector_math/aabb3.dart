@@ -420,8 +420,7 @@ class Aabb3 {
            _max3.z >= otherZ;
   }
 
-
-  bool intersectsWithTriangle(Triangle other) {
+  bool intersectsWithTriangle(Triangle other, [double epsilon = 1e-3]) {
     double p0, p1, p2, r, len;
     Vector3 axis;
 
@@ -447,109 +446,100 @@ class Aabb3 {
 
     // Test axes a00..a22 (category 3)
     // Test axis a00
-    axis = u0.cross(f0);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.z*v1.y - v0.y*v1.z;
-      p2 = v2.z*(v1.y - v0.y) - v2.z*(v1.z - v0.z);
+    len = f0.y * f0.y + f0.z * f0.z;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.z * f0.y - v0.y * f0.z;
+      p2 = v2.z * f0.y - v2.y * f0.z;
       r = extents[1] * f0.z.abs() + extents[2] * f0.y.abs();
-      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r) {
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a01
-    axis = u0.cross(f1);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.z*(v2.y - v1.y) - v0.y*(v2.z - v1.z);
-      p1 = v1.z*v2.y - v1.y*v2.z;
+    len = f1.y * f1.y + f1.z * f1.z;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.z * f1.y - v0.y * f1.z;
+      p1 = v1.z * f1.y - v1.y * f1.z;
       r = extents[1] * f1.z.abs() + extents[2] * f1.y.abs();
-      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a02
-    axis = u0.cross(f2);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.y*v2.z - v0.z*v2.y;
-      p1 = v1.z*(v0.y - v2.y) - v1.y*(v0.z - v2.z);
+    len = f2.y * f2.y + f2.z * f2.z;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.z * f2.y - v0.y * f2.z;
+      p1 = v1.z * f2.y - v1.y * f2.z;
       r = extents[1] * f2.z.abs() + extents[2] * f2.y.abs();
-      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a10
-    axis = u1.cross(f0);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.x*v1.z - v0.z*v1.x;
-      p2 = v2.x*(v1.z - v0.z) - v2.z*(v1.x - v0.x);
+    len = f0.x * f0.x + f0.z * f0.z;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.x * f0.z - v0.z * f0.x;
+      p2 = v2.x * f0.z - v2.z * f0.x;
       r = extents[0] * f0.z.abs() + extents[2] * f0.x.abs();
-      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r) {
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a11
-    axis = u1.cross(f1);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.x*(v2.z - v1.z) - v0.z*(v2.x - v1.x);
-      p1 = v1.x*v2.z - v1.z*v2.x;
+    len = f1.x * f1.x + f1.z * f1.z;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.x * f1.z - v0.z * f1.x;
+      p1 = v1.x * f1.z - v1.z * f1.x;
       r = extents[0] * f1.z.abs() + extents[2] * f1.x.abs();
-      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a12
-    axis = u1.cross(f2);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.z*v2.x - v0.x*v2.z;
-      p1 = v1.x*(v0.z - v2.z) - v1.z*(v0.x - v2.x);
+    len = f2.x * f2.x + f2.z * f2.z;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.x * f2.z - v0.z * f2.x;
+      p1 = v1.x * f2.z - v1.z * f2.x;
       r = extents[0] * f2.z.abs() + extents[2] * f2.x.abs();
-      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a20
-    axis = u2.cross(f0);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.y*v1.x - v0.x*v1.y;
-      p2 = v2.y*(v1.x - v0.x) - v2.x*(v1.y - v0.y);
+    len = f0.x * f0.x + f0.y * f0.y;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.y * f0.x - v0.x * f0.y;
+      p2 = v2.y * f0.x - v2.x * f0.y;
       r = extents[0] * f0.y.abs() + extents[1] * f0.x.abs();
-      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r) {
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a21
-    axis = u2.cross(f1);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.y*(v2.x - v1.x) - v0.x*(v2.y - v1.y);
-      p1 = v1.y*v2.x - v1.x*v2.y;
+    len = f1.x * f1.x + f1.y * f1.y;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.y * f1.x - v0.x * f1.y;
+      p1 = v1.y * f1.x - v1.x * f1.y;
       r = extents[0] * f1.y.abs() + extents[1] * f1.x.abs();
-      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
 
     // Test axis a22
-    axis = u2.cross(f2);
-    len = axis.length2;
-    if (len > 1e-4) { // Ignore tests on degenerate axes.
-      p0 = v0.x*v2.y - v0.y*v2.x;
-      p1 = v1.y*(v0.x - v2.x) - v1.x*(v0.y - v2.y);
+    len = f2.x * f2.x + f2.y * f2.y;
+    if (len > epsilon) { // Ignore tests on degenerate axes.
+      p0 = v0.y * f2.x - v0.x * f2.y;
+      p1 = v1.y * f2.x - v1.x * f2.y;
       r = extents[0] * f2.y.abs() + extents[1] * f2.x.abs();
-      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r) {
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
     }
@@ -590,5 +580,13 @@ class Aabb3 {
     double s = other.normal.dot(c) - other.constant;
     // Intersection occurs when distance s falls within [-r,+r] interval
     return s.abs() <= r;
+  }
+
+  final _quadTriangle0 = new Triangle();
+  final _quadTriangle1 = new Triangle();
+  bool intersectsWithQuad(Quad quad) {
+    quad.copyTriangles(_quadTriangle0, _quadTriangle1);
+
+    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle0);
   }
 }
