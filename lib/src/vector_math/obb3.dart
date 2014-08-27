@@ -327,9 +327,12 @@ class Obb3 {
     return true;
   }
 
+  // Avoid allocating these isntance on every call to intersectsWithTriangle
   final _triangle = new Triangle();
   final _aabb3 = new Aabb3();
   final _zeroVector = new Vector3.zero();
+
+  /// Return if [this] intersects with [other]
   bool intersectsWithTriangle(Triangle other) {
     _triangle.copyFrom(other);
 
@@ -345,13 +348,14 @@ class Obb3 {
     return _aabb3.intersectsWithTriangle(_triangle);
   }
 
+  // Avoid allocating these isntance on every call to intersectsWithTriangle
   final _quadTriangle0 = new Triangle();
   final _quadTriangle1 = new Triangle();
-  bool intersectsWithQuad(Quad quad) {
-    quad.copyTriangles(_quadTriangle0, _quadTriangle1);
 
-    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle0);
+  /// Return if [this] intersects with [other]
+  bool intersectsWithQuad(Quad other) {
+    other.copyTriangles(_quadTriangle0, _quadTriangle1);
+
+    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle1);
   }
-
-  //TODO: IntersectsWithQuad
 }
