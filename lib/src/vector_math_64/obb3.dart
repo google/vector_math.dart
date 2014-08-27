@@ -327,6 +327,35 @@ class Obb3 {
     return true;
   }
 
-  //TODO: IntersectsWithQuad
-  //TODO: IntersectsWithTriangle
+  // Avoid allocating these isntance on every call to intersectsWithTriangle
+  final _triangle = new Triangle();
+  final _aabb3 = new Aabb3();
+  final _zeroVector = new Vector3.zero();
+
+  /// Return if [this] intersects with [other]
+  bool intersectsWithTriangle(Triangle other) {
+    _triangle.copyFrom(other);
+
+    _triangle.point0.sub(_center);
+    _triangle.point0.setValues(_triangle.point0.dot(axis0), _triangle.point0.dot(axis1), _triangle.point0.dot(axis2));
+    _triangle.point1.sub(_center);
+    _triangle.point1.setValues(_triangle.point1.dot(axis0), _triangle.point1.dot(axis1), _triangle.point1.dot(axis2));
+    _triangle.point2.sub(_center);
+    _triangle.point2.setValues(_triangle.point2.dot(axis0), _triangle.point2.dot(axis1), _triangle.point2.dot(axis2));
+
+    _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
+
+    return _aabb3.intersectsWithTriangle(_triangle);
+  }
+
+  // Avoid allocating these isntance on every call to intersectsWithTriangle
+  final _quadTriangle0 = new Triangle();
+  final _quadTriangle1 = new Triangle();
+
+  /// Return if [this] intersects with [other]
+  bool intersectsWithQuad(Quad other) {
+    other.copyTriangles(_quadTriangle0, _quadTriangle1);
+
+    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle1);
+  }
 }

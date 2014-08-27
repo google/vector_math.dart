@@ -296,6 +296,94 @@ void testIntersectionObb3() {
   expect(b.intersectsWithObb3(w), isFalse);
 }
 
+void testIntersectionTriangle() {
+  final Obb3 parent = new Obb3();
+  parent.center.setValues(4.5, 4.5, 4.5);
+  parent.halfExtents.setValues(3.5, 3.5, 3.5);
+  final Triangle child = new Triangle.points(_v(2.0,2.0,2.0), _v(3.0,3.0,3.0), _v(4.0,4.0,4.0));
+  final Triangle edge = new Triangle.points(_v(1.0,1.0,1.0), _v(3.0,3.0,3.0), _v(4.0,4.0,4.0));
+  final Triangle cutting = new Triangle.points(_v(2.0,2.0,2.0), _v(3.0,3.0,3.0), _v(14.0,14.0,14.0));
+  final Triangle outside = new Triangle.points(_v(0.0,0.0,0.0), _v(-3.0,-3.0,-3.0), _v(-4.0,-4.0,-4.0));
+  final Triangle parallel0 = new Triangle.points(_v(1.0, 0.0, 1.0), _v(1.0, 10.0, 1.0), _v(1.0, 0.0, 10.0));
+  final Triangle parallel1 = new Triangle.points(_v(1.0, 4.5, 0.0), _v(1.0, -1.0, 9.0), _v(1.0, 10.0, 9.0));
+  final Triangle parallel2 = new Triangle.points(_v(1.0, 10.0, 9.0), _v(1.0, -1.0, 9.0), _v(1.0, 4.5, 0.0));
+
+  expect(parent.intersectsWithTriangle(child), isTrue);
+  expect(parent.intersectsWithTriangle(edge), isTrue);
+  expect(parent.intersectsWithTriangle(cutting), isTrue);
+  expect(parent.intersectsWithTriangle(outside), isFalse);
+  expect(parent.intersectsWithTriangle(parallel0), isTrue);
+  expect(parent.intersectsWithTriangle(parallel1), isTrue);
+  expect(parent.intersectsWithTriangle(parallel2), isTrue);
+
+  final rotationX = new Matrix3.rotationX(radians(0.01));
+  parent.rotate(rotationX);
+
+  expect(parent.intersectsWithTriangle(child), isTrue);
+  expect(parent.intersectsWithTriangle(edge), isTrue);
+  expect(parent.intersectsWithTriangle(cutting), isTrue);
+  expect(parent.intersectsWithTriangle(outside), isFalse);
+  expect(parent.intersectsWithTriangle(parallel0), isTrue);
+  expect(parent.intersectsWithTriangle(parallel1), isTrue);
+  expect(parent.intersectsWithTriangle(parallel2), isTrue);
+
+  final rotationY = new Matrix3.rotationY(radians(45.0));
+  parent.rotate(rotationY);
+
+  expect(parent.intersectsWithTriangle(child), isTrue);
+  expect(parent.intersectsWithTriangle(edge), isTrue);
+  expect(parent.intersectsWithTriangle(cutting), isTrue);
+  expect(parent.intersectsWithTriangle(outside), isFalse);
+  expect(parent.intersectsWithTriangle(parallel0), isTrue);
+  expect(parent.intersectsWithTriangle(parallel1), isTrue);
+  expect(parent.intersectsWithTriangle(parallel2), isTrue);
+
+  final rotationZ = new Matrix3.rotationZ(radians(45.0));
+  parent.rotate(rotationZ);
+
+  expect(parent.intersectsWithTriangle(child), isTrue);
+  expect(parent.intersectsWithTriangle(edge), isTrue);
+  expect(parent.intersectsWithTriangle(cutting), isTrue);
+  expect(parent.intersectsWithTriangle(outside), isFalse);
+  expect(parent.intersectsWithTriangle(parallel0), isTrue);
+  expect(parent.intersectsWithTriangle(parallel1), isTrue);
+  expect(parent.intersectsWithTriangle(parallel2), isTrue);
+
+  final Obb3 obb = new Obb3.centerExtentsAxes(_v(21.0,-36.400001525878906,2.799999952316284), _v(0.25,0.15000000596046448,0.25), _v(0.0,1.0,0.0), _v(-1.0,0.0,0.0), _v(0.0,0.0,1.0));
+  final Triangle triangle = new Triangle.points(_v(20.5,-36.5,3.5), _v(21.5,-36.5,2.5), _v(20.5,-36.5,2.5));
+
+  expect(obb.intersectsWithTriangle(triangle), isTrue);
+
+  final Obb3 obb2 = new Obb3.centerExtentsAxes(_v(25.15829086303711,-36.27009201049805,3.0299079418182373), _v(0.25,0.15000000596046448,0.25), _v(-0.7071067690849304,0.7071067690849304,0.0), _v(-0.7071067690849304,-0.7071067690849304,0.0), _v(0.0,0.0,1.0));
+  final Triangle triangle2 = new Triangle.points(_v(25.5,-36.5,2.5), _v(25.5,-35.5,3.5), _v(24.5,-36.5,2.5));
+  final Triangle triangle2_1 = new Triangle.points(_v(24.5,-36.5,2.5), _v(25.5,-35.5,3.5), _v(25.5,-36.5,2.5)); // reverse normal direction
+
+  expect(obb2.intersectsWithTriangle(triangle2), isTrue);
+  expect(obb2.intersectsWithTriangle(triangle2_1), isTrue);
+
+  final Obb3 obb3 = new Obb3.centerExtentsAxes(_v(20.937196731567383,-37.599998474121094,2.799999952316284), _v(0.25,0.15000000596046448,0.25), _v(0.0,-1.0,0.0), _v(1.0,0.0,0.0), _v(0.0,0.0,1.0));
+  final Triangle triangle3 = new Triangle.points(_v(20.5,-37.5,3.5), _v(20.5,-37.5,2.5), _v(21.5,-37.5,2.5));
+  final Triangle triangle3_1 = new Triangle.points(_v(21.5,-37.5,2.5), _v(20.5,-37.5,2.5), _v(20.5,-37.5,3.5)); // reverse normal direction
+
+  expect(obb3.intersectsWithTriangle(triangle3), isTrue);
+  expect(obb3.intersectsWithTriangle(triangle3_1), isTrue);
+
+  final Obb3 obb4 = new Obb3.centerExtentsAxes(_v(19.242143630981445,-39.20925521850586,2.549999952316284), _v(0.25,0.15000000596046448,0.25), _v(0.0,1.0,0.0), _v(-1.0,0.0,0.0), _v(0.0,0.0,1.0));
+  final Triangle triangle4 = new Triangle.points(_v(18.5,-39.5,2.5), _v(19.5,-39.5,2.5), _v(19.5,-38.5,2.5));
+  final Triangle triangle4_1 = new Triangle.points(_v(19.5,-38.5,2.5), _v(19.5,-39.5,2.5), _v(18.5,-39.5,2.5)); // reverse normal direction
+  final Triangle triangle4_2 = new Triangle.points(_v(18.5,-39.5,2.5), _v(19.5,-38.5,2.5), _v(18.5,-38.5,2.5));
+  final Triangle triangle4_3 = new Triangle.points(_v(18.5,-38.5,2.5), _v(19.5,-38.5,2.5), _v(18.5,-39.5,2.5)); // reverse normal direction
+
+  expect(obb4.intersectsWithTriangle(triangle4), isTrue);
+  expect(obb4.intersectsWithTriangle(triangle4_1), isTrue);
+  expect(obb4.intersectsWithTriangle(triangle4_2), isFalse);
+  expect(obb4.intersectsWithTriangle(triangle4_3), isFalse);
+}
+
+Vector3 _v(double x, double y, double z) {
+  return new Vector3(x,y,z);
+}
+
 void main() {
   group('Obb3', () {
     test('Corners', testCorners);
@@ -304,5 +392,6 @@ void main() {
     test('Transforn', testTransform);
     test('Closest Point To', testClosestPointTo);
     test('Intersection Obb3', testIntersectionObb3);
+    test('Intersection Triangle', testIntersectionTriangle);
   });
 }
