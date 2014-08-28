@@ -90,8 +90,8 @@ class Quad {
     triangle0._point1.setFrom(_point1);
     triangle0._point2.setFrom(_point2);
     triangle1._point0.setFrom(_point0);
-    triangle1._point1.setFrom(_point2);
-    triangle1._point2.setFrom(_point3);
+    triangle1._point1.setFrom(_point3);
+    triangle1._point2.setFrom(_point2);
   }
 
   /// Transform [this] by the transform [t].
