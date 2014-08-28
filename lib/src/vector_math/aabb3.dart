@@ -585,8 +585,8 @@ class Aabb3 {
   }
 
   // Avoid allocating these isntance on every call to intersectsWithTriangle
-  final _quadTriangle0 = new Triangle();
-  final _quadTriangle1 = new Triangle();
+  static final _quadTriangle0 = new Triangle();
+  static final _quadTriangle1 = new Triangle();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithQuad(Quad other) {

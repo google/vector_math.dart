@@ -328,9 +328,9 @@ class Obb3 {
   }
 
   // Avoid allocating these isntance on every call to intersectsWithTriangle
-  final _triangle = new Triangle();
-  final _aabb3 = new Aabb3();
-  final _zeroVector = new Vector3.zero();
+  static final _triangle = new Triangle();
+  static final _aabb3 = new Aabb3();
+  static final _zeroVector = new Vector3.zero();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithTriangle(Triangle other) {
@@ -349,8 +349,8 @@ class Obb3 {
   }
 
   // Avoid allocating these isntance on every call to intersectsWithTriangle
-  final _quadTriangle0 = new Triangle();
-  final _quadTriangle1 = new Triangle();
+  static final _quadTriangle0 = new Triangle();
+  static final _quadTriangle1 = new Triangle();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithQuad(Quad other) {
