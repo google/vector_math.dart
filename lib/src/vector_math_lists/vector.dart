@@ -21,6 +21,8 @@
 
 part of vector_math_lists;
 
+/// Abstract base class for vector lists. See [Vector2List], [Vector3List] and
+/// [Vector4List] for implementations of thsi class.
 abstract class VectorList<T extends Vector> {
   final int _vectorLength;
   final int _offset;
@@ -28,7 +30,9 @@ abstract class VectorList<T extends Vector> {
   final int _length;
   final Float32List _buffer;
 
+  /// The length of this list in vectors.
   int get length => _length;
+  /// The internal storage buffer of this list.
   Float32List get buffer => _buffer;
 
   static int _listLength(int offset, int stride, int vectorLength, int length) {
@@ -36,6 +40,9 @@ abstract class VectorList<T extends Vector> {
     return offset + width * length;
   }
 
+  /// Create a new vector list with [length] elements that have a size of
+  /// [vectorLength]. Optionaly it is possible to specify a [offset] in the
+  /// [buffer] and a [stride] between each vector.
   VectorList(int length, int vectorLength, [int offset = 0, int stride = 0])
       : _vectorLength = vectorLength,
         _offset = offset,
@@ -48,7 +55,10 @@ abstract class VectorList<T extends Vector> {
     }
   }
 
-  VectorList.fromList(List list, int vectorLength,
+  /// Create a new vector list from a list of vectors that have a size of
+  /// [vectorLength]. Optionaly it is possible to specify a [offset] in the
+  /// [buffer] and a [stride] between each vector.
+  VectorList.fromList(List<T> list, int vectorLength,
                       [int offset=0, int stride=0])
       : _vectorLength = vectorLength,
         _offset = offset,
@@ -64,13 +74,15 @@ abstract class VectorList<T extends Vector> {
     }
   }
 
+  /// Create a new vector list as a view of [buffer] for vectors that have a
+  /// size of [vectorLength]. Optionaly it is possible to specify a [offset] in
+  /// the [buffer] and a [stride] between each vector.
   VectorList.view(Float32List buffer, int vectorLength,
                   [int offset=0, int stride=0])
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
-        _length = (buffer.length-offset) ~/
-                  (stride == 0 ? vectorLength : stride),
+        _length = buffer.length ~/ (stride == 0 ? vectorLength : stride),
         _buffer = buffer {
     if (_stride < _vectorLength) {
       throw new ArgumentError('Stride cannot be smaller than the vector size.');
@@ -81,8 +93,10 @@ abstract class VectorList<T extends Vector> {
     return _offset + _stride * index;
   }
 
+  /// Create a new instance of [T].
   T newVector();
 
+  /// Retrieves the vector at [index] and stores it in [vector].
   void load(int index, T vector) {
     int bufferIndex = _vectorIndexToBufferIndex(index);
     for (int i = 0; i < _vectorLength; i++) {
@@ -91,6 +105,7 @@ abstract class VectorList<T extends Vector> {
     }
   }
 
+  /// Store [vector] in the list at [index].
   void store(int index, T vector) {
     int bufferIndex = _vectorIndexToBufferIndex(index);
     for (int i = 0; i < _vectorLength; i++) {
@@ -99,6 +114,8 @@ abstract class VectorList<T extends Vector> {
     }
   }
 
+  /// Copy a range of [count] vectors beginning at [srcOffset] from [src] into
+  /// this list starting at [offset].
   void copy(VectorList src, {int srcOffset: 0, int offset: 0, int count: 0}) {
     if (count == 0) {
       count = Math.min(length - offset, src.length - srcOffset);
@@ -113,25 +130,33 @@ abstract class VectorList<T extends Vector> {
     }
   }
 
+  /// Retrieves the vector at [index].
   T operator [](int index) {
     var r = newVector();
     load(index, r);
     return r;
   }
 
+  /// Store [v] in the list at [index].
   void operator []=(int index, T v) {
     store(index, v);
   }
 }
 
+/// A list of [Vector2].
 class Vector2List extends VectorList<Vector2> {
-
+  /// Create a new vector list with [length] elements. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector2List(int length, [int offset = 0, int stride = 0])
       : super(length, 2, offset, stride);
 
+  /// Create a new vector list from a list of vectors. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector2List.fromList(List<Vector2> list, [int offset = 0, int stride = 0])
       : super.fromList(list, 2, offset, stride);
 
+  /// Create a new vector list as a view of [buffer]. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector2List.view(Float32List buffer, [int offset = 0, int stride = 0])
       : super.view(buffer, 2, offset, stride);
 
@@ -140,14 +165,20 @@ class Vector2List extends VectorList<Vector2> {
   }
 }
 
+/// A list of [Vector3].
 class Vector3List extends VectorList<Vector3> {
-
+  /// Create a new vector list with [length] elements. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector3List(int length, [int offset = 0, int stride = 0])
       : super(length, 3, offset, stride);
 
+  /// Create a new vector list from a list of vectors. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector3List.fromList(List<Vector3> list, [int offset = 0, int stride = 0])
       : super.fromList(list, 3, offset, stride);
 
+  /// Create a new vector list as a view of [buffer]. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector3List.view(Float32List buffer, [int offset = 0, int stride = 0])
       : super.view(buffer, 3, offset, stride);
 
@@ -156,14 +187,20 @@ class Vector3List extends VectorList<Vector3> {
   }
 }
 
+/// A list of [Vector4].
 class Vector4List extends VectorList<Vector4> {
-
+  /// Create a new vector list with [length] elements. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector4List(int length, [int offset = 0, int stride = 0])
       : super(length, 4, offset, stride);
 
+  /// Create a new vector list from a list of vectors. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector4List.fromList(List<Vector4> list, [int offset = 0, int stride = 0])
       : super.fromList(list, 4, offset, stride);
 
+  /// Create a new vector list as a view of [buffer]. Optionaly it is possible
+  /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector4List.view(Float32List buffer, [int offset = 0, int stride = 0])
       : super.view(buffer, 4, offset, stride);
 

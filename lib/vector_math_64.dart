@@ -19,6 +19,21 @@
 
 */
 
+/// A library containing different type of vector operation for use in games,
+/// simulations or rendering.
+///
+/// The library contains Vector classes ([Vector2], [Vector3] and [Vector4]),
+/// Matrices classes ([Matrix2], [Matrix3] and [Matrix4]) and collision
+/// detection related classes ([Aabb2], [Aabb3], [Frustum], [Obb3], [Plane],
+/// [Quad], [Ray], [Sphere] and [Triangle]).
+///
+/// In addition some utilities are avialable as color operations (See [Colors]
+/// class), noise generators ([SimplexNoise]) and common OpenGL operations
+/// (like [makeViewMatrix], [makePerspectiveMatrix] or [pickRay]).
+///
+/// There is also a [vector_math_64_64] library available that uses double precision
+/// (64-bit) instead of single precision (32-bit) floating point numbers for
+/// storage.
 library vector_math_64;
 
 import 'dart:typed_data';
@@ -35,8 +50,10 @@ part 'src/vector_math_64/matrix2.dart';
 part 'src/vector_math_64/matrix3.dart';
 part 'src/vector_math_64/matrix4.dart';
 part 'src/vector_math_64/noise.dart';
+part 'src/vector_math_64/obb3.dart';
 part 'src/vector_math_64/opengl.dart';
 part 'src/vector_math_64/plane.dart';
+part 'src/vector_math_64/quad.dart';
 part 'src/vector_math_64/quaternion.dart';
 part 'src/vector_math_64/ray.dart';
 part 'src/vector_math_64/sphere.dart';

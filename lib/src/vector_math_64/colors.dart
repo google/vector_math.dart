@@ -21,14 +21,20 @@
 
 part of vector_math_64;
 
-/// Contains functions for converting between different color models and 
+//TODO (fox32): Consider moving the this into an own library. Move the code into
+// top-level scope and let users import it using:
+// import 'package:vector_math_64/vector_math_64_colors.dart' as colors;
+
+/// Contains functions for converting between different color models and
 /// manipulating colors. In addition to that, some known colors can be accessed
 /// for fast prototyping.
 class Colors {
   static final _hexStringFullRegex = new RegExp(
-    r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})(?:([0-9a-f]{2}))?', caseSensitive: false);
+      r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})(?:([0-9a-f]{2}))?',
+      caseSensitive: false);
   static final _hexStringSmallRegex = new RegExp(
-    r'\#?([0-9a-f])([0-9a-f])([0-9a-f])(?:([0-9a-f]))?', caseSensitive: false);
+      r'\#?([0-9a-f])([0-9a-f])([0-9a-f])(?:([0-9a-f]))?',
+      caseSensitive: false);
 
   /// Convert a color with [r], [g], [b] and [a] component between 0 and 255 to
   /// a color with values between 0.0 and 1.0 and store it in [result].
@@ -37,14 +43,14 @@ class Colors {
   }
 
   /// Convert the color as a string in the format '#FF0F00', '#FFFF0F00', '#FF0'
-  /// or '#FFF0' (with or without a leading '#', case insensitive) to the 
-  /// corresponding color value and store it in [result]. The first group is 
+  /// or '#FFF0' (with or without a leading '#', case insensitive) to the
+  /// corresponding color value and store it in [result]. The first group is
   /// treated as the alpha channel if a [value] with four groups is passed.
   static void fromHexString(String value, Vector4 result) {
     final fullMatch = _hexStringFullRegex.matchAsPrefix(value);
 
     if (fullMatch != null) {
-      if(fullMatch[4] == null) {
+      if (fullMatch[4] == null) {
         final r = int.parse(fullMatch[1], radix: 16);
         final g = int.parse(fullMatch[2], radix: 16);
         final b = int.parse(fullMatch[3], radix: 16);
@@ -65,7 +71,7 @@ class Colors {
     final smallMatch = _hexStringSmallRegex.matchAsPrefix(value);
 
     if (smallMatch != null) {
-      if(smallMatch[4] == null) {
+      if (smallMatch[4] == null) {
         final r = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
         final g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
         final b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
@@ -89,10 +95,10 @@ class Colors {
   /// Convert a [input] color to a hex string without a leading '#'. To include
   /// the alpha channel, set [alpha] to true, it is false by default.
   static String toHexString(Vector4 input, {bool alpha: false}) {
-    var color = (input.r * 255).floor() << 16 | (input.g * 255).floor() << 8 | 
-      (input.b * 255).floor();
+    var color = (input.r * 255).floor() << 16 | (input.g * 255).floor() << 8 |
+        (input.b * 255).floor();
 
-    if(alpha) {
+    if (alpha) {
       color |= (input.a * 255).floor() << 24;
     }
 
@@ -101,16 +107,17 @@ class Colors {
 
   /// Blend the [foreground] color over [background] color and store the color
   /// in [result].
-  static void alphaBlend(Vector4 foreground, Vector4 background, Vector4 result) {
+  static void alphaBlend(Vector4 foreground, Vector4 background,
+                         Vector4 result) {
     final a = foreground.a + (1.0 - foreground.a) * background.a;
     final factor = 1.0 / a;
 
-    final r = factor * (foreground.a * foreground.r + (1.0 - foreground.a) * 
-          background.a * background.r);
-    final g = factor * (foreground.a * foreground.g + (1.0 - foreground.a) * 
-          background.a * background.g);
-    final b = factor * (foreground.a * foreground.b + (1.0 - foreground.a) * 
-          background.a * background.b);
+    final r = factor * (foreground.a * foreground.r + (1.0 - foreground.a) *
+        background.a * background.r);
+    final g = factor * (foreground.a * foreground.g + (1.0 - foreground.a) *
+        background.a * background.g);
+    final b = factor * (foreground.a * foreground.b + (1.0 - foreground.a) *
+        background.a * background.b);
 
     result.setValues(r, g, b, a);
   }
@@ -126,11 +133,11 @@ class Colors {
         ..a = input.a;
   }
 
-  /// Convert [linearColor] from linear space into gamma color space and store 
-  /// the result in [gammaColor]. It is possible to specify a optional [gamma], 
+  /// Convert [linearColor] from linear space into gamma color space and store
+  /// the result in [gammaColor]. It is possible to specify a optional [gamma],
   /// the default value is 2.2.
-  static void linearToGamma(Vector4 linearColor, Vector4 gammaColor, 
-    [double gamma = 2.2]) {
+  static void linearToGamma(Vector4 linearColor, Vector4 gammaColor, [double
+      gamma = 2.2]) {
     final exponent = 1.0 / gamma;
 
     gammaColor
@@ -140,11 +147,11 @@ class Colors {
         ..a = linearColor.a;
   }
 
-  /// Convert [gammaColor] from gamma space into linear color space and store 
-  /// the result in [linearColor]. It is possible to specify a optional [gamma], 
+  /// Convert [gammaColor] from gamma space into linear color space and store
+  /// the result in [linearColor]. It is possible to specify a optional [gamma],
   /// the default value is 2.2.
-  static void gammaToLinear(Vector4 gammaColor, Vector4 linearColor, 
-    [double gamma = 2.2]) {
+  static void gammaToLinear(Vector4 gammaColor, Vector4 linearColor, [double
+      gamma = 2.2]) {
     linearColor
         ..r = Math.pow(gammaColor.r, gamma)
         ..g = Math.pow(gammaColor.g, gamma)
@@ -161,24 +168,23 @@ class Colors {
     final v = max;
     final s = max == 0.0 ? 0.0 : d / max;
     var h = 0.0;
- 
+
     if (max != min) {
       if (max == rgbColor.r) {
-        h = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ? 
+        h = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ?
           6.0 : 0.0);
       } else if (max == rgbColor.g) {
         h = (rgbColor.b - rgbColor.r) / d + 2.0;
       } else {
         h = (rgbColor.r - rgbColor.g) / d + 4.0;
       }
-
       h /= 6.0;
     }
 
     hsvColor.setValues(h, s, v, rgbColor.a);
   }
 
-  /// Convert [hsvColor] from hue, saturation, and value (HSV) color model to 
+  /// Convert [hsvColor] from hue, saturation, and value (HSV) color model to
   /// the RGB color model and store it in [rgbColor].
   static void hsvToRgb(Vector4 hsvColor, Vector4 rgbColor) {
     final i = (hsvColor.x * 6.0).floor();
@@ -186,30 +192,30 @@ class Colors {
     final p = hsvColor.z * (1.0 - hsvColor.y);
     final q = hsvColor.z * (1.0 - f * hsvColor.y);
     final t = hsvColor.z * (1.0 - (1.0 - f) * hsvColor.y);
- 
+
     switch (i % 6) {
-      case 0: 
+      case 0:
         rgbColor.setValues(hsvColor.z, t, p, hsvColor.a);
         break;
-      case 1: 
+      case 1:
         rgbColor.setValues(q, hsvColor.z, p, hsvColor.a);
         break;
-      case 2: 
+      case 2:
         rgbColor.setValues(p, hsvColor.z, t, hsvColor.a);
         break;
-      case 3: 
+      case 3:
         rgbColor.setValues(p, q, hsvColor.z, hsvColor.a);
         break;
-      case 4: 
+      case 4:
         rgbColor.setValues(t, p, hsvColor.z, hsvColor.a);
         break;
-      case 5: 
+      case 5:
         rgbColor.setValues(hsvColor.z, p, q, hsvColor.a);
         break;
     }
   }
 
-  /// Convert [rgbColor] from rgb color model to the hue, saturation, and 
+  /// Convert [rgbColor] from rgb color model to the hue, saturation, and
   /// lightness (HSL) color model and store it in [hslColor].
   static void rgbToHsl(Vector4 rgbColor, Vector4 hslColor) {
     final max = Math.max(Math.max(rgbColor.r, rgbColor.g), rgbColor.b);
@@ -224,7 +230,7 @@ class Colors {
       s = l > 0.5 ? d / (2.0 - max - min) : d / (max + min);
 
       if (max == rgbColor.r) {
-        h = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ? 
+        h = (rgbColor.g - rgbColor.b) / d + (rgbColor.g < rgbColor.b ?
           6.0 : 0.0);
       } else if (max == rgbColor.g) {
         h = (rgbColor.b - rgbColor.r) / d + 2.0;
@@ -238,14 +244,14 @@ class Colors {
     hslColor.setValues(h, s, l, rgbColor.a);
   }
 
-  /// Convert [hslColor] from hue, saturation, and lightness (HSL) color model  
+  /// Convert [hslColor] from hue, saturation, and lightness (HSL) color model
   /// to the RGB color model and store it in [rgbColor].
   static void hslToRgb(Vector4 hslColor, Vector4 rgbColor) {
     if (hslColor.y == 0.0) {
       rgbColor.setValues(hslColor.z, hslColor.z, hslColor.z, hslColor.a);
     } else {
-      final q = hslColor.z < 0.5 ? hslColor.z * (1.0 + hslColor.y) : 
-        hslColor.z + hslColor.y - hslColor.z * hslColor.y;
+      final q = hslColor.z < 0.5 ? hslColor.z * (1.0 + hslColor.y) : hslColor.z
+          + hslColor.y - hslColor.z * hslColor.y;
       final p = 2.0 * hslColor.z - q;
 
       final r = _hueToRgb(p, q, hslColor.x + 1.0 / 3.0);
@@ -270,7 +276,7 @@ class Colors {
     } else if (t < 2.0 / 3.0) {
       return p + (q - p) * (2.0 / 3.0 - t) * 6.0;
     } else {
-      return p;    
+      return p;
     }
   }
 
@@ -416,6 +422,6 @@ class Colors {
   static Vector4 get yellow => new Vector4(255.0 / 255.0, 255.0 / 255.0, 0.0 / 255.0, 255.0 / 255.0);
   static Vector4 get yellowGreen => new Vector4(154.0 / 255.0, 205.0 / 255.0, 50.0 / 255.0, 255.0 / 255.0);
 
-
   Colors._();
 }
+

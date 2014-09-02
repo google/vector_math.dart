@@ -19,6 +19,9 @@
 
 */
 
+/// A library containg geometry generators (like [CubeGenerator],
+/// [SphereGenerator] and [CylinderGenerator]) and filters ([BarycentricFilter],
+/// [ColorFilter] and [InvertFilter]).
 library vector_math_geometry;
 
 import 'dart:typed_data';

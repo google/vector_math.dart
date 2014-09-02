@@ -11,17 +11,22 @@ import '../test/console_test_harness.dart' as console_test_harness;
 void main(List<String> args) {
 
   //
-  // Analyzer
+  // Analyzer for library
   //
-  addTask('analyze_lib', createAnalyzerTask(['lib/vector_math.dart']));
+  addTask('analyze_lib', createAnalyzerTask(_getLibs()));
 
   //
-  // Unit test
+  // Analyzer for unit tests
+  //
+  addTask('analyze_test', createAnalyzerTask(['test/console_test_harness.dart']));
+
+  //
+  // Unit tests
   //
   addTask('test', createUnitTestTask(console_test_harness.main));
 
   //
-  // Doc generation
+  // Vector Math 64 generation
   //
   addTask('generate_vector_math_64', createGenerateVectorMath64Task());
 

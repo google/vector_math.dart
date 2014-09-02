@@ -24,7 +24,7 @@ part of vector_math_64;
 /// The type of [calculated] and [correct] must match and can
 /// be any vector, matrix, or quaternion.
 double relativeError(dynamic calculated, dynamic correct) {
-  if (calculated is double && correct is double) {
+  if (calculated is num && correct is num) {
     double diff = (calculated - correct).abs();
     return diff / correct;
   }
@@ -35,7 +35,7 @@ double relativeError(dynamic calculated, dynamic correct) {
 /// The type of [calculated] and [correct] must match and can
 /// be any vector, matrix, or quaternion.
 double absoluteError(dynamic calculated, dynamic correct) {
-  if (calculated is double && correct is double) {
+  if (calculated is num && correct is num) {
     double diff = (calculated - correct).abs();
     return diff;
   }
