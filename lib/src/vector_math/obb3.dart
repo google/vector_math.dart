@@ -187,7 +187,7 @@ class Obb3 {
     q.addScaled(_axis2, dist);
   }
 
-  // Avoid allocating these isntance on every call to intersectsWithObb3
+  // Avoid allocating these instance on every call to intersectsWithObb3
   static final _r = new Matrix3.zero();
   static final _absR = new Matrix3.zero();
   static final _t = new Vector3.zero();
@@ -327,13 +327,13 @@ class Obb3 {
     return true;
   }
 
-  // Avoid allocating these isntance on every call to intersectsWithTriangle
+  // Avoid allocating these instance on every call to intersectsWithTriangle
   static final _triangle = new Triangle();
   static final _aabb3 = new Aabb3();
   static final _zeroVector = new Vector3.zero();
 
   /// Return if [this] intersects with [other]
-  bool intersectsWithTriangle(Triangle other) {
+  bool intersectsWithTriangle(Triangle other, {IntersectionResult result}) {
     _triangle.copyFrom(other);
 
     _triangle.point0.sub(_center);
@@ -345,17 +345,17 @@ class Obb3 {
 
     _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 
-    return _aabb3.intersectsWithTriangle(_triangle);
+    return _aabb3.intersectsWithTriangle(_triangle, result: result);
   }
 
-  // Avoid allocating these isntance on every call to intersectsWithTriangle
+  // Avoid allocating these instance on every call to intersectsWithTriangle
   static final _quadTriangle0 = new Triangle();
   static final _quadTriangle1 = new Triangle();
 
   /// Return if [this] intersects with [other]
-  bool intersectsWithQuad(Quad other) {
+  bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 
-    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle1);
+    return intersectsWithTriangle(_quadTriangle0, result: result) || intersectsWithTriangle(_quadTriangle1, result: result);
   }
 }

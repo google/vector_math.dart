@@ -21,6 +21,18 @@
 
 part of vector_math;
 
+/// Defines a result of an intersection test
+class IntersectionResult {
+  double _depth;
+  /// The depth of the intersection
+  double get depth => _depth;
+  Vector3 _axis = new Vector3.zero();
+  /// The axis of the intersection
+  Vector3 get axis => _axis;
+
+  IntersectionResult();
+}
+
 /// Defines a 3-dimensional axis-aligned bounding box between a [min] and a
 /// [max] position.
 class Aabb3 {
@@ -420,7 +432,7 @@ class Aabb3 {
            _max3.z >= otherZ;
   }
 
-  // Avoid allocating these isntance on every call to intersectsWithTriangle
+  // Avoid allocating these instance on every call to intersectsWithTriangle
   static final _aabbCenter = new Vector3.zero();
   static final _aabbHalfExtents = new Vector3.zero();
   static final _v0 = new Vector3.zero();
@@ -431,9 +443,16 @@ class Aabb3 {
   static final _f2 = new Vector3.zero();
   static final _trianglePlane = new Plane();
 
+  static final _u0 = new Vector3(1.0, 0.0, 0.0);
+  static final _u1 = new Vector3(0.0, 1.0, 0.0);
+  static final _u2 = new Vector3(0.0, 0.0, 1.0);
+
+
+
   /// Return if [this] intersects with [other]
-  bool intersectsWithTriangle(Triangle other, [double epsilon = 1e-3]) {
+  bool intersectsWithTriangle(Triangle other, {double epsilon: 1e-3, IntersectionResult result}) {
     double p0, p1, p2, r, len;
+    double a;
 
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
@@ -457,6 +476,12 @@ class Aabb3 {
       if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
+
+      a = Math.min(p0, p2) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u0.crossInto(_f0, result._axis);
+      }
     }
 
     // Test axis a01
@@ -467,6 +492,12 @@ class Aabb3 {
       r = _aabbHalfExtents[1] * _f1.z.abs() + _aabbHalfExtents[2] * _f1.y.abs();
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u0.crossInto(_f1, result._axis);
       }
     }
 
@@ -479,6 +510,12 @@ class Aabb3 {
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u0.crossInto(_f2, result._axis);
+      }
     }
 
     // Test axis a10
@@ -489,6 +526,12 @@ class Aabb3 {
       r = _aabbHalfExtents[0] * _f0.z.abs() + _aabbHalfExtents[2] * _f0.x.abs();
       if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
         return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p2) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u1.crossInto(_f0, result._axis);
       }
     }
 
@@ -501,6 +544,12 @@ class Aabb3 {
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u1.crossInto(_f1, result._axis);
+      }
     }
 
     // Test axis a12
@@ -511,6 +560,12 @@ class Aabb3 {
       r = _aabbHalfExtents[0] * _f2.z.abs() + _aabbHalfExtents[2] * _f2.x.abs();
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u1.crossInto(_f2, result._axis);
       }
     }
 
@@ -523,6 +578,12 @@ class Aabb3 {
       if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
+
+      a = Math.min(p0, p2) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u2.crossInto(_f0, result._axis);
+      }
     }
 
     // Test axis a21
@@ -533,6 +594,12 @@ class Aabb3 {
       r = _aabbHalfExtents[0] * _f1.y.abs() + _aabbHalfExtents[1] * _f1.x.abs();
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u2.crossInto(_f1, result._axis);
       }
     }
 
@@ -545,6 +612,12 @@ class Aabb3 {
       if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
         return false; // Axis is a separating axis
       }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u2.crossInto(_f2, result._axis);
+      }
     }
 
     // Test the three axes corresponding to the face normals of AABB b (category 1). // Exit if...
@@ -552,13 +625,28 @@ class Aabb3 {
     if (Math.max(_v0.x, Math.max(_v1.x, _v2.x)) < -_aabbHalfExtents[0] || Math.min(_v0.x, Math.min(_v1.x, _v2.x)) > _aabbHalfExtents[0]) {
       return false;
     }
+    a = Math.min(_v0.x, Math.min(_v1.x, _v2.x)) - _aabbHalfExtents[0];
+    if (result != null && (result._depth == null || result._depth < a)) {
+      result._depth = a;
+      result._axis.setFrom(_u0);
+    }
     // ... [-e1, e1] and [min(v0.y,v1.y,v2.y), max(v0.y,v1.y,v2.y)] do not overlap
     if (Math.max(_v0.y, Math.max(_v1.y, _v2.y)) < -_aabbHalfExtents[1] || Math.min(_v0.y, Math.min(_v1.y, _v2.y)) > _aabbHalfExtents[1]) {
       return false;
     }
+    a = Math.min(_v0.y, Math.min(_v1.y, _v2.y)) - _aabbHalfExtents[1];
+    if (result != null && (result._depth == null || result._depth < a)) {
+      result._depth = a;
+      result._axis.setFrom(_u1);
+    }
     // ... [-e2, e2] and [min(v0.z,v1.z,v2.z), max(v0.z,v1.z,v2.z)] do not overlap
     if (Math.max(_v0.z, Math.max(_v1.z, _v2.z)) < -_aabbHalfExtents[2] || Math.min(_v0.z, Math.min(_v1.z, _v2.z)) > _aabbHalfExtents[2]) {
       return false;
+    }
+    a = Math.min(_v0.z, Math.min(_v1.z, _v2.z)) - _aabbHalfExtents[2];
+    if (result != null && (result._depth == null || result._depth < a)) {
+      result._depth = a;
+      result._axis.setFrom(_u2);
     }
 
     // It seems like that wee need to move the edges before creating the
@@ -568,11 +656,11 @@ class Aabb3 {
     // Test separating axis corresponding to triangle face normal (category 2)
     _f0.crossInto(_f1, _trianglePlane.normal);
     _trianglePlane.constant = _trianglePlane.normal.dot(_v0);
-    return intersectsWithPlane(_trianglePlane);
+    return intersectsWithPlane(_trianglePlane, result: result);
   }
 
   /// Return if [this] intersects with [other]
-  bool intersectsWithPlane(Plane other) {
+  bool intersectsWithPlane(Plane other, {IntersectionResult result}) {
     // Thes line not necessary with a (center, extents) AABB representation
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
@@ -581,17 +669,26 @@ class Aabb3 {
     // Compute distance of box center from plane
     double s = other.normal.dot(_aabbCenter) - other.constant;
     // Intersection occurs when distance s falls within [-r,+r] interval
-    return s.abs() <= r;
+    if (s.abs() <= r) {
+      final a = s - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        result._axis.setFrom(other.normal);
+      }
+      return true;
+    }
+
+    return false;
   }
 
-  // Avoid allocating these isntance on every call to intersectsWithTriangle
+  // Avoid allocating these instance on every call to intersectsWithTriangle
   static final _quadTriangle0 = new Triangle();
   static final _quadTriangle1 = new Triangle();
 
   /// Return if [this] intersects with [other]
-  bool intersectsWithQuad(Quad other) {
+  bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 
-    return intersectsWithTriangle(_quadTriangle0) || intersectsWithTriangle(_quadTriangle1);
+    return intersectsWithTriangle(_quadTriangle0, result: result) || intersectsWithTriangle(_quadTriangle1, result: result);
   }
 }
