@@ -26,7 +26,7 @@ import 'package:vector_math/vector_math_operations.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
 
 class MatrixMultiplyBenchmark extends BenchmarkBase {
-  const MatrixMultiplyBenchmark() : super("MatrixMultiply");
+  MatrixMultiplyBenchmark() : super("MatrixMultiply");
   final Float32List A = new Float32List(16);
   final Float32List B = new Float32List(16);
   final Float32List C = new Float32List(16);
@@ -43,7 +43,7 @@ class MatrixMultiplyBenchmark extends BenchmarkBase {
 }
 
 class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
-  const SIMDMatrixMultiplyBenchmark() : super("SIMDMatrixMultiply");
+  SIMDMatrixMultiplyBenchmark() : super("SIMDMatrixMultiply");
   final Float32x4List A = new Float32x4List(4);
   final Float32x4List B = new Float32x4List(4);
   final Float32x4List C = new Float32x4List(4);
@@ -60,7 +60,7 @@ class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
 }
 
 class VectorTransformBenchmark extends BenchmarkBase {
-  const VectorTransformBenchmark() : super("VectorTransform");
+  VectorTransformBenchmark() : super("VectorTransform");
   final Float32List A = new Float32List(16);
   final Float32List B = new Float32List(4);
   final Float32List C = new Float32List(4);
@@ -77,7 +77,7 @@ class VectorTransformBenchmark extends BenchmarkBase {
 }
 
 class SIMDVectorTransformBenchmark extends BenchmarkBase {
-  const SIMDVectorTransformBenchmark() : super("SIMDVectorTransform");
+  SIMDVectorTransformBenchmark() : super("SIMDVectorTransform");
   final Float32x4List A = new Float32x4List(4);
   final Float32x4List B = new Float32x4List(1);
   final Float32x4List C = new Float32x4List(1);

@@ -142,9 +142,8 @@ class Matrix44Operations {
 
   /// Compute the inverse of the upper 3x3 of the 4x4 [matrix] starting
   /// at [offset].
-  static double inverse33(Float32List matrix, int offset) {
-    throw new UnimplementedError();
-  }
+  static double inverse33(Float32List matrix, int offset) =>
+      throw new UnimplementedError();
 
   /// [out] = [a] * [b]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32List out, int outOffset, Float32List a,

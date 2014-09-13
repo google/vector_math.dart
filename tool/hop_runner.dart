@@ -13,6 +13,7 @@ void main(List<String> args) {
   //
   // Analyzer
   //
+  //TODO (fox32): Analyse all libraries
   addTask('analyze_lib', createAnalyzerTask(['lib/vector_math.dart']));
 
   //
@@ -22,6 +23,12 @@ void main(List<String> args) {
 
   //
   // Doc generation
+  //
+  //TODO (fox32): Fix dartdoc generation in hop runner
+  //addTask('docs', createDartDocTask(_getLibs));
+
+  //
+  // Vector Math 64 generation
   //
   addTask('generate_vector_math_64', createGenerateVectorMath64Task());
 
