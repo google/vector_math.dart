@@ -22,7 +22,7 @@
 part of vector_math_64;
 
 /// 2D column vector.
-class Vector2 {
+class Vector2 implements Vector {
   final Float64List storage = new Float64List(2);
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
@@ -37,7 +37,7 @@ class Vector2 {
     result.y = Math.max(a.y, b.y);
   }
 
-  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear
   // interpolation and set the values to [result].
   static void mix(Vector2 min, Vector2 max, double a, Vector2 result) {
     result.x = min.x + a * (max.x - min.x);
@@ -194,7 +194,7 @@ class Vector2 {
     sum += storage[1] * other.storage[1];
     return sum;
   }
-  
+
   /**
    * Transforms [this] into the product of [this] as a row vector,
    * postmultiplied by matrix, [arg].
@@ -206,7 +206,7 @@ class Vector2 {
     double v1 = storage[1];
     storage[0] = v0*arg.storage[0]+v1*arg.storage[1];
     storage[1] = v0*arg.storage[2]+v1*arg.storage[3];
-    
+
     return this;
   }
 

@@ -4,6 +4,7 @@
 
 - Updated dependencies.
 - Moved benchmark code into `benchmark/`
+- Updated `vector_math_64`.
 
 ## v 1.4.3 - February 2014
 
