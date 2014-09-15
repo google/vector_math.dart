@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:hop/hop.dart';
 import 'package:hop/hop_tasks.dart';
+import 'package:hop_unittest/hop_unittest.dart';
 
 import 'generate_vector_math_64_task.dart';
 import '../test/console_test_harness.dart' as console_test_harness;

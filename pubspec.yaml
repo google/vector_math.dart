@@ -1,5 +1,5 @@
 name: vector_math
-version: 1.4.5-dev
+version: 1.4.4-dev
 author: John McCutchan <john@johnmccutchan.com>
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/johnmccutchan/vector_math
@@ -8,5 +8,6 @@ environment:
 dev_dependencies:
   benchmark_harness: any
   browser: any
-  hop: '>=0.30.3 <0.31.0'
-  unittest: '>=0.10.0 <0.11.0'
+  hop: '>=0.30.3 <0.32.0'
+  hop_unittest: any
+  unittest: '>=0.10.0 <0.12.0'
