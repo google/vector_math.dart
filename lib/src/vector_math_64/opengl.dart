@@ -21,6 +21,53 @@
 part of vector_math_64;
 
 /**
+ * Constructs a rotation matrix in [rotationMatrix].
+ *
+ * Sets [rotationMatrix] to a rotation matrix built from
+ * [forwardDirection] and [upDirection]. The right direction is
+ * constructed to be orthogonal to [forwardDirection] and
+ * [upDirection].
+ *
+ * [forwardDirection] specifies the direction of the forward vector.
+ * [upDirection] specifies the direction of the up vector.
+ *
+ * Use case is to build the per-model rotation matrix from vectors
+ * [forwardDirection] and [upDirection]. See sample code below for
+ * a context.
+ * 
+ * class Model {
+ * 
+ *   Vector3 _center = new Vector3.zero();        // per-model translation
+ *   Vector3 _scale = new Vector3(1.0, 1.0, 1.0); // per-model scaling
+ *   Matrix4 _rotation = new Matrix4.identity();  // per-model rotation
+ *   Matrix4 _MV = new Matrix4.identity();        // per-model model-view
+ * 
+ *   void updateModelViewUniform(RenderingContext gl, UniformLocation u_MV,
+ *       Vector3 camPosition, camFocusPosition, camUpDirection) {
+ * 
+ *     // V = View (inverse of camera)
+ *     // T = Translation
+ *     // R = Rotation
+ *     // S = Scaling
+ *     setViewMatrix(_MV, camPosition, camFocusPosition, camUpDirection); // MV = V
+ *     _MV.translate(_center); // MV = V*T
+ *     _MV.multiply(_rotation); // MV = V*T*R <-- _rotation is updated with setRotationMatrix(_rotation, forward, up);
+ *     _MV.scale(_scale); // MV = V*T*R*S
+ * 
+ *     gl.uniformMatrix4fv(u_MV, false, _MV.storage);
+ *   }
+ * 
+ * }
+ */
+void setRotationMatrix(Matrix4 rotationMatrix, Vector3 forwardDirection, upDirection) {
+  Vector3 right = forwardDirection.cross(upDirection).normalize();
+  rotationMatrix.setValues(forwardDirection[0], upDirection[0], right[0], 0.0,
+    forwardDirection[1], upDirection[1], right[1], 0.0,
+	forwardDirection[2], upDirection[2], right[2], 0.0,
+	0.0, 0.0, 0.0, 1.0);
+}
+
+/**
  * Constructs an OpenGL view matrix in [viewMatrix].
  *
  * [cameraPosition] specifies the position of the camera.

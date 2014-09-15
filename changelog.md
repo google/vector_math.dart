@@ -1,5 +1,11 @@
 # Changelog - vector_math
 
+## v 1.4.4 - Septembe 2014
+
+- Updated dependencies.
+- Moved benchmark code into `benchmark/`
+- Updated `vector_math_64`.
+
 ## v 1.4.3 - February 2014
 
 - Add color conversion routines (Contributed by Oliver Sand)
