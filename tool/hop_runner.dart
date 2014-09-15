@@ -14,8 +14,7 @@ void main(List<String> args) {
   //
   // Analyzer
   //
-  //TODO (fox32): Analyse all libraries
-  addTask('analyze_lib', createAnalyzerTask(['lib/vector_math.dart']));
+  addTask('analyze_lib', createAnalyzerTask(_getLibs));
 
   //
   // Unit test
