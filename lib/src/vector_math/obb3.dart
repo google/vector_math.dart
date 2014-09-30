@@ -83,6 +83,14 @@ class Obb3 {
     other._axis2.setFrom(_axis2);
   }
 
+
+  /// Reset the rotation of [this].
+  void resetRotation() {
+    _axis0.setValues(1.0, 0.0, 0.0);
+    _axis1.setValues(0.0, 1.0, 0.0);
+    _axis2.setValues(0.0, 0.0, 1.0);
+  }
+
   /// Translate [this] by [offset].
   void translate(Vector3 offset) {
     _center.add(offset);
