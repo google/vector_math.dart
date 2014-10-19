@@ -21,45 +21,50 @@
 
 part of vector_math;
 
+/// Defines a triangle by three points.
 class Triangle {
   final Vector3 _point0;
   final Vector3 _point1;
   final Vector3 _point2;
 
+  /// The first point of the triangle.
   Vector3 get point0 => _point0;
+  /// The second point of the triangle.
   Vector3 get point1 => _point1;
+  /// The third point of the triangle.
   Vector3 get point2 => _point2;
 
-  Triangle() :
-    _point0 = new Vector3.zero(),
-    _point1 = new Vector3.zero(),
-    _point2 = new Vector3.zero() {}
+  /// Create a new, uninitialized triangle.
+  Triangle()
+      : _point0 = new Vector3.zero(),
+        _point1 = new Vector3.zero(),
+        _point2 = new Vector3.zero();
 
-  Triangle.copy(Triangle other) :
-    _point0 = new Vector3.copy(other._point0),
-    _point1 = new Vector3.copy(other._point1),
-    _point2 = new Vector3.copy(other._point2) {}
+  /// Create a triangle as a copy of [other].
+  Triangle.copy(Triangle other)
+      : _point0 = new Vector3.copy(other._point0),
+        _point1 = new Vector3.copy(other._point1),
+        _point2 = new Vector3.copy(other._point2);
 
-  Triangle.points(Vector3 point0_, Vector3 point1_, Vector3 point2_) :
-    _point0 = new Vector3.copy(point0_),
-    _point1 = new Vector3.copy(point1_),
-    _point2 = new Vector3.copy(point2_) {}
+  /// Create a triangle by three points.
+  Triangle.points(Vector3 point0, Vector3 point1, Vector3 point2)
+      : _point0 = new Vector3.copy(point0),
+        _point1 = new Vector3.copy(point1),
+        _point2 = new Vector3.copy(point2);
 
-  void copyOriginDirection(Vector3 point0_, Vector3 point1_, Vector3 point2_) {
-    point0_.setFrom(_point0);
-    point1_.setFrom(_point1);
-    point2_.setFrom(_point2);
+  /// Copy the triangle from [other] into [this].
+  void copyFrom(Triangle other) {
+    _point0.setFrom(other._point0);
+    _point1.setFrom(other._point1);
+    _point2.setFrom(other._point2);
   }
 
-  void copyFrom(Triangle o) {
-    _point0.setFrom(o._point0);
-    _point1.setFrom(o._point1);
-    _point2.setFrom(o._point2);
+  /// Copy the triangle from [this] into [other].
+  void copyInto(Triangle other) {
+    other._point0.setFrom(_point0);
+    other._point1.setFrom(_point1);
+    other._point2.setFrom(_point2);
   }
 
-  void copyInto(Triangle o) {
-    o._point0.setFrom(_point0);
-    o._point1.setFrom(_point1);
-    o._point2.setFrom(_point2);
-  }
+  //TODO (fox32): Add getter/method for the normal of the tirangle.
 }
