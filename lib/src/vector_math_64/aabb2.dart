@@ -21,102 +21,128 @@
 
 part of vector_math_64;
 
+/// Defines a 2-dimensional axis-aligned bounding box between a [min] and a
+/// [max] position.
 class Aabb2 {
   final Vector2 _min;
   final Vector2 _max;
 
+  /// The minimum point defining the AABB.
   Vector2 get min => _min;
+  /// The maximum point defining the AABB.
   Vector2 get max => _max;
 
-  Vector2 get center {
-    Vector2 c = new Vector2.copy(_min);
-    return c.add(_max).scale(.5);
-  }
+  /// The center of the AABB.
+  Vector2 get center => _min.clone()
+      ..add(_max)
+      ..scale(0.5);
 
-  Aabb2() :
-    _min = new Vector2.zero(),
-    _max = new Vector2.zero() {}
+  /// Create a new AABB with [min] and [max] set to the origin.
+  Aabb2()
+      : _min = new Vector2.zero(),
+        _max = new Vector2.zero();
 
-  Aabb2.copy(Aabb2 other) :
-    _min = new Vector2.copy(other._min),
-    _max = new Vector2.copy(other._max) {}
+  /// Create a new AABB as a copy of [other].
+  Aabb2.copy(Aabb2 other)
+      : _min = new Vector2.copy(other._min),
+        _max = new Vector2.copy(other._max);
 
+  /// DEPREACTED: Use [minMax] instead.
   @deprecated
-  Aabb2.minmax(Vector2 min_, Vector2 max_) :
-    _min = new Vector2.copy(min_),
-    _max = new Vector2.copy(max_) {}
+  Aabb2.minmax(Vector2 min, Vector2 max)
+      : _min = new Vector2.copy(min),
+        _max = new Vector2.copy(max);
 
-  Aabb2.minMax(Vector2 min_, Vector2 max_) :
-    _min = new Vector2.copy(min_),
-    _max = new Vector2.copy(max_) {}
+  /// Create a new AABB with a [min] and [max].
+  Aabb2.minMax(Vector2 min, Vector2 max)
+      : _min = new Vector2.copy(min),
+        _max = new Vector2.copy(max);
 
-  void copyMinMax(Vector2 min_, Vector2 max_) {
-    max_.setFrom(_max);
-    min_.setFrom(_min);
+  /// Create a new AABB with a [center] and [halfExtents].
+  Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents)
+      : _min = new Vector2.copy(center)..sub(halfExtents),
+        _max = new Vector2.copy(center)..add(halfExtents);
+
+  //TODO (fox32): A fromBuffer constructor is missing here?
+
+  /// DEPREACTED: Removed copy min and max yourself
+  @deprecated
+  void copyMinMax(Vector2 min, Vector2 max) {
+    max.setFrom(_max);
+    min.setFrom(_min);
   }
 
+  /// Copy the [center] and the [halfExtends] of [this].
   void copyCenterAndHalfExtents(Vector2 center, Vector2 halfExtents) {
-    center.setFrom(_min);
-    center.add(_max);
-    center.scale(0.5);
-    halfExtents.setFrom(_max);
-    halfExtents.sub(_min);
-    halfExtents.scale(0.5);
+    center
+        ..setFrom(_min)
+        ..add(_max)
+        ..scale(0.5);
+    halfExtents
+        ..setFrom(_max)
+        ..sub(_min)
+        ..scale(0.5);
   }
 
-  void copyFrom(Aabb2 o) {
-    _min.setFrom(o._min);
-    _max.setFrom(o._max);
+  /// Copy the [min] and [max] from [other] into [this].
+  void copyFrom(Aabb2 other) {
+    _min.setFrom(other._min);
+    _max.setFrom(other._max);
   }
 
-  void copyInto(Aabb2 o) {
-    o._min.setFrom(_min);
-    o._max.setFrom(_max);
+  /// Copy the [min] and [max] from [this] into [other].
+  void copyInto(Aabb2 other) {
+    other._min.setFrom(_min);
+    other._max.setFrom(_max);
   }
 
-  Aabb2 transform(Matrix3 T) {
-    Vector2 center = new Vector2.zero();
-    Vector2 halfExtents = new Vector2.zero();
+  /// Transform [this] by the transform [t].
+  void transform(Matrix3 t) {
+    final center = new Vector2.zero();
+    final halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
-    T.transform2(center);
-    T.absoluteRotate2(halfExtents);
-    _min.setFrom(center);
-    _max.setFrom(center);
-
-    _min.sub(halfExtents);
-    _max.add(halfExtents);
-    return this;
+    t
+        ..transform2(center)
+        ..absoluteRotate2(halfExtents);
+    _min
+        ..setFrom(center)
+        ..sub(halfExtents);
+    _max
+        ..setFrom(center)
+        ..add(halfExtents);
   }
 
-  Aabb2 rotate(Matrix3 T) {
-    Vector2 center = new Vector2.zero();
-    Vector2 halfExtents = new Vector2.zero();
+  /// Rotate [this] by the rotation matrix [t].
+  void rotate(Matrix3 t) {
+    final center = new Vector2.zero();
+    final halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
-    T.absoluteRotate2(halfExtents);
-    _min.setFrom(center);
-    _max.setFrom(center);
-
-    _min.sub(halfExtents);
-    _max.add(halfExtents);
-    return this;
+    t.absoluteRotate2(halfExtents);
+    _min
+        ..setFrom(center)
+        ..sub(halfExtents);
+    _max
+        ..setFrom(center)
+        ..add(halfExtents);
   }
 
-  Aabb2 transformed(Matrix3 T, Aabb2 out) {
-    out.copyFrom(this);
-    return out.transform(T);
-  }
+  /// Create a copy of [this] that is transformed by the transform [t] and store
+  /// it in [out].
+  Aabb2 transformed(Matrix3 t, Aabb2 out) => out
+      ..copyFrom(this)
+      ..transform(t);
 
-  Aabb2 rotated(Matrix3 T, Aabb2 out) {
-    out.copyFrom(this);
-    return out.rotate(T);
-  }
+  /// Create a copy of [this] that is rotated by the rotation matrix [t] and
+  /// store it in [out].
+  Aabb2 rotated(Matrix3 t, Aabb2 out) => out
+      ..copyFrom(this)
+      ..rotate(t);
 
-  /// Set the min and max of [this] so that [this] is a hull of [this] and [other].
+  /// Set the min and max of [this] so that [this] is a hull of [this] and
+  /// [other].
   void hull(Aabb2 other) {
-    min.x = Math.min(_min.x, other.min.x);
-    min.y = Math.min(_min.y, other.min.y);
-    max.x = Math.max(_max.x, other.max.x);
-    max.y = Math.max(_max.y, other.max.y);
+    Vector2.min(_min, other._min, _min);
+    Vector2.max(_max, other._max, _max);
   }
 
   /// Set the min and max of [this] so that [this] contains [point].
@@ -127,33 +153,37 @@ class Aabb2 {
 
   /// Return if [this] contains [other].
   bool containsAabb2(Aabb2 other) {
-    return min.x < other.min.x &&
-           min.y < other.min.y &&
-           max.y > other.max.y &&
-           max.x > other.max.x;
+    final otherMax = other._max;
+    final otherMin = other._min;
+
+    return _min.x < otherMin.x && _min.y < otherMin.y && _max.y > otherMax.y &&
+        _max.x > otherMax.x;
   }
 
   /// Return if [this] contains [other].
   bool containsVector2(Vector2 other) {
-    return min.x < other.x &&
-           min.y < other.y &&
-           max.x > other.x &&
-           max.y > other.y;
+    final otherX = other[0];
+    final otherY = other[1];
+
+    return _min.x < otherX && _min.y < otherY && _max.x > otherX && _max.y >
+        otherY;
   }
 
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb2(Aabb2 other) {
-    return min.x <= other.max.x &&
-           min.y <= other.max.y &&
-           max.x >= other.min.x &&
-           max.y >= other.min.y;
+    final otherMax = other._max;
+    final otherMin = other._min;
+
+    return _min.x <= otherMax.x && _min.y <= otherMax.y && _max.x >= otherMin.x
+        && _max.y >= otherMin.y;
   }
 
   /// Return if [this] intersects with [other].
   bool intersectsWithVector2(Vector2 other) {
-    return min.x <= other.x &&
-           min.y <= other.y &&
-           max.x >= other.x &&
-           max.y >= other.y;
+    final otherX = other[0];
+    final otherY = other[1];
+
+    return _min.x <= otherX && _min.y <= otherY && _max.x >= otherX && _max.y >=
+        otherY;
   }
 }
