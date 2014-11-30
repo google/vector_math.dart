@@ -348,6 +348,21 @@ class Obb3 {
     return _aabb3.intersectsWithTriangle(_triangle);
   }
 
+  // Avoid allocating these instance on every call to intersectsWithVector3
+  static final _vector = new Vector3.zero();
+
+  /// Return if [this] intersects with [other]
+  bool intersectsWithVector3(Vector3 other) {
+    _vector.setFrom(other);
+
+    _vector.sub(_center);
+    _vector.setValues(_vector.dot(axis0), _vector.dot(axis1), _vector.dot(axis2));
+
+    _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
+
+    return _aabb3.intersectsWithVector3(_vector);
+  }
+
   // Avoid allocating these isntance on every call to intersectsWithTriangle
   static final _quadTriangle0 = new Triangle();
   static final _quadTriangle1 = new Triangle();

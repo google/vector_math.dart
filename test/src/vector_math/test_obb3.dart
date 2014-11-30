@@ -296,6 +296,30 @@ void testIntersectionObb3() {
   expect(b.intersectsWithObb3(w), isFalse);
 }
 
+void testIntersectionVector3() {
+  //final Aabb3 parent = new Aabb3.minMax(_v(1.0,1.0,1.0), _v(8.0,8.0,8.0));
+  final Obb3 parent = new Obb3()
+      ..center.setValues(4.5, 4.5, 4.5)
+      ..halfExtents.setValues(3.5, 3.5, 3.5);
+  final Vector3 child = _v(7.0,7.0,7.0);
+  final Vector3 cutting = _v(1.0,2.0,1.0);
+  final Vector3 outside1 = _v(-10.0,10.0,10.0);
+  final Vector3 outside2 = _v(4.5,4.5,9.0);
+
+  expect(parent.intersectsWithVector3(child), isTrue);
+  expect(parent.intersectsWithVector3(cutting), isTrue);
+  expect(parent.intersectsWithVector3(outside1), isFalse);
+  expect(parent.intersectsWithVector3(outside2), isFalse);
+
+  final rotationX = new Matrix3.rotationX(radians(45.0));
+  parent.rotate(rotationX);
+
+  expect(parent.intersectsWithVector3(child), isFalse);
+  expect(parent.intersectsWithVector3(cutting), isFalse);
+  expect(parent.intersectsWithVector3(outside1), isFalse);
+  expect(parent.intersectsWithVector3(outside2), isTrue);
+}
+
 void testIntersectionTriangle() {
   final Obb3 parent = new Obb3();
   parent.center.setValues(4.5, 4.5, 4.5);
@@ -393,5 +417,6 @@ void main() {
     test('Closest Point To', testClosestPointTo);
     test('Intersection Obb3', testIntersectionObb3);
     test('Intersection Triangle', testIntersectionTriangle);
+    test('Intersection Vector3', testIntersectionVector3);
   });
 }
