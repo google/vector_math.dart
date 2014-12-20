@@ -82,7 +82,7 @@ double angleBetween(Vector3 a, Vector3 b) {
 
   final dot = a.dot(b);
 
-  return Math.acos(dot);
+  return Math.acos(dot).clamp(-1.0, 1.0);
 }
 
 /// Returns the signed angle between two vectors in radians.
