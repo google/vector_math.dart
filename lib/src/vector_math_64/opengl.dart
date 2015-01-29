@@ -59,12 +59,64 @@ part of vector_math_64;
  * 
  * }
  */
-void setRotationMatrix(Matrix4 rotationMatrix, Vector3 forwardDirection, upDirection) {
+void setRotationMatrix(Matrix4 rotationMatrix, Vector3 forwardDirection,
+                       Vector3 upDirection) {
+  setModelMatrix(rotationMatrix, forwardDirection, upDirection, 0.0, 0.0, 0.0);
+}
+
+/**
+ * Constructs an OpenGL model matrix in [modelMatrix].
+ * Model transformation is the inverse of the view transformation.
+ * Model transformation is also known as "camera" transformation.
+ * Model matrix is commonly used to compute a object location/orientation into the full model-view stack. 
+ *
+ * [forwardDirection] specifies the direction of the forward vector. 
+ * [upDirection] specifies the direction of the up vector. 
+ * [tx],[ty],[tz] specifies the position of the object.
+ */
+
+void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
+                    Vector3 upDirection, double tx, double ty, double tz) {
   Vector3 right = forwardDirection.cross(upDirection).normalize();
-  rotationMatrix.setValues(forwardDirection[0], upDirection[0], right[0], 0.0,
-    forwardDirection[1], upDirection[1], right[1], 0.0,
-	forwardDirection[2], upDirection[2], right[2], 0.0,
-	0.0, 0.0, 0.0, 1.0);
+  Vector3 c1 = right;
+  Vector3 c2 = upDirection;
+  Vector3 c3 = -forwardDirection;
+  modelMatrix.setValues(c1[0], c1[1], c1[2], 0.0,
+    c2[0], c2[1], c2[2], 0.0,
+    c3[0], c3[1], c3[2], 0.0,
+    tx, ty, tz, 1.0);
+}
+
+/**
+ * Constructs an OpenGL view matrix in [viewMatrix].
+ * View transformation is the inverse of the model transformation.
+ * View matrix is commonly used to compute the camera location/orientation into the full model-view stack.
+ * 
+ * Sligthly simpler/faster implementation for setViewMatrix() below.
+ * setViewMatrix(RunTime): 114.2334932602239 us.
+ * setViewMatrix2(RunTime): 67.38090425173506 us.
+ *
+ * [cameraPosition] specifies the position of the camera.
+ * [cameraFocusPosition] specifies the position the camera is focused on.
+ * [upDirection] specifies the direction of the up vector (usually, +Y).
+ */
+void setViewMatrix2(Matrix4 viewMatrix, Vector3 cameraPosition,
+                    Vector3 cameraFocusPosition, Vector3 upDirection) {
+  Vector3 z = cameraPosition - cameraFocusPosition;
+  z.normalize();
+  Vector3 x = upDirection.cross(z);
+  x.normalize();
+  Vector3 y = z.cross(x);
+  y.normalize();
+  
+  double rotatedEyeX = - x.dot(cameraPosition);
+  double rotatedEyeY = - y.dot(cameraPosition);
+  double rotatedEyeZ = - z.dot(cameraPosition);
+  
+  viewMatrix.setValues(x[0], y[0], z[0], 0.0,
+      x[1], y[1], z[1], 0.0,
+      x[2], y[2], z[2], 0.0, 
+      rotatedEyeX, rotatedEyeY, rotatedEyeZ, 1.0);
 }
 
 /**

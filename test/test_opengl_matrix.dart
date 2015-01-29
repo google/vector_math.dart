@@ -68,26 +68,77 @@ class OpenGLMatrixTest extends BaseTest {
     relativeTest(ortho.getColumn(3), new Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
   }
 
-  void testRotationFromForwardUp() {
-    final Matrix4 rotation = new Matrix4.zero();
-    final Vector3 forward = new Vector3(1.0, 0.0, 0.0);
-    final Vector3 up = new Vector3(0.0, 1.0, 0.0);
+  void testModelMatrix1() {
+    Matrix4 view = new Matrix4.zero();
+    Vector3 position = new Vector3(1.0, 1.0, 1.0);
+    Vector3 focus = new Vector3(0.0, 0.0, -1.0);
+    Vector3 up = new Vector3(0.0, 1.0, 0.0);
 
-    setRotationMatrix(rotation, forward, up);    
+    setViewMatrix2(view, position, focus, up);
 
-    final Vector3 right = new Vector3(0.0, 0.0, 1.0);
+    Matrix4 model = new Matrix4.zero();
 
-    relativeTest(rotation, new Matrix4(forward[0], up[0], right[0], 0.0,
-        forward[1], up[1], right[1], 0.0,
-	forward[2], up[2], right[2], 0.0,
-	0.0, 0.0, 0.0, 1.0));
+    Vector3 forward = focus.clone();
+    forward.sub(position);
+    forward.normalize();
+
+    Vector3 right = forward.cross(up).normalized();
+    Vector3 u = right.cross(forward).normalized();
+
+    setModelMatrix(model, forward, u, position.x, position.y, position.z);
+
+    Matrix4 result1 = view.clone();
+    result1.multiply(model);
+
+    relativeTest(result1, new Matrix4.identity());
   }
 
+  void testModelMatrix2() {
+    Matrix4 view = new Matrix4.zero();
+    Vector3 position = new Vector3(1.0, 1.0, 1.0);
+    Vector3 focus = new Vector3(0.0, 0.0, -1.0);
+    Vector3 up = new Vector3(0.0, 1.0, 0.0);
+
+    setViewMatrix2(view, position, focus, up);
+
+    Matrix4 model = new Matrix4.zero();
+
+    Vector3 forward = focus.clone();
+    forward.sub(position);
+    forward.normalize();
+
+    Vector3 right = forward.cross(up).normalized();
+    Vector3 u = right.cross(forward).normalized();
+
+    setModelMatrix(model, forward, u, position.x, position.y, position.z);
+
+    Matrix4 result2 = model.clone();
+    result2.multiply(view);
+
+    relativeTest(result2, new Matrix4.identity());
+  }
+
+  void testViewMatrix() {
+    Matrix4 view1 = new Matrix4.zero();
+    Matrix4 view2 = new Matrix4.zero();
+    
+    Vector3 position = new Vector3(1.0, 1.0, 1.0);
+    Vector3 focus = new Vector3(0.0, 0.0, -1.0);
+    Vector3 up = new Vector3(0.0, 1.0, 0.0);
+
+    setViewMatrix(view1, position, focus, up);
+    setViewMatrix2(view2, position, focus, up);
+
+    relativeTest(view1, view2);
+  }
+  
   void run() {
     test('LookAt', testLookAt);
     test('Unproject', testUnproject);
     test('Frustum', testFrustumMatrix);
     test('Orthographic', testOrthographicMatrix);
-    test('RotationFromForwardUp', testRotationFromForwardUp);
+    test('ViewMatrix', testViewMatrix);    
+    test('ModelMatrix1', testModelMatrix1);
+    test('ModelMatrix2', testModelMatrix2);
   }
 }
