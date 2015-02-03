@@ -16,8 +16,7 @@ class OpenGLMatrixTest extends BaseTest {
     Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
     Matrix4 C = frustum * lookat;
     Vector3 re = new Vector3.zero();
-    bool s;
-    s = unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
+    unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
   }
 
   void testLookAt() {
@@ -73,7 +72,7 @@ class OpenGLMatrixTest extends BaseTest {
     final Vector3 forward = new Vector3(1.0, 0.0, 0.0);
     final Vector3 up = new Vector3(0.0, 1.0, 0.0);
 
-    setRotationMatrix(rotation, forward, up);    
+    setRotationMatrix(rotation, forward, up);
 
     final Vector3 right = new Vector3(0.0, 0.0, 1.0);
 

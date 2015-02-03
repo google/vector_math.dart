@@ -152,7 +152,6 @@ class AabbTest extends BaseTest {
     final ByteBuffer buffer = new Float32List.fromList([1.0,2.0,3.0,4.0,5.0,6.0,7.0]).buffer;
     final Aabb3 aabb = new Aabb3.fromBuffer( buffer, 0);
     final Aabb3 aabbOffest = new Aabb3.fromBuffer( buffer, Float32List.BYTES_PER_ELEMENT);
-    final Vector3 center = aabb.center;
 
     expect(aabb.min.x, equals(1.0));
     expect(aabb.min.y, equals(2.0));

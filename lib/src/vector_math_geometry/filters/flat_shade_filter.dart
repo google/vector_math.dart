@@ -35,8 +35,7 @@ class FlatShadeFilter extends GeometryFilter {
 
     Vector3 p0 = new Vector3.zero(),
         p1 = new Vector3.zero(),
-        p2 = new Vector3.zero(),
-        norm = new Vector3.zero();
+        p2 = new Vector3.zero();
 
     Vector3List srcPosition = mesh.getViewForAttrib('POSITION');
     Vector3List destPosition = output.getViewForAttrib('POSITION');
