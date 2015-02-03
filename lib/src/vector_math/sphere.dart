@@ -27,20 +27,19 @@ class Sphere {
 
   Vector3 get center => _center;
   double get radius => _radius;
-         set radius(double value) => _radius = value;
+  set radius(double value) => _radius = value;
 
-  Sphere() :
-    _center = new Vector3.zero(),
-    _radius = 0.0 {}
+  Sphere()
+      : _center = new Vector3.zero(),
+        _radius = 0.0 {}
 
-  Sphere.copy(Sphere other) :
-    _center = new Vector3.copy(other._center),
-    _radius = other._radius {}
+  Sphere.copy(Sphere other)
+      : _center = new Vector3.copy(other._center),
+        _radius = other._radius {}
 
-  Sphere.centerRadius(Vector3 center_, double radius_) :
-    _center = new Vector3.copy(center_),
-    _radius = radius_ {}
-
+  Sphere.centerRadius(Vector3 center_, double radius_)
+      : _center = new Vector3.copy(center_),
+        _radius = radius_ {}
 
   void copyFrom(Sphere o) {
     _center.setFrom(o._center);

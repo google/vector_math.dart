@@ -1,7 +1,6 @@
 part of vector_math_test;
 
 class ColorsTest extends BaseTest {
-
   void testToGrayscale() {
     final input = new Vector4(0.0, 1.0, 0.5, 1.0);
     final output = input.clone();
@@ -72,7 +71,7 @@ class ColorsTest extends BaseTest {
     expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
 
     expect(() => Colors.fromHexString('vector_math rules!', color),
-      throwsA(new isInstanceOf<FormatException>()));
+        throwsA(new isInstanceOf<FormatException>()));
   }
 
   void testFromRgba() {

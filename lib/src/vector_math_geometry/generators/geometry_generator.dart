@@ -26,19 +26,17 @@ class GeometryGeneratorFlags {
   final bool normals;
   final bool tangents;
 
-  GeometryGeneratorFlags({this.texCoords: true,
-                          this.normals: true,
-                          this.tangents: true});
+  GeometryGeneratorFlags(
+      {this.texCoords: true, this.normals: true, this.tangents: true});
 }
 
 abstract class GeometryGenerator {
   int get vertexCount;
   int get indexCount;
 
-  MeshGeometry createGeometry({GeometryGeneratorFlags flags: null, List filters: null}) {
-
-    if (flags == null)
-      flags = new GeometryGeneratorFlags();
+  MeshGeometry createGeometry(
+      {GeometryGeneratorFlags flags: null, List filters: null}) {
+    if (flags == null) flags = new GeometryGeneratorFlags();
 
     VertexAttrib positionAttrib;
     VertexAttrib texCoordAttrib;
@@ -90,8 +88,8 @@ abstract class GeometryGenerator {
 
     if (flags.tangents) {
       tangentView = mesh.getViewForAttrib('TANGENT');
-      generateVertexTangents(tangentView, positionView, normalView, texCoordView,
-          mesh.indices);
+      generateVertexTangents(
+          tangentView, positionView, normalView, texCoordView, mesh.indices);
     }
 
     if (filters != null) {
@@ -111,8 +109,8 @@ abstract class GeometryGenerator {
 
   void generateVertexPositions(Vector3List positions, Uint16List indices);
 
-  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
-                         Uint16List indices) {
+  void generateVertexTexCoords(
+      Vector2List texCoords, Vector3List positions, Uint16List indices) {
     for (int i = 0; i < positions.length; ++i) {
       Vector3 p = positions[i];
 
@@ -122,14 +120,13 @@ abstract class GeometryGenerator {
     }
   }
 
-  void generateVertexNormals(Vector3List normals, Vector3List positions,
-                       Uint16List indices) {
+  void generateVertexNormals(
+      Vector3List normals, Vector3List positions, Uint16List indices) {
     generateNormals(normals, positions, indices);
   }
 
   void generateVertexTangents(Vector4List tangents, Vector3List positions,
-                         Vector3List normals, Vector2List texCoords,
-                        Uint16List indices) {
+      Vector3List normals, Vector2List texCoords, Uint16List indices) {
     generateTangents(tangents, positions, normals, texCoords, indices);
   }
 }

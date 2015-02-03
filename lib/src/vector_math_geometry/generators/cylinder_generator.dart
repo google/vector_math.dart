@@ -30,8 +30,8 @@ class CylinderGenerator extends GeometryGenerator {
   int get vertexCount => ((_segments + 1) * 2) + (_segments * 2);
   int get indexCount => (_segments * 6) + ((_segments - 2) * 6);
 
-  MeshGeometry createCylinder(num topRadius, num bottomRadius,
-                              num height, {int segments: 16, flags: null, filters: null}) {
+  MeshGeometry createCylinder(num topRadius, num bottomRadius, num height,
+      {int segments: 16, flags: null, filters: null}) {
     _topRadius = topRadius.toDouble();
     _bottomRadius = bottomRadius.toDouble();
     _height = height.toDouble();
@@ -80,49 +80,37 @@ class CylinderGenerator extends GeometryGenerator {
     for (int x = 0; x <= _segments; ++x) {
       double u = x / _segments;
 
-      positions[i++] = new Vector3(
-          _topRadius * Math.cos(u * Math.PI * 2.0),
-          _height * 0.5,
-          _topRadius * Math.sin(u * Math.PI * 2.0)
-      );
+      positions[i++] = new Vector3(_topRadius * Math.cos(u * Math.PI * 2.0),
+          _height * 0.5, _topRadius * Math.sin(u * Math.PI * 2.0));
     }
 
     // Bottom
     for (int x = 0; x <= _segments; ++x) {
       double u = x / _segments;
 
-      positions[i++] = new Vector3(
-          _bottomRadius * Math.cos(u * Math.PI * 2.0),
-          _height * -0.5,
-          _bottomRadius * Math.sin(u * Math.PI * 2.0)
-      );
+      positions[i++] = new Vector3(_bottomRadius * Math.cos(u * Math.PI * 2.0),
+          _height * -0.5, _bottomRadius * Math.sin(u * Math.PI * 2.0));
     }
 
     // Top cap
     for (int x = 0; x < _segments; ++x) {
       double u = x / _segments;
 
-      positions[i++] = new Vector3(
-          _topRadius * Math.cos(u * Math.PI * 2.0),
-          _height * 0.5,
-          _topRadius * Math.sin(u * Math.PI * 2.0)
-      );
+      positions[i++] = new Vector3(_topRadius * Math.cos(u * Math.PI * 2.0),
+          _height * 0.5, _topRadius * Math.sin(u * Math.PI * 2.0));
     }
 
     // Bottom cap
     for (int x = 0; x < _segments; ++x) {
       double u = x / _segments;
 
-      positions[i++] = new Vector3(
-          _bottomRadius * Math.cos(u * Math.PI * 2.0),
-          _height * -0.5,
-          _bottomRadius * Math.sin(u * Math.PI * 2.0)
-      );
+      positions[i++] = new Vector3(_bottomRadius * Math.cos(u * Math.PI * 2.0),
+          _height * -0.5, _bottomRadius * Math.sin(u * Math.PI * 2.0));
     }
   }
 
-  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
-                          Uint16List indices) {
+  void generateVertexTexCoords(
+      Vector2List texCoords, Vector3List positions, Uint16List indices) {
     int i = 0;
 
     // Cylinder top
@@ -140,19 +128,15 @@ class CylinderGenerator extends GeometryGenerator {
     // Top cap
     for (int x = 0; x < _segments; ++x) {
       double r = (x / _segments) * Math.PI * 2.0;
-      texCoords[i++] = new Vector2(
-          (Math.cos(r) * 0.5 + 0.5),
-          (Math.sin(r) * 0.5 + 0.5)
-      );
+      texCoords[i++] =
+          new Vector2((Math.cos(r) * 0.5 + 0.5), (Math.sin(r) * 0.5 + 0.5));
     }
 
     // Bottom cap
     for (int x = 0; x < _segments; ++x) {
       double r = (x / _segments) * Math.PI * 2.0;
-      texCoords[i++] = new Vector2(
-          (Math.cos(r) * 0.5 + 0.5),
-          (Math.sin(r) * 0.5 + 0.5)
-      );
+      texCoords[i++] =
+          new Vector2((Math.cos(r) * 0.5 + 0.5), (Math.sin(r) * 0.5 + 0.5));
     }
   }
 }

@@ -29,8 +29,8 @@ class SphereGenerator extends GeometryGenerator {
   int get vertexCount => (_lonSegments + 1) * (_latSegments + 1);
   int get indexCount => 6 * _lonSegments * _latSegments;
 
-  MeshGeometry createSphere(num radius, {int latSegments: 16,
-                            int lonSegments: 16, flags: null, filters: null}) {
+  MeshGeometry createSphere(num radius,
+      {int latSegments: 16, int lonSegments: 16, flags: null, filters: null}) {
     _radius = radius.toDouble();
     _latSegments = latSegments;
     _lonSegments = lonSegments;
@@ -66,17 +66,14 @@ class SphereGenerator extends GeometryGenerator {
       for (int x = 0; x <= _lonSegments; ++x) {
         double u = x / _lonSegments;
 
-        positions[i++] = new Vector3(
-            _radius * Math.cos(u * Math.PI * 2.0) * sv,
-            _radius * cv,
-            _radius * Math.sin(u * Math.PI * 2.0) * sv
-        );
+        positions[i++] = new Vector3(_radius * Math.cos(u * Math.PI * 2.0) * sv,
+            _radius * cv, _radius * Math.sin(u * Math.PI * 2.0) * sv);
       }
     }
   }
 
-  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
-                          Uint16List indices) {
+  void generateVertexTexCoords(
+      Vector2List texCoords, Vector3List positions, Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
       double v = y / _latSegments;
@@ -88,8 +85,8 @@ class SphereGenerator extends GeometryGenerator {
     }
   }
 
-  void generateVertexNormals(Vector3List normals, Vector3List positions,
-                        Uint16List indices) {
+  void generateVertexNormals(
+      Vector3List normals, Vector3List positions, Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
       double v = y / _latSegments;
@@ -99,11 +96,8 @@ class SphereGenerator extends GeometryGenerator {
       for (int x = 0; x <= _lonSegments; ++x) {
         double u = x / _lonSegments;
 
-        normals[i++] = new Vector3(
-            Math.cos(u * Math.PI * 2.0) * sv,
-            cv,
-            Math.sin(u * Math.PI * 2.0) * sv
-        );
+        normals[i++] = new Vector3(Math.cos(u * Math.PI * 2.0) * sv, cv,
+            Math.sin(u * Math.PI * 2.0) * sv);
       }
     }
   }

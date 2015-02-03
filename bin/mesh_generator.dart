@@ -64,8 +64,8 @@ MeshGeometry generateCylinder(List<String> args) {
   num bottomRadius = double.parse(args[1]);
   num height = double.parse(args[2]);
   var generator = new CylinderGenerator();
-  MeshGeometry geometry = generator.createCylinder(topRadius, bottomRadius,
-                                                   height);
+  MeshGeometry geometry =
+      generator.createCylinder(topRadius, bottomRadius, height);
   return geometry;
 }
 
@@ -87,7 +87,6 @@ Map<String, Function> generators = {
   'cylinder': generateCylinder,
   'ring': generateRing
 };
-
 
 main(List<String> args_) {
   List<String> args = new List.from(args_, growable: true);

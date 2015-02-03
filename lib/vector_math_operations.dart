@@ -20,6 +20,7 @@
 */
 
 library vector_math_operations;
+
 import 'dart:typed_data';
 
 part 'src/vector_math_operations/vector.dart';

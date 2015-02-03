@@ -1,9 +1,9 @@
 part of vector_math_test;
 
 class QuaternionTest extends BaseTest {
-
   void testQuaternionInstacinfFromFloat32List() {
-    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+    final Float32List float32List =
+        new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
     final Quaternion input = new Quaternion.fromFloat32List(float32List);
 
     expect(input.x, equals(1.0));
@@ -13,10 +13,12 @@ class QuaternionTest extends BaseTest {
   }
 
   void testQuaternionInstacingFromByteBuffer() {
-    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
+    final Float32List float32List =
+        new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
     final ByteBuffer buffer = float32List.buffer;
     final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer, 0);
-    final Quaternion offsetVector = new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+    final Quaternion offsetVector =
+        new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
 
     expect(zeroOffset.x, equals(1.0));
     expect(zeroOffset.y, equals(2.0));
@@ -45,15 +47,18 @@ class QuaternionTest extends BaseTest {
     }
   }
 
-  void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB, List<Quaternion> expectedOutput) {
+  void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB,
+      List<Quaternion> expectedOutput) {
     for (int i = 0; i < inputA.length; i++) {
       Quaternion output = inputA[i] * inputB[i];
       relativeTest(output, expectedOutput[i]);
     }
   }
 
-  void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB, List<Vector3> expectedOutput) {
-    assert((inputA.length == inputB.length) && (inputB.length == expectedOutput.length));
+  void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB,
+      List<Vector3> expectedOutput) {
+    assert((inputA.length == inputB.length) &&
+        (inputB.length == expectedOutput.length));
     for (int i = 0; i < inputA.length; i++) {
       Vector3 output = inputA[i].rotate(inputB[i]);
       relativeTest(output, expectedOutput[i]);
@@ -79,7 +84,8 @@ class QuaternionTest extends BaseTest {
       input.add(new Quaternion.identity().normalize());
       input.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510).normalize());
       input.add(new Quaternion(0.9889, 0.0, 0.0, 0.14834).normalize());
-      input.add(new Quaternion(0.388127, 0.803418, -0.433317, -0.126429).normalize());
+      input.add(
+          new Quaternion(0.388127, 0.803418, -0.433317, -0.126429).normalize());
       input.add(new Quaternion(1.0, 0.0, 0.0, 1.0).normalize());
       input.add(new Quaternion(0.0, 1.0, 0.0, 1.0).normalize());
       input.add(new Quaternion(0.0, 0.0, 1.0, 1.0).normalize());
@@ -93,8 +99,10 @@ class QuaternionTest extends BaseTest {
       inputB.add(new Quaternion(0.9889, 0.0, 0.0, 0.14834));
       inputB.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
       List<Quaternion> expectedOutput = new List<Quaternion>();
-      expectedOutput.add(new Quaternion(0.388127, 0.803418, -0.433317, -0.126429));
-      expectedOutput.add(new Quaternion(0.388127, -0.64097, 0.649924, -0.126429));
+      expectedOutput
+          .add(new Quaternion(0.388127, 0.803418, -0.433317, -0.126429));
+      expectedOutput
+          .add(new Quaternion(0.388127, -0.64097, 0.649924, -0.126429));
       testQuaternionMultiply(inputA, inputB, expectedOutput);
     });
     test('Normalize', () {
@@ -110,7 +118,8 @@ class QuaternionTest extends BaseTest {
       inputB.add(new Vector3(1.0, 2.0, 3.0));
       expectedOutput.add(new Vector3(1.0, 2.0, 3.0));
 
-      inputA.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510).normalize());
+      inputA
+          .add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510).normalize());
       inputB.add(new Vector3(1.0, 0.0, 0.0));
       expectedOutput.add(new Vector3(-0.6667, -0.3333, 0.6667));
 

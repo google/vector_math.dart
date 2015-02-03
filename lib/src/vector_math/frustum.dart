@@ -29,21 +29,36 @@ class Frustum {
   List<Plane> get planes => _planes;
 
   /// Create a new frustum without initializing its bounds.
-  Frustum()
-      : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-          new Plane(), new Plane()].toList(growable: false);
+  Frustum() : _planes = <Plane>[
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane()
+      ].toList(growable: false);
 
   /// Create a new frustum as a copy of [other].
-  Frustum.copy(Frustum other)
-      : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-          new Plane(), new Plane()].toList(growable: false) {
+  Frustum.copy(Frustum other) : _planes = <Plane>[
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane()
+      ].toList(growable: false) {
     copyFrom(other);
   }
 
   /// Create a new furstum from a [matrix].
-  Frustum.matrix(Matrix4 matrix)
-      : _planes = <Plane>[new Plane(), new Plane(), new Plane(), new Plane(),
-          new Plane(), new Plane()].toList(growable: false) {
+  Frustum.matrix(Matrix4 matrix) : _planes = <Plane>[
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane(),
+        new Plane()
+      ].toList(growable: false) {
     setFromMatrix(matrix);
   }
 
@@ -77,23 +92,23 @@ class Frustum {
         me15 = me[15];
 
     _planes[0]
-        ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
-        ..normalize();
+      ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
+      ..normalize();
     _planes[1]
-        ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
-        ..normalize();
+      ..setFromComponents(me3 + me0, me7 + me4, me11 + me8, me15 + me12)
+      ..normalize();
     _planes[2]
-        ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
-        ..normalize();
+      ..setFromComponents(me3 + me1, me7 + me5, me11 + me9, me15 + me13)
+      ..normalize();
     _planes[3]
-        ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
-        ..normalize();
+      ..setFromComponents(me3 - me1, me7 - me5, me11 - me9, me15 - me13)
+      ..normalize();
     _planes[4]
-        ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
-        ..normalize();
+      ..setFromComponents(me3 - me2, me7 - me6, me11 - me10, me15 - me14)
+      ..normalize();
     _planes[5]
-        ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
-        ..normalize();
+      ..setFromComponents(me3 + me2, me7 + me6, me11 + me10, me15 + me14)
+      ..normalize();
   }
 
   /// Check if [this] contains a [point].
@@ -146,9 +161,9 @@ class Frustum {
 
   /// Calculate the corners of a [frustum] at write them into [corner0] to
   // [corner7].
-  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3
-      corner2, Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3
-      corner6, Vector3 corner7) {
+  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3 corner2,
+      Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3 corner6,
+      Vector3 corner7) {
     Plane.intersection(_planes[0], _planes[2], _planes[4], corner0);
     Plane.intersection(_planes[0], _planes[3], _planes[4], corner1);
     Plane.intersection(_planes[0], _planes[3], _planes[5], corner2);

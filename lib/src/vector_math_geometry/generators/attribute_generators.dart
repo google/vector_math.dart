@@ -24,17 +24,19 @@ part of vector_math_geometry;
 /// Generate vertex normals based on a list of [positions] and [indices].
 /// [normals] is assumed to be zeroed out, and much match [positions] in length.
 /// [indices] is assumed to represent a triangle list.
-void generateNormals(Vector3List normals, Vector3List positions,
-                     Uint16List indices) {
+void generateNormals(
+    Vector3List normals, Vector3List positions, Uint16List indices) {
   Vector3 p0 = new Vector3.zero(),
-          p1 = new Vector3.zero(),
-          p2 = new Vector3.zero(),
-          norm = new Vector3.zero();
+      p1 = new Vector3.zero(),
+      p2 = new Vector3.zero(),
+      norm = new Vector3.zero();
 
   // Loop through every polygon, find it's normal, and add that to the vertex
   // normals.
-  for (int i = 0; i < indices.length; i+=3) {
-    int i0 = indices[i], i1 = indices[i+1], i2 = indices[i+2];
+  for (int i = 0; i < indices.length; i += 3) {
+    int i0 = indices[i],
+        i1 = indices[i + 1],
+        i2 = indices[i + 2];
     positions.load(i0, p0);
     positions.load(i1, p1);
     positions.load(i2, p2);
@@ -75,8 +77,7 @@ void generateNormals(Vector3List normals, Vector3List positions,
 /// Derived from the granddaddy of all tangent generation functions:
 /// http://www.terathon.com/code/tangent.html
 void generateTangents(Vector4List tangents, Vector3List positions,
-                      Vector3List normals, Vector2List texCoords,
-                      Uint16List indices) {
+    Vector3List normals, Vector2List texCoords, Uint16List indices) {
   Vector3 p0 = new Vector3.zero(),
       p1 = new Vector3.zero(),
       p2 = new Vector3.zero(),
@@ -94,8 +95,10 @@ void generateTangents(Vector4List tangents, Vector3List positions,
   Vector3List tan0 = new Vector3List(positions.length),
       tan1 = new Vector3List(positions.length);
 
-  for (int i = 0; i < indices.length; i+=3) {
-    int i0 = indices[i], i1 = indices[i+1], i2 = indices[i+2];
+  for (int i = 0; i < indices.length; i += 3) {
+    int i0 = indices[i],
+        i1 = indices[i + 1],
+        i2 = indices[i + 2];
     positions.load(i0, p0);
     positions.load(i1, p1);
     positions.load(i2, p2);
@@ -113,11 +116,9 @@ void generateTangents(Vector4List tangents, Vector3List positions,
     double r = 1.0 / (uv1.x * uv2.y - uv2.x * uv1.y);
 
     udir.setValues((uv2.y * p1.x - uv1.y * p2.x) * r,
-        (uv2.y * p1.y - uv1.y * p2.y) * r,
-        (uv2.y * p1.z - uv1.y * p2.z) * r);
+        (uv2.y * p1.y - uv1.y * p2.y) * r, (uv2.y * p1.z - uv1.y * p2.z) * r);
     vdir.setValues((uv1.x * p2.x - uv2.x * p1.x) * r,
-        (uv1.x * p2.y - uv2.x * p1.y) * r,
-        (uv1.x * p2.z - uv2.x * p1.z) * r);
+        (uv1.x * p2.y - uv2.x * p1.y) * r, (uv1.x * p2.z - uv2.x * p1.z) * r);
 
     tan0.load(i0, p0);
     tan0[i0] = p0.add(udir);
@@ -149,4 +150,3 @@ void generateTangents(Vector4List tangents, Vector3List positions,
     tangents[i] = tan.setValues(p0.x, p0.y, p0.z, sign);
   }
 }
-

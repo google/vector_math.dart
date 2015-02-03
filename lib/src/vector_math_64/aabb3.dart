@@ -33,22 +33,22 @@ class Aabb3 {
     return c.add(_max).scale(.5);
   }
 
-  Aabb3() :
-    _min = new Vector3.zero(),
-    _max = new Vector3.zero() {}
+  Aabb3()
+      : _min = new Vector3.zero(),
+        _max = new Vector3.zero() {}
 
-  Aabb3.copy(Aabb3 other) :
-    _min = new Vector3.copy(other._min),
-    _max = new Vector3.copy(other._max) {}
+  Aabb3.copy(Aabb3 other)
+      : _min = new Vector3.copy(other._min),
+        _max = new Vector3.copy(other._max) {}
 
   @deprecated
-  Aabb3.minmax(Vector3 min_, Vector3 max_) :
-    _min = new Vector3.copy(min_),
-    _max = new Vector3.copy(max_) {}
+  Aabb3.minmax(Vector3 min_, Vector3 max_)
+      : _min = new Vector3.copy(min_),
+        _max = new Vector3.copy(max_) {}
 
-  Aabb3.minMax(Vector3 min_, Vector3 max_) :
-    _min = new Vector3.copy(min_),
-    _max = new Vector3.copy(max_) {}
+  Aabb3.minMax(Vector3 min_, Vector3 max_)
+      : _min = new Vector3.copy(min_),
+        _max = new Vector3.copy(max_) {}
 
   void copyMinMax(Vector3 min_, Vector3 max_) {
     max_.setFrom(_max);
@@ -57,8 +57,10 @@ class Aabb3 {
 
   /// Constructs Aabb3 with a min/max [storage] that views given [buffer] starting at [offset].
   /// [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
-  Aabb3.fromBuffer(ByteBuffer buffer, int offset) : _min = new Vector3.fromBuffer(buffer, offset),
-      _max = new Vector3.fromBuffer(buffer, offset + Float64List.BYTES_PER_ELEMENT*3);
+  Aabb3.fromBuffer(ByteBuffer buffer, int offset)
+      : _min = new Vector3.fromBuffer(buffer, offset),
+        _max = new Vector3.fromBuffer(
+            buffer, offset + Float64List.BYTES_PER_ELEMENT * 3);
 
   void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     center.setFrom(_min);
@@ -145,18 +147,18 @@ class Aabb3 {
   /// Return if [this] contains [other].
   bool containsAabb3(Aabb3 other) {
     return min.x < other.min.x &&
-           min.y < other.min.y &&
-           min.z < other.min.z &&
-           max.x > other.max.x &&
-           max.y > other.max.y &&
-           max.z > other.max.z;
+        min.y < other.min.y &&
+        min.z < other.min.z &&
+        max.x > other.max.x &&
+        max.y > other.max.y &&
+        max.z > other.max.z;
   }
 
   /// Return if [this] contains [other].
   bool containsSphere(Sphere other) {
     final sphereExtends = new Vector3.zero().splat(other.radius);
     final sphereBox = new Aabb3.minMax(other.center.clone().sub(sphereExtends),
-                                       other.center.clone().add(sphereExtends));
+        other.center.clone().add(sphereExtends));
 
     return containsAabb3(sphereBox);
   }
@@ -164,28 +166,28 @@ class Aabb3 {
   /// Return if [this] contains [other].
   bool containsVector3(Vector3 other) {
     return min.x < other.x &&
-           min.y < other.y &&
-           min.z < other.z &&
-           max.x > other.x &&
-           max.y > other.y &&
-           max.z > other.z;
+        min.y < other.y &&
+        min.z < other.z &&
+        max.x > other.x &&
+        max.y > other.y &&
+        max.z > other.z;
   }
 
   /// Return if [this] contains [other].
   bool containsTriangle(Triangle other) {
     return containsVector3(other.point0) &&
-           containsVector3(other.point1) &&
-           containsVector3(other.point2);
+        containsVector3(other.point1) &&
+        containsVector3(other.point2);
   }
 
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
     return min.x <= other.max.x &&
-           min.y <= other.max.y &&
-           min.z <= other.max.z &&
-           max.x >= other.min.x &&
-           max.y >= other.min.y &&
-           max.z >= other.min.z;
+        min.y <= other.max.y &&
+        min.z <= other.max.z &&
+        max.x >= other.min.x &&
+        max.y >= other.min.y &&
+        max.z >= other.min.z;
   }
 
   /// Return if [this] intersects with [other].
@@ -215,10 +217,10 @@ class Aabb3 {
   /// Return if [this] intersects with [other].
   bool intersectsWithVector3(Vector3 other) {
     return min.x <= other.x &&
-           min.y <= other.y &&
-           min.z <= other.z &&
-           max.x >= other.x &&
-           max.y >= other.y &&
-           max.z >= other.z;
+        min.y <= other.y &&
+        min.z <= other.z &&
+        max.x >= other.x &&
+        max.y >= other.y &&
+        max.z >= other.z;
   }
 }

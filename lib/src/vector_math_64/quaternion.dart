@@ -27,13 +27,22 @@ class Quaternion {
   double get y => storage[1];
   double get z => storage[2];
   double get w => storage[3];
-  set x(double x) { storage[0] = x; }
-  set y(double y) { storage[1] = y; }
-  set z(double z) { storage[2] = z; }
-  set w(double w) { storage[3] = w; }
+  set x(double x) {
+    storage[0] = x;
+  }
+  set y(double y) {
+    storage[1] = y;
+  }
+  set z(double z) {
+    storage[2] = z;
+  }
+  set w(double w) {
+    storage[3] = w;
+  }
 
   /// Constructs a quaternion using the raw values [x], [y], [z], and [w]
-  Quaternion(double x, double y, double z, double w) : storage = new Float64List(4) {
+  Quaternion(double x, double y, double z, double w)
+      : storage = new Float64List(4) {
     storage[0] = x;
     storage[1] = y;
     storage[2] = z;
@@ -41,38 +50,40 @@ class Quaternion {
   }
 
   /// From a rotation matrix [rotationMatrix].
-  Quaternion.fromRotation(Matrix3 rotationMatrix) : storage = new Float64List(4) {
+  Quaternion.fromRotation(Matrix3 rotationMatrix)
+      : storage = new Float64List(4) {
     double trace = rotationMatrix.trace();
     if (trace > 0.0) {
       double s = Math.sqrt(trace + 1.0);
       storage[3] = s * 0.5;
       s = 0.5 / s;
-      storage[0] = (rotationMatrix.storage[5] -
-                     rotationMatrix.storage[7]) * s;
-      storage[1] = (rotationMatrix.storage[6] -
-                     rotationMatrix.storage[2]) * s;
-      storage[2] = (rotationMatrix.storage[1] -
-                     rotationMatrix.storage[3]) * s;
+      storage[0] = (rotationMatrix.storage[5] - rotationMatrix.storage[7]) * s;
+      storage[1] = (rotationMatrix.storage[6] - rotationMatrix.storage[2]) * s;
+      storage[2] = (rotationMatrix.storage[1] - rotationMatrix.storage[3]) * s;
     } else {
-      int i = rotationMatrix.storage[0] < rotationMatrix.storage[4] ?
-              (rotationMatrix.storage[4] < rotationMatrix.storage[8] ? 2 : 1)
-              :
-              (rotationMatrix.storage[0] < rotationMatrix.storage[8] ? 2 : 0);
+      int i = rotationMatrix.storage[0] < rotationMatrix.storage[4]
+          ? (rotationMatrix.storage[4] < rotationMatrix.storage[8] ? 2 : 1)
+          : (rotationMatrix.storage[0] < rotationMatrix.storage[8] ? 2 : 0);
       int j = (i + 1) % 3;
       int k = (i + 2) % 3;
-      double s = Math.sqrt(rotationMatrix.entry(i,i) -
-                           rotationMatrix.entry(j,j) -
-                           rotationMatrix.entry(k,k) + 1.0);
+      double s = Math.sqrt(rotationMatrix.entry(i, i) -
+          rotationMatrix.entry(j, j) -
+          rotationMatrix.entry(k, k) +
+          1.0);
       storage[i] = s * 0.5;
       s = 0.5 / s;
-      storage[3] = (rotationMatrix.entry(k,j) - rotationMatrix.entry(j,k)) * s;
-      storage[j] = (rotationMatrix.entry(j,i) + rotationMatrix.entry(i,j)) * s;
-      storage[k] = (rotationMatrix.entry(k,i) + rotationMatrix.entry(i,k)) * s;
+      storage[3] =
+          (rotationMatrix.entry(k, j) - rotationMatrix.entry(j, k)) * s;
+      storage[j] =
+          (rotationMatrix.entry(j, i) + rotationMatrix.entry(i, j)) * s;
+      storage[k] =
+          (rotationMatrix.entry(k, i) + rotationMatrix.entry(i, k)) * s;
     }
   }
 
   /// Rotation of [angle] around [axis].
-  Quaternion.axisAngle(Vector3 axis, double angle) : storage = new Float64List(4) {
+  Quaternion.axisAngle(Vector3 axis, double angle)
+      : storage = new Float64List(4) {
     setAxisAngle(axis, angle);
   }
 
@@ -91,8 +102,8 @@ class Quaternion {
     double x0 = rn.nextDouble();
     double r1 = Math.sqrt(1.0 - x0);
     double r2 = Math.sqrt(x0);
-    double t1 = Math.PI*2.0 * rn.nextDouble();
-    double t2 = Math.PI*2.0 * rn.nextDouble();
+    double t1 = Math.PI * 2.0 * rn.nextDouble();
+    double t2 = Math.PI * 2.0 * rn.nextDouble();
     double c1 = Math.cos(t1);
     double s1 = Math.sin(t1);
     double c2 = Math.cos(t2);
@@ -127,13 +138,13 @@ class Quaternion {
     storage[3] = _w * 0.5;
   }
 
-
   /// Constructs Quaternion with given Float64List as [storage].
   Quaternion.fromFloat64List(Float64List this.storage);
 
   /// Constructs Quaternion with a [storage] that views given [buffer] starting at [offset].
   /// [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
-  Quaternion.fromBuffer(ByteBuffer buffer, int offset) : storage = new Float64List.view(buffer, offset, 4);
+  Quaternion.fromBuffer(ByteBuffer buffer, int offset)
+      : storage = new Float64List.view(buffer, offset, 4);
 
   /// Returns a new copy of this
   Quaternion clone() {
@@ -238,10 +249,9 @@ class Quaternion {
 
   /// Axis of rotation.
   Vector3 get axis {
-      double scale = 1.0 / (1.0 - (storage[3] * storage[3]));
-      return new Vector3(storage[0] * scale,
-                      storage[1] * scale,
-                      storage[2] * scale);
+    double scale = 1.0 / (1.0 - (storage[3] * storage[3]));
+    return new Vector3(
+        storage[0] * scale, storage[1] * scale, storage[2] * scale);
   }
 
   /// Length squared.
@@ -304,7 +314,7 @@ class Quaternion {
   }
 
   /// [this] rotated by [other].
-  Quaternion operator*(Quaternion other) {
+  Quaternion operator *(Quaternion other) {
     double _w = storage[3];
     double _z = storage[2];
     double _y = storage[1];
@@ -314,35 +324,34 @@ class Quaternion {
     double oy = other.storage[1];
     double ox = other.storage[0];
     return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy,
-                    _w * oy + _y * ow + _z * ox - _x * oz,
-                    _w * oz + _z * ow + _x * oy - _y * ox,
-                    _w * ow - _x * ox - _y * oy - _z * oz);
+        _w * oy + _y * ow + _z * ox - _x * oz, _w * oz +
+            _z * ow +
+            _x * oy -
+            _y * ox, _w * ow - _x * ox - _y * oy - _z * oz);
   }
 
   /// Returns copy of [this] + [other].
-  Quaternion operator+(Quaternion other) {
+  Quaternion operator +(Quaternion other) {
     return new Quaternion(storage[0] + other.storage[0],
-                    storage[1] + other.storage[1],
-                    storage[2] + other.storage[2],
-                    storage[3] + other.storage[3]);
+        storage[1] + other.storage[1], storage[2] + other.storage[2],
+        storage[3] + other.storage[3]);
   }
 
   /// Returns copy of [this] - [other].
-  Quaternion operator-(Quaternion other) {
+  Quaternion operator -(Quaternion other) {
     return new Quaternion(storage[0] - other.storage[0],
-                    storage[1] - other.storage[1],
-                    storage[2] - other.storage[2],
-                    storage[3] - other.storage[3]);
+        storage[1] - other.storage[1], storage[2] - other.storage[2],
+        storage[3] - other.storage[3]);
   }
 
   /// Returns negated copy of [this].
-  Quaternion operator-() {
+  Quaternion operator -() {
     return new Quaternion(-storage[0], -storage[1], -storage[2], -storage[3]);
   }
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
-  void operator[]=(int i, double arg) {
+  void operator []=(int i, double arg) {
     storage[i] = arg;
   }
 
@@ -374,8 +383,8 @@ class Quaternion {
     double zz = _z * zs;
 
     return new Matrix3(1.0 - (yy + zz), xy + wz, xz - wy, // column 0
-                    xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
-                    xz + wy, yz - wx, 1.0 - (xx + yy)); // column 2
+        xy - wz, 1.0 - (xx + zz), yz + wx, // column 1
+        xz + wy, yz - wx, 1.0 - (xx + yy)); // column 2
   }
 
   /// Printable string.
@@ -388,7 +397,7 @@ class Quaternion {
     Quaternion diff = correct - this;
     double norm_diff = diff.length;
     double correct_norm = correct.length;
-    return norm_diff/correct_norm;
+    return norm_diff / correct_norm;
   }
 
   /// Absolute error between [this] and [correct].

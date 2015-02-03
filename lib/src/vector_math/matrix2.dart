@@ -51,7 +51,9 @@ class Matrix2 {
   double entry(int row, int col) => storage[index(row, col)];
 
   /// Set value at [row], [col] to be [v].
-  setEntry(int row, int col, double v) { storage[index(row, col)] = v; }
+  setEntry(int row, int col, double v) {
+    storage[index(row, col)] = v;
+  }
 
   /// New matrix with specified values.
   Matrix2(double arg0, double arg1, double arg2, double arg3) {
@@ -141,9 +143,11 @@ class Matrix2 {
   /// Dimension of the matrix.
   int get dimension => 2;
 
-  double operator[](int i) => storage[i];
+  double operator [](int i) => storage[i];
 
-  void operator[]=(int i, double v) { storage[i] = v; }
+  void operator []=(int i, double v) {
+    storage[i] = v;
+  }
   /// Returns row 0
   Vector2 get row0 => getRow(0);
 
@@ -210,28 +214,28 @@ class Matrix2 {
 
   Matrix2 _mul_matrix(Matrix2 arg) {
     var r = new Matrix2.zero();
-    r.storage[0] = (storage[0] * arg.storage[0]) +
-                    (storage[2] * arg.storage[1]);
-    r.storage[2] = (storage[0] * arg.storage[2]) +
-                    (storage[2] * arg.storage[3]);
-    r.storage[1] = (storage[1] * arg.storage[0]) +
-                    (storage[3] * arg.storage[1]);
-    r.storage[3] = (storage[1] * arg.storage[2]) +
-                    (storage[3] * arg.storage[3]);
+    r.storage[0] =
+        (storage[0] * arg.storage[0]) + (storage[2] * arg.storage[1]);
+    r.storage[2] =
+        (storage[0] * arg.storage[2]) + (storage[2] * arg.storage[3]);
+    r.storage[1] =
+        (storage[1] * arg.storage[0]) + (storage[3] * arg.storage[1]);
+    r.storage[3] =
+        (storage[1] * arg.storage[2]) + (storage[3] * arg.storage[3]);
     return r;
   }
 
   Vector2 _mul_vector(Vector2 arg) {
     Vector2 r = new Vector2.zero();
-    r.storage[1] = (storage[1] * arg.storage[0]) +
-                    (storage[3] * arg.storage[1]);
-    r.storage[0] = (storage[0] * arg.storage[0]) +
-                    (storage[2] * arg.storage[1]);
+    r.storage[1] =
+        (storage[1] * arg.storage[0]) + (storage[3] * arg.storage[1]);
+    r.storage[0] =
+        (storage[0] * arg.storage[0]) + (storage[2] * arg.storage[1]);
     return r;
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator*(dynamic arg) {
+  dynamic operator *(dynamic arg) {
     if (arg is double) {
       return _mul_scale(arg);
     }
@@ -490,10 +494,8 @@ class Matrix2 {
   }
 
   Vector2 transform(Vector2 arg) {
-    double x_ = (storage[0] * arg.storage[0]) +
-                (storage[2] * arg.storage[1]);
-    double y_ = (storage[1] * arg.storage[0]) +
-                (storage[3] * arg.storage[1]);
+    double x_ = (storage[0] * arg.storage[0]) + (storage[2] * arg.storage[1]);
+    double y_ = (storage[1] * arg.storage[0]) + (storage[3] * arg.storage[1]);
     arg.x = x_;
     arg.y = y_;
     return arg;

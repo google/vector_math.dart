@@ -4,14 +4,14 @@ void relativeTest(var output, var expectedOutput) {
   final num errorThreshold = 0.0005;
   num error = relativeError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
-      reason:'$output != $expectedOutput : relativeError = $error');
+      reason: '$output != $expectedOutput : relativeError = $error');
 }
 
 void absoluteTest(var output, var expectedOutput) {
   final num errorThreshold = 0.0005;
   num error = absoluteError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
-      reason:'$output != $expectedOutput : absoluteError = $error');
+      reason: '$output != $expectedOutput : absoluteError = $error');
 }
 
 class BaseTest {
@@ -59,7 +59,7 @@ class BaseTest {
     dynamic m = makeMatrix(rows.length, col_count);
     for (int j = 0; j < rows.length; j++) {
       for (int i = 0; i < col_count; i++) {
-        m[m.index(j,i)] = values[j*col_count+i];
+        m[m.index(j, i)] = values[j * col_count + i];
         //m[i][j] = values[j*col_count+i];
       }
     }
@@ -69,7 +69,8 @@ class BaseTest {
 
   dynamic parseVector(String v) {
     v = v.trim();
-    Pattern pattern = new RegExp('[\\s]+', multiLine: true, caseSensitive: false);
+    Pattern pattern =
+        new RegExp('[\\s]+', multiLine: true, caseSensitive: false);
     List<String> rows = v.split(pattern);
     List<double> values = new List<double>();
     for (int i = 0; i < rows.length; i++) {
@@ -91,5 +92,4 @@ class BaseTest {
 
     return r;
   }
-
 }

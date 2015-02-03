@@ -32,14 +32,9 @@ class RingGenerator extends GeometryGenerator {
   int get vertexCount => (_segments + 1) * 2;
   int get indexCount => (_segments) * 3 * 2;
 
-  MeshGeometry createRing(double innerRadius,
-                          double outerRadius,
-                          {flags: null,
-                           filters: null,
-                           segments: 64,
-                           thetaStart: 0.0,
-                           thetaLength: Math.PI * 2.0,
-                           stripTextureCoordinates: true}) {
+  MeshGeometry createRing(double innerRadius, double outerRadius, {flags: null,
+      filters: null, segments: 64, thetaStart: 0.0, thetaLength: Math.PI * 2.0,
+      stripTextureCoordinates: true}) {
     _innerRadius = innerRadius;
     _outerRadius = outerRadius;
     _segments = segments;
@@ -66,8 +61,8 @@ class RingGenerator extends GeometryGenerator {
     assert(index == vertexCount);
   }
 
-  void generateVertexTexCoords(Vector2List texCoords, Vector3List positions,
-                          Uint16List indices) {
+  void generateVertexTexCoords(
+      Vector2List texCoords, Vector3List positions, Uint16List indices) {
     if (_stripTextureCoordinates) {
       Vector2 v = new Vector2.zero();
       int index = 0;
