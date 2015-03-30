@@ -1,7 +1,6 @@
 part of vector_math_test;
 
 class SphereTest extends BaseTest {
-
   Vector3 _v3(double x, double y, double z) {
     return new Vector3(x, y, z);
   }

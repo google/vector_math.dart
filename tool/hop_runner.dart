@@ -33,7 +33,8 @@ void main(List<String> args) {
 }
 
 Future<List<String>> _getLibs() {
-  return new Directory('lib').list()
+  return new Directory('lib')
+      .list()
       .where((FileSystemEntity fse) => fse is File)
       .map((File file) => file.path)
       .toList();

@@ -1,7 +1,6 @@
 part of vector_math_test;
 
 class PlaneTest extends BaseTest {
-
   Vector3 _v3(double x, double y, double z) {
     return new Vector3(x, y, z);
   }
@@ -44,7 +43,6 @@ class PlaneTest extends BaseTest {
     expect(point.y, equals(3.0));
     expect(point.z, equals(4.0));
   }
-
 
   void run() {
     test('Plane Normalize', testPlaneNormalize);

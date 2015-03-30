@@ -1,8 +1,6 @@
 part of vector_math_test;
 
 class VectorTest extends BaseTest {
-
-
   void testVec3InstacinfFromFloat32List() {
     final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0]);
     final Vector3 input = new Vector3.fromFloat32List(float32List);
@@ -13,10 +11,12 @@ class VectorTest extends BaseTest {
   }
 
   void testVec3InstacingFromByteBuffer() {
-    final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+    final Float32List float32List =
+        new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
     final ByteBuffer buffer = float32List.buffer;
     final Vector3 zeroOffset = new Vector3.fromBuffer(buffer, 0);
-    final Vector3 offsetVector = new Vector3.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+    final Vector3 offsetVector =
+        new Vector3.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
 
     expect(zeroOffset.x, equals(1.0));
     expect(zeroOffset.y, equals(2.0));
@@ -26,7 +26,6 @@ class VectorTest extends BaseTest {
     expect(offsetVector.y, equals(3.0));
     expect(offsetVector.z, equals(4.0));
   }
-
 
   void testVec2Add() {
     final Vector2 a = new Vector2(5.0, 7.0);
@@ -211,7 +210,7 @@ class VectorTest extends BaseTest {
     expect(resultNew.x, equals(resultOld.x));
     expect(resultNew.y, equals(resultOld.y));
     //matrix inversion can introduce a small error
-    assert((resultNew-resultOldvInv).length < .00001);
+    assert((resultNew - resultOldvInv).length < .00001);
   }
 
   void testVec2CrossProduct() {
@@ -266,9 +265,10 @@ class VectorTest extends BaseTest {
     }
   }
 
-  void testVec3Postmultiplication(){
-    Matrix3 inputMatrix = (new Matrix3.rotationX(.4))*(new Matrix3.rotationZ(.5));
-    Vector3 inputVector = new Vector3(1.0,2.0,3.0);
+  void testVec3Postmultiplication() {
+    Matrix3 inputMatrix =
+        (new Matrix3.rotationX(.4)) * (new Matrix3.rotationZ(.5));
+    Vector3 inputVector = new Vector3(1.0, 2.0, 3.0);
     Matrix3 inputInv = new Matrix3.copy(inputMatrix);
     inputInv.invert();
     Vector3 resultOld = inputMatrix.transposed() * inputVector;
@@ -488,10 +488,8 @@ class VectorTest extends BaseTest {
     var v = new Vector3(1.0, 1.0, 1.0);
     var a = 2.0 / 3.0;
     var b = 1.0 / 3.0;
-    var m = new Matrix4( a, b, -b, 0.0,
-                         b, a,  b, 0.0,
-                        -b, b,  a, 0.0,
-                         0.0, 0.0,  0.0, 1.0);
+    var m = new Matrix4(
+        a, b, -b, 0.0, b, a, b, 0.0, -b, b, a, 0.0, 0.0, 0.0, 0.0, 1.0);
 
     v.applyProjection(m);
     relativeTest(v.x, a);
@@ -559,10 +557,10 @@ class VectorTest extends BaseTest {
       list[0] = new Vector2(1.0, 2.0);
       relativeTest(list[0].x, 1.0);
       relativeTest(list[0].y, 2.0);
-      relativeTest(list.buffer[0], 0.0);  // unset
+      relativeTest(list.buffer[0], 0.0); // unset
       relativeTest(list.buffer[1], 1.0);
       relativeTest(list.buffer[2], 2.0);
-      relativeTest(list.buffer[3], 0.0);  // unset
+      relativeTest(list.buffer[3], 0.0); // unset
     }
     {
       Float32List buffer = new Float32List(8);
