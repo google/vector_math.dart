@@ -42,27 +42,25 @@ class Matrix44Operations {
     double det2_01_13 = m1 * m7 - m3 * m5;
     double det2_01_23 = m2 * m7 - m3 * m6;
 
-    double m8 = matrix[8+offset];
-    double m9 = matrix[9+offset];
-    double m10 = matrix[10+offset];
-    double m11 = matrix[11+offset];
+    double m8 = matrix[8 + offset];
+    double m9 = matrix[9 + offset];
+    double m10 = matrix[10 + offset];
+    double m11 = matrix[11 + offset];
 
-    double det3_201_012 = m8 * det2_01_12 - m9 * det2_01_02 +
-                          m10 * det2_01_01;
-    double det3_201_013 = m8 * det2_01_13 - m9 * det2_01_03 +
-                          m11 * det2_01_01;
-    double det3_201_023 = m8 * det2_01_23 - m10 * det2_01_03 +
-                          m11 * det2_01_02;
-    double det3_201_123 = m9 * det2_01_23 - m10 * det2_01_13 +
-                          m11 * det2_01_12;
+    double det3_201_012 = m8 * det2_01_12 - m9 * det2_01_02 + m10 * det2_01_01;
+    double det3_201_013 = m8 * det2_01_13 - m9 * det2_01_03 + m11 * det2_01_01;
+    double det3_201_023 = m8 * det2_01_23 - m10 * det2_01_03 + m11 * det2_01_02;
+    double det3_201_123 = m9 * det2_01_23 - m10 * det2_01_13 + m11 * det2_01_12;
 
-    double m12 = matrix[12+offset];
-    double m13 = matrix[13+offset];
-    double m14 = matrix[14+offset];
-    double m15 = matrix[15+offset];
+    double m12 = matrix[12 + offset];
+    double m13 = matrix[13 + offset];
+    double m14 = matrix[14 + offset];
+    double m15 = matrix[15 + offset];
 
-    return -det3_201_123 * m12 + det3_201_023 * m13 -
-            det3_201_013 * m14 + det3_201_012 * m15;
+    return -det3_201_123 * m12 +
+        det3_201_023 * m13 -
+        det3_201_013 * m14 +
+        det3_201_012 * m15;
   }
 
   /// Compute the determinant of the upper 3x3 of the 4x4 [matrix] starting at
@@ -113,10 +111,12 @@ class Matrix44Operations {
     double b09 = a21 * a32 - a22 * a31;
     double b10 = a21 * a33 - a23 * a31;
     double b11 = a22 * a33 - a23 * a32;
-    double det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 +
-                  b05 * b06);
+    double det =
+        (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
 
-    if (det == 0.0) { return det; }
+    if (det == 0.0) {
+      return det;
+    }
 
     var invDet = 1.0 / det;
 
@@ -147,7 +147,7 @@ class Matrix44Operations {
 
   /// [out] = [a] * [b]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32List out, int outOffset, Float32List a,
-                       int aOffset, Float32List b, int bOffset) {
+      int aOffset, Float32List b, int bOffset) {
     var a00 = a[aOffset++];
     var a01 = a[aOffset++];
     var a02 = a[aOffset++];
@@ -204,18 +204,15 @@ class Matrix44Operations {
 
   /// Perform a 4x4 transformation matrix inverse. Assumes the upper
   /// 3x3 is orthonormal (i.e. does not contain any scale).
-  static void orthoInverse(Float32List matrix, int offset) {
-  }
+  static void orthoInverse(Float32List matrix, int offset) {}
 
   /// Normalize the upper 3x3 of the 4x4 [matrix] starting at [offset].
-  static void normalize33(Float32List matrix, int offset) {
-  }
+  static void normalize33(Float32List matrix, int offset) {}
 
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
   static void transform4(Float32List out, int outOffset, Float32List matrix,
-                         int matrixOffset, Float32List vector,
-                         int vectorOffset) {
+      int matrixOffset, Float32List vector, int vectorOffset) {
     var x = vector[vectorOffset++];
     var y = vector[vectorOffset++];
     var z = vector[vectorOffset++];
@@ -245,17 +242,13 @@ class Matrix44Operations {
   /// Transform the 3D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
   static void transform3(Float32List out, int outOffset, Float32List matrix,
-                         int matrixOffset, Float32List vector,
-                         int vectorOffset) {
-  }
+      int matrixOffset, Float32List vector, int vectorOffset) {}
 
   /// Transpose the 4x4 [matrix] starting at [offset].
-  static void transpose(Float32List matrix, int offset) {
-  }
+  static void transpose(Float32List matrix, int offset) {}
 
   /// Transpose the upper 3x3 of the 4x4 [matrix] starting at [offset].
-  static void transpose33(Float32List matrix, int offset) {
-  }
+  static void transpose33(Float32List matrix, int offset) {}
 
   static void zero(Float32List matrix, int offset) {
     matrix[offset++] = 0.0;
@@ -285,38 +278,37 @@ class Matrix44Operations {
 class Matrix44SIMDOperations {
   /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32x4List out, int outOffset, Float32x4List A,
-                       int aOffset, Float32x4List B, int bOffset) {
+      int aOffset, Float32x4List B, int bOffset) {
     var a0 = A[aOffset++];
     var a1 = A[aOffset++];
     var a2 = A[aOffset++];
     var a3 = A[aOffset++];
     var b0 = B[bOffset++];
     out[outOffset++] = b0.shuffle(Float32x4.XXXX) * a0 +
-                       b0.shuffle(Float32x4.YYYY) * a1 +
-                       b0.shuffle(Float32x4.ZZZZ) * a2 +
-                       b0.shuffle(Float32x4.WWWW) * a3;
+        b0.shuffle(Float32x4.YYYY) * a1 +
+        b0.shuffle(Float32x4.ZZZZ) * a2 +
+        b0.shuffle(Float32x4.WWWW) * a3;
     var b1 = B[bOffset++];
     out[outOffset++] = b1.shuffle(Float32x4.XXXX) * a0 +
-                       b1.shuffle(Float32x4.YYYY) * a1 +
-                       b1.shuffle(Float32x4.ZZZZ) * a2 +
-                       b1.shuffle(Float32x4.WWWW) * a3;
+        b1.shuffle(Float32x4.YYYY) * a1 +
+        b1.shuffle(Float32x4.ZZZZ) * a2 +
+        b1.shuffle(Float32x4.WWWW) * a3;
     var b2 = B[bOffset++];
     out[outOffset++] = b2.shuffle(Float32x4.XXXX) * a0 +
-                       b2.shuffle(Float32x4.YYYY) * a1 +
-                       b2.shuffle(Float32x4.ZZZZ) * a2 +
-                       b2.shuffle(Float32x4.WWWW) * a3;
+        b2.shuffle(Float32x4.YYYY) * a1 +
+        b2.shuffle(Float32x4.ZZZZ) * a2 +
+        b2.shuffle(Float32x4.WWWW) * a3;
     var b3 = B[bOffset++];
     out[outOffset++] = b3.shuffle(Float32x4.XXXX) * a0 +
-                       b3.shuffle(Float32x4.YYYY) * a1 +
-                       b3.shuffle(Float32x4.ZZZZ) * a2 +
-                       b3.shuffle(Float32x4.WWWW) * a3;
+        b3.shuffle(Float32x4.YYYY) * a1 +
+        b3.shuffle(Float32x4.ZZZZ) * a2 +
+        b3.shuffle(Float32x4.WWWW) * a3;
   }
 
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
   static void transform4(Float32x4List out, int outOffset, Float32x4List matrix,
-                         int matrixOffset, Float32x4List vector,
-                         int vectorOffset) {
+      int matrixOffset, Float32x4List vector, int vectorOffset) {
     Float32x4 v = vector[vectorOffset];
     Float32x4 xxxx = v.shuffle(Float32x4.XXXX);
     Float32x4 z = new Float32x4.zero();

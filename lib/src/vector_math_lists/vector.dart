@@ -49,13 +49,13 @@ abstract class VectorList<T extends Vector> {
   }
 
   VectorList.fromList(List list, int vectorLength,
-                      [int offset=0, int stride=0])
+      [int offset = 0, int stride = 0])
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
         _length = list.length,
-        _buffer = new Float32List(offset + list.length *
-                                  (stride == 0 ? vectorLength : stride)) {
+        _buffer = new Float32List(
+            offset + list.length * (stride == 0 ? vectorLength : stride)) {
     if (_stride < _vectorLength) {
       throw new ArgumentError('Stride cannot be smaller than the vector size.');
     }
@@ -65,12 +65,12 @@ abstract class VectorList<T extends Vector> {
   }
 
   VectorList.view(Float32List buffer, int vectorLength,
-                  [int offset=0, int stride=0])
+      [int offset = 0, int stride = 0])
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
-        _length = (buffer.length-offset) ~/
-                  (stride == 0 ? vectorLength : stride),
+        _length = (buffer.length - offset) ~/
+            (stride == 0 ? vectorLength : stride),
         _buffer = buffer {
     if (_stride < _vectorLength) {
       throw new ArgumentError('Stride cannot be smaller than the vector size.');
@@ -125,7 +125,6 @@ abstract class VectorList<T extends Vector> {
 }
 
 class Vector2List extends VectorList<Vector2> {
-
   Vector2List(int length, [int offset = 0, int stride = 0])
       : super(length, 2, offset, stride);
 
@@ -141,7 +140,6 @@ class Vector2List extends VectorList<Vector2> {
 }
 
 class Vector3List extends VectorList<Vector3> {
-
   Vector3List(int length, [int offset = 0, int stride = 0])
       : super(length, 3, offset, stride);
 
@@ -157,7 +155,6 @@ class Vector3List extends VectorList<Vector3> {
 }
 
 class Vector4List extends VectorList<Vector4> {
-
   Vector4List(int length, [int offset = 0, int stride = 0])
       : super(length, 4, offset, stride);
 

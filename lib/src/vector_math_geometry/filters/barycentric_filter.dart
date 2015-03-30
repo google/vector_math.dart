@@ -21,16 +21,19 @@
 part of vector_math_geometry;
 
 class BarycentricFilter extends GeometryFilter {
-  List<VertexAttrib> get generates => [new VertexAttrib('BARYCENTRIC', 3, 'float')];
+  List<VertexAttrib> get generates =>
+      [new VertexAttrib('BARYCENTRIC', 3, 'float')];
 
   MeshGeometry filter(MeshGeometry mesh) {
-    List<VertexAttrib> newAttribs = new List<VertexAttrib>.from(mesh.attribs, growable: true);
+    List<VertexAttrib> newAttribs =
+        new List<VertexAttrib>.from(mesh.attribs, growable: true);
 
     if (mesh.getAttrib('BARYCENTRIC') == null) {
       newAttribs.add(new VertexAttrib('BARYCENTRIC', 3, 'float'));
     }
 
-    MeshGeometry output = new MeshGeometry(mesh.triangleVertexCount, newAttribs);
+    MeshGeometry output =
+        new MeshGeometry(mesh.triangleVertexCount, newAttribs);
     Vector3List barycentricCoords = output.getViewForAttrib('BARYCENTRIC');
 
     List<VectorList> srcAttribs = new List<VectorList>();

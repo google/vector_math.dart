@@ -1,7 +1,6 @@
 part of vector_math_test;
 
 class UtilitiesTest extends BaseTest {
-
   void testDegrees() {
     relativeTest(degrees(Math.PI), 180.0);
   }

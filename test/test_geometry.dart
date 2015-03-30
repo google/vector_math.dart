@@ -9,10 +9,7 @@ class GeometryTest extends BaseTest {
       new Vector3(1.0, -1.0, 1.0),
     ]);
 
-    final Uint16List indices = new Uint16List.fromList([
-      0, 1, 2,
-      3, 2, 1
-    ]);
+    final Uint16List indices = new Uint16List.fromList([0, 1, 2, 3, 2, 1]);
 
     Vector3List normals = new Vector3List(positions.length);
 
@@ -46,10 +43,7 @@ class GeometryTest extends BaseTest {
       new Vector2(-1.0, 1.0),
     ]);
 
-    final Uint16List indices = new Uint16List.fromList([
-      0, 1, 2,
-      3, 2, 1
-    ]);
+    final Uint16List indices = new Uint16List.fromList([0, 1, 2, 3, 2, 1]);
 
     Vector4List tangents = new Vector4List(positions.length);
 
@@ -74,7 +68,7 @@ class GeometryTest extends BaseTest {
 
     // Check to ensure all the vertices were properly scaled
     Vector3List positions = cube.getViewForAttrib("POSITION");
-    for(int i = 0; i < positions.length; ++i) {
+    for (int i = 0; i < positions.length; ++i) {
       Vector3 position = positions[i];
       expect(position.storage[0].abs(), equals(2.0));
       expect(position.storage[1].abs(), equals(2.0));
@@ -109,7 +103,7 @@ class GeometryTest extends BaseTest {
 
     // Ensure that the same color was applied to all vertices
     Vector4List colors = cube.getViewForAttrib("COLOR");
-    for(int i = 0; i < colors.length; ++i) {
+    for (int i = 0; i < colors.length; ++i) {
       Vector4 color = colors[i];
       relativeTest(color, filterColor);
     }

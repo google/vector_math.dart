@@ -30,20 +30,20 @@ class Triangle {
   Vector3 get point1 => _point1;
   Vector3 get point2 => _point2;
 
-  Triangle() :
-    _point0 = new Vector3.zero(),
-    _point1 = new Vector3.zero(),
-    _point2 = new Vector3.zero() {}
+  Triangle()
+      : _point0 = new Vector3.zero(),
+        _point1 = new Vector3.zero(),
+        _point2 = new Vector3.zero() {}
 
-  Triangle.copy(Triangle other) :
-    _point0 = new Vector3.copy(other._point0),
-    _point1 = new Vector3.copy(other._point1),
-    _point2 = new Vector3.copy(other._point2) {}
+  Triangle.copy(Triangle other)
+      : _point0 = new Vector3.copy(other._point0),
+        _point1 = new Vector3.copy(other._point1),
+        _point2 = new Vector3.copy(other._point2) {}
 
-  Triangle.points(Vector3 point0_, Vector3 point1_, Vector3 point2_) :
-    _point0 = new Vector3.copy(point0_),
-    _point1 = new Vector3.copy(point1_),
-    _point2 = new Vector3.copy(point2_) {}
+  Triangle.points(Vector3 point0_, Vector3 point1_, Vector3 point2_)
+      : _point0 = new Vector3.copy(point0_),
+        _point1 = new Vector3.copy(point1_),
+        _point2 = new Vector3.copy(point2_) {}
 
   void copyOriginDirection(Vector3 point0_, Vector3 point1_, Vector3 point2_) {
     point0_.setFrom(_point0);

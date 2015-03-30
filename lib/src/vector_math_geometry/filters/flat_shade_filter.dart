@@ -25,18 +25,19 @@ class FlatShadeFilter extends GeometryFilter {
   List<VertexAttrib> get generates => [new VertexAttrib('NORMAL', 3, 'float')];
 
   MeshGeometry filter(MeshGeometry mesh) {
-    List<VertexAttrib> newAttribs = new List<VertexAttrib>.from(mesh.attribs, growable: true);
+    List<VertexAttrib> newAttribs =
+        new List<VertexAttrib>.from(mesh.attribs, growable: true);
 
     if (mesh.getAttrib('NORMAL') == null) {
       newAttribs.add(new VertexAttrib('NORMAL', 3, 'float'));
     }
 
-    MeshGeometry output = new MeshGeometry(mesh.triangleVertexCount, newAttribs);
+    MeshGeometry output =
+        new MeshGeometry(mesh.triangleVertexCount, newAttribs);
 
     Vector3 p0 = new Vector3.zero(),
         p1 = new Vector3.zero(),
-        p2 = new Vector3.zero(),
-        norm = new Vector3.zero();
+        p2 = new Vector3.zero();
 
     Vector3List srcPosition = mesh.getViewForAttrib('POSITION');
     Vector3List destPosition = output.getViewForAttrib('POSITION');
