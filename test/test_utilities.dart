@@ -1,24 +1,30 @@
-part of vector_math_test;
+library vector_math.test.utilities_test;
 
-class UtilitiesTest extends BaseTest {
-  void testDegrees() {
-    relativeTest(degrees(Math.PI), 180.0);
-  }
+import 'dart:math' as Math;
 
-  void testRadians() {
-    relativeTest(radians(90.0), Math.PI / 2.0);
-  }
+import 'package:unittest/unittest.dart';
 
-  void testMix() {
-    relativeTest(mix(2.5, 3.0, 1.0), 3.0);
-    relativeTest(mix(1.0, 3.0, 0.5), 2.0);
-    relativeTest(mix(2.5, 3.0, 0.0), 2.5);
-    relativeTest(mix(-1.0, 0.0, 2.0), 1.0);
-  }
+import 'package:vector_math/vector_math.dart';
 
-  void run() {
-    test('degrees', testDegrees);
-    test('radians', testRadians);
-    test('mix', testMix);
-  }
+import 'test_utils.dart';
+
+void testDegrees() {
+  relativeTest(degrees(Math.PI), 180.0);
+}
+
+void testRadians() {
+  relativeTest(radians(90.0), Math.PI / 2.0);
+}
+
+void testMix() {
+  relativeTest(mix(2.5, 3.0, 1.0), 3.0);
+  relativeTest(mix(1.0, 3.0, 0.5), 2.0);
+  relativeTest(mix(2.5, 3.0, 0.0), 2.5);
+  relativeTest(mix(-1.0, 0.0, 2.0), 1.0);
+}
+
+void main() {
+  test('degrees', testDegrees);
+  test('radians', testRadians);
+  test('mix', testMix);
 }
