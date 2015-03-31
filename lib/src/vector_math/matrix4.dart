@@ -807,14 +807,14 @@ class Matrix4 {
   Matrix4 rotateY(double angle) {
     double cosAngle = Math.cos(angle);
     double sinAngle = Math.sin(angle);
-    var t1 = storage[0] * cosAngle + storage[8] * sinAngle;
-    var t2 = storage[1] * cosAngle + storage[9] * sinAngle;
-    var t3 = storage[2] * cosAngle + storage[10] * sinAngle;
-    var t4 = storage[3] * cosAngle + storage[11] * sinAngle;
-    var t5 = storage[0] * -sinAngle + storage[8] * cosAngle;
-    var t6 = storage[1] * -sinAngle + storage[9] * cosAngle;
-    var t7 = storage[2] * -sinAngle + storage[10] * cosAngle;
-    var t8 = storage[3] * -sinAngle + storage[11] * cosAngle;
+    var t1 = storage[0] * cosAngle - storage[8] * sinAngle;
+    var t2 = storage[1] * cosAngle - storage[9] * sinAngle;
+    var t3 = storage[2] * cosAngle - storage[10] * sinAngle;
+    var t4 = storage[3] * cosAngle - storage[11] * sinAngle;
+    var t5 = storage[0] * sinAngle + storage[8] * cosAngle;
+    var t6 = storage[1] * sinAngle + storage[9] * cosAngle;
+    var t7 = storage[2] * sinAngle + storage[10] * cosAngle;
+    var t8 = storage[3] * sinAngle + storage[11] * cosAngle;
     storage[0] = t1;
     storage[1] = t2;
     storage[2] = t3;
