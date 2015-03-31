@@ -2,23 +2,21 @@ library console_test_harness;
 
 import 'package:unittest/unittest.dart';
 
-import 'test_aabb.dart' as aabb;
-import 'test_colors.dart' as colors;
-import 'test_frustum.dart' as frustum;
-import 'test_geometry.dart' as geometry;
-import 'test_matrix.dart' as matrix;
-import 'test_noise.dart' as noise;
-import 'test_opengl_matrix.dart' as opengl_matrix;
-import 'test_plane.dart' as plane;
-import 'test_quaternion.dart' as quaternion;
-import 'test_ray.dart' as ray;
-import 'test_sphere.dart' as sphere;
-import 'test_utilities.dart' as utilities;
-import 'test_vector.dart' as vector;
+import 'aabb_test.dart' as aabb;
+import 'colors_test.dart' as colors;
+import 'frustum_test.dart' as frustum;
+import 'geometry_test.dart' as geometry;
+import 'matrix_test.dart' as matrix;
+import 'noise_test.dart' as noise;
+import 'opengl_matrix_test.dart' as opengl_matrix;
+import 'plane_test.dart' as plane;
+import 'quaternion_test.dart' as quaternion;
+import 'ray_test.dart' as ray;
+import 'sphere_test.dart' as sphere;
+import 'utilities_test.dart' as utilities;
+import 'vector_test.dart' as vector;
 
 void main() {
-  groupSep = ' - ';
-
   group('AABB', aabb.main);
   group('Colors', colors.main);
   group('Frustum', frustum.main);
