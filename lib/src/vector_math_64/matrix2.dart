@@ -235,7 +235,7 @@ class Matrix2 {
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator *(dynamic arg) {
+  operator *(arg) {
     if (arg is double) {
       return _mul_scale(arg);
     }

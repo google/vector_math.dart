@@ -20,7 +20,7 @@ void absoluteTest(var output, var expectedOutput) {
 
 Vector3 v3(double x, double y, double z) => new Vector3(x, y, z);
 
-dynamic makeMatrix(int rows, int cols) {
+makeMatrix(int rows, int cols) {
   if (rows != cols) {
     return null;
   }
@@ -38,7 +38,7 @@ dynamic makeMatrix(int rows, int cols) {
   return null;
 }
 
-dynamic parseMatrix(String input) {
+parseMatrix(String input) {
   input = input.trim();
   List<String> rows = input.split("\n");
   List<double> values = new List<double>();
@@ -61,7 +61,7 @@ dynamic parseMatrix(String input) {
     }
   }
 
-  dynamic m = makeMatrix(rows.length, col_count);
+  var m = makeMatrix(rows.length, col_count);
   for (int j = 0; j < rows.length; j++) {
     for (int i = 0; i < col_count; i++) {
       m[m.index(j, i)] = values[j * col_count + i];
@@ -72,7 +72,7 @@ dynamic parseMatrix(String input) {
   return m;
 }
 
-dynamic parseVector(String v) {
+parseVector(String v) {
   v = v.trim();
   Pattern pattern = new RegExp('[\\s]+', multiLine: true, caseSensitive: false);
   List<String> rows = v.split(pattern);
@@ -85,7 +85,7 @@ dynamic parseVector(String v) {
     values.add(double.parse(rows[i]));
   }
 
-  dynamic r = null;
+  var r = null;
   if (values.length == 2) {
     r = new Vector2(values[0], values[1]);
   } else if (values.length == 3) {

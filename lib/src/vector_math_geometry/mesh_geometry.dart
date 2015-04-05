@@ -257,7 +257,7 @@ class MeshGeometry {
     return null;
   }
 
-  dynamic getViewForAttrib(String name) {
+  VectorList getViewForAttrib(String name) {
     for (VertexAttrib attrib in attribs) {
       if (attrib.name == name) return attrib.getView(buffer);
     }
