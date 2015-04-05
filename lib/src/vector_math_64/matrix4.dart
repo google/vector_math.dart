@@ -850,7 +850,7 @@ class Matrix4 {
   }
 
   /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
-  Matrix4 scale(x, [double y = null, double z = null]) {
+  Matrix4 scale(x, [double y, double z]) {
     double sx;
     double sy;
     double sz;
@@ -1782,7 +1782,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector3 rotated3(Vector3 arg, [Vector3 out = null]) {
+  Vector3 rotated3(Vector3 arg, [Vector3 out]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -1810,7 +1810,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector3 transformed3(Vector3 arg, [Vector3 out = null]) {
+  Vector3 transformed3(Vector3 arg, [Vector3 out]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -1843,7 +1843,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector4 transformed(Vector4 arg, [Vector4 out = null]) {
+  Vector4 transformed(Vector4 arg, [Vector4 out]) {
     if (out == null) {
       out = new Vector4.copy(arg);
     } else {

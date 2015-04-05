@@ -97,7 +97,7 @@ class SimplexNoise {
   double _dot4(List<double> g, double x, double y, double z, double w) =>
       g[0] * x + g[1] * y + g[2] * z + g[3] * w;
 
-  SimplexNoise([Math.Random r = null]) {
+  SimplexNoise([Math.Random r]) {
     if (r == null) {
       r = new Math.Random();
     }

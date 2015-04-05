@@ -116,7 +116,7 @@ class MeshGeometry {
 
   MeshGeometry._internal(
       int this.length, int this.stride, List<VertexAttrib> this.attribs,
-      [Float32List externBuffer = null]) {
+      [Float32List externBuffer]) {
     if (externBuffer == null) {
       buffer =
           new Float32List((length * stride) ~/ Float32List.BYTES_PER_ELEMENT);

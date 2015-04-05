@@ -923,7 +923,7 @@ class Matrix3 {
     arg.z = z_;
     return arg;
   }
-  Vector3 transformed(Vector3 arg, [Vector3 out = null]) {
+  Vector3 transformed(Vector3 arg, [Vector3 out]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {

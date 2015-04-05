@@ -501,7 +501,7 @@ class Matrix2 {
     return arg;
   }
 
-  Vector2 transformed(Vector2 arg, [Vector2 out = null]) {
+  Vector2 transformed(Vector2 arg, [Vector2 out]) {
     if (out == null) {
       out = new Vector2.copy(arg);
     } else {

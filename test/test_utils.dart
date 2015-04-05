@@ -85,7 +85,7 @@ parseVector(String v) {
     values.add(double.parse(rows[i]));
   }
 
-  var r = null;
+  var r;
   if (values.length == 2) {
     r = new Vector2(values[0], values[1]);
   } else if (values.length == 3) {
