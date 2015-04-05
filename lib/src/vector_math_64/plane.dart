@@ -55,19 +55,19 @@ class Plane {
 
   Plane()
       : _normal = new Vector3.zero(),
-        _constant = 0.0 {}
+        _constant = 0.0;
 
   Plane.copy(Plane other)
       : _normal = new Vector3.copy(other._normal),
-        _constant = other._constant {}
+        _constant = other._constant;
 
   Plane.components(double x, double y, double z, double w)
       : _normal = new Vector3(x, y, z),
-        _constant = w {}
+        _constant = w;
 
   Plane.normalconstant(Vector3 normal_, double constant_)
       : _normal = new Vector3.copy(normal_),
-        _constant = constant_ {}
+        _constant = constant_;
 
   void copyFrom(Plane o) {
     _normal.setFrom(o._normal);

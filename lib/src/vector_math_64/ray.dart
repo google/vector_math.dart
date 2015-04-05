@@ -30,15 +30,15 @@ class Ray {
 
   Ray()
       : _origin = new Vector3.zero(),
-        _direction = new Vector3.zero() {}
+        _direction = new Vector3.zero();
 
   Ray.copy(Ray other)
       : _origin = new Vector3.copy(other._origin),
-        _direction = new Vector3.copy(other._direction) {}
+        _direction = new Vector3.copy(other._direction);
 
   Ray.originDirection(Vector3 origin_, Vector3 direction_)
       : _origin = new Vector3.copy(origin_),
-        _direction = new Vector3.copy(direction_) {}
+        _direction = new Vector3.copy(direction_);
 
   void copyOriginDirection(Vector3 origin_, Vector3 direction_) {
     origin_.setFrom(_origin);
