@@ -19,6 +19,7 @@
 
 */
 
+/// A library for working with lists of vectors in a memory efficient way.
 library vector_math_lists;
 
 import 'dart:typed_data';
