@@ -42,6 +42,24 @@ void main() {
     expect(buffer[7], 0.0);
   });
 
+  test('Vector2List.view tight fit', () {
+    Float32List buffer = new Float32List(8);
+    Vector2List list = new Vector2List.view(buffer, 2, 4);
+    // The list length should be (8 - 2) ~/ 2 == 2 as the stride of the last
+    // element is negligible.
+    expect(list.length, 2);
+    list[0] = new Vector2(1.0, 2.0);
+    list[1] = new Vector2(3.0, 4.0);
+    expect(buffer[0], 0.0);
+    expect(buffer[1], 0.0);
+    expect(buffer[2], 1.0);
+    expect(buffer[3], 2.0);
+    expect(buffer[4], 0.0);
+    expect(buffer[5], 0.0);
+    expect(buffer[6], 3.0);
+    expect(buffer[7], 4.0);
+  });
+
   test('Vector2List.fromList', () {
     List<Vector2> input = new List<Vector2>(3);
     input[0] = new Vector2(1.0, 2.0);
