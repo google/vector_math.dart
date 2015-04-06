@@ -645,7 +645,7 @@ class Matrix4 {
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  dynamic operator *(dynamic arg) {
+  operator *(arg) {
     if (arg is double) {
       return _mul_scale(arg);
     }
@@ -706,7 +706,7 @@ class Matrix4 {
   }
 
   /// Translate this matrix by a [Vector3], [Vector4], or x,y,z
-  Matrix4 translate(dynamic x, [double y = 0.0, double z = 0.0]) {
+  Matrix4 translate(x, [double y = 0.0, double z = 0.0]) {
     double tx;
     double ty;
     double tz;
@@ -807,14 +807,14 @@ class Matrix4 {
   Matrix4 rotateY(double angle) {
     double cosAngle = Math.cos(angle);
     double sinAngle = Math.sin(angle);
-    var t1 = storage[0] * cosAngle + storage[8] * sinAngle;
-    var t2 = storage[1] * cosAngle + storage[9] * sinAngle;
-    var t3 = storage[2] * cosAngle + storage[10] * sinAngle;
-    var t4 = storage[3] * cosAngle + storage[11] * sinAngle;
-    var t5 = storage[0] * -sinAngle + storage[8] * cosAngle;
-    var t6 = storage[1] * -sinAngle + storage[9] * cosAngle;
-    var t7 = storage[2] * -sinAngle + storage[10] * cosAngle;
-    var t8 = storage[3] * -sinAngle + storage[11] * cosAngle;
+    var t1 = storage[0] * cosAngle + storage[8] * -sinAngle;
+    var t2 = storage[1] * cosAngle + storage[9] * -sinAngle;
+    var t3 = storage[2] * cosAngle + storage[10] * -sinAngle;
+    var t4 = storage[3] * cosAngle + storage[11] * -sinAngle;
+    var t5 = storage[0] * sinAngle + storage[8] * cosAngle;
+    var t6 = storage[1] * sinAngle + storage[9] * cosAngle;
+    var t7 = storage[2] * sinAngle + storage[10] * cosAngle;
+    var t8 = storage[3] * sinAngle + storage[11] * cosAngle;
     storage[0] = t1;
     storage[1] = t2;
     storage[2] = t3;
@@ -850,7 +850,7 @@ class Matrix4 {
   }
 
   /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
-  Matrix4 scale(dynamic x, [double y = null, double z = null]) {
+  Matrix4 scale(x, [double y, double z]) {
     double sx;
     double sy;
     double sz;
@@ -1348,11 +1348,11 @@ class Matrix4 {
     double s = Math.sin(radians);
     storage[0] = c;
     storage[1] = 0.0;
-    storage[2] = s;
+    storage[2] = -s;
     storage[4] = 0.0;
     storage[5] = 1.0;
     storage[6] = 0.0;
-    storage[8] = -s;
+    storage[8] = s;
     storage[9] = 0.0;
     storage[10] = c;
     storage[3] = 0.0;
@@ -1782,7 +1782,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector3 rotated3(Vector3 arg, [Vector3 out = null]) {
+  Vector3 rotated3(Vector3 arg, [Vector3 out]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -1810,7 +1810,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector3 transformed3(Vector3 arg, [Vector3 out = null]) {
+  Vector3 transformed3(Vector3 arg, [Vector3 out]) {
     if (out == null) {
       out = new Vector3.copy(arg);
     } else {
@@ -1843,7 +1843,7 @@ class Matrix4 {
     return arg;
   }
 
-  Vector4 transformed(Vector4 arg, [Vector4 out = null]) {
+  Vector4 transformed(Vector4 arg, [Vector4 out]) {
     if (out == null) {
       out = new Vector4.copy(arg);
     } else {
