@@ -218,7 +218,7 @@ class Vector3 implements Vector {
 
     final d = dot(other);
 
-    return Math.acos(d);
+    return Math.acos(d.clamp(-1.0, 1.0));
   }
 
   /// Returns the signed angle between [this] and [other] around [normal]
