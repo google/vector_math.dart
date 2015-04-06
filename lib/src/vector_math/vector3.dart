@@ -210,6 +210,27 @@ class Vector3 implements Vector {
     return this.clone().sub(arg).length2;
   }
 
+  /// Returns the angle between [this] vector and [other] in radians.
+  double angleTo(Vector3 other) {
+    if (x == other.x && y == other.y && z == other.z) {
+      return 0.0;
+    }
+
+    final d = dot(other);
+
+    return Math.acos(d);
+  }
+
+  /// Returns the signed angle between [this] and [other] around [normal]
+  /// in radians.
+  double angleToSigned(Vector3 other, Vector3 normal) {
+    final angle = angleTo(other);
+    final c = cross(other);
+    final d = c.dot(normal);
+
+    return d < 0.0 ? -angle : angle;
+  }
+
   /// Inner product.
   double dot(Vector3 other) {
     double sum;

@@ -76,6 +76,7 @@ void buildPlaneVectors(final Vector3 planeNormal, Vector3 u, Vector3 v) {
   }
 }
 
+/// Base class for vectors
 abstract class Vector {
   List<double> get storage;
 }

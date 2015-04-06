@@ -1,6 +1,7 @@
 library vector_math.test.vector_test;
 
 import 'dart:typed_data';
+import 'dart:math' as Math;
 
 import 'package:unittest/unittest.dart';
 
@@ -559,6 +560,24 @@ void testVec4DistanceToSquared() {
   expect(a.distanceToSquared(c), equals(4.0));
 }
 
+void testVec3AngleTo() {
+  final v0 = new Vector3(1.0, 0.0, 0.0);
+  final v1 = new Vector3(0.0, 1.0, 0.0);
+
+  expect(v0.angleTo(v0), equals(0.0));
+  expect(v0.angleTo(v1), equals(Math.PI / 2.0));
+}
+
+void testVec3AngleToSigned() {
+  final v0 = new Vector3(1.0, 0.0, 0.0);
+  final v1 = new Vector3(0.0, 1.0, 0.0);
+  final n = new Vector3(0.0, 0.0, 1.0);
+
+  expect(v0.angleToSigned(v0, n), equals(0.0));
+  expect(v0.angleToSigned(v1, n), equals(Math.PI / 2.0));
+  expect(v1.angleToSigned(v0, n), equals(-Math.PI / 2.0));
+}
+
 void testVec2List() {
   {
     Vector2List list = new Vector2List(10, 1);
@@ -648,6 +667,9 @@ void main() {
   test('2D distanceToSquared', testVec2DistanceToSquared);
   test('3D distanceToSquared', testVec3DistanceToSquared);
   test('4D distanceToSquared', testVec4DistanceToSquared);
+
+  test('3D angleTo', testVec3AngleTo);
+  test('3D angleToSinged', testVec3AngleToSigned);
 
   test('3D instancing from Float32List', testVec3InstacinfFromFloat32List);
   test('3D instancing from ByteBuffer', testVec3InstacingFromByteBuffer);
