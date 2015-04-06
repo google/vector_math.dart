@@ -201,13 +201,15 @@ class Vector3 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector3 arg) {
-    return this.clone().sub(arg).length;
-  }
+  double distanceTo(Vector3 arg) => Math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
   double distanceToSquared(Vector3 arg) {
-    return this.clone().sub(arg).length2;
+    final dx = x - arg.x;
+    final dy = y - arg.y;
+    final dz = z - arg.z;
+
+    return dx * dx + dy * dy + dz * dz;
   }
 
   /// Inner product.
