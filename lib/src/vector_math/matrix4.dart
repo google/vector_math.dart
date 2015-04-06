@@ -1130,16 +1130,22 @@ class Matrix4 {
   /// Returns the rotation matrix from this homogeneous transformation matrix.
   Matrix3 getRotation() {
     Matrix3 r = new Matrix3.zero();
-    r.storage[0] = storage[0];
-    r.storage[1] = storage[1];
-    r.storage[2] = storage[2];
-    r.storage[3] = storage[4];
-    r.storage[4] = storage[5];
-    r.storage[5] = storage[6];
-    r.storage[6] = storage[8];
-    r.storage[7] = storage[9];
-    r.storage[8] = storage[10];
+    copyRotation(r);
     return r;
+  }
+
+  /// Copies the rotation matrix from this homogeneous transformation matrix
+  /// into [rotation].
+  void copyRotation(Matrix3 rotation) {
+    rotation.storage[0] = storage[0];
+    rotation.storage[1] = storage[1];
+    rotation.storage[2] = storage[2];
+    rotation.storage[3] = storage[4];
+    rotation.storage[4] = storage[5];
+    rotation.storage[5] = storage[6];
+    rotation.storage[6] = storage[8];
+    rotation.storage[7] = storage[9];
+    rotation.storage[8] = storage[10];
   }
 
   /// Sets the rotation matrix in this homogeneous transformation matrix.
