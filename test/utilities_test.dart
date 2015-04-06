@@ -23,8 +23,23 @@ void testMix() {
   relativeTest(mix(-1.0, 0.0, 2.0), 1.0);
 }
 
+void testSmoothStep() {
+  relativeTest(smoothStep(2.5, 3.0, 2.5), 0.0);
+  relativeTest(smoothStep(2.5, 3.0, 2.75), 0.5);
+  relativeTest(smoothStep(2.5, 3.0, 3.5), 1.0);
+}
+
+void testCatmullRom() {
+  relativeTest(catmullRom(2.5, 3.0, 1.0, 3.0, 1.0), 1.0);
+  relativeTest(catmullRom(1.0, 3.0, 1.0, 3.0, 0.5), 2.0);
+  relativeTest(catmullRom(2.5, 3.0, 1.0, 3.0, 0.0), 3.0);
+  relativeTest(catmullRom(-1.0, 0.0, 1.0, 0.0, 2.0), -2.0);
+}
+
 void main() {
   test('degrees', testDegrees);
   test('radians', testRadians);
   test('mix', testMix);
+  test('smoothStep', testSmoothStep);
+  test('catmullRom', testCatmullRom);
 }
