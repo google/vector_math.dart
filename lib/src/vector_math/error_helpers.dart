@@ -23,7 +23,7 @@ part of vector_math;
 /// Returns relative error between [calculated] and [correct].
 /// The type of [calculated] and [correct] must match and can
 /// be any vector, matrix, or quaternion.
-double relativeError(dynamic calculated, dynamic correct) {
+double relativeError(calculated, correct) {
   if (calculated is num && correct is num) {
     double diff = (calculated - correct).abs();
     return diff / correct;
@@ -34,7 +34,7 @@ double relativeError(dynamic calculated, dynamic correct) {
 /// Returns absolute error between [calculated] and [correct].
 /// The type of [calculated] and [correct] must match and can
 /// be any vector, matrix, or quaternion.
-double absoluteError(dynamic calculated, dynamic correct) {
+double absoluteError(calculated, correct) {
   if (calculated is num && correct is num) {
     double diff = (calculated - correct).abs();
     return diff;
