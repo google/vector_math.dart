@@ -31,15 +31,15 @@ class Sphere {
 
   Sphere()
       : _center = new Vector3.zero(),
-        _radius = 0.0 {}
+        _radius = 0.0;
 
   Sphere.copy(Sphere other)
       : _center = new Vector3.copy(other._center),
-        _radius = other._radius {}
+        _radius = other._radius;
 
   Sphere.centerRadius(Vector3 center_, double radius_)
       : _center = new Vector3.copy(center_),
-        _radius = radius_ {}
+        _radius = radius_;
 
   void copyFrom(Sphere o) {
     _center.setFrom(o._center);

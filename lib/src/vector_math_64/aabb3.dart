@@ -35,20 +35,20 @@ class Aabb3 {
 
   Aabb3()
       : _min = new Vector3.zero(),
-        _max = new Vector3.zero() {}
+        _max = new Vector3.zero();
 
   Aabb3.copy(Aabb3 other)
       : _min = new Vector3.copy(other._min),
-        _max = new Vector3.copy(other._max) {}
+        _max = new Vector3.copy(other._max);
 
   @deprecated
   Aabb3.minmax(Vector3 min_, Vector3 max_)
       : _min = new Vector3.copy(min_),
-        _max = new Vector3.copy(max_) {}
+        _max = new Vector3.copy(max_);
 
   Aabb3.minMax(Vector3 min_, Vector3 max_)
       : _min = new Vector3.copy(min_),
-        _max = new Vector3.copy(max_) {}
+        _max = new Vector3.copy(max_);
 
   void copyMinMax(Vector3 min_, Vector3 max_) {
     max_.setFrom(_max);
