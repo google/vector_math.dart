@@ -65,7 +65,7 @@ abstract class VectorList<T extends Vector> {
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
-        _length = (buffer.length - offset) ~/
+        _length = (buffer.length - Math.max(0, offset - stride)) ~/
             (stride == 0 ? vectorLength : stride),
         _buffer = buffer {
     if (_stride < _vectorLength) {
