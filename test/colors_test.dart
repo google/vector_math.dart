@@ -241,11 +241,13 @@ void testRgbHsv() {
 }
 
 void main() {
-  test('Colors From RGBA', testFromRgba);
-  test('Colors Hex String', testHexString);
-  test('Colors To Grayscale', testToGrayscale);
-  test('Colors Alpha Blend', testAlphaBlend);
-  test('Colors Linear/Gamma', testLinearGamma);
-  test('Colors RGB/HSL', testRgbHsl);
-  test('Colors RGB/HSV', testRgbHsv);
+  group('Colors', () {
+    test('From RGBA', testFromRgba);
+    test('Hex String', testHexString);
+    test('To Grayscale', testToGrayscale);
+    test('Alpha Blend', testAlphaBlend);
+    test('Linear/Gamma', testLinearGamma);
+    test('RGB/HSL', testRgbHsl);
+    test('RGB/HSV', testRgbHsv);
+  });
 }

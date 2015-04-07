@@ -8,6 +8,12 @@ import 'package:unittest/unittest.dart';
 
 import 'package:vector_math/vector_math.dart';
 
+Vector2 $v2(double x, double y) => new Vector2(x, y);
+
+Vector3 $v3(double x, double y, double z) => new Vector3(x, y, z);
+
+Vector4 $v4(double x, double y, double z, double w) => new Vector4(x, y, z, w);
+
 void relativeTest(var output, var expectedOutput) {
   final num errorThreshold = 0.0005;
   num error = relativeError(output, expectedOutput).abs();
@@ -21,8 +27,6 @@ void absoluteTest(var output, var expectedOutput) {
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : absoluteError = $error');
 }
-
-Vector3 v3(double x, double y, double z) => new Vector3(x, y, z);
 
 makeMatrix(int rows, int cols) {
   if (rows != cols) {

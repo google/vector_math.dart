@@ -12,8 +12,9 @@ import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
 
-void testAt() {
-  final parent = new Ray.originDirection(_v(1.0, 1.0, 1.0), _v(-1.0, 1.0, 1.0));
+void testRayAt() {
+  final parent =
+      new Ray.originDirection($v3(1.0, 1.0, 1.0), $v3(-1.0, 1.0, 1.0));
 
   final atOrigin = parent.at(0.0);
   final atPositive = parent.at(1.0);
@@ -48,13 +49,14 @@ void testAt() {
   expect(atNegative.z, equals(-1.0));
 }
 
-void testIntersectionSphere() {
-  final parent = new Ray.originDirection(_v(1.0, 1.0, 1.0), _v(0.0, 1.0, 0.0));
-  final inside = new Sphere.centerRadius(_v(2.0, 1.0, 1.0), 2.0);
-  final hitting = new Sphere.centerRadius(_v(2.5, 4.5, 1.0), 2.0);
-  final cutting = new Sphere.centerRadius(_v(0.0, 5.0, 1.0), 1.0);
-  final outside = new Sphere.centerRadius(_v(-2.5, 1.0, 1.0), 1.0);
-  final behind = new Sphere.centerRadius(_v(1.0, -1.0, 1.0), 1.0);
+void testRayIntersectionSphere() {
+  final parent =
+      new Ray.originDirection($v3(1.0, 1.0, 1.0), $v3(0.0, 1.0, 0.0));
+  final inside = new Sphere.centerRadius($v3(2.0, 1.0, 1.0), 2.0);
+  final hitting = new Sphere.centerRadius($v3(2.5, 4.5, 1.0), 2.0);
+  final cutting = new Sphere.centerRadius($v3(0.0, 5.0, 1.0), 1.0);
+  final outside = new Sphere.centerRadius($v3(-2.5, 1.0, 1.0), 1.0);
+  final behind = new Sphere.centerRadius($v3(1.0, -1.0, 1.0), 1.0);
 
   expect(parent.intersectsWithSphere(inside), equals(Math.sqrt(3.0)));
   expect(parent.intersectsWithSphere(hitting), equals(3.5 - Math.sqrt(1.75)));
@@ -63,16 +65,17 @@ void testIntersectionSphere() {
   expect(parent.intersectsWithSphere(behind), equals(null));
 }
 
-void testIntersectionTriangle() {
-  final parent = new Ray.originDirection(_v(1.0, 1.0, 1.0), _v(0.0, 1.0, 0.0));
+void testRayIntersectionTriangle() {
+  final parent =
+      new Ray.originDirection($v3(1.0, 1.0, 1.0), $v3(0.0, 1.0, 0.0));
   final hitting = new Triangle.points(
-      _v(2.0, 2.0, 0.0), _v(0.0, 4.0, -1.0), _v(0.0, 4.0, 3.0));
+      $v3(2.0, 2.0, 0.0), $v3(0.0, 4.0, -1.0), $v3(0.0, 4.0, 3.0));
   final cutting = new Triangle.points(
-      _v(0.0, 1.5, 1.0), _v(2.0, 1.5, 1.0), _v(1.0, 1.5, 3.0));
+      $v3(0.0, 1.5, 1.0), $v3(2.0, 1.5, 1.0), $v3(1.0, 1.5, 3.0));
   final outside = new Triangle.points(
-      _v(2.0, 2.0, 0.0), _v(2.0, 6.0, 0.0), _v(2.0, 2.0, 3.0));
+      $v3(2.0, 2.0, 0.0), $v3(2.0, 6.0, 0.0), $v3(2.0, 2.0, 3.0));
   final behind = new Triangle.points(
-      _v(0.0, 0.0, 0.0), _v(0.0, 3.0, 0.0), _v(0.0, 3.0, 4.0));
+      $v3(0.0, 0.0, 0.0), $v3(0.0, 3.0, 0.0), $v3(0.0, 3.0, 4.0));
 
   absoluteTest(parent.intersectsWithTriangle(hitting), 2.0);
   absoluteTest(parent.intersectsWithTriangle(cutting), 0.5);
@@ -82,34 +85,32 @@ void testIntersectionTriangle() {
   // Test cases from real-world failures:
   // Just barely intersects, but gets rounded out
   final p2 = new Ray.originDirection(
-      _v(0.0, -0.16833500564098358, 0.7677000164985657),
-      _v(-0.0, -0.8124330043792725, -0.5829949975013733));
+      $v3(0.0, -0.16833500564098358, 0.7677000164985657),
+      $v3(-0.0, -0.8124330043792725, -0.5829949975013733));
   final t2 = new Triangle.points(
-      _v(0.03430179879069328, -0.7268069982528687, 0.3532710075378418),
-      _v(0.0, -0.7817990183830261, 0.3641969859600067),
-      _v(0.0, -0.7293699979782104, 0.3516849875450134));
-
-  absoluteTest(p2.intersectsWithTriangle(t2), 0.7078371874391822);
-
+      $v3(0.03430179879069328, -0.7268069982528687, 0.3532710075378418),
+      $v3(0.0, -0.7817990183830261, 0.3641969859600067),
+      $v3(0.0, -0.7293699979782104, 0.3516849875450134));
+  expect(p2.intersectsWithTriangle(t2), closeTo(0.7078371874391822, 1e-10));
   // Ray is not quite perpendicular to triangle, but gets rounded out
   final p3 = new Ray.originDirection(
-      _v(0.023712199181318283, -0.15045200288295746, 0.7751160264015198),
-      _v(0.6024960279464722, -0.739005982875824, -0.3013699948787689));
+      $v3(0.023712199181318283, -0.15045200288295746, 0.7751160264015198),
+      $v3(0.6024960279464722, -0.739005982875824, -0.3013699948787689));
   final t3 = new Triangle.points(
-      _v(0.16174300014972687, -0.3446039855480194, 0.7121580243110657),
-      _v(0.1857299953699112, -0.3468630015850067, 0.6926270127296448),
-      _v(0.18045000731945038, -0.3193660080432892, 0.6921690106391907));
-
-  absoluteTest(p3.intersectsWithTriangle(t3), 0.2538471189773835);
+      $v3(0.16174300014972687, -0.3446039855480194, 0.7121580243110657),
+      $v3(0.1857299953699112, -0.3468630015850067, 0.6926270127296448),
+      $v3(0.18045000731945038, -0.3193660080432892, 0.6921690106391907));
+  expect(p3.intersectsWithTriangle(t3), closeTo(0.2538471189773835, 1e-10));
 }
 
-void testIntersectionAabb3() {
-  final parent = new Ray.originDirection(_v(1.0, 1.0, 1.0), _v(0.0, 1.0, 0.0));
-  final hitting = new Aabb3.minMax(_v(0.5, 3.5, -10.0), _v(2.5, 5.5, 10.0));
-  final cutting = new Aabb3.minMax(_v(0.0, 2.0, 1.0), _v(2.0, 3.0, 2.0));
-  final outside = new Aabb3.minMax(_v(2.0, 0.0, 0.0), _v(6.0, 6.0, 6.0));
-  final behind = new Aabb3.minMax(_v(0.0, -2.0, 0.0), _v(2.0, 0.0, 2.0));
-  final inside = new Aabb3.minMax(_v(0.0, 0.0, 0.0), _v(2.0, 2.0, 2.0));
+void testRayIntersectionAabb3() {
+  final parent =
+      new Ray.originDirection($v3(1.0, 1.0, 1.0), $v3(0.0, 1.0, 0.0));
+  final hitting = new Aabb3.minMax($v3(0.5, 3.5, -10.0), $v3(2.5, 5.5, 10.0));
+  final cutting = new Aabb3.minMax($v3(0.0, 2.0, 1.0), $v3(2.0, 3.0, 2.0));
+  final outside = new Aabb3.minMax($v3(2.0, 0.0, 0.0), $v3(6.0, 6.0, 6.0));
+  final behind = new Aabb3.minMax($v3(0.0, -2.0, 0.0), $v3(2.0, 0.0, 2.0));
+  final inside = new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(2.0, 2.0, 2.0));
 
   expect(parent.intersectsWithAabb3(hitting), equals(2.5));
   expect(parent.intersectsWithAabb3(cutting), equals(1.0));
@@ -118,15 +119,11 @@ void testIntersectionAabb3() {
   expect(parent.intersectsWithAabb3(inside), equals(-1.0));
 }
 
-Vector3 _v(double x, double y, double z) {
-  return new Vector3(x, y, z);
-}
-
 void main() {
   group('Ray', () {
-    test('At', testAt);
-    test('Intersection Sphere', testIntersectionSphere);
-    test('Intersection Triangle', testIntersectionTriangle);
-    test('Intersection Aabb3', testIntersectionAabb3);
+    test('At', testRayAt);
+    test('Intersection Sphere', testRayIntersectionSphere);
+    test('Intersection Triangle', testRayIntersectionTriangle);
+    test('Intersection Aabb3', testRayIntersectionAabb3);
   });
 }

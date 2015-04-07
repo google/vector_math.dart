@@ -123,13 +123,16 @@ void testColorFilter() {
 }
 
 void main() {
-  // Attribute Generation tests
-  test('normal generation', testGenerateNormals);
-  test('tangent generation', testGenerateTangents);
-
-  // Filter tests
-  test('transform filter', testTransformFilter);
-  test('flat shade filter', testFlatShadeFilter);
-  test('barycentric filter', testBarycentricFilter);
-  test('color filter', testColorFilter);
+  group('Geometry', () {
+    group('Generators', () {
+      test('normal generation', testGenerateNormals);
+      test('tangent generation', testGenerateTangents);
+    });
+    group('Filters', () {
+      test('transform filter', testTransformFilter);
+      test('flat shade filter', testFlatShadeFilter);
+      test('barycentric filter', testBarycentricFilter);
+      test('color filter', testColorFilter);
+    });
+  });
 }

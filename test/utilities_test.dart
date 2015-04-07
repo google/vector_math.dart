@@ -41,9 +41,11 @@ void testCatmullRom() {
 }
 
 void main() {
-  test('degrees', testDegrees);
-  test('radians', testRadians);
-  test('mix', testMix);
-  test('smoothStep', testSmoothStep);
-  test('catmullRom', testCatmullRom);
+  group('Utilities', () {
+    test('degrees', testDegrees);
+    test('radians', testRadians);
+    test('mix', testMix);
+    test('smoothStep', testSmoothStep);
+    test('catmullRom', testCatmullRom);
+  });
 }

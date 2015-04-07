@@ -29,5 +29,7 @@ void testSimplexNoise() {
 }
 
 void main() {
-  test('Simplex Noise', testSimplexNoise);
+  group('Noise', () {
+    test('Simplex Noise', testSimplexNoise);
+  });
 }
