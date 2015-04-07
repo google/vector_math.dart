@@ -550,6 +550,18 @@ void testRotateMatrix() {
   return;
 }
 
+void testGetRotationMatrix() {
+  final mat4 = new Matrix4.rotationX(Math.PI) *
+      new Matrix4.rotationY(-Math.PI) *
+      new Matrix4.rotationZ(Math.PI);
+  final mat3 = new Matrix3.rotationX(Math.PI) *
+      new Matrix3.rotationY(-Math.PI) *
+      new Matrix3.rotationZ(Math.PI);
+  final matRot = mat4.getRotation();
+
+  relativeTest(mat3, matRot);
+}
+
 void testMat2Transform() {
   var rot = new Matrix2.rotation(Math.PI / 4);
   final input = new Vector2(0.234245234259, 0.890723489233);
@@ -810,6 +822,7 @@ void main() {
   test('Matrix translate', testTranslationMatrix);
   test('Scale matrix', testScaleMatrix);
   test('Rotate matrix', testRotateMatrix);
+  test('Get rotation matrix', testGetRotationMatrix);
   test('2D transform', testMat2Transform);
   test('Matrix3 2D transform', testMatrix3Transform2);
   test('Matrix3 2D rotation', testMatrix3AbsoluteRotate2);
