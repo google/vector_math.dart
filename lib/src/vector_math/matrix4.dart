@@ -1832,6 +1832,31 @@ class Matrix4 {
     return arg;
   }
 
+/// Transform [arg] of type [Vector3] using the perspective transformation
+/// defined by [this].
+  Vector3 perspectiveTransform(Vector3 arg) {
+    final x_ = (storage[0] * arg.storage[0]) +
+        (storage[4] * arg.storage[1]) +
+        (storage[8] * arg.storage[2]) +
+        storage[12];
+    final y_ = (storage[1] * arg.storage[0]) +
+        (storage[5] * arg.storage[1]) +
+        (storage[9] * arg.storage[2]) +
+        storage[13];
+    final z_ = (storage[2] * arg.storage[0]) +
+        (storage[6] * arg.storage[1]) +
+        (storage[10] * arg.storage[2]) +
+        storage[14];
+    final w_ = (storage[3] * arg.storage[0]) +
+        (storage[7] * arg.storage[1]) +
+        (storage[11] * arg.storage[2]) +
+        storage[15];
+    arg.storage[0] = x_ / w_;
+    arg.storage[1] = y_ / w_;
+    arg.storage[2] = z_ / w_;
+    return arg;
+  }
+
   Vector4 transformed(Vector4 arg, [Vector4 out]) {
     if (out == null) {
       out = new Vector4.copy(arg);
