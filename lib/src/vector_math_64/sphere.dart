@@ -21,29 +21,36 @@
 
 part of vector_math_64;
 
+/// Defines a sphere with a [center] and a [radius].
 class Sphere {
   final Vector3 _center;
   double _radius;
 
+  /// The [center] of the sphere.
   Vector3 get center => _center;
+  /// The [radius] of the sphere.
   double get radius => _radius;
   set radius(double value) => _radius = value;
 
+  /// Create a new, uninitialized sphere.
   Sphere()
       : _center = new Vector3.zero(),
         _radius = 0.0;
 
+  /// Create a sphere as a copy of [other].
   Sphere.copy(Sphere other)
       : _center = new Vector3.copy(other._center),
         _radius = other._radius;
 
-  Sphere.centerRadius(Vector3 center_, double radius_)
-      : _center = new Vector3.copy(center_),
-        _radius = radius_;
+  /// Create a sphere from a [center] and a [radius].
+  Sphere.centerRadius(Vector3 center, double radius)
+      : _center = new Vector3.copy(center),
+        _radius = radius;
 
-  void copyFrom(Sphere o) {
-    _center.setFrom(o._center);
-    _radius = _radius;
+  /// Copy the sphere from [other] into [this].
+  void copyFrom(Sphere other) {
+    _center.setFrom(other._center);
+    _radius = other._radius;
   }
 
   /// Return if [this] contains [other].
