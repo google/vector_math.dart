@@ -2,6 +2,9 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+/// A library containing geometry generators (like [CubeGenerator],
+/// [SphereGenerator] and [CylinderGenerator]) and filters ([BarycentricFilter],
+/// [ColorFilter] and [InvertFilter]).
 library vector_math_geometry;
 
 import 'dart:typed_data';
