@@ -78,10 +78,18 @@ class Matrix3 {
   int index(int row, int col) => (col * 3) + row;
 
   /// Value at [row], [col].
-  double entry(int row, int col) => storage[index(row, col)];
+  double entry(int row, int col) {
+    assert((row >= 0) && (row < dimension));
+    assert((col >= 0) && (col < dimension));
+
+    return storage[index(row, col)];
+  }
 
   /// Set value at [row], [col] to be [v].
   setEntry(int row, int col, double v) {
+    assert((row >= 0) && (row < dimension));
+    assert((col >= 0) && (col < dimension));
+
     storage[index(row, col)] = v;
   }
 
