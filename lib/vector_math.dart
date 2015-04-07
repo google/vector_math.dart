@@ -20,6 +20,7 @@ part 'src/vector_math/matrix4.dart';
 part 'src/vector_math/noise.dart';
 part 'src/vector_math/opengl.dart';
 part 'src/vector_math/plane.dart';
+part 'src/vector_math/quad.dart';
 part 'src/vector_math/quaternion.dart';
 part 'src/vector_math/ray.dart';
 part 'src/vector_math/sphere.dart';
