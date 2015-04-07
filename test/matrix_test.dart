@@ -717,6 +717,15 @@ void testMatrix4Dot() {
   expect(matrix.dotColumn(2, v), equals(110.0));
 }
 
+void testMatrix4PerspectiveTransform() {
+  final matrix = makePerspectiveMatrix(Math.PI, 1.0, 1.0, 100.0);
+  final vec = new Vector3(10.0, 20.0, 30.0);
+
+  matrix.perspectiveTransform(vec);
+
+  relativeTest(vec, new Vector3(0.0, 0.0, 1.087));
+}
+
 void testMatrix2Solving() {
   final Matrix2 A = new Matrix2(2.0, 2.0, 8.0, 20.0);
   final Vector2 b = new Vector2(20.0, 64.0);
@@ -818,6 +827,7 @@ void main() {
   test('Matrix2 dot product', testMatrix2Dot);
   test('Matrix3 dot product', testMatrix3Dot);
   test('Matrix4 dot product', testMatrix4Dot);
+  test('Matrix4 perspective transform', testMatrix4PerspectiveTransform);
 
   test('Matrix2 solving', testMatrix2Solving);
   test('Matrix3 solving', testMatrix3Solving);
