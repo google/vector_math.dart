@@ -27,7 +27,7 @@ part of vector_math_64;
  */
 
 class SimplexNoise {
-  static final _grad3 = [
+  static final _grad3 = <List<double>>[
     [1, 1, 0],
     [-1, 1, 0],
     [1, -1, 0],
@@ -42,7 +42,7 @@ class SimplexNoise {
     [0, -1, -1]
   ];
 
-  static final _grad4 = [
+  static final _grad4 = <List<double>>[
     [0, 1, 1, 1],
     [0, 1, 1, -1],
     [0, 1, -1, 1],
@@ -78,16 +78,16 @@ class SimplexNoise {
   ];
 
   // To remove the need for index wrapping, double the permutation table length
-  List _perm;
-  List _permMod12;
+  List<int> _perm;
+  List<int> _permMod12;
 
   // Skewing and unskewing factors for 2, 3, and 4 dimensions
-  final double _F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
-  final double _G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
-  final double _F3 = 1.0 / 3.0;
-  final double _G3 = 1.0 / 6.0;
-  final double _F4 = (Math.sqrt(5.0) - 1.0) / 4.0;
-  final double _G4 = (5.0 - Math.sqrt(5.0)) / 20.0;
+  static final double _F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
+  static final double _G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
+  static const double _F3 = 1.0 / 3.0;
+  static const double _G3 = 1.0 / 6.0;
+  static final double _F4 = (Math.sqrt(5.0) - 1.0) / 4.0;
+  static final double _G4 = (5.0 - Math.sqrt(5.0)) / 20.0;
 
   double _dot2(List<double> g, double x, double y) => g[0] * x + g[1] * y;
 
@@ -101,11 +101,12 @@ class SimplexNoise {
     if (r == null) {
       r = new Math.Random();
     }
-    List p = new List.generate(256, (i) => r.nextInt(256), growable: false);
-    _perm = new List.generate(p.length * 2, (i) => p[i % p.length],
+    List p =
+        new List<int>.generate(256, (i) => r.nextInt(256), growable: false);
+    _perm = new List<int>.generate(p.length * 2, (i) => p[i % p.length],
         growable: false);
-    _permMod12 =
-        new List.generate(_perm.length, (i) => _perm[i] % 12, growable: false);
+    _permMod12 = new List<int>.generate(_perm.length, (i) => _perm[i] % 12,
+        growable: false);
   }
 
   double noise2D(double xin, double yin) {
