@@ -6,12 +6,12 @@ part of vector_math;
 
 /// Convert [radians] to degrees.
 double degrees(double radians) {
-  return radians * RADIANS_2_DEGREES;
+  return radians * radians2Degrees;
 }
 
 /// Convert [degrees] to radians.
 double radians(double degrees) {
-  return degrees * DEGREES_2_RADIANS;
+  return degrees * degrees2Radians;
 }
 
 /// Interpolate between [min] and [max] with the amount of [a] using a linear
