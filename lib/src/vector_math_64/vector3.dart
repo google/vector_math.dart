@@ -165,10 +165,10 @@ class Vector3 implements Vector {
     if (l == 0.0) {
       return 0.0;
     }
-    l = 1.0 / l;
-    storage[0] *= l;
-    storage[1] *= l;
-    storage[2] *= l;
+    var d = 1.0 / l;
+    storage[0] *= d;
+    storage[1] *= d;
+    storage[2] *= d;
     return l;
   }
 

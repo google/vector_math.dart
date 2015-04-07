@@ -388,6 +388,42 @@ void testVec4Constructor() {
   expect(v2.w, equals(2.0));
 }
 
+void testVec2Length() {
+  final Vector2 a = new Vector2(5.0, 7.0);
+
+  relativeTest(a.length, 8.6);
+  relativeTest(a.length2, 74.0);
+
+  relativeTest(a.normalizeLength(), 8.6);
+  relativeTest(a.x, 0.5812);
+  relativeTest(a.y, 0.8137);
+}
+
+void testVec3Length() {
+  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+
+  relativeTest(a.length, 9.1104);
+  relativeTest(a.length2, 83.0);
+
+  relativeTest(a.normalizeLength(), 9.1104);
+  relativeTest(a.x, 0.5488);
+  relativeTest(a.y, 0.7683);
+  relativeTest(a.z, 0.3292);
+}
+
+void testVec4Length() {
+  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+
+  relativeTest(a.length, 13.5277);
+  relativeTest(a.length2, 183.0);
+
+  relativeTest(a.normalizeLength(), 13.5277);
+  relativeTest(a.x, 0.3696);
+  relativeTest(a.y, 0.5174);
+  relativeTest(a.z, 0.2217);
+  relativeTest(a.w, 0.7392);
+}
+
 void testNegate() {
   var vec1 = new Vector2(1.0, 2.0);
   vec1.negate();
@@ -628,6 +664,11 @@ void main() {
   test('3D cross product', testVec3CrossProduct);
   test('3D reflect', testVec3Reflect);
   test('3D projection', testVec3Projection);
+
+  test('2D length', testVec2Length);
+  test('3D length', testVec3Length);
+  test('4D length', testVec4Length);
+
   test('Negate', testNegate);
 
   test('2D Constructor', testVec2Constructor);
