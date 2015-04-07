@@ -51,7 +51,7 @@ import 'package:vector_math/vector_math.dart';
 
 ## Documentation
 
-Read the [docs](www.dartdocs.org/documentation/vector_math/latest/index.html#vector_math)
+Read the [docs](http://www.dartdocs.org/documentation/vector_math/latest/index.html#vector_math)
 
 ## Examples
 
