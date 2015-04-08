@@ -30,9 +30,6 @@ class Vector2 implements Vector {
     result.y = min.y + a * (max.y - min.y);
   }
 
-  /// The components of the vector.
-  Float32List get storage => _storage;
-
   /// Construct a new vector with the specified values.
   factory Vector2(double x, double y) => new Vector2.zero()..setValues(x, y);
 

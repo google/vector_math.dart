@@ -8,6 +8,9 @@ part of vector_math_64;
 class Vector3 implements Vector {
   final Float64List _storage;
 
+  /// The components of the vector.
+  Float64List get storage => _storage;
+
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
     result.x = Math.min(a.x, b.x);
@@ -29,9 +32,6 @@ class Vector3 implements Vector {
     result.y = min.y + a * (max.y - min.y);
     result.z = min.z + a * (max.z - min.z);
   }
-
-  /// The components of the vector.
-  Float64List get storage => _storage;
 
   /// Construct a new vector with the specified values.
   factory Vector3(double x, double y, double z) =>
@@ -294,29 +294,30 @@ class Vector3 implements Vector {
         d;
     return this;
   }
-  
+
   /// Applies a rotation specified by [axis] and [angle].
-  Vector3 applyAxisAngle(Vector3 axis, double angle) { 
+  Vector3 applyAxisAngle(Vector3 axis, double angle) {
     applyQuaternion(new Quaternion.axisAngle(axis, angle));
     return this;
   }
-  
+
   /// Applies a quaternion transform.
   Vector3 applyQuaternion(Quaternion arg) {
-    var v0 = storage[0];
-    var v1 = storage[1];
-    var v2 = storage[2];
-    var qx = arg.storage[0];
-    var qy = arg.storage[1];
-    var qz = arg.storage[2];
-    var qw = arg.storage[3];
-    var ix =  qw * v0 + qy * v2 - qz * v1;
-    var iy =  qw * v1 + qz * v0 - qx * v2;
-    var iz =  qw * v2 + qx * v1 - qy * v0;
+    final argStorage = arg._storage;
+    var v0 = _storage[0];
+    var v1 = _storage[1];
+    var v2 = _storage[2];
+    var qx = argStorage[0];
+    var qy = argStorage[1];
+    var qz = argStorage[2];
+    var qw = argStorage[3];
+    var ix = qw * v0 + qy * v2 - qz * v1;
+    var iy = qw * v1 + qz * v0 - qx * v2;
+    var iz = qw * v2 + qx * v1 - qy * v0;
     var iw = -qx * v0 - qy * v1 - qz * v2;
-    storage[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
-    storage[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
-    storage[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+    _storage[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+    _storage[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+    _storage[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
     return this;
   }
 
@@ -419,52 +420,58 @@ class Vector3 implements Vector {
     _storage[1] = _storage[1].abs();
     _storage[2] = _storage[2].abs();
   }
-  
-  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]]. 
+
+  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
   Vector3 clamp(Vector3 min, Vector3 max) {
-    storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
-    storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
-    storage[2] = storage[2].clamp(min.storage[2], max.storage[2]);
+    _storage[0] = _storage[0].clamp(min.storage[0], max.storage[0]);
+    _storage[1] = _storage[1].clamp(min.storage[1], max.storage[1]);
+    _storage[2] = _storage[2].clamp(min.storage[2], max.storage[2]);
     return this;
   }
-  
+
   /// Clamp entries in [this] in the range [min]-[max].
   Vector3 clampScalar(double min, double max) {
-    storage[0] = storage[0].clamp(min, max);
-    storage[1] = storage[1].clamp(min, max);
-    storage[2] = storage[2].clamp(min, max);
+    _storage[0] = _storage[0].clamp(min, max);
+    _storage[1] = _storage[1].clamp(min, max);
+    _storage[2] = _storage[2].clamp(min, max);
     return this;
   }
-  
+
   /// Floor entries in [this].
   Vector3 floor() {
-    storage[0] = storage[0].floorToDouble();
-    storage[1] = storage[1].floorToDouble();
-    storage[2] = storage[2].floorToDouble();
+    _storage[0] = _storage[0].floorToDouble();
+    _storage[1] = _storage[1].floorToDouble();
+    _storage[2] = _storage[2].floorToDouble();
     return this;
   }
-  
+
   /// Ceil entries in [this].
   Vector3 ceil() {
-    storage[0] = storage[0].ceilToDouble();
-    storage[1] = storage[1].ceilToDouble();
-    storage[2] = storage[2].ceilToDouble();
+    _storage[0] = _storage[0].ceilToDouble();
+    _storage[1] = _storage[1].ceilToDouble();
+    _storage[2] = _storage[2].ceilToDouble();
     return this;
   }
-  
+
   /// Round entries in [this].
   Vector3 round() {
-    storage[0] = storage[0].roundToDouble();
-    storage[1] = storage[1].roundToDouble();
-    storage[2] = storage[2].roundToDouble();
+    _storage[0] = _storage[0].roundToDouble();
+    _storage[1] = _storage[1].roundToDouble();
+    _storage[2] = _storage[2].roundToDouble();
     return this;
   }
-  
+
   /// Round entries in [this] towards zero.
   Vector3 roundToZero() {
-    storage[0] = storage[0] < 0.0 ? storage[0].ceilToDouble() : storage[0].floorToDouble();
-    storage[1] = storage[1] < 0.0 ? storage[1].ceilToDouble() : storage[1].floorToDouble();
-    storage[2] = storage[2] < 0.0 ? storage[2].ceilToDouble() : storage[2].floorToDouble();
+    _storage[0] = _storage[0] < 0.0
+        ? _storage[0].ceilToDouble()
+        : _storage[0].floorToDouble();
+    _storage[1] = _storage[1] < 0.0
+        ? _storage[1].ceilToDouble()
+        : _storage[1].floorToDouble();
+    _storage[2] = _storage[2] < 0.0
+        ? _storage[2].ceilToDouble()
+        : _storage[2].floorToDouble();
     return this;
   }
 
