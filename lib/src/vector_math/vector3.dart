@@ -405,6 +405,54 @@ class Vector3 implements Vector {
     storage[2] = storage[2].abs();
     return this;
   }
+  
+  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]]. 
+  Vector3 clamp(Vector3 min, Vector3 max) {
+    storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
+    storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
+    storage[2] = storage[2].clamp(min.storage[2], max.storage[2]);
+    return this;
+  }
+  
+  /// Clamp entries in [this] in the range [min]-[max].
+  Vector3 clampScalar(double min, double max) {
+    storage[0] = storage[0].clamp(min, max);
+    storage[1] = storage[1].clamp(min, max);
+    storage[2] = storage[2].clamp(min, max);
+    return this;
+  }
+  
+  /// Floor entries in [this].
+  Vector3 floor() {
+    storage[0] = storage[0].floorToDouble();
+    storage[1] = storage[1].floorToDouble();
+    storage[2] = storage[2].floorToDouble();
+    return this;
+  }
+  
+  /// Ceil entries in [this].
+  Vector3 ceil() {
+    storage[0] = storage[0].ceilToDouble();
+    storage[1] = storage[1].ceilToDouble();
+    storage[2] = storage[2].ceilToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this].
+  Vector3 round() {
+    storage[0] = storage[0].roundToDouble();
+    storage[1] = storage[1].roundToDouble();
+    storage[2] = storage[2].roundToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this] towards zero.
+  Vector3 roundToZero() {
+    storage[0] = storage[0] < 0.0 ? storage[0].ceilToDouble() : storage[0].floorToDouble();
+    storage[1] = storage[1] < 0.0 ? storage[1].ceilToDouble() : storage[1].floorToDouble();
+    storage[2] = storage[2] < 0.0 ? storage[2].ceilToDouble() : storage[2].floorToDouble();
+    return this;
+  }
 
   /// Clone of [this].
   Vector3 clone() {
