@@ -80,6 +80,30 @@ void testFrustumIntersectsWithSphere() {
       new Sphere.centerRadius(_v3(0.0, 0.0, -101.0), 1.1)), equals(true));
 }
 
+void testFrustumIntersectsWithAabb3() {
+  final Frustum frustum =
+      new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
+
+  expect(frustum.intersectsWithAabb3(new Aabb3.minMax(
+      v3(500.0, 500.0, 500.0), v3(1000.0, 1000.0, 1000.0))), isFalse);
+  expect(frustum.intersectsWithAabb3(new Aabb3.minMax(
+      v3(-150.0, -150.0, -150.0), v3(150.0, 150.0, 150.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(-1.5, -1.5, -1.5), v3(1.5, 1.5, 1.5))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(0.0, 0.0, -50.0), v3(1.0, 1.0, -49.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(0.0, 0.0, 50.0), v3(1.0, 1.0, 51.0))), isFalse);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(0.0, 0.0, -0.99), v3(1.0, 1.0, 1.0))), isFalse);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(0.0, 0.0, -1.0), v3(1.0, 1.0, 1.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(0.0, 1.0, -10.0), v3(1.0, 2.0, 15.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax(v3(1.1, 1.1, -1.0), v3(2.0, 2.0, 0.0))), isFalse);
+}
+
 void testFrustumCalculateCorners() {
   final Frustum frustum =
       new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
@@ -122,7 +146,10 @@ void testFrustumCalculateCorners() {
 }
 
 void main() {
-  test('Frustum ContainsVector3', testFrustumContainsVector3);
-  test('Frustum IntersectsWithSphere', testFrustumIntersectsWithSphere);
-  test('Frustum CalculateCorners', testFrustumCalculateCorners);
+  group('Frustum', () {
+    test('ContainsVector3', testFrustumContainsVector3);
+    test('IntersectsWithSphere', testFrustumIntersectsWithSphere);
+    test('IntersectsWithAabb3', testFrustumIntersectsWithAabb3);
+    test('CalculateCorners', testFrustumCalculateCorners);
+  });
 }
