@@ -89,6 +89,16 @@ void testMatrix2Dot() {
   expect(matrix.dotColumn(1, v), equals(25.0));
 }
 
+void testMatrix2Scale() {
+  final m = new Matrix2(1.0, 2.0, 3.0, 4.0);
+  final n = m.scaled(2.0);
+
+  expect(n.storage[0], equals(2.0));
+  expect(n.storage[1], equals(4.0));
+  expect(n.storage[2], equals(6.0));
+  expect(n.storage[3], equals(8.0));
+}
+
 void testMatrix2Solving() {
   final Matrix2 A = new Matrix2(2.0, 2.0, 8.0, 20.0);
   final Vector2 b = new Vector2(20.0, 64.0);
@@ -109,6 +119,7 @@ void main() {
     test('transform 2D', testMatrix2Transform);
     test('inversion', testMatrix2Inversion);
     test('dot product', testMatrix2Dot);
+    test('Scale', testMatrix2Scale);
     test('solving', testMatrix2Solving);
   });
 }
