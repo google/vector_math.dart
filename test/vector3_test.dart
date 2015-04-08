@@ -327,6 +327,75 @@ void testVector3AngleToSigned() {
   expect(v1.angleToSigned(v0, n), equals(-Math.PI / 2.0));
 }
 
+void testVector3Clamp() {
+  final x = 2.0, y = 3.0, z = 4.0;
+  final v0 = new Vector3(x, y, z);
+  final v1 = new Vector3(-x, -y, -z);
+  final v2 = new Vector3(-2.0 * x, 2.0 * y, -2.0 * z)..clamp(v1, v0);
+  
+  expect(v2.storage, orderedEquals([-x, y, -z]));
+}
+
+void testVector3ClampScalar() {
+  final x = 2.0;
+  final v0 = new Vector3(-2.0 * x, 2.0 * x, -2.0 * x)..clampScalar(-x, x);
+  
+  expect(v0.storage, orderedEquals([-x, x, -x]));
+}
+
+void testVector3Floor() {
+  final v0 = new Vector3(-0.1, 0.1, -0.1)..floor();
+  final v1 = new Vector3(-0.5, 0.5, -0.5)..floor();
+  final v2 = new Vector3(-0.9, 0.9, -0.5)..floor();
+  
+  expect(v0.storage, orderedEquals([-1.0, 0.0, -1.0]));
+  expect(v1.storage, orderedEquals([-1.0, 0.0, -1.0]));
+  expect(v2.storage, orderedEquals([-1.0, 0.0, -1.0]));
+}
+
+void testVector3Ceil() {
+  final v0 = new Vector3(-0.1, 0.1, -0.1)..ceil();
+  final v1 = new Vector3(-0.5, 0.5, -0.5)..ceil();
+  final v2 = new Vector3(-0.9, 0.9, -0.9)..ceil();
+  
+  expect(v0.storage, orderedEquals([0.0, 1.0, 0.0]));
+  expect(v1.storage, orderedEquals([0.0, 1.0, 0.0]));
+  expect(v2.storage, orderedEquals([0.0, 1.0, 0.0]));
+}
+
+void testVector3Round() {
+  final v0 = new Vector3(-0.1, 0.1, -0.1)..round();
+  final v1 = new Vector3(-0.5, 0.5, -0.5)..round();
+  final v2 = new Vector3(-0.9, 0.9, -0.9)..round();
+  
+  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals([-1.0, 1.0, -1.0]));
+  expect(v2.storage, orderedEquals([-1.0, 1.0, -1.0]));
+}
+
+void testVector3RoundToZero() {
+  final v0 = new Vector3(-0.1, 0.1, -0.1)..roundToZero();
+  final v1 = new Vector3(-0.5, 0.5, -0.5)..roundToZero();
+  final v2 = new Vector3(-0.9, 0.9, -0.9)..roundToZero();
+  final v3 = new Vector3(-1.1, 1.1, -1.1)..roundToZero();
+  final v4 = new Vector3(-1.5, 1.5, -1.5)..roundToZero();
+  final v5 = new Vector3(-1.9, 1.9, -1.9)..roundToZero();
+  
+  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals([0.0, 0.0, 0.0]));
+  expect(v2.storage, orderedEquals([0.0, 0.0, 0.0]));
+  expect(v3.storage, orderedEquals([-1.0, 1.0, -1.0]));
+  expect(v4.storage, orderedEquals([-1.0, 1.0, -1.0]));
+  expect(v5.storage, orderedEquals([-1.0, 1.0, -1.0]));
+}
+
+void testVector3ApplyQuaternion() {
+  final q = new Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614);
+  final v = new Vector3(0.417267069084370, 0.049654430325742, 0.753423475845592)..applyQuaternion(q);
+  
+  relativeTest(v, new Vector3(0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
+}
+
 void main() {
   group('Vector3', () {
     test('dot product', testVector3DotProduct);
@@ -346,5 +415,12 @@ void main() {
     test('angleToSinged', testVector3AngleToSigned);
     test('instancing from Float32List', testVector3InstacinfFromFloat32List);
     test('instancing from ByteBuffer', testVector3InstacingFromByteBuffer);
+    test('clamp', testVector3Clamp);
+    test('clampScalar', testVector3ClampScalar);
+    test('floor', testVector3Floor);
+    test('ceil', testVector3Ceil);
+    test('round', testVector3Round);
+    test('roundToZero', testVector3RoundToZero);
+    test('applyQuaternion', testVector3ApplyQuaternion);
   });
 }

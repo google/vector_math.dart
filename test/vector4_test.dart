@@ -125,6 +125,68 @@ void testVector4DistanceToSquared() {
   expect(a.distanceToSquared(c), equals(4.0));
 }
 
+void testVector4Clamp() {
+  final x = 2.0, y = 3.0, z = 4.0, w = 5.0;
+  final v0 = new Vector4(x, y, z, w);
+  final v1 = new Vector4(-x, -y, -z, -w);
+  final v2 = new Vector4(-2.0 * x, 2.0 * y, -2.0 * z, 2.0 * w)..clamp(v1, v0);
+  
+  expect(v2.storage, orderedEquals([-x, y, -z, w]));
+}
+
+void testVector4ClampScalar() {
+  final x = 2.0;
+  final v0 = new Vector4(-2.0 * x, 2.0 * x, -2.0 * x, 2.0 * x)..clampScalar(-x, x);
+  
+  expect(v0.storage, orderedEquals([-x, x, -x, x]));
+}
+
+void testVector4Floor() {
+  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..floor();
+  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..floor();
+  final v2 = new Vector4(-0.9, 0.9, -0.5, 0.9)..floor();
+  
+  expect(v0.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
+  expect(v1.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
+  expect(v2.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
+}
+
+void testVector4Ceil() {
+  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..ceil();
+  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..ceil();
+  final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..ceil();
+  
+  expect(v0.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
+  expect(v1.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
+  expect(v2.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
+}
+
+void testVector4Round() {
+  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..round();
+  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..round();
+  final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..round();
+  
+  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+  expect(v2.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+}
+
+void testVector4RoundToZero() {
+  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..roundToZero();
+  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..roundToZero();
+  final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..roundToZero();
+  final v3 = new Vector4(-1.1, 1.1, -1.1, 1.1)..roundToZero();
+  final v4 = new Vector4(-1.5, 1.5, -1.5, 1.5)..roundToZero();
+  final v5 = new Vector4(-1.9, 1.9, -1.9, 1.9)..roundToZero();
+  
+  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
+  expect(v2.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
+  expect(v3.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+  expect(v4.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+  expect(v5.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+}
+
 void main() {
   group('Vector4', () {
     test('length', testVector4Length);
@@ -135,5 +197,11 @@ void main() {
     test('mix', testVector4Mix);
     test('distanceTo', testVector4DistanceTo);
     test('distanceToSquared', testVector4DistanceToSquared);
+    test('clamp', testVector4Clamp);
+    test('clampScalar', testVector4ClampScalar);
+    test('floor', testVector4Floor);
+    test('ceil', testVector4Ceil);
+    test('round', testVector4Round);
+    test('roundToZero', testVector4RoundToZero);
   });
 }
