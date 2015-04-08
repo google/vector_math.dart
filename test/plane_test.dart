@@ -11,7 +11,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testPlaneNormalize() {
-  final Plane plane = new Plane.normalconstant(v3(2.0, 0.0, 0.0), 2.0);
+  final plane = new Plane.normalconstant($v3(2.0, 0.0, 0.0), 2.0);
 
   plane.normalize();
 
@@ -23,18 +23,18 @@ void testPlaneNormalize() {
 }
 
 void testPlaneDistanceToVector3() {
-  final Plane plane = new Plane.normalconstant(v3(2.0, 0.0, 0.0), -2.0);
+  final plane = new Plane.normalconstant($v3(2.0, 0.0, 0.0), -2.0);
 
   plane.normalize();
 
-  expect(plane.distanceToVector3(v3(4.0, 0.0, 0.0)), equals(3.0));
-  expect(plane.distanceToVector3(v3(1.0, 0.0, 0.0)), equals(0.0));
+  expect(plane.distanceToVector3($v3(4.0, 0.0, 0.0)), equals(3.0));
+  expect(plane.distanceToVector3($v3(1.0, 0.0, 0.0)), equals(0.0));
 }
 
 void testPlaneIntersection() {
-  final Plane plane1 = new Plane.normalconstant(v3(1.0, 0.0, 0.0), -2.0);
-  final Plane plane2 = new Plane.normalconstant(v3(0.0, 1.0, 0.0), -3.0);
-  final Plane plane3 = new Plane.normalconstant(v3(0.0, 0.0, 1.0), -4.0);
+  final plane1 = new Plane.normalconstant($v3(1.0, 0.0, 0.0), -2.0);
+  final plane2 = new Plane.normalconstant($v3(0.0, 1.0, 0.0), -3.0);
+  final plane3 = new Plane.normalconstant($v3(0.0, 0.0, 1.0), -4.0);
 
   plane1.normalize();
   plane2.normalize();
@@ -50,7 +50,9 @@ void testPlaneIntersection() {
 }
 
 void main() {
-  test('Plane Normalize', testPlaneNormalize);
-  test('Plane DistanceToVector3', testPlaneDistanceToVector3);
-  test('Plane Intersection', testPlaneIntersection);
+  group('Plane', () {
+    test('Normalize', testPlaneNormalize);
+    test('DistanceToVector3', testPlaneDistanceToVector3);
+    test('Intersection', testPlaneIntersection);
+  });
 }

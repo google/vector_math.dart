@@ -91,9 +91,11 @@ void testRotationFromForwardUp() {
 }
 
 void main() {
-  test('LookAt', testLookAt);
-  test('Unproject', testUnproject);
-  test('Frustum', testFrustumMatrix);
-  test('Orthographic', testOrthographicMatrix);
-  test('RotationFromForwardUp', testRotationFromForwardUp);
+  group('OpenGL', () {
+    test('LookAt', testLookAt);
+    test('Unproject', testUnproject);
+    test('Frustum', testFrustumMatrix);
+    test('Orthographic', testOrthographicMatrix);
+    test('RotationFromForwardUp', testRotationFromForwardUp);
+  });
 }
