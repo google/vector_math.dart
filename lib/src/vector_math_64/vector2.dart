@@ -8,6 +8,9 @@ part of vector_math_64;
 class Vector2 implements Vector {
   final Float64List _storage;
 
+  /// The components of the vector.
+  Float64List get storage => _storage;
+
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
     result.x = Math.min(a.x, b.x);
@@ -26,9 +29,6 @@ class Vector2 implements Vector {
     result.x = min.x + a * (max.x - min.x);
     result.y = min.y + a * (max.y - min.y);
   }
-
-  /// The components of the vector.
-  Float64List get storage => _storage;
 
   /// Construct a new vector with the specified values.
   factory Vector2(double x, double y) => new Vector2.zero()..setValues(x, y);
