@@ -308,6 +308,31 @@ class Vector3 implements Vector {
         d;
     return this;
   }
+  
+  /// Applies a rotation specified by [axis] and [angle].
+  Vector3 applyAxisAngle(Vector3 axis, double angle) { 
+    applyQuaternion(new Quaternion.axisAngle(axis, angle));
+    return this;
+  }
+  
+  /// Applies a quaternion transform.
+  Vector3 applyQuaternion(Quaternion arg) {
+    var v0 = storage[0];
+    var v1 = storage[1];
+    var v2 = storage[2];
+    var qx = arg.storage[0];
+    var qy = arg.storage[1];
+    var qz = arg.storage[2];
+    var qw = arg.storage[3];
+    var ix =  qw * v0 + qy * v2 - qz * v1;
+    var iy =  qw * v1 + qz * v0 - qx * v2;
+    var iz =  qw * v2 + qx * v1 - qy * v0;
+    var iw = -qx * v0 - qy * v1 - qz * v2;
+    storage[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+    storage[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+    storage[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+    return this;
+  }
 
   /// Relative error between [this] and [correct]
   double relativeError(Vector3 correct) {
