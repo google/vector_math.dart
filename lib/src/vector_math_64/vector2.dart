@@ -6,7 +6,7 @@ part of vector_math_64;
 
 /// 2D column vector.
 class Vector2 implements Vector {
-  final Float64List storage = new Float64List(2);
+  final Float64List storage;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
@@ -27,28 +27,32 @@ class Vector2 implements Vector {
     result.y = min.y + a * (max.y - min.y);
   }
 
+
+
   /// Construct a new vector with the specified values.
-  Vector2(double x_, double y_) {
-    setValues(x_, y_);
-  }
+  factory Vector2(double x, double y) => new Vector2.zero()..setValues(x, y);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector2.array(List<double> array, [int offset = 0]) {
-    int i = offset;
-    storage[1] = array[i + 1];
-    storage[0] = array[i + 0];
-  }
+  factory Vector2.array(List<double> array, [int offset = 0]) =>
+      new Vector2.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
-  Vector2.zero();
+  Vector2.zero()
+      : storage = new Float64List(2);
 
   /// Splat [value] into all lanes of the vector.
-  Vector2.all(double value) : this(value, value);
+  factory Vector2.all(double value) => new Vector2.zero()..splat(value);
 
   /// Copy of [other].
-  Vector2.copy(Vector2 other) {
-    setFrom(other);
-  }
+  factory Vector2.copy(Vector2 other) => new Vector2.zero()..setFrom(other);
+
+  /// Constructs Vector2 with given Float64List as [storage].
+  Vector2.fromFloat64List(this.storage);
+
+  /// Constructs Vector2 with a [storage] that views given [buffer] starting at
+  /// [offset]. [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
+  Vector2.fromBuffer(ByteBuffer buffer, int offset)
+      : storage = new Float64List.view(buffer, offset, 2);
 
   /// Set the values of the vector.
   Vector2 setValues(double x_, double y_) {
