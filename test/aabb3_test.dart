@@ -13,10 +13,10 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testAabb3ByteBufferInstanciation() {
-  final ByteBuffer buffer =
+  final buffer =
       new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]).buffer;
-  final Aabb3 aabb = new Aabb3.fromBuffer(buffer, 0);
-  final Aabb3 aabbOffest =
+  final aabb = new Aabb3.fromBuffer(buffer, 0);
+  final aabbOffest =
       new Aabb3.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
 
   expect(aabb.min.x, equals(1.0));
@@ -35,22 +35,90 @@ void testAabb3ByteBufferInstanciation() {
 }
 
 void testAabb3Center() {
-  final Aabb3 aabb = new Aabb3.minMax($v3(1.0, 2.0, 4.0), $v3(8.0, 16.0, 32.0));
-  final Vector3 center = aabb.center;
+  final aabb = new Aabb3.minMax($v3(1.0, 2.0, 4.0), $v3(8.0, 16.0, 32.0));
+  final center = aabb.center;
 
   expect(center.x, equals(4.5));
   expect(center.y, equals(9.0));
   expect(center.z, equals(18.0));
 }
 
+void testAabb3CopyCenterAndHalfExtents() {
+  final a1 = new Aabb3.minMax($v3(10.0, 20.0, 30.0), $v3(20.0, 40.0, 60.0));
+  final a2 = new Aabb3.minMax($v3(-10.0, -20.0, -30.0), $v3(0.0, 0.0, 0.0));
+
+  final center = new Vector3.zero();
+  final halfExtents = new Vector3.zero();
+
+  a1.copyCenterAndHalfExtents(center, halfExtents);
+
+  relativeTest(center, $v3(15.0, 30.0, 45.0));
+  relativeTest(halfExtents, $v3(5.0, 10.0, 15.0));
+
+  a2.copyCenterAndHalfExtents(center, halfExtents);
+
+  relativeTest(center, $v3(-5.0, -10.0, -15.0));
+  relativeTest(halfExtents, $v3(5.0, 10.0, 15.0));
+}
+
+void testAabb3setCenterAndHalfExtents() {
+  final a1 =
+      new Aabb3.centerAndHalfExtents($v3(0.0, 0.0, 0.0), $v3(10.0, 20.0, 30.0));
+  final a2 = new Aabb3.centerAndHalfExtents(
+      $v3(-10.0, -20.0, -30.0), $v3(10.0, 20.0, 30.0));
+
+  relativeTest(a1.min, $v3(-10.0, -20.0, -30.0));
+  relativeTest(a1.max, $v3(10.0, 20.0, 30.0));
+
+  relativeTest(a2.min, $v3(-20.0, -40.0, -60.0));
+  relativeTest(a2.max, $v3(0.0, 0.0, 0.0));
+}
+
+void testAabb3setSphere() {
+  final s = new Sphere.centerRadius($v3(10.0, 20.0, 30.0), 10.0);
+  final a = new Aabb3.fromSphere(s);
+
+  expect(a.intersectsWithVector3(a.center), isTrue);
+  expect(a.intersectsWithVector3($v3(20.0, 20.0, 30.0)), isTrue);
+}
+
+void testAabb3setRay() {
+  final r = new Ray.originDirection(
+      $v3(1.0, 2.0, 3.0), $v3(1.0, 5.0, -1.0)..normalize());
+  final a = new Aabb3.fromRay(r, 0.0, 10.0);
+
+  expect(a.intersectsWithVector3(r.at(0.0)), isTrue);
+  expect(a.intersectsWithVector3(r.at(10.0)), isTrue);
+}
+
+void testAabb3setTriangle() {
+  final t = new Triangle.points(
+      $v3(2.0, 0.0, 0.0), $v3(0.0, 2.0, 0.0), $v3(0.0, 0.0, 2.0));
+  final a = new Aabb3.fromTriangle(t);
+
+  expect(a.intersectsWithVector3(t.point0), isTrue);
+  expect(a.intersectsWithVector3(t.point1), isTrue);
+  expect(a.intersectsWithVector3(t.point2), isTrue);
+}
+
+void testAabb3setQuad() {
+  final q = new Quad.points($v3(2.0, 0.0, 0.0), $v3(0.0, 2.0, 0.0),
+      $v3(0.0, 0.0, 2.0), $v3(0.0, 0.0, -2.0));
+  final a = new Aabb3.fromQuad(q);
+
+  expect(a.intersectsWithVector3(q.point0), isTrue);
+  expect(a.intersectsWithVector3(q.point1), isTrue);
+  expect(a.intersectsWithVector3(q.point2), isTrue);
+  expect(a.intersectsWithVector3(q.point3), isTrue);
+}
+
 void testAabb3ContainsAabb3() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Aabb3 child = new Aabb3.minMax($v3(2.0, 2.0, 2.0), $v3(7.0, 7.0, 7.0));
-  final Aabb3 cutting =
-      new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(5.0, 5.0, 5.0));
-  final Aabb3 outside =
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = new Aabb3.minMax($v3(2.0, 2.0, 2.0), $v3(7.0, 7.0, 7.0));
+  final cutting = new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(5.0, 5.0, 5.0));
+  final outside =
       new Aabb3.minMax($v3(10.0, 10.0, 10.0), $v3(20.0, 20.0, 20.0));
-  final Aabb3 grandParent =
+  final grandParent =
       new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(10.0, 10.0, 10.0));
 
   expect(parent.containsAabb3(child), isTrue);
@@ -61,10 +129,10 @@ void testAabb3ContainsAabb3() {
 }
 
 void testAabb3ContainsSphere() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Sphere child = new Sphere.centerRadius($v3(3.0, 3.0, 3.0), 1.5);
-  final Sphere cutting = new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 6.0);
-  final Sphere outside = new Sphere.centerRadius($v3(-10.0, -10.0, -10.0), 5.0);
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = new Sphere.centerRadius($v3(3.0, 3.0, 3.0), 1.5);
+  final cutting = new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 6.0);
+  final outside = new Sphere.centerRadius($v3(-10.0, -10.0, -10.0), 5.0);
 
   expect(parent.containsSphere(child), isTrue);
   expect(parent.containsSphere(cutting), isFalse);
@@ -72,10 +140,10 @@ void testAabb3ContainsSphere() {
 }
 
 void testAabb3ContainsVector3() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Vector3 child = $v3(7.0, 7.0, 7.0);
-  final Vector3 cutting = $v3(1.0, 2.0, 1.0);
-  final Vector3 outside = $v3(-10.0, 10.0, 10.0);
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = $v3(7.0, 7.0, 7.0);
+  final cutting = $v3(1.0, 2.0, 1.0);
+  final outside = $v3(-10.0, 10.0, 10.0);
 
   expect(parent.containsVector3(child), isTrue);
   expect(parent.containsVector3(cutting), isFalse);
@@ -83,14 +151,14 @@ void testAabb3ContainsVector3() {
 }
 
 void testAabb3ContainsTriangle() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Triangle child = new Triangle.points(
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = new Triangle.points(
       $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
-  final Triangle edge = new Triangle.points(
+  final edge = new Triangle.points(
       $v3(1.0, 1.0, 1.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
-  final Triangle cutting = new Triangle.points(
+  final cutting = new Triangle.points(
       $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(14.0, 14.0, 14.0));
-  final Triangle outside = new Triangle.points(
+  final outside = new Triangle.points(
       $v3(0.0, 0.0, 0.0), $v3(-3.0, -3.0, -3.0), $v3(-4.0, -4.0, -4.0));
 
   expect(parent.containsTriangle(child), isTrue);
@@ -100,21 +168,17 @@ void testAabb3ContainsTriangle() {
 }
 
 void testAabb3IntersectionAabb3() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Aabb3 child = new Aabb3.minMax($v3(2.0, 2.0, 2.0), $v3(7.0, 7.0, 7.0));
-  final Aabb3 cutting =
-      new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(5.0, 5.0, 5.0));
-  final Aabb3 outside =
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = new Aabb3.minMax($v3(2.0, 2.0, 2.0), $v3(7.0, 7.0, 7.0));
+  final cutting = new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(5.0, 5.0, 5.0));
+  final outside =
       new Aabb3.minMax($v3(10.0, 10.0, 10.0), $v3(20.0, 20.0, 10.0));
-  final Aabb3 grandParent =
+  final grandParent =
       new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(10.0, 10.0, 10.0));
 
-  final Aabb3 siblingOne =
-      new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(3.0, 3.0, 3.0));
-  final Aabb3 siblingTwo =
-      new Aabb3.minMax($v3(3.0, 0.0, 0.0), $v3(6.0, 3.0, 3.0));
-  final Aabb3 siblingThree =
-      new Aabb3.minMax($v3(3.0, 3.0, 3.0), $v3(6.0, 6.0, 6.0));
+  final siblingOne = new Aabb3.minMax($v3(0.0, 0.0, 0.0), $v3(3.0, 3.0, 3.0));
+  final siblingTwo = new Aabb3.minMax($v3(3.0, 0.0, 0.0), $v3(6.0, 3.0, 3.0));
+  final siblingThree = new Aabb3.minMax($v3(3.0, 3.0, 3.0), $v3(6.0, 6.0, 6.0));
 
   expect(parent.intersectsWithAabb3(child), isTrue);
   expect(child.intersectsWithAabb3(parent), isTrue);
@@ -137,10 +201,10 @@ void testAabb3IntersectionAabb3() {
 }
 
 void testAabb3IntersectionSphere() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Sphere child = new Sphere.centerRadius($v3(3.0, 3.0, 3.0), 1.5);
-  final Sphere cutting = new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 6.0);
-  final Sphere outside = new Sphere.centerRadius($v3(-10.0, -10.0, -10.0), 5.0);
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = new Sphere.centerRadius($v3(3.0, 3.0, 3.0), 1.5);
+  final cutting = new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 6.0);
+  final outside = new Sphere.centerRadius($v3(-10.0, -10.0, -10.0), 5.0);
 
   expect(parent.intersectsWithSphere(child), isTrue);
   expect(parent.intersectsWithSphere(cutting), isTrue);
@@ -148,10 +212,10 @@ void testAabb3IntersectionSphere() {
 }
 
 void testAabb3IntersectionVector3() {
-  final Aabb3 parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
-  final Vector3 child = $v3(7.0, 7.0, 7.0);
-  final Vector3 cutting = $v3(1.0, 2.0, 1.0);
-  final Vector3 outside = $v3(-10.0, 10.0, 10.0);
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = $v3(7.0, 7.0, 7.0);
+  final cutting = $v3(1.0, 2.0, 1.0);
+  final outside = $v3(-10.0, 10.0, 10.0);
 
   expect(parent.intersectsWithVector3(child), isTrue);
   expect(parent.intersectsWithVector3(cutting), isTrue);
@@ -159,8 +223,8 @@ void testAabb3IntersectionVector3() {
 }
 
 void testAabb3Hull() {
-  final Aabb3 a = new Aabb3.minMax($v3(1.0, 1.0, 4.0), $v3(3.0, 4.0, 10.0));
-  final Aabb3 b = new Aabb3.minMax($v3(3.0, 2.0, 3.0), $v3(6.0, 2.0, 8.0));
+  final a = new Aabb3.minMax($v3(1.0, 1.0, 4.0), $v3(3.0, 4.0, 10.0));
+  final b = new Aabb3.minMax($v3(3.0, 2.0, 3.0), $v3(6.0, 2.0, 8.0));
 
   a.hull(b);
 
@@ -173,8 +237,8 @@ void testAabb3Hull() {
 }
 
 void testAabb3HullPoint() {
-  final Aabb3 a = new Aabb3.minMax($v3(1.0, 1.0, 4.0), $v3(3.0, 4.0, 10.0));
-  final Vector3 b = $v3(6.0, 2.0, 8.0);
+  final a = new Aabb3.minMax($v3(1.0, 1.0, 4.0), $v3(3.0, 4.0, 10.0));
+  final b = $v3(6.0, 2.0, 8.0);
 
   a.hullPoint(b);
 
@@ -201,6 +265,12 @@ void main() {
   group('Aabb3', () {
     test('ByteBuffer instanciation', testAabb3ByteBufferInstanciation);
     test('Center', testAabb3Center);
+    test('copyCenterAndHalfExtents', testAabb3CopyCenterAndHalfExtents);
+    test('copyCenterAndHalfExtents', testAabb3setCenterAndHalfExtents);
+    test('setSphere', testAabb3setSphere);
+    test('setRay', testAabb3setRay);
+    test('setTriangle', testAabb3setTriangle);
+    test('setQuad', testAabb3setQuad);
     test('Contains Aabb3', testAabb3ContainsAabb3);
     test('Contains Vector3', testAabb3ContainsVector3);
     test('Contains Triangle', testAabb3ContainsTriangle);
