@@ -211,6 +211,66 @@ void testAabb3IntersectionSphere() {
   expect(parent.intersectsWithSphere(outside), isFalse);
 }
 
+void testIntersectionTriangle() {
+  final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
+  final child = new Triangle.points(
+      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+  final edge = new Triangle.points(
+      $v3(1.0, 1.0, 1.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+  final cutting = new Triangle.points(
+      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(14.0, 14.0, 14.0));
+  final outside = new Triangle.points(
+      $v3(0.0, 0.0, 0.0), $v3(-3.0, -3.0, -3.0), $v3(-4.0, -4.0, -4.0));
+
+  expect(parent.intersectsWithTriangle(child), isTrue);
+  expect(parent.intersectsWithTriangle(edge), isTrue);
+  expect(parent.intersectsWithTriangle(cutting), isTrue);
+  expect(parent.intersectsWithTriangle(outside), isFalse);
+
+  // Special tests
+  final testAabb = new Aabb3.minMax(
+      $v3(20.458911895751953, -36.607460021972656, 2.549999952316284),
+      $v3(21.017810821533203, -36.192543029785156, 3.049999952316284));
+  final testTriangle = new Triangle.points(
+      $v3(20.5, -36.5, 3.5), $v3(21.5, -36.5, 2.5), $v3(20.5, -36.5, 2.5));
+  expect(testAabb.intersectsWithTriangle(testTriangle), isTrue);
+
+  final aabb = new Aabb3.minMax(
+      $v3(19.07674217224121, -39.46818161010742, 2.299999952316284),
+      $v3(19.40754508972168, -38.9503288269043, 2.799999952316284));
+  final triangle4 = new Triangle.points(
+      $v3(18.5, -39.5, 2.5), $v3(19.5, -39.5, 2.5), $v3(19.5, -38.5, 2.5));
+  final triangle4_1 = new Triangle.points(
+      $v3(19.5, -38.5, 2.5), $v3(19.5, -39.5, 2.5), $v3(18.5, -39.5, 2.5));
+  final triangle4_2 = new Triangle.points(
+      $v3(18.5, -39.5, 2.5), $v3(19.5, -38.5, 2.5), $v3(18.5, -38.5, 2.5));
+  final triangle4_3 = new Triangle.points(
+      $v3(18.5, -38.5, 2.5), $v3(19.5, -38.5, 2.5), $v3(18.5, -39.5, 2.5));
+
+  expect(aabb.intersectsWithTriangle(triangle4), isTrue);
+  expect(aabb.intersectsWithTriangle(triangle4_1), isTrue);
+  expect(aabb.intersectsWithTriangle(triangle4_2), isFalse);
+  expect(aabb.intersectsWithTriangle(triangle4_3), isFalse);
+}
+
+void testIntersectionPlane() {
+  final plane = new Plane.normalconstant($v3(1.0, 0.0, 0.0), 10.0);
+
+  final left = new Aabb3.minMax($v3(-5.0, -5.0, -5.0), $v3(5.0, 5.0, 5.0));
+  final right = new Aabb3.minMax($v3(15.0, 15.0, 15.0), $v3(30.0, 30.0, 30.0));
+  final intersect = new Aabb3.minMax($v3(5.0, 5.0, 5.0), $v3(15.0, 15.0, 15.0));
+
+  expect(left.intersectsWithPlane(plane), isFalse);
+  expect(right.intersectsWithPlane(plane), isFalse);
+
+  final result = new IntersectionResult();
+
+  expect(intersect.intersectsWithPlane(plane, result: result), isTrue);
+
+  relativeError(result.axis, $v3(1.0, 0.0, 0.0));
+  expect(result.depth, equals(-5.0));
+}
+
 void testAabb3IntersectionVector3() {
   final parent = new Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
   final child = $v3(7.0, 7.0, 7.0);
@@ -278,6 +338,8 @@ void main() {
     test('Intersection Aabb3', testAabb3IntersectionAabb3);
     test('Intersection Vector3', testAabb3IntersectionVector3);
     test('Intersection Sphere', testAabb3IntersectionSphere);
+    test('Intersection Triangle', testIntersectionTriangle);
+    test('Intersection Plane', testIntersectionPlane);
     test('Hull', testAabb3Hull);
     test('Hull Point', testAabb3HullPoint);
   });
