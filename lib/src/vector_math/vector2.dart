@@ -8,6 +8,9 @@ part of vector_math;
 class Vector2 implements Vector {
   final Float32List _storage;
 
+  /// The components of the vector.
+  Float32List get storage => _storage;
+
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
     result.x = Math.min(a.x, b.x);
