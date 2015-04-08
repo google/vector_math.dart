@@ -4,11 +4,35 @@
 
 library vector_math.test.vector2_test;
 
+import 'dart:typed_data';
+
 import 'package:unittest/unittest.dart';
 
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
+
+void testVector2InstacinfFromFloat32List() {
+  final float32List = new Float32List.fromList([1.0, 2.0]);
+  final input = new Vector2.fromFloat32List(float32List);
+
+  expect(input.x, equals(1.0));
+  expect(input.y, equals(2.0));
+}
+
+void testVector2InstacingFromByteBuffer() {
+  final float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final buffer = float32List.buffer;
+  final zeroOffset = new Vector2.fromBuffer(buffer, 0);
+  final offsetVector =
+      new Vector2.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+
+  expect(zeroOffset.x, equals(1.0));
+  expect(zeroOffset.y, equals(2.0));
+
+  expect(offsetVector.x, equals(2.0));
+  expect(offsetVector.y, equals(3.0));
+}
 
 void testVector2Add() {
   final Vector2 a = new Vector2(5.0, 7.0);
@@ -267,6 +291,8 @@ void main() {
     test('mix', testVector2Mix);
     test('distanceTo', testVector2DistanceTo);
     test('distanceToSquared', testVector2DistanceToSquared);
+    test('instancing from Float32List', testVector2InstacinfFromFloat32List);
+    test('instancing from ByteBuffer', testVector2InstacingFromByteBuffer);
     test('clamp', testVector2Clamp);
     test('clampScalar', testVector2ClampScalar);
     test('floor', testVector2Floor);
