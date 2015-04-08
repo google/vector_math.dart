@@ -4,11 +4,41 @@
 
 library vector_math.test.vector4_test;
 
+import 'dart:typed_data';
+
 import 'package:unittest/unittest.dart';
 
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
+
+void testVector4InstacinfFromFloat32List() {
+  final float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final input = new Vector4.fromFloat32List(float32List);
+
+  expect(input.x, equals(1.0));
+  expect(input.y, equals(2.0));
+  expect(input.z, equals(3.0));
+  expect(input.w, equals(4.0));
+}
+
+void testVector4InstacingFromByteBuffer() {
+  final float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
+  final buffer = float32List.buffer;
+  final zeroOffset = new Vector4.fromBuffer(buffer, 0);
+  final offsetVector =
+      new Vector4.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+
+  expect(zeroOffset.x, equals(1.0));
+  expect(zeroOffset.y, equals(2.0));
+  expect(zeroOffset.z, equals(3.0));
+  expect(zeroOffset.w, equals(4.0));
+
+  expect(offsetVector.x, equals(2.0));
+  expect(offsetVector.y, equals(3.0));
+  expect(offsetVector.z, equals(4.0));
+  expect(offsetVector.w, equals(5.0));
+}
 
 void testVector4Add() {
   final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
@@ -126,18 +156,22 @@ void testVector4DistanceToSquared() {
 }
 
 void testVector4Clamp() {
-  final x = 2.0, y = 3.0, z = 4.0, w = 5.0;
+  final x = 2.0,
+      y = 3.0,
+      z = 4.0,
+      w = 5.0;
   final v0 = new Vector4(x, y, z, w);
   final v1 = new Vector4(-x, -y, -z, -w);
   final v2 = new Vector4(-2.0 * x, 2.0 * y, -2.0 * z, 2.0 * w)..clamp(v1, v0);
-  
+
   expect(v2.storage, orderedEquals([-x, y, -z, w]));
 }
 
 void testVector4ClampScalar() {
   final x = 2.0;
-  final v0 = new Vector4(-2.0 * x, 2.0 * x, -2.0 * x, 2.0 * x)..clampScalar(-x, x);
-  
+  final v0 = new Vector4(-2.0 * x, 2.0 * x, -2.0 * x, 2.0 * x)
+    ..clampScalar(-x, x);
+
   expect(v0.storage, orderedEquals([-x, x, -x, x]));
 }
 
@@ -145,7 +179,7 @@ void testVector4Floor() {
   final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..floor();
   final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..floor();
   final v2 = new Vector4(-0.9, 0.9, -0.5, 0.9)..floor();
-  
+
   expect(v0.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
   expect(v1.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
   expect(v2.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
@@ -155,7 +189,7 @@ void testVector4Ceil() {
   final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..ceil();
   final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..ceil();
   final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..ceil();
-  
+
   expect(v0.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
   expect(v1.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
   expect(v2.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
@@ -165,7 +199,7 @@ void testVector4Round() {
   final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..round();
   final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..round();
   final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..round();
-  
+
   expect(v0.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
   expect(v1.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
   expect(v2.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
@@ -178,7 +212,7 @@ void testVector4RoundToZero() {
   final v3 = new Vector4(-1.1, 1.1, -1.1, 1.1)..roundToZero();
   final v4 = new Vector4(-1.5, 1.5, -1.5, 1.5)..roundToZero();
   final v5 = new Vector4(-1.9, 1.9, -1.9, 1.9)..roundToZero();
-  
+
   expect(v0.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
   expect(v1.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
   expect(v2.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
@@ -197,6 +231,8 @@ void main() {
     test('mix', testVector4Mix);
     test('distanceTo', testVector4DistanceTo);
     test('distanceToSquared', testVector4DistanceToSquared);
+    test('instancing from Float32List', testVector4InstacinfFromFloat32List);
+    test('instancing from ByteBuffer', testVector4InstacingFromByteBuffer);
     test('clamp', testVector4Clamp);
     test('clampScalar', testVector4ClampScalar);
     test('floor', testVector4Floor);
