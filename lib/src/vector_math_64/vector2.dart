@@ -305,6 +305,48 @@ class Vector2 implements Vector {
     storage[0] = storage[0].abs();
     return this;
   }
+  
+  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
+  Vector2 clamp(Vector2 min, Vector2 max) {
+    storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
+    storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
+    return this;
+  }
+  
+  /// Clamp entries [this] in the range [min]-[max].
+  Vector2 clampScalar(double min, double max) {
+    storage[0] = storage[0].clamp(min, max);
+    storage[1] = storage[1].clamp(min, max);
+    return this;
+  }
+  
+  /// Floor entries in [this].
+  Vector2 floor() {
+    storage[0] = storage[0].floorToDouble();
+    storage[1] = storage[1].floorToDouble();
+    return this;
+  }
+  
+  /// Ceil entries in [this].
+  Vector2 ceil() {
+    storage[0] = storage[0].ceilToDouble();
+    storage[1] = storage[1].ceilToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this].
+  Vector2 round() {
+    storage[0] = storage[0].roundToDouble();
+    storage[1] = storage[1].roundToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this] towards zero.
+  Vector2 roundToZero() {
+    storage[0] = storage[0] < 0.0 ? storage[0].ceilToDouble() : storage[0].floorToDouble();
+    storage[1] = storage[1] < 0.0 ? storage[1].ceilToDouble() : storage[1].floorToDouble();
+    return this;
+  }
 
   /// Clone of [this].
   Vector2 clone() {

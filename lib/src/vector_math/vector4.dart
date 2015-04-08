@@ -320,6 +320,60 @@ class Vector4 implements Vector {
     storage[0] = storage[0].abs();
     return this;
   }
+  
+  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]]. 
+  Vector4 clamp(Vector4 min, Vector4 max) {
+    storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
+    storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
+    storage[2] = storage[2].clamp(min.storage[2], max.storage[2]);
+    storage[3] = storage[3].clamp(min.storage[3], max.storage[3]);
+    return this;
+  }
+  
+  /// Clamp entries in [this] in the range [min]-[max].
+  Vector4 clampScalar(double min, double max) {
+    storage[0] = storage[0].clamp(min, max);
+    storage[1] = storage[1].clamp(min, max);
+    storage[2] = storage[2].clamp(min, max);
+    storage[3] = storage[3].clamp(min, max);
+    return this;
+  }
+  
+  /// Floor entries in [this].
+  Vector4 floor() {
+    storage[0] = storage[0].floorToDouble();
+    storage[1] = storage[1].floorToDouble();
+    storage[2] = storage[2].floorToDouble();
+    storage[3] = storage[3].floorToDouble();
+    return this;
+  }
+  
+  /// Ceil entries in [this].
+  Vector4 ceil() {
+    storage[0] = storage[0].ceilToDouble();
+    storage[1] = storage[1].ceilToDouble();
+    storage[2] = storage[2].ceilToDouble();
+    storage[3] = storage[3].ceilToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this].
+  Vector4 round() {
+    storage[0] = storage[0].roundToDouble();
+    storage[1] = storage[1].roundToDouble();
+    storage[2] = storage[2].roundToDouble();
+    storage[3] = storage[3].roundToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this] towards zero.
+  Vector4 roundToZero() {
+    storage[0] = storage[0] < 0.0 ? storage[0].ceilToDouble() : storage[0].floorToDouble();
+    storage[1] = storage[1] < 0.0 ? storage[1].ceilToDouble() : storage[1].floorToDouble();
+    storage[2] = storage[2] < 0.0 ? storage[2].ceilToDouble() : storage[2].floorToDouble();
+    storage[3] = storage[3] < 0.0 ? storage[3].ceilToDouble() : storage[3].floorToDouble();
+    return this;
+  }
 
   Vector4 clone() {
     return new Vector4.copy(this);
