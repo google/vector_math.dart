@@ -631,6 +631,13 @@ class Matrix3 {
     return det;
   }
 
+  /// Set this matrix to be the normal matrix of [arg].
+  Matrix3 copyNormalMatrix(Matrix4 arg) {
+    copyInverse(arg.getRotation());
+    transpose();
+    return this;
+  }
+
   /// Turns the matrix into a rotation of [radians] around X
   void setRotationX(double radians) {
     double c = Math.cos(radians);
