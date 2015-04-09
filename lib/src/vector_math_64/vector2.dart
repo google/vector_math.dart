@@ -86,6 +86,12 @@ class Vector2 implements Vector {
   /// Returns a printable string
   String toString() => '[${_storage[0]},${_storage[1]}]';
 
+  /// Check if two vectors are the same.
+  bool operator ==(Vector2 other) {
+    return (_storage[0] == other._storage[0]) &&
+        (_storage[1] == other._storage[1]);
+  }
+
   /// Negate.
   Vector2 operator -() => clone()..negate();
 

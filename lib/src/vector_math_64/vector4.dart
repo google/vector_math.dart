@@ -114,6 +114,14 @@ class Vector4 implements Vector {
   String toString() => '${_storage[0]},${_storage[1]},'
       '${_storage[2]},${_storage[3]}';
 
+  /// Check if two vectors are the same.
+  bool operator ==(Vector4 other) {
+    return (_storage[0] == other._storage[0]) &&
+        (_storage[1] == other._storage[1]) &&
+        (_storage[2] == other._storage[2]) &&
+        (_storage[3] == other._storage[3]);
+  }
+
   /// Negate.
   Vector4 operator -() => clone()..negate();
 
