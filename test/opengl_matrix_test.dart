@@ -51,14 +51,10 @@ void testFrustumMatrix() {
   num b = -1.0;
   num t = 1.0;
   Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
-  relativeTest(
-      frustum.getColumn(0), new Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
-  relativeTest(
-      frustum.getColumn(1), new Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
-  relativeTest(frustum.getColumn(2), new Vector4(
-      (r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
-  relativeTest(
-      frustum.getColumn(3), new Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
+  relativeTest(frustum.getColumn(0), new Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
+  relativeTest(frustum.getColumn(1), new Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
+  relativeTest(frustum.getColumn(2), new Vector4((r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
+  relativeTest(frustum.getColumn(3), new Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
 }
 
 void testOrthographicMatrix() {
@@ -72,22 +68,32 @@ void testOrthographicMatrix() {
   relativeTest(ortho.getColumn(0), new Vector4(2 / (r - l), 0.0, 0.0, 0.0));
   relativeTest(ortho.getColumn(1), new Vector4(0.0, 2 / (t - b), 0.0, 0.0));
   relativeTest(ortho.getColumn(2), new Vector4(0.0, 0.0, -2 / (f - n), 0.0));
-  relativeTest(ortho.getColumn(3), new Vector4(
-      -(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
+  relativeTest(ortho.getColumn(3), new Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
 }
 
-void testRotationFromForwardUp() {
-  final Matrix4 rotation = new Matrix4.zero();
-  final Vector3 forward = new Vector3(1.0, 0.0, 0.0);
-  final Vector3 up = new Vector3(0.0, 1.0, 0.0);
+void testModelMatrix() {
+  Matrix4 view = new Matrix4.zero();
+  Vector3 position = new Vector3(1.0, 1.0, 1.0);
+  Vector3 focus = new Vector3(0.0, 0.0, -1.0);
+  Vector3 up = new Vector3(0.0, 1.0, 0.0);
 
-  setRotationMatrix(rotation, forward, up);
+  setViewMatrix(view, position, focus, up);
 
-  final Vector3 right = new Vector3(0.0, 0.0, 1.0);
+  Matrix4 model = new Matrix4.zero();
 
-  relativeTest(rotation, new Matrix4(forward[0], up[0], right[0], 0.0,
-      forward[1], up[1], right[1], 0.0, forward[2], up[2], right[2], 0.0, 0.0,
-      0.0, 0.0, 1.0));
+  Vector3 forward = focus.clone();
+  forward.sub(position);
+  forward.normalize();
+
+  Vector3 right = forward.cross(up).normalized();
+  Vector3 u = right.cross(forward).normalized();
+
+  setModelMatrix(model, forward, u, position.x, position.y, position.z);
+
+  Matrix4 result1 = view.clone();
+  result1.multiply(model);
+
+  relativeTest(result1, new Matrix4.identity());
 }
 
 void main() {
@@ -96,6 +102,6 @@ void main() {
     test('Unproject', testUnproject);
     test('Frustum', testFrustumMatrix);
     test('Orthographic', testOrthographicMatrix);
-    test('RotationFromForwardUp', testRotationFromForwardUp);
+    test('ModelMatrix', testModelMatrix);
   });
 }

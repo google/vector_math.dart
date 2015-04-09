@@ -5,6 +5,7 @@
 library vector_math_matrix_bench;
 
 import 'dart:typed_data';
+import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_operations.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
 
@@ -76,9 +77,29 @@ class SIMDVectorTransformBenchmark extends BenchmarkBase {
   }
 }
 
+class ViewMatrixBenchmark extends BenchmarkBase {
+  ViewMatrixBenchmark() : super("setViewMatrix");
+  
+  final Matrix4 M = new Matrix4.zero();
+  final Vector3 P = new Vector3.zero();
+  final Vector3 F = new Vector3.zero();
+  final Vector3 U = new Vector3.zero();
+
+  static void main() {
+    new ViewMatrixBenchmark().report();
+  }
+
+  void run() {
+    for (int i = 0; i < 100; i++) {
+      setViewMatrix(M, P, F, U);
+    }
+  }
+}
+
 main() {
   MatrixMultiplyBenchmark.main();
   SIMDMatrixMultiplyBenchmark.main();
   VectorTransformBenchmark.main();
   SIMDVectorTransformBenchmark.main();
+  ViewMatrixBenchmark.main();
 }
