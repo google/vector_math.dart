@@ -220,6 +220,19 @@ class Vector4 implements Vector {
     return sum;
   }
 
+  /// Multiplies [this] by [arg].
+  Vector4 applyMatrix4(Matrix4 arg) {
+    var v1 = storage[0];
+    var v2 = storage[1];
+    var v3 = storage[2];
+    var v4 = storage[3];
+    storage[0] = arg.storage[0] * v1 + arg.storage[4] * v2 + arg.storage[8] * v3 + arg.storage[12] * v4;
+    storage[1] = arg.storage[1] * v1 + arg.storage[5] * v2 + arg.storage[9] * v3 + arg.storage[13] * v4;
+    storage[2] = arg.storage[2] * v1 + arg.storage[6] * v2 + arg.storage[10] * v3 + arg.storage[14] * v4;
+    storage[3] = arg.storage[3] * v1 + arg.storage[7] * v2 + arg.storage[11] * v3 + arg.storage[15] * v4;
+    return this;
+  }
+
   /// Relative error between [this] and [correct]
   double relativeError(Vector4 correct) {
     double correct_norm = correct.length;
@@ -320,8 +333,8 @@ class Vector4 implements Vector {
     storage[0] = storage[0].abs();
     return this;
   }
-  
-  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]]. 
+
+  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
   Vector4 clamp(Vector4 min, Vector4 max) {
     storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
     storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
@@ -329,7 +342,7 @@ class Vector4 implements Vector {
     storage[3] = storage[3].clamp(min.storage[3], max.storage[3]);
     return this;
   }
-  
+
   /// Clamp entries in [this] in the range [min]-[max].
   Vector4 clampScalar(double min, double max) {
     storage[0] = storage[0].clamp(min, max);
@@ -338,7 +351,7 @@ class Vector4 implements Vector {
     storage[3] = storage[3].clamp(min, max);
     return this;
   }
-  
+
   /// Floor entries in [this].
   Vector4 floor() {
     storage[0] = storage[0].floorToDouble();
@@ -347,7 +360,7 @@ class Vector4 implements Vector {
     storage[3] = storage[3].floorToDouble();
     return this;
   }
-  
+
   /// Ceil entries in [this].
   Vector4 ceil() {
     storage[0] = storage[0].ceilToDouble();
@@ -356,7 +369,7 @@ class Vector4 implements Vector {
     storage[3] = storage[3].ceilToDouble();
     return this;
   }
-  
+
   /// Round entries in [this].
   Vector4 round() {
     storage[0] = storage[0].roundToDouble();
@@ -365,7 +378,7 @@ class Vector4 implements Vector {
     storage[3] = storage[3].roundToDouble();
     return this;
   }
-  
+
   /// Round entries in [this] towards zero.
   Vector4 roundToZero() {
     storage[0] = storage[0] < 0.0 ? storage[0].ceilToDouble() : storage[0].floorToDouble();
