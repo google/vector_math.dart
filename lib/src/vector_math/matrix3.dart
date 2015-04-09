@@ -866,7 +866,7 @@ class Matrix3 {
   List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
     for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
       final v = new Vector3.array(array, j)..applyMatrix3(this);
-      array[j]     = v.storage[0];
+      array[j] = v.storage[0];
       array[j + 1] = v.storage[1];
       array[j + 2] = v.storage[2];
     }
