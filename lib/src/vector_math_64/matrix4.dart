@@ -1,23 +1,6 @@
-/*
-  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
-
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
-
-*/
+// Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
+// All rights reserved. Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 part of vector_math_64;
 
@@ -166,10 +149,18 @@ class Matrix4 {
   int index(int row, int col) => (col * 4) + row;
 
   /// Value at [row], [col].
-  double entry(int row, int col) => storage[index(row, col)];
+  double entry(int row, int col) {
+    assert((row >= 0) && (row < dimension));
+    assert((col >= 0) && (col < dimension));
+
+    return storage[index(row, col)];
+  }
 
   /// Set value at [row], [col] to be [v].
   setEntry(int row, int col, double v) {
+    assert((row >= 0) && (row < dimension));
+    assert((col >= 0) && (col < dimension));
+
     storage[index(row, col)] = v;
   }
 
@@ -1130,16 +1121,22 @@ class Matrix4 {
   /// Returns the rotation matrix from this homogeneous transformation matrix.
   Matrix3 getRotation() {
     Matrix3 r = new Matrix3.zero();
-    r.storage[0] = storage[0];
-    r.storage[1] = storage[1];
-    r.storage[2] = storage[2];
-    r.storage[3] = storage[4];
-    r.storage[4] = storage[5];
-    r.storage[5] = storage[6];
-    r.storage[6] = storage[8];
-    r.storage[7] = storage[9];
-    r.storage[8] = storage[10];
+    copyRotation(r);
     return r;
+  }
+
+  /// Copies the rotation matrix from this homogeneous transformation matrix
+  /// into [rotation].
+  void copyRotation(Matrix3 rotation) {
+    rotation.storage[0] = storage[0];
+    rotation.storage[1] = storage[1];
+    rotation.storage[2] = storage[2];
+    rotation.storage[3] = storage[4];
+    rotation.storage[4] = storage[5];
+    rotation.storage[5] = storage[6];
+    rotation.storage[6] = storage[8];
+    rotation.storage[7] = storage[9];
+    rotation.storage[8] = storage[10];
   }
 
   /// Sets the rotation matrix in this homogeneous transformation matrix.
@@ -1840,6 +1837,31 @@ class Matrix4 {
     arg.y = y_;
     arg.z = z_;
     arg.w = w_;
+    return arg;
+  }
+
+/// Transform [arg] of type [Vector3] using the perspective transformation
+/// defined by [this].
+  Vector3 perspectiveTransform(Vector3 arg) {
+    final x_ = (storage[0] * arg.storage[0]) +
+        (storage[4] * arg.storage[1]) +
+        (storage[8] * arg.storage[2]) +
+        storage[12];
+    final y_ = (storage[1] * arg.storage[0]) +
+        (storage[5] * arg.storage[1]) +
+        (storage[9] * arg.storage[2]) +
+        storage[13];
+    final z_ = (storage[2] * arg.storage[0]) +
+        (storage[6] * arg.storage[1]) +
+        (storage[10] * arg.storage[2]) +
+        storage[14];
+    final w_ = (storage[3] * arg.storage[0]) +
+        (storage[7] * arg.storage[1]) +
+        (storage[11] * arg.storage[2]) +
+        storage[15];
+    arg.storage[0] = x_ / w_;
+    arg.storage[1] = y_ / w_;
+    arg.storage[2] = z_ / w_;
     return arg;
   }
 

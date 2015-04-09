@@ -1,3 +1,7 @@
+// Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
+// All rights reserved. Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 library vector_math.test.frustum_test;
 
 import 'package:unittest/unittest.dart';
@@ -6,27 +10,23 @@ import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
 
-Vector3 _v3(double x, double y, double z) {
-  return new Vector3(x, y, z);
-}
-
 void testFrustumContainsVector3() {
   final Frustum frustum =
       new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
-  expect(frustum.containsVector3(_v3(0.0, 0.0, 0.0)), equals(false));
-  expect(frustum.containsVector3(_v3(0.0, 0.0, -50.0)), equals(true));
-  expect(frustum.containsVector3(_v3(0.0, 0.0, -1.001)), equals(true));
-  expect(frustum.containsVector3(_v3(-1.0, -1.0, -1.001)), equals(true));
-  expect(frustum.containsVector3(_v3(-1.1, -1.1, -1.001)), equals(false));
-  expect(frustum.containsVector3(_v3(1.0, 1.0, -1.001)), equals(true));
-  expect(frustum.containsVector3(_v3(1.1, 1.1, -1.001)), equals(false));
-  expect(frustum.containsVector3(_v3(0.0, 0.0, -99.999)), equals(true));
-  expect(frustum.containsVector3(_v3(-99.999, -99.999, -99.999)), equals(true));
-  expect(frustum.containsVector3(_v3(-100.1, -100.1, -100.1)), equals(false));
-  expect(frustum.containsVector3(_v3(99.999, 99.999, -99.999)), equals(true));
-  expect(frustum.containsVector3(_v3(100.1, 100.1, -100.1)), equals(false));
-  expect(frustum.containsVector3(_v3(0.0, 0.0, -101.0)), equals(false));
+  expect(frustum.containsVector3($v3(0.0, 0.0, 0.0)), isFalse);
+  expect(frustum.containsVector3($v3(0.0, 0.0, -50.0)), isTrue);
+  expect(frustum.containsVector3($v3(0.0, 0.0, -1.001)), isTrue);
+  expect(frustum.containsVector3($v3(-1.0, -1.0, -1.001)), isTrue);
+  expect(frustum.containsVector3($v3(-1.1, -1.1, -1.001)), isFalse);
+  expect(frustum.containsVector3($v3(1.0, 1.0, -1.001)), isTrue);
+  expect(frustum.containsVector3($v3(1.1, 1.1, -1.001)), isFalse);
+  expect(frustum.containsVector3($v3(0.0, 0.0, -99.999)), isTrue);
+  expect(frustum.containsVector3($v3(-99.999, -99.999, -99.999)), isTrue);
+  expect(frustum.containsVector3($v3(-100.1, -100.1, -100.1)), isFalse);
+  expect(frustum.containsVector3($v3(99.999, 99.999, -99.999)), isTrue);
+  expect(frustum.containsVector3($v3(100.1, 100.1, -100.1)), isFalse);
+  expect(frustum.containsVector3($v3(0.0, 0.0, -101.0)), isFalse);
 }
 
 void testFrustumIntersectsWithSphere() {
@@ -34,50 +34,71 @@ void testFrustumIntersectsWithSphere() {
       new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, 0.0), 0.0)), equals(false));
+      new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 0.0)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, 0.0), 0.9)), equals(false));
+      new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 0.9)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, 0.0), 1.1)), equals(true));
+      new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 1.1)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, -50.0), 0.0)), equals(true));
+      new Sphere.centerRadius($v3(0.0, 0.0, -50.0), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, -1.001), 0.0)), equals(true));
+      new Sphere.centerRadius($v3(0.0, 0.0, -1.001), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(-1.0, -1.0, -1.001), 0.0)), equals(true));
+      new Sphere.centerRadius($v3(-1.0, -1.0, -1.001), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(-1.1, -1.1, -1.001), 0.0)), equals(false));
+      new Sphere.centerRadius($v3(-1.1, -1.1, -1.001), 0.0)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(-1.1, -1.1, -1.001), 0.5)), equals(true));
+      new Sphere.centerRadius($v3(-1.1, -1.1, -1.001), 0.5)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(1.0, 1.0, -1.001), 0.0)), equals(true));
+      new Sphere.centerRadius($v3(1.0, 1.0, -1.001), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(1.1, 1.1, -1.001), 0.0)), equals(false));
+      new Sphere.centerRadius($v3(1.1, 1.1, -1.001), 0.0)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(1.1, 1.1, -1.001), 0.5)), equals(true));
+      new Sphere.centerRadius($v3(1.1, 1.1, -1.001), 0.5)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, -99.999), 0.5)), equals(true));
+      new Sphere.centerRadius($v3(0.0, 0.0, -99.999), 0.5)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, -99.999), 0.0)), equals(true));
+      new Sphere.centerRadius($v3(0.0, 0.0, -99.999), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-          new Sphere.centerRadius(_v3(-99.999, -99.999, -99.999), 0.0)),
-      equals(true));
+      new Sphere.centerRadius($v3(-99.999, -99.999, -99.999), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-          new Sphere.centerRadius(_v3(-100.1, -100.1, -100.1), 0.0)),
-      equals(false));
+      new Sphere.centerRadius($v3(-100.1, -100.1, -100.1), 0.0)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(-100.1, -100.1, -100.1), 0.5)), equals(true));
+      new Sphere.centerRadius($v3(-100.1, -100.1, -100.1), 0.5)), isTrue);
   expect(frustum.intersectsWithSphere(
-          new Sphere.centerRadius(_v3(99.999, 99.999, -99.999), 0.0)),
-      equals(true));
+      new Sphere.centerRadius($v3(99.999, 99.999, -99.999), 0.0)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(100.1, 100.1, -100.1), 0.0)), equals(false));
+      new Sphere.centerRadius($v3(100.1, 100.1, -100.1), 0.0)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(100.1, 100.1, -100.1), 0.2)), equals(true));
+      new Sphere.centerRadius($v3(100.1, 100.1, -100.1), 0.2)), isTrue);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, -101.0), 0.0)), equals(false));
+      new Sphere.centerRadius($v3(0.0, 0.0, -101.0), 0.0)), isFalse);
   expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius(_v3(0.0, 0.0, -101.0), 1.1)), equals(true));
+      new Sphere.centerRadius($v3(0.0, 0.0, -101.0), 1.1)), isTrue);
+}
+
+void testFrustumIntersectsWithAabb3() {
+  final Frustum frustum =
+      new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
+
+  expect(frustum.intersectsWithAabb3(new Aabb3.minMax(
+      $v3(500.0, 500.0, 500.0), $v3(1000.0, 1000.0, 1000.0))), isFalse);
+  expect(frustum.intersectsWithAabb3(new Aabb3.minMax(
+      $v3(-150.0, -150.0, -150.0), $v3(150.0, 150.0, 150.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(-1.5, -1.5, -1.5), $v3(1.5, 1.5, 1.5))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(0.0, 0.0, -50.0), $v3(1.0, 1.0, -49.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(0.0, 0.0, 50.0), $v3(1.0, 1.0, 51.0))), isFalse);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(0.0, 0.0, -0.99), $v3(1.0, 1.0, 1.0))), isFalse);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(0.0, 0.0, -1.0), $v3(1.0, 1.0, 1.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(0.0, 1.0, -10.0), $v3(1.0, 2.0, 15.0))), isTrue);
+  expect(frustum.intersectsWithAabb3(
+      new Aabb3.minMax($v3(1.1, 1.1, -1.0), $v3(2.0, 2.0, 0.0))), isFalse);
 }
 
 void testFrustumCalculateCorners() {
@@ -122,7 +143,10 @@ void testFrustumCalculateCorners() {
 }
 
 void main() {
-  test('Frustum ContainsVector3', testFrustumContainsVector3);
-  test('Frustum IntersectsWithSphere', testFrustumIntersectsWithSphere);
-  test('Frustum CalculateCorners', testFrustumCalculateCorners);
+  group('Frustum', () {
+    test('ContainsVector3', testFrustumContainsVector3);
+    test('IntersectsWithSphere', testFrustumIntersectsWithSphere);
+    test('IntersectsWithAabb3', testFrustumIntersectsWithAabb3);
+    test('CalculateCorners', testFrustumCalculateCorners);
+  });
 }

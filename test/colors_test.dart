@@ -1,3 +1,7 @@
+// Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
+// All rights reserved. Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 library vector_math.test.vector_math_test;
 
 import 'package:unittest/unittest.dart';
@@ -237,11 +241,13 @@ void testRgbHsv() {
 }
 
 void main() {
-  test('Colors From RGBA', testFromRgba);
-  test('Colors Hex String', testHexString);
-  test('Colors To Grayscale', testToGrayscale);
-  test('Colors Alpha Blend', testAlphaBlend);
-  test('Colors Linear/Gamma', testLinearGamma);
-  test('Colors RGB/HSL', testRgbHsl);
-  test('Colors RGB/HSV', testRgbHsv);
+  group('Colors', () {
+    test('From RGBA', testFromRgba);
+    test('Hex String', testHexString);
+    test('To Grayscale', testToGrayscale);
+    test('Alpha Blend', testAlphaBlend);
+    test('Linear/Gamma', testLinearGamma);
+    test('RGB/HSL', testRgbHsl);
+    test('RGB/HSV', testRgbHsv);
+  });
 }

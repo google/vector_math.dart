@@ -1,3 +1,7 @@
+// Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
+// All rights reserved. Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 library vector_math.test.geometry_test;
 
 import 'dart:typed_data';
@@ -119,13 +123,16 @@ void testColorFilter() {
 }
 
 void main() {
-  // Attribute Generation tests
-  test('normal generation', testGenerateNormals);
-  test('tangent generation', testGenerateTangents);
-
-  // Filter tests
-  test('transform filter', testTransformFilter);
-  test('flat shade filter', testFlatShadeFilter);
-  test('barycentric filter', testBarycentricFilter);
-  test('color filter', testColorFilter);
+  group('Geometry', () {
+    group('Generators', () {
+      test('normal generation', testGenerateNormals);
+      test('tangent generation', testGenerateTangents);
+    });
+    group('Filters', () {
+      test('transform filter', testTransformFilter);
+      test('flat shade filter', testFlatShadeFilter);
+      test('barycentric filter', testBarycentricFilter);
+      test('color filter', testColorFilter);
+    });
+  });
 }

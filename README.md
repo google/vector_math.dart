@@ -11,6 +11,7 @@ A Vector math library for 2D and 3D applications.
 * 2D, 3D, and 4D vector and matrix types.
 * Quaternion type for animating rotations.
 * Collision detection: AABB, rays, spheres, ...
+* Utilities like color and common rendering related operations
 * Flexible getters and setters, for example, ```position.xwz = color.grb;```.
 * Fully documented.
 * Well tested.
@@ -50,7 +51,7 @@ import 'package:vector_math/vector_math.dart';
 
 ## Documentation
 
-Read the [docs](http://johnmccutchan.github.io/vector_math.html)
+Read the [docs](http://www.dartdocs.org/documentation/vector_math/latest/index.html#vector_math)
 
 ## Examples
 
@@ -93,7 +94,7 @@ import 'package:vector_math/vector_math.dart';
 void main() {
   // Rotation of 90 degrees around the Y axis followed by a
   // translation of (5.0, 2.0, 3.0).
-  Matrix4 T = new Matrix4.rotationY(PI * 0.5).translate(5.0, 2.0, 3.0);
+  Matrix4 T = new Matrix4.rotationY(PI*0.5).translate(5.0, 2.0, 3.0);
   // Invert T.
   T.invert();
   // Invert just the rotation in T.
@@ -188,3 +189,10 @@ To run test cases:
 ```
 ~/src/vector_math/> pub run unittest:unittest
 ```
+
+To automatically generate the latest version of ```vector_math_64```:
+
+```
+~/src/vector_math/> dart tool/generate_vector_math_64.dart
+```
+

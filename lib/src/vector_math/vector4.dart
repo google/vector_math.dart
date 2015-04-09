@@ -1,23 +1,6 @@
-/*
-  Copyright (C) 2013 John McCutchan <john@johnmccutchan.com>
-
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
-
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
-
-*/
+// Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
+// All rights reserved. Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 part of vector_math;
 
@@ -195,11 +178,11 @@ class Vector4 implements Vector {
     if (l == 0.0) {
       return 0.0;
     }
-    l = 1.0 / l;
-    storage[0] *= l;
-    storage[1] *= l;
-    storage[2] *= l;
-    storage[3] *= l;
+    var d = 1.0 / l;
+    storage[0] *= d;
+    storage[1] *= d;
+    storage[2] *= d;
+    storage[3] *= d;
     return l;
   }
 
@@ -215,13 +198,16 @@ class Vector4 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector4 arg) {
-    return this.clone().sub(arg).length;
-  }
+  double distanceTo(Vector4 arg) => Math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
   double distanceToSquared(Vector4 arg) {
-    return this.clone().sub(arg).length2;
+    final dx = x - arg.x;
+    final dy = y - arg.y;
+    final dz = z - arg.z;
+    final dw = w - arg.w;
+
+    return dx * dx + dy * dy + dz * dz + dw * dw;
   }
 
   /// Inner product.
@@ -332,6 +318,60 @@ class Vector4 implements Vector {
     storage[2] = storage[2].abs();
     storage[1] = storage[1].abs();
     storage[0] = storage[0].abs();
+    return this;
+  }
+  
+  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]]. 
+  Vector4 clamp(Vector4 min, Vector4 max) {
+    storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
+    storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
+    storage[2] = storage[2].clamp(min.storage[2], max.storage[2]);
+    storage[3] = storage[3].clamp(min.storage[3], max.storage[3]);
+    return this;
+  }
+  
+  /// Clamp entries in [this] in the range [min]-[max].
+  Vector4 clampScalar(double min, double max) {
+    storage[0] = storage[0].clamp(min, max);
+    storage[1] = storage[1].clamp(min, max);
+    storage[2] = storage[2].clamp(min, max);
+    storage[3] = storage[3].clamp(min, max);
+    return this;
+  }
+  
+  /// Floor entries in [this].
+  Vector4 floor() {
+    storage[0] = storage[0].floorToDouble();
+    storage[1] = storage[1].floorToDouble();
+    storage[2] = storage[2].floorToDouble();
+    storage[3] = storage[3].floorToDouble();
+    return this;
+  }
+  
+  /// Ceil entries in [this].
+  Vector4 ceil() {
+    storage[0] = storage[0].ceilToDouble();
+    storage[1] = storage[1].ceilToDouble();
+    storage[2] = storage[2].ceilToDouble();
+    storage[3] = storage[3].ceilToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this].
+  Vector4 round() {
+    storage[0] = storage[0].roundToDouble();
+    storage[1] = storage[1].roundToDouble();
+    storage[2] = storage[2].roundToDouble();
+    storage[3] = storage[3].roundToDouble();
+    return this;
+  }
+  
+  /// Round entries in [this] towards zero.
+  Vector4 roundToZero() {
+    storage[0] = storage[0] < 0.0 ? storage[0].ceilToDouble() : storage[0].floorToDouble();
+    storage[1] = storage[1] < 0.0 ? storage[1].ceilToDouble() : storage[1].floorToDouble();
+    storage[2] = storage[2] < 0.0 ? storage[2].ceilToDouble() : storage[2].floorToDouble();
+    storage[3] = storage[3] < 0.0 ? storage[3].ceilToDouble() : storage[3].floorToDouble();
     return this;
   }
 
