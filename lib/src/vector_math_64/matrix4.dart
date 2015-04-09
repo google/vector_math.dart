@@ -269,6 +269,12 @@ class Matrix4 {
   Matrix4.fromBuffer(ByteBuffer buffer, int offset)
       : storage = new Float64List.view(buffer, offset, 16);
 
+  /// Constructs Matrix4 from [translation], [rotation] and [scale].
+  Matrix4.compose(Vector3 translation, Quaternion rotation, Vector3 scale)
+      : storage = new Float64List(16) {
+    setFromTranslationRotationScale(translation, rotation, scale);
+  }
+
   /// Sets the diagonal to [arg].
   Matrix4 splatDiagonal(double arg) {
     storage[0] = arg;
@@ -378,6 +384,13 @@ class Matrix4 {
     storage[13] = arg0[1];
     storage[14] = arg0[2];
     storage[15] = 1.0;
+    return this;
+  }
+
+  /// Sets the matrix from [translation], [rotation] and [scale].
+  Matrix4 setFromTranslationRotationScale(Vector3 translation, Quaternion rotation, Vector3 scale) {
+    setFromTranslationRotation(translation, rotation);
+    this.scale(scale);
     return this;
   }
 
@@ -1152,6 +1165,18 @@ class Matrix4 {
     storage[10] = r.storage[8];
   }
 
+  /// Returns the normal matrix from this homogeneous transformation matrix. The normal
+  /// matrix is the transpose of the inverse of the top-left 3x3 part of this 4x4 matrix.
+  Matrix3 getNormalMatrix() => new Matrix3.identity()..copyNormalMatrix(this);
+
+  /// Returns the max scale value of the 3 axes.
+  double getMaxScaleOnAxis() {
+    final scaleXSq = storage[0] * storage[0] + storage[1] * storage[1] + storage[2] * storage[2];
+    final scaleYSq = storage[4] * storage[4] + storage[5] * storage[5] + storage[6] * storage[6];
+    final scaleZSq = storage[8] * storage[8] + storage[9] * storage[9] + storage[10] * storage[10];
+    return Math.sqrt(Math.max(scaleXSq, Math.max(scaleYSq, scaleZSq)));
+  }
+
   /// Transposes just the upper 3x3 rotation matrix.
   Matrix4 transposeRotation() {
     double temp;
@@ -1763,6 +1788,41 @@ class Matrix4 {
     return this;
   }
 
+  /// Decomposes [this] into [translation], [rotation] and [scale] components.
+  void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
+    final v = new Vector3.zero();
+    var sx = v.setValues(storage[0], storage[1], storage[2]).length;
+    var sy = v.setValues(storage[4], storage[5], storage[6]).length;
+    var sz = v.setValues(storage[8], storage[9], storage[10]).length;
+
+    if (determinant() < 0) sx = -sx;
+
+    translation.storage[0] = storage[12];
+    translation.storage[1] = storage[13];
+    translation.storage[2] = storage[14];
+
+    final invSX = 1.0 / sx;
+    final invSY = 1.0 / sy;
+    final invSZ = 1.0 / sz;
+
+    final m = new Matrix4.copy(this);
+    m.storage[0] *= invSX;
+    m.storage[1] *= invSX;
+    m.storage[2] *= invSX;
+    m.storage[4] *= invSY;
+    m.storage[5] *= invSY;
+    m.storage[6] *= invSY;
+    m.storage[8] *= invSZ;
+    m.storage[9] *= invSZ;
+    m.storage[10] *= invSZ;
+
+    rotation.setFromRotation(m.getRotation());
+
+    scale.storage[0] = sx;
+    scale.storage[1] = sy;
+    scale.storage[2] = sz;
+  }
+
   Vector3 rotate3(Vector3 arg) {
     double x_ = (storage[0] * arg.storage[0]) +
         (storage[4] * arg.storage[1]) +
@@ -1914,6 +1974,18 @@ class Matrix4 {
     storage[2] = array[i + 2];
     storage[1] = array[i + 1];
     storage[0] = array[i + 0];
+  }
+
+  /// Multiply [this] to each set of xyz values in [array] starting at [offset].
+  List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
+    for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
+      final v = new Vector3.array(array, j)..applyMatrix4(this);
+      array[j]     = v.storage[0];
+      array[j + 1] = v.storage[1];
+      array[j + 2] = v.storage[2];
+    }
+
+    return array;
   }
 
   Vector3 get right {
