@@ -532,6 +532,64 @@ void testMatrix4Solving() {
   expect(backwards.w, equals(b.w));
 }
 
+void testMatrix4Compose() {
+  var tValues = [
+    new Vector3.zero(),
+    new Vector3(3.0, 0.0, 0.0),
+    new Vector3(0.0, 4.0, 0.0),
+    new Vector3(0.0, 0.0, 5.0),
+    new Vector3(-6.0, 0.0, 0.0),
+    new Vector3(0.0, -7.0, 0.0),
+    new Vector3(0.0, 0.0, -8.0),
+    new Vector3(-2.0, 5.0, -9.0),
+    new Vector3(-2.0, -5.0, -9.0)
+  ];
+
+  var sValues = [
+    new Vector3(1.0, 1.0, 1.0),
+    new Vector3(2.0, 2.0, 2.0),
+    new Vector3(1.0, -1.0, 1.0),
+    new Vector3(-1.0, 1.0, 1.0),
+    new Vector3(1.0, 1.0, -1.0),
+    new Vector3(2.0, -2.0, 1.0),
+    new Vector3(-1.0, 2.0, -2.0),
+    new Vector3(-1.0, -1.0, -1.0),
+    new Vector3(-2.0, -2.0, -2.0)
+  ];
+
+  var rValues = [
+    new Quaternion.identity(),
+    new Quaternion(0.42073549240394825, 0.42073549240394825, 0.22984884706593015, 0.7701511529340699),
+    new Quaternion(0.16751879124639693, -0.5709414713577319, 0.16751879124639693, 0.7860666291368439),
+    new Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614)
+  ];
+
+
+  for (var ti = 0; ti < tValues.length; ti++) {
+    for (var si = 0; si < sValues.length; si++) {
+      for (var ri = 0; ri < rValues.length; ri++) {
+        final t = tValues[ti];
+        final s = sValues[si];
+        final r = rValues[ri];
+
+        final m = new Matrix4.compose(t, r, s);
+        
+        var t2 = new Vector3.zero();
+        var r2 = new Quaternion.identity();
+        var s2 = new Vector3.zero();
+
+        m.decompose(t2, r2, s2);
+
+        final m2 = new Matrix4.compose(t2, r2, s2);
+        
+        relativeTest(m2, m);
+      }
+    }
+  }
+}
+
+
+
 void main() {
   group('Matrix4', () {
     test('instancing from Float32List', testMatrix4InstacingFromFloat32List);
@@ -553,5 +611,6 @@ void main() {
     test('dot product', testMatrix4Dot);
     test('perspective transform', testMatrix4PerspectiveTransform);
     test('solving', testMatrix4Solving);
+    test('compose/decompose', testMatrix4Compose);
   });
 }

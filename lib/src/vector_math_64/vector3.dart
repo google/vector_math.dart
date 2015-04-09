@@ -321,6 +321,31 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Multiplies [this] by [arg].
+  Vector3 applyMatrix3(Matrix3 arg) {
+    final argStorage = arg.storage;
+    var v0 = _storage[0];
+    var v1 = _storage[1];
+    var v2 = _storage[2];
+    _storage[0] = argStorage[0] * v0 + argStorage[3] * v1 + argStorage[6] * v2;
+    _storage[1] = argStorage[1] * v0 + argStorage[4] * v1 + argStorage[7] * v2;
+    _storage[2] = argStorage[2] * v0 + argStorage[5] * v1 + argStorage[8] * v2;
+    return this;
+  }
+
+  /// Multiplies [this] by a 4x3 subset of [arg]. Expects [arg] to be an affine
+  /// transformation matrix.
+  Vector3 applyMatrix4(Matrix4 arg) {
+    final argStorage = arg.storage;
+    var v0 = _storage[0];
+    var v1 = _storage[1];
+    var v2 = _storage[2];
+    _storage[0] = argStorage[0] * v0 + argStorage[4] * v1 + argStorage[8]  * v2 + argStorage[12];
+    _storage[1] = argStorage[1] * v0 + argStorage[5] * v1 + argStorage[9]  * v2 + argStorage[13];
+    _storage[2] = argStorage[2] * v0 + argStorage[6] * v1 + argStorage[10] * v2 + argStorage[14];
+    return this;
+  }
+
   /// Relative error between [this] and [correct]
   double relativeError(Vector3 correct) {
     double correct_norm = correct.length;

@@ -631,6 +631,13 @@ class Matrix3 {
     return det;
   }
 
+  /// Set this matrix to be the normal matrix of [arg].
+  Matrix3 copyNormalMatrix(Matrix4 arg) {
+    copyInverse(arg.getRotation());
+    transpose();
+    return this;
+  }
+
   /// Turns the matrix into a rotation of [radians] around X
   void setRotationX(double radians) {
     double c = Math.cos(radians);
@@ -949,6 +956,18 @@ class Matrix3 {
     storage[2] = array[i + 2];
     storage[1] = array[i + 1];
     storage[0] = array[i + 0];
+  }
+
+  /// Multiply [this] to each set of xyz values in [array] starting at [offset].
+  List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
+    for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
+      final v = new Vector3.array(array, j)..applyMatrix3(this);
+      array[j]     = v.storage[0];
+      array[j + 1] = v.storage[1];
+      array[j + 2] = v.storage[2];
+    }
+
+    return array;
   }
 
   Vector3 get right {
