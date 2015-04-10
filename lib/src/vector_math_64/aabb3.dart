@@ -4,10 +4,6 @@
 
 part of vector_math_64;
 
-//TODO (fox32): Add setObb, fromObb
-//TODO (fox32): Add intersectsWithTriangle, intersectsWithPlane,
-// intersectsWithQuad and IntersectionResult
-
 /// Defines a 3-dimensional axis-aligned bounding box between a [min] and a
 /// [max] position.
 class Aabb3 {
@@ -333,5 +329,301 @@ class Aabb3 {
         (_max.x >= other.x) &&
         (_max.y >= other.y) &&
         (_max.z >= other.z);
+  }
+
+  // Avoid allocating these instance on every call to intersectsWithTriangle
+  static final _aabbCenter = new Vector3.zero();
+  static final _aabbHalfExtents = new Vector3.zero();
+  static final _v0 = new Vector3.zero();
+  static final _v1 = new Vector3.zero();
+  static final _v2 = new Vector3.zero();
+  static final _f0 = new Vector3.zero();
+  static final _f1 = new Vector3.zero();
+  static final _f2 = new Vector3.zero();
+  static final _trianglePlane = new Plane();
+
+  static final _u0 = new Vector3(1.0, 0.0, 0.0);
+  static final _u1 = new Vector3(0.0, 1.0, 0.0);
+  static final _u2 = new Vector3(0.0, 0.0, 1.0);
+
+  /// Return if [this] intersects with [other].
+  /// [epsilon] allows the caller to specify a custum eplsilon value that should
+  /// be used for the test. If [result] is specified and an intersection is
+  /// found, result is modified to contain more details about the type of
+  /// intersection.
+  bool intersectsWithTriangle(Triangle other,
+      {double epsilon: 1e-3, IntersectionResult result}) {
+    double p0, p1, p2, r, len;
+    double a;
+
+    // This line isn't required if we are using center and half extents to
+    // define a aabb
+    copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
+
+    // Translate triangle as conceptually moving AABB to origin
+    _v0
+      ..setFrom(other.point0)
+      ..sub(_aabbCenter);
+    _v1
+      ..setFrom(other.point1)
+      ..sub(_aabbCenter);
+    _v2
+      ..setFrom(other.point2)
+      ..sub(_aabbCenter);
+
+    // Translate triangle as conceptually moving AABB to origin
+    _f0
+      ..setFrom(_v1)
+      ..sub(_v0);
+    _f1
+      ..setFrom(_v2)
+      ..sub(_v1);
+    _f2
+      ..setFrom(_v0)
+      ..sub(_v2);
+
+    // Test axes a00..a22 (category 3)
+    // Test axis a00
+    len = _f0.y * _f0.y + _f0.z * _f0.z;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.z * _f0.y - _v0.y * _f0.z;
+      p2 = _v2.z * _f0.y - _v2.y * _f0.z;
+      r = _aabbHalfExtents[1] * _f0.z.abs() + _aabbHalfExtents[2] * _f0.y.abs();
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p2) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u0.crossInto(_f0, result.axis);
+      }
+    }
+
+    // Test axis a01
+    len = _f1.y * _f1.y + _f1.z * _f1.z;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.z * _f1.y - _v0.y * _f1.z;
+      p1 = _v1.z * _f1.y - _v1.y * _f1.z;
+      r = _aabbHalfExtents[1] * _f1.z.abs() + _aabbHalfExtents[2] * _f1.y.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u0.crossInto(_f1, result.axis);
+      }
+    }
+
+    // Test axis a02
+    len = _f2.y * _f2.y + _f2.z * _f2.z;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.z * _f2.y - _v0.y * _f2.z;
+      p1 = _v1.z * _f2.y - _v1.y * _f2.z;
+      r = _aabbHalfExtents[1] * _f2.z.abs() + _aabbHalfExtents[2] * _f2.y.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u0.crossInto(_f2, result.axis);
+      }
+    }
+
+    // Test axis a10
+    len = _f0.x * _f0.x + _f0.z * _f0.z;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.x * _f0.z - _v0.z * _f0.x;
+      p2 = _v2.x * _f0.z - _v2.z * _f0.x;
+      r = _aabbHalfExtents[0] * _f0.z.abs() + _aabbHalfExtents[2] * _f0.x.abs();
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p2) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u1.crossInto(_f0, result.axis);
+      }
+    }
+
+    // Test axis a11
+    len = _f1.x * _f1.x + _f1.z * _f1.z;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.x * _f1.z - _v0.z * _f1.x;
+      p1 = _v1.x * _f1.z - _v1.z * _f1.x;
+      r = _aabbHalfExtents[0] * _f1.z.abs() + _aabbHalfExtents[2] * _f1.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u1.crossInto(_f1, result.axis);
+      }
+    }
+
+    // Test axis a12
+    len = _f2.x * _f2.x + _f2.z * _f2.z;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.x * _f2.z - _v0.z * _f2.x;
+      p1 = _v1.x * _f2.z - _v1.z * _f2.x;
+      r = _aabbHalfExtents[0] * _f2.z.abs() + _aabbHalfExtents[2] * _f2.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u1.crossInto(_f2, result.axis);
+      }
+    }
+
+    // Test axis a20
+    len = _f0.x * _f0.x + _f0.y * _f0.y;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.y * _f0.x - _v0.x * _f0.y;
+      p2 = _v2.y * _f0.x - _v2.x * _f0.y;
+      r = _aabbHalfExtents[0] * _f0.y.abs() + _aabbHalfExtents[1] * _f0.x.abs();
+      if (Math.max(-Math.max(p0, p2), Math.min(p0, p2)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p2) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u2.crossInto(_f0, result.axis);
+      }
+    }
+
+    // Test axis a21
+    len = _f1.x * _f1.x + _f1.y * _f1.y;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.y * _f1.x - _v0.x * _f1.y;
+      p1 = _v1.y * _f1.x - _v1.x * _f1.y;
+      r = _aabbHalfExtents[0] * _f1.y.abs() + _aabbHalfExtents[1] * _f1.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u2.crossInto(_f1, result.axis);
+      }
+    }
+
+    // Test axis a22
+    len = _f2.x * _f2.x + _f2.y * _f2.y;
+    if (len > epsilon) {
+      // Ignore tests on degenerate axes.
+      p0 = _v0.y * _f2.x - _v0.x * _f2.y;
+      p1 = _v1.y * _f2.x - _v1.x * _f2.y;
+      r = _aabbHalfExtents[0] * _f2.y.abs() + _aabbHalfExtents[1] * _f2.x.abs();
+      if (Math.max(-Math.max(p0, p1), Math.min(p0, p1)) > r + epsilon) {
+        return false; // Axis is a separating axis
+      }
+
+      a = Math.min(p0, p1) - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        _u2.crossInto(_f2, result.axis);
+      }
+    }
+
+    // Test the three axes corresponding to the face normals of AABB b (category 1). // Exit if...
+    // ... [-e0, e0] and [min(v0.x,v1.x,v2.x), max(v0.x,v1.x,v2.x)] do not overlap
+    if (Math.max(_v0.x, Math.max(_v1.x, _v2.x)) < -_aabbHalfExtents[0] ||
+        Math.min(_v0.x, Math.min(_v1.x, _v2.x)) > _aabbHalfExtents[0]) {
+      return false;
+    }
+    a = Math.min(_v0.x, Math.min(_v1.x, _v2.x)) - _aabbHalfExtents[0];
+    if (result != null && (result._depth == null || result._depth < a)) {
+      result._depth = a;
+      result.axis.setFrom(_u0);
+    }
+    // ... [-e1, e1] and [min(v0.y,v1.y,v2.y), max(v0.y,v1.y,v2.y)] do not overlap
+    if (Math.max(_v0.y, Math.max(_v1.y, _v2.y)) < -_aabbHalfExtents[1] ||
+        Math.min(_v0.y, Math.min(_v1.y, _v2.y)) > _aabbHalfExtents[1]) {
+      return false;
+    }
+    a = Math.min(_v0.y, Math.min(_v1.y, _v2.y)) - _aabbHalfExtents[1];
+    if (result != null && (result._depth == null || result._depth < a)) {
+      result._depth = a;
+      result.axis.setFrom(_u1);
+    }
+    // ... [-e2, e2] and [min(v0.z,v1.z,v2.z), max(v0.z,v1.z,v2.z)] do not overlap
+    if (Math.max(_v0.z, Math.max(_v1.z, _v2.z)) < -_aabbHalfExtents[2] ||
+        Math.min(_v0.z, Math.min(_v1.z, _v2.z)) > _aabbHalfExtents[2]) {
+      return false;
+    }
+    a = Math.min(_v0.z, Math.min(_v1.z, _v2.z)) - _aabbHalfExtents[2];
+    if (result != null && (result._depth == null || result._depth < a)) {
+      result._depth = a;
+      result.axis.setFrom(_u2);
+    }
+
+    // It seems like that wee need to move the edges before creating the
+    // plane
+    _v0.add(_aabbCenter);
+
+    // Test separating axis corresponding to triangle face normal (category 2)
+    _f0.crossInto(_f1, _trianglePlane.normal);
+    _trianglePlane.constant = _trianglePlane.normal.dot(_v0);
+    return intersectsWithPlane(_trianglePlane, result: result);
+  }
+
+  /// Return if [this] intersects with [other]
+  bool intersectsWithPlane(Plane other, {IntersectionResult result}) {
+    // This line is not necessary with a (center, extents) AABB representation
+    copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
+
+    // Compute the projection interval radius of b onto L(t) = b.c + t * p.n
+    double r = _aabbHalfExtents[0] * other.normal[0].abs() +
+        _aabbHalfExtents[1] * other.normal[1].abs() +
+        _aabbHalfExtents[2] * other.normal[2].abs();
+    // Compute distance of box center from plane
+    double s = other.normal.dot(_aabbCenter) - other.constant;
+    // Intersection occurs when distance s falls within [-r,+r] interval
+    if (s.abs() <= r) {
+      final a = s - r;
+      if (result != null && (result._depth == null || result._depth < a)) {
+        result._depth = a;
+        result.axis.setFrom(other.normal);
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  // Avoid allocating these instance on every call to intersectsWithTriangle
+  static final _quadTriangle0 = new Triangle();
+  static final _quadTriangle1 = new Triangle();
+
+  /// Return if [this] intersects with [other].
+  /// [epsilon] allows the caller to specify a custum eplsilon value that should
+  /// be used for the test. If [result] is specified and an intersection is
+  /// found, result is modified to contain more details about the type of
+  /// intersection.
+  bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
+    other.copyTriangles(_quadTriangle0, _quadTriangle1);
+
+    return intersectsWithTriangle(_quadTriangle0, result: result) ||
+        intersectsWithTriangle(_quadTriangle1, result: result);
   }
 }
