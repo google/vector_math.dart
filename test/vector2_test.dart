@@ -164,6 +164,13 @@ void testVector2Negate() {
   expect(vec1.y, equals(-2.0));
 }
 
+void testVector2Equals() {
+  var v2 = new Vector2(1.0, 2.0);
+  expect(v2 == new Vector2(1.0, 2.0), isTrue);
+  expect(v2 == new Vector2(1.0, 0.0), isFalse);
+  expect(v2 == new Vector2(0.0, 2.0), isFalse);
+}
+
 void testVector2Reflect() {
   var v = new Vector2(0.0, 5.0);
   v.reflect(new Vector2(0.0, -1.0));
@@ -284,6 +291,7 @@ void main() {
     test('orhtogonal scale', testVector2OrthogonalScale);
     test('reflect', testVector2Reflect);
     test('length', testVector2Length);
+    test('equals', testVector2Equals);
     test('Negate', testVector2Negate);
     test('Constructor', testVector2Constructor);
     test('add', testVector2Add);

@@ -137,6 +137,16 @@ void testVector4Negate() {
   expect(vec3.w, equals(-4.0));
 }
 
+void testVector4Equals() {
+  var v4 = new Vector4(1.0, 2.0, 3.0, 4.0);
+  expect(v4 == new Vector4(1.0, 2.0, 3.0, 4.0), isTrue);
+  expect(v4 == new Vector4(0.0, 2.0, 3.0, 4.0), isFalse);
+  expect(v4 == new Vector4(1.0, 0.0, 3.0, 4.0), isFalse);
+  expect(v4 == new Vector4(1.0, 2.0, 0.0, 4.0), isFalse);
+  expect(v4 == new Vector4(1.0, 2.0, 3.0, 0.0), isFalse);
+}
+
+
 void testVector4DistanceTo() {
   var a = new Vector4(1.0, 1.0, 1.0, 0.0);
   var b = new Vector4(1.0, 3.0, 1.0, 0.0);
@@ -224,6 +234,7 @@ void testVector4RoundToZero() {
 void main() {
   group('Vector4', () {
     test('length', testVector4Length);
+    test('equals', testVector4Equals);
     test('Negate', testVector4Negate);
     test('Constructor', testVector4Constructor);
     test('add', testVector4Add);

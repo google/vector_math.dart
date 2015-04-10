@@ -94,6 +94,13 @@ class Vector3 implements Vector {
   /// Returns a printable string
   String toString() => '[${storage[0]},${storage[1]},${storage[2]}]';
 
+  /// Check if two vectors are the same.
+  bool operator ==(Vector3 other) {
+    return (_storage[0] == other._storage[0]) &&
+        (_storage[1] == other._storage[1]) &&
+        (_storage[2] == other._storage[2]);
+  }
+
   /// Negate
   Vector3 operator -() => clone()..negate();
 

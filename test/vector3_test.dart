@@ -222,6 +222,14 @@ void testVector3Negate() {
   expect(vec3.w, equals(-4.0));
 }
 
+void testVector3Equals() {
+  var v3 = new Vector3(1.0, 2.0, 3.0);
+  expect(v3 == new Vector3(1.0, 2.0, 3.0), isTrue);
+  expect(v3 == new Vector3(0.0, 2.0, 3.0), isFalse);
+  expect(v3 == new Vector3(1.0, 0.0, 3.0), isFalse);
+  expect(v3 == new Vector3(1.0, 2.0, 0.0), isFalse);
+}
+
 void testVector3Reflect() {
   var v = new Vector3(5.0, 0.0, 0.0);
   v.reflect(new Vector3(-1.0, 0.0, 0.0));
@@ -408,6 +416,7 @@ void main() {
     test('reflect', testVector3Reflect);
     test('projection', testVector3Projection);
     test('length', testVector3Length);
+    test('equals', testVector3Equals);
     test('Negate', testVector3Negate);
     test('Constructor', testVector3Constructor);
     test('add', testVector3Add);
