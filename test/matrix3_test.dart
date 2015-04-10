@@ -25,8 +25,8 @@ void testMatrix3Adjoint() {
           -0.189908046274114   0.182052622470548  -0.110871609529434
           -0.370546805539367   0.265070987960728  -0.125768101844091'''));
   input.add(parseMatrix('''1     0     0
-                            0     1     0
-                            0     0     1'''));
+                           0     1     0
+                           0     0     1'''));
   expectedOutput.add(parseMatrix('''1     0     0
                                     0     1     0
                                     0     0     1'''));
@@ -271,6 +271,21 @@ void testMatrix3Dot() {
   expect(matrix.dotColumn(2, v), equals(74.0));
 }
 
+void testMatrix3Scale() {
+  final m = new Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+  final n = m.scaled(2.0);
+
+  expect(n.storage[0], equals(2.0));
+  expect(n.storage[1], equals(4.0));
+  expect(n.storage[2], equals(6.0));
+  expect(n.storage[3], equals(8.0));
+  expect(n.storage[4], equals(10.0));
+  expect(n.storage[5], equals(12.0));
+  expect(n.storage[6], equals(14.0));
+  expect(n.storage[7], equals(16.0));
+  expect(n.storage[8], equals(18.0));
+}
+
 void testMatrix3Solving() {
   final Matrix3 A =
       new Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
@@ -308,6 +323,7 @@ void main() {
     test('constructor', testMatrix3ConstructorCopy);
     test('inversion', testMatrix3Inversion);
     test('dot product', testMatrix3Dot);
+    test('Scale', testMatrix3Scale);
     test('solving', testMatrix3Solving);
   });
 }
