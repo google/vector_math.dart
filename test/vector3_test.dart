@@ -213,6 +213,31 @@ void testVector3Length() {
   relativeTest(a.z, 0.3292);
 }
 
+void testVector3SetLength() {
+  final v0 = new Vector3(1.0, 2.0, 1.0);
+  final v1 = new Vector3(3.0, -2.0, 2.0);
+  final v2 = new Vector3(-1.0, 2.0, -2.0);
+  final v3 = new Vector3(1.0, 0.0, 0.0);
+
+  v0.length = 0.0;
+  relativeTest(v0, new Vector3.zero());
+  relativeTest(v0.length, 0.0);
+
+  v1.length = 2.0;
+  relativeTest(v1,
+      new Vector3(1.4552137851715088, -0.9701424837112427, 0.9701424837112427));
+  relativeTest(v1.length, 2.0);
+
+  v2.length = 0.5;
+  relativeTest(v2, new Vector3(
+      -0.1666666716337204, 0.3333333432674408, -0.3333333432674408));
+  relativeTest(v2.length, 0.5);
+
+  v3.length = -1.0;
+  relativeTest(v3, new Vector3(-1.0, 0.0, 0.0));
+  relativeTest(v3.length, 1.0);
+}
+
 void testVector3Negate() {
   var vec3 = new Vector4(1.0, 2.0, 3.0, 4.0);
   vec3.negate();
@@ -417,6 +442,7 @@ void main() {
     test('projection', testVector3Projection);
     test('length', testVector3Length);
     test('equals', testVector3Equals);
+    test('set length', testVector3SetLength);
     test('Negate', testVector3Negate);
     test('Constructor', testVector3Constructor);
     test('add', testVector3Add);

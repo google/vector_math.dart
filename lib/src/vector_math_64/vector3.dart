@@ -124,6 +124,23 @@ class Vector3 implements Vector {
     _storage[i] = v;
   }
 
+  /// Set the length of the vector. A negative [value] will change the vectors
+  /// orientation and a [value] of zero will set the vector to zero.
+  set length(double value) {
+    if (value == 0.0) {
+      setZero();
+    } else {
+      double l = length;
+      if (l == 0.0) {
+        return;
+      }
+      l = value / l;
+      _storage[0] *= l;
+      _storage[1] *= l;
+      _storage[2] *= l;
+    }
+  }
+
   /// Length.
   double get length => Math.sqrt(length2);
 

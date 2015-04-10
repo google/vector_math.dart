@@ -128,6 +128,31 @@ void testVector4Length() {
   relativeTest(a.w, 0.7392);
 }
 
+void testVector4SetLength() {
+  final v0 = new Vector4(1.0, 2.0, 1.0, 1.0);
+  final v1 = new Vector4(3.0, -2.0, 2.0, 1.0);
+  final v2 = new Vector4(-1.0, 2.0, -2.0, -3.0);
+  final v3 = new Vector4(1.0, 0.0, 0.0, 0.0);
+
+  v0.length = 0.0;
+  relativeTest(v0, new Vector4.zero());
+  relativeTest(v0.length, 0.0);
+
+  v1.length = 2.0;
+  relativeTest(v1, new Vector4(1.4142135381698608, -0.9428090453147888,
+      0.9428090453147888, 0.4714045226573944));
+  relativeTest(v1.length, 2.0);
+
+  v2.length = 0.5;
+  relativeTest(v2, new Vector4(-0.1178511306643486, 0.2357022613286972,
+      -0.2357022613286972, -0.3535533845424652));
+  relativeTest(v2.length, 0.5);
+
+  v3.length = -1.0;
+  relativeTest(v3, new Vector4(-1.0, 0.0, 0.0, 0.0));
+  relativeTest(v3.length, 1.0);
+}
+
 void testVector4Negate() {
   var vec3 = new Vector4(1.0, 2.0, 3.0, 4.0);
   vec3.negate();
@@ -235,6 +260,7 @@ void main() {
   group('Vector4', () {
     test('length', testVector4Length);
     test('equals', testVector4Equals);
+    test('set length', testVector4SetLength);
     test('Negate', testVector4Negate);
     test('Constructor', testVector4Constructor);
     test('add', testVector4Add);
