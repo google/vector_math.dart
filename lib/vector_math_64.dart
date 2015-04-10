@@ -29,6 +29,7 @@ part 'src/vector_math_64/colors.dart';
 part 'src/vector_math_64/constants.dart';
 part 'src/vector_math_64/error_helpers.dart';
 part 'src/vector_math_64/frustum.dart';
+part 'src/vector_math_64/intersection_result.dart';
 part 'src/vector_math_64/matrix2.dart';
 part 'src/vector_math_64/matrix3.dart';
 part 'src/vector_math_64/matrix4.dart';
