@@ -346,12 +346,18 @@ class Aabb3 {
   static final _u1 = new Vector3(0.0, 1.0, 0.0);
   static final _u2 = new Vector3(0.0, 0.0, 1.0);
 
-  /// Return if [this] intersects with [other]
+  /// Return if [this] intersects with [other].
+  /// [epsilon] allows the caller to specify a custum eplsilon value that should
+  /// be used for the test. If [result] is specified and an intersection is
+  /// found, result is modified to contain more details about the type of
+  /// intersection.
   bool intersectsWithTriangle(Triangle other,
       {double epsilon: 1e-3, IntersectionResult result}) {
     double p0, p1, p2, r, len;
     double a;
 
+    // This line isn't required if we are using center and half extents to
+    // define a aabb
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
     // Translate triangle as conceptually moving AABB to origin
@@ -609,7 +615,11 @@ class Aabb3 {
   static final _quadTriangle0 = new Triangle();
   static final _quadTriangle1 = new Triangle();
 
-  /// Return if [this] intersects with [other]
+  /// Return if [this] intersects with [other].
+  /// [epsilon] allows the caller to specify a custum eplsilon value that should
+  /// be used for the test. If [result] is specified and an intersection is
+  /// found, result is modified to contain more details about the type of
+  /// intersection.
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 
