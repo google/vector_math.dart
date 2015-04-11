@@ -13,6 +13,7 @@ import 'matrix2_test.dart' as matrix2;
 import 'matrix3_test.dart' as matrix3;
 import 'matrix4_test.dart' as matrix4;
 import 'noise_test.dart' as noise;
+import 'obb3_test.dart' as obb3;
 import 'opengl_matrix_test.dart' as opengl_matrix;
 import 'plane_test.dart' as plane;
 import 'quad_test.dart' as quad;
@@ -36,6 +37,7 @@ void main() {
   matrix3.main();
   matrix4.main();
   noise.main();
+  obb3.main();
   opengl_matrix.main();
   plane.main();
   quad.main();

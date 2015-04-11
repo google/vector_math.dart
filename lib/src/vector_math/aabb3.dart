@@ -43,6 +43,9 @@ class Aabb3 {
   /// Create a new AABB that encloses a [quad].
   factory Aabb3.fromQuad(Quad quad) => new Aabb3()..setQuad(quad);
 
+  /// Create a new AABB that encloses a [obb].
+  factory Aabb3.fromObb3(Obb3 obb) => new Aabb3()..setObb3(obb);
+
   /// Create a new AABB that encloses a limited [ray] (or line segment) that has
   /// a minLimit and maxLimit.
   factory Aabb3.fromRay(Ray ray, double limitMin, double limitMax) =>
@@ -108,6 +111,36 @@ class Aabb3 {
             Math.max(quad._point1.y, Math.max(quad._point2.y, quad._point3.y))),
         Math.max(quad._point0.z, Math.max(
             quad._point1.z, Math.max(quad._point2.z, quad._point3.z))));
+  }
+
+  /// Set the AABB to enclose a [obb].
+  void setObb3(Obb3 obb) {
+    final corner = new Vector3.zero();
+
+    obb.copyCorner(0, corner);
+    _min.setFrom(corner);
+    _max.setFrom(corner);
+
+    obb.copyCorner(1, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(2, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(3, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(4, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(5, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(6, corner);
+    hullPoint(corner);
+
+    obb.copyCorner(7, corner);
+    hullPoint(corner);
   }
 
   /// Set the AABB to enclose a limited [ray] (or line segment) that is limited

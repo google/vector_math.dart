@@ -34,6 +34,7 @@ part 'src/vector_math_64/matrix2.dart';
 part 'src/vector_math_64/matrix3.dart';
 part 'src/vector_math_64/matrix4.dart';
 part 'src/vector_math_64/noise.dart';
+part 'src/vector_math_64/obb3.dart';
 part 'src/vector_math_64/opengl.dart';
 part 'src/vector_math_64/plane.dart';
 part 'src/vector_math_64/quad.dart';
