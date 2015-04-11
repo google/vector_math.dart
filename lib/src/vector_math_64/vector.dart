@@ -16,9 +16,7 @@ void cross3(Vector3 x, Vector3 y, Vector3 out) {
 }
 
 /// 2D cross product. vec2 x vec2.
-double cross2(Vector2 x, Vector2 y) {
-  return x.cross(y);
-}
+double cross2(Vector2 x, Vector2 y) => x.cross(y);
 
 /// 2D cross product. double x vec2.
 void cross2A(double x, Vector2 y, Vector2 out) {

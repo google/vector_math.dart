@@ -59,36 +59,32 @@ class Vector3 implements Vector {
       : _v3storage = new Float32List.view(buffer, offset, 3);
 
   /// Set the values of the vector.
-  Vector3 setValues(double x_, double y_, double z_) {
+  void setValues(double x_, double y_, double z_) {
     _v3storage[0] = x_;
     _v3storage[1] = y_;
     _v3storage[2] = z_;
-    return this;
   }
 
   /// Zero vector.
-  Vector3 setZero() {
+  void setZero() {
     _v3storage[2] = 0.0;
     _v3storage[1] = 0.0;
     _v3storage[0] = 0.0;
-    return this;
   }
 
   /// Set the values by copying them from [other].
-  Vector3 setFrom(Vector3 other) {
+  void setFrom(Vector3 other) {
     final otherStorage = other._v3storage;
     _v3storage[0] = otherStorage[0];
     _v3storage[1] = otherStorage[1];
     _v3storage[2] = otherStorage[2];
-    return this;
   }
 
   /// Splat [arg] into all lanes of the vector.
-  Vector3 splat(double arg) {
+  void splat(double arg) {
     _v3storage[2] = arg;
     _v3storage[1] = arg;
     _v3storage[0] = arg;
-    return this;
   }
 
   /// Returns a printable string
@@ -154,20 +150,7 @@ class Vector3 implements Vector {
   }
 
   /// Normalizes [this].
-  Vector3 normalize() {
-    double l = length;
-    if (l == 0.0) {
-      return this;
-    }
-    l = 1.0 / l;
-    _v3storage[0] *= l;
-    _v3storage[1] *= l;
-    _v3storage[2] *= l;
-    return this;
-  }
-
-  /// Normalize [this]. Returns length of vector before normalization.
-  double normalizeLength() {
+  double normalize() {
     double l = length;
     if (l == 0.0) {
       return 0.0;
@@ -179,13 +162,20 @@ class Vector3 implements Vector {
     return l;
   }
 
+  /// Normalize [this]. Returns length of vector before normalization.
+  /// DEPRCATED: Use [normalize].
+  @deprecated
+  double normalizeLength() => normalize();
+
   /// Normalizes copy of [this].
   Vector3 normalized() => new Vector3.copy(this)..normalize();
 
   /// Normalize vector into [out].
   Vector3 normalizeInto(Vector3 out) {
-    out.setFrom(this);
-    return out.normalize();
+    out
+      ..setFrom(this)
+      ..normalize();
+    return out;
   }
 
   /// Distance from [this] to [arg]
@@ -241,16 +231,18 @@ class Vector3 implements Vector {
    * If [arg] is a rotation matrix, this is a computational shortcut for applying,
    * the inverse of the transformation.
    */
-  Vector3 postmultiply(Matrix3 arg) {
+  void postmultiply(Matrix3 arg) {
     final argStorage = arg.storage;
     final v0 = _v3storage[0];
     final v1 = _v3storage[1];
     final v2 = _v3storage[2];
 
-    _v3storage[0] = v0 * argStorage[0] + v1 * argStorage[1] + v2 * argStorage[2];
-    _v3storage[1] = v0 * argStorage[3] + v1 * argStorage[4] + v2 * argStorage[5];
-    _v3storage[2] = v0 * argStorage[6] + v1 * argStorage[7] + v2 * argStorage[8];
-    return this;
+    _v3storage[0] =
+        v0 * argStorage[0] + v1 * argStorage[1] + v2 * argStorage[2];
+    _v3storage[1] =
+        v0 * argStorage[3] + v1 * argStorage[4] + v2 * argStorage[5];
+    _v3storage[2] =
+        v0 * argStorage[6] + v1 * argStorage[7] + v2 * argStorage[8];
   }
 
   /// Cross product.
@@ -282,16 +274,15 @@ class Vector3 implements Vector {
   }
 
   /// Reflect [this].
-  Vector3 reflect(Vector3 normal) {
+  void reflect(Vector3 normal) {
     sub(normal.scaled(2.0 * normal.dot(this)));
-    return this;
   }
 
   /// Reflected copy of [this].
   Vector3 reflected(Vector3 normal) => clone()..reflect(normal);
 
   /// Projects [this] using the projection matrix [arg]
-  Vector3 applyProjection(Matrix4 arg) {
+  void applyProjection(Matrix4 arg) {
     final argStorage = arg.storage;
     final x = _v3storage[0];
     final y = _v3storage[1];
@@ -316,17 +307,15 @@ class Vector3 implements Vector {
             argStorage[10] * z +
             argStorage[14]) *
         d;
-    return this;
   }
 
   /// Applies a rotation specified by [axis] and [angle].
-  Vector3 applyAxisAngle(Vector3 axis, double angle) {
+  void applyAxisAngle(Vector3 axis, double angle) {
     applyQuaternion(new Quaternion.axisAngle(axis, angle));
-    return this;
   }
 
   /// Applies a quaternion transform.
-  Vector3 applyQuaternion(Quaternion arg) {
+  void applyQuaternion(Quaternion arg) {
     final argStorage = arg._qStorage;
     var v0 = _v3storage[0];
     var v1 = _v3storage[1];
@@ -342,24 +331,25 @@ class Vector3 implements Vector {
     _v3storage[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
     _v3storage[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
     _v3storage[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
-    return this;
   }
 
   /// Multiplies [this] by [arg].
-  Vector3 applyMatrix3(Matrix3 arg) {
+  void applyMatrix3(Matrix3 arg) {
     final argStorage = arg.storage;
     var v0 = _v3storage[0];
     var v1 = _v3storage[1];
     var v2 = _v3storage[2];
-    _v3storage[0] = argStorage[0] * v0 + argStorage[3] * v1 + argStorage[6] * v2;
-    _v3storage[1] = argStorage[1] * v0 + argStorage[4] * v1 + argStorage[7] * v2;
-    _v3storage[2] = argStorage[2] * v0 + argStorage[5] * v1 + argStorage[8] * v2;
-    return this;
+    _v3storage[0] =
+        argStorage[0] * v0 + argStorage[3] * v1 + argStorage[6] * v2;
+    _v3storage[1] =
+        argStorage[1] * v0 + argStorage[4] * v1 + argStorage[7] * v2;
+    _v3storage[2] =
+        argStorage[2] * v0 + argStorage[5] * v1 + argStorage[8] * v2;
   }
 
   /// Multiplies [this] by a 4x3 subset of [arg]. Expects [arg] to be an affine
   /// transformation matrix.
-  Vector3 applyMatrix4(Matrix4 arg) {
+  void applyMatrix4(Matrix4 arg) {
     final argStorage = arg.storage;
     var v0 = _v3storage[0];
     var v1 = _v3storage[1];
@@ -376,7 +366,6 @@ class Vector3 implements Vector {
         argStorage[6] * v1 +
         argStorage[10] * v2 +
         argStorage[14];
-    return this;
   }
 
   /// Relative error between [this] and [correct]
@@ -410,56 +399,50 @@ class Vector3 implements Vector {
   }
 
   /// Add [arg] to [this].
-  Vector3 add(Vector3 arg) {
+  void add(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] + argStorage[0];
     _v3storage[1] = _v3storage[1] + argStorage[1];
     _v3storage[2] = _v3storage[2] + argStorage[2];
-    return this;
   }
 
   /// Add [arg] scaled by [factor] to [this].
-  Vector3 addScaled(Vector3 arg, double factor) {
+  void addScaled(Vector3 arg, double factor) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] + argStorage[0] * factor;
     _v3storage[1] = _v3storage[1] + argStorage[1] * factor;
     _v3storage[2] = _v3storage[2] + argStorage[2] * factor;
-    return this;
   }
 
   /// Subtract [arg] from [this].
-  Vector3 sub(Vector3 arg) {
+  void sub(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] - argStorage[0];
     _v3storage[1] = _v3storage[1] - argStorage[1];
     _v3storage[2] = _v3storage[2] - argStorage[2];
-    return this;
   }
 
   /// Multiply entries in [this] with entries in [arg].
-  Vector3 multiply(Vector3 arg) {
+  void multiply(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] * argStorage[0];
     _v3storage[1] = _v3storage[1] * argStorage[1];
     _v3storage[2] = _v3storage[2] * argStorage[2];
-    return this;
   }
 
   /// Divide entries in [this] with entries in [arg].
-  Vector3 divide(Vector3 arg) {
+  void divide(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] / argStorage[0];
     _v3storage[1] = _v3storage[1] / argStorage[1];
     _v3storage[2] = _v3storage[2] / argStorage[2];
-    return this;
   }
 
   /// Scale [this].
-  Vector3 scale(double arg) {
+  void scale(double arg) {
     _v3storage[2] = _v3storage[2] * arg;
     _v3storage[1] = _v3storage[1] * arg;
     _v3storage[0] = _v3storage[0] * arg;
-    return this;
   }
 
   /// Create a copy of [this] and scale it by [arg].
@@ -480,49 +463,44 @@ class Vector3 implements Vector {
   }
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
-  Vector3 clamp(Vector3 min, Vector3 max) {
+  void clamp(Vector3 min, Vector3 max) {
     final minStorage = min.storage;
     final maxStorage = max.storage;
     _v3storage[0] = _v3storage[0].clamp(minStorage[0], maxStorage[0]);
     _v3storage[1] = _v3storage[1].clamp(minStorage[1], maxStorage[1]);
     _v3storage[2] = _v3storage[2].clamp(minStorage[2], maxStorage[2]);
-    return this;
   }
 
   /// Clamp entries in [this] in the range [min]-[max].
-  Vector3 clampScalar(double min, double max) {
+  void clampScalar(double min, double max) {
     _v3storage[0] = _v3storage[0].clamp(min, max);
     _v3storage[1] = _v3storage[1].clamp(min, max);
     _v3storage[2] = _v3storage[2].clamp(min, max);
-    return this;
   }
 
   /// Floor entries in [this].
-  Vector3 floor() {
+  void floor() {
     _v3storage[0] = _v3storage[0].floorToDouble();
     _v3storage[1] = _v3storage[1].floorToDouble();
     _v3storage[2] = _v3storage[2].floorToDouble();
-    return this;
   }
 
   /// Ceil entries in [this].
-  Vector3 ceil() {
+  void ceil() {
     _v3storage[0] = _v3storage[0].ceilToDouble();
     _v3storage[1] = _v3storage[1].ceilToDouble();
     _v3storage[2] = _v3storage[2].ceilToDouble();
-    return this;
   }
 
   /// Round entries in [this].
-  Vector3 round() {
+  void round() {
     _v3storage[0] = _v3storage[0].roundToDouble();
     _v3storage[1] = _v3storage[1].roundToDouble();
     _v3storage[2] = _v3storage[2].roundToDouble();
-    return this;
   }
 
   /// Round entries in [this] towards zero.
-  Vector3 roundToZero() {
+  void roundToZero() {
     _v3storage[0] = _v3storage[0] < 0.0
         ? _v3storage[0].ceilToDouble()
         : _v3storage[0].floorToDouble();
@@ -532,7 +510,6 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2] < 0.0
         ? _v3storage[2].ceilToDouble()
         : _v3storage[2].floorToDouble();
-    return this;
   }
 
   /// Clone of [this].

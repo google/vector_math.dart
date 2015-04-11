@@ -55,32 +55,28 @@ class Vector2 implements Vector {
       : _v2storage = new Float32List.view(buffer, offset, 2);
 
   /// Set the values of the vector.
-  Vector2 setValues(double x_, double y_) {
+  void setValues(double x_, double y_) {
     _v2storage[0] = x_;
     _v2storage[1] = y_;
-    return this;
   }
 
   /// Zero the vector.
-  Vector2 setZero() {
+  void setZero() {
     _v2storage[0] = 0.0;
     _v2storage[1] = 0.0;
-    return this;
   }
 
   /// Set the values by copying them from [other].
-  Vector2 setFrom(Vector2 other) {
+  void setFrom(Vector2 other) {
     final otherStorage = other._v2storage;
     _v2storage[1] = otherStorage[1];
     _v2storage[0] = otherStorage[0];
-    return this;
   }
 
   /// Splat [arg] into all lanes of the vector.
-  Vector2 splat(double arg) {
+  void splat(double arg) {
     _v2storage[0] = arg;
     _v2storage[1] = arg;
-    return this;
   }
 
   /// Returns a printable string
@@ -143,20 +139,7 @@ class Vector2 implements Vector {
   }
 
   /// Normalize [this].
-  Vector2 normalize() {
-    double l = length;
-    // TODO(johnmccutchan): Use an epsilon.
-    if (l == 0.0) {
-      return this;
-    }
-    l = 1.0 / l;
-    _v2storage[0] *= l;
-    _v2storage[1] *= l;
-    return this;
-  }
-
-  /// Normalize [this]. Returns length of vector before normalization.
-  double normalizeLength() {
+  double normalize() {
     double l = length;
     if (l == 0.0) {
       return 0.0;
@@ -167,13 +150,20 @@ class Vector2 implements Vector {
     return l;
   }
 
+  /// Normalize [this]. Returns length of vector before normalization.
+  /// /// DEPRCATED: Use [normalize].
+  @deprecated
+  double normalizeLength() => normalize();
+
   /// Normalized copy of [this].
   Vector2 normalized() => clone()..normalize();
 
   /// Normalize vector into [out].
   Vector2 normalizeInto(Vector2 out) {
-    out.setFrom(this);
-    return out.normalize();
+    out
+      ..setFrom(this)
+      ..normalize();
+    return out;
   }
 
   /// Distance from [this] to [arg]
@@ -202,14 +192,12 @@ class Vector2 implements Vector {
    * If [arg] is a rotation matrix, this is a computational shortcut for applying,
    * the inverse of the transformation.
    */
-  Vector2 postmultiply(Matrix2 arg) {
+  void postmultiply(Matrix2 arg) {
     final argStorage = arg.storage;
     double v0 = _v2storage[0];
     double v1 = _v2storage[1];
     _v2storage[0] = v0 * argStorage[0] + v1 * argStorage[1];
     _v2storage[1] = v0 * argStorage[2] + v1 * argStorage[3];
-
-    return this;
   }
 
   /// Cross product.
@@ -225,9 +213,8 @@ class Vector2 implements Vector {
   }
 
   /// Reflect [this].
-  Vector2 reflect(Vector2 normal) {
+  void reflect(Vector2 normal) {
     sub(normal.scaled(2.0 * normal.dot(this)));
-    return this;
   }
 
   /// Reflected copy of [this].
@@ -262,115 +249,101 @@ class Vector2 implements Vector {
   }
 
   /// Add [arg] to [this].
-  Vector2 add(Vector2 arg) {
+  void add(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] + argStorage[0];
     _v2storage[1] = _v2storage[1] + argStorage[1];
-    return this;
   }
 
   /// Add [arg] scaled by [factor] to [this].
-  Vector2 addScaled(Vector2 arg, double factor) {
+  void addScaled(Vector2 arg, double factor) {
     final argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] + argStorage[0] * factor;
     _v2storage[1] = _v2storage[1] + argStorage[1] * factor;
-    return this;
   }
 
   /// Subtract [arg] from [this].
-  Vector2 sub(Vector2 arg) {
+  void sub(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] - argStorage[0];
     _v2storage[1] = _v2storage[1] - argStorage[1];
-    return this;
   }
 
   /// Multiply entries in [this] with entries in [arg].
-  Vector2 multiply(Vector2 arg) {
+  void multiply(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] * argStorage[0];
     _v2storage[1] = _v2storage[1] * argStorage[1];
-    return this;
   }
 
   /// Divide entries in [this] with entries in [arg].
-  Vector2 divide(Vector2 arg) {
+  void divide(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] / argStorage[0];
     _v2storage[1] = _v2storage[1] / argStorage[1];
-    return this;
   }
 
   /// Scale [this] by [arg].
-  Vector2 scale(double arg) {
+  void scale(double arg) {
     _v2storage[1] = _v2storage[1] * arg;
     _v2storage[0] = _v2storage[0] * arg;
-    return this;
   }
 
   /// Return a copy of [this] scaled by [arg].
   Vector2 scaled(double arg) => clone()..scale(arg);
 
   /// Negate.
-  Vector2 negate() {
+  void negate() {
     _v2storage[1] = -_v2storage[1];
     _v2storage[0] = -_v2storage[0];
-    return this;
   }
 
   /// Absolute value.
-  Vector2 absolute() {
+  void absolute() {
     _v2storage[1] = _v2storage[1].abs();
     _v2storage[0] = _v2storage[0].abs();
-    return this;
   }
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
-  Vector2 clamp(Vector2 min, Vector2 max) {
+  void clamp(Vector2 min, Vector2 max) {
     var minStorage = min.storage;
     var maxStorage = max.storage;
     _v2storage[0] = _v2storage[0].clamp(minStorage[0], maxStorage[0]);
     _v2storage[1] = _v2storage[1].clamp(minStorage[1], maxStorage[1]);
-    return this;
   }
 
   /// Clamp entries [this] in the range [min]-[max].
-  Vector2 clampScalar(double min, double max) {
+  void clampScalar(double min, double max) {
     _v2storage[0] = _v2storage[0].clamp(min, max);
     _v2storage[1] = _v2storage[1].clamp(min, max);
-    return this;
   }
 
   /// Floor entries in [this].
-  Vector2 floor() {
+  void floor() {
     _v2storage[0] = _v2storage[0].floorToDouble();
     _v2storage[1] = _v2storage[1].floorToDouble();
-    return this;
   }
 
   /// Ceil entries in [this].
-  Vector2 ceil() {
+  void ceil() {
     _v2storage[0] = _v2storage[0].ceilToDouble();
     _v2storage[1] = _v2storage[1].ceilToDouble();
-    return this;
   }
 
   /// Round entries in [this].
-  Vector2 round() {
+  void round() {
     _v2storage[0] = _v2storage[0].roundToDouble();
     _v2storage[1] = _v2storage[1].roundToDouble();
-    return this;
   }
 
   /// Round entries in [this] towards zero.
-  Vector2 roundToZero() {
+  void roundToZero() {
     _v2storage[0] = _v2storage[0] < 0.0
         ? _v2storage[0].ceilToDouble()
         : _v2storage[0].floorToDouble();
     _v2storage[1] = _v2storage[1] < 0.0
         ? _v2storage[1].ceilToDouble()
         : _v2storage[1].floorToDouble();
-    return this;
   }
 
   /// Clone of [this].

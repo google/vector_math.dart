@@ -32,19 +32,19 @@ void generateNormals(
 
     // Add the face normal to each vertex normal.
     normals.load(i0, norm);
-    normals[i0] = norm.add(p0);
+    normals[i0] = norm..add(p0);
 
     normals.load(i1, norm);
-    normals[i1] = norm.add(p0);
+    normals[i1] = norm..add(p0);
 
     normals.load(i2, norm);
-    normals[i2] = norm.add(p0);
+    normals[i2] = norm..add(p0);
   }
 
   // Loop through all the normals and normalize them.
   for (int i = 0; i < normals.length; ++i) {
     normals.load(i, norm);
-    normals[i] = norm.normalize();
+    normals[i] = norm..normalize();
   }
 }
 
@@ -104,32 +104,37 @@ void generateTangents(Vector4List tangents, Vector3List positions,
         (uv1.x * p2.y - uv2.x * p1.y) * r, (uv1.x * p2.z - uv2.x * p1.z) * r);
 
     tan0.load(i0, p0);
-    tan0[i0] = p0.add(udir);
+    tan0[i0] = p0..add(udir);
     tan0.load(i1, p0);
-    tan0[i1] = p0.add(udir);
+    tan0[i1] = p0..add(udir);
     tan0.load(i2, p0);
-    tan0[i2] = p0.add(udir);
+    tan0[i2] = p0..add(udir);
 
     tan1.load(i0, p0);
-    tan1[i0] = p0.add(vdir);
+    tan1[i0] = p0..add(vdir);
     tan1.load(i1, p0);
-    tan1[i1] = p0.add(vdir);
+    tan1[i1] = p0..add(vdir);
     tan1.load(i2, p0);
-    tan1[i2] = p0.add(vdir);
+    tan1[i2] = p0..add(vdir);
   }
 
   for (int i = 0; i < tangents.length; ++i) {
     normals.load(i, n);
     tan0.load(i, t);
 
-    p1.setFrom(n).scale(n.dot(t));
-    p0.setFrom(t).sub(p1).normalize();
+    p1
+      ..setFrom(n)
+      ..scale(n.dot(t));
+    p0
+      ..setFrom(t)
+      ..sub(p1)
+      ..normalize();
 
     tan1.load(i, p1);
     n.crossInto(t, p2);
     double sign = (p2.dot(p1) < 0.0) ? -1.0 : 1.0;
 
     tangents.load(i, tan);
-    tangents[i] = tan.setValues(p0.x, p0.y, p0.z, sign);
+    tangents[i] = tan..setValues(p0.x, p0.y, p0.z, sign);
   }
 }
