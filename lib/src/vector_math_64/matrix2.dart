@@ -81,59 +81,53 @@ class Matrix2 {
       new Matrix2.zero()..setRotation(radians);
 
   /// Sets the matrix with specified values.
-  Matrix2 setValues(double arg0, double arg1, double arg2, double arg3) {
+  void setValues(double arg0, double arg1, double arg2, double arg3) {
     _m2storage[3] = arg3;
     _m2storage[2] = arg2;
     _m2storage[1] = arg1;
     _m2storage[0] = arg0;
-    return this;
   }
 
   /// Sets the entire matrix to the column values.
-  Matrix2 setColumns(Vector2 arg0, Vector2 arg1) {
+  void setColumns(Vector2 arg0, Vector2 arg1) {
     final arg0Storage = arg0._v2storage;
     final arg1Storage = arg1._v2storage;
     _m2storage[0] = arg0Storage[0];
     _m2storage[1] = arg0Storage[1];
     _m2storage[2] = arg1Storage[0];
     _m2storage[3] = arg1Storage[1];
-    return this;
   }
 
   /// Sets the entire matrix to the matrix in [arg].
-  Matrix2 setFrom(Matrix2 arg) {
+  void setFrom(Matrix2 arg) {
     final argStorage = arg._m2storage;
     _m2storage[3] = argStorage[3];
     _m2storage[2] = argStorage[2];
     _m2storage[1] = argStorage[1];
     _m2storage[0] = argStorage[0];
-    return this;
   }
 
   /// Set [this] to the outer product of [u] and [v].
-  Matrix2 setOuter(Vector2 u, Vector2 v) {
+  void setOuter(Vector2 u, Vector2 v) {
     final uStorage = u._v2storage;
     final vStorage = v._v2storage;
     _m2storage[0] = uStorage[0] * vStorage[0];
     _m2storage[1] = uStorage[0] * vStorage[1];
     _m2storage[2] = uStorage[1] * vStorage[0];
     _m2storage[3] = uStorage[1] * vStorage[1];
-    return this;
   }
 
   /// Sets the diagonal to [arg].
-  Matrix2 splatDiagonal(double arg) {
+  void splatDiagonal(double arg) {
     _m2storage[0] = arg;
     _m2storage[3] = arg;
-    return this;
   }
 
   /// Sets the diagonal of the matrix to be [arg].
-  Matrix2 setDiagonal(Vector2 arg) {
+  void setDiagonal(Vector2 arg) {
     final argStorage = arg._v2storage;
     _m2storage[0] = argStorage[0];
     _m2storage[3] = argStorage[1];
-    return this;
   }
 
   /// Returns a printable string
@@ -244,31 +238,28 @@ class Matrix2 {
   Matrix2 operator -() => clone()..negate();
 
   /// Zeros [this].
-  Matrix2 setZero() {
+  void setZero() {
     _m2storage[0] = 0.0;
     _m2storage[1] = 0.0;
     _m2storage[2] = 0.0;
     _m2storage[3] = 0.0;
-    return this;
   }
 
   /// Makes [this] into the identity matrix.
-  Matrix2 setIdentity() {
+  void setIdentity() {
     _m2storage[0] = 1.0;
     _m2storage[1] = 0.0;
     _m2storage[2] = 0.0;
     _m2storage[3] = 1.0;
-    return this;
   }
 
   /// Returns the tranpose of this.
   Matrix2 transposed() => clone()..transpose();
 
-  Matrix2 transpose() {
+  void transpose() {
     double temp = _m2storage[2];
     _m2storage[2] = _m2storage[1];
     _m2storage[1] = temp;
-    return this;
   }
 
   /// Returns the component wise absolute value of this.
@@ -383,58 +374,53 @@ class Matrix2 {
   }
 
   /// Converts into Adjugate matrix and scales by [scale]
-  Matrix2 scaleAdjoint(double scale) {
+  void scaleAdjoint(double scale) {
     double temp = _m2storage[0];
     _m2storage[0] = _m2storage[3] * scale;
     _m2storage[2] = -_m2storage[2] * scale;
     _m2storage[1] = -_m2storage[1] * scale;
     _m2storage[3] = temp * scale;
-    return this;
   }
 
   /// Scale [this] by [scale].
-  Matrix2 scale(double scale) {
+  void scale(double scale) {
     _m2storage[0] = _m2storage[0] * scale;
     _m2storage[1] = _m2storage[1] * scale;
     _m2storage[2] = _m2storage[2] * scale;
     _m2storage[3] = _m2storage[3] * scale;
-    return this;
   }
 
   /// Create a copy of [this] scaled by [scale].
   Matrix2 scaled(double scale) => clone()..scale(scale);
 
   /// Add [o] to [this].
-  Matrix2 add(Matrix2 o) {
+  void add(Matrix2 o) {
     final oStorage = o._m2storage;
     _m2storage[0] = _m2storage[0] + oStorage[0];
     _m2storage[1] = _m2storage[1] + oStorage[1];
     _m2storage[2] = _m2storage[2] + oStorage[2];
     _m2storage[3] = _m2storage[3] + oStorage[3];
-    return this;
   }
 
   /// Subtract [o] from [this].
-  Matrix2 sub(Matrix2 o) {
+  void sub(Matrix2 o) {
     final oStorage = o._m2storage;
     _m2storage[0] = _m2storage[0] - oStorage[0];
     _m2storage[1] = _m2storage[1] - oStorage[1];
     _m2storage[2] = _m2storage[2] - oStorage[2];
     _m2storage[3] = _m2storage[3] - oStorage[3];
-    return this;
   }
 
   /// Negate [this].
-  Matrix2 negate() {
+  void negate() {
     _m2storage[0] = -_m2storage[0];
     _m2storage[1] = -_m2storage[1];
     _m2storage[2] = -_m2storage[2];
     _m2storage[3] = -_m2storage[3];
-    return this;
   }
 
   /// Multiply [this] with [arg] and store it in [this].
-  Matrix2 multiply(Matrix2 arg) {
+  void multiply(Matrix2 arg) {
     final m00 = _m2storage[0];
     final m01 = _m2storage[2];
     final m10 = _m2storage[1];
@@ -448,14 +434,13 @@ class Matrix2 {
     _m2storage[2] = (m00 * n01) + (m01 * n11);
     _m2storage[1] = (m10 * n00) + (m11 * n10);
     _m2storage[3] = (m10 * n01) + (m11 * n11);
-    return this;
   }
 
   /// Multiply [this] with [arg] and return the product.
   Matrix2 multiplied(Matrix2 arg) => clone()..multiply(arg);
 
   /// Multiply a transposed [this] with [arg].
-  Matrix2 transposeMultiply(Matrix2 arg) {
+  void transposeMultiply(Matrix2 arg) {
     final m00 = _m2storage[0];
     final m01 = _m2storage[1];
     final m10 = _m2storage[2];
@@ -465,11 +450,10 @@ class Matrix2 {
     _m2storage[2] = (m00 * argStorage[2]) + (m01 * argStorage[3]);
     _m2storage[1] = (m10 * argStorage[0]) + (m11 * argStorage[1]);
     _m2storage[3] = (m10 * argStorage[2]) + (m11 * argStorage[3]);
-    return this;
   }
 
   /// Multiply [this] with a transposed [arg].
-  Matrix2 multiplyTranspose(Matrix2 arg) {
+  void multiplyTranspose(Matrix2 arg) {
     final m00 = _m2storage[0];
     final m01 = _m2storage[2];
     final m10 = _m2storage[1];
@@ -479,7 +463,6 @@ class Matrix2 {
     _m2storage[2] = (m00 * argStorage[1]) + (m01 * argStorage[3]);
     _m2storage[1] = (m10 * argStorage[0]) + (m11 * argStorage[2]);
     _m2storage[3] = (m10 * argStorage[1]) + (m11 * argStorage[3]);
-    return this;
   }
 
   /// Transform [arg] of type [Vector2] using the transformation defined by

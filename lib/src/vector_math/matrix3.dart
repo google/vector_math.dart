@@ -139,7 +139,7 @@ class Matrix3 {
       new Matrix3.zero()..setRotationZ(radians);
 
   /// Sets the matrix with specified values.
-  Matrix3 setValues(double arg0, double arg1, double arg2, double arg3,
+  void setValues(double arg0, double arg1, double arg2, double arg3,
       double arg4, double arg5, double arg6, double arg7, double arg8) {
     _m3storage[8] = arg8;
     _m3storage[7] = arg7;
@@ -150,11 +150,10 @@ class Matrix3 {
     _m3storage[2] = arg2;
     _m3storage[1] = arg1;
     _m3storage[0] = arg0;
-    return this;
   }
 
   /// Sets the entire matrix to the column values.
-  Matrix3 setColumns(Vector3 arg0, Vector3 arg1, Vector3 arg2) {
+  void setColumns(Vector3 arg0, Vector3 arg1, Vector3 arg2) {
     final arg0Storage = arg0._v3storage;
     final arg1Storage = arg1._v3storage;
     final arg2Storage = arg2._v3storage;
@@ -167,11 +166,10 @@ class Matrix3 {
     _m3storage[6] = arg2Storage[0];
     _m3storage[7] = arg2Storage[1];
     _m3storage[8] = arg2Storage[2];
-    return this;
   }
 
   /// Sets the entire matrix to the matrix in [arg].
-  Matrix3 setFrom(Matrix3 arg) {
+  void setFrom(Matrix3 arg) {
     final argStorage = arg._m3storage;
     _m3storage[8] = argStorage[8];
     _m3storage[7] = argStorage[7];
@@ -182,11 +180,10 @@ class Matrix3 {
     _m3storage[2] = argStorage[2];
     _m3storage[1] = argStorage[1];
     _m3storage[0] = argStorage[0];
-    return this;
   }
 
   /// Set [this] to the outer product of [u] and [v].
-  Matrix3 setOuter(Vector3 u, Vector3 v) {
+  void setOuter(Vector3 u, Vector3 v) {
     final uStorage = u._v3storage;
     final vStorage = v._v3storage;
     _m3storage[0] = uStorage[0] * vStorage[0];
@@ -198,33 +195,29 @@ class Matrix3 {
     _m3storage[6] = uStorage[2] * vStorage[0];
     _m3storage[7] = uStorage[2] * vStorage[1];
     _m3storage[8] = uStorage[2] * vStorage[2];
-    return this;
   }
 
   /// Set the diagonal of the matrix.
-  Matrix3 splatDiagonal(double arg) {
+  void splatDiagonal(double arg) {
     _m3storage[0] = arg;
     _m3storage[4] = arg;
     _m3storage[8] = arg;
-    return this;
   }
 
   /// Set the diagonal of the matrix.
-  Matrix3 setDiagonal(Vector3 arg) {
+  void setDiagonal(Vector3 arg) {
     _m3storage[0] = arg.storage[0];
     _m3storage[4] = arg.storage[1];
     _m3storage[8] = arg.storage[2];
-    return this;
   }
 
   /// Sets the upper 2x2 of the matrix to be [arg].
-  Matrix3 setUpper2x2(Matrix2 arg) {
+  void setUpper2x2(Matrix2 arg) {
     final argStorage = arg._m2storage;
     _m3storage[0] = argStorage[0];
     _m3storage[1] = argStorage[1];
     _m3storage[3] = argStorage[2];
     _m3storage[4] = argStorage[3];
-    return this;
   }
 
   /// Returns a printable string
@@ -355,7 +348,7 @@ class Matrix3 {
   Matrix3 operator -() => clone()..negate();
 
   /// Zeros [this].
-  Matrix3 setZero() {
+  void setZero() {
     _m3storage[0] = 0.0;
     _m3storage[1] = 0.0;
     _m3storage[2] = 0.0;
@@ -365,11 +358,10 @@ class Matrix3 {
     _m3storage[6] = 0.0;
     _m3storage[7] = 0.0;
     _m3storage[8] = 0.0;
-    return this;
   }
 
   /// Makes [this] into the identity matrix.
-  Matrix3 setIdentity() {
+  void setIdentity() {
     _m3storage[0] = 1.0;
     _m3storage[1] = 0.0;
     _m3storage[2] = 0.0;
@@ -379,14 +371,13 @@ class Matrix3 {
     _m3storage[6] = 0.0;
     _m3storage[7] = 0.0;
     _m3storage[8] = 1.0;
-    return this;
   }
 
   /// Returns the tranpose of this.
   Matrix3 transposed() => clone()..transpose();
 
   /// Transpose [this].
-  Matrix3 transpose() {
+  void transpose() {
     double temp;
     temp = _m3storage[3];
     _m3storage[3] = _m3storage[1];
@@ -397,7 +388,6 @@ class Matrix3 {
     temp = _m3storage[7];
     _m3storage[7] = _m3storage[5];
     _m3storage[5] = temp;
-    return this;
   }
 
   /// Returns the component wise absolute value of this.
@@ -539,10 +529,9 @@ class Matrix3 {
   }
 
   /// Set this matrix to be the normal matrix of [arg].
-  Matrix3 copyNormalMatrix(Matrix4 arg) {
+  void copyNormalMatrix(Matrix4 arg) {
     copyInverse(arg.getRotation());
     transpose();
-    return this;
   }
 
   /// Turns the matrix into a rotation of [radians] around X
@@ -591,7 +580,7 @@ class Matrix3 {
   }
 
   /// Converts into Adjugate matrix and scales by [scale]
-  Matrix3 scaleAdjoint(double scale) {
+  void scaleAdjoint(double scale) {
     double m00 = _m3storage[0];
     double m01 = _m3storage[3];
     double m02 = _m3storage[6];
@@ -610,7 +599,6 @@ class Matrix3 {
     _m3storage[6] = (m01 * m12 - m02 * m11) * scale;
     _m3storage[7] = (m02 * m10 - m00 * m12) * scale;
     _m3storage[8] = (m00 * m11 - m01 * m10) * scale;
-    return this;
   }
 
   /// Rotates [arg] by the absolute rotation of [this]
@@ -683,7 +671,7 @@ class Matrix3 {
   Matrix3 scaled(double scale) => clone()..scale(scale);
 
   /// Add [o] to [this].
-  Matrix3 add(Matrix3 o) {
+  void add(Matrix3 o) {
     final oStorage = o._m3storage;
     _m3storage[0] = _m3storage[0] + oStorage[0];
     _m3storage[1] = _m3storage[1] + oStorage[1];
@@ -694,11 +682,10 @@ class Matrix3 {
     _m3storage[6] = _m3storage[6] + oStorage[6];
     _m3storage[7] = _m3storage[7] + oStorage[7];
     _m3storage[8] = _m3storage[8] + oStorage[8];
-    return this;
   }
 
   /// Subtract [o] from [this].
-  Matrix3 sub(Matrix3 o) {
+  void sub(Matrix3 o) {
     final oStorage = o._m3storage;
     _m3storage[0] = _m3storage[0] - oStorage[0];
     _m3storage[1] = _m3storage[1] - oStorage[1];
@@ -709,11 +696,10 @@ class Matrix3 {
     _m3storage[6] = _m3storage[6] - oStorage[6];
     _m3storage[7] = _m3storage[7] - oStorage[7];
     _m3storage[8] = _m3storage[8] - oStorage[8];
-    return this;
   }
 
   /// Negate [this].
-  Matrix3 negate() {
+  void negate() {
     _m3storage[0] = -_m3storage[0];
     _m3storage[1] = -_m3storage[1];
     _m3storage[2] = -_m3storage[2];
@@ -723,11 +709,10 @@ class Matrix3 {
     _m3storage[6] = -_m3storage[6];
     _m3storage[7] = -_m3storage[7];
     _m3storage[8] = -_m3storage[8];
-    return this;
   }
 
   /// Multiply [this] by [arg].
-  Matrix3 multiply(Matrix3 arg) {
+  void multiply(Matrix3 arg) {
     final double m00 = _m3storage[0];
     final double m01 = _m3storage[3];
     final double m02 = _m3storage[6];
@@ -756,13 +741,12 @@ class Matrix3 {
     _m3storage[2] = (m20 * n00) + (m21 * n10) + (m22 * n20);
     _m3storage[5] = (m20 * n01) + (m21 * n11) + (m22 * n21);
     _m3storage[8] = (m20 * n02) + (m21 * n12) + (m22 * n22);
-    return this;
   }
 
   /// Create a copy of [this] and multiply it by [arg].
   Matrix3 multiplied(Matrix3 arg) => clone()..multiply(arg);
 
-  Matrix3 transposeMultiply(Matrix3 arg) {
+  void transposeMultiply(Matrix3 arg) {
     double m00 = _m3storage[0];
     double m01 = _m3storage[1];
     double m02 = _m3storage[2];
@@ -791,10 +775,9 @@ class Matrix3 {
         (m20 * argStorage[3]) + (m21 * arg.storage[4]) + (m22 * arg.storage[5]);
     _m3storage[8] =
         (m20 * argStorage[6]) + (m21 * arg.storage[7]) + (m22 * arg.storage[8]);
-    return this;
   }
 
-  Matrix3 multiplyTranspose(Matrix3 arg) {
+  void multiplyTranspose(Matrix3 arg) {
     double m00 = _m3storage[0];
     double m01 = _m3storage[3];
     double m02 = _m3storage[6];
@@ -823,7 +806,6 @@ class Matrix3 {
         (m20 * argStorage[1]) + (m21 * argStorage[4]) + (m22 * argStorage[7]);
     _m3storage[8] =
         (m20 * argStorage[2]) + (m21 * argStorage[5]) + (m22 * argStorage[8]);
-    return this;
   }
 
   /// Transform [arg] of type [Vector3] using the transformation defined by

@@ -301,32 +301,18 @@ class Matrix4 {
         ..setFromTranslationRotationScale(translation, rotation, scale);
 
   /// Sets the diagonal to [arg].
-  Matrix4 splatDiagonal(double arg) {
+  void splatDiagonal(double arg) {
     _m4storage[0] = arg;
     _m4storage[5] = arg;
     _m4storage[10] = arg;
     _m4storage[15] = arg;
-    return this;
   }
 
   /// Sets the matrix with specified values.
-  Matrix4 setValues(
-      double arg0,
-      double arg1,
-      double arg2,
-      double arg3,
-      double arg4,
-      double arg5,
-      double arg6,
-      double arg7,
-      double arg8,
-      double arg9,
-      double arg10,
-      double arg11,
-      double arg12,
-      double arg13,
-      double arg14,
-      double arg15) {
+  void setValues(double arg0, double arg1, double arg2, double arg3,
+      double arg4, double arg5, double arg6, double arg7, double arg8,
+      double arg9, double arg10, double arg11, double arg12, double arg13,
+      double arg14, double arg15) {
     _m4storage[15] = arg15;
     _m4storage[14] = arg14;
     _m4storage[13] = arg13;
@@ -343,11 +329,10 @@ class Matrix4 {
     _m4storage[2] = arg2;
     _m4storage[1] = arg1;
     _m4storage[0] = arg0;
-    return this;
   }
 
   /// Sets the entire matrix to the column values.
-  Matrix4 setColumns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) {
+  void setColumns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) {
     final arg0Storage = arg0._v4storage;
     final arg1Storage = arg1._v4storage;
     final arg2Storage = arg2._v4storage;
@@ -368,11 +353,10 @@ class Matrix4 {
     _m4storage[13] = arg3Storage[1];
     _m4storage[14] = arg3Storage[2];
     _m4storage[15] = arg3Storage[3];
-    return this;
   }
 
   /// Sets the entire matrix to the matrix in [arg].
-  Matrix4 setFrom(Matrix4 arg) {
+  void setFrom(Matrix4 arg) {
     final argStorage = arg._m4storage;
     _m4storage[15] = argStorage[15];
     _m4storage[14] = argStorage[14];
@@ -390,11 +374,10 @@ class Matrix4 {
     _m4storage[2] = argStorage[2];
     _m4storage[1] = argStorage[1];
     _m4storage[0] = argStorage[0];
-    return this;
   }
 
   /// Sets the matrix from translation [arg0] and rotation [arg1].
-  Matrix4 setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
+  void setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
     final arg1Storage = arg1._qStorage;
     double x = arg1Storage[0];
     double y = arg1Storage[1];
@@ -430,35 +413,31 @@ class Matrix4 {
     _m4storage[13] = arg0Storage[1];
     _m4storage[14] = arg0Storage[2];
     _m4storage[15] = 1.0;
-    return this;
   }
 
   /// Sets the matrix from [translation], [rotation] and [scale].
-  Matrix4 setFromTranslationRotationScale(
+  void setFromTranslationRotationScale(
       Vector3 translation, Quaternion rotation, Vector3 scale) {
     setFromTranslationRotation(translation, rotation);
     this.scale(scale);
-    return this;
   }
 
   /// Sets the upper 2x2 of the matrix to be [arg].
-  Matrix4 setUpper2x2(Matrix2 arg) {
+  void setUpper2x2(Matrix2 arg) {
     final argStorage = arg._m2storage;
     _m4storage[0] = argStorage[0];
     _m4storage[1] = argStorage[1];
     _m4storage[4] = argStorage[2];
     _m4storage[5] = argStorage[3];
-    return this;
   }
 
   /// Sets the diagonal of the matrix to be [arg].
-  Matrix4 setDiagonal(Vector4 arg) {
+  void setDiagonal(Vector4 arg) {
     final argStorage = arg._v4storage;
     _m4storage[0] = argStorage[0];
     _m4storage[5] = argStorage[1];
     _m4storage[10] = argStorage[2];
     _m4storage[15] = argStorage[3];
-    return this;
   }
 
   void setOuter(Vector4 u, Vector4 v) {
@@ -638,7 +617,7 @@ class Matrix4 {
   Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
 
   /// Translate this matrix by a [Vector3], [Vector4], or x,y,z
-  Matrix4 translate(x, [double y = 0.0, double z = 0.0]) {
+  void translate(x, [double y = 0.0, double z = 0.0]) {
     double tx;
     double ty;
     double tz;
@@ -672,11 +651,10 @@ class Matrix4 {
     _m4storage[13] = t2;
     _m4storage[14] = t3;
     _m4storage[15] = t4;
-    return this;
   }
 
   /// Rotate this [angle] radians around [axis]
-  Matrix4 rotate(Vector3 axis, double angle) {
+  void rotate(Vector3 axis, double angle) {
     var len = axis.length;
     final axisStorage = axis._v3storage;
     var x = axisStorage[0] / len;
@@ -718,11 +696,10 @@ class Matrix4 {
     _m4storage[9] = t10;
     _m4storage[10] = t11;
     _m4storage[11] = t12;
-    return this;
   }
 
   /// Rotate this [angle] radians around X
-  Matrix4 rotateX(double angle) {
+  void rotateX(double angle) {
     double cosAngle = Math.cos(angle);
     double sinAngle = Math.sin(angle);
     var t1 = _m4storage[4] * cosAngle + _m4storage[8] * sinAngle;
@@ -741,11 +718,10 @@ class Matrix4 {
     _m4storage[9] = t6;
     _m4storage[10] = t7;
     _m4storage[11] = t8;
-    return this;
   }
 
   /// Rotate this matrix [angle] radians around Y
-  Matrix4 rotateY(double angle) {
+  void rotateY(double angle) {
     double cosAngle = Math.cos(angle);
     double sinAngle = Math.sin(angle);
     var t1 = _m4storage[0] * cosAngle + _m4storage[8] * -sinAngle;
@@ -764,11 +740,10 @@ class Matrix4 {
     _m4storage[9] = t6;
     _m4storage[10] = t7;
     _m4storage[11] = t8;
-    return this;
   }
 
   /// Rotate this matrix [angle] radians around Z
-  Matrix4 rotateZ(double angle) {
+  void rotateZ(double angle) {
     double cosAngle = Math.cos(angle);
     double sinAngle = Math.sin(angle);
     var t1 = _m4storage[0] * cosAngle + _m4storage[4] * sinAngle;
@@ -787,11 +762,10 @@ class Matrix4 {
     _m4storage[5] = t6;
     _m4storage[6] = t7;
     _m4storage[7] = t8;
-    return this;
   }
 
   /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
-  Matrix4 scale(x, [double y, double z]) {
+  void scale(x, [double y, double z]) {
     double sx;
     double sy;
     double sz;
@@ -821,7 +795,6 @@ class Matrix4 {
     _m4storage[13] *= sw;
     _m4storage[14] *= sw;
     _m4storage[15] *= sw;
-    return this;
   }
 
   /// Create a copy of [this] scaled by a [Vector3], [Vector4] or [x],[y], and
@@ -830,7 +803,7 @@ class Matrix4 {
       clone()..scale(x, y, z);
 
   /// Zeros [this].
-  Matrix4 setZero() {
+  void setZero() {
     _m4storage[0] = 0.0;
     _m4storage[1] = 0.0;
     _m4storage[2] = 0.0;
@@ -847,11 +820,10 @@ class Matrix4 {
     _m4storage[13] = 0.0;
     _m4storage[14] = 0.0;
     _m4storage[15] = 0.0;
-    return this;
   }
 
   /// Makes [this] into the identity matrix.
-  Matrix4 setIdentity() {
+  void setIdentity() {
     _m4storage[0] = 1.0;
     _m4storage[1] = 0.0;
     _m4storage[2] = 0.0;
@@ -868,13 +840,12 @@ class Matrix4 {
     _m4storage[13] = 0.0;
     _m4storage[14] = 0.0;
     _m4storage[15] = 1.0;
-    return this;
   }
 
   /// Returns the tranpose of this.
   Matrix4 transposed() => clone()..transpose();
 
-  Matrix4 transpose() {
+  void transpose() {
     double temp;
     temp = _m4storage[4];
     _m4storage[4] = _m4storage[1];
@@ -894,7 +865,6 @@ class Matrix4 {
     temp = _m4storage[14];
     _m4storage[14] = _m4storage[11];
     _m4storage[11] = temp;
-    return this;
   }
 
   /// Returns the component wise absolute value of this.
@@ -1116,7 +1086,7 @@ class Matrix4 {
   }
 
   /// Transposes just the upper 3x3 rotation matrix.
-  Matrix4 transposeRotation() {
+  void transposeRotation() {
     double temp;
     temp = _m4storage[1];
     _m4storage[1] = _m4storage[4];
@@ -1136,7 +1106,6 @@ class Matrix4 {
     temp = _m4storage[9];
     _m4storage[9] = _m4storage[6];
     _m4storage[6] = temp;
-    return this;
   }
 
   /// Invert [this].
@@ -1299,7 +1268,7 @@ class Matrix4 {
   }
 
   /// Converts into Adjugate matrix and scales by [scale]
-  Matrix4 scaleAdjoint(double scale) {
+  void scaleAdjoint(double scale) {
     // Adapted from code by Richard Carling.
     double a1 = _m4storage[0];
     double b1 = _m4storage[4];
@@ -1381,7 +1350,6 @@ class Matrix4 {
             b1 * (a2 * c3 - a3 * c2) +
             c1 * (a2 * b3 - a3 * b2)) *
         scale;
-    return this;
   }
 
   /// Rotates [arg] by the absolute rotation of [this]
@@ -1408,7 +1376,7 @@ class Matrix4 {
   }
 
   /// Adds [o] to [this].
-  Matrix4 add(Matrix4 o) {
+  void add(Matrix4 o) {
     final oStorage = o._m4storage;
     _m4storage[0] = _m4storage[0] + oStorage[0];
     _m4storage[1] = _m4storage[1] + oStorage[1];
@@ -1426,11 +1394,10 @@ class Matrix4 {
     _m4storage[13] = _m4storage[13] + oStorage[13];
     _m4storage[14] = _m4storage[14] + oStorage[14];
     _m4storage[15] = _m4storage[15] + oStorage[15];
-    return this;
   }
 
   /// Subtracts [o] from [this].
-  Matrix4 sub(Matrix4 o) {
+  void sub(Matrix4 o) {
     final oStorage = o._m4storage;
     _m4storage[0] = _m4storage[0] - oStorage[0];
     _m4storage[1] = _m4storage[1] - oStorage[1];
@@ -1448,11 +1415,10 @@ class Matrix4 {
     _m4storage[13] = _m4storage[13] - oStorage[13];
     _m4storage[14] = _m4storage[14] - oStorage[14];
     _m4storage[15] = _m4storage[15] - oStorage[15];
-    return this;
   }
 
   /// Negate [this].
-  Matrix4 negate() {
+  void negate() {
     _m4storage[0] = -_m4storage[0];
     _m4storage[1] = -_m4storage[1];
     _m4storage[2] = -_m4storage[2];
@@ -1469,11 +1435,10 @@ class Matrix4 {
     _m4storage[13] = -_m4storage[13];
     _m4storage[14] = -_m4storage[14];
     _m4storage[15] = -_m4storage[15];
-    return this;
   }
 
   /// Multiply [this] by [arg].
-  Matrix4 multiply(Matrix4 arg) {
+  void multiply(Matrix4 arg) {
     final m00 = _m4storage[0];
     final m01 = _m4storage[4];
     final m02 = _m4storage[8];
@@ -1523,14 +1488,13 @@ class Matrix4 {
     _m4storage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
     _m4storage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
     _m4storage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
-    return this;
   }
 
   /// Multiply a copy of [this] with [arg].
   Matrix4 multiplied(Matrix4 arg) => clone()..multiply(arg);
 
   /// Multiply a transposed [this] with [arg].
-  Matrix4 transposeMultiply(Matrix4 arg) {
+  void transposeMultiply(Matrix4 arg) {
     double m00 = _m4storage[0];
     double m01 = _m4storage[1];
     double m02 = _m4storage[2];
@@ -1612,11 +1576,10 @@ class Matrix4 {
         (m31 * argStorage[13]) +
         (m32 * argStorage[14]) +
         (m33 * argStorage[15]);
-    return this;
   }
 
   /// Multiply [this] with a transposed [arg].
-  Matrix4 multiplyTranspose(Matrix4 arg) {
+  void multiplyTranspose(Matrix4 arg) {
     double m00 = _m4storage[0];
     double m01 = _m4storage[4];
     double m02 = _m4storage[8];
@@ -1698,21 +1661,21 @@ class Matrix4 {
         (m31 * argStorage[7]) +
         (m32 * argStorage[11]) +
         (m33 * argStorage[15]);
-    return this;
   }
 
   /// Decomposes [this] into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
     final v = new Vector3.zero();
-    var sx = v.setValues(_m4storage[0], _m4storage[1], _m4storage[2]).length;
-    var sy = v.setValues(_m4storage[4], _m4storage[5], _m4storage[6]).length;
-    var sz = v.setValues(_m4storage[8], _m4storage[9], _m4storage[10]).length;
+    var sx = (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
+    var sy = (v..setValues(_m4storage[4], _m4storage[5], _m4storage[6])).length;
+    var sz = (v
+      ..setValues(_m4storage[8], _m4storage[9], _m4storage[10])).length;
 
     if (determinant() < 0) sx = -sx;
 
-    translation.storage[0] = _m4storage[12];
-    translation.storage[1] = _m4storage[13];
-    translation.storage[2] = _m4storage[14];
+    translation._v3storage[0] = _m4storage[12];
+    translation._v3storage[1] = _m4storage[13];
+    translation._v3storage[2] = _m4storage[14];
 
     final invSX = 1.0 / sx;
     final invSY = 1.0 / sy;
@@ -1731,9 +1694,9 @@ class Matrix4 {
 
     rotation.setFromRotation(m.getRotation());
 
-    scale.storage[0] = sx;
-    scale.storage[1] = sy;
-    scale.storage[2] = sz;
+    scale._v3storage[0] = sx;
+    scale._v3storage[1] = sy;
+    scale._v3storage[2] = sz;
   }
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by [this].

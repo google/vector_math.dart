@@ -121,7 +121,7 @@ void testVector4Length() {
   relativeTest(a.length, 13.5277);
   relativeTest(a.length2, 183.0);
 
-  relativeTest(a.normalizeLength(), 13.5277);
+  relativeTest(a.normalize(), 13.5277);
   relativeTest(a.x, 0.3696);
   relativeTest(a.y, 0.5174);
   relativeTest(a.z, 0.2217);

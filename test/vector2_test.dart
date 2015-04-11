@@ -98,7 +98,7 @@ void testVector2Postmultiplication() {
   // print("input $inputInv");
   Vector2 resultOld = inputMatrix.transposed() * inputVector;
   Vector2 resultOldvInv = inputInv * inputVector;
-  Vector2 resultNew = inputVector.postmultiply(inputMatrix);
+  Vector2 resultNew = inputVector..postmultiply(inputMatrix);
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
   //matrix inversion can introduce a small error
@@ -152,7 +152,7 @@ void testVector2Length() {
   relativeTest(a.length, 8.6);
   relativeTest(a.length2, 74.0);
 
-  relativeTest(a.normalizeLength(), 8.6);
+  relativeTest(a.normalize(), 8.6);
   relativeTest(a.x, 0.5812);
   relativeTest(a.y, 0.8137);
 }
