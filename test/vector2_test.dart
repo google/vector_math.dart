@@ -6,7 +6,7 @@ library vector_math.test.vector2_test;
 
 import 'dart:typed_data';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
 

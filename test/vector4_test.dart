@@ -6,7 +6,7 @@ library vector_math.test.vector4_test;
 
 import 'dart:typed_data';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
 
@@ -170,7 +170,6 @@ void testVector4Equals() {
   expect(v4 == new Vector4(1.0, 2.0, 0.0, 4.0), isFalse);
   expect(v4 == new Vector4(1.0, 2.0, 3.0, 0.0), isFalse);
 }
-
 
 void testVector4DistanceTo() {
   var a = new Vector4(1.0, 1.0, 1.0, 0.0);

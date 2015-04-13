@@ -4,7 +4,7 @@
 
 library vector_math.test.opengl_matrix_test;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
 
@@ -51,10 +51,14 @@ void testFrustumMatrix() {
   num b = -1.0;
   num t = 1.0;
   Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
-  relativeTest(frustum.getColumn(0), new Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
-  relativeTest(frustum.getColumn(1), new Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
-  relativeTest(frustum.getColumn(2), new Vector4((r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
-  relativeTest(frustum.getColumn(3), new Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
+  relativeTest(
+      frustum.getColumn(0), new Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
+  relativeTest(
+      frustum.getColumn(1), new Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
+  relativeTest(frustum.getColumn(2), new Vector4(
+      (r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
+  relativeTest(
+      frustum.getColumn(3), new Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
 }
 
 void testOrthographicMatrix() {
@@ -68,7 +72,8 @@ void testOrthographicMatrix() {
   relativeTest(ortho.getColumn(0), new Vector4(2 / (r - l), 0.0, 0.0, 0.0));
   relativeTest(ortho.getColumn(1), new Vector4(0.0, 2 / (t - b), 0.0, 0.0));
   relativeTest(ortho.getColumn(2), new Vector4(0.0, 0.0, -2 / (f - n), 0.0));
-  relativeTest(ortho.getColumn(3), new Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
+  relativeTest(ortho.getColumn(3), new Vector4(
+      -(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
 }
 
 void testModelMatrix() {
