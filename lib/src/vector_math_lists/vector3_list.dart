@@ -26,6 +26,23 @@ class Vector3List extends VectorList<Vector3> {
     return new Vector3.zero();
   }
 
+  /// Retrieves the vector at [index] and stores it in [vector].
+  void load(int index, Vector3 vector) {
+    final i = _vectorIndexToBufferIndex(index);
+    vector.storage[0] = _buffer[i + 0];
+    vector.storage[1] = _buffer[i + 1];
+    vector.storage[2] = _buffer[i + 2];
+  }
+
+  /// Store [vector] in the list at [index].
+  void store(int index, Vector3 vector) {
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
+    _buffer[i + 0] = storage[0];
+    _buffer[i + 1] = storage[1];
+    _buffer[i + 2] = storage[2];
+  }
+
   /// Set the vector at [index] to zero.
   void setZero(int index) => setValues(index, 0.0, 0.0, 0.0);
 
