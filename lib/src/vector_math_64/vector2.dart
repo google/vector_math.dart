@@ -327,8 +327,10 @@ class Vector2 implements Vector {
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
   Vector2 clamp(Vector2 min, Vector2 max) {
-    _storage[0] = _storage[0].clamp(min.storage[0], max.storage[0]);
-    _storage[1] = _storage[1].clamp(min.storage[1], max.storage[1]);
+    var minStorage = min.storage;
+    var maxStorage = max.storage;
+    _storage[0] = _storage[0].clamp(minStorage[0], maxStorage[0]);
+    _storage[1] = _storage[1].clamp(minStorage[1], maxStorage[1]);
     return this;
   }
 

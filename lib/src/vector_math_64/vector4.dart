@@ -241,14 +241,27 @@ class Vector4 implements Vector {
 
   /// Multiplies [this] by [arg].
   Vector4 applyMatrix4(Matrix4 arg) {
-    var v1 = storage[0];
-    var v2 = storage[1];
-    var v3 = storage[2];
-    var v4 = storage[3];
-    storage[0] = arg.storage[0] * v1 + arg.storage[4] * v2 + arg.storage[8] * v3 + arg.storage[12] * v4;
-    storage[1] = arg.storage[1] * v1 + arg.storage[5] * v2 + arg.storage[9] * v3 + arg.storage[13] * v4;
-    storage[2] = arg.storage[2] * v1 + arg.storage[6] * v2 + arg.storage[10] * v3 + arg.storage[14] * v4;
-    storage[3] = arg.storage[3] * v1 + arg.storage[7] * v2 + arg.storage[11] * v3 + arg.storage[15] * v4;
+    var v1 = _storage[0];
+    var v2 = _storage[1];
+    var v3 = _storage[2];
+    var v4 = _storage[3];
+    final argStorage = arg.storage;
+    _storage[0] = argStorage[0] * v1 +
+        argStorage[4] * v2 +
+        argStorage[8] * v3 +
+        argStorage[12] * v4;
+    _storage[1] = argStorage[1] * v1 +
+        argStorage[5] * v2 +
+        argStorage[9] * v3 +
+        argStorage[13] * v4;
+    _storage[2] = argStorage[2] * v1 +
+        argStorage[6] * v2 +
+        argStorage[10] * v3 +
+        argStorage[14] * v4;
+    _storage[3] = argStorage[3] * v1 +
+        argStorage[7] * v2 +
+        argStorage[11] * v3 +
+        argStorage[15] * v4;
     return this;
   }
 
@@ -365,63 +378,65 @@ class Vector4 implements Vector {
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
   Vector4 clamp(Vector4 min, Vector4 max) {
-    storage[0] = storage[0].clamp(min.storage[0], max.storage[0]);
-    storage[1] = storage[1].clamp(min.storage[1], max.storage[1]);
-    storage[2] = storage[2].clamp(min.storage[2], max.storage[2]);
-    storage[3] = storage[3].clamp(min.storage[3], max.storage[3]);
+    final minStorage = min.storage;
+    final maxStorage = max.storage;
+    _storage[0] = _storage[0].clamp(minStorage[0], maxStorage[0]);
+    _storage[1] = _storage[1].clamp(minStorage[1], maxStorage[1]);
+    _storage[2] = _storage[2].clamp(minStorage[2], maxStorage[2]);
+    _storage[3] = _storage[3].clamp(minStorage[3], maxStorage[3]);
     return this;
   }
 
   /// Clamp entries in [this] in the range [min]-[max].
   Vector4 clampScalar(double min, double max) {
-    storage[0] = storage[0].clamp(min, max);
-    storage[1] = storage[1].clamp(min, max);
-    storage[2] = storage[2].clamp(min, max);
-    storage[3] = storage[3].clamp(min, max);
+    _storage[0] = _storage[0].clamp(min, max);
+    _storage[1] = _storage[1].clamp(min, max);
+    _storage[2] = _storage[2].clamp(min, max);
+    _storage[3] = _storage[3].clamp(min, max);
     return this;
   }
 
   /// Floor entries in [this].
   Vector4 floor() {
-    storage[0] = storage[0].floorToDouble();
-    storage[1] = storage[1].floorToDouble();
-    storage[2] = storage[2].floorToDouble();
-    storage[3] = storage[3].floorToDouble();
+    _storage[0] = _storage[0].floorToDouble();
+    _storage[1] = _storage[1].floorToDouble();
+    _storage[2] = _storage[2].floorToDouble();
+    _storage[3] = _storage[3].floorToDouble();
     return this;
   }
 
   /// Ceil entries in [this].
   Vector4 ceil() {
-    storage[0] = storage[0].ceilToDouble();
-    storage[1] = storage[1].ceilToDouble();
-    storage[2] = storage[2].ceilToDouble();
-    storage[3] = storage[3].ceilToDouble();
+    _storage[0] = _storage[0].ceilToDouble();
+    _storage[1] = _storage[1].ceilToDouble();
+    _storage[2] = _storage[2].ceilToDouble();
+    _storage[3] = _storage[3].ceilToDouble();
     return this;
   }
 
   /// Round entries in [this].
   Vector4 round() {
-    storage[0] = storage[0].roundToDouble();
-    storage[1] = storage[1].roundToDouble();
-    storage[2] = storage[2].roundToDouble();
-    storage[3] = storage[3].roundToDouble();
+    _storage[0] = _storage[0].roundToDouble();
+    _storage[1] = _storage[1].roundToDouble();
+    _storage[2] = _storage[2].roundToDouble();
+    _storage[3] = _storage[3].roundToDouble();
     return this;
   }
 
   /// Round entries in [this] towards zero.
   Vector4 roundToZero() {
-    storage[0] = storage[0] < 0.0
-        ? storage[0].ceilToDouble()
-        : storage[0].floorToDouble();
-    storage[1] = storage[1] < 0.0
-        ? storage[1].ceilToDouble()
-        : storage[1].floorToDouble();
-    storage[2] = storage[2] < 0.0
-        ? storage[2].ceilToDouble()
-        : storage[2].floorToDouble();
-    storage[3] = storage[3] < 0.0
-        ? storage[3].ceilToDouble()
-        : storage[3].floorToDouble();
+    _storage[0] = _storage[0] < 0.0
+        ? _storage[0].ceilToDouble()
+        : _storage[0].floorToDouble();
+    _storage[1] = _storage[1] < 0.0
+        ? _storage[1].ceilToDouble()
+        : _storage[1].floorToDouble();
+    _storage[2] = _storage[2] < 0.0
+        ? _storage[2].ceilToDouble()
+        : _storage[2].floorToDouble();
+    _storage[3] = _storage[3] < 0.0
+        ? _storage[3].ceilToDouble()
+        : _storage[3].floorToDouble();
     return this;
   }
 
