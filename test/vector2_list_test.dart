@@ -85,11 +85,101 @@ void testVector2ListFromList() {
   expect(list.buffer[16], 0.0);
 }
 
+void testVector2ListSetValue() {
+  final list = new Vector2List(2);
+
+  list.setValues(1, 1.0, 2.0);
+
+  expect(list.buffer[0], 0.0);
+  expect(list.buffer[1], 0.0);
+  expect(list.buffer[2], 1.0);
+  expect(list.buffer[3], 2.0);
+}
+
+void testVector2ListSetZero() {
+  final list =
+      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+
+  list.setZero(1);
+
+  expect(list.buffer[0], 1.0);
+  expect(list.buffer[1], 2.0);
+  expect(list.buffer[2], 0.0);
+  expect(list.buffer[3], 0.0);
+}
+
+void testVector2ListAdd() {
+  final list =
+      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+
+  list.add(1, $v2(2.0, 2.0));
+
+  expect(list.buffer[0], 1.0);
+  expect(list.buffer[1], 2.0);
+  expect(list.buffer[2], 5.0);
+  expect(list.buffer[3], 6.0);
+}
+
+void testVector2ListAddScaled() {
+  final list =
+      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+
+  list.addScaled(1, $v2(2.0, 2.0), 2.0);
+
+  expect(list.buffer[0], 1.0);
+  expect(list.buffer[1], 2.0);
+  expect(list.buffer[2], 7.0);
+  expect(list.buffer[3], 8.0);
+}
+
+void testVector2ListSub() {
+  final list =
+      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+
+  list.sub(1, $v2(2.0, 2.0));
+
+  expect(list.buffer[0], 1.0);
+  expect(list.buffer[1], 2.0);
+  expect(list.buffer[2], 1.0);
+  expect(list.buffer[3], 2.0);
+}
+
+void testVector2ListMultiply() {
+  final list =
+      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+
+  list.multiply(1, $v2(2.0, 3.0));
+
+  expect(list.buffer[0], 1.0);
+  expect(list.buffer[1], 2.0);
+  expect(list.buffer[2], 6.0);
+  expect(list.buffer[3], 12.0);
+}
+
+void testVector2ListScale() {
+  final list =
+      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+
+  list.scale(1, 2.0);
+
+  expect(list.buffer[0], 1.0);
+  expect(list.buffer[1], 2.0);
+  expect(list.buffer[2], 6.0);
+  expect(list.buffer[3], 8.0);
+}
+
 void main() {
   group('Vector2List', () {
-    test('Vector2List with offset', testVector2ListWithOffset);
-    test('Vector2List.view', testVector2ListView);
-    test('Vector2List.view tight fit', testVector2ListViewTightFit);
-    test('Vector2List.fromList', testVector2ListFromList);
+    test('with offset', testVector2ListWithOffset);
+    test('view', testVector2ListView);
+    test('view tight fit', testVector2ListViewTightFit);
+    test('fromList', testVector2ListFromList);
+    test('setValue', testVector2ListSetValue);
+    test('setZero', testVector2ListSetZero);
+    test('add', testVector2ListAdd);
+    test('addScaled', testVector2ListAddScaled);
+    test('sub', testVector2ListSub);
+    test('multiply', testVector2ListMultiply);
+    test('scale', testVector2ListScale);
   });
 }

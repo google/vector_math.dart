@@ -1,6 +1,7 @@
 // Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
+
 part of vector_math_lists;
 
 /// A list of [Vector2].
@@ -23,5 +24,54 @@ class Vector2List extends VectorList<Vector2> {
   @override
   Vector2 newVector() {
     return new Vector2.zero();
+  }
+
+  /// Set the vector at [index] to zero.
+  void setZero(int index) => setValues(index, 0.0, 0.0);
+
+  /// Set the vector at [index] to [x] and [y].
+  void setValues(int index, double x, double y) {
+    final i = _vectorIndexToBufferIndex(index);
+    buffer[i + 0] = x;
+    buffer[i + 1] = y;
+  }
+
+  /// Add [vector] to the vector at [index].
+  void add(int index, Vector2 vector) {
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
+    buffer[i + 0] += storage[0];
+    buffer[i + 1] += storage[1];
+  }
+
+  /// Add [vector] scaled by [factor] to the vector at [index].
+  void addScaled(int index, Vector2 vector, double factor) {
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
+    buffer[i + 0] += storage[0] * factor;
+    buffer[i + 1] += storage[1] * factor;
+  }
+
+  /// Substract [vector] from the vector at [index].
+  void sub(int index, Vector2 vector) {
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
+    buffer[i + 0] -= storage[0];
+    buffer[i + 1] -= storage[1];
+  }
+
+  /// Multiply the vector at [index] by [vector].
+  void multiply(int index, Vector2 vector) {
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
+    buffer[i + 0] *= storage[0];
+    buffer[i + 1] *= storage[1];
+  }
+
+  /// Scale the vector at [index] by [factor].
+  void scale(int index, double factor) {
+    final i = _vectorIndexToBufferIndex(index);
+    buffer[i + 0] *= factor;
+    buffer[i + 1] *= factor;
   }
 }

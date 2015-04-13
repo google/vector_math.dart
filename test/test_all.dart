@@ -23,6 +23,8 @@ import 'sphere_test.dart' as sphere;
 import 'triangle_test.dart' as triangle;
 import 'utilities_test.dart' as utilities;
 import 'vector2_list_test.dart' as vector2_list;
+import 'vector3_list_test.dart' as vector3_list;
+import 'vector4_list_test.dart' as vector4_list;
 import 'vector2_test.dart' as vector2;
 import 'vector3_test.dart' as vector3;
 import 'vector4_test.dart' as vector4;
@@ -47,6 +49,8 @@ void main() {
   triangle.main();
   utilities.main();
   vector2_list.main();
+  vector3_list.main();
+  vector4_list.main();
   vector2.main();
   vector3.main();
   vector4.main();
