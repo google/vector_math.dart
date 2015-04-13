@@ -4,7 +4,7 @@
 
 library vector_math.test.test_utils;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
 

@@ -7,7 +7,7 @@ library vector_math.test.matrix4_test;
 import 'dart:math' as Math;
 import 'dart:typed_data';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
 
@@ -559,11 +559,12 @@ void testMatrix4Compose() {
 
   var rValues = [
     new Quaternion.identity(),
-    new Quaternion(0.42073549240394825, 0.42073549240394825, 0.22984884706593015, 0.7701511529340699),
-    new Quaternion(0.16751879124639693, -0.5709414713577319, 0.16751879124639693, 0.7860666291368439),
+    new Quaternion(0.42073549240394825, 0.42073549240394825,
+        0.22984884706593015, 0.7701511529340699),
+    new Quaternion(0.16751879124639693, -0.5709414713577319,
+        0.16751879124639693, 0.7860666291368439),
     new Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614)
   ];
-
 
   for (var ti = 0; ti < tValues.length; ti++) {
     for (var si = 0; si < sValues.length; si++) {
@@ -573,7 +574,7 @@ void testMatrix4Compose() {
         final r = rValues[ri];
 
         final m = new Matrix4.compose(t, r, s);
-        
+
         var t2 = new Vector3.zero();
         var r2 = new Quaternion.identity();
         var s2 = new Vector3.zero();
@@ -581,14 +582,12 @@ void testMatrix4Compose() {
         m.decompose(t2, r2, s2);
 
         final m2 = new Matrix4.compose(t2, r2, s2);
-        
+
         relativeTest(m2, m);
       }
     }
   }
 }
-
-
 
 void main() {
   group('Matrix4', () {
