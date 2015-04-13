@@ -81,22 +81,10 @@ abstract class VectorList<T extends Vector> {
   T newVector();
 
   /// Retrieves the vector at [index] and stores it in [vector].
-  void load(int index, T vector) {
-    int bufferIndex = _vectorIndexToBufferIndex(index);
-    for (int i = 0; i < _vectorLength; i++) {
-      vector.storage[i] = _buffer[bufferIndex];
-      bufferIndex++;
-    }
-  }
+  void load(int index, T vector);
 
   /// Store [vector] in the list at [index].
-  void store(int index, T vector) {
-    int bufferIndex = _vectorIndexToBufferIndex(index);
-    for (int i = 0; i < _vectorLength; i++) {
-      _buffer[bufferIndex] = vector.storage[i];
-      bufferIndex++;
-    }
-  }
+  void store(int index, T vector);
 
   /// Copy a range of [count] vectors beginning at [srcOffset] from [src] into
   /// this list starting at [offset].
