@@ -364,9 +364,18 @@ class Vector3 implements Vector {
     var v0 = _storage[0];
     var v1 = _storage[1];
     var v2 = _storage[2];
-    _storage[0] = argStorage[0] * v0 + argStorage[4] * v1 + argStorage[8]  * v2 + argStorage[12];
-    _storage[1] = argStorage[1] * v0 + argStorage[5] * v1 + argStorage[9]  * v2 + argStorage[13];
-    _storage[2] = argStorage[2] * v0 + argStorage[6] * v1 + argStorage[10] * v2 + argStorage[14];
+    _storage[0] = argStorage[0] * v0 +
+        argStorage[4] * v1 +
+        argStorage[8] * v2 +
+        argStorage[12];
+    _storage[1] = argStorage[1] * v0 +
+        argStorage[5] * v1 +
+        argStorage[9] * v2 +
+        argStorage[13];
+    _storage[2] = argStorage[2] * v0 +
+        argStorage[6] * v1 +
+        argStorage[10] * v2 +
+        argStorage[14];
     return this;
   }
 
@@ -472,9 +481,11 @@ class Vector3 implements Vector {
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
   Vector3 clamp(Vector3 min, Vector3 max) {
-    _storage[0] = _storage[0].clamp(min.storage[0], max.storage[0]);
-    _storage[1] = _storage[1].clamp(min.storage[1], max.storage[1]);
-    _storage[2] = _storage[2].clamp(min.storage[2], max.storage[2]);
+    final minStorage = min.storage;
+    final maxStorage = max.storage;
+    _storage[0] = _storage[0].clamp(minStorage[0], maxStorage[0]);
+    _storage[1] = _storage[1].clamp(minStorage[1], maxStorage[1]);
+    _storage[2] = _storage[2].clamp(minStorage[2], maxStorage[2]);
     return this;
   }
 
