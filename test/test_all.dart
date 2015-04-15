@@ -22,6 +22,7 @@ import 'ray_test.dart' as ray;
 import 'sphere_test.dart' as sphere;
 import 'triangle_test.dart' as triangle;
 import 'utilities_test.dart' as utilities;
+import 'scalar_list_view_test.dart' as scalar_list_view;
 import 'vector2_list_test.dart' as vector2_list;
 import 'vector3_list_test.dart' as vector3_list;
 import 'vector4_list_test.dart' as vector4_list;
@@ -48,6 +49,7 @@ void main() {
   sphere.main();
   triangle.main();
   utilities.main();
+  scalar_list_view.main();
   vector2_list.main();
   vector3_list.main();
   vector4_list.main();

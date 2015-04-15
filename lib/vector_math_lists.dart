@@ -9,6 +9,7 @@ import 'dart:typed_data';
 import 'dart:math' as Math;
 import 'package:vector_math/vector_math.dart';
 
+part 'src/vector_math_lists/scalar_list_view.dart';
 part 'src/vector_math_lists/vector_list.dart';
 part 'src/vector_math_lists/vector2_list.dart';
 part 'src/vector_math_lists/vector3_list.dart';
