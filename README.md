@@ -187,7 +187,7 @@ void main() {
 To run test cases:
 
 ```
-~/src/vector_math/> pub run unittest:unittest
+~/src/vector_math/> pub run test:test
 ```
 
 To automatically generate the latest version of ```vector_math_64```:
