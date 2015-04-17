@@ -38,12 +38,27 @@ void testAabb2CopyCenterAndHalfExtents() {
   relativeTest(halfExtents, $v2(5.0, 10.0));
 }
 
-void testAabb2setCenterAndHalfExtents() {
+void testAabb2CenterAndHalfExtents() {
   final a1 = new Aabb2.centerAndHalfExtents($v2(0.0, 0.0), $v2(10.0, 20.0));
   final a2 = new Aabb2.centerAndHalfExtents($v2(-10.0, -20.0), $v2(10.0, 20.0));
 
   relativeTest(a1.min, $v2(-10.0, -20.0));
   relativeTest(a1.max, $v2(10.0, 20.0));
+
+  relativeTest(a2.min, $v2(-20.0, -40.0));
+  relativeTest(a2.max, $v2(0.0, 0.0));
+}
+
+void testAabb2SetCenterAndHalfExtents() {
+  final a1 = new Aabb2();
+  final a2 = new Aabb2();
+
+  a1.setCenterAndHalfExtents($v2(0.0, 0.0), $v2(10.0, 20.0));
+
+  relativeTest(a1.min, $v2(-10.0, -20.0));
+  relativeTest(a1.max, $v2(10.0, 20.0));
+
+  a2.setCenterAndHalfExtents($v2(-10.0, -20.0), $v2(10.0, 20.0));
 
   relativeTest(a2.min, $v2(-20.0, -40.0));
   relativeTest(a2.max, $v2(0.0, 0.0));
@@ -181,8 +196,9 @@ void testAabb2Transform() {
 void main() {
   group('Aabb2', () {
     test('Center', testAabb2Center);
+    test('centerAndHalfExtents', testAabb2CenterAndHalfExtents);
     test('copyCenterAndHalfExtents', testAabb2CopyCenterAndHalfExtents);
-    test('copyCenterAndHalfExtents', testAabb2setCenterAndHalfExtents);
+    test('setCenterAndHalfExtents', testAabb2SetCenterAndHalfExtents);
     test('Contains Aabb2', testAabb2ContainsAabb2);
     test('Contains Vector2', testAabb2ContainsVector2);
     test('Intersection Aabb2', testAabb2IntersectionAabb2);
