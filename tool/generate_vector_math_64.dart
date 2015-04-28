@@ -3,11 +3,13 @@
 // license that can be found in the LICENSE file.
 library generate_vector_math_64_task;
 
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
 
-void main() {
-  generateVectorMath64();
+import 'package:path/path.dart' as p;
+
+main() async {
+  await generateVectorMath64();
 
   print('Generated vector_math_64');
 }
@@ -27,20 +29,28 @@ Future generateVectorMath64() async {
   await directory.create(recursive: true);
   await _processFile('lib/vector_math.dart');
 
-  await for (var f in new Directory('lib/src/vector_math/').list()) {
-    await _processFile(f.path);
+  await for (var f in new Directory('lib/src/vector_math/').list(recursive: true)) {
+    if (f is File) {
+      await _processFile(f.path);
+    }
   }
 }
 
 Future _processFile(String inputFileName) async {
   final inputFile = new File(inputFileName);
-  final outputFileName =
-      inputFileName.replaceAll('vector_math', 'vector_math_64');
-  final outputFile = new File(outputFileName);
 
   final input = await inputFile.readAsString();
   final output = _convertToVectorMath64(input);
 
+  final outputFileName =
+  inputFileName.replaceAll('vector_math', 'vector_math_64');
+  var dir = new Directory(p.dirname(outputFileName));
+
+  await dir.create(recursive: true);
+
+
+
+  final outputFile = new File(outputFileName);
   await outputFile.writeAsString(output);
 }
 
