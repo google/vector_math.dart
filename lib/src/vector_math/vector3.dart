@@ -247,9 +247,12 @@ class Vector3 implements Vector {
     final v1 = _v3storage[1];
     final v2 = _v3storage[2];
 
-    _v3storage[0] = v0 * argStorage[0] + v1 * argStorage[1] + v2 * argStorage[2];
-    _v3storage[1] = v0 * argStorage[3] + v1 * argStorage[4] + v2 * argStorage[5];
-    _v3storage[2] = v0 * argStorage[6] + v1 * argStorage[7] + v2 * argStorage[8];
+    _v3storage[0] =
+        v0 * argStorage[0] + v1 * argStorage[1] + v2 * argStorage[2];
+    _v3storage[1] =
+        v0 * argStorage[3] + v1 * argStorage[4] + v2 * argStorage[5];
+    _v3storage[2] =
+        v0 * argStorage[6] + v1 * argStorage[7] + v2 * argStorage[8];
     return this;
   }
 
@@ -351,9 +354,12 @@ class Vector3 implements Vector {
     var v0 = _v3storage[0];
     var v1 = _v3storage[1];
     var v2 = _v3storage[2];
-    _v3storage[0] = argStorage[0] * v0 + argStorage[3] * v1 + argStorage[6] * v2;
-    _v3storage[1] = argStorage[1] * v0 + argStorage[4] * v1 + argStorage[7] * v2;
-    _v3storage[2] = argStorage[2] * v0 + argStorage[5] * v1 + argStorage[8] * v2;
+    _v3storage[0] =
+        argStorage[0] * v0 + argStorage[3] * v1 + argStorage[6] * v2;
+    _v3storage[1] =
+        argStorage[1] * v0 + argStorage[4] * v1 + argStorage[7] * v2;
+    _v3storage[2] =
+        argStorage[2] * v0 + argStorage[5] * v1 + argStorage[8] * v2;
     return this;
   }
 

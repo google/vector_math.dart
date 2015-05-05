@@ -66,7 +66,6 @@ class Obb3 {
     other._axis2.setFrom(_axis2);
   }
 
-
   /// Reset the rotation of [this].
   void resetRotation() {
     _axis0.setValues(1.0, 0.0, 0.0);
@@ -106,55 +105,54 @@ class Obb3 {
 
     corner.setFrom(_center);
 
-    switch(cornerIndex)
-    {
+    switch (cornerIndex) {
       case 0:
         corner
-            ..addScaled(_axis0, -_halfExtents.x)
-            ..addScaled(_axis1, -_halfExtents.y)
-            ..addScaled(_axis2, -_halfExtents.z);
+          ..addScaled(_axis0, -_halfExtents.x)
+          ..addScaled(_axis1, -_halfExtents.y)
+          ..addScaled(_axis2, -_halfExtents.z);
         break;
       case 1:
         corner
-            ..addScaled(_axis0, -_halfExtents.x)
-            ..addScaled(_axis1, -_halfExtents.y)
-            ..addScaled(_axis2, _halfExtents.z);
+          ..addScaled(_axis0, -_halfExtents.x)
+          ..addScaled(_axis1, -_halfExtents.y)
+          ..addScaled(_axis2, _halfExtents.z);
         break;
       case 2:
         corner
-            ..addScaled(_axis0, -_halfExtents.x)
-            ..addScaled(_axis1, _halfExtents.y)
-            ..addScaled(_axis2, -_halfExtents.z);
+          ..addScaled(_axis0, -_halfExtents.x)
+          ..addScaled(_axis1, _halfExtents.y)
+          ..addScaled(_axis2, -_halfExtents.z);
         break;
       case 3:
         corner
-            ..addScaled(_axis0, -_halfExtents.x)
-            ..addScaled(_axis1, _halfExtents.y)
-            ..addScaled(_axis2, _halfExtents.z);
+          ..addScaled(_axis0, -_halfExtents.x)
+          ..addScaled(_axis1, _halfExtents.y)
+          ..addScaled(_axis2, _halfExtents.z);
         break;
       case 4:
         corner
-            ..addScaled(_axis0, _halfExtents.x)
-            ..addScaled(_axis1, -_halfExtents.y)
-            ..addScaled(_axis2, -_halfExtents.z);
+          ..addScaled(_axis0, _halfExtents.x)
+          ..addScaled(_axis1, -_halfExtents.y)
+          ..addScaled(_axis2, -_halfExtents.z);
         break;
       case 5:
         corner
-            ..addScaled(_axis0, _halfExtents.x)
-            ..addScaled(_axis1, -_halfExtents.y)
-            ..addScaled(_axis2, _halfExtents.z);
+          ..addScaled(_axis0, _halfExtents.x)
+          ..addScaled(_axis1, -_halfExtents.y)
+          ..addScaled(_axis2, _halfExtents.z);
         break;
       case 6:
         corner
-            ..addScaled(_axis0, _halfExtents.x)
-            ..addScaled(_axis1, _halfExtents.y)
-            ..addScaled(_axis2, -_halfExtents.z);
+          ..addScaled(_axis0, _halfExtents.x)
+          ..addScaled(_axis1, _halfExtents.y)
+          ..addScaled(_axis2, -_halfExtents.z);
         break;
       case 7:
         corner
-            ..addScaled(_axis0, _halfExtents.x)
-            ..addScaled(_axis1, _halfExtents.y)
-            ..addScaled(_axis2, _halfExtents.z);
+          ..addScaled(_axis0, _halfExtents.x)
+          ..addScaled(_axis1, _halfExtents.y)
+          ..addScaled(_axis2, _halfExtents.z);
         break;
     }
   }
@@ -198,8 +196,8 @@ class Obb3 {
 
     // Compute translation vector t
     _t
-        ..setFrom(other._center)
-        ..sub(_center);
+      ..setFrom(other._center)
+      ..sub(_center);
 
     // Bring translation into this's coordinate frame
     _t.setValues(_t.dot(_axis0), _t.dot(_axis1), _t.dot(_axis2));
@@ -208,7 +206,7 @@ class Obb3 {
     // counteract arithmetic errors when two edges are parallel and
     // their cross product is (near) null.
     for (var i = 0; i < 3; i++) {
-      for (var j = 0; j < 3; j++){
+      for (var j = 0; j < 3; j++) {
         _absR.setEntry(i, j, _r.entry(i, j).abs() + epsilon);
       }
     }
@@ -236,14 +234,16 @@ class Obb3 {
       rb = other._halfExtents[i];
 
       if ((_t[0] * _r.entry(0, i) +
-           _t[1] * _r.entry(1, i) +
-           _t[2] * _r.entry(2, i)).abs() > ra + rb) {
+              _t[1] * _r.entry(1, i) +
+              _t[2] * _r.entry(2, i)).abs() >
+          ra + rb) {
         return false;
       }
     }
 
     // Test axis L = A0 x B0
-    ra = _halfExtents[1] * _absR.entry(2, 0) + _halfExtents[2] * _absR.entry(1, 0);
+    ra = _halfExtents[1] * _absR.entry(2, 0) +
+        _halfExtents[2] * _absR.entry(1, 0);
     rb = other._halfExtents[1] * _absR.entry(0, 2) +
         other._halfExtents[2] * _absR.entry(0, 1);
     if ((_t[2] * _r.entry(1, 0) - _t[1] * _r.entry(2, 0)).abs() > ra + rb) {
@@ -251,7 +251,8 @@ class Obb3 {
     }
 
     // Test axis L = A0 x B1
-    ra = _halfExtents[1] * _absR.entry(2, 1) + _halfExtents[2] * _absR.entry(1, 1);
+    ra = _halfExtents[1] * _absR.entry(2, 1) +
+        _halfExtents[2] * _absR.entry(1, 1);
     rb = other._halfExtents[0] * _absR.entry(0, 2) +
         other._halfExtents[2] * _absR.entry(0, 0);
     if ((_t[2] * _r.entry(1, 1) - _t[1] * _r.entry(2, 1)).abs() > ra + rb) {
@@ -259,7 +260,8 @@ class Obb3 {
     }
 
     // Test axis L = A0 x B2
-    ra = _halfExtents[1] * _absR.entry(2, 2) + _halfExtents[2] * _absR.entry(1, 2);
+    ra = _halfExtents[1] * _absR.entry(2, 2) +
+        _halfExtents[2] * _absR.entry(1, 2);
     rb = other._halfExtents[0] * _absR.entry(0, 1) +
         other._halfExtents[1] * _absR.entry(0, 0);
     if ((_t[2] * _r.entry(1, 2) - _t[1] * _r.entry(2, 2)).abs() > ra + rb) {
@@ -267,7 +269,8 @@ class Obb3 {
     }
 
     // Test axis L = A1 x B0
-    ra = _halfExtents[0] * _absR.entry(2, 0) + _halfExtents[2] * _absR.entry(0, 0);
+    ra = _halfExtents[0] * _absR.entry(2, 0) +
+        _halfExtents[2] * _absR.entry(0, 0);
     rb = other._halfExtents[1] * _absR.entry(1, 2) +
         other._halfExtents[2] * _absR.entry(1, 1);
     if ((_t[0] * _r.entry(2, 0) - _t[2] * _r.entry(0, 0)).abs() > ra + rb) {
@@ -275,7 +278,8 @@ class Obb3 {
     }
 
     // Test axis L = A1 x B1
-    ra = _halfExtents[0] * _absR.entry(2, 1) + _halfExtents[2] * _absR.entry(0, 1);
+    ra = _halfExtents[0] * _absR.entry(2, 1) +
+        _halfExtents[2] * _absR.entry(0, 1);
     rb = other._halfExtents[0] * _absR.entry(1, 2) +
         other._halfExtents[2] * _absR.entry(1, 0);
     if ((_t[0] * _r.entry(2, 1) - _t[2] * _r.entry(0, 1)).abs() > ra + rb) {
@@ -283,7 +287,8 @@ class Obb3 {
     }
 
     // Test axis L = A1 x B2
-    ra = _halfExtents[0] * _absR.entry(2, 2) + _halfExtents[2] * _absR.entry(0, 2);
+    ra = _halfExtents[0] * _absR.entry(2, 2) +
+        _halfExtents[2] * _absR.entry(0, 2);
     rb = other._halfExtents[0] * _absR.entry(1, 1) +
         other._halfExtents[1] * _absR.entry(1, 0);
     if ((_t[0] * _r.entry(2, 2) - _t[2] * _r.entry(0, 2)).abs() > ra + rb) {
@@ -291,7 +296,8 @@ class Obb3 {
     }
 
     // Test axis L = A2 x B0
-    ra = _halfExtents[0] * _absR.entry(1, 0) + _halfExtents[1] * _absR.entry(0, 0);
+    ra = _halfExtents[0] * _absR.entry(1, 0) +
+        _halfExtents[1] * _absR.entry(0, 0);
     rb = other._halfExtents[1] * _absR.entry(2, 2) +
         other._halfExtents[2] * _absR.entry(2, 1);
     if ((_t[1] * _r.entry(0, 0) - _t[0] * _r.entry(1, 0)).abs() > ra + rb) {
@@ -299,7 +305,8 @@ class Obb3 {
     }
 
     // Test axis L = A2 x B1
-    ra = _halfExtents[0] * _absR.entry(1, 1) + _halfExtents[1] * _absR.entry(0, 1);
+    ra = _halfExtents[0] * _absR.entry(1, 1) +
+        _halfExtents[1] * _absR.entry(0, 1);
     rb = other._halfExtents[0] * _absR.entry(2, 2) +
         other._halfExtents[2] * _absR.entry(2, 0);
     if ((_t[1] * _r.entry(0, 1) - _t[0] * _r.entry(1, 1)).abs() > ra + rb) {
@@ -307,7 +314,8 @@ class Obb3 {
     }
 
     // Test axis L = A2 x B2
-    ra = _halfExtents[0] * _absR.entry(1, 2) + _halfExtents[1] * _absR.entry(0, 2);
+    ra = _halfExtents[0] * _absR.entry(1, 2) +
+        _halfExtents[1] * _absR.entry(0, 2);
     rb = other._halfExtents[0] * _absR.entry(2, 1) +
         other._halfExtents[1] * _absR.entry(2, 0);
     if ((_t[1] * _r.entry(0, 2) - _t[0] * _r.entry(1, 2)).abs() > ra + rb) {
@@ -328,11 +336,14 @@ class Obb3 {
     _triangle.copyFrom(other);
 
     _triangle.point0.sub(_center);
-    _triangle.point0.setValues(_triangle.point0.dot(axis0), _triangle.point0.dot(axis1), _triangle.point0.dot(axis2));
+    _triangle.point0.setValues(_triangle.point0.dot(axis0),
+        _triangle.point0.dot(axis1), _triangle.point0.dot(axis2));
     _triangle.point1.sub(_center);
-    _triangle.point1.setValues(_triangle.point1.dot(axis0), _triangle.point1.dot(axis1), _triangle.point1.dot(axis2));
+    _triangle.point1.setValues(_triangle.point1.dot(axis0),
+        _triangle.point1.dot(axis1), _triangle.point1.dot(axis2));
     _triangle.point2.sub(_center);
-    _triangle.point2.setValues(_triangle.point2.dot(axis0), _triangle.point2.dot(axis1), _triangle.point2.dot(axis2));
+    _triangle.point2.setValues(_triangle.point2.dot(axis0),
+        _triangle.point2.dot(axis1), _triangle.point2.dot(axis2));
 
     _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 
@@ -347,7 +358,8 @@ class Obb3 {
     _vector.setFrom(other);
 
     _vector.sub(_center);
-    _vector.setValues(_vector.dot(axis0), _vector.dot(axis1), _vector.dot(axis2));
+    _vector.setValues(
+        _vector.dot(axis0), _vector.dot(axis1), _vector.dot(axis2));
 
     _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 
@@ -362,6 +374,7 @@ class Obb3 {
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 
-    return intersectsWithTriangle(_quadTriangle0, result: result) || intersectsWithTriangle(_quadTriangle1, result: result);
+    return intersectsWithTriangle(_quadTriangle0, result: result) ||
+        intersectsWithTriangle(_quadTriangle1, result: result);
   }
 }

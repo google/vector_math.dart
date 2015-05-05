@@ -837,12 +837,18 @@ class Matrix4 {
 
   /// Returns the determinant of this matrix.
   double determinant() {
-    double det2_01_01 = _m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4];
-    double det2_01_02 = _m4storage[0] * _m4storage[6] - _m4storage[2] * _m4storage[4];
-    double det2_01_03 = _m4storage[0] * _m4storage[7] - _m4storage[3] * _m4storage[4];
-    double det2_01_12 = _m4storage[1] * _m4storage[6] - _m4storage[2] * _m4storage[5];
-    double det2_01_13 = _m4storage[1] * _m4storage[7] - _m4storage[3] * _m4storage[5];
-    double det2_01_23 = _m4storage[2] * _m4storage[7] - _m4storage[3] * _m4storage[6];
+    double det2_01_01 =
+        _m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4];
+    double det2_01_02 =
+        _m4storage[0] * _m4storage[6] - _m4storage[2] * _m4storage[4];
+    double det2_01_03 =
+        _m4storage[0] * _m4storage[7] - _m4storage[3] * _m4storage[4];
+    double det2_01_12 =
+        _m4storage[1] * _m4storage[6] - _m4storage[2] * _m4storage[5];
+    double det2_01_13 =
+        _m4storage[1] * _m4storage[7] - _m4storage[3] * _m4storage[5];
+    double det2_01_23 =
+        _m4storage[2] * _m4storage[7] - _m4storage[3] * _m4storage[6];
     double det3_201_012 = _m4storage[8] * det2_01_12 -
         _m4storage[9] * det2_01_02 +
         _m4storage[10] * det2_01_01;
@@ -1123,15 +1129,24 @@ class Matrix4 {
     double kx;
     double ky;
     double kz;
-    ix = invDet * (_m4storage[5] * _m4storage[10] - _m4storage[6] * _m4storage[9]);
-    iy = invDet * (_m4storage[2] * _m4storage[9] - _m4storage[1] * _m4storage[10]);
-    iz = invDet * (_m4storage[1] * _m4storage[6] - _m4storage[2] * _m4storage[5]);
-    jx = invDet * (_m4storage[6] * _m4storage[8] - _m4storage[4] * _m4storage[10]);
-    jy = invDet * (_m4storage[0] * _m4storage[10] - _m4storage[2] * _m4storage[8]);
-    jz = invDet * (_m4storage[2] * _m4storage[4] - _m4storage[0] * _m4storage[6]);
-    kx = invDet * (_m4storage[4] * _m4storage[9] - _m4storage[5] * _m4storage[8]);
-    ky = invDet * (_m4storage[1] * _m4storage[8] - _m4storage[0] * _m4storage[9]);
-    kz = invDet * (_m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4]);
+    ix = invDet *
+        (_m4storage[5] * _m4storage[10] - _m4storage[6] * _m4storage[9]);
+    iy = invDet *
+        (_m4storage[2] * _m4storage[9] - _m4storage[1] * _m4storage[10]);
+    iz = invDet *
+        (_m4storage[1] * _m4storage[6] - _m4storage[2] * _m4storage[5]);
+    jx = invDet *
+        (_m4storage[6] * _m4storage[8] - _m4storage[4] * _m4storage[10]);
+    jy = invDet *
+        (_m4storage[0] * _m4storage[10] - _m4storage[2] * _m4storage[8]);
+    jz = invDet *
+        (_m4storage[2] * _m4storage[4] - _m4storage[0] * _m4storage[6]);
+    kx = invDet *
+        (_m4storage[4] * _m4storage[9] - _m4storage[5] * _m4storage[8]);
+    ky = invDet *
+        (_m4storage[1] * _m4storage[8] - _m4storage[0] * _m4storage[9]);
+    kz = invDet *
+        (_m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4]);
     _m4storage[0] = ix;
     _m4storage[1] = iy;
     _m4storage[2] = iz;

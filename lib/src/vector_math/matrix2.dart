@@ -276,7 +276,8 @@ class Matrix2 {
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector2 v) {
     final vStorage = v._v2storage;
-    return _m2storage[j * 2] * vStorage[0] + _m2storage[(j * 2) + 1] * vStorage[1];
+    return _m2storage[j * 2] * vStorage[0] +
+        _m2storage[(j * 2) + 1] * vStorage[1];
   }
 
   /// Trace of the matrix.
