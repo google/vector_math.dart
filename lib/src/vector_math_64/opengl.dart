@@ -56,7 +56,7 @@ void setRotationMatrix(
 /// [tx],[ty],[tz] specifies the position of the object.
 void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
     Vector3 upDirection, double tx, double ty, double tz) {
-  Vector3 right = forwardDirection.cross(upDirection).normalize();
+  Vector3 right = forwardDirection.cross(upDirection)..normalize();
   Vector3 c1 = right;
   Vector3 c2 = upDirection;
   Vector3 c3 = -forwardDirection;
@@ -150,7 +150,7 @@ void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right,
   double right_minus_left = right - left;
   double top_minus_bottom = top - bottom;
   double far_minus_near = far - near;
-  Matrix4 view = perspectiveMatrix.setZero();
+  Matrix4 view = perspectiveMatrix..setZero();
   view.setEntry(0, 0, two_near / right_minus_left);
   view.setEntry(1, 1, two_near / top_minus_bottom);
   view.setEntry(0, 2, (right + left) / right_minus_left);
@@ -191,7 +191,7 @@ void setOrthographicMatrix(Matrix4 orthographicMatrix, double left,
   double tpb = top + bottom;
   double fmn = far - near;
   double fpn = far + near;
-  Matrix4 r = orthographicMatrix.setZero();
+  Matrix4 r = orthographicMatrix..setZero();
   r.setEntry(0, 0, 2.0 / rml);
   r.setEntry(1, 1, 2.0 / tmb);
   r.setEntry(2, 2, -2.0 / fmn);

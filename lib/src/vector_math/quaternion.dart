@@ -210,35 +210,33 @@ class Quaternion {
   }
 
   /// Normalize [this].
-  Quaternion normalize() {
-    var l = length;
+  double normalize() {
+    double l = length;
     if (l == 0.0) {
-      return this;
+      return 0.0;
     }
-    l = 1.0 / l;
-    _qStorage[3] = _qStorage[3] * l;
-    _qStorage[2] = _qStorage[2] * l;
-    _qStorage[1] = _qStorage[1] * l;
-    _qStorage[0] = _qStorage[0] * l;
-    return this;
+    var d = 1.0 / l;
+    _qStorage[0] *= d;
+    _qStorage[1] *= d;
+    _qStorage[2] *= d;
+    _qStorage[3] *= d;
+    return l;
   }
 
   /// Conjugate [this].
-  Quaternion conjugate() {
+  void conjugate() {
     _qStorage[2] = -_qStorage[2];
     _qStorage[1] = -_qStorage[1];
     _qStorage[0] = -_qStorage[0];
-    return this;
   }
 
   /// Invert [this].
-  Quaternion inverse() {
+  void inverse() {
     final l = 1.0 / length2;
     _qStorage[3] = _qStorage[3] * l;
     _qStorage[2] = -_qStorage[2] * l;
     _qStorage[1] = -_qStorage[1] * l;
     _qStorage[0] = -_qStorage[0] * l;
-    return this;
   }
 
   /// Normalized copy of [this].

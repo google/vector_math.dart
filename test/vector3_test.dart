@@ -122,7 +122,7 @@ void testVector3Postmultiplication() {
   inputInv.invert();
   Vector3 resultOld = inputMatrix.transposed() * inputVector;
   Vector3 resultOldvInv = inputInv * inputVector;
-  Vector3 resultNew = inputVector.postmultiply(inputMatrix);
+  Vector3 resultNew = inputVector..postmultiply(inputMatrix);
 
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
@@ -207,7 +207,7 @@ void testVector3Length() {
   relativeTest(a.length, 9.1104);
   relativeTest(a.length2, 83.0);
 
-  relativeTest(a.normalizeLength(), 9.1104);
+  relativeTest(a.normalize(), 9.1104);
   relativeTest(a.x, 0.5488);
   relativeTest(a.y, 0.7683);
   relativeTest(a.z, 0.3292);

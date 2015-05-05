@@ -76,7 +76,7 @@ class Aabb2 {
   }
 
   /// Transform [this] by the transform [t].
-  Aabb2 transform(Matrix3 t) {
+  void transform(Matrix3 t) {
     final center = new Vector2.zero();
     final halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
@@ -89,11 +89,10 @@ class Aabb2 {
     _max
       ..setFrom(center)
       ..add(halfExtents);
-    return this;
   }
 
   /// Rotate [this] by the rotation matrix [t].
-  Aabb2 rotate(Matrix3 t) {
+  void rotate(Matrix3 t) {
     final center = new Vector2.zero();
     final halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
@@ -104,7 +103,6 @@ class Aabb2 {
     _max
       ..setFrom(center)
       ..add(halfExtents);
-    return this;
   }
 
   /// Create a copy of [this] that is transformed by the transform [t] and store
