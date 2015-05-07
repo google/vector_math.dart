@@ -395,12 +395,12 @@ class Matrix3 {
 
   /// Returns the determinant of this matrix.
   double determinant() {
-    double x =
-        _m3storage[0] * ((storage[4] * _m3storage[8]) - (storage[5] * _m3storage[7]));
-    double y =
-        _m3storage[1] * ((storage[3] * _m3storage[8]) - (storage[5] * _m3storage[6]));
-    double z =
-        _m3storage[2] * ((storage[3] * _m3storage[7]) - (storage[4] * _m3storage[6]));
+    double x = _m3storage[0] *
+        ((storage[4] * _m3storage[8]) - (storage[5] * _m3storage[7]));
+    double y = _m3storage[1] *
+        ((storage[3] * _m3storage[8]) - (storage[5] * _m3storage[6]));
+    double z = _m3storage[2] *
+        ((storage[3] * _m3storage[7]) - (storage[4] * _m3storage[6]));
     return x - y + z;
   }
 

@@ -8,4 +8,3 @@ part of vector_math_64;
 const double degrees2Radians = Math.PI / 180.0;
 /// Constant factor to convert and angle from radians to degrees.
 const double radians2Degrees = 180.0 / Math.PI;
-

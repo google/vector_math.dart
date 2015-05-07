@@ -79,7 +79,7 @@ class SIMDVectorTransformBenchmark extends BenchmarkBase {
 
 class ViewMatrixBenchmark extends BenchmarkBase {
   ViewMatrixBenchmark() : super("setViewMatrix");
-  
+
   final Matrix4 M = new Matrix4.zero();
   final Vector3 P = new Vector3.zero();
   final Vector3 F = new Vector3.zero();
