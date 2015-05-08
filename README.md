@@ -1,6 +1,7 @@
 # vector_math
 
-[![Build Status](https://drone.io/johnmccutchan/vector_math/status.png)](https://drone.io/johnmccutchan/vector_math/latest)
+[![Build Status](https://travis-ci.org/google/vector_math.dart.svg?branch=master)](https://travis-ci.org/google/vector_math.dart)
+[![Coverage Status](https://coveralls.io/repos/google/vector_math.dart/badge.svg?branch=master)](https://coveralls.io/r/google/vector_math.dart?branch=master)
 
 ## Introduction
 
@@ -33,8 +34,8 @@ dependencies:
   vector_math: any
 ```
 
-If you want to stay on the latest developent version, add a dependency to the 
-Git repository. You may also need to use it if another library uses the Git 
+If you want to stay on the latest developent version, add a dependency to the
+Git repository. You may also need to use it if another library uses the Git
 dependency.
 
 ```yaml
@@ -43,7 +44,7 @@ dependencies:
     git: https://github.com/johnmccutchan/vector_math.git
 ```
 
-2\. Add the correct import for your project. 
+2\. Add the correct import for your project.
 
 ```dart
 import 'package:vector_math/vector_math.dart';
@@ -65,7 +66,7 @@ void main() {
   Vector4 y = new Vector4.all(4.0); // Vector with 4.0 in all lanes
   x.zyx = y.xzz; // Sets z,y,x the values in x,z,z
 }
-``` 
+```
 
 2\. Transforming a vector.
 
