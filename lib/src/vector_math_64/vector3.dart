@@ -284,6 +284,18 @@ class Vector3 implements Vector {
     return out;
   }
 
+  /// Set this as the cross product of [arg1] and [arg2].
+  Vector3 crossVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    final ax = arg1Storage[0], ay = arg1Storage[1], az = arg1Storage[2];
+    final bx = arg2Storage[0], by = arg2Storage[1], bz = arg2Storage[2];
+    _v3storage[0] = ay * bz - az * by;
+    _v3storage[1] = az * bx - ax * bz;
+    _v3storage[2] = ax * by - ay * bx;
+    return this;
+  }
+
   /// Reflect [this].
   Vector3 reflect(Vector3 normal) {
     sub(normal.scaled(2.0 * normal.dot(this)));
