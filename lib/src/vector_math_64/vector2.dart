@@ -269,6 +269,15 @@ class Vector2 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] + [arg2].
+  Vector2 addVectors(Vector2 arg1, Vector2 arg2) {
+    final arg1Storage = arg1._v2storage;
+    final arg2Storage = arg2._v2storage;
+    _v2storage[0] = arg1Storage[0] + arg2Storage[0];
+    _v2storage[1] = arg1Storage[1] + arg2Storage[1];
+    return this;
+  }
+
   /// Add [arg] scaled by [factor] to [this].
   Vector2 addScaled(Vector2 arg, double factor) {
     final argStorage = arg._v2storage;
@@ -285,11 +294,30 @@ class Vector2 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] - [arg2].
+  Vector2 subVectors(Vector2 arg1, Vector2 arg2) {
+    final arg1Storage = arg1._v2storage;
+    final arg2Storage = arg2._v2storage;
+    _v2storage[0] = arg1Storage[0] - arg2Storage[0];
+    _v2storage[1] = arg1Storage[1] - arg2Storage[1];
+    return this;
+  }
+
   /// Multiply entries in [this] with entries in [arg].
   Vector2 multiply(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] * argStorage[0];
     _v2storage[1] = _v2storage[1] * argStorage[1];
+    return this;
+  }
+
+
+  /// Set this as [arg1] * [arg2].
+  Vector2 multiplyVectors(Vector2 arg1, Vector2 arg2) {
+    final arg1Storage = arg1._v2storage;
+    final arg2Storage = arg2._v2storage;
+    _v2storage[0] = arg1Storage[0] * arg2Storage[0];
+    _v2storage[1] = arg1Storage[1] * arg2Storage[1];
     return this;
   }
 

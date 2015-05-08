@@ -515,9 +515,12 @@ class Matrix3 {
     return det;
   }
 
+  static final Matrix3 _m3 = new Matrix3.zero();
+
   /// Set this matrix to be the normal matrix of [arg].
   Matrix3 copyNormalMatrix(Matrix4 arg) {
-    copyInverse(arg.getRotation());
+    arg.copyRotation(_m3);
+    copyInverse(_m3);
     transpose();
     return this;
   }
@@ -862,13 +865,14 @@ class Matrix3 {
     _m3storage[0] = array[i + 0];
   }
 
+  static final Vector3 _v3 = new Vector3.zero();
+
   /// Multiply [this] to each set of xyz values in [array] starting at [offset].
-  List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
-    for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final v = new Vector3.array(array, j)..applyMatrix3(this);
-      array[j] = v.storage[0];
-      array[j + 1] = v.storage[1];
-      array[j + 2] = v.storage[2];
+  List<double> applyToVector3Array(List<double> array, [int offset = 0, int length]) {
+    length = length != null ? length : array.length;
+    for (var i = 0, j = offset; i < length; i += 3, j += 3) {
+      final v = _v3..copyFromArray(array, j)..applyMatrix3(this);
+      v.copyIntoArray(array, j);
     }
 
     return array;

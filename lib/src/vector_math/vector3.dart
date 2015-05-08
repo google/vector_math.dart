@@ -83,6 +83,27 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Set this vector from the translation values of [arg].
+  Vector3 setFromMatrixTranslation(Matrix4 arg) {
+    final argStorage = arg._m4storage;
+    _v3storage[0] = argStorage[12];
+    _v3storage[1] = argStorage[13];
+    _v3storage[2] = argStorage[14];
+    return this;
+  }
+
+  /// Set this vector from the scale components of [arg].
+  Vector3 setFromMatrixScale(Matrix4 arg) {
+    final argStorage = arg._m4storage;
+    final sx = (this..setValues(argStorage[0], argStorage[1], argStorage[2])).length;
+    final sy = (this..setValues(argStorage[4], argStorage[5], argStorage[6])).length;
+    final sz = (this..setValues(argStorage[8], argStorage[9], argStorage[10])).length;
+    _v3storage[0] = sx;
+    _v3storage[1] = sy;
+    _v3storage[2] = sz;
+    return this;
+  }
+
   /// Splat [arg] into all lanes of the vector.
   Vector3 splat(double arg) {
     _v3storage[2] = arg;
@@ -284,6 +305,18 @@ class Vector3 implements Vector {
     return out;
   }
 
+  /// Set this as the cross product of [arg1] and [arg2].
+  Vector3 crossVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    final ax = arg1Storage[0], ay = arg1Storage[1], az = arg1Storage[2];
+    final bx = arg2Storage[0], by = arg2Storage[1], bz = arg2Storage[2];
+    _v3storage[0] = ay * bz - az * by;
+    _v3storage[1] = az * bx - ax * bz;
+    _v3storage[2] = ax * by - ay * bx;
+    return this;
+  }
+
   /// Reflect [this].
   Vector3 reflect(Vector3 normal) {
     sub(normal.scaled(2.0 * normal.dot(this)));
@@ -322,9 +355,11 @@ class Vector3 implements Vector {
     return this;
   }
 
+  static final Quaternion _q = new Quaternion.identity();
+
   /// Applies a rotation specified by [axis] and [angle].
   Vector3 applyAxisAngle(Vector3 axis, double angle) {
-    applyQuaternion(new Quaternion.axisAngle(axis, angle));
+    applyQuaternion(_q..setAxisAngle(axis, angle));
     return this;
   }
 
@@ -424,6 +459,16 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] + [arg2].
+  Vector3 addVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    _v3storage[0] = arg1Storage[0] + arg2Storage[0];
+    _v3storage[1] = arg1Storage[1] + arg2Storage[1];
+    _v3storage[2] = arg1Storage[2] + arg2Storage[2];
+    return this;
+  }
+
   /// Add [arg] scaled by [factor] to [this].
   Vector3 addScaled(Vector3 arg, double factor) {
     final argStorage = arg._v3storage;
@@ -442,12 +487,32 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] - [arg2].
+  Vector3 subVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    _v3storage[0] = arg1Storage[0] - arg2Storage[0];
+    _v3storage[1] = arg1Storage[1] - arg2Storage[1];
+    _v3storage[2] = arg1Storage[2] - arg2Storage[2];
+    return this;
+  }
+
   /// Multiply entries in [this] with entries in [arg].
   Vector3 multiply(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] * argStorage[0];
     _v3storage[1] = _v3storage[1] * argStorage[1];
     _v3storage[2] = _v3storage[2] * argStorage[2];
+    return this;
+  }
+
+  /// Set this as [arg1] * [arg2].
+  Vector3 multiplyVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    _v3storage[0] = arg1Storage[0] * arg2Storage[0];
+    _v3storage[1] = arg1Storage[1] * arg2Storage[1];
+    _v3storage[2] = arg1Storage[2] * arg2Storage[2];
     return this;
   }
 
