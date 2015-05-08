@@ -64,6 +64,10 @@ void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
       c3[0], c3[1], c3[2], 0.0, tx, ty, tz, 1.0);
 }
 
+final Vector3 _x = new Vector3.zero();
+final Vector3 _y = new Vector3.zero();
+final Vector3 _z = new Vector3.zero();
+
 /// Constructs an OpenGL view matrix in [viewMatrix].
 /// View transformation is the inverse of the model transformation.
 /// View matrix is commonly used to compute the camera location/orientation into
@@ -74,19 +78,20 @@ void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
 /// [upDirection] specifies the direction of the up vector (usually, +Y).
 void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
     Vector3 cameraFocusPosition, Vector3 upDirection) {
-  Vector3 z = cameraPosition - cameraFocusPosition;
-  z.normalize();
-  Vector3 x = upDirection.cross(z);
-  x.normalize();
-  Vector3 y = z.cross(x);
-  y.normalize();
+  _z..subVectors(cameraPosition, cameraFocusPosition)..normalize();
+  _x..crossVectors(upDirection, _z)..normalize();
+  _y..crossVectors(_z, _x)..normalize();
 
-  double rotatedEyeX = -x.dot(cameraPosition);
-  double rotatedEyeY = -y.dot(cameraPosition);
-  double rotatedEyeZ = -z.dot(cameraPosition);
+  final rotatedEyeX = -_x.dot(cameraPosition);
+  final rotatedEyeY = -_y.dot(cameraPosition);
+  final rotatedEyeZ = -_z.dot(cameraPosition);
 
-  viewMatrix.setValues(x[0], y[0], z[0], 0.0, x[1], y[1], z[1], 0.0, x[2], y[2],
-      z[2], 0.0, rotatedEyeX, rotatedEyeY, rotatedEyeZ, 1.0);
+  final xStorage = _x._v3storage;
+  final yStorage = _y._v3storage;
+  final zStorage = _z._v3storage;
+
+  viewMatrix.setValues(xStorage[0], yStorage[0], zStorage[0], 0.0, xStorage[1], yStorage[1], zStorage[1],
+      0.0, xStorage[2], yStorage[2], zStorage[2], 0.0, rotatedEyeX, rotatedEyeY, rotatedEyeZ, 1.0);
 }
 
 /// Constructs a new OpenGL view matrix.
