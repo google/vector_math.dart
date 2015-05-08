@@ -355,9 +355,11 @@ class Vector3 implements Vector {
     return this;
   }
 
+  static final Quaternion _q = new Quaternion.identity();
+
   /// Applies a rotation specified by [axis] and [angle].
   Vector3 applyAxisAngle(Vector3 axis, double angle) {
-    applyQuaternion(new Quaternion.axisAngle(axis, angle));
+    applyQuaternion(_q..setAxisAngle(axis, angle));
     return this;
   }
 
