@@ -1615,39 +1615,43 @@ class Matrix4 {
         (m33 * argStorage[15]);
     return this;
   }
+
+  static final Vector3 _v3 = new Vector3.zero();
+  static final Matrix4 _m4 = new Matrix4.zero();
+  static final Quaternion _q = new Quaternion.identity();
+
   /// Decomposes [this] into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
-    final v = new Vector3.zero();
-    var sx = v.setValues(_m4storage[0], _m4storage[1], _m4storage[2]).length;
-    var sy = v.setValues(_m4storage[4], _m4storage[5], _m4storage[6]).length;
-    var sz = v.setValues(_m4storage[8], _m4storage[9], _m4storage[10]).length;
+    var sx = (_v3..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
+    var sy = (_v3..setValues(_m4storage[4], _m4storage[5], _m4storage[6])).length;
+    var sz = (_v3..setValues(_m4storage[8], _m4storage[9], _m4storage[10])).length;
 
     if (determinant() < 0) sx = -sx;
 
-    translation.storage[0] = _m4storage[12];
-    translation.storage[1] = _m4storage[13];
-    translation.storage[2] = _m4storage[14];
+    translation._v3storage[0] = _m4storage[12];
+    translation._v3storage[1] = _m4storage[13];
+    translation._v3storage[2] = _m4storage[14];
 
     final invSX = 1.0 / sx;
     final invSY = 1.0 / sy;
     final invSZ = 1.0 / sz;
 
-    final m = new Matrix4.copy(this);
-    m._m4storage[0] *= invSX;
-    m._m4storage[1] *= invSX;
-    m._m4storage[2] *= invSX;
-    m._m4storage[4] *= invSY;
-    m._m4storage[5] *= invSY;
-    m._m4storage[6] *= invSY;
-    m._m4storage[8] *= invSZ;
-    m._m4storage[9] *= invSZ;
-    m._m4storage[10] *= invSZ;
+    _m4.setFrom(this);
+    _m4._m4storage[0] *= invSX;
+    _m4._m4storage[1] *= invSX;
+    _m4._m4storage[2] *= invSX;
+    _m4._m4storage[4] *= invSY;
+    _m4._m4storage[5] *= invSY;
+    _m4._m4storage[6] *= invSY;
+    _m4._m4storage[8] *= invSZ;
+    _m4._m4storage[9] *= invSZ;
+    _m4._m4storage[10] *= invSZ;
 
-    rotation.setFromRotation(m.getRotation());
+    rotation.setFromRotation4(_m4);
 
-    scale.storage[0] = sx;
-    scale.storage[1] = sy;
-    scale.storage[2] = sz;
+    scale._v3storage[0] = sx;
+    scale._v3storage[1] = sy;
+    scale._v3storage[2] = sz;
   }
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by [this].
@@ -1822,12 +1826,11 @@ class Matrix4 {
   }
 
   /// Multiply [this] to each set of xyz values in [array] starting at [offset].
-  List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
-    for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final v = new Vector3.array(array, j)..applyMatrix4(this);
-      array[j] = v.storage[0];
-      array[j + 1] = v.storage[1];
-      array[j + 2] = v.storage[2];
+  List<double> applyToVector3Array(List<double> array, [int offset = 0, int length]) {
+    length = length != null ? length : array.length;
+    for (var i = 0, j = offset; i < length; i += 3, j += 3) {
+      final v = _v3..copyFromArray(array, j)..applyMatrix4(this);
+      v.copyIntoArray(array, j);
     }
 
     return array;
