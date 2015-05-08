@@ -306,6 +306,17 @@ class Vector4 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] + [arg2].
+  Vector4 addVectors(Vector4 arg1, Vector4 arg2) {
+    final arg1Storage = arg1._v4storage;
+    final arg2Storage = arg2._v4storage;
+    _v4storage[0] = arg1Storage[0] + arg2Storage[0];
+    _v4storage[1] = arg1Storage[1] + arg2Storage[1];
+    _v4storage[2] = arg1Storage[2] + arg2Storage[2];
+    _v4storage[3] = arg1Storage[3] + arg2Storage[3];
+    return this;
+  }
+
   /// Add [arg] scaled by [factor] to [this].
   Vector4 addScaled(Vector4 arg, double factor) {
     final argStorage = arg._v4storage;
@@ -326,6 +337,17 @@ class Vector4 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] - [arg2].
+  Vector4 subVectors(Vector4 arg1, Vector4 arg2) {
+    final arg1Storage = arg1._v4storage;
+    final arg2Storage = arg2._v4storage;
+    _v4storage[0] = arg1Storage[0] - arg2Storage[0];
+    _v4storage[1] = arg1Storage[1] - arg2Storage[1];
+    _v4storage[2] = arg1Storage[2] - arg2Storage[2];
+    _v4storage[3] = arg1Storage[3] - arg2Storage[3];
+    return this;
+  }
+
   /// Multiply [this] by [arg].
   Vector4 multiply(Vector4 arg) {
     final argStorage = arg._v4storage;
@@ -333,6 +355,17 @@ class Vector4 implements Vector {
     _v4storage[1] = _v4storage[1] * argStorage[1];
     _v4storage[2] = _v4storage[2] * argStorage[2];
     _v4storage[3] = _v4storage[3] * argStorage[3];
+    return this;
+  }
+
+  /// Set this as [arg1] * [arg2].
+  Vector4 multiplyVectors(Vector4 arg1, Vector4 arg2) {
+    final arg1Storage = arg1._v4storage;
+    final arg2Storage = arg2._v4storage;
+    _v4storage[0] = arg1Storage[0] * arg2Storage[0];
+    _v4storage[1] = arg1Storage[1] * arg2Storage[1];
+    _v4storage[2] = arg1Storage[2] * arg2Storage[2];
+    _v4storage[3] = arg1Storage[3] * arg2Storage[3];
     return this;
   }
 

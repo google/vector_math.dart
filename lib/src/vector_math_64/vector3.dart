@@ -424,6 +424,16 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] + [arg2].
+  Vector3 addVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    _v3storage[0] = arg1Storage[0] + arg2Storage[0];
+    _v3storage[1] = arg1Storage[1] + arg2Storage[1];
+    _v3storage[2] = arg1Storage[2] + arg2Storage[2];
+    return this;
+  }
+
   /// Add [arg] scaled by [factor] to [this].
   Vector3 addScaled(Vector3 arg, double factor) {
     final argStorage = arg._v3storage;
@@ -442,12 +452,32 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Set this as [arg1] - [arg2].
+  Vector3 subVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    _v3storage[0] = arg1Storage[0] - arg2Storage[0];
+    _v3storage[1] = arg1Storage[1] - arg2Storage[1];
+    _v3storage[2] = arg1Storage[2] - arg2Storage[2];
+    return this;
+  }
+
   /// Multiply entries in [this] with entries in [arg].
   Vector3 multiply(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] * argStorage[0];
     _v3storage[1] = _v3storage[1] * argStorage[1];
     _v3storage[2] = _v3storage[2] * argStorage[2];
+    return this;
+  }
+
+  /// Set this as [arg1] * [arg2].
+  Vector3 multiplyVectors(Vector3 arg1, Vector3 arg2) {
+    final arg1Storage = arg1._v3storage;
+    final arg2Storage = arg2._v3storage;
+    _v3storage[0] = arg1Storage[0] * arg2Storage[0];
+    _v3storage[1] = arg1Storage[1] * arg2Storage[1];
+    _v3storage[2] = arg1Storage[2] * arg2Storage[2];
     return this;
   }
 
