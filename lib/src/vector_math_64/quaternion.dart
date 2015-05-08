@@ -150,6 +150,14 @@ class Quaternion {
     }
   }
 
+  static final Matrix3 _m3 = new Matrix3.zero();
+
+  /// Set the quaternion with rotation from the upper 3x3 of [arg].
+  void setFromRotation4(Matrix4 arg) {
+    arg.copyRotation(_m3);
+    setFromRotation(_m3);
+  }
+
   /// Set the quaternion to a random rotation. The random number generator [rn]
   /// is used to generate the random numbers for the rotation.
   void setRandom(Math.Random rn) {
