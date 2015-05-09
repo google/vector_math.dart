@@ -1441,6 +1441,61 @@ class Matrix4 {
     return this;
   }
 
+  /// Set this as [arg1] * [arg2].
+  Matrix4 multiplyMatrices(Matrix4 arg1, Matrix4 arg2) {
+    final arg1Storage = arg1._m4storage;
+    final arg2Storage = arg2._m4storage;
+    final a11 = arg1Storage[0],
+        a12 = arg1Storage[4],
+        a13 = arg1Storage[8],
+        a14 = arg1Storage[12];
+    final a21 = arg1Storage[1],
+        a22 = arg1Storage[5],
+        a23 = arg1Storage[9],
+        a24 = arg1Storage[13];
+    final a31 = arg1Storage[2],
+        a32 = arg1Storage[6],
+        a33 = arg1Storage[10],
+        a34 = arg1Storage[14];
+    final a41 = arg1Storage[3],
+        a42 = arg1Storage[7],
+        a43 = arg1Storage[11],
+        a44 = arg1Storage[15];
+    final b11 = arg2Storage[0],
+        b12 = arg2Storage[4],
+        b13 = arg2Storage[8],
+        b14 = arg2Storage[12];
+    final b21 = arg2Storage[1],
+        b22 = arg2Storage[5],
+        b23 = arg2Storage[9],
+        b24 = arg2Storage[13];
+    final b31 = arg2Storage[2],
+        b32 = arg2Storage[6],
+        b33 = arg2Storage[10],
+        b34 = arg2Storage[14];
+    final b41 = arg2Storage[3],
+        b42 = arg2Storage[7],
+        b43 = arg2Storage[11],
+        b44 = arg2Storage[15];
+    _m4storage[0] = a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41;
+    _m4storage[4] = a11 * b12 + a12 * b22 + a13 * b32 + a14 * b42;
+    _m4storage[8] = a11 * b13 + a12 * b23 + a13 * b33 + a14 * b43;
+    _m4storage[12] = a11 * b14 + a12 * b24 + a13 * b34 + a14 * b44;
+    _m4storage[1] = a21 * b11 + a22 * b21 + a23 * b31 + a24 * b41;
+    _m4storage[5] = a21 * b12 + a22 * b22 + a23 * b32 + a24 * b42;
+    _m4storage[9] = a21 * b13 + a22 * b23 + a23 * b33 + a24 * b43;
+    _m4storage[13] = a21 * b14 + a22 * b24 + a23 * b34 + a24 * b44;
+    _m4storage[2] = a31 * b11 + a32 * b21 + a33 * b31 + a34 * b41;
+    _m4storage[6] = a31 * b12 + a32 * b22 + a33 * b32 + a34 * b42;
+    _m4storage[10] = a31 * b13 + a32 * b23 + a33 * b33 + a34 * b43;
+    _m4storage[14] = a31 * b14 + a32 * b24 + a33 * b34 + a34 * b44;
+    _m4storage[3] = a41 * b11 + a42 * b21 + a43 * b31 + a44 * b41;
+    _m4storage[7] = a41 * b12 + a42 * b22 + a43 * b32 + a44 * b42;
+    _m4storage[11] = a41 * b13 + a42 * b23 + a43 * b33 + a44 * b43;
+    _m4storage[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
+    return this;
+  }
+
   /// Multiply a copy of [this] with [arg].
   Matrix4 multiplied(Matrix4 arg) => clone()..multiply(arg);
 
