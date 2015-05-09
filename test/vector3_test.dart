@@ -228,6 +228,29 @@ void testVector3CrossProduct() {
   }
 }
 
+void testVector3CrossVectors() {
+  final v = new Vector3.zero();
+  final x = new Vector3(1.0, 0.0, 0.0);
+  final y = new Vector3(0.0, 1.0, 0.0);
+  final z = new Vector3(0.0, 0.0, 1.0);
+  Vector3 output;
+
+  output = v..crossVectors(x, y);
+  relativeTest(output, new Vector3(0.0, 0.0, 1.0));
+  output = v..crossVectors(y, x);
+  relativeTest(output, new Vector3(0.0, 0.0, -1.0));
+
+  output = v..crossVectors(x, z);
+  relativeTest(output, new Vector3(0.0, -1.0, 0.0));
+  output = v..crossVectors(z, x);
+  relativeTest(output, new Vector3(0.0, 1.0, 0.0));
+
+  output = v..crossVectors(y, z);
+  relativeTest(output, new Vector3(1.0, 0.0, 0.0));
+  output = v..crossVectors(z, y);
+  relativeTest(output, new Vector3(-1.0, 0.0, 0.0));
+}
+
 void testVector3Constructor() {
   var v1 = new Vector3(2.0, 4.0, -1.5);
   expect(v1.x, equals(2.0));
@@ -477,6 +500,7 @@ void main() {
     test('dot product', testVector3DotProduct);
     test('postmultiplication', testVector3Postmultiplication);
     test('cross product', testVector3CrossProduct);
+    test('crossVectors', testVector3CrossVectors);
     test('reflect', testVector3Reflect);
     test('projection', testVector3Projection);
     test('length', testVector3Length);
