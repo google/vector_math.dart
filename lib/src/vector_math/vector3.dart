@@ -83,6 +83,30 @@ class Vector3 implements Vector {
     return this;
   }
 
+  /// Set this vector from the translation values of [arg].
+  Vector3 setFromMatrixTranslation(Matrix4 arg) {
+    final argStorage = arg._m4storage;
+    _v3storage[0] = argStorage[12];
+    _v3storage[1] = argStorage[13];
+    _v3storage[2] = argStorage[14];
+    return this;
+  }
+
+  /// Set this vector from the scale components of [arg].
+  Vector3 setFromMatrixScale(Matrix4 arg) {
+    final argStorage = arg._m4storage;
+    var sx = (this..copyFromArray(argStorage, 0)).length;
+    var sy = (this..copyFromArray(argStorage, 4)).length;
+    var sz = (this..copyFromArray(argStorage, 8)).length;
+    if (arg.determinant() < 0) {
+      sx = -sx;
+    }
+    _v3storage[0] = sx;
+    _v3storage[1] = sy;
+    _v3storage[2] = sz;
+    return this;
+  }
+
   /// Splat [arg] into all lanes of the vector.
   Vector3 splat(double arg) {
     _v3storage[2] = arg;

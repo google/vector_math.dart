@@ -495,6 +495,35 @@ void testVector3ApplyQuaternion() {
       0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
 }
 
+void testVector3SetFromMatrixTranslation() {
+  final m = new Matrix4.translationValues(5.0, 7.0, 3.0);
+  final v = new Vector3.zero()..setFromMatrixTranslation(m);
+  relativeTest(v, m.getTranslation());
+}
+
+void testVector3SetFromMatrixScale() {
+  Matrix4 m = parseMatrix(
+      '''0.237893273152584   0.241190507375353   0.115471053480014   0.188086069635435
+         0.916103942227480   1.704973929800637   1.164721763902784   1.675285658272358
+         0.919182849383279   1.351023203753565   1.053750106199745   1.215382950294249
+         1.508657696357159   2.344965008135463   1.450552688877760   2.316940716769603''');
+  Matrix4 m2 = parseMatrix(
+      '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
+         0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
+         0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
+         0.913337361501670   0.996134716626885   0.961898080855054   0.868694705363510''');
+  final v = new Vector3.zero();
+  final scale = new Vector3.zero();
+
+  m.decompose(new Vector3.zero(), new Quaternion.identity(), scale);
+  v.setFromMatrixScale(m);
+  relativeTest(v, scale);
+
+  m2.decompose(new Vector3.zero(), new Quaternion.identity(), scale);
+  v.setFromMatrixScale(m2);
+  relativeTest(v, scale);
+}
+
 void main() {
   group('Vector3', () {
     test('dot product', testVector3DotProduct);
@@ -527,5 +556,7 @@ void main() {
     test('round', testVector3Round);
     test('roundToZero', testVector3RoundToZero);
     test('applyQuaternion', testVector3ApplyQuaternion);
+    test('setFromMatrixTranslation', testVector3SetFromMatrixTranslation);
+    test('setFromMatrixScale', testVector3SetFromMatrixScale);
   });
 }
