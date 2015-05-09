@@ -57,6 +57,48 @@ void testVector4Add() {
   expect(b.w, equals(8.0));
 }
 
+void testVector4AddVectors() {
+  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+  final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+  final Vector4 v = new Vector4.zero();
+
+  final result = a.clone()..add(b);
+
+  v.addVectors(a, b);
+  expect(v.x, equals(result.x));
+  expect(v.y, equals(result.y));
+  expect(v.z, equals(result.z));
+  expect(v.w, equals(result.w));
+}
+
+void testVector4SubVectors() {
+  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+  final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+  final Vector4 v = new Vector4.zero();
+
+  final result = a.clone()..sub(b);
+
+  v.subVectors(a, b);
+  expect(v.x, equals(result.x));
+  expect(v.y, equals(result.y));
+  expect(v.z, equals(result.z));
+  expect(v.w, equals(result.w));
+}
+
+void testVector4MultiplyVectors() {
+  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+  final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+  final Vector4 v = new Vector4.zero();
+
+  final result = a.clone()..multiply(b);
+
+  v.multiplyVectors(a, b);
+  expect(v.x, equals(result.x));
+  expect(v.y, equals(result.y));
+  expect(v.z, equals(result.z));
+  expect(v.w, equals(result.w));
+}
+
 void testVector4MinMax() {
   final Vector4 a = new Vector4(5.0, 7.0, -3.0, 10.0);
   final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
@@ -263,6 +305,9 @@ void main() {
     test('Negate', testVector4Negate);
     test('Constructor', testVector4Constructor);
     test('add', testVector4Add);
+    test('addVectors', testVector4AddVectors);
+    test('subVectors', testVector4SubVectors);
+    test('multiplyVectors', testVector4MultiplyVectors);
     test('min/max', testVector4MinMax);
     test('mix', testVector4Mix);
     test('distanceTo', testVector4DistanceTo);

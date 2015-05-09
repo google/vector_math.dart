@@ -47,6 +47,42 @@ void testVector2Add() {
   expect(b.y, equals(15.5));
 }
 
+void testVector2AddVectors() {
+  final Vector2 a = new Vector2(5.0, 7.0);
+  final Vector2 b = new Vector2(3.0, 8.0);
+  final Vector2 v = new Vector2.zero();
+
+  final expected = a.clone()..add(b);
+
+  v.addVectors(a, b);
+  expect(v.x, equals(expected.x));
+  expect(v.y, equals(expected.y));
+}
+
+void testVector2SubVectors() {
+  final Vector2 a = new Vector2(5.0, 7.0);
+  final Vector2 b = new Vector2(3.0, 8.0);
+  final Vector2 v = new Vector2.zero();
+
+  final expected = a.clone()..sub(b);
+
+  v.subVectors(a, b);
+  expect(v.x, equals(expected.x));
+  expect(v.y, equals(expected.y));
+}
+
+void testVector2MultiplyVectors() {
+  final Vector2 a = new Vector2(5.0, 7.0);
+  final Vector2 b = new Vector2(3.0, 8.0);
+  final Vector2 v = new Vector2.zero();
+
+  final expected = a.clone()..multiply(b);
+
+  v.multiplyVectors(a, b);
+  expect(v.x, equals(expected.x));
+  expect(v.y, equals(expected.y));
+}
+
 void testVector2MinMax() {
   final Vector2 a = new Vector2(5.0, 7.0);
   final Vector2 b = new Vector2(3.0, 8.0);
@@ -319,6 +355,9 @@ void main() {
     test('Negate', testVector2Negate);
     test('Constructor', testVector2Constructor);
     test('add', testVector2Add);
+    test('addVectors', testVector2AddVectors);
+    test('subVectors', testVector2SubVectors);
+    test('multiplyVectors', testVector2MultiplyVectors);
     test('min/max', testVector2MinMax);
     test('mix', testVector2Mix);
     test('distanceTo', testVector2DistanceTo);

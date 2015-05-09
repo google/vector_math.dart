@@ -54,6 +54,45 @@ void testVector3Add() {
   expect(b.z, equals(4.5));
 }
 
+void testVector3AddVectors() {
+  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+  final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+  final Vector3 v = new Vector3.zero();
+
+  final expected = a.clone()..add(b);
+
+  v.addVectors(a, b);
+  expect(v.x, equals(expected.x));
+  expect(v.y, equals(expected.y));
+  expect(v.z, equals(expected.z));
+}
+
+void testVector3SubVectors() {
+  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+  final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+  final Vector3 v = new Vector3.zero();
+
+  final expected = a.clone()..sub(b);
+
+  v.subVectors(a, b);
+  expect(v.x, equals(expected.x));
+  expect(v.y, equals(expected.y));
+  expect(v.z, equals(expected.z));
+}
+
+void testVector3MultiplyVectors() {
+  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+  final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+  final Vector3 v = new Vector3.zero();
+
+  final expected = a.clone()..multiply(b);
+
+  v.multiplyVectors(a, b);
+  expect(v.x, equals(expected.x));
+  expect(v.y, equals(expected.y));
+  expect(v.z, equals(expected.z));
+}
+
 void testVector3MinMax() {
   final Vector3 a = new Vector3(5.0, 7.0, -3.0);
   final Vector3 b = new Vector3(3.0, 8.0, 2.0);
@@ -446,6 +485,9 @@ void main() {
     test('Negate', testVector3Negate);
     test('Constructor', testVector3Constructor);
     test('add', testVector3Add);
+    test('addVectors', testVector3AddVectors);
+    test('subVectors', testVector3SubVectors);
+    test('multiplyVectors', testVector3MultiplyVectors);
     test('min/max', testVector3MinMax);
     test('mix', testVector3Mix);
     test('distanceTo', testVector3DistanceTo);
