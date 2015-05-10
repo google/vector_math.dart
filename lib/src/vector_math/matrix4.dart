@@ -1389,55 +1389,7 @@ class Matrix4 {
 
   /// Multiply [this] by [arg].
   Matrix4 multiply(Matrix4 arg) {
-    final m00 = _m4storage[0];
-    final m01 = _m4storage[4];
-    final m02 = _m4storage[8];
-    final m03 = _m4storage[12];
-    final m10 = _m4storage[1];
-    final m11 = _m4storage[5];
-    final m12 = _m4storage[9];
-    final m13 = _m4storage[13];
-    final m20 = _m4storage[2];
-    final m21 = _m4storage[6];
-    final m22 = _m4storage[10];
-    final m23 = _m4storage[14];
-    final m30 = _m4storage[3];
-    final m31 = _m4storage[7];
-    final m32 = _m4storage[11];
-    final m33 = _m4storage[15];
-    final argStorage = arg._m4storage;
-    final n00 = argStorage[0];
-    final n01 = argStorage[4];
-    final n02 = argStorage[8];
-    final n03 = argStorage[12];
-    final n10 = argStorage[1];
-    final n11 = argStorage[5];
-    final n12 = argStorage[9];
-    final n13 = argStorage[13];
-    final n20 = argStorage[2];
-    final n21 = argStorage[6];
-    final n22 = argStorage[10];
-    final n23 = argStorage[14];
-    final n30 = argStorage[3];
-    final n31 = argStorage[7];
-    final n32 = argStorage[11];
-    final n33 = argStorage[15];
-    _m4storage[0] = (m00 * n00) + (m01 * n10) + (m02 * n20) + (m03 * n30);
-    _m4storage[4] = (m00 * n01) + (m01 * n11) + (m02 * n21) + (m03 * n31);
-    _m4storage[8] = (m00 * n02) + (m01 * n12) + (m02 * n22) + (m03 * n32);
-    _m4storage[12] = (m00 * n03) + (m01 * n13) + (m02 * n23) + (m03 * n33);
-    _m4storage[1] = (m10 * n00) + (m11 * n10) + (m12 * n20) + (m13 * n30);
-    _m4storage[5] = (m10 * n01) + (m11 * n11) + (m12 * n21) + (m13 * n31);
-    _m4storage[9] = (m10 * n02) + (m11 * n12) + (m12 * n22) + (m13 * n32);
-    _m4storage[13] = (m10 * n03) + (m11 * n13) + (m12 * n23) + (m13 * n33);
-    _m4storage[2] = (m20 * n00) + (m21 * n10) + (m22 * n20) + (m23 * n30);
-    _m4storage[6] = (m20 * n01) + (m21 * n11) + (m22 * n21) + (m23 * n31);
-    _m4storage[10] = (m20 * n02) + (m21 * n12) + (m22 * n22) + (m23 * n32);
-    _m4storage[14] = (m20 * n03) + (m21 * n13) + (m22 * n23) + (m23 * n33);
-    _m4storage[3] = (m30 * n00) + (m31 * n10) + (m32 * n20) + (m33 * n30);
-    _m4storage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
-    _m4storage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
-    _m4storage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
+    multiplyMatrices(this, arg);
     return this;
   }
 
