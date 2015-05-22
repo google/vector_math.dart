@@ -176,6 +176,12 @@ class Vector4 implements Vector {
     return sum;
   }
 
+  /// Manhattan length.
+  double get lengthManhattan => _v4storage[0].abs() +
+      _v4storage[1].abs() +
+      _v4storage[2].abs() +
+      _v4storage[3].abs();
+
   /// Normalizes [this].
   Vector4 normalize() {
     double l = length;

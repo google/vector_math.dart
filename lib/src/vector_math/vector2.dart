@@ -142,6 +142,9 @@ class Vector2 implements Vector {
     return sum;
   }
 
+  /// Manhattan length.
+  double get lengthManhattan => _v2storage[0].abs() + _v2storage[1].abs();
+
   /// Normalize [this].
   Vector2 normalize() {
     double l = length;
