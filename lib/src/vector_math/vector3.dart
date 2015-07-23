@@ -95,8 +95,9 @@ class Vector3 implements Vector {
   String toString() => '[${storage[0]},${storage[1]},${storage[2]}]';
 
   /// Check if two vectors are the same.
-  bool operator ==(Vector3 other) {
-    return (_v3storage[0] == other._v3storage[0]) &&
+  bool operator ==(other) {
+    return (other is Vector3) &&
+        (_v3storage[0] == other._v3storage[0]) &&
         (_v3storage[1] == other._v3storage[1]) &&
         (_v3storage[2] == other._v3storage[2]);
   }
