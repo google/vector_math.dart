@@ -112,6 +112,14 @@ void testMatrix2Solving() {
   expect(backwards.y, equals(b.y));
 }
 
+void testMatrix2Equals() {
+  expect(new Matrix2.identity(), equals(new Matrix2.identity()));
+  expect(new Matrix2.zero(), isNot(equals(new Matrix2.identity())));
+  expect(new Matrix2.zero(), isNot(equals(5)));
+  expect(
+      new Matrix2.identity().hashCode, equals(new Matrix2.identity().hashCode));
+}
+
 void main() {
   group('Matrix2', () {
     test('Determinant', testMatrix2Determinant);
@@ -121,5 +129,6 @@ void main() {
     test('dot product', testMatrix2Dot);
     test('Scale', testMatrix2Scale);
     test('solving', testMatrix2Solving);
+    test('equals', testMatrix2Equals);
   });
 }

@@ -310,6 +310,14 @@ void testMatrix3Solving() {
   expect(backwards2.y, equals(b2.y));
 }
 
+void testMatrix3Equals() {
+  expect(new Matrix3.identity(), equals(new Matrix3.identity()));
+  expect(new Matrix3.zero(), isNot(equals(new Matrix3.identity())));
+  expect(new Matrix3.zero(), isNot(equals(5)));
+  expect(
+      new Matrix3.identity().hashCode, equals(new Matrix3.identity().hashCode));
+}
+
 void main() {
   group('Matrix3', () {
     test('Determinant', testMatrix3Determinant);
@@ -325,5 +333,6 @@ void main() {
     test('dot product', testMatrix3Dot);
     test('Scale', testMatrix3Scale);
     test('solving', testMatrix3Solving);
+    test('equals', testMatrix3Equals);
   });
 }

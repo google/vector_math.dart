@@ -429,11 +429,36 @@ class Matrix4 {
   /// Dimension of the matrix.
   int get dimension => 4;
 
+  /// Access the element of the matrix at the index [i].
   double operator [](int i) => _m4storage[i];
 
+  /// Set the element of the matrix at the index [i].
   void operator []=(int i, double v) {
     _m4storage[i] = v;
   }
+
+  /// Check if two matrices are the same.
+  bool operator ==(other) {
+    return (other is Matrix4) &&
+        (_m4storage[0] == other._m4storage[0]) &&
+        (_m4storage[1] == other._m4storage[1]) &&
+        (_m4storage[2] == other._m4storage[2]) &&
+        (_m4storage[3] == other._m4storage[3]) &&
+        (_m4storage[4] == other._m4storage[4]) &&
+        (_m4storage[5] == other._m4storage[5]) &&
+        (_m4storage[6] == other._m4storage[6]) &&
+        (_m4storage[7] == other._m4storage[7]) &&
+        (_m4storage[8] == other._m4storage[8]) &&
+        (_m4storage[9] == other._m4storage[9]) &&
+        (_m4storage[10] == other._m4storage[10]) &&
+        (_m4storage[11] == other._m4storage[11]) &&
+        (_m4storage[12] == other._m4storage[12]) &&
+        (_m4storage[13] == other._m4storage[13]) &&
+        (_m4storage[14] == other._m4storage[14]) &&
+        (_m4storage[15] == other._m4storage[15]);
+  }
+
+  int get hashCode => quiver.hashObjects(_m4storage);
 
   /// Returns row 0
   Vector4 get row0 => getRow(0);

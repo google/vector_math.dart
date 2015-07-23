@@ -102,6 +102,8 @@ class Vector3 implements Vector {
         (_v3storage[2] == other._v3storage[2]);
   }
 
+  int get hashCode => quiver.hashObjects(_v3storage);
+
   /// Negate
   Vector3 operator -() => clone()..negate();
 

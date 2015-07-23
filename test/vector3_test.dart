@@ -253,6 +253,8 @@ void testVector3Equals() {
   expect(v3 == new Vector3(0.0, 2.0, 3.0), isFalse);
   expect(v3 == new Vector3(1.0, 0.0, 3.0), isFalse);
   expect(v3 == new Vector3(1.0, 2.0, 0.0), isFalse);
+  expect(new Vector3(1.0, 2.0, 3.0).hashCode,
+      equals(new Vector3(1.0, 2.0, 3.0).hashCode));
 }
 
 void testVector3Reflect() {
