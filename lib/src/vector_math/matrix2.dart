@@ -136,11 +136,24 @@ class Matrix2 {
   /// Dimension of the matrix.
   int get dimension => 2;
 
+  /// Access the element of the matrix at the index [i].
   double operator [](int i) => _m2storage[i];
 
+  /// Set the element of the matrix at the index [i].
   void operator []=(int i, double v) {
     _m2storage[i] = v;
   }
+
+  /// Check if two matrices are the same.
+  bool operator ==(other) {
+    return (other is Matrix2) &&
+        (_m2storage[0] == other._m2storage[0]) &&
+        (_m2storage[1] == other._m2storage[1]) &&
+        (_m2storage[2] == other._m2storage[2]) &&
+        (_m2storage[3] == other._m2storage[3]);
+  }
+
+  int get hashCode => quiver.hashObjects(_m2storage);
 
   /// Returns row 0
   Vector2 get row0 => getRow(0);

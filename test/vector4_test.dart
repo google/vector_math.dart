@@ -169,6 +169,8 @@ void testVector4Equals() {
   expect(v4 == new Vector4(1.0, 0.0, 3.0, 4.0), isFalse);
   expect(v4 == new Vector4(1.0, 2.0, 0.0, 4.0), isFalse);
   expect(v4 == new Vector4(1.0, 2.0, 3.0, 0.0), isFalse);
+  expect(new Vector4(1.0, 2.0, 3.0, 4.0).hashCode,
+      equals(new Vector4(1.0, 2.0, 3.0, 4.0).hashCode));
 }
 
 void testVector4DistanceTo() {

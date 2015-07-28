@@ -589,6 +589,14 @@ void testMatrix4Compose() {
   }
 }
 
+void testMatrix4Equals() {
+  expect(new Matrix4.identity(), equals(new Matrix4.identity()));
+  expect(new Matrix4.zero(), isNot(equals(new Matrix4.identity())));
+  expect(new Matrix4.zero(), isNot(equals(5)));
+  expect(
+      new Matrix4.identity().hashCode, equals(new Matrix4.identity().hashCode));
+}
+
 void main() {
   group('Matrix4', () {
     test('instancing from Float32List', testMatrix4InstacingFromFloat32List);
@@ -611,5 +619,6 @@ void main() {
     test('perspective transform', testMatrix4PerspectiveTransform);
     test('solving', testMatrix4Solving);
     test('compose/decompose', testMatrix4Compose);
+    test('equals', testMatrix4Equals);
   });
 }

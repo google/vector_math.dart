@@ -234,6 +234,22 @@ class Matrix3 {
     _m3storage[i] = v;
   }
 
+  /// Check if two matrices are the same.
+  bool operator ==(other) {
+    return (other is Matrix3) &&
+        (_m3storage[0] == other._m3storage[0]) &&
+        (_m3storage[1] == other._m3storage[1]) &&
+        (_m3storage[2] == other._m3storage[2]) &&
+        (_m3storage[3] == other._m3storage[3]) &&
+        (_m3storage[4] == other._m3storage[4]) &&
+        (_m3storage[5] == other._m3storage[5]) &&
+        (_m3storage[6] == other._m3storage[6]) &&
+        (_m3storage[7] == other._m3storage[7]) &&
+        (_m3storage[8] == other._m3storage[8]);
+  }
+
+  int get hashCode => quiver.hashObjects(_m3storage);
+
   /// Returns row 0
   Vector3 get row0 => getRow(0);
 

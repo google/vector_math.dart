@@ -115,12 +115,15 @@ class Vector4 implements Vector {
       '${_v4storage[2]},${_v4storage[3]}';
 
   /// Check if two vectors are the same.
-  bool operator ==(Vector4 other) {
-    return (_v4storage[0] == other._v4storage[0]) &&
+  bool operator ==(other) {
+    return (other is Vector4) &&
+        (_v4storage[0] == other._v4storage[0]) &&
         (_v4storage[1] == other._v4storage[1]) &&
         (_v4storage[2] == other._v4storage[2]) &&
         (_v4storage[3] == other._v4storage[3]);
   }
+
+  int get hashCode => quiver.hashObjects(_v4storage);
 
   /// Negate.
   Vector4 operator -() => clone()..negate();

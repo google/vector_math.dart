@@ -87,10 +87,13 @@ class Vector2 implements Vector {
   String toString() => '[${_v2storage[0]},${_v2storage[1]}]';
 
   /// Check if two vectors are the same.
-  bool operator ==(Vector2 other) {
-    return (_v2storage[0] == other._v2storage[0]) &&
+  bool operator ==(other) {
+    return (other is Vector2) &&
+        (_v2storage[0] == other._v2storage[0]) &&
         (_v2storage[1] == other._v2storage[1]);
   }
+
+  int get hashCode => quiver.hashObjects(_v2storage);
 
   /// Negate.
   Vector2 operator -() => clone()..negate();

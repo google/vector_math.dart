@@ -192,6 +192,8 @@ void testVector2Equals() {
   expect(v2 == new Vector2(1.0, 2.0), isTrue);
   expect(v2 == new Vector2(1.0, 0.0), isFalse);
   expect(v2 == new Vector2(0.0, 2.0), isFalse);
+  expect(
+      new Vector2(1.0, 2.0).hashCode, equals(new Vector2(1.0, 2.0).hashCode));
 }
 
 void testVector2Reflect() {
