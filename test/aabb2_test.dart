@@ -64,6 +64,39 @@ void testAabb2SetCenterAndHalfExtents() {
   relativeTest(a2.max, $v2(0.0, 0.0));
 }
 
+void testAabb2CopyMinMax() {
+  final a1 = new Aabb2.centerAndHalfExtents($v2(10.0, 10.0), $v2(4.0, 6.0));
+  final a2 = new Aabb2.centerAndHalfExtents($v2(-10.0, -20.0), $v2(1.0, 1.0));
+
+  final min = new Vector2.zero();
+  final max = new Vector2.zero();
+
+  a1.copyMinMax(min, max);
+
+  relativeTest(min, $v2(6.0, 4.0));
+  relativeTest(max, $v2(14.0, 16.0));
+
+  a2.copyMinMax(min, max);
+
+  relativeTest(min, $v2(-11.0, -21.0));
+  relativeTest(max, $v2(-9.0, -19.0));
+}
+
+void testAabb2SetMinMax() {
+  final a1 = new Aabb2();
+  final a2 = new Aabb2();
+
+  a1.setMinMax($v2(0.0, 0.0), $v2(10.0, 20.0));
+
+  relativeTest(a1.center, $v2(5.0, 10.0));
+  relativeTest(a1.half, $v2(5.0, 10.0));
+
+  a2.setMinMax($v2(-10.0, -20.0), $v2(10.0, 20.0));
+
+  relativeTest(a2.center, $v2(0.0, 0.0));
+  relativeTest(a2.half, $v2(10.0, 20.0));
+}
+
 void testAabb2ContainsAabb2() {
   final parent = new Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
   final child = new Aabb2.minMax($v2(2.0, 2.0), $v2(7.0, 7.0));
@@ -199,6 +232,8 @@ void main() {
     test('centerAndHalfExtents', testAabb2CenterAndHalfExtents);
     test('copyCenterAndHalfExtents', testAabb2CopyCenterAndHalfExtents);
     test('setCenterAndHalfExtents', testAabb2SetCenterAndHalfExtents);
+    test('copyMinMax', testAabb2CopyMinMax);
+    test('setMinMax', testAabb2SetMinMax);
     test('Contains Aabb2', testAabb2ContainsAabb2);
     test('Contains Vector2', testAabb2ContainsVector2);
     test('Intersection Aabb2', testAabb2IntersectionAabb2);
