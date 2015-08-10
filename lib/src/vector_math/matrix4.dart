@@ -1414,55 +1414,62 @@ class Matrix4 {
 
   /// Multiply [this] by [arg].
   Matrix4 multiply(Matrix4 arg) {
-    final m00 = _m4storage[0];
-    final m01 = _m4storage[4];
-    final m02 = _m4storage[8];
-    final m03 = _m4storage[12];
-    final m10 = _m4storage[1];
-    final m11 = _m4storage[5];
-    final m12 = _m4storage[9];
-    final m13 = _m4storage[13];
-    final m20 = _m4storage[2];
-    final m21 = _m4storage[6];
-    final m22 = _m4storage[10];
-    final m23 = _m4storage[14];
-    final m30 = _m4storage[3];
-    final m31 = _m4storage[7];
-    final m32 = _m4storage[11];
-    final m33 = _m4storage[15];
-    final argStorage = arg._m4storage;
-    final n00 = argStorage[0];
-    final n01 = argStorage[4];
-    final n02 = argStorage[8];
-    final n03 = argStorage[12];
-    final n10 = argStorage[1];
-    final n11 = argStorage[5];
-    final n12 = argStorage[9];
-    final n13 = argStorage[13];
-    final n20 = argStorage[2];
-    final n21 = argStorage[6];
-    final n22 = argStorage[10];
-    final n23 = argStorage[14];
-    final n30 = argStorage[3];
-    final n31 = argStorage[7];
-    final n32 = argStorage[11];
-    final n33 = argStorage[15];
-    _m4storage[0] = (m00 * n00) + (m01 * n10) + (m02 * n20) + (m03 * n30);
-    _m4storage[4] = (m00 * n01) + (m01 * n11) + (m02 * n21) + (m03 * n31);
-    _m4storage[8] = (m00 * n02) + (m01 * n12) + (m02 * n22) + (m03 * n32);
-    _m4storage[12] = (m00 * n03) + (m01 * n13) + (m02 * n23) + (m03 * n33);
-    _m4storage[1] = (m10 * n00) + (m11 * n10) + (m12 * n20) + (m13 * n30);
-    _m4storage[5] = (m10 * n01) + (m11 * n11) + (m12 * n21) + (m13 * n31);
-    _m4storage[9] = (m10 * n02) + (m11 * n12) + (m12 * n22) + (m13 * n32);
-    _m4storage[13] = (m10 * n03) + (m11 * n13) + (m12 * n23) + (m13 * n33);
-    _m4storage[2] = (m20 * n00) + (m21 * n10) + (m22 * n20) + (m23 * n30);
-    _m4storage[6] = (m20 * n01) + (m21 * n11) + (m22 * n21) + (m23 * n31);
-    _m4storage[10] = (m20 * n02) + (m21 * n12) + (m22 * n22) + (m23 * n32);
-    _m4storage[14] = (m20 * n03) + (m21 * n13) + (m22 * n23) + (m23 * n33);
-    _m4storage[3] = (m30 * n00) + (m31 * n10) + (m32 * n20) + (m33 * n30);
-    _m4storage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
-    _m4storage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
-    _m4storage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
+    multiplyMatrices(this, arg);
+    return this;
+  }
+
+  /// Set this as [arg1] * [arg2].
+  Matrix4 multiplyMatrices(Matrix4 arg1, Matrix4 arg2) {
+    final arg1Storage = arg1._m4storage;
+    final arg2Storage = arg2._m4storage;
+    final a11 = arg1Storage[0],
+        a12 = arg1Storage[4],
+        a13 = arg1Storage[8],
+        a14 = arg1Storage[12];
+    final a21 = arg1Storage[1],
+        a22 = arg1Storage[5],
+        a23 = arg1Storage[9],
+        a24 = arg1Storage[13];
+    final a31 = arg1Storage[2],
+        a32 = arg1Storage[6],
+        a33 = arg1Storage[10],
+        a34 = arg1Storage[14];
+    final a41 = arg1Storage[3],
+        a42 = arg1Storage[7],
+        a43 = arg1Storage[11],
+        a44 = arg1Storage[15];
+    final b11 = arg2Storage[0],
+        b12 = arg2Storage[4],
+        b13 = arg2Storage[8],
+        b14 = arg2Storage[12];
+    final b21 = arg2Storage[1],
+        b22 = arg2Storage[5],
+        b23 = arg2Storage[9],
+        b24 = arg2Storage[13];
+    final b31 = arg2Storage[2],
+        b32 = arg2Storage[6],
+        b33 = arg2Storage[10],
+        b34 = arg2Storage[14];
+    final b41 = arg2Storage[3],
+        b42 = arg2Storage[7],
+        b43 = arg2Storage[11],
+        b44 = arg2Storage[15];
+    _m4storage[0] = a11 * b11 + a12 * b21 + a13 * b31 + a14 * b41;
+    _m4storage[4] = a11 * b12 + a12 * b22 + a13 * b32 + a14 * b42;
+    _m4storage[8] = a11 * b13 + a12 * b23 + a13 * b33 + a14 * b43;
+    _m4storage[12] = a11 * b14 + a12 * b24 + a13 * b34 + a14 * b44;
+    _m4storage[1] = a21 * b11 + a22 * b21 + a23 * b31 + a24 * b41;
+    _m4storage[5] = a21 * b12 + a22 * b22 + a23 * b32 + a24 * b42;
+    _m4storage[9] = a21 * b13 + a22 * b23 + a23 * b33 + a24 * b43;
+    _m4storage[13] = a21 * b14 + a22 * b24 + a23 * b34 + a24 * b44;
+    _m4storage[2] = a31 * b11 + a32 * b21 + a33 * b31 + a34 * b41;
+    _m4storage[6] = a31 * b12 + a32 * b22 + a33 * b32 + a34 * b42;
+    _m4storage[10] = a31 * b13 + a32 * b23 + a33 * b33 + a34 * b43;
+    _m4storage[14] = a31 * b14 + a32 * b24 + a33 * b34 + a34 * b44;
+    _m4storage[3] = a41 * b11 + a42 * b21 + a43 * b31 + a44 * b41;
+    _m4storage[7] = a41 * b12 + a42 * b22 + a43 * b32 + a44 * b42;
+    _m4storage[11] = a41 * b13 + a42 * b23 + a43 * b33 + a44 * b43;
+    _m4storage[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
     return this;
   }
 
@@ -1640,39 +1647,35 @@ class Matrix4 {
         (m33 * argStorage[15]);
     return this;
   }
+
+  static final Vector3 _v3 = new Vector3.zero();
+  static final Matrix4 _m4 = new Matrix4.zero();
+  static final Quaternion _q = new Quaternion.identity();
+
   /// Decomposes [this] into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
-    final v = new Vector3.zero();
-    var sx = v.setValues(_m4storage[0], _m4storage[1], _m4storage[2]).length;
-    var sy = v.setValues(_m4storage[4], _m4storage[5], _m4storage[6]).length;
-    var sz = v.setValues(_m4storage[8], _m4storage[9], _m4storage[10]).length;
-
-    if (determinant() < 0) sx = -sx;
-
-    translation.storage[0] = _m4storage[12];
-    translation.storage[1] = _m4storage[13];
-    translation.storage[2] = _m4storage[14];
-
+    var sx = (_v3..copyFromArray(_m4storage, 0)).length;
+    var sy = (_v3..copyFromArray(_m4storage, 4)).length;
+    var sz = (_v3..copyFromArray(_m4storage, 8)).length;
+    if (determinant() < 0) {
+      sx = -sx;
+    }
+    translation.setFromMatrixTranslation(this);
     final invSX = 1.0 / sx;
     final invSY = 1.0 / sy;
     final invSZ = 1.0 / sz;
-
-    final m = new Matrix4.copy(this);
-    m._m4storage[0] *= invSX;
-    m._m4storage[1] *= invSX;
-    m._m4storage[2] *= invSX;
-    m._m4storage[4] *= invSY;
-    m._m4storage[5] *= invSY;
-    m._m4storage[6] *= invSY;
-    m._m4storage[8] *= invSZ;
-    m._m4storage[9] *= invSZ;
-    m._m4storage[10] *= invSZ;
-
-    rotation.setFromRotation(m.getRotation());
-
-    scale.storage[0] = sx;
-    scale.storage[1] = sy;
-    scale.storage[2] = sz;
+    _m4.setFrom(this);
+    _m4._m4storage[0] *= invSX;
+    _m4._m4storage[1] *= invSX;
+    _m4._m4storage[2] *= invSX;
+    _m4._m4storage[4] *= invSY;
+    _m4._m4storage[5] *= invSY;
+    _m4._m4storage[6] *= invSY;
+    _m4._m4storage[8] *= invSZ;
+    _m4._m4storage[9] *= invSZ;
+    _m4._m4storage[10] *= invSZ;
+    rotation.setFromRotation4(_m4);
+    scale.setValues(sx, sy, sz);
   }
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by [this].
@@ -1849,10 +1852,9 @@ class Matrix4 {
   /// Multiply [this] to each set of xyz values in [array] starting at [offset].
   List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
     for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final v = new Vector3.array(array, j)..applyMatrix4(this);
-      array[j] = v.storage[0];
-      array[j + 1] = v.storage[1];
-      array[j + 2] = v.storage[2];
+      _v3.copyFromArray(array, j);
+      _v3.applyMatrix4(this);
+      _v3.copyIntoArray(array, j);
     }
 
     return array;
