@@ -247,8 +247,7 @@ void testVector2DistanceToSquared() {
 }
 
 void testVector2Clamp() {
-  final x = 2.0,
-      y = 3.0;
+  final x = 2.0, y = 3.0;
   final v0 = new Vector2(x, y);
   final v1 = new Vector2(-x, -y);
   final v2 = new Vector2(-2.0 * x, 2.0 * y)..clamp(v1, v0);

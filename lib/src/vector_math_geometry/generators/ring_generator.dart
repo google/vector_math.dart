@@ -15,8 +15,12 @@ class RingGenerator extends GeometryGenerator {
   int get vertexCount => (_segments + 1) * 2;
   int get indexCount => (_segments) * 3 * 2;
 
-  MeshGeometry createRing(double innerRadius, double outerRadius, {flags: null,
-      filters: null, segments: 64, thetaStart: 0.0, thetaLength: Math.PI * 2.0,
+  MeshGeometry createRing(double innerRadius, double outerRadius,
+      {flags: null,
+      filters: null,
+      segments: 64,
+      thetaStart: 0.0,
+      thetaLength: Math.PI * 2.0,
       stripTextureCoordinates: true}) {
     _innerRadius = innerRadius;
     _outerRadius = outerRadius;

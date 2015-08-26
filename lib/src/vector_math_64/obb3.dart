@@ -14,12 +14,16 @@ class Obb3 {
 
   /// The center of the OBB.
   Vector3 get center => _center;
+
   /// The half extends of the OBB.
   Vector3 get halfExtents => _halfExtents;
+
   /// The first axis of the OBB.
   Vector3 get axis0 => _axis0;
+
   /// The second axis of the OBB.
   Vector3 get axis1 => _axis1;
+
   /// The third axis of the OBB.
   Vector3 get axis2 => _axis2;
 

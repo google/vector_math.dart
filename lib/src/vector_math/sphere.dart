@@ -11,6 +11,7 @@ class Sphere {
 
   /// The [center] of the sphere.
   Vector3 get center => _center;
+
   /// The [radius] of the sphere.
   double get radius => _radius;
   set radius(double value) => _radius = value;

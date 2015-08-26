@@ -6,8 +6,10 @@ part of vector_math_64;
 /// Defines a result of an intersection test.
 class IntersectionResult {
   double _depth;
+
   /// The penetration depth of the intersection.
   double get depth => _depth;
+
   /// The [axis] of the intersection.
   final Vector3 axis = new Vector3.zero();
 

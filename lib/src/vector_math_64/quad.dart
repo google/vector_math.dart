@@ -13,10 +13,13 @@ class Quad {
 
   /// The first point of the quad.
   Vector3 get point0 => _point0;
+
   /// The second point of the quad.
   Vector3 get point1 => _point1;
+
   /// The third point of the quad.
   Vector3 get point2 => _point2;
+
   /// The third point of the quad.
   Vector3 get point3 => _point3;
 

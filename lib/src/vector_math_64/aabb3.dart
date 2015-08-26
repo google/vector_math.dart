@@ -85,32 +85,42 @@ class Aabb3 {
 
   /// Set the AABB to enclose a [triangle].
   void setTriangle(Triangle triangle) {
-    _min.setValues(Math.min(triangle._point0.x,
-        Math.min(triangle._point1.x, triangle._point2.x)), Math.min(
-        triangle._point0.y,
-        Math.min(triangle._point1.y, triangle._point2.y)), Math.min(
-        triangle._point0.z, Math.min(triangle._point1.z, triangle._point2.z)));
-    _max.setValues(Math.max(triangle._point0.x,
-        Math.max(triangle._point1.x, triangle._point2.x)), Math.max(
-        triangle._point0.y,
-        Math.max(triangle._point1.y, triangle._point2.y)), Math.max(
-        triangle._point0.z, Math.max(triangle._point1.z, triangle._point2.z)));
+    _min.setValues(
+        Math.min(triangle._point0.x,
+            Math.min(triangle._point1.x, triangle._point2.x)),
+        Math.min(triangle._point0.y,
+            Math.min(triangle._point1.y, triangle._point2.y)),
+        Math.min(triangle._point0.z,
+            Math.min(triangle._point1.z, triangle._point2.z)));
+    _max.setValues(
+        Math.max(triangle._point0.x,
+            Math.max(triangle._point1.x, triangle._point2.x)),
+        Math.max(triangle._point0.y,
+            Math.max(triangle._point1.y, triangle._point2.y)),
+        Math.max(triangle._point0.z,
+            Math.max(triangle._point1.z, triangle._point2.z)));
   }
 
   /// Set the AABB to enclose a [quad].
   void setQuad(Quad quad) {
-    _min.setValues(Math.min(quad._point0.x,
+    _min.setValues(
+        Math.min(quad._point0.x,
             Math.min(quad._point1.x, Math.min(quad._point2.x, quad._point3.x))),
         Math.min(quad._point0.y,
             Math.min(quad._point1.y, Math.min(quad._point2.y, quad._point3.y))),
-        Math.min(quad._point0.z, Math.min(
-            quad._point1.z, Math.min(quad._point2.z, quad._point3.z))));
-    _max.setValues(Math.max(quad._point0.x,
+        Math.min(
+            quad._point0.z,
+            Math.min(
+                quad._point1.z, Math.min(quad._point2.z, quad._point3.z))));
+    _max.setValues(
+        Math.max(quad._point0.x,
             Math.max(quad._point1.x, Math.max(quad._point2.x, quad._point3.x))),
         Math.max(quad._point0.y,
             Math.max(quad._point1.y, Math.max(quad._point2.y, quad._point3.y))),
-        Math.max(quad._point0.z, Math.max(
-            quad._point1.z, Math.max(quad._point2.z, quad._point3.z))));
+        Math.max(
+            quad._point0.z,
+            Math.max(
+                quad._point1.z, Math.max(quad._point2.z, quad._point3.z))));
   }
 
   /// Set the AABB to enclose a [obb].

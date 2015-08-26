@@ -477,205 +477,241 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[0];
     _v4storage[1] = argStorage[1];
   }
+
   set xz(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[0] = argStorage[0];
     _v4storage[2] = argStorage[1];
   }
+
   set xw(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[0] = argStorage[0];
     _v4storage[3] = argStorage[1];
   }
+
   set yx(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[1] = argStorage[0];
     _v4storage[0] = argStorage[1];
   }
+
   set yz(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[1] = argStorage[0];
     _v4storage[2] = argStorage[1];
   }
+
   set yw(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[1] = argStorage[0];
     _v4storage[3] = argStorage[1];
   }
+
   set zx(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[2] = argStorage[0];
     _v4storage[0] = argStorage[1];
   }
+
   set zy(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[2] = argStorage[0];
     _v4storage[1] = argStorage[1];
   }
+
   set zw(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[2] = argStorage[0];
     _v4storage[3] = argStorage[1];
   }
+
   set wx(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[3] = argStorage[0];
     _v4storage[0] = argStorage[1];
   }
+
   set wy(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[3] = argStorage[0];
     _v4storage[1] = argStorage[1];
   }
+
   set wz(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v4storage[3] = argStorage[0];
     _v4storage[2] = argStorage[1];
   }
+
   set xyz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[0] = argStorage[0];
     _v4storage[1] = argStorage[1];
     _v4storage[2] = argStorage[2];
   }
+
   set xyw(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[0] = argStorage[0];
     _v4storage[1] = argStorage[1];
     _v4storage[3] = argStorage[2];
   }
+
   set xzy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[0] = argStorage[0];
     _v4storage[2] = argStorage[1];
     _v4storage[1] = argStorage[2];
   }
+
   set xzw(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[0] = argStorage[0];
     _v4storage[2] = argStorage[1];
     _v4storage[3] = argStorage[2];
   }
+
   set xwy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[0] = argStorage[0];
     _v4storage[3] = argStorage[1];
     _v4storage[1] = argStorage[2];
   }
+
   set xwz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[0] = argStorage[0];
     _v4storage[3] = argStorage[1];
     _v4storage[2] = argStorage[2];
   }
+
   set yxz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[1] = argStorage[0];
     _v4storage[0] = argStorage[1];
     _v4storage[2] = argStorage[2];
   }
+
   set yxw(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[1] = argStorage[0];
     _v4storage[0] = argStorage[1];
     _v4storage[3] = argStorage[2];
   }
+
   set yzx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[1] = argStorage[0];
     _v4storage[2] = argStorage[1];
     _v4storage[0] = argStorage[2];
   }
+
   set yzw(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[1] = argStorage[0];
     _v4storage[2] = argStorage[1];
     _v4storage[3] = argStorage[2];
   }
+
   set ywx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[1] = argStorage[0];
     _v4storage[3] = argStorage[1];
     _v4storage[0] = argStorage[2];
   }
+
   set ywz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[1] = argStorage[0];
     _v4storage[3] = argStorage[1];
     _v4storage[2] = argStorage[2];
   }
+
   set zxy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[2] = argStorage[0];
     _v4storage[0] = argStorage[1];
     _v4storage[1] = argStorage[2];
   }
+
   set zxw(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[2] = argStorage[0];
     _v4storage[0] = argStorage[1];
     _v4storage[3] = argStorage[2];
   }
+
   set zyx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[2] = argStorage[0];
     _v4storage[1] = argStorage[1];
     _v4storage[0] = argStorage[2];
   }
+
   set zyw(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[2] = argStorage[0];
     _v4storage[1] = argStorage[1];
     _v4storage[3] = argStorage[2];
   }
+
   set zwx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[2] = argStorage[0];
     _v4storage[3] = argStorage[1];
     _v4storage[0] = argStorage[2];
   }
+
   set zwy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[2] = argStorage[0];
     _v4storage[3] = argStorage[1];
     _v4storage[1] = argStorage[2];
   }
+
   set wxy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[3] = argStorage[0];
     _v4storage[0] = argStorage[1];
     _v4storage[1] = argStorage[2];
   }
+
   set wxz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[3] = argStorage[0];
     _v4storage[0] = argStorage[1];
     _v4storage[2] = argStorage[2];
   }
+
   set wyx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[3] = argStorage[0];
     _v4storage[1] = argStorage[1];
     _v4storage[0] = argStorage[2];
   }
+
   set wyz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[3] = argStorage[0];
     _v4storage[1] = argStorage[1];
     _v4storage[2] = argStorage[2];
   }
+
   set wzx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[3] = argStorage[0];
     _v4storage[2] = argStorage[1];
     _v4storage[0] = argStorage[2];
   }
+
   set wzy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v4storage[3] = argStorage[0];
     _v4storage[2] = argStorage[1];
     _v4storage[1] = argStorage[2];
   }
+
   set xyzw(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = argStorage[0];
@@ -683,6 +719,7 @@ class Vector4 implements Vector {
     _v4storage[2] = argStorage[2];
     _v4storage[3] = argStorage[3];
   }
+
   set xywz(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = argStorage[0];
@@ -690,6 +727,7 @@ class Vector4 implements Vector {
     _v4storage[3] = argStorage[2];
     _v4storage[2] = argStorage[3];
   }
+
   set xzyw(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = argStorage[0];
@@ -697,6 +735,7 @@ class Vector4 implements Vector {
     _v4storage[1] = argStorage[2];
     _v4storage[3] = argStorage[3];
   }
+
   set xzwy(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = argStorage[0];
@@ -704,6 +743,7 @@ class Vector4 implements Vector {
     _v4storage[3] = argStorage[2];
     _v4storage[1] = argStorage[3];
   }
+
   set xwyz(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = argStorage[0];
@@ -711,6 +751,7 @@ class Vector4 implements Vector {
     _v4storage[1] = argStorage[2];
     _v4storage[2] = argStorage[3];
   }
+
   set xwzy(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = argStorage[0];
@@ -718,6 +759,7 @@ class Vector4 implements Vector {
     _v4storage[2] = argStorage[2];
     _v4storage[1] = argStorage[3];
   }
+
   set yxzw(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[1] = argStorage[0];
@@ -725,6 +767,7 @@ class Vector4 implements Vector {
     _v4storage[2] = argStorage[2];
     _v4storage[3] = argStorage[3];
   }
+
   set yxwz(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[1] = argStorage[0];
@@ -732,6 +775,7 @@ class Vector4 implements Vector {
     _v4storage[3] = argStorage[2];
     _v4storage[2] = argStorage[3];
   }
+
   set yzxw(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[1] = argStorage[0];
@@ -739,6 +783,7 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[2];
     _v4storage[3] = argStorage[3];
   }
+
   set yzwx(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[1] = argStorage[0];
@@ -746,6 +791,7 @@ class Vector4 implements Vector {
     _v4storage[3] = argStorage[2];
     _v4storage[0] = argStorage[3];
   }
+
   set ywxz(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[1] = argStorage[0];
@@ -753,6 +799,7 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[2];
     _v4storage[2] = argStorage[3];
   }
+
   set ywzx(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[1] = argStorage[0];
@@ -760,6 +807,7 @@ class Vector4 implements Vector {
     _v4storage[2] = argStorage[2];
     _v4storage[0] = argStorage[3];
   }
+
   set zxyw(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[2] = argStorage[0];
@@ -767,6 +815,7 @@ class Vector4 implements Vector {
     _v4storage[1] = argStorage[2];
     _v4storage[3] = argStorage[3];
   }
+
   set zxwy(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[2] = argStorage[0];
@@ -774,6 +823,7 @@ class Vector4 implements Vector {
     _v4storage[3] = argStorage[2];
     _v4storage[1] = argStorage[3];
   }
+
   set zyxw(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[2] = argStorage[0];
@@ -781,6 +831,7 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[2];
     _v4storage[3] = argStorage[3];
   }
+
   set zywx(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[2] = argStorage[0];
@@ -788,6 +839,7 @@ class Vector4 implements Vector {
     _v4storage[3] = argStorage[2];
     _v4storage[0] = argStorage[3];
   }
+
   set zwxy(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[2] = argStorage[0];
@@ -795,6 +847,7 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[2];
     _v4storage[1] = argStorage[3];
   }
+
   set zwyx(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[2] = argStorage[0];
@@ -802,6 +855,7 @@ class Vector4 implements Vector {
     _v4storage[1] = argStorage[2];
     _v4storage[0] = argStorage[3];
   }
+
   set wxyz(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[3] = argStorage[0];
@@ -809,6 +863,7 @@ class Vector4 implements Vector {
     _v4storage[1] = argStorage[2];
     _v4storage[2] = argStorage[3];
   }
+
   set wxzy(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[3] = argStorage[0];
@@ -816,6 +871,7 @@ class Vector4 implements Vector {
     _v4storage[2] = argStorage[2];
     _v4storage[1] = argStorage[3];
   }
+
   set wyxz(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[3] = argStorage[0];
@@ -823,6 +879,7 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[2];
     _v4storage[2] = argStorage[3];
   }
+
   set wyzx(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[3] = argStorage[0];
@@ -830,6 +887,7 @@ class Vector4 implements Vector {
     _v4storage[2] = argStorage[2];
     _v4storage[0] = argStorage[3];
   }
+
   set wzxy(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[3] = argStorage[0];
@@ -837,6 +895,7 @@ class Vector4 implements Vector {
     _v4storage[0] = argStorage[2];
     _v4storage[1] = argStorage[3];
   }
+
   set wzyx(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[3] = argStorage[0];
@@ -844,6 +903,7 @@ class Vector4 implements Vector {
     _v4storage[1] = argStorage[2];
     _v4storage[0] = argStorage[3];
   }
+
   set r(double arg) => x = arg;
   set g(double arg) => y = arg;
   set b(double arg) => z = arg;

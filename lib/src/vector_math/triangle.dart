@@ -12,8 +12,10 @@ class Triangle {
 
   /// The first point of the triangle.
   Vector3 get point0 => _point0;
+
   /// The second point of the triangle.
   Vector3 get point1 => _point1;
+
   /// The third point of the triangle.
   Vector3 get point2 => _point2;
 
