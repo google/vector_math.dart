@@ -255,7 +255,13 @@ class Quaternion {
 
   /// [axis] of rotation.
   Vector3 get axis {
-    final scale = 1.0 / (1.0 - (_qStorage[3] * _qStorage[3]));
+    final den = 1.0 - (_qStorage[3] * _qStorage[3]);
+    if (den < 0.0005) {
+      // 0-angle rotation, so axis does not matter
+      return new Vector3.zero();
+    }
+
+    final scale = 1.0 / Math.sqrt(den);
     return new Vector3(
         _qStorage[0] * scale, _qStorage[1] * scale, _qStorage[2] * scale);
   }
