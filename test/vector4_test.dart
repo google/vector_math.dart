@@ -139,13 +139,17 @@ void testVector4SetLength() {
   relativeTest(v0.length, 0.0);
 
   v1.length = 2.0;
-  relativeTest(v1, new Vector4(1.4142135381698608, -0.9428090453147888,
-      0.9428090453147888, 0.4714045226573944));
+  relativeTest(
+      v1,
+      new Vector4(1.4142135381698608, -0.9428090453147888, 0.9428090453147888,
+          0.4714045226573944));
   relativeTest(v1.length, 2.0);
 
   v2.length = 0.5;
-  relativeTest(v2, new Vector4(-0.1178511306643486, 0.2357022613286972,
-      -0.2357022613286972, -0.3535533845424652));
+  relativeTest(
+      v2,
+      new Vector4(-0.1178511306643486, 0.2357022613286972, -0.2357022613286972,
+          -0.3535533845424652));
   relativeTest(v2.length, 0.5);
 
   v3.length = -1.0;
@@ -192,10 +196,7 @@ void testVector4DistanceToSquared() {
 }
 
 void testVector4Clamp() {
-  final x = 2.0,
-      y = 3.0,
-      z = 4.0,
-      w = 5.0;
+  final x = 2.0, y = 3.0, z = 4.0, w = 5.0;
   final v0 = new Vector4(x, y, z, w);
   final v1 = new Vector4(-x, -y, -z, -w);
   final v2 = new Vector4(-2.0 * x, 2.0 * y, -2.0 * z, 2.0 * w)..clamp(v1, v0);

@@ -575,67 +575,79 @@ class Vector3 implements Vector {
     _v3storage[0] = argStorage[0];
     _v3storage[1] = argStorage[1];
   }
+
   set xz(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v3storage[0] = argStorage[0];
     _v3storage[2] = argStorage[1];
   }
+
   set yx(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v3storage[1] = argStorage[0];
     _v3storage[0] = argStorage[1];
   }
+
   set yz(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v3storage[1] = argStorage[0];
     _v3storage[2] = argStorage[1];
   }
+
   set zx(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v3storage[2] = argStorage[0];
     _v3storage[0] = argStorage[1];
   }
+
   set zy(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v3storage[2] = argStorage[0];
     _v3storage[1] = argStorage[1];
   }
+
   set xyz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = argStorage[0];
     _v3storage[1] = argStorage[1];
     _v3storage[2] = argStorage[2];
   }
+
   set xzy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[0] = argStorage[0];
     _v3storage[2] = argStorage[1];
     _v3storage[1] = argStorage[2];
   }
+
   set yxz(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[1] = argStorage[0];
     _v3storage[0] = argStorage[1];
     _v3storage[2] = argStorage[2];
   }
+
   set yzx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[1] = argStorage[0];
     _v3storage[2] = argStorage[1];
     _v3storage[0] = argStorage[2];
   }
+
   set zxy(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[2] = argStorage[0];
     _v3storage[0] = argStorage[1];
     _v3storage[1] = argStorage[2];
   }
+
   set zyx(Vector3 arg) {
     final argStorage = arg._v3storage;
     _v3storage[2] = argStorage[0];
     _v3storage[1] = argStorage[1];
     _v3storage[0] = argStorage[2];
   }
+
   set r(double arg) => x = arg;
   set g(double arg) => y = arg;
   set b(double arg) => z = arg;

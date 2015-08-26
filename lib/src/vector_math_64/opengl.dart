@@ -259,8 +259,15 @@ Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
 /// [pickZ] is typically either 0.0 (near plane) or 1.0 (far plane).
 ///
 /// Returns false on error, for example, the mouse is not in the viewport
-bool unproject(Matrix4 cameraMatrix, num viewportX, num viewportWidth,
-    num viewportY, num viewportHeight, num pickX, num pickY, num pickZ,
+bool unproject(
+    Matrix4 cameraMatrix,
+    num viewportX,
+    num viewportWidth,
+    num viewportY,
+    num viewportHeight,
+    num pickX,
+    num pickY,
+    num pickZ,
     Vector3 pickWorld) {
   viewportX = viewportX.toDouble();
   viewportWidth = viewportWidth.toDouble();
@@ -312,8 +319,15 @@ bool unproject(Matrix4 cameraMatrix, num viewportX, num viewportWidth,
 /// [cameraMatrix] includes both the projection and view transforms.
 ///
 /// Returns false on error, for example, the mouse is not in the viewport.
-bool pickRay(Matrix4 cameraMatrix, num viewportX, num viewportWidth,
-    num viewportY, num viewportHeight, num pickX, num pickY, Vector3 rayNear,
+bool pickRay(
+    Matrix4 cameraMatrix,
+    num viewportX,
+    num viewportWidth,
+    num viewportY,
+    num viewportHeight,
+    num pickX,
+    num pickY,
+    Vector3 rayNear,
     Vector3 rayFar) {
   bool r;
 

@@ -12,6 +12,7 @@ class Aabb2 {
 
   /// The minimum point defining the AABB.
   Vector2 get min => _min;
+
   /// The maximum point defining the AABB.
   Vector2 get max => _max;
 

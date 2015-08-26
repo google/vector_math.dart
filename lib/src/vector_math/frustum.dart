@@ -15,14 +15,19 @@ class Frustum {
 
   /// The first plane that defines the bounds of this frustum.
   Plane get plane0 => _plane0;
+
   /// The second plane that defines the bounds of this frustum.
   Plane get plane1 => _plane1;
+
   /// The third plane that defines the bounds of this frustum.
   Plane get plane2 => _plane2;
+
   /// The fourth plane that defines the bounds of this frustum.
   Plane get plane3 => _plane3;
+
   /// The fifth plane that defines the bounds of this frustum.
   Plane get plane4 => _plane4;
+
   /// The sixed plane that defines the bounds of this frustum.
   Plane get plane5 => _plane5;
 
@@ -55,22 +60,10 @@ class Frustum {
   /// Set [this] from [matrix].
   void setFromMatrix(Matrix4 matrix) {
     var me = matrix.storage;
-    var me0 = me[0],
-        me1 = me[1],
-        me2 = me[2],
-        me3 = me[3];
-    var me4 = me[4],
-        me5 = me[5],
-        me6 = me[6],
-        me7 = me[7];
-    var me8 = me[8],
-        me9 = me[9],
-        me10 = me[10],
-        me11 = me[11];
-    var me12 = me[12],
-        me13 = me[13],
-        me14 = me[14],
-        me15 = me[15];
+    var me0 = me[0], me1 = me[1], me2 = me[2], me3 = me[3];
+    var me4 = me[4], me5 = me[5], me6 = me[6], me7 = me[7];
+    var me8 = me[8], me9 = me[9], me10 = me[10], me11 = me[11];
+    var me12 = me[12], me13 = me[13], me14 = me[14], me15 = me[15];
 
     _plane0
       ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
@@ -184,8 +177,14 @@ class Frustum {
 
   /// Calculate the corners of a [frustum] at write them into [corner0] to
   // [corner7].
-  void calculateCorners(Vector3 corner0, Vector3 corner1, Vector3 corner2,
-      Vector3 corner3, Vector3 corner4, Vector3 corner5, Vector3 corner6,
+  void calculateCorners(
+      Vector3 corner0,
+      Vector3 corner1,
+      Vector3 corner2,
+      Vector3 corner3,
+      Vector3 corner4,
+      Vector3 corner5,
+      Vector3 corner6,
       Vector3 corner7) {
     Plane.intersection(_plane0, _plane2, _plane4, corner0);
     Plane.intersection(_plane0, _plane3, _plane4, corner1);

@@ -229,8 +229,10 @@ void testVector3SetLength() {
   relativeTest(v1.length, 2.0);
 
   v2.length = 0.5;
-  relativeTest(v2, new Vector3(
-      -0.1666666716337204, 0.3333333432674408, -0.3333333432674408));
+  relativeTest(
+      v2,
+      new Vector3(
+          -0.1666666716337204, 0.3333333432674408, -0.3333333432674408));
   relativeTest(v2.length, 0.5);
 
   v3.length = -1.0;
@@ -363,9 +365,7 @@ void testVector3AngleToSigned() {
 }
 
 void testVector3Clamp() {
-  final x = 2.0,
-      y = 3.0,
-      z = 4.0;
+  final x = 2.0, y = 3.0, z = 4.0;
   final v0 = new Vector3(x, y, z);
   final v1 = new Vector3(-x, -y, -z);
   final v2 = new Vector3(-2.0 * x, 2.0 * y, -2.0 * z)..clamp(v1, v0);
@@ -431,8 +431,10 @@ void testVector3ApplyQuaternion() {
   final v = new Vector3(0.417267069084370, 0.049654430325742, 0.753423475845592)
     ..applyQuaternion(q);
 
-  relativeTest(v, new Vector3(
-      0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
+  relativeTest(
+      v,
+      new Vector3(
+          0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
 }
 
 void main() {

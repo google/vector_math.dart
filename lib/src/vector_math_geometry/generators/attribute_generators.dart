@@ -17,9 +17,7 @@ void generateNormals(
   // Loop through every polygon, find it's normal, and add that to the vertex
   // normals.
   for (int i = 0; i < indices.length; i += 3) {
-    int i0 = indices[i],
-        i1 = indices[i + 1],
-        i2 = indices[i + 2];
+    int i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
     positions.load(i0, p0);
     positions.load(i1, p1);
     positions.load(i2, p2);
@@ -79,9 +77,7 @@ void generateTangents(Vector4List tangents, Vector3List positions,
       tan1 = new Vector3List(positions.length);
 
   for (int i = 0; i < indices.length; i += 3) {
-    int i0 = indices[i],
-        i1 = indices[i + 1],
-        i2 = indices[i + 2];
+    int i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
     positions.load(i0, p0);
     positions.load(i1, p1);
     positions.load(i2, p2);

@@ -11,6 +11,7 @@ class Ray {
 
   /// The [origin] of the ray.
   Vector3 get origin => _origin;
+
   /// The [direction] of the ray.
   Vector3 get direction => _direction;
 

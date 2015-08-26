@@ -404,11 +404,13 @@ class Vector2 implements Vector {
     _v2storage[0] = argStorage[0];
     _v2storage[1] = argStorage[1];
   }
+
   set yx(Vector2 arg) {
     final argStorage = arg._v2storage;
     _v2storage[1] = argStorage[0];
     _v2storage[0] = argStorage[1];
   }
+
   set r(double arg) => x = arg;
   set g(double arg) => y = arg;
   set s(double arg) => x = arg;

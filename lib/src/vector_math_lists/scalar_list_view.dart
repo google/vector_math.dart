@@ -14,6 +14,7 @@ class ScalarListView {
 
   /// The count of vectors in this list.
   int get length => _length;
+
   /// The internal storage buffer of this list.
   Float32List get buffer => _buffer;
 
@@ -38,8 +39,8 @@ class ScalarListView {
       : _offset = offset,
         _stride = stride == 0 ? 1 : stride,
         _length = list.length,
-        _buffer = new Float32List(
-            offset + list.length * (stride == 0 ? 1 : stride)) {
+        _buffer =
+            new Float32List(offset + list.length * (stride == 0 ? 1 : stride)) {
     for (int i = 0; i < _length; i++) {
       this[i] = list[i];
     }

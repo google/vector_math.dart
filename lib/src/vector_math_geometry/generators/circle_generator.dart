@@ -13,8 +13,12 @@ class CircleGenerator extends GeometryGenerator {
   int get vertexCount => _segments + 2;
   int get indexCount => (_segments) * 3;
 
-  MeshGeometry createCircle(double radius, {flags: null, filters: null,
-      segments: 64, thetaStart: 0.0, thetaLength: Math.PI * 2.0}) {
+  MeshGeometry createCircle(double radius,
+      {flags: null,
+      filters: null,
+      segments: 64,
+      thetaStart: 0.0,
+      thetaLength: Math.PI * 2.0}) {
     _radius = radius;
     _segments = segments;
     _thetaStart = thetaStart;

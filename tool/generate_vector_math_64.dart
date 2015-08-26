@@ -54,6 +54,7 @@ Future _processFile(String inputFileName) async {
 }
 
 String _convertToVectorMath64(String input) {
-  return input.replaceAll('vector_math', 'vector_math_64').replaceAll(
-      'Float32List', 'Float64List');
+  return input
+      .replaceAll('vector_math', 'vector_math_64')
+      .replaceAll('Float32List', 'Float64List');
 }

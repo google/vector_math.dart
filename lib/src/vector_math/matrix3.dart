@@ -100,7 +100,7 @@ class Matrix3 {
   factory Matrix3(double arg0, double arg1, double arg2, double arg3,
           double arg4, double arg5, double arg6, double arg7, double arg8) =>
       new Matrix3.zero()
-    ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+        ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
   /// Constructs a new [Matrix3] filled with zeros.
   Matrix3.zero() : _m3storage = new Float32List(9);

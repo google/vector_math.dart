@@ -168,12 +168,26 @@ class Matrix4 {
   }
 
   /// Constructs a new mat4.
-  factory Matrix4(double arg0, double arg1, double arg2, double arg3,
-      double arg4, double arg5, double arg6, double arg7, double arg8,
-      double arg9, double arg10, double arg11, double arg12, double arg13,
-      double arg14, double arg15) => new Matrix4.zero()
-    ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
-        arg10, arg11, arg12, arg13, arg14, arg15);
+  factory Matrix4(
+          double arg0,
+          double arg1,
+          double arg2,
+          double arg3,
+          double arg4,
+          double arg5,
+          double arg6,
+          double arg7,
+          double arg8,
+          double arg9,
+          double arg10,
+          double arg11,
+          double arg12,
+          double arg13,
+          double arg14,
+          double arg15) =>
+      new Matrix4.zero()
+        ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
+            arg10, arg11, arg12, arg13, arg14, arg15);
 
   /// Zero matrix.
   Matrix4.zero() : _m4storage = new Float64List(16);
@@ -216,8 +230,8 @@ class Matrix4 {
   /// Translation matrix.
   factory Matrix4.translationValues(double x, double y, double z) =>
       new Matrix4.zero()
-    ..setIdentity()
-    ..setTranslationRaw(x, y, z);
+        ..setIdentity()
+        ..setTranslationRaw(x, y, z);
 
   /// Scale matrix.
   factory Matrix4.diagonal3(Vector3 scale) {
@@ -234,10 +248,10 @@ class Matrix4 {
   /// Scale matrix.
   factory Matrix4.diagonal3Values(double x, double y, double z) =>
       new Matrix4.zero()
-    .._m4storage[15] = 1.0
-    .._m4storage[10] = z
-    .._m4storage[5] = y
-    .._m4storage[0] = x;
+        .._m4storage[15] = 1.0
+        .._m4storage[10] = z
+        .._m4storage[5] = y
+        .._m4storage[0] = x;
 
   /// Constructs Matrix4 with given [Float64List] as [storage].
   Matrix4.fromFloat64List(this._m4storage);
@@ -251,7 +265,7 @@ class Matrix4 {
   factory Matrix4.compose(
           Vector3 translation, Quaternion rotation, Vector3 scale) =>
       new Matrix4.zero()
-    ..setFromTranslationRotationScale(translation, rotation, scale);
+        ..setFromTranslationRotationScale(translation, rotation, scale);
 
   /// Sets the diagonal to [arg].
   Matrix4 splatDiagonal(double arg) {
@@ -263,10 +277,23 @@ class Matrix4 {
   }
 
   /// Sets the matrix with specified values.
-  Matrix4 setValues(double arg0, double arg1, double arg2, double arg3,
-      double arg4, double arg5, double arg6, double arg7, double arg8,
-      double arg9, double arg10, double arg11, double arg12, double arg13,
-      double arg14, double arg15) {
+  Matrix4 setValues(
+      double arg0,
+      double arg1,
+      double arg2,
+      double arg3,
+      double arg4,
+      double arg5,
+      double arg6,
+      double arg7,
+      double arg8,
+      double arg9,
+      double arg10,
+      double arg11,
+      double arg12,
+      double arg13,
+      double arg14,
+      double arg15) {
     _m4storage[15] = arg15;
     _m4storage[14] = arg14;
     _m4storage[13] = arg13;
@@ -1640,6 +1667,7 @@ class Matrix4 {
         (m33 * argStorage[15]);
     return this;
   }
+
   /// Decomposes [this] into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
     final v = new Vector3.zero();

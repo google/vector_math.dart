@@ -21,16 +21,19 @@ class Quaternion {
   set x(double x) {
     _qStorage[0] = x;
   }
+
   /// Access the [y] component of the quaternion.
   double get y => _qStorage[1];
   set y(double y) {
     _qStorage[1] = y;
   }
+
   /// Access the [z] component of the quaternion.
   double get z => _qStorage[2];
   set z(double z) {
     _qStorage[2] = z;
   }
+
   /// Access the [w] component of the quaternion.
   double get w => _qStorage[3];
   set w(double w) {
@@ -344,11 +347,11 @@ class Quaternion {
     double oz = otherStorage[2];
     double oy = otherStorage[1];
     double ox = otherStorage[0];
-    return new Quaternion(_w * ox + _x * ow + _y * oz - _z * oy,
-        _w * oy + _y * ow + _z * ox - _x * oz, _w * oz +
-            _z * ow +
-            _x * oy -
-            _y * ox, _w * ow - _x * ox - _y * oy - _z * oz);
+    return new Quaternion(
+        _w * ox + _x * ow + _y * oz - _z * oy,
+        _w * oy + _y * ow + _z * ox - _x * oz,
+        _w * oz + _z * ow + _x * oy - _y * ox,
+        _w * ow - _x * ox - _y * oy - _z * oz);
   }
 
   /// Returns copy of [this] + [other].

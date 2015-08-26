@@ -33,72 +33,132 @@ void testFrustumIntersectsWithSphere() {
   final Frustum frustum =
       new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 0.0)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 0.9)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 1.1)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, -50.0), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, -1.001), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(-1.0, -1.0, -1.001), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(-1.1, -1.1, -1.001), 0.0)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(-1.1, -1.1, -1.001), 0.5)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(1.0, 1.0, -1.001), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(1.1, 1.1, -1.001), 0.0)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(1.1, 1.1, -1.001), 0.5)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, -99.999), 0.5)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, -99.999), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(-99.999, -99.999, -99.999), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(-100.1, -100.1, -100.1), 0.0)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(-100.1, -100.1, -100.1), 0.5)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(99.999, 99.999, -99.999), 0.0)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(100.1, 100.1, -100.1), 0.0)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(100.1, 100.1, -100.1), 0.2)), isTrue);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, -101.0), 0.0)), isFalse);
-  expect(frustum.intersectsWithSphere(
-      new Sphere.centerRadius($v3(0.0, 0.0, -101.0), 1.1)), isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 0.0)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 0.9)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, 0.0), 1.1)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, -50.0), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, -1.001), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(-1.0, -1.0, -1.001), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(-1.1, -1.1, -1.001), 0.0)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(-1.1, -1.1, -1.001), 0.5)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(1.0, 1.0, -1.001), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(1.1, 1.1, -1.001), 0.0)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(1.1, 1.1, -1.001), 0.5)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, -99.999), 0.5)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, -99.999), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(-99.999, -99.999, -99.999), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(-100.1, -100.1, -100.1), 0.0)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(-100.1, -100.1, -100.1), 0.5)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(99.999, 99.999, -99.999), 0.0)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(100.1, 100.1, -100.1), 0.0)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(100.1, 100.1, -100.1), 0.2)),
+      isTrue);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, -101.0), 0.0)),
+      isFalse);
+  expect(
+      frustum.intersectsWithSphere(
+          new Sphere.centerRadius($v3(0.0, 0.0, -101.0), 1.1)),
+      isTrue);
 }
 
 void testFrustumIntersectsWithAabb3() {
   final Frustum frustum =
       new Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
-  expect(frustum.intersectsWithAabb3(new Aabb3.minMax(
-      $v3(500.0, 500.0, 500.0), $v3(1000.0, 1000.0, 1000.0))), isFalse);
-  expect(frustum.intersectsWithAabb3(new Aabb3.minMax(
-      $v3(-150.0, -150.0, -150.0), $v3(150.0, 150.0, 150.0))), isTrue);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(-1.5, -1.5, -1.5), $v3(1.5, 1.5, 1.5))), isTrue);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(0.0, 0.0, -50.0), $v3(1.0, 1.0, -49.0))), isTrue);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(0.0, 0.0, 50.0), $v3(1.0, 1.0, 51.0))), isFalse);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(0.0, 0.0, -0.99), $v3(1.0, 1.0, 1.0))), isFalse);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(0.0, 0.0, -1.0), $v3(1.0, 1.0, 1.0))), isTrue);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(0.0, 1.0, -10.0), $v3(1.0, 2.0, 15.0))), isTrue);
-  expect(frustum.intersectsWithAabb3(
-      new Aabb3.minMax($v3(1.1, 1.1, -1.0), $v3(2.0, 2.0, 0.0))), isFalse);
+  expect(
+      frustum.intersectsWithAabb3(new Aabb3.minMax(
+          $v3(500.0, 500.0, 500.0), $v3(1000.0, 1000.0, 1000.0))),
+      isFalse);
+  expect(
+      frustum.intersectsWithAabb3(new Aabb3.minMax(
+          $v3(-150.0, -150.0, -150.0), $v3(150.0, 150.0, 150.0))),
+      isTrue);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(-1.5, -1.5, -1.5), $v3(1.5, 1.5, 1.5))),
+      isTrue);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(0.0, 0.0, -50.0), $v3(1.0, 1.0, -49.0))),
+      isTrue);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(0.0, 0.0, 50.0), $v3(1.0, 1.0, 51.0))),
+      isFalse);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(0.0, 0.0, -0.99), $v3(1.0, 1.0, 1.0))),
+      isFalse);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(0.0, 0.0, -1.0), $v3(1.0, 1.0, 1.0))),
+      isTrue);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(0.0, 1.0, -10.0), $v3(1.0, 2.0, 15.0))),
+      isTrue);
+  expect(
+      frustum.intersectsWithAabb3(
+          new Aabb3.minMax($v3(1.1, 1.1, -1.0), $v3(2.0, 2.0, 0.0))),
+      isFalse);
 }
 
 void testFrustumCalculateCorners() {

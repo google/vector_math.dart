@@ -15,6 +15,7 @@ abstract class VectorList<T extends Vector> {
 
   /// The count of vectors in this list.
   int get length => _length;
+
   /// The internal storage buffer of this list.
   Float32List get buffer => _buffer;
 
