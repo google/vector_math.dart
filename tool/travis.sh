@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Fast fail the script on failures.   
+# Fast fail the script on failures.
 set -e
 
-$(dirname -- "$0")/ensure_dartfmt.sh
+# Skipping format check for now – until 1.12 is stable
+# $(dirname -- "$0")/ensure_dartfmt.sh
 
 # Run the tests.
 dart --checked test/test_all.dart
