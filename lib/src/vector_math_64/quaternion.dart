@@ -51,6 +51,10 @@ class Quaternion {
   factory Quaternion.axisAngle(Vector3 axis, double angle) =>
       new Quaternion._()..setAxisAngle(axis, angle);
 
+  /// Constructs a quaternion to be the rotation that rotates vector [a] to [b].
+  factory Quaternion.fromTwoVectors(Vector3 a, Vector3 b) =>
+      new Quaternion._()..setFromTwoVectors(a, b);
+
   /// Constructs a quaternion as a copy of [original].
   factory Quaternion.copy(Quaternion original) =>
       new Quaternion._()..setFrom(original);
@@ -148,6 +152,37 @@ class Quaternion {
               rotationMatrixStorage[rotationMatrix.index(i, k)]) *
           s;
     }
+  }
+
+  void setFromTwoVectors(Vector3 a, Vector3 b) {
+    Vector3 v1 = a.normalized();
+    Vector3 v2 = b.normalized();
+
+    double c = v1.dot(v2);
+    double angle = Math.acos(c);
+    Vector3 axis = v1.cross(v2);
+
+    if ((1.0 + c).abs() < 0.0005) {
+      // c \approx -1 indicates 180 degree rotation
+      angle = Math.PI;
+
+      // a and b are parallel in opposite directions. We need any
+      // vector as our rotation axis that is perpendicular.
+      // Find one by taking the cross product of v1 with an appropriate unit axis
+      if (v1.x > v1.y && v1.x > v1.z) {
+        // v1 points in a dominantly x direction, so don't cross with that axis
+        axis = v1.cross(new Vector3(0.0, 1.0, 0.0));
+      } else {
+        // Predominantly points in some other direction, so x-axis should be safe
+        axis = v1.cross(new Vector3(1.0, 0.0, 0.0));
+      }
+    } else if ((1.0 - c).abs() < 0.0005) {
+      // c \approx 1 is 0-degree rotation, axis is arbitrary
+      angle = 0.0;
+      axis = new Vector3(1.0, 0.0, 0.0);
+    }
+
+    setAxisAngle(axis.normalized(), angle);
   }
 
   /// Set the quaternion to a random rotation. The random number generator [rn]

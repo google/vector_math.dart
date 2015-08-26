@@ -192,6 +192,32 @@ void testQuaternionAxisAngle() {
   }
 }
 
+void testFromTwoVectors() {
+  {
+    // "Normal" test case
+    Vector3 a = new Vector3(1.0, 0.0, 0.0);
+    Vector3 b = new Vector3(0.0, 1.0, 0.0);
+    Quaternion q = new Quaternion.fromTwoVectors(a, b);
+    relativeTest(q.radians, 0.5 * Math.PI);
+    relativeTest(q.axis, new Vector3(0.0, 0.0, 1.0));
+  }
+  {
+    // Degenerate null rotation
+    Vector3 a = new Vector3(1.0, 0.0, 0.0);
+    Vector3 b = new Vector3(1.0, 0.0, 0.0);
+    Quaternion q = new Quaternion.fromTwoVectors(a, b);
+    relativeTest(q.radians, 0.0);
+    // Axis can be arbitrary
+  }
+  {
+    // Parallel vectors in opposite direction
+    Vector3 a = new Vector3(1.0, 0.0, 0.0);
+    Vector3 b = new Vector3(-1.0, 0.0, 0.0);
+    Quaternion q = new Quaternion.fromTwoVectors(a, b);
+    relativeTest(q.radians, Math.PI);
+  }
+}
+
 void main() {
   group('Quaternion', () {
     test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
@@ -202,5 +228,6 @@ void main() {
     test('Multiply', testQuaternionMultiplying);
     test('Normalize', testQuaternionNormalize);
     test('Axis-Angle', testQuaternionAxisAngle);
+    test('Construction from two vectors', testFromTwoVectors);
   });
 }
