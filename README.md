@@ -41,7 +41,7 @@ dependency.
 ```yaml
 dependencies:
   vector_math:
-    git: https://github.com/johnmccutchan/vector_math.git
+    git: https://github.com/google/vector_math.dart.git
 ```
 
 2\. Add the correct import for your project.
