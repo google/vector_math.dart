@@ -1,6 +1,8 @@
 # Changelog - vector_math
 
-## v 1.4.4 - September 2014
+## v 1.4.5 - Unreleased
+
+## v 1.4.4 - December 2014
 
 - Updated dependencies.
 - Moved benchmark code into `benchmark/`
