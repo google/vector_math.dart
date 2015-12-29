@@ -34,16 +34,6 @@ dependencies:
   vector_math: any
 ```
 
-If you want to stay on the latest developent version, add a dependency to the
-Git repository. You may also need to use it if another library uses the Git
-dependency.
-
-```yaml
-dependencies:
-  vector_math:
-    git: https://github.com/google/vector_math.dart.git
-```
-
 2\. Add the correct import for your project.
 
 ```dart
