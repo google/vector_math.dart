@@ -597,6 +597,21 @@ void testMatrix4Equals() {
       new Matrix4.identity().hashCode, equals(new Matrix4.identity().hashCode));
 }
 
+void testMatrix4InvertConstructor() {
+  bool exception = false;
+  try {
+    new Matrix4.inverted(new Matrix4.zero());
+    expect(false, isTrue);  // don't hit here.
+  } catch (ArgumentError) {
+    exception = true;
+  }
+  expect(exception, isTrue);
+
+  expect(new Matrix4.inverted(new Matrix4.identity()),
+         equals(new Matrix4.identity()));
+}
+
+
 void main() {
   group('Matrix4', () {
     test('instancing from Float32List', testMatrix4InstacingFromFloat32List);
@@ -620,5 +635,6 @@ void main() {
     test('solving', testMatrix4Solving);
     test('compose/decompose', testMatrix4Compose);
     test('equals', testMatrix4Equals);
+    test('invert constructor', testMatrix4InvertConstructor);
   });
 }

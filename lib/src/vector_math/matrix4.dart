@@ -198,6 +198,16 @@ class Matrix4 {
   /// Copies values from [other].
   factory Matrix4.copy(Matrix4 other) => new Matrix4.zero()..setFrom(other);
 
+  /// Constructs a matrix that is the inverse of [other].
+  factory Matrix4.inverted(Matrix4 other) {
+    Matrix4 r = new Matrix4.zero();
+    double determinant = r.copyInverse(other);
+    if (determinant == 0.0) {
+      throw new ArgumentError(other, 'other', 'Matrix cannot be inverted');
+    }
+    return r;
+  }
+
   /// Constructs a new mat4 from columns.
   factory Matrix4.columns(
           Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) =>
