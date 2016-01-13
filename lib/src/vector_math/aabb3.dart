@@ -319,7 +319,8 @@ class Aabb3 {
   }
 
   /// Return if [this] contains [other].
-  bool containsTriangle(Triangle other) => containsVector3(other._point0) &&
+  bool containsTriangle(Triangle other) =>
+      containsVector3(other._point0) &&
       containsVector3(other._point1) &&
       containsVector3(other._point2);
 

@@ -601,16 +601,15 @@ void testMatrix4InvertConstructor() {
   bool exception = false;
   try {
     new Matrix4.inverted(new Matrix4.zero());
-    expect(false, isTrue);  // don't hit here.
+    expect(false, isTrue); // don't hit here.
   } catch (ArgumentError) {
     exception = true;
   }
   expect(exception, isTrue);
 
   expect(new Matrix4.inverted(new Matrix4.identity()),
-         equals(new Matrix4.identity()));
+      equals(new Matrix4.identity()));
 }
-
 
 void main() {
   group('Matrix4', () {

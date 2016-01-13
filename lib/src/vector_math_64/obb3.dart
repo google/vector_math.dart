@@ -238,8 +238,9 @@ class Obb3 {
       rb = other._halfExtents[i];
 
       if ((_t[0] * _r.entry(0, i) +
-              _t[1] * _r.entry(1, i) +
-              _t[2] * _r.entry(2, i)).abs() >
+                  _t[1] * _r.entry(1, i) +
+                  _t[2] * _r.entry(2, i))
+              .abs() >
           ra + rb) {
         return false;
       }
