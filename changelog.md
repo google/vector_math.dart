@@ -1,5 +1,7 @@
 # Changelog - vector_math
 
+## v 1.4.6 - Unreleased
+
 ## v 1.4.5 - January 2016
 
 - Added Matrix4.inverted constructor
