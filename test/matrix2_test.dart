@@ -101,6 +101,8 @@ void testMatrix2Scale() {
 
 void testMatrix2Solving() {
   final Matrix2 A = new Matrix2(2.0, 2.0, 8.0, 20.0);
+  final Matrix2 AA = new Matrix2.fromList([2.0, 2.0, 8.0, 20.0]);
+  expect(A, equals(AA));
   final Vector2 b = new Vector2(20.0, 64.0);
   final Vector2 result = new Vector2.zero();
 

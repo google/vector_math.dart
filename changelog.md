@@ -2,6 +2,8 @@
 
 ## v 1.4.6 - Unreleased
 
+- Added MatrixX.fromList constructor
+
 ## v 1.4.5 - January 2016
 
 - Added Matrix4.inverted constructor

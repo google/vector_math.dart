@@ -203,6 +203,9 @@ void testMatrix3Transform() {
 void testMatrix3Transform2() {
   Matrix3 rotZ = new Matrix3.rotationZ(Math.PI / 4);
   Matrix3 trans = new Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
+  Matrix3 transB = new Matrix3.fromList(
+      [1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
+  expect(trans, equals(transB));
 
   final input = new Vector2(1.0, 0.0);
 

@@ -33,6 +33,8 @@ void testMatrix4InstacingFromFloat32List() {
     16.0
   ]);
   final Matrix4 input = new Matrix4.fromFloat32List(float32List);
+  final Matrix4 inputB = new Matrix4.fromList(float32List);
+  expect(input, equals(inputB));
 
   expect(input.storage[0], equals(1.0));
   expect(input.storage[1], equals(2.0));
