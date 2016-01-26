@@ -102,20 +102,12 @@ class Matrix3 {
       new Matrix3.zero()
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
-
   /// New matrix from [values].
   factory Matrix3.fromList(List<double> values) {
-    return new Matrix3.zero()..setValues(values[0],
-                                         values[1],
-                                         values[2],
-                                         values[3],
-                                         values[4],
-                                         values[5],
-                                         values[6],
-                                         values[7],
-                                         values[8]);
+    return new Matrix3.zero()
+      ..setValues(values[0], values[1], values[2], values[3], values[4],
+          values[5], values[6], values[7], values[8]);
   }
-
 
   /// Constructs a new [Matrix3] filled with zeros.
   Matrix3.zero() : _m3storage = new Float32List(9);

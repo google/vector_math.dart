@@ -55,10 +55,8 @@ class Matrix2 {
 
   /// New matrix from [values].
   factory Matrix2.fromList(List<double> values) {
-    return new Matrix2.zero()..setValues(values[0],
-                                         values[1],
-                                         values[2],
-                                         values[3]);
+    return new Matrix2.zero()
+      ..setValues(values[0], values[1], values[2], values[3]);
   }
 
   /// Zero matrix.
