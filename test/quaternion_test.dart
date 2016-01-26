@@ -5,6 +5,7 @@
 library vector_math.test.quaternion_test;
 
 import 'dart:typed_data';
+import 'dart:math' as Math;
 
 import 'package:test/test.dart';
 
@@ -176,6 +177,47 @@ void testQuaternionNormalize() {
   testQuaternionVectorRotate(inputA, inputB, expectedOutput);
 }
 
+void testQuaternionAxisAngle() {
+  // Test conversion to and from axis-angle representation
+  {
+    Quaternion q = new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * Math.PI);
+    relativeTest(q.radians, 0.5 * Math.PI);
+    relativeTest(q.axis, new Vector3(0.0, 1.0, 0.0));
+  }
+
+  {
+    // Degenerate test: 0-angle
+    Quaternion q = new Quaternion.axisAngle(new Vector3(1.0, 0.0, 0.0), 0.0);
+    relativeTest(q.radians, 0.0);
+  }
+}
+
+void testFromTwoVectors() {
+  {
+    // "Normal" test case
+    Vector3 a = new Vector3(1.0, 0.0, 0.0);
+    Vector3 b = new Vector3(0.0, 1.0, 0.0);
+    Quaternion q = new Quaternion.fromTwoVectors(a, b);
+    relativeTest(q.radians, 0.5 * Math.PI);
+    relativeTest(q.axis, new Vector3(0.0, 0.0, 1.0));
+  }
+  {
+    // Degenerate null rotation
+    Vector3 a = new Vector3(1.0, 0.0, 0.0);
+    Vector3 b = new Vector3(1.0, 0.0, 0.0);
+    Quaternion q = new Quaternion.fromTwoVectors(a, b);
+    relativeTest(q.radians, 0.0);
+    // Axis can be arbitrary
+  }
+  {
+    // Parallel vectors in opposite direction
+    Vector3 a = new Vector3(1.0, 0.0, 0.0);
+    Vector3 b = new Vector3(-1.0, 0.0, 0.0);
+    Quaternion q = new Quaternion.fromTwoVectors(a, b);
+    relativeTest(q.radians, Math.PI);
+  }
+}
+
 void main() {
   group('Quaternion', () {
     test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
@@ -185,5 +227,7 @@ void main() {
         testQuaternionMatrixQuaternionRoundTrip);
     test('Multiply', testQuaternionMultiplying);
     test('Normalize', testQuaternionNormalize);
+    test('Axis-Angle', testQuaternionAxisAngle);
+    test('Construction from two vectors', testFromTwoVectors);
   });
 }
