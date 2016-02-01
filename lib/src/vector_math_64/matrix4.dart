@@ -189,6 +189,28 @@ class Matrix4 {
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
             arg10, arg11, arg12, arg13, arg14, arg15);
 
+  /// New matrix from [values].
+  factory Matrix4.fromList(List<double> values) {
+    return new Matrix4.zero()
+      ..setValues(
+          values[0],
+          values[1],
+          values[2],
+          values[3],
+          values[4],
+          values[5],
+          values[6],
+          values[7],
+          values[8],
+          values[9],
+          values[10],
+          values[11],
+          values[12],
+          values[13],
+          values[14],
+          values[15]);
+  }
+
   /// Zero matrix.
   Matrix4.zero() : _m4storage = new Float64List(16);
 
@@ -203,7 +225,8 @@ class Matrix4 {
     Matrix4 r = new Matrix4.zero();
     double determinant = r.copyInverse(other);
     if (determinant == 0.0) {
-      throw new ArgumentError(other, 'other', 'Matrix cannot be inverted');
+      throw new ArgumentError.value(
+          other, 'other', 'Matrix cannot be inverted');
     }
     return r;
   }

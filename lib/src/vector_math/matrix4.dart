@@ -225,7 +225,8 @@ class Matrix4 {
     Matrix4 r = new Matrix4.zero();
     double determinant = r.copyInverse(other);
     if (determinant == 0.0) {
-      throw new ArgumentError(other, 'other', 'Matrix cannot be inverted');
+      throw new ArgumentError.value(
+          other, 'other', 'Matrix cannot be inverted');
     }
     return r;
   }

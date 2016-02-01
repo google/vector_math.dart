@@ -180,7 +180,8 @@ void testQuaternionNormalize() {
 void testQuaternionAxisAngle() {
   // Test conversion to and from axis-angle representation
   {
-    Quaternion q = new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * Math.PI);
+    Quaternion q =
+        new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * Math.PI);
     relativeTest(q.radians, 0.5 * Math.PI);
     relativeTest(q.axis, new Vector3(0.0, 1.0, 0.0));
   }

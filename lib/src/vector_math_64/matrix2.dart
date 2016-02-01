@@ -53,6 +53,12 @@ class Matrix2 {
   factory Matrix2(double arg0, double arg1, double arg2, double arg3) =>
       new Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
 
+  /// New matrix from [values].
+  factory Matrix2.fromList(List<double> values) {
+    return new Matrix2.zero()
+      ..setValues(values[0], values[1], values[2], values[3]);
+  }
+
   /// Zero matrix.
   Matrix2.zero() : _m2storage = new Float64List(4);
 
