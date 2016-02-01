@@ -1,6 +1,8 @@
 # Changelog - vector_math
 
-## v 1.4.7 - Unreleased
+## v 1.4.7 - February 2017
+
+- Fixed ArgumentError usage in Matrix4.inverted constructor
 
 ## v 1.4.6 - January 2016
 
