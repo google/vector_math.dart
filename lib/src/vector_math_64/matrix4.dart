@@ -309,10 +309,23 @@ class Matrix4 {
   }
 
   /// Sets the matrix with specified values.
-  void setValues(double arg0, double arg1, double arg2, double arg3,
-      double arg4, double arg5, double arg6, double arg7, double arg8,
-      double arg9, double arg10, double arg11, double arg12, double arg13,
-      double arg14, double arg15) {
+  void setValues(
+      double arg0,
+      double arg1,
+      double arg2,
+      double arg3,
+      double arg4,
+      double arg5,
+      double arg6,
+      double arg7,
+      double arg8,
+      double arg9,
+      double arg10,
+      double arg11,
+      double arg12,
+      double arg13,
+      double arg14,
+      double arg15) {
     _m4storage[15] = arg15;
     _m4storage[14] = arg14;
     _m4storage[13] = arg13;
@@ -1668,8 +1681,8 @@ class Matrix4 {
     final v = new Vector3.zero();
     var sx = (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
     var sy = (v..setValues(_m4storage[4], _m4storage[5], _m4storage[6])).length;
-    var sz = (v
-      ..setValues(_m4storage[8], _m4storage[9], _m4storage[10])).length;
+    var sz =
+        (v..setValues(_m4storage[8], _m4storage[9], _m4storage[10])).length;
 
     if (determinant() < 0) sx = -sx;
 
