@@ -10,7 +10,7 @@
 /// detection related classes ([Aabb2], [Aabb3], [Frustum], [Obb3], [Plane],
 /// [Quad], [Ray], [Sphere] and [Triangle]).
 ///
-/// In addition some utilities are avialable as color operations (See [Colors]
+/// In addition some utilities are available as color operations (See [Colors]
 /// class), noise generators ([SimplexNoise]) and common OpenGL operations
 /// (like [makeViewMatrix], [makePerspectiveMatrix], or [pickRay]).
 ///

@@ -168,7 +168,7 @@ void testAabb2Rotate() {
   final rotation = new Matrix3.rotationZ(Math.PI / 4);
   final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
-  final result = input.rotate(rotation);
+  final result = input..rotate(rotation);
 
   relativeTest(result.min.x, 2 - Math.sqrt(2));
   relativeTest(result.min.y, 2 - Math.sqrt(2));
@@ -182,7 +182,7 @@ void testAabb2Transform() {
   final rotation = new Matrix3.rotationZ(Math.PI / 4);
   final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
-  final result = input.transform(rotation);
+  final result = input..transform(rotation);
   final newCenterY = Math.sqrt(8);
 
   relativeTest(result.min.x, -Math.sqrt(2));

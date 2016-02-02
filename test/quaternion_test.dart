@@ -46,7 +46,7 @@ void testQuaternionInstacingFromByteBuffer() {
 void testConjugate(List<Quaternion> input, List<Quaternion> expectedOutput) {
   assert(input.length == expectedOutput.length);
   for (int i = 0; i < input.length; i++) {
-    Quaternion output = input[i].conjugate();
+    Quaternion output = input[i]..conjugate();
     relativeTest(output, expectedOutput[i]);
   }
 }
@@ -91,14 +91,14 @@ void testQuaternionConjugate() {
 
 void testQuaternionMatrixQuaternionRoundTrip() {
   List<Quaternion> input = new List<Quaternion>();
-  input.add(new Quaternion.identity().normalize());
-  input.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510).normalize());
-  input.add(new Quaternion(0.9889, 0.0, 0.0, 0.14834).normalize());
+  input.add(new Quaternion.identity()..normalize());
+  input.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510)..normalize());
+  input.add(new Quaternion(0.9889, 0.0, 0.0, 0.14834)..normalize());
   input.add(
-      new Quaternion(0.388127, 0.803418, -0.433317, -0.126429).normalize());
-  input.add(new Quaternion(1.0, 0.0, 0.0, 1.0).normalize());
-  input.add(new Quaternion(0.0, 1.0, 0.0, 1.0).normalize());
-  input.add(new Quaternion(0.0, 0.0, 1.0, 1.0).normalize());
+      new Quaternion(0.388127, 0.803418, -0.433317, -0.126429)..normalize());
+  input.add(new Quaternion(1.0, 0.0, 0.0, 1.0)..normalize());
+  input.add(new Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
+  input.add(new Quaternion(0.0, 0.0, 1.0, 1.0)..normalize());
   testQuaternionMatrixRoundTrip(input);
 }
 
@@ -120,56 +120,56 @@ void testQuaternionNormalize() {
   List<Vector3> inputB = new List<Vector3>();
   List<Vector3> expectedOutput = new List<Vector3>();
 
-  inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0).normalize());
+  inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
   inputB.add(new Vector3(1.0, 1.0, 1.0));
   expectedOutput.add(new Vector3(-1.0, 1.0, 1.0));
 
-  inputA.add(new Quaternion.identity().normalize());
+  inputA.add(new Quaternion.identity()..normalize());
   inputB.add(new Vector3(1.0, 2.0, 3.0));
   expectedOutput.add(new Vector3(1.0, 2.0, 3.0));
 
-  inputA.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510).normalize());
+  inputA.add(new Quaternion(0.18260, 0.54770, 0.73030, 0.36510)..normalize());
   inputB.add(new Vector3(1.0, 0.0, 0.0));
   expectedOutput.add(new Vector3(-0.6667, -0.3333, 0.6667));
 
   {
-    inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0).normalize());
+    inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0)..normalize());
     inputB.add(new Vector3(1.0, 0.0, 0.0));
     expectedOutput.add(new Vector3(1.0, 0.0, 0.0));
 
-    inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0).normalize());
+    inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0)..normalize());
     inputB.add(new Vector3(0.0, 1.0, 0.0));
     expectedOutput.add(new Vector3(0.0, 0.0, -1.0));
 
-    inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0).normalize());
+    inputA.add(new Quaternion(1.0, 0.0, 0.0, 1.0)..normalize());
     inputB.add(new Vector3(0.0, 0.0, 1.0));
     expectedOutput.add(new Vector3(0.0, 1.0, 0.0));
   }
 
   {
-    inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0).normalize());
+    inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
     inputB.add(new Vector3(1.0, 0.0, 0.0));
     expectedOutput.add(new Vector3(0.0, 0.0, 1.0));
 
-    inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0).normalize());
+    inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
     inputB.add(new Vector3(0.0, 1.0, 0.0));
     expectedOutput.add(new Vector3(0.0, 1.0, 0.0));
 
-    inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0).normalize());
+    inputA.add(new Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
     inputB.add(new Vector3(0.0, 0.0, 1.0));
     expectedOutput.add(new Vector3(-1.0, 0.0, 0.0));
   }
 
   {
-    inputA.add(new Quaternion(0.0, 0.0, 1.0, 1.0).normalize());
+    inputA.add(new Quaternion(0.0, 0.0, 1.0, 1.0)..normalize());
     inputB.add(new Vector3(1.0, 0.0, 0.0));
     expectedOutput.add(new Vector3(0.0, -1.0, 0.0));
 
-    inputA.add(new Quaternion(0.0, 0.0, 1.0, 1.0).normalize());
+    inputA.add(new Quaternion(0.0, 0.0, 1.0, 1.0)..normalize());
     inputB.add(new Vector3(0.0, 1.0, 0.0));
     expectedOutput.add(new Vector3(1.0, 0.0, 0.0));
 
-    inputA.add(new Quaternion(0.0, 0.0, 1.0, 1.0).normalize());
+    inputA.add(new Quaternion(0.0, 0.0, 1.0, 1.0)..normalize());
     inputB.add(new Vector3(0.0, 0.0, 1.0));
     expectedOutput.add(new Vector3(0.0, 0.0, 1.0));
   }

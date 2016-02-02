@@ -65,49 +65,44 @@ class Vector4 implements Vector {
       : _v4storage = new Float64List.view(buffer, offset, 4);
 
   /// Set the values of the vector.
-  Vector4 setValues(double x_, double y_, double z_, double w_) {
+  void setValues(double x_, double y_, double z_, double w_) {
     _v4storage[3] = w_;
     _v4storage[2] = z_;
     _v4storage[1] = y_;
     _v4storage[0] = x_;
-    return this;
   }
 
   /// Zero the vector.
-  Vector4 setZero() {
+  void setZero() {
     _v4storage[0] = 0.0;
     _v4storage[1] = 0.0;
     _v4storage[2] = 0.0;
     _v4storage[3] = 0.0;
-    return this;
   }
 
   /// Set to the identity vector.
-  Vector4 setIdentity() {
+  void setIdentity() {
     _v4storage[0] = 0.0;
     _v4storage[1] = 0.0;
     _v4storage[2] = 0.0;
     _v4storage[3] = 1.0;
-    return this;
   }
 
   /// Set the values by copying them from [other].
-  Vector4 setFrom(Vector4 other) {
+  void setFrom(Vector4 other) {
     final otherStorage = other._v4storage;
     _v4storage[3] = otherStorage[3];
     _v4storage[2] = otherStorage[2];
     _v4storage[1] = otherStorage[1];
     _v4storage[0] = otherStorage[0];
-    return this;
   }
 
   /// Splat [arg] into all lanes of the vector.
-  Vector4 splat(double arg) {
+  void splat(double arg) {
     _v4storage[3] = arg;
     _v4storage[2] = arg;
     _v4storage[1] = arg;
     _v4storage[0] = arg;
-    return this;
   }
 
   /// Returns a printable string
@@ -180,22 +175,7 @@ class Vector4 implements Vector {
   }
 
   /// Normalizes [this].
-  Vector4 normalize() {
-    double l = length;
-    // TODO(johnmccutchan): Use an epsilon.
-    if (l == 0.0) {
-      return this;
-    }
-    l = 1.0 / l;
-    _v4storage[0] *= l;
-    _v4storage[1] *= l;
-    _v4storage[2] *= l;
-    _v4storage[3] *= l;
-    return this;
-  }
-
-  /// Normalizes [this]. Returns length of vector before normalization.
-  double normalizeLength() {
+  double normalize() {
     double l = length;
     if (l == 0.0) {
       return 0.0;
@@ -208,13 +188,20 @@ class Vector4 implements Vector {
     return l;
   }
 
+  /// Normalizes [this]. Returns length of vector before normalization.
+  /// DEPRCATED: Use [normalize].
+  @deprecated
+  double normalizeLength() => normalize();
+
   /// Normalizes copy of [this].
   Vector4 normalized() => clone()..normalize();
 
   /// Normalize vector into [out].
   Vector4 normalizeInto(Vector4 out) {
-    out.setFrom(this);
-    return out.normalize();
+    out
+      ..setFrom(this)
+      ..normalize();
+    return out;
   }
 
   /// Distance from [this] to [arg]
@@ -243,7 +230,7 @@ class Vector4 implements Vector {
   }
 
   /// Multiplies [this] by [arg].
-  Vector4 applyMatrix4(Matrix4 arg) {
+  void applyMatrix4(Matrix4 arg) {
     var v1 = _v4storage[0];
     var v2 = _v4storage[1];
     var v3 = _v4storage[2];
@@ -265,7 +252,6 @@ class Vector4 implements Vector {
         argStorage[7] * v2 +
         argStorage[11] * v3 +
         argStorage[15] * v4;
-    return this;
   }
 
   /// Relative error between [this] and [correct]
@@ -300,134 +286,121 @@ class Vector4 implements Vector {
     return is_nan;
   }
 
-  Vector4 add(Vector4 arg) {
+  void add(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] + argStorage[0];
     _v4storage[1] = _v4storage[1] + argStorage[1];
     _v4storage[2] = _v4storage[2] + argStorage[2];
     _v4storage[3] = _v4storage[3] + argStorage[3];
-    return this;
   }
 
   /// Add [arg] scaled by [factor] to [this].
-  Vector4 addScaled(Vector4 arg, double factor) {
+  void addScaled(Vector4 arg, double factor) {
     final argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] + argStorage[0] * factor;
     _v4storage[1] = _v4storage[1] + argStorage[1] * factor;
     _v4storage[2] = _v4storage[2] + argStorage[2] * factor;
     _v4storage[3] = _v4storage[3] + argStorage[3] * factor;
-    return this;
   }
 
   /// Subtract [arg] from [this].
-  Vector4 sub(Vector4 arg) {
+  void sub(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] - argStorage[0];
     _v4storage[1] = _v4storage[1] - argStorage[1];
     _v4storage[2] = _v4storage[2] - argStorage[2];
     _v4storage[3] = _v4storage[3] - argStorage[3];
-    return this;
   }
 
   /// Multiply [this] by [arg].
-  Vector4 multiply(Vector4 arg) {
+  void multiply(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] * argStorage[0];
     _v4storage[1] = _v4storage[1] * argStorage[1];
     _v4storage[2] = _v4storage[2] * argStorage[2];
     _v4storage[3] = _v4storage[3] * argStorage[3];
-    return this;
   }
 
   /// Divide [this] by [arg].
-  Vector4 div(Vector4 arg) {
+  void div(Vector4 arg) {
     final argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] / argStorage[0];
     _v4storage[1] = _v4storage[1] / argStorage[1];
     _v4storage[2] = _v4storage[2] / argStorage[2];
     _v4storage[3] = _v4storage[3] / argStorage[3];
-    return this;
   }
 
   /// Scale [this] by [arg].
-  Vector4 scale(double arg) {
+  void scale(double arg) {
     _v4storage[0] = _v4storage[0] * arg;
     _v4storage[1] = _v4storage[1] * arg;
     _v4storage[2] = _v4storage[2] * arg;
     _v4storage[3] = _v4storage[3] * arg;
-    return this;
   }
 
   /// Create a copy of [this] scaled by [arg].
   Vector4 scaled(double arg) => clone()..scale(arg);
 
   /// Negate [this].
-  Vector4 negate() {
+  void negate() {
     _v4storage[0] = -_v4storage[0];
     _v4storage[1] = -_v4storage[1];
     _v4storage[2] = -_v4storage[2];
     _v4storage[3] = -_v4storage[3];
-    return this;
   }
 
   /// Set [this] to the absolute.
-  Vector4 absolute() {
+  void absolute() {
     _v4storage[3] = _v4storage[3].abs();
     _v4storage[2] = _v4storage[2].abs();
     _v4storage[1] = _v4storage[1].abs();
     _v4storage[0] = _v4storage[0].abs();
-    return this;
   }
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
-  Vector4 clamp(Vector4 min, Vector4 max) {
+  void clamp(Vector4 min, Vector4 max) {
     final minStorage = min.storage;
     final maxStorage = max.storage;
     _v4storage[0] = _v4storage[0].clamp(minStorage[0], maxStorage[0]);
     _v4storage[1] = _v4storage[1].clamp(minStorage[1], maxStorage[1]);
     _v4storage[2] = _v4storage[2].clamp(minStorage[2], maxStorage[2]);
     _v4storage[3] = _v4storage[3].clamp(minStorage[3], maxStorage[3]);
-    return this;
   }
 
   /// Clamp entries in [this] in the range [min]-[max].
-  Vector4 clampScalar(double min, double max) {
+  void clampScalar(double min, double max) {
     _v4storage[0] = _v4storage[0].clamp(min, max);
     _v4storage[1] = _v4storage[1].clamp(min, max);
     _v4storage[2] = _v4storage[2].clamp(min, max);
     _v4storage[3] = _v4storage[3].clamp(min, max);
-    return this;
   }
 
   /// Floor entries in [this].
-  Vector4 floor() {
+  void floor() {
     _v4storage[0] = _v4storage[0].floorToDouble();
     _v4storage[1] = _v4storage[1].floorToDouble();
     _v4storage[2] = _v4storage[2].floorToDouble();
     _v4storage[3] = _v4storage[3].floorToDouble();
-    return this;
   }
 
   /// Ceil entries in [this].
-  Vector4 ceil() {
+  void ceil() {
     _v4storage[0] = _v4storage[0].ceilToDouble();
     _v4storage[1] = _v4storage[1].ceilToDouble();
     _v4storage[2] = _v4storage[2].ceilToDouble();
     _v4storage[3] = _v4storage[3].ceilToDouble();
-    return this;
   }
 
   /// Round entries in [this].
-  Vector4 round() {
+  void round() {
     _v4storage[0] = _v4storage[0].roundToDouble();
     _v4storage[1] = _v4storage[1].roundToDouble();
     _v4storage[2] = _v4storage[2].roundToDouble();
     _v4storage[3] = _v4storage[3].roundToDouble();
-    return this;
   }
 
   /// Round entries in [this] towards zero.
-  Vector4 roundToZero() {
+  void roundToZero() {
     _v4storage[0] = _v4storage[0] < 0.0
         ? _v4storage[0].ceilToDouble()
         : _v4storage[0].floorToDouble();
@@ -440,7 +413,6 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] < 0.0
         ? _v4storage[3].ceilToDouble()
         : _v4storage[3].floorToDouble();
-    return this;
   }
 
   /// Create a copy of [this].

@@ -87,9 +87,9 @@ class Obb3 {
     t.transform(_axis0..scale(_halfExtents.x));
     t.transform(_axis1..scale(_halfExtents.y));
     t.transform(_axis2..scale(_halfExtents.z));
-    _halfExtents.x = _axis0.normalizeLength();
-    _halfExtents.y = _axis1.normalizeLength();
-    _halfExtents.z = _axis2.normalizeLength();
+    _halfExtents.x = _axis0.normalize();
+    _halfExtents.y = _axis1.normalize();
+    _halfExtents.z = _axis2.normalize();
   }
 
   /// Transform [this] by the transform [t].
@@ -98,9 +98,9 @@ class Obb3 {
     t.rotate3(_axis0..scale(_halfExtents.x));
     t.rotate3(_axis1..scale(_halfExtents.y));
     t.rotate3(_axis2..scale(_halfExtents.z));
-    _halfExtents.x = _axis0.normalizeLength();
-    _halfExtents.y = _axis1.normalizeLength();
-    _halfExtents.z = _axis2.normalizeLength();
+    _halfExtents.x = _axis0.normalize();
+    _halfExtents.y = _axis1.normalize();
+    _halfExtents.z = _axis2.normalize();
   }
 
   /// Store the corner with [cornerIndex] in [corner].
