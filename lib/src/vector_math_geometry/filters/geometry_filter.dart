@@ -9,9 +9,7 @@ abstract class GeometryFilter {
   List<VertexAttrib> get requires => [];
   List<VertexAttrib> get generates => [];
 
-  /**
-   * Returns a copy of the mesh with any filter transforms applied
-   */
+  /// Returns a copy of the mesh with any filter transforms applied.
   MeshGeometry filter(MeshGeometry mesh);
 }
 
@@ -23,8 +21,6 @@ abstract class InplaceGeometryFilter extends GeometryFilter {
     return output;
   }
 
-  /**
-   * Applies the filter to the mesh
-   */
+  /// Applies the filter to the mesh.
   void filterInplace(MeshGeometry mesh);
 }

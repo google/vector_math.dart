@@ -228,12 +228,10 @@ class Vector3 implements Vector {
     return sum;
   }
 
-  /**
-   * Transforms [this] into the product of [this] as a row vector,
-   * postmultiplied by matrix, [arg].
-   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
-   * the inverse of the transformation.
-   */
+  /// Transforms [this] into the product of [this] as a row vector,
+  /// postmultiplied by matrix, [arg].
+  /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
+  /// the inverse of the transformation.
   void postmultiply(Matrix3 arg) {
     final argStorage = arg.storage;
     final v0 = _v3storage[0];
