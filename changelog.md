@@ -1,11 +1,11 @@
 # Changelog - vector_math
 
-## v 2.0.0 - Unreleased
+## v 2.0.0 - March 2016
 
 - Remove call chaining, methods don't return this anymore. You can use the method cascade operator instead.
 - Remove dependency on quiver package
 
-## v 1.4.7 - February 2017
+## v 1.4.7 - February 2016
 
 - Fixed ArgumentError usage in Matrix4.inverted constructor
 
