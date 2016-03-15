@@ -21,7 +21,7 @@ library vector_math_64;
 
 import 'dart:typed_data';
 import 'dart:math' as Math;
-import 'package:quiver/core.dart' as quiver;
+import 'hash.dart' as quiver;
 
 part 'src/vector_math_64/utilities.dart';
 part 'src/vector_math_64/aabb2.dart';

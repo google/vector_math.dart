@@ -3,6 +3,7 @@
 ## v 2.0.0 - Unreleased
 
 - Remove call chaining, methods don't return this anymore. You can use the method cascade operator instead.
+- Remove dependency on quiver package
 
 ## v 1.4.7 - February 2017
 
