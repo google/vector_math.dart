@@ -613,6 +613,32 @@ void testMatrix4InvertConstructor() {
       equals(new Matrix4.identity()));
 }
 
+void testMatrix4SkewConstructor() {
+  var m = new Matrix4.skew(0.0, 1.57);
+  var m2 = new Matrix4.skewY(1.57);
+
+  expect(m.entry(0, 0), equals(1.0));
+  expect(m.entry(1, 1), equals(1.0));
+  expect(m.entry(2, 2), equals(1.0));
+  expect(m.entry(3, 3), equals(1.0));
+  relativeTest(m.entry(1, 0), Math.tan(1.57));
+  expect(m.entry(0, 1), equals(0.0));
+
+  expect(m2, equals(m));
+
+  var n = new Matrix4.skew(1.57, 0.0);
+  var n2 = new Matrix4.skewX(1.57);
+
+  expect(n.entry(0, 0), equals(1.0));
+  expect(n.entry(1, 1), equals(1.0));
+  expect(n.entry(2, 2), equals(1.0));
+  expect(n.entry(3, 3), equals(1.0));
+  expect(n.entry(1, 0), equals(0.0));
+  relativeTest(m.entry(1, 0), Math.tan(1.57));
+
+  expect(n2, equals(n));
+}
+
 void main() {
   group('Matrix4', () {
     test('instancing from Float32List', testMatrix4InstacingFromFloat32List);
@@ -637,5 +663,6 @@ void main() {
     test('compose/decompose', testMatrix4Compose);
     test('equals', testMatrix4Equals);
     test('invert constructor', testMatrix4InvertConstructor);
+    test('skew constructor', testMatrix4SkewConstructor);
   });
 }

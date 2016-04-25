@@ -286,6 +286,29 @@ class Matrix4 {
         .._m4storage[5] = y
         .._m4storage[0] = x;
 
+  /// Skew matrix around X axis
+  factory Matrix4.skewX(double alpha) {
+    final m = new Matrix4.identity();
+    m._m4storage[4] = Math.tan(alpha);
+    return m;
+  }
+
+  /// Skew matrix around Y axis.
+  factory Matrix4.skewY(double beta) {
+    final m = new Matrix4.identity();
+    m._m4storage[1] = Math.tan(beta);
+    return m;
+  }
+
+  /// Skew matrix around X axis (alpha) and Y axis (beta).
+  factory Matrix4.skew(double alpha, double beta) {
+    final m = new Matrix4.identity();
+    m._m4storage[1] = Math.tan(beta);
+    m._m4storage[4] = Math.tan(alpha);
+    return m;
+  }
+
+
   /// Constructs Matrix4 with given [Float32List] as [storage].
   Matrix4.fromFloat32List(this._m4storage);
 

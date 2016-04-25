@@ -2,6 +2,7 @@
 
 ## v 2.0.1 - Unreleased
 
+- Add Matrix4.SkewX, Matrix4.SkewY, and Matrix4.Skew constructors
 
 ## v 2.0.0 - March 2016
 
