@@ -1,6 +1,10 @@
 # Changelog - vector_math
 
-## v 2.0.2 - Unreleased
+## v 2.0.3 - Unreleased
+
+## v 2.0.2 - April 2016
+
+- Add Vector2.angleTo and .angleToSigned
 
 ## v 2.0.1 - April 2016
 
