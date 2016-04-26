@@ -6,6 +6,8 @@ library vector_math.test.vector2_test;
 
 import 'dart:typed_data';
 
+import 'dart:math' as Math;
+
 import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
@@ -246,6 +248,25 @@ void testVector2DistanceToSquared() {
   expect(a.distanceToSquared(c), equals(4.0));
 }
 
+void testVector2AngleTo() {
+  final v0 = new Vector2(1.0, 0.0);
+  final v1 = new Vector2(0.0, 1.0);
+
+  expect(v0.angleTo(v0), equals(0.0));
+  expect(v0.angleTo(v1), equals(Math.PI / 2.0));
+}
+
+void testVector2AngleToSigned() {
+  final v0 = new Vector2(1.0, 0.0);
+  final v1 = new Vector2(0.0, 1.0);
+  final v2 = new Vector2(-1.0, 0.0);
+
+  expect(v0.angleToSigned(v0), equals(0.0));
+  expect(v0.angleToSigned(v1), equals(Math.PI / 2.0));
+  expect(v1.angleToSigned(v0), equals(-Math.PI / 2.0));
+  expect(v0.angleToSigned(v2), equals(Math.PI));
+}
+
 void testVector2Clamp() {
   final x = 2.0, y = 3.0;
   final v0 = new Vector2(x, y);
@@ -326,6 +347,8 @@ void main() {
     test('distanceToSquared', testVector2DistanceToSquared);
     test('instancing from Float32List', testVector2InstacinfFromFloat32List);
     test('instancing from ByteBuffer', testVector2InstacingFromByteBuffer);
+    test('angleTo', testVector2AngleTo);
+    test('angleToSinged', testVector2AngleToSigned);
     test('clamp', testVector2Clamp);
     test('clampScalar', testVector2ClampScalar);
     test('floor', testVector2Floor);
