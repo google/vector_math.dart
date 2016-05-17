@@ -2,6 +2,8 @@
 
 ## v 2.0.2 - Unreleased
 
+- Add Matrix4.leftTranslate
+
 ## v 2.0.1 - April 2016
 
 - Add Matrix4.SkewX, Matrix4.SkewY, and Matrix4.Skew constructors
