@@ -1,6 +1,6 @@
 # Changelog - vector_math
 
-## v 2.0.2 - Unreleased
+## v 2.0.2 - May 2016
 
 - Add Matrix4.leftTranslate
 
