@@ -1,5 +1,7 @@
 # Changelog - vector_math
 
+## v 2.0.4 - Unreleased
+
 ## v 2.0.3 - May 2016
 
 - Synchronize Float64 version
