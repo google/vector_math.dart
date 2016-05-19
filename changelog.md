@@ -1,10 +1,20 @@
 # Changelog - vector_math
 
-## v 2.0.3 - Unreleased
+## v 2.0.4 - Unreleased
 
-## v 2.0.2 - April 2016
+- Added Matrix4.isIdentity()
+- Added Matrix4.isZero()
+- Added Matrix3.isIdentity()
+- Added Matrix3.isZero()
+- Added Vector2.angleTo and Vector2.angleToSigned
 
-- Add Vector2.angleTo and .angleToSigned
+## v 2.0.3 - May 2016
+
+- Synchronize Float64 version
+
+## v 2.0.2 - May 2016
+
+- Add Matrix4.leftTranslate
 
 ## v 2.0.1 - April 2016
 

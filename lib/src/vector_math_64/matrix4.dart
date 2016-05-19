@@ -689,6 +689,48 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
+  /// Multiply [this] by a translation from the left.
+  /// The translation can be specified with a  [Vector3], [Vector4], or x, y, z.
+  void leftTranslate(x, [double y = 0.0, double z = 0.0]) {
+    double tx;
+    double ty;
+    double tz;
+    double tw = x is Vector4 ? x.w : 1.0;
+    if (x is Vector3 || x is Vector4) {
+      tx = x.x;
+      ty = x.y;
+      tz = x.z;
+    } else {
+      tx = x;
+      ty = y;
+      tz = z;
+    }
+
+    // Column 1
+    _m4storage[0] += tx * _m4storage[3];
+    _m4storage[1] += ty * _m4storage[3];
+    _m4storage[2] += tz * _m4storage[3];
+    _m4storage[3] = tw * _m4storage[3];
+
+    // Column 2
+    _m4storage[4] += tx * _m4storage[7];
+    _m4storage[5] += ty * _m4storage[7];
+    _m4storage[6] += tz * _m4storage[7];
+    _m4storage[7] = tw * _m4storage[7];
+
+    // Column 3
+    _m4storage[8] += tx * _m4storage[11];
+    _m4storage[9] += ty * _m4storage[11];
+    _m4storage[10] += tz * _m4storage[11];
+    _m4storage[11] = tw * _m4storage[11];
+
+    // Column 4
+    _m4storage[12] += tx * _m4storage[15];
+    _m4storage[13] += ty * _m4storage[15];
+    _m4storage[14] += tz * _m4storage[15];
+    _m4storage[15] = tw * _m4storage[15];
+  }
+
   /// Rotate this [angle] radians around [axis]
   void rotate(Vector3 axis, double angle) {
     var len = axis.length;

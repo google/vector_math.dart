@@ -321,6 +321,13 @@ void testMatrix3Equals() {
       new Matrix3.identity().hashCode, equals(new Matrix3.identity().hashCode));
 }
 
+void testMatrixClassifiers() {
+  expect(new Matrix3.zero().isIdentity(), false);
+  expect(new Matrix3.zero().isZero(), true);
+  expect(new Matrix3.identity().isIdentity(), true);
+  expect(new Matrix3.identity().isZero(), false);
+}
+
 void main() {
   group('Matrix3', () {
     test('Determinant', testMatrix3Determinant);
@@ -337,5 +344,6 @@ void main() {
     test('Scale', testMatrix3Scale);
     test('solving', testMatrix3Solving);
     test('equals', testMatrix3Equals);
+    test('matrix classifiers', testMatrixClassifiers);
   });
 }

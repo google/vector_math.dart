@@ -639,6 +639,44 @@ void testMatrix4SkewConstructor() {
   expect(n2, equals(n));
 }
 
+void testLeftTranslate() {
+  // Our test point.
+  var p = new Vector3(0.5, 0.0, 0.0);
+
+  // Scale 2x matrix.
+  var m = new Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  // After scaling, translate along the X axis.
+  m.leftTranslate(1.0);
+
+  // Apply the transformation to p. This will move (0.5, 0, 0) to (2.0, 0, 0).
+  // Scale: 0.5 -> 1.0.
+  // Translate: 1.0 -> 2.0
+  var result = m.transformed3(p);
+  expect(result.x, equals(2.0));
+  expect(result.y, equals(0.0));
+  expect(result.z, equals(0.0));
+
+  // Scale 2x matrix.
+  m = new Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  // Before scaling, translate along the X axis.
+  m.translate(1.0);
+
+  // Apply the transformation to p. This will move (0.5, 0, 0) to (3.0, 0, 0).
+  // Translate: 0.5 -> 1.5.
+  // Scale: 1.5 -> 3.0.
+  result = m.transformed3(p);
+  expect(result.x, equals(3.0));
+  expect(result.y, equals(0.0));
+  expect(result.z, equals(0.0));
+}
+
+void testMatrixClassifiers() {
+  expect(new Matrix4.zero().isIdentity(), false);
+  expect(new Matrix4.zero().isZero(), true);
+  expect(new Matrix4.identity().isIdentity(), true);
+  expect(new Matrix4.identity().isZero(), false);
+}
+
 void main() {
   group('Matrix4', () {
     test('instancing from Float32List', testMatrix4InstacingFromFloat32List);
@@ -664,5 +702,7 @@ void main() {
     test('equals', testMatrix4Equals);
     test('invert constructor', testMatrix4InvertConstructor);
     test('skew constructor', testMatrix4SkewConstructor);
+    test('leftTranslate', testLeftTranslate);
+    test('matrix classifiers', testMatrixClassifiers);
   });
 }
