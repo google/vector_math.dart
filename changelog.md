@@ -2,6 +2,11 @@
 
 ## v 2.0.4 - Unreleased
 
+- Added Matrix4.isIdentity()
+- Added Matrix4.isZero()
+- Added Matrix3.isIdentity()
+- Added Matrix3.isZero()
+
 ## v 2.0.3 - May 2016
 
 - Synchronize Float64 version

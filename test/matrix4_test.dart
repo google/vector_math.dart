@@ -670,6 +670,13 @@ void testLeftTranslate() {
   expect(result.z, equals(0.0));
 }
 
+void testMatrixClassifiers() {
+  expect(new Matrix4.zero().isIdentity(), false);
+  expect(new Matrix4.zero().isZero(), true);
+  expect(new Matrix4.identity().isIdentity(), true);
+  expect(new Matrix4.identity().isZero(), false);
+}
+
 void main() {
   group('Matrix4', () {
     test('instancing from Float32List', testMatrix4InstacingFromFloat32List);
@@ -696,5 +703,6 @@ void main() {
     test('invert constructor', testMatrix4InvertConstructor);
     test('skew constructor', testMatrix4SkewConstructor);
     test('leftTranslate', testLeftTranslate);
+    test('matrix classifiers', testMatrixClassifiers);
   });
 }
