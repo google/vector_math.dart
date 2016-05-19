@@ -154,7 +154,7 @@ class Vector2 implements Vector {
   }
 
   /// Normalize [this]. Returns length of vector before normalization.
-  /// /// DEPRCATED: Use [normalize].
+  /// DEPRECATED: Use [normalize].
   @deprecated
   double normalizeLength() => normalize();
 
@@ -178,6 +178,33 @@ class Vector2 implements Vector {
     final dy = y - arg.y;
 
     return dx * dx + dy * dy;
+  }
+
+  /// Returns the angle between [this] vector and [other] in radians.
+  double angleTo(Vector2 other) {
+    final otherStorage = other._v2storage;
+    if (_v2storage[0] == otherStorage[0] &&
+        _v2storage[1] == otherStorage[1]) {
+      return 0.0;
+    }
+
+    final d = dot(other);
+
+    return Math.acos(d.clamp(-1.0, 1.0));
+  }
+
+  /// Returns the signed angle between [this] and [other] in radians.
+  double angleToSigned(Vector2 other) {
+    final otherStorage = other._v2storage;
+    if (_v2storage[0] == otherStorage[0] &&
+        _v2storage[1] == otherStorage[1]) {
+      return 0.0;
+    }
+
+    final s = cross(other);
+    final c = dot(other);
+
+    return Math.atan2(s, c);
   }
 
   /// Inner product.
