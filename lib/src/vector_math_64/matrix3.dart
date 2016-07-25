@@ -899,4 +899,30 @@ class Matrix3 {
     double z = _m3storage[8];
     return new Vector3(x, y, z);
   }
+
+  /// Is [this] the identity matrix?
+  bool isIdentity() {
+    return _m3storage[0] == 1.0 // col 1
+        && _m3storage[1] == 0.0
+        && _m3storage[2] == 0.0
+        && _m3storage[3] == 0.0 // col 2
+        && _m3storage[4] == 1.0
+        && _m3storage[5] == 0.0
+        && _m3storage[6] == 0.0 // col 3
+        && _m3storage[7] == 0.0
+        && _m3storage[8] == 1.0;
+  }
+
+  /// Is [this] the zero matrix?
+  bool isZero() {
+    return _m3storage[0] == 0.0 // col 1
+        && _m3storage[1] == 0.0
+        && _m3storage[2] == 0.0
+        && _m3storage[3] == 0.0 // col 2
+        && _m3storage[4] == 0.0
+        && _m3storage[5] == 0.0
+        && _m3storage[6] == 0.0 // col 3
+        && _m3storage[7] == 0.0
+        && _m3storage[8] == 0.0;
+  }
 }

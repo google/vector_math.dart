@@ -72,17 +72,35 @@ class Colors {
   }
 
   /// Convert a [input] color to a hex string without a leading '#'. To include
-  /// the alpha channel, set [alpha] to true, it is false by default.
-  static String toHexString(Vector4 input, {bool alpha: false}) {
-    var color = (input.r * 255).floor() << 16 |
-        (input.g * 255).floor() << 8 |
-        (input.b * 255).floor();
+  /// the alpha channel, set [alpha] to true, it is false by default. If [short]
+  /// is true, the resulting hex string might also be a short version, like #ff0
+  /// (default false).
+  static String toHexString(Vector4 input,
+      {bool alpha: false, bool short: false}) {
+    final r = (input.r * 0xFF).floor() & 0xFF;
+    final g = (input.g * 0xFF).floor() & 0xFF;
+    final b = (input.b * 0xFF).floor() & 0xFF;
+    final a = (input.a * 0xFF).floor() & 0xFF;
 
-    if (alpha) {
-      color |= (input.a * 255).floor() << 24;
+    final isShort = short &&
+        ((r >> 4) == (r & 0xF)) &&
+        ((g >> 4) == (g & 0xF)) &&
+        ((b >> 4) == (b & 0xF)) &&
+        (!alpha || (a >> 4) == (a & 0xF));
+
+    if (isShort) {
+      final rgb = (r & 0xF).toRadixString(16) +
+          (g & 0xF).toRadixString(16) +
+          (b & 0xF).toRadixString(16);
+
+      return alpha ? (a & 0xF).toRadixString(16) + rgb : rgb;
+    } else {
+      final rgb = r.toRadixString(16).padLeft(2, '0') +
+          g.toRadixString(16).padLeft(2, '0') +
+          b.toRadixString(16).padLeft(2, '0');
+
+      return alpha ? a.toRadixString(16).padLeft(2, '0') + rgb : rgb;
     }
-
-    return color.toRadixString(16);
   }
 
   /// Blend the [foreground] color over [background] color and store the color
