@@ -1980,4 +1980,44 @@ class Matrix4 {
     double z = _m4storage[10];
     return new Vector3(x, y, z);
   }
+
+  /// Is [this] the identity matrix?
+  bool isIdentity() {
+    return _m4storage[0] == 1.0 // col 1
+        && _m4storage[1] == 0.0
+        && _m4storage[2] == 0.0
+        && _m4storage[3] == 0.0
+        && _m4storage[4] == 0.0 // col 2
+        && _m4storage[5] == 1.0
+        && _m4storage[6] == 0.0
+        && _m4storage[7] == 0.0
+        && _m4storage[8] == 0.0 // col 3
+        && _m4storage[9] == 0.0
+        && _m4storage[10] == 1.0
+        && _m4storage[11] == 0.0
+        && _m4storage[12] == 0.0 // col 4
+        && _m4storage[13] == 0.0
+        && _m4storage[14] == 0.0
+        && _m4storage[15] == 1.0;
+  }
+
+  /// Is [this] the zero matrix?
+  bool isZero() {
+    return _m4storage[0] == 0.0 // col 1
+        && _m4storage[1] == 0.0
+        && _m4storage[2] == 0.0
+        && _m4storage[3] == 0.0
+        && _m4storage[4] == 0.0 // col 2
+        && _m4storage[5] == 0.0
+        && _m4storage[6] == 0.0
+        && _m4storage[7] == 0.0
+        && _m4storage[8] == 0.0 // col 3
+        && _m4storage[9] == 0.0
+        && _m4storage[10] == 0.0
+        && _m4storage[11] == 0.0
+        && _m4storage[12] == 0.0 // col 4
+        && _m4storage[13] == 0.0
+        && _m4storage[14] == 0.0
+        && _m4storage[15] == 0.0;
+  }
 }
