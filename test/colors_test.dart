@@ -79,6 +79,52 @@ void testHexString() {
 
   expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
 
+
+  Colors.fromHexString('#8F0f', color);
+
+  relativeTest(color.r, 1.0);
+  relativeTest(color.g, 0.0);
+  relativeTest(color.b, 1.0);
+  relativeTest(color.a, 0.5333);
+
+  expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
+
+  Colors.fromHexString('#8F0f', color);
+
+  relativeTest(color.r, 1.0);
+  relativeTest(color.g, 0.0);
+  relativeTest(color.b, 1.0);
+  relativeTest(color.a, 0.5333);
+
+  expect(Colors.toHexString(color, alpha: true, short: true), equals('8f0f'));
+
+  Colors.fromHexString('#00FF00', color);
+
+  relativeTest(color.r, 0.0);
+  relativeTest(color.g, 1.0);
+  relativeTest(color.b, 0.0);
+  relativeTest(color.a, 1.0);
+
+  expect(Colors.toHexString(color, short: true), equals('0f0'));
+
+  Colors.fromHexString('#00FF00', color);
+
+  relativeTest(color.r, 0.0);
+  relativeTest(color.g, 1.0);
+  relativeTest(color.b, 0.0);
+  relativeTest(color.a, 1.0);
+
+  expect(Colors.toHexString(color), equals('00ff00'));
+
+  Colors.fromHexString('#00000000', color);
+
+  relativeTest(color.r, 0.0);
+  relativeTest(color.g, 0.0);
+  relativeTest(color.b, 0.0);
+  relativeTest(color.a, 0.0);
+
+  expect(Colors.toHexString(color, alpha: true), equals('00000000'));
+
   expect(() => Colors.fromHexString('vector_math rules!', color),
       throwsA(new isInstanceOf<FormatException>()));
 }
