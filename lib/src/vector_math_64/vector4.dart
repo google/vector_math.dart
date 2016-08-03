@@ -64,6 +64,14 @@ class Vector4 implements Vector {
   Vector4.fromBuffer(ByteBuffer buffer, int offset)
       : _v4storage = new Float64List.view(buffer, offset, 4);
 
+  /// Generate random vector in the range (0, 0, 0, 0) to (1, 1, 1, 1). You can
+  /// optionally pass your own random number generator.
+  factory Vector4.random([Math.Random rng]) {
+    rng = rng == null ? new Math.Random() : rng;
+    return new Vector4(
+      rng.nextDouble(), rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
+  }
+
   /// Set the values of the vector.
   void setValues(double x_, double y_, double z_, double w_) {
     _v4storage[3] = w_;

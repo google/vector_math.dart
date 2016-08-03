@@ -146,6 +146,12 @@ void testVector2Constructor() {
   var v2 = new Vector2.all(2.0);
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
+
+  var v3 = new Vector2.random(new Math.Random());
+  expect(v3.x, greaterThanOrEqualTo(0.0));
+  expect(v3.x, lessThanOrEqualTo(1.0));
+  expect(v3.y, greaterThanOrEqualTo(0.0));
+  expect(v3.y, lessThanOrEqualTo(1.0));
 }
 
 void testVector2Length() {

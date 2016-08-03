@@ -6,6 +6,8 @@ library vector_math.test.vector4_test;
 
 import 'dart:typed_data';
 
+import 'dart:math' as Math;
+
 import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
@@ -113,6 +115,16 @@ void testVector4Constructor() {
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
   expect(v2.w, equals(2.0));
+
+  var v3 = new Vector4.random(new Math.Random());
+  expect(v3.x, greaterThanOrEqualTo(0.0));
+  expect(v3.x, lessThanOrEqualTo(1.0));
+  expect(v3.y, greaterThanOrEqualTo(0.0));
+  expect(v3.y, lessThanOrEqualTo(1.0));
+  expect(v3.z, greaterThanOrEqualTo(0.0));
+  expect(v3.z, lessThanOrEqualTo(1.0));
+  expect(v3.w, greaterThanOrEqualTo(0.0));
+  expect(v3.w, lessThanOrEqualTo(1.0));
 }
 
 void testVector4Length() {

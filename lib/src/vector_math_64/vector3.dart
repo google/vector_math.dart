@@ -58,6 +58,13 @@ class Vector3 implements Vector {
   Vector3.fromBuffer(ByteBuffer buffer, int offset)
       : _v3storage = new Float64List.view(buffer, offset, 3);
 
+  /// Generate random vector in the range (0, 0, 0) to (1, 1, 1). You can
+  /// optionally pass your own random number generator.
+  factory Vector3.random([Math.Random rng]) {
+    rng = rng == null ? new Math.Random() : rng;
+    return new Vector3(rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
+  }
+
   /// Set the values of the vector.
   void setValues(double x_, double y_, double z_) {
     _v3storage[0] = x_;

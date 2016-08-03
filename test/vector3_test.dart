@@ -199,6 +199,14 @@ void testVector3Constructor() {
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
+
+  var v3 = new Vector3.random(new Math.Random());
+  expect(v3.x, greaterThanOrEqualTo(0.0));
+  expect(v3.x, lessThanOrEqualTo(1.0));
+  expect(v3.y, greaterThanOrEqualTo(0.0));
+  expect(v3.y, lessThanOrEqualTo(1.0));
+  expect(v3.z, greaterThanOrEqualTo(0.0));
+  expect(v3.z, lessThanOrEqualTo(1.0));
 }
 
 void testVector3Length() {

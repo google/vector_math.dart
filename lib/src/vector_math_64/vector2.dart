@@ -54,6 +54,13 @@ class Vector2 implements Vector {
   Vector2.fromBuffer(ByteBuffer buffer, int offset)
       : _v2storage = new Float64List.view(buffer, offset, 2);
 
+  /// Generate random vector in the range (0, 0) to (1, 1). You can
+  /// optionally pass your own random number generator.
+  factory Vector2.random([Math.Random rng]) {
+    rng = rng == null ? new Math.Random() : rng;
+    return new Vector2(rng.nextDouble(), rng.nextDouble());
+  }
+
   /// Set the values of the vector.
   void setValues(double x_, double y_) {
     _v2storage[0] = x_;
