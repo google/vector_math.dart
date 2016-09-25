@@ -113,10 +113,16 @@ Matrix4 makeViewMatrix(
 /// (always positive).
 void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
     double aspectRatio, double zNear, double zFar) {
-  double height = Math.tan(fovYRadians * 0.5) * zNear;
-  double width = height * aspectRatio;
-  setFrustumMatrix(
-      perspectiveMatrix, -width, width, -height, height, zNear, zFar);
+  final double height = Math.tan(fovYRadians * 0.5);
+  final double width = height * aspectRatio;
+  final double near_minus_far = zNear - zFar;
+
+  final Matrix4 view = perspectiveMatrix..setZero();
+  view.setEntry(0, 0, 1.0 / width);
+  view.setEntry(1, 1, 1.0 / height);
+  view.setEntry(2, 2, (zFar + zNear) / near_minus_far);
+  view.setEntry(3, 2, -1.0);
+  view.setEntry(2, 3, (2.0 * zNear * zFar) / near_minus_far);
 }
 
 /// Constructs a new OpenGL perspective projection matrix.
