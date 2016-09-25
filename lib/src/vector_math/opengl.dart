@@ -142,6 +142,41 @@ Matrix4 makePerspectiveMatrix(
   return r;
 }
 
+/// Constructs an OpenGL infinite projection matrix in [infiniteMatrix].
+/// [fovYRadians] specifies the field of view angle, in radians, in the y
+/// direction.
+/// [aspectRatio] specifies the aspect ratio that determines the field of view
+/// in the x direction. The aspect ratio of x (width) to y (height).
+/// [zNear] specifies the distance from the viewer to the near plane
+/// (always positive).
+void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
+    double aspectRatio, double zNear) {
+  final double height = Math.tan(fovYRadians * 0.5);
+  final double width = height * aspectRatio;
+
+  final Matrix4 view = infiniteMatrix..setZero();
+  view.setEntry(0, 0, 1.0 / width);
+  view.setEntry(1, 1, 1.0 / height);
+  view.setEntry(2, 2, -1.0);
+  view.setEntry(3, 2, -1.0);
+  view.setEntry(2, 3, -2.0 * zNear);
+}
+
+/// Constructs a new OpenGL infinite projection matrix.
+///
+/// [fovYRadians] specifies the field of view angle, in radians, in the y
+/// direction.
+/// [aspectRatio] specifies the aspect ratio that determines the field of view
+/// in the x direction. The aspect ratio of x (width) to y (height).
+/// [zNear] specifies the distance from the viewer to the near plane
+/// (always positive).
+Matrix4 makeInfiniteMatrix(
+    double fovYRadians, double aspectRatio, double zNear) {
+  Matrix4 r = new Matrix4.zero();
+  setInfiniteMatrix(r, fovYRadians, aspectRatio, zNear);
+  return r;
+}
+
 /// Constructs an OpenGL perspective projection matrix in [perspectiveMatrix].
 ///
 /// [left], [right] specify the coordinates for the left and right vertical
