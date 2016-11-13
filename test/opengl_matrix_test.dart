@@ -4,6 +4,7 @@
 
 library vector_math.test.opengl_matrix_test;
 
+import 'dart:math';
 import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
@@ -63,6 +64,33 @@ void testFrustumMatrix() {
       frustum.getColumn(3), new Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
 }
 
+void testPerspectiveMatrix() {
+  final double fov = PI / 2;
+  final double aspectRatio = 2.0;
+  final double zNear = 1.0;
+  final double zFar = 100.0;
+
+  Matrix4 perspective = makePerspectiveMatrix(fov, aspectRatio, zNear, zFar);
+  relativeTest(perspective.getColumn(0), new Vector4(0.5, 0.0, 0.0, 0.0));
+  relativeTest(perspective.getColumn(1), new Vector4(0.0, 1.0, 0.0, 0.0));
+  relativeTest(
+      perspective.getColumn(2), new Vector4(0.0, 0.0, -101.0 / 99.0, -1.0));
+  relativeTest(
+      perspective.getColumn(3), new Vector4(0.0, 0.0, -200.0 / 99.0, 0.0));
+}
+
+void testInfiniteMatrix() {
+  final double fov = PI / 2;
+  final double aspectRatio = 2.0;
+  final double zNear = 1.0;
+
+  Matrix4 infinite = makeInfiniteMatrix(fov, aspectRatio, zNear);
+  relativeTest(infinite.getColumn(0), new Vector4(0.5, 0.0, 0.0, 0.0));
+  relativeTest(infinite.getColumn(1), new Vector4(0.0, 1.0, 0.0, 0.0));
+  relativeTest(infinite.getColumn(2), new Vector4(0.0, 0.0, -1.0, -1.0));
+  relativeTest(infinite.getColumn(3), new Vector4(0.0, 0.0, -2.0, 0.0));
+}
+
 void testOrthographicMatrix() {
   num n = 0.1;
   num f = 1000.0;
@@ -110,6 +138,8 @@ void main() {
     test('LookAt', testLookAt);
     test('Unproject', testUnproject);
     test('Frustum', testFrustumMatrix);
+    test('Perspective', testPerspectiveMatrix);
+    test('Infinite', testInfiniteMatrix);
     test('Orthographic', testOrthographicMatrix);
     test('ModelMatrix', testModelMatrix);
   });

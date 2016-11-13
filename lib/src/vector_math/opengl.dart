@@ -113,10 +113,16 @@ Matrix4 makeViewMatrix(
 /// (always positive).
 void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
     double aspectRatio, double zNear, double zFar) {
-  double height = Math.tan(fovYRadians * 0.5) * zNear;
-  double width = height * aspectRatio;
-  setFrustumMatrix(
-      perspectiveMatrix, -width, width, -height, height, zNear, zFar);
+  final double height = Math.tan(fovYRadians * 0.5);
+  final double width = height * aspectRatio;
+  final double near_minus_far = zNear - zFar;
+
+  final Matrix4 view = perspectiveMatrix..setZero();
+  view.setEntry(0, 0, 1.0 / width);
+  view.setEntry(1, 1, 1.0 / height);
+  view.setEntry(2, 2, (zFar + zNear) / near_minus_far);
+  view.setEntry(3, 2, -1.0);
+  view.setEntry(2, 3, (2.0 * zNear * zFar) / near_minus_far);
 }
 
 /// Constructs a new OpenGL perspective projection matrix.
@@ -133,6 +139,41 @@ Matrix4 makePerspectiveMatrix(
     double fovYRadians, double aspectRatio, double zNear, double zFar) {
   Matrix4 r = new Matrix4.zero();
   setPerspectiveMatrix(r, fovYRadians, aspectRatio, zNear, zFar);
+  return r;
+}
+
+/// Constructs an OpenGL infinite projection matrix in [infiniteMatrix].
+/// [fovYRadians] specifies the field of view angle, in radians, in the y
+/// direction.
+/// [aspectRatio] specifies the aspect ratio that determines the field of view
+/// in the x direction. The aspect ratio of x (width) to y (height).
+/// [zNear] specifies the distance from the viewer to the near plane
+/// (always positive).
+void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
+    double aspectRatio, double zNear) {
+  final double height = Math.tan(fovYRadians * 0.5);
+  final double width = height * aspectRatio;
+
+  final Matrix4 view = infiniteMatrix..setZero();
+  view.setEntry(0, 0, 1.0 / width);
+  view.setEntry(1, 1, 1.0 / height);
+  view.setEntry(2, 2, -1.0);
+  view.setEntry(3, 2, -1.0);
+  view.setEntry(2, 3, -2.0 * zNear);
+}
+
+/// Constructs a new OpenGL infinite projection matrix.
+///
+/// [fovYRadians] specifies the field of view angle, in radians, in the y
+/// direction.
+/// [aspectRatio] specifies the aspect ratio that determines the field of view
+/// in the x direction. The aspect ratio of x (width) to y (height).
+/// [zNear] specifies the distance from the viewer to the near plane
+/// (always positive).
+Matrix4 makeInfiniteMatrix(
+    double fovYRadians, double aspectRatio, double zNear) {
+  Matrix4 r = new Matrix4.zero();
+  setInfiniteMatrix(r, fovYRadians, aspectRatio, zNear);
   return r;
 }
 
