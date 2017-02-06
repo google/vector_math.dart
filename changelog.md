@@ -1,6 +1,6 @@
 # Changelog - vector_math
 
-## v 2.0.4 - Unreleased
+## v 2.0.4 - February 2017
 
 - Added Matrix4.isIdentity()
 - Added Matrix4.isZero()
