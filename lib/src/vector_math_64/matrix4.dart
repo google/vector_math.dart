@@ -308,6 +308,40 @@ class Matrix4 {
     return m;
   }
 
+  /// Frustum matrix
+  ///
+  /// Maps the truncated pyramid with apex `(0.0, 0.0, 0.0)`` and the given
+  /// sides to the axis-aligned cube with vertices `(-1.0, -1.0, -1.0)` and
+  /// `(1.0, 1.0, 1.0)`.
+  factory Matrix4.frustum(double left, double right, double bottom, double top, double near, double far) {
+    double deltaX = right - left;
+    double deltaY = top - bottom;
+    double deltaZ = far - near;
+
+    if (near < 0 || far < 0 || deltaZ < 0 || deltaY < 0 || deltaX < 0)
+      return new Matrix4.zero();
+
+    return new Matrix4.zero()
+      .._m4storage[0] = 2.0 * near / deltaX
+      .._m4storage[5] = 2.0 * near / deltaY
+      .._m4storage[8] = (right + left) / deltaX
+      .._m4storage[9] = (top + bottom) / deltaY
+      .._m4storage[10] = -(near + far) / deltaZ
+      .._m4storage[11] = -1.0
+      .._m4storage[14] = -2.0 * near * far / deltaZ;
+  }
+
+  /// Perspective matrix
+  ///
+  /// Positions the camera at `(0.0, 0.0, 0.0)` and looks along the negative
+  /// Z-axis with the given field of view and aspect ratio. Points between
+  /// nearZ and farZ, which must be positive, are mapped to depth values between
+  /// -1.0 and 1.0.
+  factory Matrix4.perspective(double fieldOfViewY, double aspect, double nearZ, double farZ) {
+    double height = Math.tan(fieldOfViewY / 2.0) * nearZ;
+    double width = height * aspect;
+    return new Matrix4.frustum(-width, width, -height, height, nearZ, farZ);
+  }
 
   /// Constructs Matrix4 with given [Float64List] as [storage].
   Matrix4.fromFloat64List(this._m4storage);
