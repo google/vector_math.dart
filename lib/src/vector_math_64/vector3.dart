@@ -457,17 +457,19 @@ class Vector3 implements Vector {
   Vector3 scaled(double arg) => clone()..scale(arg);
 
   /// Negate [this].
-  void negate() {
+  Vector3 negate() {
     _v3storage[2] = -_v3storage[2];
     _v3storage[1] = -_v3storage[1];
     _v3storage[0] = -_v3storage[0];
+    return this;
   }
 
   /// Absolute value.
-  void absolute() {
+  Vector3 absolute() {
     _v3storage[0] = _v3storage[0].abs();
     _v3storage[1] = _v3storage[1].abs();
     _v3storage[2] = _v3storage[2].abs();
+    return this;
   }
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
