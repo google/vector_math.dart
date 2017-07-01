@@ -78,8 +78,8 @@ class Aabb2 {
 
   /// Transform [this] by the transform [t].
   void transform(Matrix3 t) {
-    final center = new Vector2.zero();
-    final halfExtents = new Vector2.zero();
+    final Vector2 center = new Vector2.zero();
+    final Vector2 halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t
       ..transform2(center)
@@ -94,8 +94,8 @@ class Aabb2 {
 
   /// Rotate [this] by the rotation matrix [t].
   void rotate(Matrix3 t) {
-    final center = new Vector2.zero();
-    final halfExtents = new Vector2.zero();
+    final Vector2 center = new Vector2.zero();
+    final Vector2 halfExtents = new Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t.absoluteRotate2(halfExtents);
     _min
@@ -133,8 +133,8 @@ class Aabb2 {
 
   /// Return if [this] contains [other].
   bool containsAabb2(Aabb2 other) {
-    final otherMax = other._max;
-    final otherMin = other._min;
+    final Vector2 otherMax = other._max;
+    final Vector2 otherMin = other._min;
 
     return (_min.x < otherMin.x) &&
         (_min.y < otherMin.y) &&
@@ -143,17 +143,16 @@ class Aabb2 {
   }
 
   /// Return if [this] contains [other].
-  bool containsVector2(Vector2 other) {
-    return (_min.x < other.x) &&
-        (_min.y < other.y) &&
-        (_max.x > other.x) &&
-        (_max.y > other.y);
-  }
+  bool containsVector2(Vector2 other) =>
+      (_min.x < other.x) &&
+      (_min.y < other.y) &&
+      (_max.x > other.x) &&
+      (_max.y > other.y);
 
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb2(Aabb2 other) {
-    final otherMax = other._max;
-    final otherMin = other._min;
+    final Vector2 otherMax = other._max;
+    final Vector2 otherMin = other._min;
 
     return (_min.x <= otherMax.x) &&
         (_min.y <= otherMax.y) &&
@@ -162,10 +161,9 @@ class Aabb2 {
   }
 
   /// Return if [this] intersects with [other].
-  bool intersectsWithVector2(Vector2 other) {
-    return (_min.x <= other.x) &&
-        (_min.y <= other.y) &&
-        (_max.x >= other.x) &&
-        (_max.y >= other.y);
-  }
+  bool intersectsWithVector2(Vector2 other) =>
+      (_min.x <= other.x) &&
+      (_min.y <= other.y) &&
+      (_max.x >= other.x) &&
+      (_max.y >= other.y);
 }

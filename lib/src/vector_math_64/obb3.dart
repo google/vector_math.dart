@@ -84,23 +84,29 @@ class Obb3 {
 
   /// Rotate [this] by the rotation matrix [t].
   void rotate(Matrix3 t) {
-    t.transform(_axis0..scale(_halfExtents.x));
-    t.transform(_axis1..scale(_halfExtents.y));
-    t.transform(_axis2..scale(_halfExtents.z));
-    _halfExtents.x = _axis0.normalize();
-    _halfExtents.y = _axis1.normalize();
-    _halfExtents.z = _axis2.normalize();
+    t
+      ..transform(_axis0..scale(_halfExtents.x))
+      ..transform(_axis1..scale(_halfExtents.y))
+      ..transform(_axis2..scale(_halfExtents.z));
+
+    _halfExtents
+      ..x = _axis0.normalize()
+      ..y = _axis1.normalize()
+      ..z = _axis2.normalize();
   }
 
   /// Transform [this] by the transform [t].
   void transform(Matrix4 t) {
-    t.transform3(_center);
-    t.rotate3(_axis0..scale(_halfExtents.x));
-    t.rotate3(_axis1..scale(_halfExtents.y));
-    t.rotate3(_axis2..scale(_halfExtents.z));
-    _halfExtents.x = _axis0.normalize();
-    _halfExtents.y = _axis1.normalize();
-    _halfExtents.z = _axis2.normalize();
+    t
+      ..transform3(_center)
+      ..rotate3(_axis0..scale(_halfExtents.x))
+      ..rotate3(_axis1..scale(_halfExtents.y))
+      ..rotate3(_axis2..scale(_halfExtents.z));
+
+    _halfExtents
+      ..x = _axis0.normalize()
+      ..y = _axis1.normalize()
+      ..z = _axis2.normalize();
   }
 
   /// Store the corner with [cornerIndex] in [corner].
@@ -163,40 +169,41 @@ class Obb3 {
 
   /// Find the closest point [q] on the OBB to the point [p] and store it in [q].
   void closestPointTo(Vector3 p, Vector3 q) {
-    final d = p - _center;
+    final Vector3 d = p - _center;
 
     q.setFrom(_center);
 
-    var dist = d.dot(_axis0);
-    dist = dist.clamp(-_halfExtents.x, _halfExtents.x);
+    double dist = d.dot(_axis0);
+    dist = dist.clamp(-_halfExtents.x, _halfExtents.x).toDouble();
     q.addScaled(_axis0, dist);
 
     dist = d.dot(_axis1);
-    dist = dist.clamp(-_halfExtents.y, _halfExtents.y);
+    dist = dist.clamp(-_halfExtents.y, _halfExtents.y).toDouble();
     q.addScaled(_axis1, dist);
 
     dist = d.dot(_axis2);
-    dist = dist.clamp(-_halfExtents.z, _halfExtents.z);
+    dist = dist.clamp(-_halfExtents.z, _halfExtents.z).toDouble();
     q.addScaled(_axis2, dist);
   }
 
   // Avoid allocating these instance on every call to intersectsWithObb3
-  static final _r = new Matrix3.zero();
-  static final _absR = new Matrix3.zero();
-  static final _t = new Vector3.zero();
+  static final Matrix3 _r = new Matrix3.zero();
+  static final Matrix3 _absR = new Matrix3.zero();
+  static final Vector3 _t = new Vector3.zero();
 
   /// Check for intersection between [this] and [other].
   bool intersectsWithObb3(Obb3 other, [double epsilon = 1e-3]) {
     // Compute rotation matrix expressing other in this's coordinate frame
-    _r.setEntry(0, 0, _axis0.dot(other._axis0));
-    _r.setEntry(1, 0, _axis1.dot(other._axis0));
-    _r.setEntry(2, 0, _axis2.dot(other._axis0));
-    _r.setEntry(0, 1, _axis0.dot(other._axis1));
-    _r.setEntry(1, 1, _axis1.dot(other._axis1));
-    _r.setEntry(2, 1, _axis2.dot(other._axis1));
-    _r.setEntry(0, 2, _axis0.dot(other._axis2));
-    _r.setEntry(1, 2, _axis1.dot(other._axis2));
-    _r.setEntry(2, 2, _axis2.dot(other._axis2));
+    _r
+      ..setEntry(0, 0, _axis0.dot(other._axis0))
+      ..setEntry(1, 0, _axis1.dot(other._axis0))
+      ..setEntry(2, 0, _axis2.dot(other._axis0))
+      ..setEntry(0, 1, _axis0.dot(other._axis1))
+      ..setEntry(1, 1, _axis1.dot(other._axis1))
+      ..setEntry(2, 1, _axis2.dot(other._axis1))
+      ..setEntry(0, 2, _axis0.dot(other._axis2))
+      ..setEntry(1, 2, _axis1.dot(other._axis2))
+      ..setEntry(2, 2, _axis2.dot(other._axis2));
 
     // Compute translation vector t
     _t
@@ -209,8 +216,8 @@ class Obb3 {
     // Compute common subexpressions. Add in an epsilon term to
     // counteract arithmetic errors when two edges are parallel and
     // their cross product is (near) null.
-    for (var i = 0; i < 3; i++) {
-      for (var j = 0; j < 3; j++) {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
         _absR.setEntry(i, j, _r.entry(i, j).abs() + epsilon);
       }
     }
@@ -219,7 +226,7 @@ class Obb3 {
     double rb;
 
     // Test axes L = A0, L = A1, L = A2
-    for (var i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
       ra = _halfExtents[i];
       rb = other._halfExtents[0] * _absR.entry(i, 0) +
           other._halfExtents[1] * _absR.entry(i, 1) +
@@ -231,7 +238,7 @@ class Obb3 {
     }
 
     // Test axes L = B0, L = B1, L = B2
-    for (var i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
       ra = _halfExtents[0] * _absR.entry(0, i) +
           _halfExtents[1] * _absR.entry(1, i) +
           _halfExtents[2] * _absR.entry(2, i);
@@ -332,23 +339,26 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final _triangle = new Triangle();
-  static final _aabb3 = new Aabb3();
-  static final _zeroVector = new Vector3.zero();
+  static final Triangle _triangle = new Triangle();
+  static final Aabb3 _aabb3 = new Aabb3();
+  static final Vector3 _zeroVector = new Vector3.zero();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithTriangle(Triangle other, {IntersectionResult result}) {
     _triangle.copyFrom(other);
 
-    _triangle.point0.sub(_center);
-    _triangle.point0.setValues(_triangle.point0.dot(axis0),
-        _triangle.point0.dot(axis1), _triangle.point0.dot(axis2));
-    _triangle.point1.sub(_center);
-    _triangle.point1.setValues(_triangle.point1.dot(axis0),
-        _triangle.point1.dot(axis1), _triangle.point1.dot(axis2));
-    _triangle.point2.sub(_center);
-    _triangle.point2.setValues(_triangle.point2.dot(axis0),
-        _triangle.point2.dot(axis1), _triangle.point2.dot(axis2));
+    _triangle.point0
+      ..sub(_center)
+      ..setValues(_triangle.point0.dot(axis0), _triangle.point0.dot(axis1),
+          _triangle.point0.dot(axis2));
+    _triangle.point1
+      ..sub(_center)
+      ..setValues(_triangle.point1.dot(axis0), _triangle.point1.dot(axis1),
+          _triangle.point1.dot(axis2));
+    _triangle.point2
+      ..sub(_center)
+      ..setValues(_triangle.point2.dot(axis0), _triangle.point2.dot(axis1),
+          _triangle.point2.dot(axis2));
 
     _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 
@@ -356,15 +366,14 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithVector3
-  static final _vector = new Vector3.zero();
+  static final Vector3 _vector = new Vector3.zero();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithVector3(Vector3 other) {
-    _vector.setFrom(other);
-
-    _vector.sub(_center);
-    _vector.setValues(
-        _vector.dot(axis0), _vector.dot(axis1), _vector.dot(axis2));
+    _vector
+      ..setFrom(other)
+      ..sub(_center)
+      ..setValues(_vector.dot(axis0), _vector.dot(axis1), _vector.dot(axis2));
 
     _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 
@@ -372,8 +381,8 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final _quadTriangle0 = new Triangle();
-  static final _quadTriangle1 = new Triangle();
+  static final Triangle _quadTriangle0 = new Triangle();
+  static final Triangle _quadTriangle1 = new Triangle();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
