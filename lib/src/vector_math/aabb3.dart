@@ -125,7 +125,7 @@ class Aabb3 {
 
   /// Set the AABB to enclose a [obb].
   void setObb3(Obb3 obb) {
-    final corner = new Vector3.zero();
+    final Vector3 corner = new Vector3.zero();
 
     obb.copyCorner(0, corner);
     _min.setFrom(corner);
@@ -156,23 +156,22 @@ class Aabb3 {
   /// Set the AABB to enclose a limited [ray] (or line segment) that is limited
   /// by [limitMin] and [limitMax].
   void setRay(Ray ray, double limitMin, double limitMax) {
-    ray.copyAt(_min, limitMin);
-    ray.copyAt(_max, limitMax);
+    ray..copyAt(_min, limitMin)..copyAt(_max, limitMax);
 
     if (_max.x < _min.x) {
-      final temp = _max.x;
+      final double temp = _max.x;
       _max.x = _min.x;
       _min.x = temp;
     }
 
     if (_max.y < _min.y) {
-      final temp = _max.y;
+      final double temp = _max.y;
       _max.y = _min.y;
       _min.y = temp;
     }
 
     if (_max.z < _min.z) {
-      final temp = _max.z;
+      final double temp = _max.z;
       _max.z = _min.z;
       _min.z = temp;
     }
@@ -206,8 +205,8 @@ class Aabb3 {
 
   /// Transform [this] by the transform [t].
   void transform(Matrix4 t) {
-    final center = new Vector3.zero();
-    final halfExtents = new Vector3.zero();
+    final Vector3 center = new Vector3.zero();
+    final Vector3 halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t
       ..transform3(center)
@@ -222,8 +221,8 @@ class Aabb3 {
 
   /// Rotate [this] by the rotation matrix [t].
   void rotate(Matrix4 t) {
-    final center = new Vector3.zero();
-    final halfExtents = new Vector3.zero();
+    final Vector3 center = new Vector3.zero();
+    final Vector3 halfExtents = new Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t.absoluteRotate(halfExtents);
     _min
@@ -287,8 +286,8 @@ class Aabb3 {
 
   /// Return if [this] contains [other].
   bool containsAabb3(Aabb3 other) {
-    final otherMax = other._max;
-    final otherMin = other._min;
+    final Vector3 otherMax = other._max;
+    final Vector3 otherMin = other._min;
 
     return (_min.x < otherMin.x) &&
         (_min.y < otherMin.y) &&
@@ -300,21 +299,21 @@ class Aabb3 {
 
   /// Return if [this] contains [other].
   bool containsSphere(Sphere other) {
-    final boxExtends = new Vector3.all(other._radius);
-    final sphereBox = new Aabb3.centerAndHalfExtents(other._center, boxExtends);
+    final Vector3 boxExtends = new Vector3.all(other._radius);
+    final Aabb3 sphereBox =
+        new Aabb3.centerAndHalfExtents(other._center, boxExtends);
 
     return containsAabb3(sphereBox);
   }
 
   /// Return if [this] contains [other].
-  bool containsVector3(Vector3 other) {
-    return (_min.x < other.x) &&
-        (_min.y < other.y) &&
-        (_min.z < other.z) &&
-        (_max.x > other.x) &&
-        (_max.y > other.y) &&
-        (_max.z > other.z);
-  }
+  bool containsVector3(Vector3 other) =>
+      (_min.x < other.x) &&
+      (_min.y < other.y) &&
+      (_min.z < other.z) &&
+      (_max.x > other.x) &&
+      (_max.y > other.y) &&
+      (_max.z > other.z);
 
   /// Return if [this] contains [other].
   bool containsTriangle(Triangle other) =>
@@ -324,8 +323,8 @@ class Aabb3 {
 
   /// Return if [this] intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
-    final otherMax = other._max;
-    final otherMin = other._min;
+    final Vector3 otherMax = other._max;
+    final Vector3 otherMin = other._min;
 
     return (_min.x <= otherMax.x) &&
         (_min.y <= otherMax.y) &&
@@ -337,12 +336,12 @@ class Aabb3 {
 
   /// Return if [this] intersects with [other].
   bool intersectsWithSphere(Sphere other) {
-    final center = other._center;
-    final radius = other._radius;
-    var d = 0.0;
-    var e = 0.0;
+    final Vector3 center = other._center;
+    final double radius = other._radius;
+    double d = 0.0;
+    double e = 0.0;
 
-    for (var i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       if ((e = center[i] - _min[i]) < 0.0) {
         if (e < -radius) {
           return false;
@@ -364,29 +363,28 @@ class Aabb3 {
   }
 
   /// Return if [this] intersects with [other].
-  bool intersectsWithVector3(Vector3 other) {
-    return (_min.x <= other.x) &&
-        (_min.y <= other.y) &&
-        (_min.z <= other.z) &&
-        (_max.x >= other.x) &&
-        (_max.y >= other.y) &&
-        (_max.z >= other.z);
-  }
+  bool intersectsWithVector3(Vector3 other) =>
+      (_min.x <= other.x) &&
+      (_min.y <= other.y) &&
+      (_min.z <= other.z) &&
+      (_max.x >= other.x) &&
+      (_max.y >= other.y) &&
+      (_max.z >= other.z);
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final _aabbCenter = new Vector3.zero();
-  static final _aabbHalfExtents = new Vector3.zero();
-  static final _v0 = new Vector3.zero();
-  static final _v1 = new Vector3.zero();
-  static final _v2 = new Vector3.zero();
-  static final _f0 = new Vector3.zero();
-  static final _f1 = new Vector3.zero();
-  static final _f2 = new Vector3.zero();
-  static final _trianglePlane = new Plane();
+  static final Vector3 _aabbCenter = new Vector3.zero();
+  static final Vector3 _aabbHalfExtents = new Vector3.zero();
+  static final Vector3 _v0 = new Vector3.zero();
+  static final Vector3 _v1 = new Vector3.zero();
+  static final Vector3 _v2 = new Vector3.zero();
+  static final Vector3 _f0 = new Vector3.zero();
+  static final Vector3 _f1 = new Vector3.zero();
+  static final Vector3 _f2 = new Vector3.zero();
+  static final Plane _trianglePlane = new Plane();
 
-  static final _u0 = new Vector3(1.0, 0.0, 0.0);
-  static final _u1 = new Vector3(0.0, 1.0, 0.0);
-  static final _u2 = new Vector3(0.0, 0.0, 1.0);
+  static final Vector3 _u0 = new Vector3(1.0, 0.0, 0.0);
+  static final Vector3 _u1 = new Vector3(0.0, 1.0, 0.0);
+  static final Vector3 _u2 = new Vector3(0.0, 0.0, 1.0);
 
   /// Return if [this] intersects with [other].
   /// [epsilon] allows the caller to specify a custum eplsilon value that should
@@ -635,14 +633,14 @@ class Aabb3 {
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
     // Compute the projection interval radius of b onto L(t) = b.c + t * p.n
-    double r = _aabbHalfExtents[0] * other.normal[0].abs() +
+    final double r = _aabbHalfExtents[0] * other.normal[0].abs() +
         _aabbHalfExtents[1] * other.normal[1].abs() +
         _aabbHalfExtents[2] * other.normal[2].abs();
     // Compute distance of box center from plane
-    double s = other.normal.dot(_aabbCenter) - other.constant;
+    final double s = other.normal.dot(_aabbCenter) - other.constant;
     // Intersection occurs when distance s falls within [-r,+r] interval
     if (s.abs() <= r) {
-      final a = s - r;
+      final double a = s - r;
       if (result != null && (result._depth == null || result._depth < a)) {
         result._depth = a;
         result.axis.setFrom(other.normal);
@@ -654,8 +652,8 @@ class Aabb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final _quadTriangle0 = new Triangle();
-  static final _quadTriangle1 = new Triangle();
+  static final Triangle _quadTriangle0 = new Triangle();
+  static final Triangle _quadTriangle1 = new Triangle();
 
   /// Return if [this] intersects with [other].
   /// [epsilon] allows the caller to specify a custum eplsilon value that should
