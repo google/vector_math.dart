@@ -2,11 +2,11 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-/**
- * Generates a hash code for multiple [objects].
- */
-int hashObjects(Iterable objects) =>
-    _finish(objects.fold(0, (h, i) => _combine(h, i.hashCode)));
+///
+/// Generates a hash code for multiple [objects].
+///
+int hashObjects(Iterable<Object> objects) =>
+    _finish(objects.fold<int>(0, (int h, Object i) => _combine(h, i.hashCode)));
 
 // Jenkins hash functions
 int _combine(int hash, int value) {
