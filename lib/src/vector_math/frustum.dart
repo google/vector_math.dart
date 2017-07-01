@@ -59,11 +59,11 @@ class Frustum {
 
   /// Set [this] from [matrix].
   void setFromMatrix(Matrix4 matrix) {
-    var me = matrix.storage;
-    var me0 = me[0], me1 = me[1], me2 = me[2], me3 = me[3];
-    var me4 = me[4], me5 = me[5], me6 = me[6], me7 = me[7];
-    var me8 = me[8], me9 = me[9], me10 = me[10], me11 = me[11];
-    var me12 = me[12], me13 = me[13], me14 = me[14], me15 = me[15];
+    final Float32List me = matrix.storage;
+    final double me0 = me[0], me1 = me[1], me2 = me[2], me3 = me[3];
+    final double me4 = me[4], me5 = me[5], me6 = me[6], me7 = me[7];
+    final double me8 = me[8], me9 = me[9], me10 = me[10], me11 = me[11];
+    final double me12 = me[12], me13 = me[13], me14 = me[14], me15 = me[15];
 
     _plane0
       ..setFromComponents(me3 - me0, me7 - me4, me11 - me8, me15 - me12)
@@ -145,8 +145,8 @@ class Frustum {
 
   /// Check if [this] intersects with [sphere].
   bool intersectsWithSphere(Sphere sphere) {
-    final negativeRadius = -sphere._radius;
-    final center = sphere.center;
+    final double negativeRadius = -sphere._radius;
+    final Vector3 center = sphere.center;
 
     if (_plane0.distanceToVector3(center) < negativeRadius) {
       return false;
@@ -197,7 +197,7 @@ class Frustum {
   }
 
   bool _intersectsWithAabb3CheckPlane(Aabb3 aabb, Plane plane) {
-    var outPx, outPy, outPz, outNx, outNy, outNz;
+    double outPx, outPy, outPz, outNx, outNy, outNz;
 
     if (plane._normal.x < 0.0) {
       outPx = aabb.min.x;
@@ -223,11 +223,11 @@ class Frustum {
       outNz = aabb.min.z;
     }
 
-    final d1 = plane._normal.x * outPx +
+    final double d1 = plane._normal.x * outPx +
         plane._normal.y * outPy +
         plane._normal.z * outPz +
         plane._constant;
-    final d2 = plane._normal.x * outNx +
+    final double d2 = plane._normal.x * outNx +
         plane._normal.y * outNy +
         plane._normal.z * outNz +
         plane._constant;
