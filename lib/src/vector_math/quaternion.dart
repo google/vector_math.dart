@@ -93,7 +93,7 @@ class Quaternion {
 
   /// Copy [source] into [this].
   void setFrom(Quaternion source) {
-    final sourceStorage = source._qStorage;
+    final Float32List sourceStorage = source._qStorage;
     _qStorage[0] = sourceStorage[0];
     _qStorage[1] = sourceStorage[1];
     _qStorage[2] = sourceStorage[2];
@@ -110,12 +110,12 @@ class Quaternion {
 
   /// Set the quaternion with rotation of [radians] around [axis].
   void setAxisAngle(Vector3 axis, double radians) {
-    final len = axis.length;
+    final double len = axis.length;
     if (len == 0.0) {
       return;
     }
-    final halfSin = Math.sin(radians * 0.5) / len;
-    final axisStorage = axis.storage;
+    final double halfSin = Math.sin(radians * 0.5) / len;
+    final Float32List axisStorage = axis.storage;
     _qStorage[0] = axisStorage[0] * halfSin;
     _qStorage[1] = axisStorage[1] * halfSin;
     _qStorage[2] = axisStorage[2] * halfSin;
@@ -124,22 +124,22 @@ class Quaternion {
 
   /// Set the quaternion with rotation from a rotation matrix [rotationMatrix].
   void setFromRotation(Matrix3 rotationMatrix) {
-    final rotationMatrixStorage = rotationMatrix.storage;
-    final trace = rotationMatrix.trace();
+    final Float32List rotationMatrixStorage = rotationMatrix.storage;
+    final double trace = rotationMatrix.trace();
     if (trace > 0.0) {
-      var s = Math.sqrt(trace + 1.0);
+      double s = Math.sqrt(trace + 1.0);
       _qStorage[3] = s * 0.5;
       s = 0.5 / s;
       _qStorage[0] = (rotationMatrixStorage[5] - rotationMatrixStorage[7]) * s;
       _qStorage[1] = (rotationMatrixStorage[6] - rotationMatrixStorage[2]) * s;
       _qStorage[2] = (rotationMatrixStorage[1] - rotationMatrixStorage[3]) * s;
     } else {
-      var i = rotationMatrixStorage[0] < rotationMatrixStorage[4]
+      final int i = rotationMatrixStorage[0] < rotationMatrixStorage[4]
           ? (rotationMatrixStorage[4] < rotationMatrixStorage[8] ? 2 : 1)
           : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
-      var j = (i + 1) % 3;
-      var k = (i + 2) % 3;
-      var s = Math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
+      final int j = (i + 1) % 3;
+      final int k = (i + 2) % 3;
+      double s = Math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
           rotationMatrixStorage[rotationMatrix.index(j, j)] -
           rotationMatrixStorage[rotationMatrix.index(k, k)] +
           1.0);
@@ -158,10 +158,10 @@ class Quaternion {
   }
 
   void setFromTwoVectors(Vector3 a, Vector3 b) {
-    Vector3 v1 = a.normalized();
-    Vector3 v2 = b.normalized();
+    final Vector3 v1 = a.normalized();
+    final Vector3 v2 = b.normalized();
 
-    double c = v1.dot(v2);
+    final double c = v1.dot(v2);
     double angle = Math.acos(c);
     Vector3 axis = v1.cross(v2);
 
@@ -193,15 +193,15 @@ class Quaternion {
   void setRandom(Math.Random rn) {
     // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
     // pg. 124-132.
-    final x0 = rn.nextDouble();
-    final r1 = Math.sqrt(1.0 - x0);
-    final r2 = Math.sqrt(x0);
-    final t1 = Math.PI * 2.0 * rn.nextDouble();
-    final t2 = Math.PI * 2.0 * rn.nextDouble();
-    final c1 = Math.cos(t1);
-    final s1 = Math.sin(t1);
-    final c2 = Math.cos(t2);
-    final s2 = Math.sin(t2);
+    final double x0 = rn.nextDouble();
+    final double r1 = Math.sqrt(1.0 - x0);
+    final double r2 = Math.sqrt(x0);
+    final double t1 = Math.PI * 2.0 * rn.nextDouble();
+    final double t2 = Math.PI * 2.0 * rn.nextDouble();
+    final double c1 = Math.cos(t1);
+    final double s1 = Math.sin(t1);
+    final double c2 = Math.cos(t2);
+    final double s2 = Math.sin(t2);
     _qStorage[0] = s1 * r1;
     _qStorage[1] = c1 * r1;
     _qStorage[2] = s2 * r2;
@@ -211,19 +211,19 @@ class Quaternion {
   /// Set the quaternion to the time derivative of [q] with angular velocity
   /// [omega].
   void setDQ(Quaternion q, Vector3 omega) {
-    final qStorage = q._qStorage;
-    final omegaStorage = omega.storage;
-    final qx = qStorage[0];
-    final qy = qStorage[1];
-    final qz = qStorage[2];
-    final qw = qStorage[3];
-    final ox = omegaStorage[0];
-    final oy = omegaStorage[1];
-    final oz = omegaStorage[2];
-    final _x = ox * qw + oy * qz - oz * qy;
-    final _y = oy * qw + oz * qx - ox * qz;
-    final _z = oz * qw + ox * qy - oy * qx;
-    final _w = -ox * qx - oy * qy - oz * qz;
+    final Float32List qStorage = q._qStorage;
+    final Float32List omegaStorage = omega.storage;
+    final double qx = qStorage[0];
+    final double qy = qStorage[1];
+    final double qz = qStorage[2];
+    final double qw = qStorage[3];
+    final double ox = omegaStorage[0];
+    final double oy = omegaStorage[1];
+    final double oz = omegaStorage[2];
+    final double _x = ox * qw + oy * qz - oz * qy;
+    final double _y = oy * qw + oz * qx - ox * qz;
+    final double _z = oz * qw + ox * qy - oy * qx;
+    final double _w = -ox * qx - oy * qy - oz * qz;
     _qStorage[0] = _x * 0.5;
     _qStorage[1] = _y * 0.5;
     _qStorage[2] = _z * 0.5;
@@ -232,15 +232,15 @@ class Quaternion {
 
   /// Set quaternion with rotation of [yaw], [pitch] and [roll].
   void setEuler(double yaw, double pitch, double roll) {
-    final halfYaw = yaw * 0.5;
-    final halfPitch = pitch * 0.5;
-    final halfRoll = roll * 0.5;
-    final cosYaw = Math.cos(halfYaw);
-    final sinYaw = Math.sin(halfYaw);
-    final cosPitch = Math.cos(halfPitch);
-    final sinPitch = Math.sin(halfPitch);
-    final cosRoll = Math.cos(halfRoll);
-    final sinRoll = Math.sin(halfRoll);
+    final double halfYaw = yaw * 0.5;
+    final double halfPitch = pitch * 0.5;
+    final double halfRoll = roll * 0.5;
+    final double cosYaw = Math.cos(halfYaw);
+    final double sinYaw = Math.sin(halfYaw);
+    final double cosPitch = Math.cos(halfPitch);
+    final double sinPitch = Math.sin(halfPitch);
+    final double cosRoll = Math.cos(halfRoll);
+    final double sinRoll = Math.sin(halfRoll);
     _qStorage[0] = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
     _qStorage[1] = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
     _qStorage[2] = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
@@ -249,11 +249,11 @@ class Quaternion {
 
   /// Normalize [this].
   double normalize() {
-    double l = length;
+    final double l = length;
     if (l == 0.0) {
       return 0.0;
     }
-    var d = 1.0 / l;
+    final double d = 1.0 / l;
     _qStorage[0] *= d;
     _qStorage[1] *= d;
     _qStorage[2] *= d;
@@ -270,7 +270,7 @@ class Quaternion {
 
   /// Invert [this].
   void inverse() {
-    final l = 1.0 / length2;
+    final double l = 1.0 / length2;
     _qStorage[3] = _qStorage[3] * l;
     _qStorage[2] = -_qStorage[2] * l;
     _qStorage[1] = -_qStorage[1] * l;
@@ -291,23 +291,23 @@ class Quaternion {
 
   /// [axis] of rotation.
   Vector3 get axis {
-    final den = 1.0 - (_qStorage[3] * _qStorage[3]);
+    final double den = 1.0 - (_qStorage[3] * _qStorage[3]);
     if (den < 0.0005) {
       // 0-angle rotation, so axis does not matter
       return new Vector3.zero();
     }
 
-    final scale = 1.0 / Math.sqrt(den);
+    final double scale = 1.0 / Math.sqrt(den);
     return new Vector3(
         _qStorage[0] * scale, _qStorage[1] * scale, _qStorage[2] * scale);
   }
 
   /// Length squared.
   double get length2 {
-    final x = _qStorage[0];
-    final y = _qStorage[1];
-    final z = _qStorage[2];
-    final w = _qStorage[3];
+    final double x = _qStorage[0];
+    final double y = _qStorage[1];
+    final double z = _qStorage[2];
+    final double w = _qStorage[3];
     return (x * x) + (y * y) + (z * z) + (w * w);
   }
 
@@ -316,7 +316,7 @@ class Quaternion {
 
   /// Returns a copy of [v] rotated by quaternion.
   Vector3 rotated(Vector3 v) {
-    final out = v.clone();
+    final Vector3 out = v.clone();
     rotate(out);
     return out;
   }
@@ -324,22 +324,22 @@ class Quaternion {
   /// Rotates [v] by [this].
   Vector3 rotate(Vector3 v) {
     // conjugate(this) * [v,0] * this
-    final _w = _qStorage[3];
-    final _z = _qStorage[2];
-    final _y = _qStorage[1];
-    final _x = _qStorage[0];
-    final tiw = _w;
-    final tiz = -_z;
-    final tiy = -_y;
-    final tix = -_x;
-    final tx = tiw * v.x + tix * 0.0 + tiy * v.z - tiz * v.y;
-    final ty = tiw * v.y + tiy * 0.0 + tiz * v.x - tix * v.z;
-    final tz = tiw * v.z + tiz * 0.0 + tix * v.y - tiy * v.x;
-    final tw = tiw * 0.0 - tix * v.x - tiy * v.y - tiz * v.z;
-    final result_x = tw * _x + tx * _w + ty * _z - tz * _y;
-    final result_y = tw * _y + ty * _w + tz * _x - tx * _z;
-    final result_z = tw * _z + tz * _w + tx * _y - ty * _x;
-    final vStorage = v.storage;
+    final double _w = _qStorage[3];
+    final double _z = _qStorage[2];
+    final double _y = _qStorage[1];
+    final double _x = _qStorage[0];
+    final double tiw = _w;
+    final double tiz = -_z;
+    final double tiy = -_y;
+    final double tix = -_x;
+    final double tx = tiw * v.x + tix * 0.0 + tiy * v.z - tiz * v.y;
+    final double ty = tiw * v.y + tiy * 0.0 + tiz * v.x - tix * v.z;
+    final double tz = tiw * v.z + tiz * 0.0 + tix * v.y - tiy * v.x;
+    final double tw = tiw * 0.0 - tix * v.x - tiy * v.y - tiz * v.z;
+    final double result_x = tw * _x + tx * _w + ty * _z - tz * _y;
+    final double result_y = tw * _y + ty * _w + tz * _x - tx * _z;
+    final double result_z = tw * _z + tz * _w + tx * _y - ty * _x;
+    final Float32List vStorage = v.storage;
     vStorage[2] = result_z;
     vStorage[1] = result_y;
     vStorage[0] = result_x;
@@ -348,7 +348,7 @@ class Quaternion {
 
   /// Add [arg] to [this].
   void add(Quaternion arg) {
-    final argStorage = arg._qStorage;
+    final Float32List argStorage = arg._qStorage;
     _qStorage[0] = _qStorage[0] + argStorage[0];
     _qStorage[1] = _qStorage[1] + argStorage[1];
     _qStorage[2] = _qStorage[2] + argStorage[2];
@@ -357,7 +357,7 @@ class Quaternion {
 
   /// Subtracts [arg] from [this].
   void sub(Quaternion arg) {
-    final argStorage = arg._qStorage;
+    final Float32List argStorage = arg._qStorage;
     _qStorage[0] = _qStorage[0] - argStorage[0];
     _qStorage[1] = _qStorage[1] - argStorage[1];
     _qStorage[2] = _qStorage[2] - argStorage[2];
@@ -377,15 +377,15 @@ class Quaternion {
 
   /// [this] rotated by [other].
   Quaternion operator *(Quaternion other) {
-    double _w = _qStorage[3];
-    double _z = _qStorage[2];
-    double _y = _qStorage[1];
-    double _x = _qStorage[0];
-    final otherStorage = other._qStorage;
-    double ow = otherStorage[3];
-    double oz = otherStorage[2];
-    double oy = otherStorage[1];
-    double ox = otherStorage[0];
+    final double _w = _qStorage[3];
+    final double _z = _qStorage[2];
+    final double _y = _qStorage[1];
+    final double _x = _qStorage[0];
+    final Float32List otherStorage = other._qStorage;
+    final double ow = otherStorage[3];
+    final double oz = otherStorage[2];
+    final double oy = otherStorage[1];
+    final double ox = otherStorage[0];
     return new Quaternion(
         _w * ox + _x * ow + _y * oz - _z * oy,
         _w * oy + _y * ow + _z * ox - _x * oz,
@@ -416,32 +416,32 @@ class Quaternion {
   /// Set [rotationMatrix] to a rotation matrix containing the same rotation as
   /// [this].
   Matrix3 copyRotationInto(Matrix3 rotationMatrix) {
-    final d = length2;
+    final double d = length2;
     assert(d != 0.0);
-    final s = 2.0 / d;
+    final double s = 2.0 / d;
 
-    final _x = _qStorage[0];
-    final _y = _qStorage[1];
-    final _z = _qStorage[2];
-    final _w = _qStorage[3];
+    final double _x = _qStorage[0];
+    final double _y = _qStorage[1];
+    final double _z = _qStorage[2];
+    final double _w = _qStorage[3];
 
-    final xs = _x * s;
-    final ys = _y * s;
-    final zs = _z * s;
+    final double xs = _x * s;
+    final double ys = _y * s;
+    final double zs = _z * s;
 
-    final wx = _w * xs;
-    final wy = _w * ys;
-    final wz = _w * zs;
+    final double wx = _w * xs;
+    final double wy = _w * ys;
+    final double wz = _w * zs;
 
-    final xx = _x * xs;
-    final xy = _x * ys;
-    final xz = _x * zs;
+    final double xx = _x * xs;
+    final double xy = _x * ys;
+    final double xz = _x * zs;
 
-    final yy = _y * ys;
-    final yz = _y * zs;
-    final zz = _z * zs;
+    final double yy = _y * ys;
+    final double yz = _y * zs;
+    final double zz = _z * zs;
 
-    final rotationMatrixStorage = rotationMatrix.storage;
+    final Float32List rotationMatrixStorage = rotationMatrix.storage;
     rotationMatrixStorage[0] = 1.0 - (yy + zz); // column 0
     rotationMatrixStorage[1] = xy + wz;
     rotationMatrixStorage[2] = xz - wy;
@@ -455,22 +455,23 @@ class Quaternion {
   }
 
   /// Printable string.
+  @override
   String toString() => '${_qStorage[0]}, ${_qStorage[1]},'
       ' ${_qStorage[2]} @ ${_qStorage[3]}';
 
   /// Relative error between [this] and [correct].
   double relativeError(Quaternion correct) {
-    final diff = correct - this;
-    final norm_diff = diff.length;
-    final correct_norm = correct.length;
+    final Quaternion diff = correct - this;
+    final double norm_diff = diff.length;
+    final double correct_norm = correct.length;
     return norm_diff / correct_norm;
   }
 
   /// Absolute error between [this] and [correct].
   double absoluteError(Quaternion correct) {
-    final this_norm = length;
-    final correct_norm = correct.length;
-    final norm_diff = (this_norm - correct_norm).abs();
+    final double this_norm = length;
+    final double correct_norm = correct.length;
+    final double norm_diff = (this_norm - correct_norm).abs();
     return norm_diff;
   }
 }
