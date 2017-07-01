@@ -10,7 +10,8 @@ class TransformFilter extends InplaceGeometryFilter {
   TransformFilter(this.transform);
 
   @override
-  List<VertexAttrib> get requires => <VertexAttrib>[new VertexAttrib('POSITION', 3, 'float')];
+  List<VertexAttrib> get requires =>
+      <VertexAttrib>[new VertexAttrib('POSITION', 3, 'float')];
 
   @override
   void filterInplace(MeshGeometry mesh) {
