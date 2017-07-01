@@ -19,6 +19,7 @@ class MatrixMultiplyBenchmark extends BenchmarkBase {
     new MatrixMultiplyBenchmark().report();
   }
 
+  @override
   void run() {
     for (int i = 0; i < 200; i++) {
       Matrix44Operations.multiply(C, 0, A, 0, B, 0);
@@ -36,6 +37,7 @@ class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
     new SIMDMatrixMultiplyBenchmark().report();
   }
 
+  @override
   void run() {
     for (int i = 0; i < 200; i++) {
       Matrix44SIMDOperations.multiply(C, 0, A, 0, B, 0);
@@ -53,6 +55,7 @@ class VectorTransformBenchmark extends BenchmarkBase {
     new VectorTransformBenchmark().report();
   }
 
+  @override
   void run() {
     for (int i = 0; i < 200; i++) {
       Matrix44Operations.transform4(C, 0, A, 0, B, 0);
@@ -70,6 +73,7 @@ class SIMDVectorTransformBenchmark extends BenchmarkBase {
     new SIMDVectorTransformBenchmark().report();
   }
 
+  @override
   void run() {
     for (int i = 0; i < 200; i++) {
       Matrix44SIMDOperations.transform4(C, 0, A, 0, B, 0);
@@ -89,6 +93,7 @@ class ViewMatrixBenchmark extends BenchmarkBase {
     new ViewMatrixBenchmark().report();
   }
 
+  @override
   void run() {
     for (int i = 0; i < 100; i++) {
       setViewMatrix(M, P, F, U);
@@ -96,7 +101,7 @@ class ViewMatrixBenchmark extends BenchmarkBase {
   }
 }
 
-main() {
+void main() {
   MatrixMultiplyBenchmark.main();
   SIMDMatrixMultiplyBenchmark.main();
   VectorTransformBenchmark.main();
