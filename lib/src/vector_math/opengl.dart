@@ -56,10 +56,10 @@ void setRotationMatrix(
 /// [tx],[ty],[tz] specifies the position of the object.
 void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
     Vector3 upDirection, double tx, double ty, double tz) {
-  Vector3 right = forwardDirection.cross(upDirection)..normalize();
-  Vector3 c1 = right;
-  Vector3 c2 = upDirection;
-  Vector3 c3 = -forwardDirection;
+  final Vector3 right = forwardDirection.cross(upDirection)..normalize();
+  final Vector3 c1 = right;
+  final Vector3 c2 = upDirection;
+  final Vector3 c3 = -forwardDirection;
   modelMatrix.setValues(c1[0], c1[1], c1[2], 0.0, c2[0], c2[1], c2[2], 0.0,
       c3[0], c3[1], c3[2], 0.0, tx, ty, tz, 1.0);
 }
@@ -74,16 +74,13 @@ void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
 /// [upDirection] specifies the direction of the up vector (usually, +Y).
 void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
     Vector3 cameraFocusPosition, Vector3 upDirection) {
-  Vector3 z = cameraPosition - cameraFocusPosition;
-  z.normalize();
-  Vector3 x = upDirection.cross(z);
-  x.normalize();
-  Vector3 y = z.cross(x);
-  y.normalize();
+  final Vector3 z = (cameraPosition - cameraFocusPosition)..normalize();
+  final Vector3 x = upDirection.cross(z)..normalize();
+  final Vector3 y = z.cross(x)..normalize();
 
-  double rotatedEyeX = -x.dot(cameraPosition);
-  double rotatedEyeY = -y.dot(cameraPosition);
-  double rotatedEyeZ = -z.dot(cameraPosition);
+  final double rotatedEyeX = -x.dot(cameraPosition);
+  final double rotatedEyeY = -y.dot(cameraPosition);
+  final double rotatedEyeZ = -z.dot(cameraPosition);
 
   viewMatrix.setValues(x[0], y[0], z[0], 0.0, x[1], y[1], z[1], 0.0, x[2], y[2],
       z[2], 0.0, rotatedEyeX, rotatedEyeY, rotatedEyeZ, 1.0);
@@ -96,7 +93,7 @@ void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
 /// [upDirection] specifies the direction of the up vector (usually, +Y).
 Matrix4 makeViewMatrix(
     Vector3 cameraPosition, Vector3 cameraFocusPosition, Vector3 upDirection) {
-  Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = new Matrix4.zero();
   setViewMatrix(r, cameraPosition, cameraFocusPosition, upDirection);
   return r;
 }
@@ -117,12 +114,13 @@ void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
   final double width = height * aspectRatio;
   final double near_minus_far = zNear - zFar;
 
-  final Matrix4 view = perspectiveMatrix..setZero();
-  view.setEntry(0, 0, 1.0 / width);
-  view.setEntry(1, 1, 1.0 / height);
-  view.setEntry(2, 2, (zFar + zNear) / near_minus_far);
-  view.setEntry(3, 2, -1.0);
-  view.setEntry(2, 3, (2.0 * zNear * zFar) / near_minus_far);
+  perspectiveMatrix
+    ..setZero()
+    ..setEntry(0, 0, 1.0 / width)
+    ..setEntry(1, 1, 1.0 / height)
+    ..setEntry(2, 2, (zFar + zNear) / near_minus_far)
+    ..setEntry(3, 2, -1.0)
+    ..setEntry(2, 3, (2.0 * zNear * zFar) / near_minus_far);
 }
 
 /// Constructs a new OpenGL perspective projection matrix.
@@ -137,7 +135,7 @@ void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
 /// (always positive).
 Matrix4 makePerspectiveMatrix(
     double fovYRadians, double aspectRatio, double zNear, double zFar) {
-  Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = new Matrix4.zero();
   setPerspectiveMatrix(r, fovYRadians, aspectRatio, zNear, zFar);
   return r;
 }
@@ -154,12 +152,13 @@ void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
   final double height = Math.tan(fovYRadians * 0.5);
   final double width = height * aspectRatio;
 
-  final Matrix4 view = infiniteMatrix..setZero();
-  view.setEntry(0, 0, 1.0 / width);
-  view.setEntry(1, 1, 1.0 / height);
-  view.setEntry(2, 2, -1.0);
-  view.setEntry(3, 2, -1.0);
-  view.setEntry(2, 3, -2.0 * zNear);
+  infiniteMatrix
+    ..setZero()
+    ..setEntry(0, 0, 1.0 / width)
+    ..setEntry(1, 1, 1.0 / height)
+    ..setEntry(2, 2, -1.0)
+    ..setEntry(3, 2, -1.0)
+    ..setEntry(2, 3, -2.0 * zNear);
 }
 
 /// Constructs a new OpenGL infinite projection matrix.
@@ -172,7 +171,7 @@ void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
 /// (always positive).
 Matrix4 makeInfiniteMatrix(
     double fovYRadians, double aspectRatio, double zNear) {
-  Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = new Matrix4.zero();
   setInfiniteMatrix(r, fovYRadians, aspectRatio, zNear);
   return r;
 }
@@ -187,18 +186,19 @@ Matrix4 makeInfiniteMatrix(
 /// planes.
 void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right,
     double bottom, double top, double near, double far) {
-  double two_near = 2.0 * near;
-  double right_minus_left = right - left;
-  double top_minus_bottom = top - bottom;
-  double far_minus_near = far - near;
-  Matrix4 view = perspectiveMatrix..setZero();
-  view.setEntry(0, 0, two_near / right_minus_left);
-  view.setEntry(1, 1, two_near / top_minus_bottom);
-  view.setEntry(0, 2, (right + left) / right_minus_left);
-  view.setEntry(1, 2, (top + bottom) / top_minus_bottom);
-  view.setEntry(2, 2, -(far + near) / far_minus_near);
-  view.setEntry(3, 2, -1.0);
-  view.setEntry(2, 3, -(two_near * far) / far_minus_near);
+  final double two_near = 2.0 * near;
+  final double right_minus_left = right - left;
+  final double top_minus_bottom = top - bottom;
+  final double far_minus_near = far - near;
+  perspectiveMatrix
+    ..setZero()
+    ..setEntry(0, 0, two_near / right_minus_left)
+    ..setEntry(1, 1, two_near / top_minus_bottom)
+    ..setEntry(0, 2, (right + left) / right_minus_left)
+    ..setEntry(1, 2, (top + bottom) / top_minus_bottom)
+    ..setEntry(2, 2, -(far + near) / far_minus_near)
+    ..setEntry(3, 2, -1.0)
+    ..setEntry(2, 3, -(two_near * far) / far_minus_near);
 }
 
 /// Constructs a new OpenGL perspective projection matrix.
@@ -211,7 +211,7 @@ void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right,
 /// planes.
 Matrix4 makeFrustumMatrix(double left, double right, double bottom, double top,
     double near, double far) {
-  Matrix4 view = new Matrix4.zero();
+  final Matrix4 view = new Matrix4.zero();
   setFrustumMatrix(view, left, right, bottom, top, near, far);
   return view;
 }
@@ -226,20 +226,21 @@ Matrix4 makeFrustumMatrix(double left, double right, double bottom, double top,
 /// planes.
 void setOrthographicMatrix(Matrix4 orthographicMatrix, double left,
     double right, double bottom, double top, double near, double far) {
-  double rml = right - left;
-  double rpl = right + left;
-  double tmb = top - bottom;
-  double tpb = top + bottom;
-  double fmn = far - near;
-  double fpn = far + near;
-  Matrix4 r = orthographicMatrix..setZero();
-  r.setEntry(0, 0, 2.0 / rml);
-  r.setEntry(1, 1, 2.0 / tmb);
-  r.setEntry(2, 2, -2.0 / fmn);
-  r.setEntry(0, 3, -rpl / rml);
-  r.setEntry(1, 3, -tpb / tmb);
-  r.setEntry(2, 3, -fpn / fmn);
-  r.setEntry(3, 3, 1.0);
+  final double rml = right - left;
+  final double rpl = right + left;
+  final double tmb = top - bottom;
+  final double tpb = top + bottom;
+  final double fmn = far - near;
+  final double fpn = far + near;
+  orthographicMatrix
+    ..setZero()
+    ..setEntry(0, 0, 2.0 / rml)
+    ..setEntry(1, 1, 2.0 / tmb)
+    ..setEntry(2, 2, -2.0 / fmn)
+    ..setEntry(0, 3, -rpl / rml)
+    ..setEntry(1, 3, -tpb / tmb)
+    ..setEntry(2, 3, -fpn / fmn)
+    ..setEntry(3, 3, 1.0);
 }
 
 /// Constructs a new OpenGL orthographic projection matrix.
@@ -252,7 +253,7 @@ void setOrthographicMatrix(Matrix4 orthographicMatrix, double left,
 /// planes.
 Matrix4 makeOrthographicMatrix(double left, double right, double bottom,
     double top, double near, double far) {
-  Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = new Matrix4.zero();
   setOrthographicMatrix(r, left, right, bottom, top, near, far);
   return r;
 }
@@ -260,14 +261,15 @@ Matrix4 makeOrthographicMatrix(double left, double right, double bottom,
 /// Returns a transformation matrix that transforms points onto
 /// the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
-  Vector4 v = new Vector4(planeNormal.storage[0], planeNormal.storage[1],
+  final Vector4 v = new Vector4(planeNormal.storage[0], planeNormal.storage[1],
       planeNormal.storage[2], 0.0);
-  Matrix4 outer = new Matrix4.outer(v, v);
+  final Matrix4 outer = new Matrix4.outer(v, v);
   Matrix4 r = new Matrix4.zero();
   r = r - outer;
-  Vector3 scaledNormal = (planeNormal.scaled(dot3(planePoint, planeNormal)));
-  Vector4 T = new Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
-      scaledNormal.storage[2], 1.0);
+  final Vector3 scaledNormal =
+      (planeNormal.scaled(dot3(planePoint, planeNormal)));
+  final Vector4 T = new Vector4(scaledNormal.storage[0],
+      scaledNormal.storage[1], scaledNormal.storage[2], 1.0);
   r.setColumn(3, T);
   return r;
 }
@@ -275,16 +277,15 @@ Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
 /// Returns a transformation matrix that transforms points by reflecting
 /// them through the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
-  Vector4 v = new Vector4(planeNormal.storage[0], planeNormal.storage[1],
+  final Vector4 v = new Vector4(planeNormal.storage[0], planeNormal.storage[1],
       planeNormal.storage[2], 0.0);
-  Matrix4 outer = new Matrix4.outer(v, v);
-  outer.scale(2.0);
+  final Matrix4 outer = new Matrix4.outer(v, v)..scale(2.0);
   Matrix4 r = new Matrix4.zero();
   r = r - outer;
-  double scale = 2.0 * planePoint.dot(planeNormal);
-  Vector3 scaledNormal = (planeNormal.scaled(scale));
-  Vector4 T = new Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
-      scaledNormal.storage[2], 1.0);
+  final double scale = 2.0 * planePoint.dot(planeNormal);
+  final Vector3 scaledNormal = (planeNormal.scaled(scale));
+  final Vector4 T = new Vector4(scaledNormal.storage[0],
+      scaledNormal.storage[1], scaledNormal.storage[2], 1.0);
   r.setColumn(3, T);
   return r;
 }
@@ -333,19 +334,21 @@ bool unproject(
   }
 
   // Copy camera matrix.
-  Matrix4 invertedCameraMatrix = new Matrix4.copy(cameraMatrix);
+  final Matrix4 invertedCameraMatrix = new Matrix4.copy(cameraMatrix);
   // Invert the camera matrix.
   invertedCameraMatrix.invert();
   // Determine intersection point.
-  Vector4 v = new Vector4(pickX, pickY, pickZ, 1.0);
+  final Vector4 v =
+      new Vector4(pickX.toDouble(), pickY.toDouble(), pickZ.toDouble(), 1.0);
   invertedCameraMatrix.transform(v);
   if (v.w == 0.0) {
     return false;
   }
-  double invW = 1.0 / v.w;
-  pickWorld.x = v.x * invW;
-  pickWorld.y = v.y * invW;
-  pickWorld.z = v.z * invW;
+  final double invW = 1.0 / v.w;
+  pickWorld
+    ..x = v.x * invW
+    ..y = v.y * invW
+    ..z = v.z * invW;
 
   return true;
 }
@@ -378,6 +381,7 @@ bool pickRay(
     return false;
   }
 
+  // ignore: join_return_with_assignment
   r = unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
       viewportHeight, pickX, viewportHeight - pickY, 1.0, rayFar);
 
