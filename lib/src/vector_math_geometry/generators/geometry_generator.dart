@@ -59,6 +59,7 @@ abstract class GeometryGenerator {
     VectorList<Vector> view = mesh.getViewForAttrib('POSITION');
     if (view is Vector3List) {
       positionView = view;
+      generateVertexPositions(positionView, mesh.indices);
     }
 
     if (flags.texCoords || flags.tangents) {
