@@ -46,7 +46,7 @@ class Triangle {
 
   /// Copy the normal of [this] into [normal].
   void copyNormalInto(Vector3 normal) {
-    final v0 = point0.clone()..sub(point1);
+    final Vector3 v0 = point0.clone()..sub(point1);
     normal
       ..setFrom(point2)
       ..sub(point1)
@@ -56,9 +56,7 @@ class Triangle {
 
   /// Transform [this] by the transform [t].
   void transform(Matrix4 t) {
-    t.transform3(_point0);
-    t.transform3(_point1);
-    t.transform3(_point2);
+    t..transform3(_point0)..transform3(_point1)..transform3(_point2);
   }
 
   /// Translate [this] by [offset].
