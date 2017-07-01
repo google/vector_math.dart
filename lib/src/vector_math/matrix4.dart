@@ -287,22 +287,22 @@ class Matrix4 {
   /// Skew matrix around X axis
   factory Matrix4.skewX(double alpha) {
     final Matrix4 m = new Matrix4.identity();
-    m._m4storage[4] = Math.tan(alpha);
+    m._m4storage[4] = math.tan(alpha);
     return m;
   }
 
   /// Skew matrix around Y axis.
   factory Matrix4.skewY(double beta) {
     final Matrix4 m = new Matrix4.identity();
-    m._m4storage[1] = Math.tan(beta);
+    m._m4storage[1] = math.tan(beta);
     return m;
   }
 
   /// Skew matrix around X axis (alpha) and Y axis (beta).
   factory Matrix4.skew(double alpha, double beta) {
     final Matrix4 m = new Matrix4.identity();
-    m._m4storage[1] = Math.tan(beta);
-    m._m4storage[4] = Math.tan(alpha);
+    m._m4storage[1] = math.tan(beta);
+    m._m4storage[4] = math.tan(alpha);
     return m;
   }
 
@@ -745,8 +745,8 @@ class Matrix4 {
     final double x = axisStorage[0] / len;
     final double y = axisStorage[1] / len;
     final double z = axisStorage[2] / len;
-    final double c = Math.cos(angle);
-    final double s = Math.sin(angle);
+    final double c = math.cos(angle);
+    final double s = math.sin(angle);
     final double C = 1.0 - c;
     final double m11 = x * x * C + c;
     final double m12 = x * y * C - z * s;
@@ -797,8 +797,8 @@ class Matrix4 {
 
   /// Rotate this [angle] radians around X
   void rotateX(double angle) {
-    final double cosAngle = Math.cos(angle);
-    final double sinAngle = Math.sin(angle);
+    final double cosAngle = math.cos(angle);
+    final double sinAngle = math.sin(angle);
     final double t1 = _m4storage[4] * cosAngle + _m4storage[8] * sinAngle;
     final double t2 = _m4storage[5] * cosAngle + _m4storage[9] * sinAngle;
     final double t3 = _m4storage[6] * cosAngle + _m4storage[10] * sinAngle;
@@ -819,8 +819,8 @@ class Matrix4 {
 
   /// Rotate this matrix [angle] radians around Y
   void rotateY(double angle) {
-    final double cosAngle = Math.cos(angle);
-    final double sinAngle = Math.sin(angle);
+    final double cosAngle = math.cos(angle);
+    final double sinAngle = math.sin(angle);
     final double t1 = _m4storage[0] * cosAngle + _m4storage[8] * -sinAngle;
     final double t2 = _m4storage[1] * cosAngle + _m4storage[9] * -sinAngle;
     final double t3 = _m4storage[2] * cosAngle + _m4storage[10] * -sinAngle;
@@ -841,8 +841,8 @@ class Matrix4 {
 
   /// Rotate this matrix [angle] radians around Z
   void rotateZ(double angle) {
-    final double cosAngle = Math.cos(angle);
-    final double sinAngle = Math.sin(angle);
+    final double cosAngle = math.cos(angle);
+    final double sinAngle = math.sin(angle);
     final double t1 = _m4storage[0] * cosAngle + _m4storage[4] * sinAngle;
     final double t2 = _m4storage[1] * cosAngle + _m4storage[5] * sinAngle;
     final double t3 = _m4storage[2] * cosAngle + _m4storage[6] * sinAngle;
@@ -1183,7 +1183,7 @@ class Matrix4 {
     final double scaleZSq = _m4storage[8] * _m4storage[8] +
         _m4storage[9] * _m4storage[9] +
         _m4storage[10] * _m4storage[10];
-    return Math.sqrt(Math.max(scaleXSq, Math.max(scaleYSq, scaleZSq)));
+    return math.sqrt(math.max(scaleXSq, math.max(scaleYSq, scaleZSq)));
   }
 
   /// Transposes just the upper 3x3 rotation matrix.
@@ -1316,8 +1316,8 @@ class Matrix4 {
 
   /// Sets the upper 3x3 to a rotation of [radians] around X
   void setRotationX(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m4storage[0] = 1.0;
     _m4storage[1] = 0.0;
     _m4storage[2] = 0.0;
@@ -1334,8 +1334,8 @@ class Matrix4 {
 
   /// Sets the upper 3x3 to a rotation of [radians] around Y
   void setRotationY(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m4storage[0] = c;
     _m4storage[1] = 0.0;
     _m4storage[2] = -s;
@@ -1352,8 +1352,8 @@ class Matrix4 {
 
   /// Sets the upper 3x3 to a rotation of [radians] around Z
   void setRotationZ(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m4storage[0] = c;
     _m4storage[1] = s;
     _m4storage[2] = 0.0;

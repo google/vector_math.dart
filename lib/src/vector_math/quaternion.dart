@@ -64,7 +64,7 @@ class Quaternion {
 
   /// Constructs a quaternion with a random rotation. The random number
   /// generator [rn] is used to generate the random numbers for the rotation.
-  factory Quaternion.random(Math.Random rn) =>
+  factory Quaternion.random(math.Random rn) =>
       new Quaternion._()..setRandom(rn);
 
   /// Constructs a quaternion set to the identity quaternion.
@@ -114,12 +114,12 @@ class Quaternion {
     if (len == 0.0) {
       return;
     }
-    final double halfSin = Math.sin(radians * 0.5) / len;
+    final double halfSin = math.sin(radians * 0.5) / len;
     final Float32List axisStorage = axis.storage;
     _qStorage[0] = axisStorage[0] * halfSin;
     _qStorage[1] = axisStorage[1] * halfSin;
     _qStorage[2] = axisStorage[2] * halfSin;
-    _qStorage[3] = Math.cos(radians * 0.5);
+    _qStorage[3] = math.cos(radians * 0.5);
   }
 
   /// Set the quaternion with rotation from a rotation matrix [rotationMatrix].
@@ -127,7 +127,7 @@ class Quaternion {
     final Float32List rotationMatrixStorage = rotationMatrix.storage;
     final double trace = rotationMatrix.trace();
     if (trace > 0.0) {
-      double s = Math.sqrt(trace + 1.0);
+      double s = math.sqrt(trace + 1.0);
       _qStorage[3] = s * 0.5;
       s = 0.5 / s;
       _qStorage[0] = (rotationMatrixStorage[5] - rotationMatrixStorage[7]) * s;
@@ -139,7 +139,7 @@ class Quaternion {
           : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
       final int j = (i + 1) % 3;
       final int k = (i + 2) % 3;
-      double s = Math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
+      double s = math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
           rotationMatrixStorage[rotationMatrix.index(j, j)] -
           rotationMatrixStorage[rotationMatrix.index(k, k)] +
           1.0);
@@ -162,12 +162,12 @@ class Quaternion {
     final Vector3 v2 = b.normalized();
 
     final double c = v1.dot(v2);
-    double angle = Math.acos(c);
+    double angle = math.acos(c);
     Vector3 axis = v1.cross(v2);
 
     if ((1.0 + c).abs() < 0.0005) {
       // c \approx -1 indicates 180 degree rotation
-      angle = Math.PI;
+      angle = math.PI;
 
       // a and b are parallel in opposite directions. We need any
       // vector as our rotation axis that is perpendicular.
@@ -190,18 +190,18 @@ class Quaternion {
 
   /// Set the quaternion to a random rotation. The random number generator [rn]
   /// is used to generate the random numbers for the rotation.
-  void setRandom(Math.Random rn) {
+  void setRandom(math.Random rn) {
     // From: "Uniform Random Rotations", Ken Shoemake, Graphics Gems III,
     // pg. 124-132.
     final double x0 = rn.nextDouble();
-    final double r1 = Math.sqrt(1.0 - x0);
-    final double r2 = Math.sqrt(x0);
-    final double t1 = Math.PI * 2.0 * rn.nextDouble();
-    final double t2 = Math.PI * 2.0 * rn.nextDouble();
-    final double c1 = Math.cos(t1);
-    final double s1 = Math.sin(t1);
-    final double c2 = Math.cos(t2);
-    final double s2 = Math.sin(t2);
+    final double r1 = math.sqrt(1.0 - x0);
+    final double r2 = math.sqrt(x0);
+    final double t1 = math.PI * 2.0 * rn.nextDouble();
+    final double t2 = math.PI * 2.0 * rn.nextDouble();
+    final double c1 = math.cos(t1);
+    final double s1 = math.sin(t1);
+    final double c2 = math.cos(t2);
+    final double s2 = math.sin(t2);
     _qStorage[0] = s1 * r1;
     _qStorage[1] = c1 * r1;
     _qStorage[2] = s2 * r2;
@@ -235,12 +235,12 @@ class Quaternion {
     final double halfYaw = yaw * 0.5;
     final double halfPitch = pitch * 0.5;
     final double halfRoll = roll * 0.5;
-    final double cosYaw = Math.cos(halfYaw);
-    final double sinYaw = Math.sin(halfYaw);
-    final double cosPitch = Math.cos(halfPitch);
-    final double sinPitch = Math.sin(halfPitch);
-    final double cosRoll = Math.cos(halfRoll);
-    final double sinRoll = Math.sin(halfRoll);
+    final double cosYaw = math.cos(halfYaw);
+    final double sinYaw = math.sin(halfYaw);
+    final double cosPitch = math.cos(halfPitch);
+    final double sinPitch = math.sin(halfPitch);
+    final double cosRoll = math.cos(halfRoll);
+    final double sinRoll = math.sin(halfRoll);
     _qStorage[0] = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
     _qStorage[1] = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
     _qStorage[2] = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
@@ -287,7 +287,7 @@ class Quaternion {
   Quaternion inverted() => clone()..inverse();
 
   /// [radians] of rotation around the [axis] of the rotation.
-  double get radians => 2.0 * Math.acos(_qStorage[3]);
+  double get radians => 2.0 * math.acos(_qStorage[3]);
 
   /// [axis] of rotation.
   Vector3 get axis {
@@ -297,7 +297,7 @@ class Quaternion {
       return new Vector3.zero();
     }
 
-    final double scale = 1.0 / Math.sqrt(den);
+    final double scale = 1.0 / math.sqrt(den);
     return new Vector3(
         _qStorage[0] * scale, _qStorage[1] * scale, _qStorage[2] * scale);
   }
@@ -312,7 +312,7 @@ class Quaternion {
   }
 
   /// Length.
-  double get length => Math.sqrt(length2);
+  double get length => math.sqrt(length2);
 
   /// Returns a copy of [v] rotated by quaternion.
   Vector3 rotated(Vector3 v) {

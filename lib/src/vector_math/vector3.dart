@@ -15,17 +15,17 @@ class Vector3 implements Vector {
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
     result
-      ..x = Math.min(a.x, b.x)
-      ..y = Math.min(a.y, b.y)
-      ..z = Math.min(a.z, b.z);
+      ..x = math.min(a.x, b.x)
+      ..y = math.min(a.y, b.y)
+      ..z = math.min(a.z, b.z);
   }
 
   /// Set the values of [result] to the maximum of [a] and [b] for each line.
   static void max(Vector3 a, Vector3 b, Vector3 result) {
     result
-      ..x = Math.max(a.x, b.x)
-      ..y = Math.max(a.y, b.y)
-      ..z = Math.max(a.z, b.z);
+      ..x = math.max(a.x, b.x)
+      ..y = math.max(a.y, b.y)
+      ..z = math.max(a.z, b.z);
   }
 
   /// Interpolate between [min] and [max] with the amount of [a] using a linear
@@ -64,8 +64,8 @@ class Vector3 implements Vector {
 
   /// Generate random vector in the range (0, 0, 0) to (1, 1, 1). You can
   /// optionally pass your own random number generator.
-  factory Vector3.random([Math.Random rng]) {
-    rng = rng == null ? new Math.Random() : rng;
+  factory Vector3.random([math.Random rng]) {
+    rng = rng == null ? new math.Random() : rng;
     return new Vector3(rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
   }
 
@@ -154,7 +154,7 @@ class Vector3 implements Vector {
   }
 
   /// Length.
-  double get length => Math.sqrt(length2);
+  double get length => math.sqrt(length2);
 
   /// Length squared.
   double get length2 {
@@ -195,7 +195,7 @@ class Vector3 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector3 arg) => Math.sqrt(distanceToSquared(arg));
+  double distanceTo(Vector3 arg) => math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
   double distanceToSquared(Vector3 arg) {
@@ -218,7 +218,7 @@ class Vector3 implements Vector {
 
     final double d = dot(other);
 
-    return Math.acos(d.clamp(-1.0, 1.0));
+    return math.acos(d.clamp(-1.0, 1.0));
   }
 
   /// Returns the signed angle between [this] and [other] around [normal]

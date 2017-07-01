@@ -142,9 +142,9 @@ class Colors {
     final double exponent = 1.0 / gamma;
 
     gammaColor
-      ..r = Math.pow(linearColor.r, exponent).toDouble()
-      ..g = Math.pow(linearColor.g, exponent).toDouble()
-      ..b = Math.pow(linearColor.b, exponent).toDouble()
+      ..r = math.pow(linearColor.r, exponent).toDouble()
+      ..g = math.pow(linearColor.g, exponent).toDouble()
+      ..b = math.pow(linearColor.b, exponent).toDouble()
       ..a = linearColor.a;
   }
 
@@ -154,17 +154,17 @@ class Colors {
   static void gammaToLinear(Vector4 gammaColor, Vector4 linearColor,
       [double gamma = 2.2]) {
     linearColor
-      ..r = Math.pow(gammaColor.r, gamma).toDouble()
-      ..g = Math.pow(gammaColor.g, gamma).toDouble()
-      ..b = Math.pow(gammaColor.b, gamma).toDouble()
+      ..r = math.pow(gammaColor.r, gamma).toDouble()
+      ..g = math.pow(gammaColor.g, gamma).toDouble()
+      ..b = math.pow(gammaColor.b, gamma).toDouble()
       ..a = gammaColor.a;
   }
 
   /// Convert [rgbColor] from rgb color model to the hue, saturation, and value
   /// (HSV) color model and store it in [hsvColor].
   static void rgbToHsv(Vector4 rgbColor, Vector4 hsvColor) {
-    final double max = Math.max(Math.max(rgbColor.r, rgbColor.g), rgbColor.b);
-    final double min = Math.min(Math.min(rgbColor.r, rgbColor.g), rgbColor.b);
+    final double max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
+    final double min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
     final double d = max - min;
     final double v = max;
     final double s = max == 0.0 ? 0.0 : d / max;
@@ -220,8 +220,8 @@ class Colors {
   /// Convert [rgbColor] from rgb color model to the hue, saturation, and
   /// lightness (HSL) color model and store it in [hslColor].
   static void rgbToHsl(Vector4 rgbColor, Vector4 hslColor) {
-    final double max = Math.max(Math.max(rgbColor.r, rgbColor.g), rgbColor.b);
-    final double min = Math.min(Math.min(rgbColor.r, rgbColor.g), rgbColor.b);
+    final double max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
+    final double min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
     final double l = (max + min) / 2.0;
     double h = 0.0;
     double s = 0.0;

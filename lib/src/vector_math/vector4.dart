@@ -11,19 +11,19 @@ class Vector4 implements Vector {
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector4 a, Vector4 b, Vector4 result) {
     result
-      ..x = Math.min(a.x, b.x)
-      ..y = Math.min(a.y, b.y)
-      ..z = Math.min(a.z, b.z)
-      ..w = Math.min(a.w, b.w);
+      ..x = math.min(a.x, b.x)
+      ..y = math.min(a.y, b.y)
+      ..z = math.min(a.z, b.z)
+      ..w = math.min(a.w, b.w);
   }
 
   /// Set the values of [result] to the maximum of [a] and [b] for each line.
   static void max(Vector4 a, Vector4 b, Vector4 result) {
     result
-      ..x = Math.max(a.x, b.x)
-      ..y = Math.max(a.y, b.y)
-      ..z = Math.max(a.z, b.z)
-      ..w = Math.max(a.w, b.w);
+      ..x = math.max(a.x, b.x)
+      ..y = math.max(a.y, b.y)
+      ..z = math.max(a.z, b.z)
+      ..w = math.max(a.w, b.w);
   }
 
   /// Interpolate between [min] and [max] with the amount of [a] using a linear
@@ -70,8 +70,8 @@ class Vector4 implements Vector {
 
   /// Generate random vector in the range (0, 0, 0, 0) to (1, 1, 1, 1). You can
   /// optionally pass your own random number generator.
-  factory Vector4.random([Math.Random rng]) {
-    rng = rng == null ? new Math.Random() : rng;
+  factory Vector4.random([math.Random rng]) {
+    rng = rng == null ? new math.Random() : rng;
     return new Vector4(
         rng.nextDouble(), rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
   }
@@ -176,7 +176,7 @@ class Vector4 implements Vector {
   }
 
   /// Length.
-  double get length => Math.sqrt(length2);
+  double get length => math.sqrt(length2);
 
   /// Length squared.
   double get length2 {
@@ -219,7 +219,7 @@ class Vector4 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector4 arg) => Math.sqrt(distanceToSquared(arg));
+  double distanceTo(Vector4 arg) => math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
   double distanceToSquared(Vector4 arg) {

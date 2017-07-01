@@ -538,8 +538,8 @@ class Matrix3 {
 
   /// Turns the matrix into a rotation of [radians] around X
   void setRotationX(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m3storage[0] = 1.0;
     _m3storage[1] = 0.0;
     _m3storage[2] = 0.0;
@@ -553,8 +553,8 @@ class Matrix3 {
 
   /// Turns the matrix into a rotation of [radians] around Y
   void setRotationY(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m3storage[0] = c;
     _m3storage[1] = 0.0;
     _m3storage[2] = s;
@@ -568,8 +568,8 @@ class Matrix3 {
 
   /// Turns the matrix into a rotation of [radians] around Z
   void setRotationZ(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m3storage[0] = c;
     _m3storage[1] = s;
     _m3storage[2] = 0.0;

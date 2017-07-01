@@ -110,7 +110,7 @@ Matrix4 makeViewMatrix(
 /// (always positive).
 void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
     double aspectRatio, double zNear, double zFar) {
-  final double height = Math.tan(fovYRadians * 0.5);
+  final double height = math.tan(fovYRadians * 0.5);
   final double width = height * aspectRatio;
   final double near_minus_far = zNear - zFar;
 
@@ -149,7 +149,7 @@ Matrix4 makePerspectiveMatrix(
 /// (always positive).
 void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
     double aspectRatio, double zNear) {
-  final double height = Math.tan(fovYRadians * 0.5);
+  final double height = math.tan(fovYRadians * 0.5);
   final double width = height * aspectRatio;
 
   infiniteMatrix

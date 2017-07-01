@@ -366,8 +366,8 @@ class Matrix2 {
 
   /// Turns the matrix into a rotation of [radians]
   void setRotation(double radians) {
-    final double c = Math.cos(radians);
-    final double s = Math.sin(radians);
+    final double c = math.cos(radians);
+    final double s = math.sin(radians);
     _m2storage[0] = c;
     _m2storage[1] = s;
     _m2storage[2] = -s;

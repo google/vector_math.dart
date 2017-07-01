@@ -63,7 +63,7 @@ class Ray {
     if (m2 > r2) {
       return null;
     }
-    final double q = Math.sqrt(r2 - m2);
+    final double q = math.sqrt(r2 - m2);
 
     return (l2 > r2) ? s - q : s + q;
   }

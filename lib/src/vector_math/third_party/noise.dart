@@ -82,12 +82,12 @@ class SimplexNoise {
   List<int> _permMod12;
 
   // Skewing and unskewing factors for 2, 3, and 4 dimensions
-  static final double _F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
-  static final double _G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
+  static final double _F2 = 0.5 * (math.sqrt(3.0) - 1.0);
+  static final double _G2 = (3.0 - math.sqrt(3.0)) / 6.0;
   static const double _F3 = 1.0 / 3.0;
   static const double _G3 = 1.0 / 6.0;
-  static final double _F4 = (Math.sqrt(5.0) - 1.0) / 4.0;
-  static final double _G4 = (5.0 - Math.sqrt(5.0)) / 20.0;
+  static final double _F4 = (math.sqrt(5.0) - 1.0) / 4.0;
+  static final double _G4 = (5.0 - math.sqrt(5.0)) / 20.0;
 
   double _dot2(List<double> g, double x, double y) => g[0] * x + g[1] * y;
 
@@ -97,8 +97,8 @@ class SimplexNoise {
   double _dot4(List<double> g, double x, double y, double z, double w) =>
       g[0] * x + g[1] * y + g[2] * z + g[3] * w;
 
-  SimplexNoise([Math.Random r]) {
-    r ??= new Math.Random();
+  SimplexNoise([math.Random r]) {
+    r ??= new math.Random();
     final List<int> p =
         new List<int>.generate(256, (_) => r.nextInt(256), growable: false);
     _perm = new List<int>.generate(p.length * 2, (int i) => p[i % p.length],
