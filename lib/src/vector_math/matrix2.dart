@@ -26,8 +26,9 @@ class Matrix2 {
       det = 1.0 / det;
     }
 
-    x.x = det * (a22 * bx - a12 * by);
-    x.y = det * (a11 * by - a21 * bx);
+    x
+      ..x = det * (a22 * bx - a12 * by)
+      ..y = det * (a11 * by - a21 * bx);
   }
 
   /// Return index in storage for [row], [col] value.
@@ -42,7 +43,7 @@ class Matrix2 {
   }
 
   /// Set value at [row], [col] to be [v].
-  setEntry(int row, int col, double v) {
+  void setEntry(int row, int col, double v) {
     assert((row >= 0) && (row < dimension));
     assert((col >= 0) && (col < dimension));
 
@@ -54,10 +55,8 @@ class Matrix2 {
       new Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
 
   /// New matrix from [values].
-  factory Matrix2.fromList(List<double> values) {
-    return new Matrix2.zero()
-      ..setValues(values[0], values[1], values[2], values[3]);
-  }
+  factory Matrix2.fromList(List<double> values) =>
+      new Matrix2.zero()..setValues(values[0], values[1], values[2], values[3]);
 
   /// Zero matrix.
   Matrix2.zero() : _m2storage = new Float32List(4);
@@ -90,8 +89,8 @@ class Matrix2 {
 
   /// Sets the entire matrix to the column values.
   void setColumns(Vector2 arg0, Vector2 arg1) {
-    final arg0Storage = arg0._v2storage;
-    final arg1Storage = arg1._v2storage;
+    final Float32List arg0Storage = arg0._v2storage;
+    final Float32List arg1Storage = arg1._v2storage;
     _m2storage[0] = arg0Storage[0];
     _m2storage[1] = arg0Storage[1];
     _m2storage[2] = arg1Storage[0];
@@ -100,7 +99,7 @@ class Matrix2 {
 
   /// Sets the entire matrix to the matrix in [arg].
   void setFrom(Matrix2 arg) {
-    final argStorage = arg._m2storage;
+    final Float32List argStorage = arg._m2storage;
     _m2storage[3] = argStorage[3];
     _m2storage[2] = argStorage[2];
     _m2storage[1] = argStorage[1];
@@ -109,8 +108,8 @@ class Matrix2 {
 
   /// Set [this] to the outer product of [u] and [v].
   void setOuter(Vector2 u, Vector2 v) {
-    final uStorage = u._v2storage;
-    final vStorage = v._v2storage;
+    final Float32List uStorage = u._v2storage;
+    final Float32List vStorage = v._v2storage;
     _m2storage[0] = uStorage[0] * vStorage[0];
     _m2storage[1] = uStorage[0] * vStorage[1];
     _m2storage[2] = uStorage[1] * vStorage[0];
@@ -125,12 +124,13 @@ class Matrix2 {
 
   /// Sets the diagonal of the matrix to be [arg].
   void setDiagonal(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _m2storage[0] = argStorage[0];
     _m2storage[3] = argStorage[1];
   }
 
   /// Returns a printable string
+  @override
   String toString() => '[0] ${getRow(0)}\n[1] ${getRow(1)}\n';
 
   /// Dimension of the matrix.
@@ -145,14 +145,15 @@ class Matrix2 {
   }
 
   /// Check if two matrices are the same.
-  bool operator ==(other) {
-    return (other is Matrix2) &&
-        (_m2storage[0] == other._m2storage[0]) &&
-        (_m2storage[1] == other._m2storage[1]) &&
-        (_m2storage[2] == other._m2storage[2]) &&
-        (_m2storage[3] == other._m2storage[3]);
-  }
+  @override
+  bool operator ==(Object other) =>
+      (other is Matrix2) &&
+      (_m2storage[0] == other._m2storage[0]) &&
+      (_m2storage[1] == other._m2storage[1]) &&
+      (_m2storage[2] == other._m2storage[2]) &&
+      (_m2storage[3] == other._m2storage[3]);
 
+  @override
   int get hashCode => quiver.hashObjects(_m2storage);
 
   /// Returns row 0
@@ -169,15 +170,15 @@ class Matrix2 {
 
   /// Sets [row] of the matrix to values in [arg]
   void setRow(int row, Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _m2storage[index(row, 0)] = argStorage[0];
     _m2storage[index(row, 1)] = argStorage[1];
   }
 
   /// Gets the [row] of the matrix
   Vector2 getRow(int row) {
-    final r = new Vector2.zero();
-    final rStorage = r._v2storage;
+    final Vector2 r = new Vector2.zero();
+    final Float32List rStorage = r._v2storage;
     rStorage[0] = _m2storage[index(row, 0)];
     rStorage[1] = _m2storage[index(row, 1)];
     return r;
@@ -185,17 +186,17 @@ class Matrix2 {
 
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector2 arg) {
-    final argStorage = arg._v2storage;
-    final entry = column * 2;
+    final Float32List argStorage = arg._v2storage;
+    final int entry = column * 2;
     _m2storage[entry + 1] = argStorage[1];
     _m2storage[entry + 0] = argStorage[0];
   }
 
   /// Gets the [column] of the matrix
   Vector2 getColumn(int column) {
-    final r = new Vector2.zero();
-    final entry = column * 2;
-    final rStorage = r._v2storage;
+    final Vector2 r = new Vector2.zero();
+    final int entry = column * 2;
+    final Float32List rStorage = r._v2storage;
     rStorage[1] = _m2storage[entry + 1];
     rStorage[0] = _m2storage[entry + 0];
     return r;
@@ -206,7 +207,7 @@ class Matrix2 {
 
   /// Copy [this] into [arg].
   Matrix2 copyInto(Matrix2 arg) {
-    final argStorage = arg._m2storage;
+    final Float32List argStorage = arg._m2storage;
     argStorage[0] = _m2storage[0];
     argStorage[1] = _m2storage[1];
     argStorage[2] = _m2storage[2];
@@ -215,14 +216,14 @@ class Matrix2 {
   }
 
   /// Returns a new vector or matrix by multiplying [this] with [arg].
-  operator *(dynamic arg) {
+  dynamic operator *(dynamic arg) {
     if (arg is double) {
       return scaled(arg);
     }
     if (arg is Vector2) {
       return transformed(arg);
     }
-    if (arg.dimension == 2) {
+    if (arg is Matrix2) {
       return multiplied(arg);
     }
     throw new ArgumentError(arg);
@@ -257,15 +258,15 @@ class Matrix2 {
   Matrix2 transposed() => clone()..transpose();
 
   void transpose() {
-    double temp = _m2storage[2];
+    final double temp = _m2storage[2];
     _m2storage[2] = _m2storage[1];
     _m2storage[1] = temp;
   }
 
   /// Returns the component wise absolute value of this.
   Matrix2 absolute() {
-    Matrix2 r = new Matrix2.zero();
-    final rStorage = r._m2storage;
+    final Matrix2 r = new Matrix2.zero();
+    final Float32List rStorage = r._m2storage;
     rStorage[0] = _m2storage[0].abs();
     rStorage[1] = _m2storage[1].abs();
     rStorage[2] = _m2storage[2].abs();
@@ -279,13 +280,13 @@ class Matrix2 {
 
   /// Returns the dot product of row [i] and [v].
   double dotRow(int i, Vector2 v) {
-    final vStorage = v._v2storage;
+    final Float32List vStorage = v._v2storage;
     return _m2storage[i] * vStorage[0] + _m2storage[2 + i] * vStorage[1];
   }
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector2 v) {
-    final vStorage = v._v2storage;
+    final Float32List vStorage = v._v2storage;
     return _m2storage[j * 2] * vStorage[0] +
         _m2storage[(j * 2) + 1] * vStorage[1];
   }
@@ -318,28 +319,28 @@ class Matrix2 {
 
   /// Returns relative error between [this] and [correct]
   double relativeError(Matrix2 correct) {
-    Matrix2 diff = correct - this;
-    double correct_norm = correct.infinityNorm();
-    double diff_norm = diff.infinityNorm();
+    final Matrix2 diff = correct - this;
+    final double correct_norm = correct.infinityNorm();
+    final double diff_norm = diff.infinityNorm();
     return diff_norm / correct_norm;
   }
 
   /// Returns absolute error between [this] and [correct]
   double absoluteError(Matrix2 correct) {
-    double this_norm = infinityNorm();
-    double correct_norm = correct.infinityNorm();
-    double diff_norm = (this_norm - correct_norm).abs();
+    final double this_norm = infinityNorm();
+    final double correct_norm = correct.infinityNorm();
+    final double diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
   }
 
   /// Invert the matrix. Returns the determinant.
   double invert() {
-    double det = determinant();
+    final double det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    double invDet = 1.0 / det;
-    double temp = _m2storage[0];
+    final double invDet = 1.0 / det;
+    final double temp = _m2storage[0];
     _m2storage[0] = _m2storage[3] * invDet;
     _m2storage[1] = -_m2storage[1] * invDet;
     _m2storage[2] = -_m2storage[2] * invDet;
@@ -349,13 +350,13 @@ class Matrix2 {
 
   /// Set this matrix to be the inverse of [arg]
   double copyInverse(Matrix2 arg) {
-    double det = arg.determinant();
+    final double det = arg.determinant();
     if (det == 0.0) {
       setFrom(arg);
       return 0.0;
     }
-    double invDet = 1.0 / det;
-    final argStorage = arg._m2storage;
+    final double invDet = 1.0 / det;
+    final Float32List argStorage = arg._m2storage;
     _m2storage[0] = argStorage[3] * invDet;
     _m2storage[1] = -argStorage[1] * invDet;
     _m2storage[2] = -argStorage[2] * invDet;
@@ -365,8 +366,8 @@ class Matrix2 {
 
   /// Turns the matrix into a rotation of [radians]
   void setRotation(double radians) {
-    double c = Math.cos(radians);
-    double s = Math.sin(radians);
+    final double c = Math.cos(radians);
+    final double s = Math.sin(radians);
     _m2storage[0] = c;
     _m2storage[1] = s;
     _m2storage[2] = -s;
@@ -375,7 +376,7 @@ class Matrix2 {
 
   /// Converts into Adjugate matrix and scales by [scale]
   void scaleAdjoint(double scale) {
-    double temp = _m2storage[0];
+    final double temp = _m2storage[0];
     _m2storage[0] = _m2storage[3] * scale;
     _m2storage[2] = -_m2storage[2] * scale;
     _m2storage[1] = -_m2storage[1] * scale;
@@ -395,7 +396,7 @@ class Matrix2 {
 
   /// Add [o] to [this].
   void add(Matrix2 o) {
-    final oStorage = o._m2storage;
+    final Float32List oStorage = o._m2storage;
     _m2storage[0] = _m2storage[0] + oStorage[0];
     _m2storage[1] = _m2storage[1] + oStorage[1];
     _m2storage[2] = _m2storage[2] + oStorage[2];
@@ -404,7 +405,7 @@ class Matrix2 {
 
   /// Subtract [o] from [this].
   void sub(Matrix2 o) {
-    final oStorage = o._m2storage;
+    final Float32List oStorage = o._m2storage;
     _m2storage[0] = _m2storage[0] - oStorage[0];
     _m2storage[1] = _m2storage[1] - oStorage[1];
     _m2storage[2] = _m2storage[2] - oStorage[2];
@@ -421,15 +422,15 @@ class Matrix2 {
 
   /// Multiply [this] with [arg] and store it in [this].
   void multiply(Matrix2 arg) {
-    final m00 = _m2storage[0];
-    final m01 = _m2storage[2];
-    final m10 = _m2storage[1];
-    final m11 = _m2storage[3];
-    final argStorage = arg._m2storage;
-    final n00 = argStorage[0];
-    final n01 = argStorage[2];
-    final n10 = argStorage[1];
-    final n11 = argStorage[3];
+    final double m00 = _m2storage[0];
+    final double m01 = _m2storage[2];
+    final double m10 = _m2storage[1];
+    final double m11 = _m2storage[3];
+    final Float32List argStorage = arg._m2storage;
+    final double n00 = argStorage[0];
+    final double n01 = argStorage[2];
+    final double n10 = argStorage[1];
+    final double n11 = argStorage[3];
     _m2storage[0] = (m00 * n00) + (m01 * n10);
     _m2storage[2] = (m00 * n01) + (m01 * n11);
     _m2storage[1] = (m10 * n00) + (m11 * n10);
@@ -441,11 +442,11 @@ class Matrix2 {
 
   /// Multiply a transposed [this] with [arg].
   void transposeMultiply(Matrix2 arg) {
-    final m00 = _m2storage[0];
-    final m01 = _m2storage[1];
-    final m10 = _m2storage[2];
-    final m11 = _m2storage[3];
-    final argStorage = arg._m2storage;
+    final double m00 = _m2storage[0];
+    final double m01 = _m2storage[1];
+    final double m10 = _m2storage[2];
+    final double m11 = _m2storage[3];
+    final Float32List argStorage = arg._m2storage;
     _m2storage[0] = (m00 * argStorage[0]) + (m01 * argStorage[1]);
     _m2storage[2] = (m00 * argStorage[2]) + (m01 * argStorage[3]);
     _m2storage[1] = (m10 * argStorage[0]) + (m11 * argStorage[1]);
@@ -454,11 +455,11 @@ class Matrix2 {
 
   /// Multiply [this] with a transposed [arg].
   void multiplyTranspose(Matrix2 arg) {
-    final m00 = _m2storage[0];
-    final m01 = _m2storage[2];
-    final m10 = _m2storage[1];
-    final m11 = _m2storage[3];
-    final argStorage = arg._m2storage;
+    final double m00 = _m2storage[0];
+    final double m01 = _m2storage[2];
+    final double m10 = _m2storage[1];
+    final double m11 = _m2storage[3];
+    final Float32List argStorage = arg._m2storage;
     _m2storage[0] = (m00 * argStorage[0]) + (m01 * argStorage[2]);
     _m2storage[2] = (m00 * argStorage[1]) + (m01 * argStorage[3]);
     _m2storage[1] = (m10 * argStorage[0]) + (m11 * argStorage[2]);
@@ -468,9 +469,11 @@ class Matrix2 {
   /// Transform [arg] of type [Vector2] using the transformation defined by
   /// [this].
   Vector2 transform(Vector2 arg) {
-    final argStorage = arg._v2storage;
-    final x = (_m2storage[0] * argStorage[0]) + (_m2storage[2] * argStorage[1]);
-    final y = (_m2storage[1] * argStorage[0]) + (_m2storage[3] * argStorage[1]);
+    final Float32List argStorage = arg._v2storage;
+    final double x =
+        (_m2storage[0] * argStorage[0]) + (_m2storage[2] * argStorage[1]);
+    final double y =
+        (_m2storage[1] * argStorage[0]) + (_m2storage[3] * argStorage[1]);
     argStorage[0] = x;
     argStorage[1] = y;
     return arg;
@@ -490,7 +493,7 @@ class Matrix2 {
 
   /// Copies [this] into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset = 0]) {
-    int i = offset;
+    final int i = offset;
     array[i + 3] = _m2storage[3];
     array[i + 2] = _m2storage[2];
     array[i + 1] = _m2storage[1];
@@ -499,7 +502,7 @@ class Matrix2 {
 
   /// Copies elements from [array] into [this] starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    int i = offset;
+    final int i = offset;
     _m2storage[3] = array[i + 3];
     _m2storage[2] = array[i + 2];
     _m2storage[1] = array[i + 1];
