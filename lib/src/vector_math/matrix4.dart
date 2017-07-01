@@ -661,7 +661,7 @@ class Matrix4 {
       tx = x.x;
       ty = x.y;
       tz = x.z;
-    } else if (x is Vector3) {
+    } else if (x is Vector4) {
       tx = x.x;
       ty = x.y;
       tz = x.z;
