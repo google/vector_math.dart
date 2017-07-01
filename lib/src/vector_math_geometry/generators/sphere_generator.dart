@@ -9,11 +9,17 @@ class SphereGenerator extends GeometryGenerator {
   int _latSegments;
   int _lonSegments;
 
+  @override
   int get vertexCount => (_lonSegments + 1) * (_latSegments + 1);
+
+  @override
   int get indexCount => 6 * _lonSegments * _latSegments;
 
   MeshGeometry createSphere(num radius,
-      {int latSegments: 16, int lonSegments: 16, flags: null, filters: null}) {
+      {int latSegments: 16,
+      int lonSegments: 16,
+      GeometryGeneratorFlags flags: null,
+      List<GeometryFilter> filters: null}) {
     _radius = radius.toDouble();
     _latSegments = latSegments;
     _lonSegments = lonSegments;
@@ -21,11 +27,12 @@ class SphereGenerator extends GeometryGenerator {
     return createGeometry(flags: flags, filters: filters);
   }
 
+  @override
   void generateIndices(Uint16List indices) {
     int i = 0;
     for (int y = 0; y < _latSegments; ++y) {
-      int base1 = (_lonSegments + 1) * y;
-      int base2 = (_lonSegments + 1) * (y + 1);
+      final int base1 = (_lonSegments + 1) * y;
+      final int base2 = (_lonSegments + 1) * (y + 1);
 
       for (int x = 0; x < _lonSegments; ++x) {
         indices[i++] = base1 + x;
@@ -39,48 +46,51 @@ class SphereGenerator extends GeometryGenerator {
     }
   }
 
+  @override
   void generateVertexPositions(Vector3List positions, Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
-      double v = y / _latSegments;
-      double sv = Math.sin(v * Math.PI);
-      double cv = Math.cos(v * Math.PI);
+      final double v = y / _latSegments;
+      final double sv = math.sin(v * math.PI);
+      final double cv = math.cos(v * math.PI);
 
       for (int x = 0; x <= _lonSegments; ++x) {
-        double u = x / _lonSegments;
+        final double u = x / _lonSegments;
 
-        positions[i++] = new Vector3(_radius * Math.cos(u * Math.PI * 2.0) * sv,
-            _radius * cv, _radius * Math.sin(u * Math.PI * 2.0) * sv);
+        positions[i++] = new Vector3(_radius * math.cos(u * math.PI * 2.0) * sv,
+            _radius * cv, _radius * math.sin(u * math.PI * 2.0) * sv);
       }
     }
   }
 
+  @override
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
-      double v = y / _latSegments;
+      final double v = y / _latSegments;
 
       for (int x = 0; x <= _lonSegments; ++x) {
-        double u = x / _lonSegments;
+        final double u = x / _lonSegments;
         texCoords[i++] = new Vector2(u, v);
       }
     }
   }
 
+  @override
   void generateVertexNormals(
       Vector3List normals, Vector3List positions, Uint16List indices) {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
-      double v = y / _latSegments;
-      double sv = Math.sin(v * Math.PI);
-      double cv = Math.cos(v * Math.PI);
+      final double v = y / _latSegments;
+      final double sv = math.sin(v * math.PI);
+      final double cv = math.cos(v * math.PI);
 
       for (int x = 0; x <= _lonSegments; ++x) {
-        double u = x / _lonSegments;
+        final double u = x / _lonSegments;
 
-        normals[i++] = new Vector3(Math.cos(u * Math.PI * 2.0) * sv, cv,
-            Math.sin(u * Math.PI * 2.0) * sv);
+        normals[i++] = new Vector3(math.cos(u * math.PI * 2.0) * sv, cv,
+            math.sin(u * math.PI * 2.0) * sv);
       }
     }
   }

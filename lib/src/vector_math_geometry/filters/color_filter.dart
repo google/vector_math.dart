@@ -7,26 +7,32 @@ part of vector_math_geometry;
 class ColorFilter extends GeometryFilter {
   Vector4 color;
 
-  List<VertexAttrib> get generates => [new VertexAttrib('COLOR', 4, 'float')];
+  ColorFilter(this.color);
 
-  ColorFilter(Vector4 this.color);
+  @override
+  List<VertexAttrib> get generates =>
+      <VertexAttrib>[new VertexAttrib('COLOR', 4, 'float')];
 
+  @override
   MeshGeometry filter(MeshGeometry mesh) {
     MeshGeometry output;
     if (mesh.getAttrib('COLOR') == null) {
-      List<VertexAttrib> attributes = new List<VertexAttrib>();
-      attributes.addAll(mesh.attribs);
-      attributes.add(new VertexAttrib('COLOR', 4, 'float'));
+      final List<VertexAttrib> attributes = <VertexAttrib>[]
+        ..addAll(mesh.attribs)
+        ..add(new VertexAttrib('COLOR', 4, 'float'));
       output = new MeshGeometry.resetAttribs(mesh, attributes);
     } else {
       output = new MeshGeometry.copy(mesh);
     }
 
-    Vector4List colors = output.getViewForAttrib('COLOR');
-    for (int i = 0; i < colors.length; ++i) {
-      colors[i] = color;
+    final VectorList<Vector> colors = output.getViewForAttrib('COLOR');
+    if (colors is Vector4List) {
+      for (int i = 0; i < colors.length; ++i) {
+        colors[i] = color;
+      }
+      return output;
+    } else {
+      return null;
     }
-
-    return output;
   }
 }

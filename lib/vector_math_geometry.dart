@@ -7,8 +7,8 @@
 /// [ColorFilter] and [InvertFilter]).
 library vector_math_geometry;
 
+import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:math' as Math;
 
 import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_lists.dart';

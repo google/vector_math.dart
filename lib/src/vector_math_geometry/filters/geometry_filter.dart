@@ -6,17 +6,20 @@ part of vector_math_geometry;
 
 abstract class GeometryFilter {
   bool get inplace => false;
-  List<VertexAttrib> get requires => [];
-  List<VertexAttrib> get generates => [];
+  List<VertexAttrib> get requires => <VertexAttrib>[];
+  List<VertexAttrib> get generates => <VertexAttrib>[];
 
   /// Returns a copy of the mesh with any filter transforms applied.
   MeshGeometry filter(MeshGeometry mesh);
 }
 
 abstract class InplaceGeometryFilter extends GeometryFilter {
+  @override
   bool get inplace => true;
+
+  @override
   MeshGeometry filter(MeshGeometry mesh) {
-    MeshGeometry output = new MeshGeometry.copy(mesh);
+    final MeshGeometry output = new MeshGeometry.copy(mesh);
     filterInplace(output);
     return output;
   }

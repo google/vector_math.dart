@@ -12,16 +12,19 @@ class RingGenerator extends GeometryGenerator {
   double _thetaLength;
   bool _stripTextureCoordinates;
 
+  @override
   int get vertexCount => (_segments + 1) * 2;
+
+  @override
   int get indexCount => (_segments) * 3 * 2;
 
   MeshGeometry createRing(double innerRadius, double outerRadius,
-      {flags: null,
-      filters: null,
-      segments: 64,
-      thetaStart: 0.0,
-      thetaLength: Math.PI * 2.0,
-      stripTextureCoordinates: true}) {
+      {GeometryGeneratorFlags flags: null,
+      List<GeometryFilter> filters: null,
+      int segments: 64,
+      double thetaStart: 0.0,
+      double thetaLength: math.PI * 2.0,
+      bool stripTextureCoordinates: true}) {
     _innerRadius = innerRadius;
     _outerRadius = outerRadius;
     _segments = segments;
@@ -31,55 +34,63 @@ class RingGenerator extends GeometryGenerator {
     return createGeometry(flags: flags, filters: filters);
   }
 
+  @override
   void generateVertexPositions(Vector3List positions, Uint16List indices) {
-    Vector3 v = new Vector3.zero();
+    final Vector3 v = new Vector3.zero();
     int index = 0;
     for (int i = 0; i <= _segments; i++) {
-      double percent = i / _segments;
-      v.x = _innerRadius * Math.cos(_thetaStart + percent * _thetaLength);
-      v.z = _innerRadius * Math.sin(_thetaStart + percent * _thetaLength);
+      final double percent = i / _segments;
+      v
+        ..x = _innerRadius * math.cos(_thetaStart + percent * _thetaLength)
+        ..z = _innerRadius * math.sin(_thetaStart + percent * _thetaLength);
       positions[index] = v;
       index++;
-      v.x = _outerRadius * Math.cos(_thetaStart + percent * _thetaLength);
-      v.z = _outerRadius * Math.sin(_thetaStart + percent * _thetaLength);
+      v
+        ..x = _outerRadius * math.cos(_thetaStart + percent * _thetaLength)
+        ..z = _outerRadius * math.sin(_thetaStart + percent * _thetaLength);
       positions[index] = v;
       index++;
     }
     assert(index == vertexCount);
   }
 
+  @override
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
     if (_stripTextureCoordinates) {
-      Vector2 v = new Vector2.zero();
+      final Vector2 v = new Vector2.zero();
       int index = 0;
       for (int i = 0; i <= _segments; i++) {
-        double percent = i / _segments;
-        v.x = 0.0;
-        v.y = percent;
+        final double percent = i / _segments;
+        v
+          ..x = 0.0
+          ..y = percent;
         texCoords[index] = v;
         index++;
-        v.x = 1.0;
-        v.y = percent;
+        v
+          ..x = 1.0
+          ..y = percent;
         texCoords[index] = v;
         index++;
       }
     } else {
-      Vector2 v = new Vector2.zero();
+      final Vector2 v = new Vector2.zero();
       int index = 0;
       for (int i = 0; i <= _segments; i++) {
         Vector3 position = positions[index];
         double x = (position.x / (_outerRadius + 1.0)) * 0.5;
         double y = (position.z / (_outerRadius + 1.0)) * 0.5;
-        v.x = x + 0.5;
-        v.y = y + 0.5;
+        v
+          ..x = x + 0.5
+          ..y = y + 0.5;
         texCoords[index] = v;
         index++;
         position = positions[index];
         x = (position.x / (_outerRadius + 1.0)) * 0.5;
         y = (position.z / (_outerRadius + 1.0)) * 0.5;
-        v.x = x + 0.5;
-        v.y = y + 0.5;
+        v
+          ..x = x + 0.5
+          ..y = y + 0.5;
         texCoords[index] = v;
         index++;
       }
@@ -87,9 +98,10 @@ class RingGenerator extends GeometryGenerator {
     }
   }
 
+  @override
   void generateIndices(Uint16List indices) {
     int index = 0;
-    int length = _segments * 2;
+    final int length = _segments * 2;
     for (int i = 0; i < length; i += 2) {
       indices[index + 0] = i + 0;
       indices[index + 1] = i + 1;
