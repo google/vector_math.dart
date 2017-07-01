@@ -54,7 +54,7 @@ class Quad {
 
   /// Copy the normal of [this] into [normal].
   void copyNormalInto(Vector3 normal) {
-    final v0 = _point0.clone()..sub(_point1);
+    final Vector3 v0 = _point0.clone()..sub(_point1);
     normal
       ..setFrom(_point2)
       ..sub(_point1)
@@ -74,10 +74,11 @@ class Quad {
 
   /// Transform [this] by the transform [t].
   void transform(Matrix4 t) {
-    t.transform3(_point0);
-    t.transform3(_point1);
-    t.transform3(_point2);
-    t.transform3(_point3);
+    t
+      ..transform3(_point0)
+      ..transform3(_point1)
+      ..transform3(_point2)
+      ..transform3(_point3);
   }
 
   /// Translate [this] by [offset].
