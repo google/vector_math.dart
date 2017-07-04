@@ -381,7 +381,6 @@ bool pickRay(
     return false;
   }
 
-  // ignore: join_return_with_assignment
   r = unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
       viewportHeight, pickX, viewportHeight - pickY, 1.0, rayFar);
 
