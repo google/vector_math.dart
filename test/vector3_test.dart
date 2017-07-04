@@ -97,12 +97,12 @@ void testVector3DotProduct() {
   List<Vector3> inputA = new List<Vector3>();
   List<Vector3> inputB = new List<Vector3>();
   List<double> expectedOutput = new List<double>();
-  inputA.add(parseVector('''0.417267069084370
-   0.049654430325742
-   0.902716109915281'''));
-  inputB.add(parseVector('''0.944787189721646
-   0.490864092468080
-   0.489252638400019'''));
+  inputA.add(parseVector<Vector3>('''0.417267069084370
+                                     0.049654430325742
+                                     0.902716109915281'''));
+  inputB.add(parseVector<Vector3>('''0.944787189721646
+                                     0.490864092468080
+                                     0.489252638400019'''));
   expectedOutput.add(0.860258396944727);
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
@@ -116,12 +116,12 @@ void testVector3DotProduct() {
 
 void testVector3Postmultiplication() {
   Matrix3 inputMatrix =
-      (new Matrix3.rotationX(.4)) * (new Matrix3.rotationZ(.5));
+      (new Matrix3.rotationX(.4)) * (new Matrix3.rotationZ(.5)) as Matrix3;
   Vector3 inputVector = new Vector3(1.0, 2.0, 3.0);
   Matrix3 inputInv = new Matrix3.copy(inputMatrix);
   inputInv.invert();
-  Vector3 resultOld = inputMatrix.transposed() * inputVector;
-  Vector3 resultOldvInv = inputInv * inputVector;
+  Vector3 resultOld = inputMatrix.transposed() * inputVector as Vector3;
+  Vector3 resultOldvInv = inputInv * inputVector as Vector3;
   Vector3 resultNew = inputVector..postmultiply(inputMatrix);
 
   expect(resultNew.x, equals(resultOld.x));
@@ -137,25 +137,25 @@ void testVector3CrossProduct() {
   List<Vector3> inputB = new List<Vector3>();
   List<Vector3> expectedOutput = new List<Vector3>();
 
-  inputA.add(parseVector('''0.417267069084370
-   0.049654430325742
-   0.902716109915281'''));
-  inputB.add(parseVector('''0.944787189721646
-   0.490864092468080
-   0.489252638400019'''));
-  expectedOutput.add(parseVector('''  -0.418817363004761
-   0.648725602136344
-   0.157908551498227'''));
+  inputA.add(parseVector<Vector3>('''0.417267069084370
+                                     0.049654430325742
+                                     0.902716109915281'''));
+  inputB.add(parseVector<Vector3>('''0.944787189721646
+                                     0.490864092468080
+                                     0.489252638400019'''));
+  expectedOutput.add(parseVector<Vector3>(''' -0.418817363004761
+                                               0.648725602136344
+                                               0.157908551498227'''));
 
-  inputA.add(parseVector('''0.944787189721646
-      0.490864092468080
-      0.489252638400019'''));
-  inputB.add(parseVector('''0.417267069084370
-      0.049654430325742
-      0.902716109915281'''));
-  expectedOutput.add(parseVector(''' 0.418817363004761
-  -0.648725602136344
-  -0.157908551498227'''));
+  inputA.add(parseVector<Vector3>('''0.944787189721646
+                                     0.490864092468080
+                                     0.489252638400019'''));
+  inputB.add(parseVector<Vector3>('''0.417267069084370
+                                     0.049654430325742
+                                     0.902716109915281'''));
+  expectedOutput.add(parseVector<Vector3>(''' 0.418817363004761
+                                             -0.648725602136344
+                                             -0.157908551498227'''));
 
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
@@ -378,14 +378,14 @@ void testVector3Clamp() {
   final v1 = new Vector3(-x, -y, -z);
   final v2 = new Vector3(-2.0 * x, 2.0 * y, -2.0 * z)..clamp(v1, v0);
 
-  expect(v2.storage, orderedEquals([-x, y, -z]));
+  expect(v2.storage, orderedEquals(<double>[-x, y, -z]));
 }
 
 void testVector3ClampScalar() {
   final x = 2.0;
   final v0 = new Vector3(-2.0 * x, 2.0 * x, -2.0 * x)..clampScalar(-x, x);
 
-  expect(v0.storage, orderedEquals([-x, x, -x]));
+  expect(v0.storage, orderedEquals(<double>[-x, x, -x]));
 }
 
 void testVector3Floor() {
@@ -393,9 +393,9 @@ void testVector3Floor() {
   final v1 = new Vector3(-0.5, 0.5, -0.5)..floor();
   final v2 = new Vector3(-0.9, 0.9, -0.5)..floor();
 
-  expect(v0.storage, orderedEquals([-1.0, 0.0, -1.0]));
-  expect(v1.storage, orderedEquals([-1.0, 0.0, -1.0]));
-  expect(v2.storage, orderedEquals([-1.0, 0.0, -1.0]));
+  expect(v0.storage, orderedEquals(<double>[-1.0, 0.0, -1.0]));
+  expect(v1.storage, orderedEquals(<double>[-1.0, 0.0, -1.0]));
+  expect(v2.storage, orderedEquals(<double>[-1.0, 0.0, -1.0]));
 }
 
 void testVector3Ceil() {
@@ -403,9 +403,9 @@ void testVector3Ceil() {
   final v1 = new Vector3(-0.5, 0.5, -0.5)..ceil();
   final v2 = new Vector3(-0.9, 0.9, -0.9)..ceil();
 
-  expect(v0.storage, orderedEquals([0.0, 1.0, 0.0]));
-  expect(v1.storage, orderedEquals([0.0, 1.0, 0.0]));
-  expect(v2.storage, orderedEquals([0.0, 1.0, 0.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 1.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[0.0, 1.0, 0.0]));
+  expect(v2.storage, orderedEquals(<double>[0.0, 1.0, 0.0]));
 }
 
 void testVector3Round() {
@@ -413,9 +413,9 @@ void testVector3Round() {
   final v1 = new Vector3(-0.5, 0.5, -0.5)..round();
   final v2 = new Vector3(-0.9, 0.9, -0.9)..round();
 
-  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0]));
-  expect(v1.storage, orderedEquals([-1.0, 1.0, -1.0]));
-  expect(v2.storage, orderedEquals([-1.0, 1.0, -1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[-1.0, 1.0, -1.0]));
+  expect(v2.storage, orderedEquals(<double>[-1.0, 1.0, -1.0]));
 }
 
 void testVector3RoundToZero() {
@@ -426,12 +426,12 @@ void testVector3RoundToZero() {
   final v4 = new Vector3(-1.5, 1.5, -1.5)..roundToZero();
   final v5 = new Vector3(-1.9, 1.9, -1.9)..roundToZero();
 
-  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0]));
-  expect(v1.storage, orderedEquals([0.0, 0.0, 0.0]));
-  expect(v2.storage, orderedEquals([0.0, 0.0, 0.0]));
-  expect(v3.storage, orderedEquals([-1.0, 1.0, -1.0]));
-  expect(v4.storage, orderedEquals([-1.0, 1.0, -1.0]));
-  expect(v5.storage, orderedEquals([-1.0, 1.0, -1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
+  expect(v2.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
+  expect(v3.storage, orderedEquals(<double>[-1.0, 1.0, -1.0]));
+  expect(v4.storage, orderedEquals(<double>[-1.0, 1.0, -1.0]));
+  expect(v5.storage, orderedEquals(<double>[-1.0, 1.0, -1.0]));
 }
 
 void testVector3ApplyQuaternion() {

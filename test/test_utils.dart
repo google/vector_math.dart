@@ -14,21 +14,21 @@ Vector3 $v3(double x, double y, double z) => new Vector3(x, y, z);
 
 Vector4 $v4(double x, double y, double z, double w) => new Vector4(x, y, z, w);
 
-void relativeTest(var output, var expectedOutput) {
+void relativeTest(dynamic output, dynamic expectedOutput) {
   final num errorThreshold = 0.0005;
   num error = relativeError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : relativeError = $error');
 }
 
-void absoluteTest(var output, var expectedOutput) {
+void absoluteTest(dynamic output, dynamic expectedOutput) {
   final num errorThreshold = 0.0005;
   num error = absoluteError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : absoluteError = $error');
 }
 
-makeMatrix(int rows, int cols) {
+dynamic makeMatrix(int rows, int cols) {
   if (rows != cols) {
     return null;
   }
@@ -46,7 +46,7 @@ makeMatrix(int rows, int cols) {
   return null;
 }
 
-parseMatrix(String input) {
+T parseMatrix<T>(String input) {
   input = input.trim();
   List<String> rows = input.split("\n");
   List<double> values = new List<double>();
@@ -69,7 +69,7 @@ parseMatrix(String input) {
     }
   }
 
-  var m = makeMatrix(rows.length, col_count);
+  dynamic m = makeMatrix(rows.length, col_count);
   for (int j = 0; j < rows.length; j++) {
     for (int i = 0; i < col_count; i++) {
       m[m.index(j, i)] = values[j * col_count + i];
@@ -77,10 +77,10 @@ parseMatrix(String input) {
     }
   }
 
-  return m;
+  return m as T;
 }
 
-parseVector(String v) {
+T parseVector<T extends Vector>(String v) {
   v = v.trim();
   Pattern pattern = new RegExp('[\\s]+', multiLine: true, caseSensitive: false);
   List<String> rows = v.split(pattern);
@@ -93,7 +93,7 @@ parseVector(String v) {
     values.add(double.parse(rows[i]));
   }
 
-  var r;
+  Vector r;
   if (values.length == 2) {
     r = new Vector2(values[0], values[1]);
   } else if (values.length == 3) {
@@ -102,5 +102,5 @@ parseVector(String v) {
     r = new Vector4(values[0], values[1], values[2], values[3]);
   }
 
-  return r;
+  return r as T;
 }

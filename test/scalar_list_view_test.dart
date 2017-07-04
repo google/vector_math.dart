@@ -21,7 +21,7 @@ void testScalarListViewWithOffset() {
   expect(list.buffer[4], equals(0.0));
 }
 
-testScalarListView() {
+void testScalarListView() {
   final buffer = new Float32List(10);
   final list = new ScalarListView.view(buffer, 1, 4);
   expect(list.length, 2);
@@ -39,7 +39,7 @@ testScalarListView() {
   expect(buffer[9], equals(0.0));
 }
 
-testScalarListViewFromList() {
+void testScalarListViewFromList() {
   List<double> input = new List<double>(3);
   input[0] = 1.0;
   input[1] = 4.0;
