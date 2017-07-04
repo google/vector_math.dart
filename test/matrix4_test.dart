@@ -4,7 +4,7 @@
 
 library vector_math.test.matrix4_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
@@ -428,12 +428,12 @@ void testMatrix4Rotate() {
 }
 
 void testMatrix4GetRotation() {
-  final mat4 = new Matrix4.rotationX(Math.PI) *
-      new Matrix4.rotationY(-Math.PI) *
-      new Matrix4.rotationZ(Math.PI);
-  final mat3 = new Matrix3.rotationX(Math.PI) *
-      new Matrix3.rotationY(-Math.PI) *
-      new Matrix3.rotationZ(Math.PI);
+  final mat4 = new Matrix4.rotationX(math.PI) *
+      new Matrix4.rotationY(-math.PI) *
+      new Matrix4.rotationZ(math.PI);
+  final mat3 = new Matrix3.rotationX(math.PI) *
+      new Matrix3.rotationY(-math.PI) *
+      new Matrix3.rotationZ(math.PI);
   final matRot = mat4.getRotation();
 
   relativeTest(mat3, matRot);
@@ -489,7 +489,7 @@ void testMatrix4Dot() {
 }
 
 void testMatrix4PerspectiveTransform() {
-  final matrix = makePerspectiveMatrix(Math.PI, 1.0, 1.0, 100.0);
+  final matrix = makePerspectiveMatrix(math.PI, 1.0, 1.0, 100.0);
   final vec = new Vector3(10.0, 20.0, 30.0);
 
   matrix.perspectiveTransform(vec);
@@ -621,7 +621,7 @@ void testMatrix4SkewConstructor() {
   expect(m.entry(1, 1), equals(1.0));
   expect(m.entry(2, 2), equals(1.0));
   expect(m.entry(3, 3), equals(1.0));
-  relativeTest(m.entry(1, 0), Math.tan(1.57));
+  relativeTest(m.entry(1, 0), math.tan(1.57));
   expect(m.entry(0, 1), equals(0.0));
 
   expect(m2, equals(m));
@@ -634,7 +634,7 @@ void testMatrix4SkewConstructor() {
   expect(n.entry(2, 2), equals(1.0));
   expect(n.entry(3, 3), equals(1.0));
   expect(n.entry(1, 0), equals(0.0));
-  relativeTest(m.entry(1, 0), Math.tan(1.57));
+  relativeTest(m.entry(1, 0), math.tan(1.57));
 
   expect(n2, equals(n));
 }

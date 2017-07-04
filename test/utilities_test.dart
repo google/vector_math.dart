@@ -4,7 +4,7 @@
 
 library vector_math.test.utilities_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -13,11 +13,11 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testDegrees() {
-  relativeTest(degrees(Math.PI), 180.0);
+  relativeTest(degrees(math.PI), 180.0);
 }
 
 void testRadians() {
-  relativeTest(radians(90.0), Math.PI / 2.0);
+  relativeTest(radians(90.0), math.PI / 2.0);
 }
 
 void testMix() {

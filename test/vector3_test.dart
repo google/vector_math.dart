@@ -5,7 +5,7 @@
 library vector_math.test.vector3_test;
 
 import 'dart:typed_data';
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -200,7 +200,7 @@ void testVector3Constructor() {
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
 
-  var v3 = new Vector3.random(new Math.Random());
+  var v3 = new Vector3.random(new math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -359,7 +359,7 @@ void testVector3AngleTo() {
   final v1 = new Vector3(0.0, 1.0, 0.0);
 
   expect(v0.angleTo(v0), equals(0.0));
-  expect(v0.angleTo(v1), equals(Math.PI / 2.0));
+  expect(v0.angleTo(v1), equals(math.PI / 2.0));
 }
 
 void testVector3AngleToSigned() {
@@ -368,8 +368,8 @@ void testVector3AngleToSigned() {
   final n = new Vector3(0.0, 0.0, 1.0);
 
   expect(v0.angleToSigned(v0, n), equals(0.0));
-  expect(v0.angleToSigned(v1, n), equals(Math.PI / 2.0));
-  expect(v1.angleToSigned(v0, n), equals(-Math.PI / 2.0));
+  expect(v0.angleToSigned(v1, n), equals(math.PI / 2.0));
+  expect(v1.angleToSigned(v0, n), equals(-math.PI / 2.0));
 }
 
 void testVector3Clamp() {

@@ -4,7 +4,7 @@
 
 library vector_math.test.aabb2_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -165,30 +165,30 @@ void testAabb2HullPoint() {
 }
 
 void testAabb2Rotate() {
-  final rotation = new Matrix3.rotationZ(Math.PI / 4);
+  final rotation = new Matrix3.rotationZ(math.PI / 4);
   final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
   final result = input..rotate(rotation);
 
-  relativeTest(result.min.x, 2 - Math.sqrt(2));
-  relativeTest(result.min.y, 2 - Math.sqrt(2));
-  relativeTest(result.max.x, 2 + Math.sqrt(2));
-  relativeTest(result.max.y, 2 + Math.sqrt(2));
+  relativeTest(result.min.x, 2 - math.sqrt(2));
+  relativeTest(result.min.y, 2 - math.sqrt(2));
+  relativeTest(result.max.x, 2 + math.sqrt(2));
+  relativeTest(result.max.y, 2 + math.sqrt(2));
   relativeTest(result.center.x, 2.0);
   relativeTest(result.center.y, 2.0);
 }
 
 void testAabb2Transform() {
-  final rotation = new Matrix3.rotationZ(Math.PI / 4);
+  final rotation = new Matrix3.rotationZ(math.PI / 4);
   final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
   final result = input..transform(rotation);
-  final newCenterY = Math.sqrt(8);
+  final newCenterY = math.sqrt(8);
 
-  relativeTest(result.min.x, -Math.sqrt(2));
-  relativeTest(result.min.y, newCenterY - Math.sqrt(2));
-  relativeTest(result.max.x, Math.sqrt(2));
-  relativeTest(result.max.y, newCenterY + Math.sqrt(2));
+  relativeTest(result.min.x, -math.sqrt(2));
+  relativeTest(result.min.y, newCenterY - math.sqrt(2));
+  relativeTest(result.max.x, math.sqrt(2));
+  relativeTest(result.max.y, newCenterY + math.sqrt(2));
   relativeTest(result.center.x, 0.0);
   relativeTest(result.center.y, newCenterY);
 }

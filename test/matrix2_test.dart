@@ -4,7 +4,7 @@
 
 library vector_math.test.matrix2_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -52,7 +52,7 @@ void testMatrix2Determinant() {
 }
 
 void testMatrix2Transform() {
-  var rot = new Matrix2.rotation(Math.PI / 4);
+  var rot = new Matrix2.rotation(math.PI / 4);
   final input = new Vector2(0.234245234259, 0.890723489233);
 
   final expected = new Vector2(

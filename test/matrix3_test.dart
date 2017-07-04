@@ -4,7 +4,7 @@
 
 library vector_math.test.matrix3_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -188,20 +188,20 @@ void testMatrix3SelfMultiplyTranspose() {
 }
 
 void testMatrix3Transform() {
-  Matrix3 rotX = new Matrix3.rotationX(Math.PI / 4);
-  Matrix3 rotY = new Matrix3.rotationY(Math.PI / 4);
-  Matrix3 rotZ = new Matrix3.rotationZ(Math.PI / 4);
+  Matrix3 rotX = new Matrix3.rotationX(math.PI / 4);
+  Matrix3 rotY = new Matrix3.rotationY(math.PI / 4);
+  Matrix3 rotZ = new Matrix3.rotationZ(math.PI / 4);
   final input = new Vector3(1.0, 0.0, 0.0);
 
   relativeTest(rotX.transformed(input), input);
   relativeTest(rotY.transformed(input),
-      new Vector3(1.0 / Math.sqrt(2.0), 0.0, 1.0 / Math.sqrt(2.0)));
+      new Vector3(1.0 / math.sqrt(2.0), 0.0, 1.0 / math.sqrt(2.0)));
   relativeTest(rotZ.transformed(input),
-      new Vector3(1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0));
+      new Vector3(1.0 / math.sqrt(2.0), 1.0 / math.sqrt(2.0), 0.0));
 }
 
 void testMatrix3Transform2() {
-  Matrix3 rotZ = new Matrix3.rotationZ(Math.PI / 4);
+  Matrix3 rotZ = new Matrix3.rotationZ(math.PI / 4);
   Matrix3 trans = new Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
   Matrix3 transB =
       new Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
@@ -210,14 +210,14 @@ void testMatrix3Transform2() {
   final input = new Vector2(1.0, 0.0);
 
   relativeTest(rotZ.transform2(input.clone()),
-      new Vector2(Math.sqrt(0.5), Math.sqrt(0.5)));
+      new Vector2(math.sqrt(0.5), math.sqrt(0.5)));
 
   relativeTest(trans.transform2(input.clone()), new Vector2(4.0, 2.0));
 }
 
 void testMatrix3AbsoluteRotate2() {
-  Matrix3 rotZ = new Matrix3.rotationZ(-Math.PI / 4);
-  Matrix3 rotZcw = new Matrix3.rotationZ(Math.PI / 4);
+  Matrix3 rotZ = new Matrix3.rotationZ(-math.PI / 4);
+  Matrix3 rotZcw = new Matrix3.rotationZ(math.PI / 4);
   // Add translation
   rotZ.setEntry(2, 0, 3.0);
   rotZ.setEntry(2, 1, 2.0);
@@ -225,10 +225,10 @@ void testMatrix3AbsoluteRotate2() {
   final input = new Vector2(1.0, 0.0);
 
   relativeTest(rotZ.absoluteRotate2(input.clone()),
-      new Vector2(Math.sqrt(0.5), Math.sqrt(0.5)));
+      new Vector2(math.sqrt(0.5), math.sqrt(0.5)));
 
   relativeTest(rotZcw.absoluteRotate2(input.clone()),
-      new Vector2(Math.sqrt(0.5), Math.sqrt(0.5)));
+      new Vector2(math.sqrt(0.5), math.sqrt(0.5)));
 }
 
 void testMatrix3ConstructorCopy() {

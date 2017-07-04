@@ -4,7 +4,7 @@
 
 library vector_math.test.obb3_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -164,11 +164,11 @@ void testClosestPointTo() {
 
   a.closestPointTo(b, closestPoint);
 
-  absoluteTest(closestPoint, new Vector3(Math.SQRT2, Math.SQRT2, 2.0));
+  absoluteTest(closestPoint, new Vector3(math.SQRT2, math.SQRT2, 2.0));
 
   a.closestPointTo(c, closestPoint);
 
-  absoluteTest(closestPoint, new Vector3(Math.SQRT2, Math.SQRT2, -2.0));
+  absoluteTest(closestPoint, new Vector3(math.SQRT2, math.SQRT2, -2.0));
 }
 
 void testIntersectionObb3() {
