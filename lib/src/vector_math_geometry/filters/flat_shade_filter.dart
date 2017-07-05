@@ -5,30 +5,42 @@
 part of vector_math_geometry;
 
 class FlatShadeFilter extends GeometryFilter {
-  List<VertexAttrib> get requires => [new VertexAttrib('POSITION', 3, 'float')];
-  List<VertexAttrib> get generates => [new VertexAttrib('NORMAL', 3, 'float')];
+  @override
+  List<VertexAttrib> get requires =>
+      <VertexAttrib>[new VertexAttrib('POSITION', 3, 'float')];
 
+  @override
+  List<VertexAttrib> get generates =>
+      <VertexAttrib>[new VertexAttrib('NORMAL', 3, 'float')];
+
+  @override
   MeshGeometry filter(MeshGeometry mesh) {
-    List<VertexAttrib> newAttribs =
+    final List<VertexAttrib> newAttribs =
         new List<VertexAttrib>.from(mesh.attribs, growable: true);
 
     if (mesh.getAttrib('NORMAL') == null) {
       newAttribs.add(new VertexAttrib('NORMAL', 3, 'float'));
     }
 
-    MeshGeometry output =
+    final MeshGeometry output =
         new MeshGeometry(mesh.triangleVertexCount, newAttribs);
 
-    Vector3 p0 = new Vector3.zero(),
+    final Vector3 p0 = new Vector3.zero(),
         p1 = new Vector3.zero(),
         p2 = new Vector3.zero();
 
-    Vector3List srcPosition = mesh.getViewForAttrib('POSITION');
-    Vector3List destPosition = output.getViewForAttrib('POSITION');
-    Vector3List normals = output.getViewForAttrib('NORMAL');
+    final VectorList<Vector> srcPosition = mesh.getViewForAttrib('POSITION');
+    final VectorList<Vector> destPosition = output.getViewForAttrib('POSITION');
+    final VectorList<Vector> normals = output.getViewForAttrib('NORMAL');
 
-    List<VectorList> srcAttribs = new List<VectorList>();
-    List<VectorList> destAttribs = new List<VectorList>();
+    if (srcPosition is! Vector3List ||
+        destPosition is! Vector3List ||
+        normals is! Vector3List) {
+      return null;
+    }
+
+    final List<VectorList<Vector>> srcAttribs = <VectorList<Vector>>[];
+    final List<VectorList<Vector>> destAttribs = <VectorList<Vector>>[];
     for (VertexAttrib attrib in mesh.attribs) {
       if (attrib.name == 'POSITION' || attrib.name == 'NORMAL') {
         continue;
@@ -39,13 +51,11 @@ class FlatShadeFilter extends GeometryFilter {
     }
 
     for (int i = 0; i < output.length; i += 3) {
-      int i0 = mesh.indices[i];
-      int i1 = mesh.indices[i + 1];
-      int i2 = mesh.indices[i + 2];
+      final int i0 = mesh.indices[i];
+      final int i1 = mesh.indices[i + 1];
+      final int i2 = mesh.indices[i + 2];
 
-      srcPosition.load(i0, p0);
-      srcPosition.load(i1, p1);
-      srcPosition.load(i2, p2);
+      srcPosition..load(i0, p0)..load(i1, p1)..load(i2, p2);
 
       destPosition[i] = p0;
       destPosition[i + 1] = p1;

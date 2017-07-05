@@ -6,7 +6,7 @@ library vector_math.test.vector2_test;
 
 import 'dart:typed_data';
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -98,8 +98,8 @@ void testVector2Postmultiplication() {
   inputInv.invert();
   // print("input $inputMatrix");
   // print("input $inputInv");
-  Vector2 resultOld = inputMatrix.transposed() * inputVector;
-  Vector2 resultOldvInv = inputInv * inputVector;
+  Vector2 resultOld = inputMatrix.transposed() * inputVector as Vector2;
+  Vector2 resultOldvInv = inputInv * inputVector as Vector2;
   Vector2 resultNew = inputVector..postmultiply(inputMatrix);
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
@@ -111,15 +111,15 @@ void testVector2CrossProduct() {
   final Vector2 inputA = new Vector2(0.417267069084370, 0.049654430325742);
   final Vector2 inputB = new Vector2(0.944787189721646, 0.490864092468080);
   double expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
-  var result;
+  dynamic result;
   result = cross2(inputA, inputB);
   relativeTest(result, expectedOutputCross);
   result = new Vector2.zero();
-  cross2A(1.0, inputA, result);
+  cross2A(1.0, inputA, result as Vector2);
   relativeTest(result, new Vector2(-inputA.y, inputA.x));
-  cross2B(inputA, 1.0, result);
+  cross2B(inputA, 1.0, result as Vector2);
   relativeTest(result, new Vector2(inputA.y, -inputA.x));
-  cross2B(inputA, 1.0, result);
+  cross2B(inputA, 1.0, result as Vector2);
   relativeTest(result, new Vector2(inputA.y, -inputA.x));
 }
 
@@ -147,7 +147,7 @@ void testVector2Constructor() {
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
 
-  var v3 = new Vector2.random(new Math.Random());
+  var v3 = new Vector2.random(new math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -259,7 +259,7 @@ void testVector2AngleTo() {
   final v1 = new Vector2(0.0, 1.0);
 
   expect(v0.angleTo(v0), equals(0.0));
-  expect(v0.angleTo(v1), equals(Math.PI / 2.0));
+  expect(v0.angleTo(v1), equals(math.PI / 2.0));
 }
 
 void testVector2AngleToSigned() {
@@ -268,9 +268,9 @@ void testVector2AngleToSigned() {
   final v2 = new Vector2(-1.0, 0.0);
 
   expect(v0.angleToSigned(v0), equals(0.0));
-  expect(v0.angleToSigned(v1), equals(Math.PI / 2.0));
-  expect(v1.angleToSigned(v0), equals(-Math.PI / 2.0));
-  expect(v0.angleToSigned(v2), equals(Math.PI));
+  expect(v0.angleToSigned(v1), equals(math.PI / 2.0));
+  expect(v1.angleToSigned(v0), equals(-math.PI / 2.0));
+  expect(v0.angleToSigned(v2), equals(math.PI));
 }
 
 void testVector2Clamp() {
@@ -279,13 +279,13 @@ void testVector2Clamp() {
   final v1 = new Vector2(-x, -y);
   final v2 = new Vector2(-2.0 * x, 2.0 * y)..clamp(v1, v0);
 
-  expect(v2.storage, orderedEquals([-x, y]));
+  expect(v2.storage, orderedEquals(<double>[-x, y]));
 }
 
 void testVector2ClampScalar() {
   final x = 2.0;
   final v0 = new Vector2(-2.0 * x, 2.0 * x)..clampScalar(-x, x);
-  expect(v0.storage, orderedEquals([-x, x]));
+  expect(v0.storage, orderedEquals(<double>[-x, x]));
 }
 
 void testVector2Floor() {
@@ -293,9 +293,9 @@ void testVector2Floor() {
   final v1 = new Vector2(-0.5, 0.5)..floor();
   final v2 = new Vector2(-0.9, 0.9)..floor();
 
-  expect(v0.storage, orderedEquals([-1.0, 0.0]));
-  expect(v1.storage, orderedEquals([-1.0, 0.0]));
-  expect(v2.storage, orderedEquals([-1.0, 0.0]));
+  expect(v0.storage, orderedEquals(<double>[-1.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[-1.0, 0.0]));
+  expect(v2.storage, orderedEquals(<double>[-1.0, 0.0]));
 }
 
 void testVector2Ceil() {
@@ -303,9 +303,9 @@ void testVector2Ceil() {
   final v1 = new Vector2(-0.5, 0.5)..ceil();
   final v2 = new Vector2(-0.9, 0.9)..ceil();
 
-  expect(v0.storage, orderedEquals([0.0, 1.0]));
-  expect(v1.storage, orderedEquals([0.0, 1.0]));
-  expect(v2.storage, orderedEquals([0.0, 1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 1.0]));
+  expect(v1.storage, orderedEquals(<double>[0.0, 1.0]));
+  expect(v2.storage, orderedEquals(<double>[0.0, 1.0]));
 }
 
 void testVector2Round() {
@@ -313,9 +313,9 @@ void testVector2Round() {
   final v1 = new Vector2(-0.5, 0.5)..round();
   final v2 = new Vector2(-0.9, 0.9)..round();
 
-  expect(v0.storage, orderedEquals([0.0, 0.0]));
-  expect(v1.storage, orderedEquals([-1.0, 1.0]));
-  expect(v2.storage, orderedEquals([-1.0, 1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[-1.0, 1.0]));
+  expect(v2.storage, orderedEquals(<double>[-1.0, 1.0]));
 }
 
 void testVector2RoundToZero() {
@@ -326,12 +326,12 @@ void testVector2RoundToZero() {
   final v4 = new Vector2(-1.5, 1.5)..roundToZero();
   final v5 = new Vector2(-1.9, 1.9)..roundToZero();
 
-  expect(v0.storage, orderedEquals([0.0, 0.0]));
-  expect(v1.storage, orderedEquals([0.0, 0.0]));
-  expect(v2.storage, orderedEquals([0.0, 0.0]));
-  expect(v3.storage, orderedEquals([-1.0, 1.0]));
-  expect(v4.storage, orderedEquals([-1.0, 1.0]));
-  expect(v5.storage, orderedEquals([-1.0, 1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[0.0, 0.0]));
+  expect(v2.storage, orderedEquals(<double>[0.0, 0.0]));
+  expect(v3.storage, orderedEquals(<double>[-1.0, 1.0]));
+  expect(v4.storage, orderedEquals(<double>[-1.0, 1.0]));
+  expect(v5.storage, orderedEquals(<double>[-1.0, 1.0]));
 }
 
 void main() {

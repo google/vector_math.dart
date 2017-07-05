@@ -19,8 +19,8 @@
 /// numbers for storage.
 library vector_math_64;
 
+import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:math' as Math;
 import 'hash.dart' as quiver;
 
 part 'src/vector_math_64/utilities.dart';

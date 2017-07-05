@@ -6,7 +6,7 @@ library vector_math.test.vector4_test;
 
 import 'dart:typed_data';
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -116,7 +116,7 @@ void testVector4Constructor() {
   expect(v2.z, equals(2.0));
   expect(v2.w, equals(2.0));
 
-  var v3 = new Vector4.random(new Math.Random());
+  var v3 = new Vector4.random(new math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -213,7 +213,7 @@ void testVector4Clamp() {
   final v1 = new Vector4(-x, -y, -z, -w);
   final v2 = new Vector4(-2.0 * x, 2.0 * y, -2.0 * z, 2.0 * w)..clamp(v1, v0);
 
-  expect(v2.storage, orderedEquals([-x, y, -z, w]));
+  expect(v2.storage, orderedEquals(<double>[-x, y, -z, w]));
 }
 
 void testVector4ClampScalar() {
@@ -221,7 +221,7 @@ void testVector4ClampScalar() {
   final v0 = new Vector4(-2.0 * x, 2.0 * x, -2.0 * x, 2.0 * x)
     ..clampScalar(-x, x);
 
-  expect(v0.storage, orderedEquals([-x, x, -x, x]));
+  expect(v0.storage, orderedEquals(<double>[-x, x, -x, x]));
 }
 
 void testVector4Floor() {
@@ -229,9 +229,9 @@ void testVector4Floor() {
   final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..floor();
   final v2 = new Vector4(-0.9, 0.9, -0.5, 0.9)..floor();
 
-  expect(v0.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
-  expect(v1.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
-  expect(v2.storage, orderedEquals([-1.0, 0.0, -1.0, 0.0]));
+  expect(v0.storage, orderedEquals(<double>[-1.0, 0.0, -1.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[-1.0, 0.0, -1.0, 0.0]));
+  expect(v2.storage, orderedEquals(<double>[-1.0, 0.0, -1.0, 0.0]));
 }
 
 void testVector4Ceil() {
@@ -239,9 +239,9 @@ void testVector4Ceil() {
   final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..ceil();
   final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..ceil();
 
-  expect(v0.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
-  expect(v1.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
-  expect(v2.storage, orderedEquals([0.0, 1.0, 0.0, 1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 1.0, 0.0, 1.0]));
+  expect(v1.storage, orderedEquals(<double>[0.0, 1.0, 0.0, 1.0]));
+  expect(v2.storage, orderedEquals(<double>[0.0, 1.0, 0.0, 1.0]));
 }
 
 void testVector4Round() {
@@ -249,9 +249,9 @@ void testVector4Round() {
   final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..round();
   final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..round();
 
-  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
-  expect(v1.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
-  expect(v2.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[-1.0, 1.0, -1.0, 1.0]));
+  expect(v2.storage, orderedEquals(<double>[-1.0, 1.0, -1.0, 1.0]));
 }
 
 void testVector4RoundToZero() {
@@ -262,12 +262,12 @@ void testVector4RoundToZero() {
   final v4 = new Vector4(-1.5, 1.5, -1.5, 1.5)..roundToZero();
   final v5 = new Vector4(-1.9, 1.9, -1.9, 1.9)..roundToZero();
 
-  expect(v0.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
-  expect(v1.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
-  expect(v2.storage, orderedEquals([0.0, 0.0, 0.0, 0.0]));
-  expect(v3.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
-  expect(v4.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
-  expect(v5.storage, orderedEquals([-1.0, 1.0, -1.0, 1.0]));
+  expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));
+  expect(v1.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));
+  expect(v2.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));
+  expect(v3.storage, orderedEquals(<double>[-1.0, 1.0, -1.0, 1.0]));
+  expect(v4.storage, orderedEquals(<double>[-1.0, 1.0, -1.0, 1.0]));
+  expect(v5.storage, orderedEquals(<double>[-1.0, 1.0, -1.0, 1.0]));
 }
 
 void main() {

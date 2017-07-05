@@ -5,8 +5,8 @@
 /// A library for working with lists of vectors in a memory efficient way.
 library vector_math_lists;
 
+import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:math' as Math;
 import 'package:vector_math/vector_math.dart';
 
 part 'src/vector_math_lists/scalar_list_view.dart';

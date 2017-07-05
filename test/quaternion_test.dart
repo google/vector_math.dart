@@ -5,7 +5,7 @@
 library vector_math.test.quaternion_test;
 
 import 'dart:typed_data';
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -181,8 +181,8 @@ void testQuaternionAxisAngle() {
   // Test conversion to and from axis-angle representation
   {
     Quaternion q =
-        new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * Math.PI);
-    relativeTest(q.radians, 0.5 * Math.PI);
+        new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * math.PI);
+    relativeTest(q.radians, 0.5 * math.PI);
     relativeTest(q.axis, new Vector3(0.0, 1.0, 0.0));
   }
 
@@ -199,7 +199,7 @@ void testFromTwoVectors() {
     Vector3 a = new Vector3(1.0, 0.0, 0.0);
     Vector3 b = new Vector3(0.0, 1.0, 0.0);
     Quaternion q = new Quaternion.fromTwoVectors(a, b);
-    relativeTest(q.radians, 0.5 * Math.PI);
+    relativeTest(q.radians, 0.5 * math.PI);
     relativeTest(q.axis, new Vector3(0.0, 0.0, 1.0));
   }
   {
@@ -215,7 +215,7 @@ void testFromTwoVectors() {
     Vector3 a = new Vector3(1.0, 0.0, 0.0);
     Vector3 b = new Vector3(-1.0, 0.0, 0.0);
     Quaternion q = new Quaternion.fromTwoVectors(a, b);
-    relativeTest(q.radians, Math.PI);
+    relativeTest(q.radians, math.PI);
   }
 }
 

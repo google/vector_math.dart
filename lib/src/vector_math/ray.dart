@@ -51,19 +51,19 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {
-    final r = other._radius;
-    final r2 = r * r;
-    final l = other._center.clone()..sub(_origin);
-    final s = l.dot(_direction);
-    final l2 = l.dot(l);
+    final double r = other._radius;
+    final double r2 = r * r;
+    final Vector3 l = other._center.clone()..sub(_origin);
+    final double s = l.dot(_direction);
+    final double l2 = l.dot(l);
     if (s < 0 && l2 > r2) {
       return null;
     }
-    final m2 = l2 - s * s;
+    final double m2 = l2 - s * s;
     if (m2 > r2) {
       return null;
     }
-    final q = Math.sqrt(r2 - m2);
+    final double q = math.sqrt(r2 - m2);
 
     return (l2 > r2) ? s - q : s + q;
   }
@@ -71,20 +71,20 @@ class Ray {
   // Some varaibles that are used for intersectsWithTriangle and
   // intersectsWithQuad. The performance is better in Dart and JS if we avoid
   // to create temporary instance over and over. Also reduce GC.
-  static final _e1 = new Vector3.zero();
-  static final _e2 = new Vector3.zero();
-  static final _q = new Vector3.zero();
-  static final _s = new Vector3.zero();
-  static final _r = new Vector3.zero();
+  static final Vector3 _e1 = new Vector3.zero();
+  static final Vector3 _e2 = new Vector3.zero();
+  static final Vector3 _q = new Vector3.zero();
+  static final Vector3 _s = new Vector3.zero();
+  static final Vector3 _r = new Vector3.zero();
 
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithTriangle(Triangle other) {
     const double EPSILON = 10e-6;
 
-    final point0 = other._point0;
-    final point1 = other._point1;
-    final point2 = other._point2;
+    final Vector3 point0 = other._point0;
+    final Vector3 point1 = other._point1;
+    final Vector3 point2 = other._point2;
 
     _e1
       ..setFrom(point1)
@@ -94,30 +94,30 @@ class Ray {
       ..sub(point0);
 
     _direction.crossInto(_e2, _q);
-    final a = _e1.dot(_q);
+    final double a = _e1.dot(_q);
 
     if (a > -EPSILON && a < EPSILON) {
       return null;
     }
 
-    final f = 1 / a;
+    final double f = 1 / a;
     _s
       ..setFrom(_origin)
       ..sub(point0);
-    final u = f * (_s.dot(_q));
+    final double u = f * (_s.dot(_q));
 
     if (u < 0.0) {
       return null;
     }
 
     _s.crossInto(_e1, _r);
-    final v = f * (_direction.dot(_r));
+    final double v = f * (_direction.dot(_r));
 
     if (v < -EPSILON || u + v > 1.0 + EPSILON) {
       return null;
     }
 
-    final t = f * (_e2.dot(_r));
+    final double t = f * (_e2.dot(_r));
 
     return t;
   }
@@ -128,9 +128,9 @@ class Ray {
     const double EPSILON = 10e-6;
 
     // First triangle
-    var point0 = other._point0;
-    var point1 = other._point1;
-    var point2 = other._point2;
+    Vector3 point0 = other._point0;
+    Vector3 point1 = other._point1;
+    Vector3 point2 = other._point2;
 
     _e1
       ..setFrom(point1)
@@ -140,21 +140,21 @@ class Ray {
       ..sub(point0);
 
     _direction.crossInto(_e2, _q);
-    final a0 = _e1.dot(_q);
+    final double a0 = _e1.dot(_q);
 
     if (!(a0 > -EPSILON && a0 < EPSILON)) {
-      final f = 1 / a0;
+      final double f = 1 / a0;
       _s
         ..setFrom(_origin)
         ..sub(point0);
-      final u = f * (_s.dot(_q));
+      final double u = f * (_s.dot(_q));
 
       if (u >= 0.0) {
         _s.crossInto(_e1, _r);
-        final v = f * (_direction.dot(_r));
+        final double v = f * (_direction.dot(_r));
 
         if (!(v < -EPSILON || u + v > 1.0 + EPSILON)) {
-          final t = f * (_e2.dot(_r));
+          final double t = f * (_e2.dot(_r));
 
           return t;
         }
@@ -174,21 +174,21 @@ class Ray {
       ..sub(point0);
 
     _direction.crossInto(_e2, _q);
-    final a1 = _e1.dot(_q);
+    final double a1 = _e1.dot(_q);
 
     if (!(a1 > -EPSILON && a1 < EPSILON)) {
-      final f = 1 / a1;
+      final double f = 1 / a1;
       _s
         ..setFrom(_origin)
         ..sub(point0);
-      final u = f * (_s.dot(_q));
+      final double u = f * (_s.dot(_q));
 
       if (u >= 0.0) {
         _s.crossInto(_e1, _r);
-        final v = f * (_direction.dot(_r));
+        final double v = f * (_direction.dot(_r));
 
         if (!(v < -EPSILON || u + v > 1.0 + EPSILON)) {
-          final t = f * (_e2.dot(_r));
+          final double t = f * (_e2.dot(_r));
 
           return t;
         }
@@ -201,23 +201,23 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithAabb3(Aabb3 other) {
-    final otherMin = other.min;
-    final otherMax = other.max;
+    final Vector3 otherMin = other.min;
+    final Vector3 otherMax = other.max;
 
-    var tNear = -double.MAX_FINITE;
-    var tFar = double.MAX_FINITE;
+    double tNear = -double.MAX_FINITE;
+    double tFar = double.MAX_FINITE;
 
-    for (var i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       if (_direction[i] == 0.0) {
         if (_origin[i] < otherMin[i] || _origin[i] > otherMax[i]) {
           return null;
         }
       } else {
-        var t1 = (otherMin[i] - _origin[i]) / _direction[i];
-        var t2 = (otherMax[i] - _origin[i]) / _direction[i];
+        double t1 = (otherMin[i] - _origin[i]) / _direction[i];
+        double t2 = (otherMax[i] - _origin[i]) / _direction[i];
 
         if (t1 > t2) {
-          final temp = t1;
+          final double temp = t1;
           t1 = t2;
           t2 = temp;
         }

@@ -38,18 +38,16 @@ class Sphere {
   }
 
   /// Return if [this] contains [other].
-  bool containsVector3(Vector3 other) {
-    return other.distanceToSquared(center) < radius * radius;
-  }
+  bool containsVector3(Vector3 other) =>
+      other.distanceToSquared(center) < radius * radius;
 
   /// Return if [this] intersects with [other].
-  bool intersectsWithVector3(Vector3 other) {
-    return other.distanceToSquared(center) <= radius * radius;
-  }
+  bool intersectsWithVector3(Vector3 other) =>
+      other.distanceToSquared(center) <= radius * radius;
 
   /// Return if [this] intersects with [other].
   bool intersectsWithSphere(Sphere other) {
-    var radiusSum = radius + other.radius;
+    final double radiusSum = radius + other.radius;
 
     return other.center.distanceToSquared(center) <= (radiusSum * radiusSum);
   }

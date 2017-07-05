@@ -20,7 +20,7 @@ abstract class VectorList<T extends Vector> {
   Float32List get buffer => _buffer;
 
   static int _listLength(int offset, int stride, int vectorLength, int length) {
-    int width = stride == 0 ? vectorLength : stride;
+    final int width = stride == 0 ? vectorLength : stride;
     return offset + width * length;
   }
 
@@ -42,7 +42,7 @@ abstract class VectorList<T extends Vector> {
   /// Create a new vector list from a list of vectors that have a size of
   /// [vectorLength]. Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
-  VectorList.fromList(List list, int vectorLength,
+  VectorList.fromList(List<T> list, int vectorLength,
       [int offset = 0, int stride = 0])
       : _vectorLength = vectorLength,
         _offset = offset,
@@ -66,7 +66,7 @@ abstract class VectorList<T extends Vector> {
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
-        _length = (buffer.length - Math.max(0, offset - stride)) ~/
+        _length = (buffer.length - math.max(0, offset - stride)) ~/
             (stride == 0 ? vectorLength : stride),
         _buffer = buffer {
     if (_stride < _vectorLength) {
@@ -74,9 +74,7 @@ abstract class VectorList<T extends Vector> {
     }
   }
 
-  int _vectorIndexToBufferIndex(int index) {
-    return _offset + _stride * index;
-  }
+  int _vectorIndexToBufferIndex(int index) => _offset + _stride * index;
 
   /// Create a new instance of [T].
   T newVector();
@@ -89,11 +87,12 @@ abstract class VectorList<T extends Vector> {
 
   /// Copy a range of [count] vectors beginning at [srcOffset] from [src] into
   /// this list starting at [offset].
-  void copy(VectorList src, {int srcOffset: 0, int offset: 0, int count: 0}) {
+  void copy(VectorList<T> src,
+      {int srcOffset: 0, int offset: 0, int count: 0}) {
     if (count == 0) {
-      count = Math.min(length - offset, src.length - srcOffset);
+      count = math.min(length - offset, src.length - srcOffset);
     }
-    int minVectorLength = Math.min(_vectorLength, src._vectorLength);
+    final int minVectorLength = math.min(_vectorLength, src._vectorLength);
     for (int i = 0; i < count; i++) {
       int index = _vectorIndexToBufferIndex(i + offset);
       int srcIndex = src._vectorIndexToBufferIndex(i + srcOffset);
@@ -105,7 +104,7 @@ abstract class VectorList<T extends Vector> {
 
   /// Retrieves the vector at [index].
   T operator [](int index) {
-    var r = newVector();
+    final T r = newVector();
     load(index, r);
     return r;
   }

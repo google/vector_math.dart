@@ -6,14 +6,20 @@ part of vector_math_geometry;
 
 class TransformFilter extends InplaceGeometryFilter {
   Matrix4 transform;
-  List<VertexAttrib> get requires => [new VertexAttrib('POSITION', 3, 'float')];
 
-  TransformFilter(Matrix4 this.transform);
+  TransformFilter(this.transform);
 
+  @override
+  List<VertexAttrib> get requires =>
+      <VertexAttrib>[new VertexAttrib('POSITION', 3, 'float')];
+
+  @override
   void filterInplace(MeshGeometry mesh) {
-    Vector3List position = mesh.getViewForAttrib('POSITION');
-    if (position != null) {
+    final VectorList<Vector> position = mesh.getViewForAttrib('POSITION');
+    if (position is Vector3List) {
       for (int i = 0; i < position.length; ++i) {
+        // multiplication always returns Vector3 here
+        // ignore: invalid_assignment
         position[i] = transform * position[i];
       }
     }

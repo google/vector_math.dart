@@ -7,63 +7,59 @@ library vector_math.mesh_generator;
 import 'dart:convert';
 import 'package:vector_math/vector_math_geometry.dart';
 
+typedef MeshGeometry GenerateFunction(List<String> args);
+
 MeshGeometry generateCube(List<String> args) {
   if (args.length != 3) {
     return null;
   }
-  num width = double.parse(args[0]);
-  num height = double.parse(args[1]);
-  num depth = double.parse(args[2]);
-  var generator = new CubeGenerator();
-  MeshGeometry geometry = generator.createCube(width, height, depth);
-  return geometry;
+  final double width = double.parse(args[0]);
+  final double height = double.parse(args[1]);
+  final double depth = double.parse(args[2]);
+  final CubeGenerator generator = new CubeGenerator();
+  return generator.createCube(width, height, depth);
 }
 
 MeshGeometry generateSphere(List<String> args) {
   if (args.length != 1) {
     return null;
   }
-  num radius = double.parse(args[0]);
-  var generator = new SphereGenerator();
-  MeshGeometry geometry = generator.createSphere(radius);
-  return geometry;
+  final double radius = double.parse(args[0]);
+  final SphereGenerator generator = new SphereGenerator();
+  return generator.createSphere(radius);
 }
 
 MeshGeometry generateCircle(List<String> args) {
   if (args.length != 1) {
     return null;
   }
-  num radius = double.parse(args[0]);
-  var generator = new CircleGenerator();
-  MeshGeometry geometry = generator.createCircle(radius);
-  return geometry;
+  final double radius = double.parse(args[0]);
+  final CircleGenerator generator = new CircleGenerator();
+  return generator.createCircle(radius);
 }
 
 MeshGeometry generateCylinder(List<String> args) {
   if (args.length != 3) {
     return null;
   }
-  num topRadius = double.parse(args[0]);
-  num bottomRadius = double.parse(args[1]);
-  num height = double.parse(args[2]);
-  var generator = new CylinderGenerator();
-  MeshGeometry geometry =
-      generator.createCylinder(topRadius, bottomRadius, height);
-  return geometry;
+  final double topRadius = double.parse(args[0]);
+  final double bottomRadius = double.parse(args[1]);
+  final double height = double.parse(args[2]);
+  final CylinderGenerator generator = new CylinderGenerator();
+  return generator.createCylinder(topRadius, bottomRadius, height);
 }
 
 MeshGeometry generateRing(List<String> args) {
   if (args.length != 2) {
     return null;
   }
-  num innerRadius = double.parse(args[0]);
-  num outerRadius = double.parse(args[1]);
-  var generator = new RingGenerator();
-  MeshGeometry geometry = generator.createRing(innerRadius, outerRadius);
-  return geometry;
+  final double innerRadius = double.parse(args[0]);
+  final double outerRadius = double.parse(args[1]);
+  final RingGenerator generator = new RingGenerator();
+  return generator.createRing(innerRadius, outerRadius);
 }
 
-Map<String, Function> generators = {
+Map<String, GenerateFunction> generators = <String, GenerateFunction>{
   'cube': generateCube,
   'sphere': generateSphere,
   'circle': generateCircle,
@@ -71,10 +67,10 @@ Map<String, Function> generators = {
   'ring': generateRing
 };
 
-main(List<String> args_) {
-  List<String> args = new List.from(args_, growable: true);
+void main(List<String> args_) {
+  final List<String> args = new List<String>.from(args_, growable: true);
 
-  if (args.length == 0) {
+  if (args.isEmpty) {
     print('mesh_generator.dart <type> [<arg0> ... <argN>]');
     print('');
     print('<type> = cube, sphere, cylinder');
@@ -86,13 +82,13 @@ main(List<String> args_) {
     print('');
     return;
   }
-  var type = args.removeAt(0);
-  var generator = generators[type];
+  final String type = args.removeAt(0);
+  final GenerateFunction generator = generators[type];
   if (generator == null) {
     print('Could not find generator for $type');
     return;
   }
-  MeshGeometry geometry = generator(args);
+  final MeshGeometry geometry = generator(args);
   if (geometry == null) {
     print('Error generating geometry for $type');
     return;

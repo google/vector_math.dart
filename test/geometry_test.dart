@@ -80,7 +80,7 @@ void testTransformFilter() {
   MeshGeometry cube = filterUnitCube(filter);
 
   // Check to ensure all the vertices were properly scaled
-  Vector3List positions = cube.getViewForAttrib("POSITION");
+  Vector3List positions = cube.getViewForAttrib("POSITION") as Vector3List;
   for (int i = 0; i < positions.length; ++i) {
     Vector3 position = positions[i];
     expect(position.storage[0].abs(), equals(2.0));
@@ -115,7 +115,7 @@ void testColorFilter() {
   MeshGeometry cube = filterUnitCube(filter);
 
   // Ensure that the same color was applied to all vertices
-  Vector4List colors = cube.getViewForAttrib("COLOR");
+  Vector4List colors = cube.getViewForAttrib("COLOR") as Vector4List;
   for (int i = 0; i < colors.length; ++i) {
     Vector4 color = colors[i];
     relativeTest(color, filterColor);

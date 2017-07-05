@@ -16,14 +16,14 @@ void testUnproject() {
   Vector3 focusPosition = new Vector3(0.0, 0.0, -1.0);
   Vector3 upDirection = new Vector3(0.0, 1.0, 0.0);
   Matrix4 lookat = makeViewMatrix(position, focusPosition, upDirection);
-  num n = 0.1;
-  num f = 1000.0;
-  num l = -10.0;
-  num r = 10.0;
-  num b = -10.0;
-  num t = 10.0;
+  double n = 0.1;
+  double f = 1000.0;
+  double l = -10.0;
+  double r = 10.0;
+  double b = -10.0;
+  double t = 10.0;
   Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
-  Matrix4 C = frustum * lookat;
+  Matrix4 C = frustum * lookat as Matrix4;
   Vector3 re = new Vector3.zero();
   unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
 }
@@ -45,12 +45,12 @@ void testLookAt() {
 }
 
 void testFrustumMatrix() {
-  num n = 0.1;
-  num f = 1000.0;
-  num l = -1.0;
-  num r = 1.0;
-  num b = -1.0;
-  num t = 1.0;
+  double n = 0.1;
+  double f = 1000.0;
+  double l = -1.0;
+  double r = 1.0;
+  double b = -1.0;
+  double t = 1.0;
   Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
   relativeTest(
       frustum.getColumn(0), new Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
@@ -92,12 +92,12 @@ void testInfiniteMatrix() {
 }
 
 void testOrthographicMatrix() {
-  num n = 0.1;
-  num f = 1000.0;
-  num l = -1.0;
-  num r = 1.0;
-  num b = -1.0;
-  num t = 1.0;
+  double n = 0.1;
+  double f = 1000.0;
+  double l = -1.0;
+  double r = 1.0;
+  double b = -1.0;
+  double t = 1.0;
   Matrix4 ortho = makeOrthographicMatrix(l, r, b, t, n, f);
   relativeTest(ortho.getColumn(0), new Vector4(2 / (r - l), 0.0, 0.0, 0.0));
   relativeTest(ortho.getColumn(1), new Vector4(0.0, 2 / (t - b), 0.0, 0.0));

@@ -9,25 +9,29 @@ class Vector2 implements Vector {
   final Float32List _v2storage;
 
   /// The components of the vector.
+  @override
   Float32List get storage => _v2storage;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector2 a, Vector2 b, Vector2 result) {
-    result.x = Math.min(a.x, b.x);
-    result.y = Math.min(a.y, b.y);
+    result
+      ..x = math.min(a.x, b.x)
+      ..y = math.min(a.y, b.y);
   }
 
   /// Set the values of [result] to the maximum of [a] and [b] for each line.
   static void max(Vector2 a, Vector2 b, Vector2 result) {
-    result.x = Math.max(a.x, b.x);
-    result.y = Math.max(a.y, b.y);
+    result
+      ..x = math.max(a.x, b.x)
+      ..y = math.max(a.y, b.y);
   }
 
   /// Interpolate between [min] and [max] with the amount of [a] using a linear
   /// interpolation and store the values in [result].
   static void mix(Vector2 min, Vector2 max, double a, Vector2 result) {
-    result.x = min.x + a * (max.x - min.x);
-    result.y = min.y + a * (max.y - min.y);
+    result
+      ..x = min.x + a * (max.x - min.x)
+      ..y = min.y + a * (max.y - min.y);
   }
 
   /// Construct a new vector with the specified values.
@@ -56,8 +60,8 @@ class Vector2 implements Vector {
 
   /// Generate random vector in the range (0, 0) to (1, 1). You can
   /// optionally pass your own random number generator.
-  factory Vector2.random([Math.Random rng]) {
-    rng = rng == null ? new Math.Random() : rng;
+  factory Vector2.random([math.Random rng]) {
+    rng = rng == null ? new math.Random() : rng;
     return new Vector2(rng.nextDouble(), rng.nextDouble());
   }
 
@@ -75,7 +79,7 @@ class Vector2 implements Vector {
 
   /// Set the values by copying them from [other].
   void setFrom(Vector2 other) {
-    final otherStorage = other._v2storage;
+    final Float32List otherStorage = other._v2storage;
     _v2storage[1] = otherStorage[1];
     _v2storage[0] = otherStorage[0];
   }
@@ -87,15 +91,17 @@ class Vector2 implements Vector {
   }
 
   /// Returns a printable string
+  @override
   String toString() => '[${_v2storage[0]},${_v2storage[1]}]';
 
   /// Check if two vectors are the same.
-  bool operator ==(other) {
-    return (other is Vector2) &&
-        (_v2storage[0] == other._v2storage[0]) &&
-        (_v2storage[1] == other._v2storage[1]);
-  }
+  @override
+  bool operator ==(Object other) =>
+      (other is Vector2) &&
+      (_v2storage[0] == other._v2storage[0]) &&
+      (_v2storage[1] == other._v2storage[1]);
 
+  @override
   int get hashCode => quiver.hashObjects(_v2storage);
 
   /// Negate.
@@ -138,11 +144,11 @@ class Vector2 implements Vector {
   }
 
   /// Length.
-  double get length => Math.sqrt(length2);
+  double get length => math.sqrt(length2);
 
   /// Length squared.
   double get length2 {
-    var sum;
+    double sum;
     sum = (_v2storage[0] * _v2storage[0]);
     sum += (_v2storage[1] * _v2storage[1]);
     return sum;
@@ -150,11 +156,11 @@ class Vector2 implements Vector {
 
   /// Normalize [this].
   double normalize() {
-    double l = length;
+    final double l = length;
     if (l == 0.0) {
       return 0.0;
     }
-    var d = 1.0 / l;
+    final double d = 1.0 / l;
     _v2storage[0] *= d;
     _v2storage[1] *= d;
     return l;
@@ -177,69 +183,67 @@ class Vector2 implements Vector {
   }
 
   /// Distance from [this] to [arg]
-  double distanceTo(Vector2 arg) => Math.sqrt(distanceToSquared(arg));
+  double distanceTo(Vector2 arg) => math.sqrt(distanceToSquared(arg));
 
   /// Squared distance from [this] to [arg]
   double distanceToSquared(Vector2 arg) {
-    final dx = x - arg.x;
-    final dy = y - arg.y;
+    final double dx = x - arg.x;
+    final double dy = y - arg.y;
 
     return dx * dx + dy * dy;
   }
 
   /// Returns the angle between [this] vector and [other] in radians.
   double angleTo(Vector2 other) {
-    final otherStorage = other._v2storage;
-    if (_v2storage[0] == otherStorage[0] &&
-        _v2storage[1] == otherStorage[1]) {
+    final Float32List otherStorage = other._v2storage;
+    if (_v2storage[0] == otherStorage[0] && _v2storage[1] == otherStorage[1]) {
       return 0.0;
     }
 
-    final d = dot(other);
+    final double d = dot(other);
 
-    return Math.acos(d.clamp(-1.0, 1.0));
+    return math.acos(d.clamp(-1.0, 1.0));
   }
 
   /// Returns the signed angle between [this] and [other] in radians.
   double angleToSigned(Vector2 other) {
-    final otherStorage = other._v2storage;
-    if (_v2storage[0] == otherStorage[0] &&
-        _v2storage[1] == otherStorage[1]) {
+    final Float32List otherStorage = other._v2storage;
+    if (_v2storage[0] == otherStorage[0] && _v2storage[1] == otherStorage[1]) {
       return 0.0;
     }
 
-    final s = cross(other);
-    final c = dot(other);
+    final double s = cross(other);
+    final double c = dot(other);
 
-    return Math.atan2(s, c);
+    return math.atan2(s, c);
   }
 
   /// Inner product.
   double dot(Vector2 other) {
-    final otherStorage = other._v2storage;
+    final Float32List otherStorage = other._v2storage;
     double sum;
     sum = _v2storage[0] * otherStorage[0];
     sum += _v2storage[1] * otherStorage[1];
     return sum;
   }
 
-  /**
-   * Transforms [this] into the product of [this] as a row vector,
-   * postmultiplied by matrix, [arg].
-   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
-   * the inverse of the transformation.
-   */
+  ///
+  /// Transforms [this] into the product of [this] as a row vector,
+  /// postmultiplied by matrix, [arg].
+  /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
+  /// the inverse of the transformation.
+  ///
   void postmultiply(Matrix2 arg) {
-    final argStorage = arg.storage;
-    double v0 = _v2storage[0];
-    double v1 = _v2storage[1];
+    final Float32List argStorage = arg.storage;
+    final double v0 = _v2storage[0];
+    final double v1 = _v2storage[1];
     _v2storage[0] = v0 * argStorage[0] + v1 * argStorage[1];
     _v2storage[1] = v0 * argStorage[2] + v1 * argStorage[3];
   }
 
   /// Cross product.
   double cross(Vector2 other) {
-    final otherStorage = other._v2storage;
+    final Float32List otherStorage = other._v2storage;
     return _v2storage[0] * otherStorage[1] - _v2storage[1] * otherStorage[0];
   }
 
@@ -259,15 +263,13 @@ class Vector2 implements Vector {
 
   /// Relative error between [this] and [correct]
   double relativeError(Vector2 correct) {
-    double correct_norm = correct.length;
-    double diff_norm = (this - correct).length;
+    final double correct_norm = correct.length;
+    final double diff_norm = (this - correct).length;
     return diff_norm / correct_norm;
   }
 
   /// Absolute error between [this] and [correct]
-  double absoluteError(Vector2 correct) {
-    return (this - correct).length;
-  }
+  double absoluteError(Vector2 correct) => (this - correct).length;
 
   /// True if any component is infinite.
   bool get isInfinite {
@@ -287,35 +289,35 @@ class Vector2 implements Vector {
 
   /// Add [arg] to [this].
   void add(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] + argStorage[0];
     _v2storage[1] = _v2storage[1] + argStorage[1];
   }
 
   /// Add [arg] scaled by [factor] to [this].
   void addScaled(Vector2 arg, double factor) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] + argStorage[0] * factor;
     _v2storage[1] = _v2storage[1] + argStorage[1] * factor;
   }
 
   /// Subtract [arg] from [this].
   void sub(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] - argStorage[0];
     _v2storage[1] = _v2storage[1] - argStorage[1];
   }
 
   /// Multiply entries in [this] with entries in [arg].
   void multiply(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] * argStorage[0];
     _v2storage[1] = _v2storage[1] * argStorage[1];
   }
 
   /// Divide entries in [this] with entries in [arg].
   void divide(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] / argStorage[0];
     _v2storage[1] = _v2storage[1] / argStorage[1];
   }
@@ -343,16 +345,18 @@ class Vector2 implements Vector {
 
   /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
   void clamp(Vector2 min, Vector2 max) {
-    var minStorage = min.storage;
-    var maxStorage = max.storage;
-    _v2storage[0] = _v2storage[0].clamp(minStorage[0], maxStorage[0]);
-    _v2storage[1] = _v2storage[1].clamp(minStorage[1], maxStorage[1]);
+    final Float32List minStorage = min.storage;
+    final Float32List maxStorage = max.storage;
+    _v2storage[0] =
+        _v2storage[0].clamp(minStorage[0], maxStorage[0]).toDouble();
+    _v2storage[1] =
+        _v2storage[1].clamp(minStorage[1], maxStorage[1]).toDouble();
   }
 
   /// Clamp entries [this] in the range [min]-[max].
   void clampScalar(double min, double max) {
-    _v2storage[0] = _v2storage[0].clamp(min, max);
-    _v2storage[1] = _v2storage[1].clamp(min, max);
+    _v2storage[0] = _v2storage[0].clamp(min, max).toDouble();
+    _v2storage[1] = _v2storage[1].clamp(min, max).toDouble();
   }
 
   /// Floor entries in [this].
@@ -388,7 +392,7 @@ class Vector2 implements Vector {
 
   /// Copy [this] into [arg]. Returns [arg].
   Vector2 copyInto(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     argStorage[1] = _v2storage[1];
     argStorage[0] = _v2storage[0];
     return arg;
@@ -407,13 +411,13 @@ class Vector2 implements Vector {
   }
 
   set xy(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[0] = argStorage[0];
     _v2storage[1] = argStorage[1];
   }
 
   set yx(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final Float32List argStorage = arg._v2storage;
     _v2storage[1] = argStorage[0];
     _v2storage[0] = argStorage[1];
   }

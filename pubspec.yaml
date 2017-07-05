@@ -4,7 +4,7 @@ author: John McCutchan <john@johnmccutchan.com>
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/google/vector_math.dart
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=1.21.0 <2.0.0'
 dev_dependencies:
   benchmark_harness: any
   browser: any

@@ -19,7 +19,7 @@ class ScalarListView {
   Float32List get buffer => _buffer;
 
   static int _listLength(int offset, int stride, int length) {
-    int width = stride == 0 ? 1 : stride;
+    final int width = stride == 0 ? 1 : stride;
     return offset + width * length;
   }
 
@@ -51,13 +51,11 @@ class ScalarListView {
   ScalarListView.view(Float32List buffer, [int offset = 0, int stride = 0])
       : _offset = offset,
         _stride = stride == 0 ? 1 : stride,
-        _length = (buffer.length - Math.max(0, offset - stride)) ~/
+        _length = (buffer.length - math.max(0, offset - stride)) ~/
             (stride == 0 ? 1 : stride),
         _buffer = buffer;
 
-  int _elementIndexToBufferIndex(int index) {
-    return _offset + _stride * index;
-  }
+  int _elementIndexToBufferIndex(int index) => _offset + _stride * index;
 
   /// Retrieves the value at [index].
   double operator [](int index) => load(index);
@@ -69,7 +67,7 @@ class ScalarListView {
 
   /// Store [value] in the list at [index].
   void store(int index, double value) {
-    final i = _elementIndexToBufferIndex(index);
+    final int i = _elementIndexToBufferIndex(index);
     _buffer[i] = value;
   }
 

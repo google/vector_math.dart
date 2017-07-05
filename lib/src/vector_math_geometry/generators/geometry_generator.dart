@@ -18,8 +18,9 @@ abstract class GeometryGenerator {
   int get indexCount;
 
   MeshGeometry createGeometry(
-      {GeometryGeneratorFlags flags: null, List filters: null}) {
-    if (flags == null) flags = new GeometryGeneratorFlags();
+      {GeometryGeneratorFlags flags: null,
+      List<GeometryFilter> filters: null}) {
+    flags ??= new GeometryGeneratorFlags();
 
     VertexAttrib positionAttrib;
     VertexAttrib texCoordAttrib;
@@ -31,7 +32,7 @@ abstract class GeometryGenerator {
     Vector3List normalView;
     Vector4List tangentView;
 
-    List<VertexAttrib> attribs = new List<VertexAttrib>();
+    final List<VertexAttrib> attribs = <VertexAttrib>[];
 
     positionAttrib = new VertexAttrib('POSITION', 3, 'float');
     attribs.add(positionAttrib);
@@ -51,33 +52,44 @@ abstract class GeometryGenerator {
       attribs.add(tangentAttrib);
     }
 
-    MeshGeometry mesh = new MeshGeometry(vertexCount, attribs);
-
-    mesh.indices = new Uint16List(indexCount);
+    MeshGeometry mesh = new MeshGeometry(vertexCount, attribs)
+      ..indices = new Uint16List(indexCount);
     generateIndices(mesh.indices);
 
-    positionView = mesh.getViewForAttrib('POSITION');
-    generateVertexPositions(positionView, mesh.indices);
+    VectorList<Vector> view = mesh.getViewForAttrib('POSITION');
+    if (view is Vector3List) {
+      positionView = view;
+      generateVertexPositions(positionView, mesh.indices);
+    }
 
     if (flags.texCoords || flags.tangents) {
-      texCoordView = mesh.getViewForAttrib('TEXCOORD0');
-      generateVertexTexCoords(texCoordView, positionView, mesh.indices);
+      view = mesh.getViewForAttrib('TEXCOORD0');
+      if (view is Vector2List) {
+        texCoordView = view;
+        generateVertexTexCoords(texCoordView, positionView, mesh.indices);
+      }
     }
 
     if (flags.normals || flags.tangents) {
-      normalView = mesh.getViewForAttrib('NORMAL');
-      generateVertexNormals(normalView, positionView, mesh.indices);
+      view = mesh.getViewForAttrib('NORMAL');
+      if (view is Vector3List) {
+        normalView = view;
+        generateVertexNormals(normalView, positionView, mesh.indices);
+      }
     }
 
     if (flags.tangents) {
-      tangentView = mesh.getViewForAttrib('TANGENT');
-      generateVertexTangents(
-          tangentView, positionView, normalView, texCoordView, mesh.indices);
+      view = mesh.getViewForAttrib('TANGENT');
+      if (view is Vector4List) {
+        tangentView = view;
+        generateVertexTangents(
+            tangentView, positionView, normalView, texCoordView, mesh.indices);
+      }
     }
 
     if (filters != null) {
-      for (var filter in filters) {
-        if (filter.inplace) {
+      for (GeometryFilter filter in filters) {
+        if (filter.inplace && filter is InplaceGeometryFilter) {
           filter.filterInplace(mesh);
         } else {
           mesh = filter.filter(mesh);
@@ -95,7 +107,7 @@ abstract class GeometryGenerator {
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
     for (int i = 0; i < positions.length; ++i) {
-      Vector3 p = positions[i];
+      final Vector3 p = positions[i];
 
       // These are TERRIBLE texture coords, but it's better than nothing.
       // Override this function and put better ones in place!

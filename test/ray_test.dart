@@ -4,7 +4,7 @@
 
 library vector_math.test.ray_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -58,8 +58,8 @@ void testRayIntersectionSphere() {
   final outside = new Sphere.centerRadius($v3(-2.5, 1.0, 1.0), 1.0);
   final behind = new Sphere.centerRadius($v3(1.0, -1.0, 1.0), 1.0);
 
-  expect(parent.intersectsWithSphere(inside), equals(Math.sqrt(3.0)));
-  expect(parent.intersectsWithSphere(hitting), equals(3.5 - Math.sqrt(1.75)));
+  expect(parent.intersectsWithSphere(inside), equals(math.sqrt(3.0)));
+  expect(parent.intersectsWithSphere(hitting), equals(3.5 - math.sqrt(1.75)));
   expect(parent.intersectsWithSphere(cutting), equals(4.0));
   expect(parent.intersectsWithSphere(outside), equals(null));
   expect(parent.intersectsWithSphere(behind), equals(null));

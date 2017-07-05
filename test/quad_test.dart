@@ -10,7 +10,7 @@ import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
 
-testQuadCopyNormalInto() {
+void testQuadCopyNormalInto() {
   final quad = new Quad.points(
       new Vector3(1.0, 0.0, 1.0),
       new Vector3(0.0, 2.0, 1.0),
@@ -24,7 +24,7 @@ testQuadCopyNormalInto() {
       normal, new Vector3(-0.8944271802902222, -0.4472135901451111, 0.0));
 }
 
-testQuadCopyTriangles() {
+void testQuadCopyTriangles() {
   final quad = new Quad.points(
       new Vector3(1.0, 0.0, 1.0),
       new Vector3(0.0, 2.0, 1.0),

@@ -4,7 +4,7 @@
 
 library vector_math.test.matrix2_test;
 
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:test/test.dart';
 
@@ -13,17 +13,18 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix2Adjoint() {
-  var input = new List();
-  var expectedOutput = new List();
+  var input = new List<Matrix2>();
+  var expectedOutput = new List<Matrix2>();
 
-  input.add(parseMatrix('''0.830828627896291   0.549723608291140
-                           0.585264091152724   0.917193663829810'''));
-  expectedOutput.add(parseMatrix(''' 0.917193663829810  -0.549723608291140
-                                    -0.585264091152724   0.830828627896291'''));
-  input.add(parseMatrix(''' 1     0
-                            0     1'''));
-  expectedOutput.add(parseMatrix(''' 1     0
+  input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
+                                    0.585264091152724   0.917193663829810'''));
+  expectedOutput
+      .add(parseMatrix<Matrix2>(''' 0.917193663829810  -0.549723608291140
+                                   -0.585264091152724   0.830828627896291'''));
+  input.add(parseMatrix<Matrix2>(''' 1     0
                                      0     1'''));
+  expectedOutput.add(parseMatrix<Matrix2>(''' 1     0
+                                              0     1'''));
 
   assert(input.length == expectedOutput.length);
 
@@ -35,11 +36,11 @@ void testMatrix2Adjoint() {
 }
 
 void testMatrix2Determinant() {
-  var input = new List();
+  var input = new List<Matrix2>();
   List<double> expectedOutput = new List<double>();
 
-  input.add(parseMatrix('''0.830828627896291   0.549723608291140
-                           0.585264091152724   0.917193663829810'''));
+  input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
+                                    0.585264091152724   0.917193663829810'''));
   expectedOutput.add(0.440297265243183);
 
   assert(input.length == expectedOutput.length);
@@ -52,7 +53,7 @@ void testMatrix2Determinant() {
 }
 
 void testMatrix2Transform() {
-  var rot = new Matrix2.rotation(Math.PI / 4);
+  var rot = new Matrix2.rotation(math.PI / 4);
   final input = new Vector2(0.234245234259, 0.890723489233);
 
   final expected = new Vector2(

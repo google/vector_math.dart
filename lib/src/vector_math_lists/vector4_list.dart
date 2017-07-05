@@ -22,13 +22,12 @@ class Vector4List extends VectorList<Vector4> {
       : super.view(buffer, 4, offset, stride);
 
   @override
-  Vector4 newVector() {
-    return new Vector4.zero();
-  }
+  Vector4 newVector() => new Vector4.zero();
 
   /// Retrieves the vector at [index] and stores it in [vector].
+  @override
   void load(int index, Vector4 vector) {
-    final i = _vectorIndexToBufferIndex(index);
+    final int i = _vectorIndexToBufferIndex(index);
     vector.storage[0] = _buffer[i + 0];
     vector.storage[1] = _buffer[i + 1];
     vector.storage[2] = _buffer[i + 2];
@@ -36,9 +35,10 @@ class Vector4List extends VectorList<Vector4> {
   }
 
   /// Store [vector] in the list at [index].
+  @override
   void store(int index, Vector4 vector) {
-    final i = _vectorIndexToBufferIndex(index);
-    final storage = vector.storage;
+    final int i = _vectorIndexToBufferIndex(index);
+    final Float32List storage = vector.storage;
     _buffer[i + 0] = storage[0];
     _buffer[i + 1] = storage[1];
     _buffer[i + 2] = storage[2];
@@ -50,7 +50,7 @@ class Vector4List extends VectorList<Vector4> {
 
   /// Set the vector at [index] to [x], [y], [z], and [w].
   void setValues(int index, double x, double y, double z, double w) {
-    final i = _vectorIndexToBufferIndex(index);
+    final int i = _vectorIndexToBufferIndex(index);
     buffer[i + 0] = x;
     buffer[i + 1] = y;
     buffer[i + 2] = z;
@@ -59,8 +59,8 @@ class Vector4List extends VectorList<Vector4> {
 
   /// Add [vector] to the vector at [index].
   void add(int index, Vector4 vector) {
-    final i = _vectorIndexToBufferIndex(index);
-    final storage = vector.storage;
+    final int i = _vectorIndexToBufferIndex(index);
+    final Float32List storage = vector.storage;
     buffer[i + 0] += storage[0];
     buffer[i + 1] += storage[1];
     buffer[i + 2] += storage[2];
@@ -69,8 +69,8 @@ class Vector4List extends VectorList<Vector4> {
 
   /// Add [vector] scaled by [factor] to the vector at [index].
   void addScaled(int index, Vector4 vector, double factor) {
-    final i = _vectorIndexToBufferIndex(index);
-    final storage = vector.storage;
+    final int i = _vectorIndexToBufferIndex(index);
+    final Float32List storage = vector.storage;
     buffer[i + 0] += storage[0] * factor;
     buffer[i + 1] += storage[1] * factor;
     buffer[i + 2] += storage[2] * factor;
@@ -79,8 +79,8 @@ class Vector4List extends VectorList<Vector4> {
 
   /// Substract [vector] from the vector at [index].
   void sub(int index, Vector4 vector) {
-    final i = _vectorIndexToBufferIndex(index);
-    final storage = vector.storage;
+    final int i = _vectorIndexToBufferIndex(index);
+    final Float32List storage = vector.storage;
     buffer[i + 0] -= storage[0];
     buffer[i + 1] -= storage[1];
     buffer[i + 2] -= storage[2];
@@ -89,8 +89,8 @@ class Vector4List extends VectorList<Vector4> {
 
   /// Multiply the vector at [index] by [vector].
   void multiply(int index, Vector4 vector) {
-    final i = _vectorIndexToBufferIndex(index);
-    final storage = vector.storage;
+    final int i = _vectorIndexToBufferIndex(index);
+    final Float32List storage = vector.storage;
     buffer[i + 0] *= storage[0];
     buffer[i + 1] *= storage[1];
     buffer[i + 2] *= storage[2];
@@ -99,7 +99,7 @@ class Vector4List extends VectorList<Vector4> {
 
   /// Scale the vector at [index] by [factor].
   void scale(int index, double factor) {
-    final i = _vectorIndexToBufferIndex(index);
+    final int i = _vectorIndexToBufferIndex(index);
     buffer[i + 0] *= factor;
     buffer[i + 1] *= factor;
     buffer[i + 2] *= factor;
