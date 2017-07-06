@@ -1,5 +1,7 @@
 # Changelog - vector_math
 
+## v 2.0.6 - Unreleased
+
 ## v 2.0.5 - July 2017
 
 - Strong mode clean
