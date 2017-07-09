@@ -18,8 +18,8 @@ class SphereGenerator extends GeometryGenerator {
   MeshGeometry createSphere(num radius,
       {int latSegments: 16,
       int lonSegments: 16,
-      GeometryGeneratorFlags flags: null,
-      List<GeometryFilter> filters: null}) {
+      GeometryGeneratorFlags flags,
+      List<GeometryFilter> filters}) {
     _radius = radius.toDouble();
     _latSegments = latSegments;
     _lonSegments = lonSegments;

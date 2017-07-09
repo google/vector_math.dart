@@ -18,8 +18,8 @@ class CylinderGenerator extends GeometryGenerator {
 
   MeshGeometry createCylinder(num topRadius, num bottomRadius, num height,
       {int segments: 16,
-      GeometryGeneratorFlags flags: null,
-      List<GeometryFilter> filters: null}) {
+      GeometryGeneratorFlags flags,
+      List<GeometryFilter> filters}) {
     _topRadius = topRadius.toDouble();
     _bottomRadius = bottomRadius.toDouble();
     _height = height.toDouble();
