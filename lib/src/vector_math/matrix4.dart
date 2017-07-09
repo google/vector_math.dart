@@ -877,8 +877,8 @@ class Matrix4 {
       sz = x.z;
     } else if (x is double) {
       sx = x;
-      sy = y == null ? x : y.toDouble();
-      sz = z == null ? x : z.toDouble();
+      sy = y ?? x;
+      sz = z ?? x;
     }
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
@@ -900,8 +900,7 @@ class Matrix4 {
 
   /// Create a copy of [this] scaled by a [Vector3], [Vector4] or [x],[y], and
   /// [z].
-  Matrix4 scaled(dynamic x, [double y = null, double z = null]) =>
-      clone()..scale(x, y, z);
+  Matrix4 scaled(dynamic x, [double y, double z]) => clone()..scale(x, y, z);
 
   /// Zeros [this].
   void setZero() {
