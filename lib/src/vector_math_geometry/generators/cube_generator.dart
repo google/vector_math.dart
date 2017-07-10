@@ -16,8 +16,7 @@ class CubeGenerator extends GeometryGenerator {
   int get indexCount => 36;
 
   MeshGeometry createCube(num width, num height, num depth,
-      {GeometryGeneratorFlags flags: null,
-      List<GeometryFilter> filters: null}) {
+      {GeometryGeneratorFlags flags, List<GeometryFilter> filters}) {
     _width = width.toDouble();
     _height = height.toDouble();
     _depth = depth.toDouble();

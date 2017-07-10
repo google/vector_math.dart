@@ -65,7 +65,7 @@ class Vector3 implements Vector {
   /// Generate random vector in the range (0, 0, 0) to (1, 1, 1). You can
   /// optionally pass your own random number generator.
   factory Vector3.random([math.Random rng]) {
-    rng = rng == null ? new math.Random() : rng;
+    rng ??= new math.Random();
     return new Vector3(rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
   }
 

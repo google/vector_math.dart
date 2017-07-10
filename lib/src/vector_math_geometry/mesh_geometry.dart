@@ -95,12 +95,8 @@ class MeshGeometry {
 
   MeshGeometry._internal(this.length, this.stride, this.attribs,
       [Float32List externBuffer]) {
-    if (externBuffer == null) {
-      buffer =
-          new Float32List((length * stride) ~/ Float32List.BYTES_PER_ELEMENT);
-    } else {
-      buffer = externBuffer;
-    }
+    buffer = externBuffer ??
+        new Float32List((length * stride) ~/ Float32List.BYTES_PER_ELEMENT);
   }
 
   MeshGeometry.copy(MeshGeometry mesh)
@@ -112,7 +108,7 @@ class MeshGeometry {
     buffer.setAll(0, mesh.buffer);
 
     // Copy the indices
-    if (indices != null) {
+    if (mesh.indices != null) {
       indices = new Uint16List(mesh.indices.length);
       indices.setAll(0, mesh.indices);
     }

@@ -18,8 +18,7 @@ abstract class GeometryGenerator {
   int get indexCount;
 
   MeshGeometry createGeometry(
-      {GeometryGeneratorFlags flags: null,
-      List<GeometryFilter> filters: null}) {
+      {GeometryGeneratorFlags flags, List<GeometryFilter> filters}) {
     flags ??= new GeometryGeneratorFlags();
 
     VertexAttrib positionAttrib;

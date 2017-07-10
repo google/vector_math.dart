@@ -68,7 +68,7 @@ import 'package:vector_math/vector_math.dart';
 void main() {
   // Rotation of PI/2 degrees around the Y axis followed by a
   // translation of (5.0, 2.0, 3.0).
-  Matrix4 T = new Matrix4.rotationY(PI * 0.5).translate(5.0, 2.0, 3.0);
+  Matrix4 T = new Matrix4.rotationY(PI * 0.5)..translate(5.0, 2.0, 3.0);
   // A point.
   Vector3 position = new Vector3(1.0, 1.0, 1.0);
   // Transform position by T.
@@ -85,7 +85,7 @@ import 'package:vector_math/vector_math.dart';
 void main() {
   // Rotation of 90 degrees around the Y axis followed by a
   // translation of (5.0, 2.0, 3.0).
-  Matrix4 T = new Matrix4.rotationY(PI*0.5).translate(5.0, 2.0, 3.0);
+  Matrix4 T = new Matrix4.rotationY(PI * 0.5)..translate(5.0, 2.0, 3.0);
   // Invert T.
   T.invert();
   // Invert just the rotation in T.
@@ -144,9 +144,9 @@ void main() {
   // Checks if the ray intersect with the sphere and returns the distance of the
   // intersection from the origin of the ray. Would return null if no intersection
   // is found.
-  double distancFromOrigin = ray.intersectsWithSphere(sphere);
+  double distanceFromOrigin = ray.intersectsWithSphere(sphere);
   // Evaluate the position of the intersection, in this case (3.0 0.0 0.0).
-  Vector3 position = ray.at(distancFromOrigin);
+  Vector3 position = ray.at(distanceFromOrigin);
 }
 ```
 
