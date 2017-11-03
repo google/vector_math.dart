@@ -21,7 +21,7 @@ A Vector math library for 2D and 3D applications.
 
 ## Libraries using vector_math
 
-* [Spectre](http://github.com/johnmccutchan/spectre)
+* [Spectre](http://github.com/spectre/spectre)
 * [Three.dart](https://github.com/threeDart/)
 * [Box2D](https://github.com/dominichamon/dart-box2d)
 
