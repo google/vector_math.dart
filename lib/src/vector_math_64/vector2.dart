@@ -200,7 +200,7 @@ class Vector2 implements Vector {
       return 0.0;
     }
 
-    final double d = dot(other);
+    final double d = dot(other) / (length * other.length);
 
     return math.acos(d.clamp(-1.0, 1.0));
   }

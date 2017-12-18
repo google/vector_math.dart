@@ -357,9 +357,14 @@ void testVector3DistanceToSquared() {
 void testVector3AngleTo() {
   final v0 = new Vector3(1.0, 0.0, 0.0);
   final v1 = new Vector3(0.0, 1.0, 0.0);
+  final v2 = new Vector3(1.0, 1.0, 0.0);
+  final v3 = v2.normalized();
+  final tol = 1e-8;
 
   expect(v0.angleTo(v0), equals(0.0));
   expect(v0.angleTo(v1), equals(math.PI / 2.0));
+  expect(v0.angleTo(v2), closeTo(math.PI / 4.0, tol));
+  expect(v0.angleTo(v3), closeTo(math.PI / 4.0, tol));
 }
 
 void testVector3AngleToSigned() {
