@@ -2,6 +2,8 @@
 
 ## v 2.0.6 - Unreleased
 
+- Fixed angleTo for vectors that do not have unit length
+
 ## v 2.0.5 - July 2017
 
 - Strong mode clean
