@@ -613,6 +613,12 @@ void testMatrix4InvertConstructor() {
       equals(new Matrix4.identity()));
 }
 
+void testMatrix4tryInvert() {
+  expect(Matrix4.tryInvert(new Matrix4.zero()), isNull);
+  expect(Matrix4.tryInvert(new Matrix4.identity()),
+      equals(new Matrix4.identity()));
+}
+
 void testMatrix4SkewConstructor() {
   var m = new Matrix4.skew(0.0, 1.57);
   var m2 = new Matrix4.skewY(1.57);
@@ -701,6 +707,7 @@ void main() {
     test('compose/decompose', testMatrix4Compose);
     test('equals', testMatrix4Equals);
     test('invert constructor', testMatrix4InvertConstructor);
+    test('tryInvert', testMatrix4tryInvert);
     test('skew constructor', testMatrix4SkewConstructor);
     test('leftTranslate', testLeftTranslate);
     test('matrix classifiers', testMatrixClassifiers);
