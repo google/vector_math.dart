@@ -148,6 +148,17 @@ class Matrix4 {
               (a20 * b03 - a21 * b01 + a22 * b00) * bW);
   }
 
+  /// Returns a matrix that is the inverse of [other] if [other] is invertible,
+  /// otherwise `null`.
+  static Matrix4 tryInvert(Matrix4 other) {
+    final Matrix4 r = new Matrix4.zero();
+    final double determinant = r.copyInverse(other);
+    if (determinant == 0.0) {
+      return null;
+    }
+    return r;
+  }
+
   /// Return index in storage for [row], [col] value.
   int index(int row, int col) => (col * 4) + row;
 

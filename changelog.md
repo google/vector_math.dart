@@ -1,8 +1,11 @@
 # Changelog - vector_math
 
-## v 2.0.6 - Unreleased
+## v 2.0.7 - Unreleased
+
+## v 2.0.6 - March 2018
 
 - Fixed angleTo for vectors that do not have unit length
+- Added Matrix4.tryInvert.
 
 ## v 2.0.5 - July 2017
 
