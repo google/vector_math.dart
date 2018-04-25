@@ -1,6 +1,8 @@
 # Changelog - vector_math
 
-## v 2.0.7 - Unreleased
+## v 2.0.7 - April 2018
+
+- Fixed indexing bug in MeshGeometry.combine
 
 ## v 2.0.6 - March 2018
 
