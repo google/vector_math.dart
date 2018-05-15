@@ -271,25 +271,25 @@ class Matrix44SIMDOperations {
     final Float32x4 a2 = A[aOffset++];
     final Float32x4 a3 = A[aOffset++];
     final Float32x4 b0 = B[bOffset++];
-    out[outOffset++] = b0.shuffle(Float32x4.XXXX) * a0 +
-        b0.shuffle(Float32x4.YYYY) * a1 +
-        b0.shuffle(Float32x4.ZZZZ) * a2 +
-        b0.shuffle(Float32x4.WWWW) * a3;
+    out[outOffset++] = b0.shuffle(Float32x4.xxxx) * a0 +
+        b0.shuffle(Float32x4.yyyy) * a1 +
+        b0.shuffle(Float32x4.zzzz) * a2 +
+        b0.shuffle(Float32x4.wwww) * a3;
     final Float32x4 b1 = B[bOffset++];
-    out[outOffset++] = b1.shuffle(Float32x4.XXXX) * a0 +
-        b1.shuffle(Float32x4.YYYY) * a1 +
-        b1.shuffle(Float32x4.ZZZZ) * a2 +
-        b1.shuffle(Float32x4.WWWW) * a3;
+    out[outOffset++] = b1.shuffle(Float32x4.xxxx) * a0 +
+        b1.shuffle(Float32x4.yyyy) * a1 +
+        b1.shuffle(Float32x4.zzzz) * a2 +
+        b1.shuffle(Float32x4.wwww) * a3;
     final Float32x4 b2 = B[bOffset++];
-    out[outOffset++] = b2.shuffle(Float32x4.XXXX) * a0 +
-        b2.shuffle(Float32x4.YYYY) * a1 +
-        b2.shuffle(Float32x4.ZZZZ) * a2 +
-        b2.shuffle(Float32x4.WWWW) * a3;
+    out[outOffset++] = b2.shuffle(Float32x4.xxxx) * a0 +
+        b2.shuffle(Float32x4.yyyy) * a1 +
+        b2.shuffle(Float32x4.zzzz) * a2 +
+        b2.shuffle(Float32x4.wwww) * a3;
     final Float32x4 b3 = B[bOffset++];
-    out[outOffset++] = b3.shuffle(Float32x4.XXXX) * a0 +
-        b3.shuffle(Float32x4.YYYY) * a1 +
-        b3.shuffle(Float32x4.ZZZZ) * a2 +
-        b3.shuffle(Float32x4.WWWW) * a3;
+    out[outOffset++] = b3.shuffle(Float32x4.xxxx) * a0 +
+        b3.shuffle(Float32x4.yyyy) * a1 +
+        b3.shuffle(Float32x4.zzzz) * a2 +
+        b3.shuffle(Float32x4.wwww) * a3;
   }
 
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
@@ -297,12 +297,12 @@ class Matrix44SIMDOperations {
   static void transform4(Float32x4List out, int outOffset, Float32x4List matrix,
       int matrixOffset, Float32x4List vector, int vectorOffset) {
     final Float32x4 v = vector[vectorOffset];
-    final Float32x4 xxxx = v.shuffle(Float32x4.XXXX);
+    final Float32x4 xxxx = v.shuffle(Float32x4.xxxx);
     Float32x4 z = new Float32x4.zero();
     z += xxxx * matrix[0 + matrixOffset];
-    final Float32x4 yyyy = v.shuffle(Float32x4.YYYY);
+    final Float32x4 yyyy = v.shuffle(Float32x4.yyyy);
     z += yyyy * matrix[1 + matrixOffset];
-    final Float32x4 zzzz = v.shuffle(Float32x4.ZZZZ);
+    final Float32x4 zzzz = v.shuffle(Float32x4.zzzz);
     z += zzzz * matrix[2 + matrixOffset];
     z += matrix[3 + matrixOffset];
     out[0 + outOffset] = z;

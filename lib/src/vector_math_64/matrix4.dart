@@ -321,7 +321,7 @@ class Matrix4 {
   Matrix4.fromFloat64List(this._m4storage);
 
   /// Constructs Matrix4 with a [storage] that views given [buffer] starting at
-  /// [offset]. [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
+  /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Matrix4.fromBuffer(ByteBuffer buffer, int offset)
       : _m4storage = new Float64List.view(buffer, offset, 16);
 

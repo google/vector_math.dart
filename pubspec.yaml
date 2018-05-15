@@ -1,10 +1,10 @@
 name: vector_math
-version: 2.0.8-dev
+version: 2.0.8
 author: John McCutchan <john@johnmccutchan.com>
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/google/vector_math.dart
 environment:
-  sdk: '>=1.21.0 <2.0.0'
+  sdk: '>=2.0.0-dev.49.0 <3.0.0'
 dev_dependencies:
   benchmark_harness: any
   browser: any

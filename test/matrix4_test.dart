@@ -80,7 +80,7 @@ void testMatrix4InstacingFromByteBuffer() {
   final ByteBuffer buffer = float32List.buffer;
   final Matrix4 zeroOffset = new Matrix4.fromBuffer(buffer, 0);
   final Matrix4 offsetVector =
-      new Matrix4.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+      new Matrix4.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.storage[0], equals(1.0));
   expect(zeroOffset.storage[1], equals(2.0));

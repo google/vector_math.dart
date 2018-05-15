@@ -27,7 +27,7 @@ void testVector2InstacingFromByteBuffer() {
   final buffer = float32List.buffer;
   final zeroOffset = new Vector2.fromBuffer(buffer, 0);
   final offsetVector =
-      new Vector2.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+      new Vector2.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));

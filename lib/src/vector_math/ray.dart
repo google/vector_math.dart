@@ -204,8 +204,8 @@ class Ray {
     final Vector3 otherMin = other.min;
     final Vector3 otherMax = other.max;
 
-    double tNear = -double.MAX_FINITE;
-    double tFar = double.MAX_FINITE;
+    double tNear = -double.maxFinite;
+    double tFar = double.maxFinite;
 
     for (int i = 0; i < 3; ++i) {
       if (_direction[i] == 0.0) {
