@@ -93,5 +93,5 @@ void main(List<String> args_) {
     print('Error generating geometry for $type');
     return;
   }
-  print(JSON.encode(geometry));
+  print(jsonEncode(geometry));
 }

@@ -96,7 +96,7 @@ class MeshGeometry {
   MeshGeometry._internal(this.length, this.stride, this.attribs,
       [Float32List externBuffer]) {
     buffer = externBuffer ??
-        new Float32List((length * stride) ~/ Float32List.BYTES_PER_ELEMENT);
+        new Float32List((length * stride) ~/ Float32List.bytesPerElement);
   }
 
   MeshGeometry.copy(MeshGeometry mesh)

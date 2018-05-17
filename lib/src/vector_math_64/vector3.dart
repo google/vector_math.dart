@@ -58,7 +58,7 @@ class Vector3 implements Vector {
   Vector3.fromFloat64List(this._v3storage);
 
   /// Constructs Vector3 with a [storage] that views given [buffer] starting at
-  /// [offset]. [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
+  /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Vector3.fromBuffer(ByteBuffer buffer, int offset)
       : _v3storage = new Float64List.view(buffer, offset, 3);
 

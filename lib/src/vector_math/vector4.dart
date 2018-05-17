@@ -64,7 +64,7 @@ class Vector4 implements Vector {
   Vector4.fromFloat32List(this._v4storage);
 
   /// Constructs Vector4 with a [storage] that views given [buffer] starting at
-  /// [offset]. [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
+  /// [offset]. [offset] has to be multiple of [Float32List.bytesPerElement].
   Vector4.fromBuffer(ByteBuffer buffer, int offset)
       : _v4storage = new Float32List.view(buffer, offset, 4);
 

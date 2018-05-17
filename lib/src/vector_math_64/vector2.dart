@@ -54,7 +54,7 @@ class Vector2 implements Vector {
   Vector2.fromFloat64List(this._v2storage);
 
   /// Constructs Vector2 with a [storage] that views given [buffer] starting at
-  /// [offset]. [offset] has to be multiple of [Float64List.BYTES_PER_ELEMENT].
+  /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Vector2.fromBuffer(ByteBuffer buffer, int offset)
       : _v2storage = new Float64List.view(buffer, offset, 2);
 

@@ -17,7 +17,7 @@ void testAabb3ByteBufferInstanciation() {
       new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]).buffer;
   final aabb = new Aabb3.fromBuffer(buffer, 0);
   final aabbOffest =
-      new Aabb3.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+      new Aabb3.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(aabb.min.x, equals(1.0));
   expect(aabb.min.y, equals(2.0));

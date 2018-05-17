@@ -84,7 +84,7 @@ class Quaternion {
 
   /// Constructs a quaternion with a [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
-  /// [Float32List.BYTES_PER_ELEMENT].
+  /// [Float32List.bytesPerElement].
   Quaternion.fromBuffer(ByteBuffer buffer, int offset)
       : _qStorage = new Float32List.view(buffer, offset, 4);
 

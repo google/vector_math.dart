@@ -30,7 +30,7 @@ void testQuaternionInstacingFromByteBuffer() {
   final ByteBuffer buffer = float32List.buffer;
   final Quaternion zeroOffset = new Quaternion.fromBuffer(buffer, 0);
   final Quaternion offsetVector =
-      new Quaternion.fromBuffer(buffer, Float32List.BYTES_PER_ELEMENT);
+      new Quaternion.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
