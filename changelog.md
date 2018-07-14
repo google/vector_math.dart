@@ -1,5 +1,9 @@
 # Changelog - vector_math
 
+## v 2.0.9 - July 2018
+
+- Internal fix to use Dart 2 core library constant names.
+
 ## v 2.0.8 - Unreleased
 
 ## v 2.0.7 - April 2018

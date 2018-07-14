@@ -165,7 +165,7 @@ void testAabb2HullPoint() {
 }
 
 void testAabb2Rotate() {
-  final rotation = new Matrix3.rotationZ(math.PI / 4);
+  final rotation = new Matrix3.rotationZ(math.pi / 4);
   final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
   final result = input..rotate(rotation);
@@ -179,7 +179,7 @@ void testAabb2Rotate() {
 }
 
 void testAabb2Transform() {
-  final rotation = new Matrix3.rotationZ(math.PI / 4);
+  final rotation = new Matrix3.rotationZ(math.pi / 4);
   final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
   final result = input..transform(rotation);

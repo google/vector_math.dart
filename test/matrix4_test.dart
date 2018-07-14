@@ -428,12 +428,12 @@ void testMatrix4Rotate() {
 }
 
 void testMatrix4GetRotation() {
-  final mat4 = new Matrix4.rotationX(math.PI) *
-      new Matrix4.rotationY(-math.PI) *
-      new Matrix4.rotationZ(math.PI) as Matrix4;
-  final mat3 = new Matrix3.rotationX(math.PI) *
-      new Matrix3.rotationY(-math.PI) *
-      new Matrix3.rotationZ(math.PI) as Matrix3;
+  final mat4 = new Matrix4.rotationX(math.pi) *
+      new Matrix4.rotationY(-math.pi) *
+      new Matrix4.rotationZ(math.pi) as Matrix4;
+  final mat3 = new Matrix3.rotationX(math.pi) *
+      new Matrix3.rotationY(-math.pi) *
+      new Matrix3.rotationZ(math.pi) as Matrix3;
   final matRot = mat4.getRotation();
 
   relativeTest(mat3, matRot);
@@ -489,7 +489,7 @@ void testMatrix4Dot() {
 }
 
 void testMatrix4PerspectiveTransform() {
-  final matrix = makePerspectiveMatrix(math.PI, 1.0, 1.0, 100.0);
+  final matrix = makePerspectiveMatrix(math.pi, 1.0, 1.0, 100.0);
   final vec = new Vector3(10.0, 20.0, 30.0);
 
   matrix.perspectiveTransform(vec);

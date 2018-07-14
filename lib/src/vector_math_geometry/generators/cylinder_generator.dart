@@ -70,32 +70,32 @@ class CylinderGenerator extends GeometryGenerator {
     for (int x = 0; x <= _segments; ++x) {
       final double u = x / _segments;
 
-      positions[i++] = new Vector3(_topRadius * math.cos(u * math.PI * 2.0),
-          _height * 0.5, _topRadius * math.sin(u * math.PI * 2.0));
+      positions[i++] = new Vector3(_topRadius * math.cos(u * math.pi * 2.0),
+          _height * 0.5, _topRadius * math.sin(u * math.pi * 2.0));
     }
 
     // Bottom
     for (int x = 0; x <= _segments; ++x) {
       final double u = x / _segments;
 
-      positions[i++] = new Vector3(_bottomRadius * math.cos(u * math.PI * 2.0),
-          _height * -0.5, _bottomRadius * math.sin(u * math.PI * 2.0));
+      positions[i++] = new Vector3(_bottomRadius * math.cos(u * math.pi * 2.0),
+          _height * -0.5, _bottomRadius * math.sin(u * math.pi * 2.0));
     }
 
     // Top cap
     for (int x = 0; x < _segments; ++x) {
       final double u = x / _segments;
 
-      positions[i++] = new Vector3(_topRadius * math.cos(u * math.PI * 2.0),
-          _height * 0.5, _topRadius * math.sin(u * math.PI * 2.0));
+      positions[i++] = new Vector3(_topRadius * math.cos(u * math.pi * 2.0),
+          _height * 0.5, _topRadius * math.sin(u * math.pi * 2.0));
     }
 
     // Bottom cap
     for (int x = 0; x < _segments; ++x) {
       final double u = x / _segments;
 
-      positions[i++] = new Vector3(_bottomRadius * math.cos(u * math.PI * 2.0),
-          _height * -0.5, _bottomRadius * math.sin(u * math.PI * 2.0));
+      positions[i++] = new Vector3(_bottomRadius * math.cos(u * math.pi * 2.0),
+          _height * -0.5, _bottomRadius * math.sin(u * math.pi * 2.0));
     }
   }
 
@@ -118,14 +118,14 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Top cap
     for (int x = 0; x < _segments; ++x) {
-      final double r = (x / _segments) * math.PI * 2.0;
+      final double r = (x / _segments) * math.pi * 2.0;
       texCoords[i++] =
           new Vector2((math.cos(r) * 0.5 + 0.5), (math.sin(r) * 0.5 + 0.5));
     }
 
     // Bottom cap
     for (int x = 0; x < _segments; ++x) {
-      final double r = (x / _segments) * math.PI * 2.0;
+      final double r = (x / _segments) * math.pi * 2.0;
       texCoords[i++] =
           new Vector2((math.cos(r) * 0.5 + 0.5), (math.sin(r) * 0.5 + 0.5));
     }

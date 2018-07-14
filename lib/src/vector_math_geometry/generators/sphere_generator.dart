@@ -51,14 +51,14 @@ class SphereGenerator extends GeometryGenerator {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
       final double v = y / _latSegments;
-      final double sv = math.sin(v * math.PI);
-      final double cv = math.cos(v * math.PI);
+      final double sv = math.sin(v * math.pi);
+      final double cv = math.cos(v * math.pi);
 
       for (int x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
 
-        positions[i++] = new Vector3(_radius * math.cos(u * math.PI * 2.0) * sv,
-            _radius * cv, _radius * math.sin(u * math.PI * 2.0) * sv);
+        positions[i++] = new Vector3(_radius * math.cos(u * math.pi * 2.0) * sv,
+            _radius * cv, _radius * math.sin(u * math.pi * 2.0) * sv);
       }
     }
   }
@@ -83,14 +83,14 @@ class SphereGenerator extends GeometryGenerator {
     int i = 0;
     for (int y = 0; y <= _latSegments; ++y) {
       final double v = y / _latSegments;
-      final double sv = math.sin(v * math.PI);
-      final double cv = math.cos(v * math.PI);
+      final double sv = math.sin(v * math.pi);
+      final double cv = math.cos(v * math.pi);
 
       for (int x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
 
-        normals[i++] = new Vector3(math.cos(u * math.PI * 2.0) * sv, cv,
-            math.sin(u * math.PI * 2.0) * sv);
+        normals[i++] = new Vector3(math.cos(u * math.pi * 2.0) * sv, cv,
+            math.sin(u * math.pi * 2.0) * sv);
       }
     }
   }
