@@ -181,8 +181,8 @@ void testQuaternionAxisAngle() {
   // Test conversion to and from axis-angle representation
   {
     Quaternion q =
-        new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * math.PI);
-    relativeTest(q.radians, 0.5 * math.PI);
+        new Quaternion.axisAngle(new Vector3(0.0, 1.0, 0.0), 0.5 * math.pi);
+    relativeTest(q.radians, 0.5 * math.pi);
     relativeTest(q.axis, new Vector3(0.0, 1.0, 0.0));
   }
 
@@ -199,7 +199,7 @@ void testFromTwoVectors() {
     Vector3 a = new Vector3(1.0, 0.0, 0.0);
     Vector3 b = new Vector3(0.0, 1.0, 0.0);
     Quaternion q = new Quaternion.fromTwoVectors(a, b);
-    relativeTest(q.radians, 0.5 * math.PI);
+    relativeTest(q.radians, 0.5 * math.pi);
     relativeTest(q.axis, new Vector3(0.0, 0.0, 1.0));
   }
   {
@@ -215,7 +215,7 @@ void testFromTwoVectors() {
     Vector3 a = new Vector3(1.0, 0.0, 0.0);
     Vector3 b = new Vector3(-1.0, 0.0, 0.0);
     Quaternion q = new Quaternion.fromTwoVectors(a, b);
-    relativeTest(q.radians, math.PI);
+    relativeTest(q.radians, math.pi);
   }
 }
 

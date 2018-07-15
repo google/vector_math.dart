@@ -21,7 +21,7 @@ class CircleGenerator extends GeometryGenerator {
       List<GeometryFilter> filters,
       int segments: 64,
       double thetaStart: 0.0,
-      double thetaLength: math.PI * 2.0}) {
+      double thetaLength: math.pi * 2.0}) {
     _radius = radius;
     _segments = segments;
     _thetaStart = thetaStart;

@@ -188,9 +188,9 @@ void testMatrix3SelfMultiplyTranspose() {
 }
 
 void testMatrix3Transform() {
-  Matrix3 rotX = new Matrix3.rotationX(math.PI / 4);
-  Matrix3 rotY = new Matrix3.rotationY(math.PI / 4);
-  Matrix3 rotZ = new Matrix3.rotationZ(math.PI / 4);
+  Matrix3 rotX = new Matrix3.rotationX(math.pi / 4);
+  Matrix3 rotY = new Matrix3.rotationY(math.pi / 4);
+  Matrix3 rotZ = new Matrix3.rotationZ(math.pi / 4);
   final input = new Vector3(1.0, 0.0, 0.0);
 
   relativeTest(rotX.transformed(input), input);
@@ -201,7 +201,7 @@ void testMatrix3Transform() {
 }
 
 void testMatrix3Transform2() {
-  Matrix3 rotZ = new Matrix3.rotationZ(math.PI / 4);
+  Matrix3 rotZ = new Matrix3.rotationZ(math.pi / 4);
   Matrix3 trans = new Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
   Matrix3 transB =
       new Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
@@ -216,8 +216,8 @@ void testMatrix3Transform2() {
 }
 
 void testMatrix3AbsoluteRotate2() {
-  Matrix3 rotZ = new Matrix3.rotationZ(-math.PI / 4);
-  Matrix3 rotZcw = new Matrix3.rotationZ(math.PI / 4);
+  Matrix3 rotZ = new Matrix3.rotationZ(-math.pi / 4);
+  Matrix3 rotZcw = new Matrix3.rotationZ(math.pi / 4);
   // Add translation
   rotZ.setEntry(2, 0, 3.0);
   rotZ.setEntry(2, 1, 2.0);

@@ -167,7 +167,7 @@ class Quaternion {
 
     if ((1.0 + c).abs() < 0.0005) {
       // c \approx -1 indicates 180 degree rotation
-      angle = math.PI;
+      angle = math.pi;
 
       // a and b are parallel in opposite directions. We need any
       // vector as our rotation axis that is perpendicular.
@@ -196,8 +196,8 @@ class Quaternion {
     final double x0 = rn.nextDouble();
     final double r1 = math.sqrt(1.0 - x0);
     final double r2 = math.sqrt(x0);
-    final double t1 = math.PI * 2.0 * rn.nextDouble();
-    final double t2 = math.PI * 2.0 * rn.nextDouble();
+    final double t1 = math.pi * 2.0 * rn.nextDouble();
+    final double t2 = math.pi * 2.0 * rn.nextDouble();
     final double c1 = math.cos(t1);
     final double s1 = math.sin(t1);
     final double c2 = math.cos(t2);

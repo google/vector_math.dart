@@ -65,7 +65,7 @@ void testFrustumMatrix() {
 }
 
 void testPerspectiveMatrix() {
-  final double fov = PI / 2;
+  final double fov = pi / 2;
   final double aspectRatio = 2.0;
   final double zNear = 1.0;
   final double zFar = 100.0;
@@ -80,7 +80,7 @@ void testPerspectiveMatrix() {
 }
 
 void testInfiniteMatrix() {
-  final double fov = PI / 2;
+  final double fov = pi / 2;
   final double aspectRatio = 2.0;
   final double zNear = 1.0;
 

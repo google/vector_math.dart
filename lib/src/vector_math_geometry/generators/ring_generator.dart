@@ -23,7 +23,7 @@ class RingGenerator extends GeometryGenerator {
       List<GeometryFilter> filters,
       int segments: 64,
       double thetaStart: 0.0,
-      double thetaLength: math.PI * 2.0,
+      double thetaLength: math.pi * 2.0,
       bool stripTextureCoordinates: true}) {
     _innerRadius = innerRadius;
     _outerRadius = outerRadius;

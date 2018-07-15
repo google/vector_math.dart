@@ -164,11 +164,11 @@ void testClosestPointTo() {
 
   a.closestPointTo(b, closestPoint);
 
-  absoluteTest(closestPoint, new Vector3(math.SQRT2, math.SQRT2, 2.0));
+  absoluteTest(closestPoint, new Vector3(math.sqrt2, math.sqrt2, 2.0));
 
   a.closestPointTo(c, closestPoint);
 
-  absoluteTest(closestPoint, new Vector3(math.SQRT2, math.SQRT2, -2.0));
+  absoluteTest(closestPoint, new Vector3(math.sqrt2, math.sqrt2, -2.0));
 }
 
 void testIntersectionObb3() {

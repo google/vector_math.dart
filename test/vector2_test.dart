@@ -262,9 +262,9 @@ void testVector2AngleTo() {
   final tol = 1e-8;
 
   expect(v0.angleTo(v0), equals(0.0));
-  expect(v0.angleTo(v1), equals(math.PI / 2.0));
-  expect(v0.angleTo(v2), closeTo(math.PI / 4.0, tol));
-  expect(v0.angleTo(v3), closeTo(math.PI / 4.0, tol));
+  expect(v0.angleTo(v1), equals(math.pi / 2.0));
+  expect(v0.angleTo(v2), closeTo(math.pi / 4.0, tol));
+  expect(v0.angleTo(v3), closeTo(math.pi / 4.0, tol));
 }
 
 void testVector2AngleToSigned() {
@@ -273,9 +273,9 @@ void testVector2AngleToSigned() {
   final v2 = new Vector2(-1.0, 0.0);
 
   expect(v0.angleToSigned(v0), equals(0.0));
-  expect(v0.angleToSigned(v1), equals(math.PI / 2.0));
-  expect(v1.angleToSigned(v0), equals(-math.PI / 2.0));
-  expect(v0.angleToSigned(v2), equals(math.PI));
+  expect(v0.angleToSigned(v1), equals(math.pi / 2.0));
+  expect(v1.angleToSigned(v0), equals(-math.pi / 2.0));
+  expect(v0.angleToSigned(v2), equals(math.pi));
 }
 
 void testVector2Clamp() {
