@@ -14,8 +14,8 @@
 /// class), noise generators ([SimplexNoise]) and common OpenGL operations
 /// (like [makeViewMatrix], [makePerspectiveMatrix], or [pickRay]).
 ///
-/// There is also a [vector_math_64_64] library available that uses double
-/// precision (64-bit) instead of single precision (32-bit) floating point
+/// There is also a [vector_math] library available that uses single
+/// precision (32-bit) instead of double precision (64-bit) floating point
 /// numbers for storage.
 library vector_math_64;
 
