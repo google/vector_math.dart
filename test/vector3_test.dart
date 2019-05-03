@@ -4,11 +4,10 @@
 
 library vector_math.test.vector3_test;
 
-import 'dart:typed_data';
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
@@ -93,9 +92,9 @@ void testVector3Mix() {
 }
 
 void testVector3DotProduct() {
-  List<Vector3> inputA = List<Vector3>();
-  List<Vector3> inputB = List<Vector3>();
-  List<double> expectedOutput = List<double>();
+  List<Vector3> inputA = <Vector3>[];
+  List<Vector3> inputB = <Vector3>[];
+  List<double> expectedOutput = <double>[];
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
                                      0.902716109915281'''));
@@ -132,9 +131,9 @@ void testVector3Postmultiplication() {
 }
 
 void testVector3CrossProduct() {
-  List<Vector3> inputA = List<Vector3>();
-  List<Vector3> inputB = List<Vector3>();
-  List<Vector3> expectedOutput = List<Vector3>();
+  List<Vector3> inputA = <Vector3>[];
+  List<Vector3> inputB = <Vector3>[];
+  List<Vector3> expectedOutput = <Vector3>[];
 
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742

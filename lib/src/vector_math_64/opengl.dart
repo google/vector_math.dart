@@ -267,7 +267,7 @@ Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
   Matrix4 r = Matrix4.zero();
   r = r - outer;
   final Vector3 scaledNormal =
-      (planeNormal.scaled(dot3(planePoint, planeNormal)));
+      planeNormal.scaled(dot3(planePoint, planeNormal));
   final Vector4 T = Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
       scaledNormal.storage[2], 1.0);
   r.setColumn(3, T);
@@ -283,7 +283,7 @@ Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
   Matrix4 r = Matrix4.zero();
   r = r - outer;
   final double scale = 2.0 * planePoint.dot(planeNormal);
-  final Vector3 scaledNormal = (planeNormal.scaled(scale));
+  final Vector3 scaledNormal = planeNormal.scaled(scale);
   final Vector4 T = Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
       scaledNormal.storage[2], 1.0);
   r.setColumn(3, T);
@@ -317,8 +317,8 @@ bool unproject(
   viewportHeight = viewportHeight.toDouble();
   pickX = pickX.toDouble();
   pickY = pickY.toDouble();
-  pickX = (pickX - viewportX);
-  pickY = (pickY - viewportY);
+  pickX = pickX - viewportX;
+  pickY = pickY - viewportY;
   pickX = (2.0 * pickX / viewportWidth) - 1.0;
   pickY = (2.0 * pickY / viewportHeight) - 1.0;
   pickZ = (2.0 * pickZ) - 1.0;
@@ -381,8 +381,6 @@ bool pickRay(
     return false;
   }
 
-  r = unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
+  return unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
       viewportHeight, pickX, viewportHeight - pickY, 1.0, rayFar);
-
-  return r;
 }

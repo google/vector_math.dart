@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix2Adjoint() {
-  var input = List<Matrix2>();
-  var expectedOutput = List<Matrix2>();
+  var input = <Matrix2>[];
+  var expectedOutput = <Matrix2>[];
 
   input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
                                     0.585264091152724   0.917193663829810'''));
@@ -36,8 +36,8 @@ void testMatrix2Adjoint() {
 }
 
 void testMatrix2Determinant() {
-  var input = List<Matrix2>();
-  List<double> expectedOutput = List<double>();
+  var input = <Matrix2>[];
+  List<double> expectedOutput = <double>[];
 
   input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
                                     0.585264091152724   0.917193663829810'''));

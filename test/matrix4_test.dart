@@ -118,8 +118,8 @@ void testMatrix4InstacingFromByteBuffer() {
 }
 
 void testMatrix4Transpose() {
-  var inputA = List<Matrix4>();
-  var expectedOutput = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var expectedOutput = <Matrix4>[];
   inputA.add(parseMatrix<Matrix4>(
       '''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
          0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
@@ -134,9 +134,9 @@ void testMatrix4Transpose() {
 }
 
 void testMatrix4VectorMultiplication() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Vector4>();
-  var expectedOutput = List<Vector4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Vector4>[];
+  var expectedOutput = <Vector4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
@@ -162,9 +162,9 @@ void testMatrix4VectorMultiplication() {
 }
 
 void testMatrix4Multiplication() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Matrix4>();
-  var expectedOutput = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Matrix4>[];
+  var expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.587044704531417   0.230488160211558   0.170708047147859   0.923379642103244
@@ -193,8 +193,8 @@ void testMatrix4Multiplication() {
 }
 
 void testMatrix4Adjoint() {
-  var input = List<Matrix4>();
-  var expectedOutput = List<Matrix4>();
+  var input = <Matrix4>[];
+  var expectedOutput = <Matrix4>[];
 
   input.add(parseMatrix<Matrix4>(
       '''0.934010684229183   0.011902069501241   0.311215042044805   0.262971284540144
@@ -236,8 +236,8 @@ void testMatrix4Adjoint() {
 }
 
 void testMatrix4Determinant() {
-  var input = List<Matrix4>();
-  List<double> expectedOutput = List<double>();
+  var input = <Matrix4>[];
+  List<double> expectedOutput = <double>[];
   input.add(parseMatrix<Matrix4>(
       '''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
          0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
@@ -268,9 +268,9 @@ void testMatrix4Determinant() {
 }
 
 void testMatrix4SelfTransposeMultiply() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Matrix4>();
-  var expectedOutput = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Matrix4>[];
+  var expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -299,9 +299,9 @@ void testMatrix4SelfTransposeMultiply() {
 }
 
 void testMatrix4SelfMultiply() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Matrix4>();
-  var expectedOutput = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Matrix4>[];
+  var expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -330,9 +330,9 @@ void testMatrix4SelfMultiply() {
 }
 
 void testMatrix4SelfMultiplyTranspose() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Matrix4>();
-  var expectedOutput = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Matrix4>[];
+  var expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -361,10 +361,10 @@ void testMatrix4SelfMultiplyTranspose() {
 }
 
 void testMatrix4Translation() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Matrix4>();
-  var output1 = List<Matrix4>();
-  var output2 = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Matrix4>[];
+  var output1 = <Matrix4>[];
+  var output2 = <Matrix4>[];
 
   inputA.add(Matrix4.identity());
   inputB.add(Matrix4.translationValues(1.0, 3.0, 5.7));
@@ -380,10 +380,10 @@ void testMatrix4Translation() {
 }
 
 void testMatrix4Scale() {
-  var inputA = List<Matrix4>();
-  var inputB = List<Matrix4>();
-  var output1 = List<Matrix4>();
-  var output2 = List<Matrix4>();
+  var inputA = <Matrix4>[];
+  var inputB = <Matrix4>[];
+  var output1 = <Matrix4>[];
+  var output2 = <Matrix4>[];
 
   inputA.add(Matrix4.identity());
   inputB.add(Matrix4.diagonal3Values(1.0, 3.0, 5.7));
@@ -399,8 +399,8 @@ void testMatrix4Scale() {
 }
 
 void testMatrix4Rotate() {
-  var output1 = List<Matrix4>();
-  var output2 = List<Matrix4>();
+  var output1 = <Matrix4>[];
+  var output2 = <Matrix4>[];
   output1.add(Matrix4.rotationX(1.57079632679));
   output2.add(Matrix4.identity()..rotateX(1.57079632679));
   output1.add(Matrix4.rotationY(1.57079632679 * 0.5));

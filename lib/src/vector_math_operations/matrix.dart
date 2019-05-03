@@ -99,7 +99,7 @@ class Matrix44Operations {
     final double b10 = a21 * a33 - a23 * a31;
     final double b11 = a22 * a33 - a23 * a32;
     final double det =
-        (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+        b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
     if (det == 0.0) {
       return det;
@@ -208,22 +208,22 @@ class Matrix44Operations {
     final double m4 = matrix[4 + matrixOffset];
     final double m8 = matrix[8 + matrixOffset];
     final double m12 = matrix[12 + matrixOffset];
-    out[outOffset++] = (m0 * x + m4 * y + m8 * z + m12 * w);
+    out[outOffset++] = m0 * x + m4 * y + m8 * z + m12 * w;
     final double m1 = matrix[1 + matrixOffset];
     final double m5 = matrix[5 + matrixOffset];
     final double m9 = matrix[9 + matrixOffset];
     final double m13 = matrix[13 + matrixOffset];
-    out[outOffset++] = (m1 * x + m5 * y + m9 * z + m13 * w);
+    out[outOffset++] = m1 * x + m5 * y + m9 * z + m13 * w;
     final double m2 = matrix[2 + matrixOffset];
     final double m6 = matrix[6 + matrixOffset];
     final double m10 = matrix[10 + matrixOffset];
     final double m14 = matrix[14 + matrixOffset];
-    out[outOffset++] = (m2 * x + m6 * y + m10 * z + m14 * w);
+    out[outOffset++] = m2 * x + m6 * y + m10 * z + m14 * w;
     final double m3 = matrix[3 + matrixOffset];
     final double m7 = matrix[7 + matrixOffset];
     final double m11 = matrix[11 + matrixOffset];
     final double m15 = matrix[15 + matrixOffset];
-    out[outOffset++] = (m3 * x + m7 * y + m11 * z + m15 * w);
+    out[outOffset++] = m3 * x + m7 * y + m11 * z + m15 * w;
   }
 
   /// Transform the 3D [vector] starting at [vectorOffset] by the 4x4 [matrix]

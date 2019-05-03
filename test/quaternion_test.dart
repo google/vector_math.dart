@@ -4,11 +4,10 @@
 
 library vector_math.test.quaternion_test;
 
-import 'dart:typed_data';
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
@@ -77,11 +76,11 @@ void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB,
 }
 
 void testQuaternionConjugate() {
-  List<Quaternion> input = List<Quaternion>();
+  List<Quaternion> input = <Quaternion>[];
   input.add(Quaternion.identity());
   input.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
   input.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
-  List<Quaternion> expectedOutput = List<Quaternion>();
+  List<Quaternion> expectedOutput = <Quaternion>[];
   expectedOutput.add(Quaternion(-0.0, -0.0, -0.0, 1.0));
   expectedOutput.add(Quaternion(-0.18260, -0.54770, -0.73030, 0.36510));
   expectedOutput.add(Quaternion(-0.9889, -0.0, -0.0, 0.1483));
@@ -89,7 +88,7 @@ void testQuaternionConjugate() {
 }
 
 void testQuaternionMatrixQuaternionRoundTrip() {
-  List<Quaternion> input = List<Quaternion>();
+  List<Quaternion> input = <Quaternion>[];
   input.add(Quaternion.identity()..normalize());
   input.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510)..normalize());
   input.add(Quaternion(0.9889, 0.0, 0.0, 0.14834)..normalize());
@@ -101,22 +100,22 @@ void testQuaternionMatrixQuaternionRoundTrip() {
 }
 
 void testQuaternionMultiplying() {
-  List<Quaternion> inputA = List<Quaternion>();
+  List<Quaternion> inputA = <Quaternion>[];
   inputA.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
   inputA.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
-  List<Quaternion> inputB = List<Quaternion>();
+  List<Quaternion> inputB = <Quaternion>[];
   inputB.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
   inputB.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
-  List<Quaternion> expectedOutput = List<Quaternion>();
+  List<Quaternion> expectedOutput = <Quaternion>[];
   expectedOutput.add(Quaternion(0.388127, 0.803418, -0.433317, -0.126429));
   expectedOutput.add(Quaternion(0.388127, -0.64097, 0.649924, -0.126429));
   testQuaternionMultiply(inputA, inputB, expectedOutput);
 }
 
 void testQuaternionNormalize() {
-  List<Quaternion> inputA = List<Quaternion>();
-  List<Vector3> inputB = List<Vector3>();
-  List<Vector3> expectedOutput = List<Vector3>();
+  List<Quaternion> inputA = <Quaternion>[];
+  List<Vector3> inputB = <Vector3>[];
+  List<Vector3> expectedOutput = <Vector3>[];
 
   inputA.add(Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
   inputB.add(Vector3(1.0, 1.0, 1.0));

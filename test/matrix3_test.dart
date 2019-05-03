@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix3Adjoint() {
-  var input = List<dynamic>();
-  var expectedOutput = List<dynamic>();
+  var input = <dynamic>[];
+  var expectedOutput = <dynamic>[];
 
   input.add(parseMatrix<Matrix3>(
       ''' 0.285839018820374   0.380445846975357   0.053950118666607
@@ -49,8 +49,8 @@ void testMatrix3Adjoint() {
 }
 
 void testMatrix3Determinant() {
-  var input = List<Matrix3>();
-  List<double> expectedOutput = List<double>();
+  var input = <Matrix3>[];
+  List<double> expectedOutput = <double>[];
 
   input.add(parseMatrix<Matrix3>(
       '''0.285839018820374   0.380445846975357   0.053950118666607
@@ -68,9 +68,9 @@ void testMatrix3Determinant() {
 }
 
 void testMatrix3SelfTransposeMultiply() {
-  var inputA = List<Matrix3>();
-  var inputB = List<Matrix3>();
-  var expectedOutput = List<Matrix3>();
+  var inputA = <Matrix3>[];
+  var inputB = <Matrix3>[];
+  var expectedOutput = <Matrix3>[];
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -108,9 +108,9 @@ void testMatrix3SelfTransposeMultiply() {
 }
 
 void testMatrix3SelfMultiply() {
-  var inputA = List<Matrix3>();
-  var inputB = List<Matrix3>();
-  var expectedOutput = List<Matrix3>();
+  var inputA = <Matrix3>[];
+  var inputB = <Matrix3>[];
+  var expectedOutput = <Matrix3>[];
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -148,9 +148,9 @@ void testMatrix3SelfMultiply() {
 }
 
 void testMatrix3SelfMultiplyTranspose() {
-  var inputA = List<Matrix3>();
-  var inputB = List<Matrix3>();
-  var expectedOutput = List<Matrix3>();
+  var inputA = <Matrix3>[];
+  var inputB = <Matrix3>[];
+  var expectedOutput = <Matrix3>[];
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852

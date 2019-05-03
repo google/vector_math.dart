@@ -181,10 +181,10 @@ class Vector4 implements Vector {
   /// Length squared.
   double get length2 {
     double sum;
-    sum = (_v4storage[0] * _v4storage[0]);
-    sum += (_v4storage[1] * _v4storage[1]);
-    sum += (_v4storage[2] * _v4storage[2]);
-    sum += (_v4storage[3] * _v4storage[3]);
+    sum = _v4storage[0] * _v4storage[0];
+    sum += _v4storage[1] * _v4storage[1];
+    sum += _v4storage[2] * _v4storage[2];
+    sum += _v4storage[3] * _v4storage[3];
     return sum;
   }
 

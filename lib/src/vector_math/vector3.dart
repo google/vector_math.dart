@@ -159,9 +159,9 @@ class Vector3 implements Vector {
   /// Length squared.
   double get length2 {
     double sum;
-    sum = (_v3storage[0] * _v3storage[0]);
-    sum += (_v3storage[1] * _v3storage[1]);
-    sum += (_v3storage[2] * _v3storage[2]);
+    sum = _v3storage[0] * _v3storage[0];
+    sum += _v3storage[1] * _v3storage[1];
+    sum += _v3storage[2] * _v3storage[2];
     return sum;
   }
 

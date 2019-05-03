@@ -49,7 +49,7 @@ dynamic makeMatrix(int rows, int cols) {
 T parseMatrix<T>(String input) {
   input = input.trim();
   List<String> rows = input.split("\n");
-  List<double> values = List<double>();
+  List<double> values = <double>[];
   int col_count = 0;
   for (int i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
@@ -84,7 +84,7 @@ T parseVector<T extends Vector>(String v) {
   v = v.trim();
   Pattern pattern = RegExp('[\\s]+', multiLine: true, caseSensitive: false);
   List<String> rows = v.split(pattern);
-  List<double> values = List<double>();
+  List<double> values = <double>[];
   for (int i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
     if (rows[i].isEmpty) {

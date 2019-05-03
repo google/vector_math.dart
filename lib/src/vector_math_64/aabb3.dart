@@ -76,10 +76,10 @@ class Aabb3 {
   /// Set the AABB to enclose a [sphere].
   void setSphere(Sphere sphere) {
     _min
-      ..splat(-sphere._radius)
+      ..splat(-sphere.radius)
       ..add(sphere._center);
     _max
-      ..splat(sphere._radius)
+      ..splat(sphere.radius)
       ..add(sphere._center);
   }
 
@@ -299,7 +299,7 @@ class Aabb3 {
 
   /// Return if [this] contains [other].
   bool containsSphere(Sphere other) {
-    final Vector3 boxExtends = Vector3.all(other._radius);
+    final Vector3 boxExtends = Vector3.all(other.radius);
     final Aabb3 sphereBox =
         Aabb3.centerAndHalfExtents(other._center, boxExtends);
 
@@ -337,7 +337,7 @@ class Aabb3 {
   /// Return if [this] intersects with [other].
   bool intersectsWithSphere(Sphere other) {
     final Vector3 center = other._center;
-    final double radius = other._radius;
+    final double radius = other.radius;
     double d = 0.0;
     double e = 0.0;
 

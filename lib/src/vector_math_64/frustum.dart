@@ -144,7 +144,7 @@ class Frustum {
 
   /// Check if [this] intersects with [sphere].
   bool intersectsWithSphere(Sphere sphere) {
-    final double negativeRadius = -sphere._radius;
+    final double negativeRadius = -sphere.radius;
     final Vector3 center = sphere.center;
 
     if (_plane0.distanceToVector3(center) < negativeRadius) {
@@ -225,11 +225,11 @@ class Frustum {
     final double d1 = plane._normal.x * outPx +
         plane._normal.y * outPy +
         plane._normal.z * outPz +
-        plane._constant;
+        plane.constant;
     final double d2 = plane._normal.x * outNx +
         plane._normal.y * outNy +
         plane._normal.z * outNz +
-        plane._constant;
+        plane.constant;
 
     return d1 < 0 && d2 < 0;
   }

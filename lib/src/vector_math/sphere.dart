@@ -7,34 +7,31 @@ part of vector_math;
 /// Defines a sphere with a [center] and a [radius].
 class Sphere {
   final Vector3 _center;
-  double _radius;
+
+  /// The [radius] of the sphere.
+  double radius;
 
   /// The [center] of the sphere.
   Vector3 get center => _center;
 
-  /// The [radius] of the sphere.
-  double get radius => _radius;
-  set radius(double value) => _radius = value;
-
   /// Create a new, uninitialized sphere.
   Sphere()
       : _center = Vector3.zero(),
-        _radius = 0.0;
+        radius = 0.0;
 
   /// Create a sphere as a copy of [other].
   Sphere.copy(Sphere other)
       : _center = Vector3.copy(other._center),
-        _radius = other._radius;
+        radius = other.radius;
 
   /// Create a sphere from a [center] and a [radius].
-  Sphere.centerRadius(Vector3 center, double radius)
-      : _center = Vector3.copy(center),
-        _radius = radius;
+  Sphere.centerRadius(Vector3 center, this.radius)
+      : _center = Vector3.copy(center);
 
   /// Copy the sphere from [other] into [this].
   void copyFrom(Sphere other) {
     _center.setFrom(other._center);
-    _radius = other._radius;
+    radius = other.radius;
   }
 
   /// Return if [this] contains [other].

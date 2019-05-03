@@ -19,15 +19,15 @@ import 'plane_test.dart' as plane;
 import 'quad_test.dart' as quad;
 import 'quaternion_test.dart' as quaternion;
 import 'ray_test.dart' as ray;
+import 'scalar_list_view_test.dart' as scalar_list_view;
 import 'sphere_test.dart' as sphere;
 import 'triangle_test.dart' as triangle;
 import 'utilities_test.dart' as utilities;
-import 'scalar_list_view_test.dart' as scalar_list_view;
 import 'vector2_list_test.dart' as vector2_list;
-import 'vector3_list_test.dart' as vector3_list;
-import 'vector4_list_test.dart' as vector4_list;
 import 'vector2_test.dart' as vector2;
+import 'vector3_list_test.dart' as vector3_list;
 import 'vector3_test.dart' as vector3;
+import 'vector4_list_test.dart' as vector4_list;
 import 'vector4_test.dart' as vector4;
 
 void main() {

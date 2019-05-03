@@ -16,7 +16,7 @@ class RingGenerator extends GeometryGenerator {
   int get vertexCount => (_segments + 1) * 2;
 
   @override
-  int get indexCount => (_segments) * 3 * 2;
+  int get indexCount => _segments * 3 * 2;
 
   MeshGeometry createRing(double innerRadius, double outerRadius,
       {GeometryGeneratorFlags flags,

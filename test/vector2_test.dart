@@ -4,12 +4,10 @@
 
 library vector_math.test.vector2_test;
 
+import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'dart:math' as math;
-
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';

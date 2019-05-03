@@ -51,7 +51,7 @@ class Ray {
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {
-    final double r = other._radius;
+    final double r = other.radius;
     final double r2 = r * r;
     final Vector3 l = other._center.clone()..sub(_origin);
     final double s = l.dot(_direction);

@@ -149,8 +149,8 @@ class Vector2 implements Vector {
   /// Length squared.
   double get length2 {
     double sum;
-    sum = (_v2storage[0] * _v2storage[0]);
-    sum += (_v2storage[1] * _v2storage[1]);
+    sum = _v2storage[0] * _v2storage[0];
+    sum += _v2storage[1] * _v2storage[1];
     return sum;
   }
 

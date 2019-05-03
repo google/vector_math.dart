@@ -6,7 +6,7 @@ part of vector_math;
 
 class Plane {
   final Vector3 _normal;
-  double _constant;
+  double constant;
 
   /// Find the intersection point between the three planes [a], [b] and [c] and
   /// copy it into [result].
@@ -34,40 +34,36 @@ class Plane {
   }
 
   Vector3 get normal => _normal;
-  double get constant => _constant;
-  set constant(double value) => _constant = value;
 
   Plane()
       : _normal = Vector3.zero(),
-        _constant = 0.0;
+        constant = 0.0;
 
   Plane.copy(Plane other)
       : _normal = Vector3.copy(other._normal),
-        _constant = other._constant;
+        constant = other.constant;
 
-  Plane.components(double x, double y, double z, double w)
-      : _normal = Vector3(x, y, z),
-        _constant = w;
+  Plane.components(double x, double y, double z, this.constant)
+      : _normal = Vector3(x, y, z);
 
-  Plane.normalconstant(Vector3 normal_, double constant_)
-      : _normal = Vector3.copy(normal_),
-        _constant = constant_;
+  Plane.normalconstant(Vector3 normal_, this.constant)
+      : _normal = Vector3.copy(normal_);
 
   void copyFrom(Plane o) {
     _normal.setFrom(o._normal);
-    _constant = o._constant;
+    constant = o.constant;
   }
 
   void setFromComponents(double x, double y, double z, double w) {
     _normal.setValues(x, y, z);
-    _constant = w;
+    constant = w;
   }
 
   void normalize() {
     final double inverseLength = 1.0 / normal.length;
     _normal.scale(inverseLength);
-    _constant *= inverseLength;
+    constant *= inverseLength;
   }
 
-  double distanceToVector3(Vector3 point) => _normal.dot(point) + _constant;
+  double distanceToVector3(Vector3 point) => _normal.dot(point) + constant;
 }

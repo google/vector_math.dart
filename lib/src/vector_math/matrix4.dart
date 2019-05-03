@@ -1252,7 +1252,7 @@ class Matrix4 {
     final double b10 = a21 * a33 - a23 * a31;
     final double b11 = a22 * a33 - a23 * a32;
     final double det =
-        (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+        b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
     if (det == 0.0) {
       setFrom(arg);
       return 0.0;

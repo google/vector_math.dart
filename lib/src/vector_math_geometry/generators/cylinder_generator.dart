@@ -120,14 +120,14 @@ class CylinderGenerator extends GeometryGenerator {
     for (int x = 0; x < _segments; ++x) {
       final double r = (x / _segments) * math.pi * 2.0;
       texCoords[i++] =
-          Vector2((math.cos(r) * 0.5 + 0.5), (math.sin(r) * 0.5 + 0.5));
+          Vector2(math.cos(r) * 0.5 + 0.5, math.sin(r) * 0.5 + 0.5);
     }
 
     // Bottom cap
     for (int x = 0; x < _segments; ++x) {
       final double r = (x / _segments) * math.pi * 2.0;
       texCoords[i++] =
-          Vector2((math.cos(r) * 0.5 + 0.5), (math.sin(r) * 0.5 + 0.5));
+          Vector2(math.cos(r) * 0.5 + 0.5, math.sin(r) * 0.5 + 0.5);
     }
   }
 }

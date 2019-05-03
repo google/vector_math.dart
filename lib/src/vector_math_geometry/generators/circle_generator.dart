@@ -14,7 +14,7 @@ class CircleGenerator extends GeometryGenerator {
   int get vertexCount => _segments + 2;
 
   @override
-  int get indexCount => (_segments) * 3;
+  int get indexCount => _segments * 3;
 
   MeshGeometry createCircle(double radius,
       {GeometryGeneratorFlags flags,
