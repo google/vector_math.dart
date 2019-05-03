@@ -20,47 +20,47 @@ class Aabb3 {
 
   /// Create a new AABB with [min] and [max] set to the origin.
   Aabb3()
-      : _min = new Vector3.zero(),
-        _max = new Vector3.zero();
+      : _min = Vector3.zero(),
+        _max = Vector3.zero();
 
   /// Create a new AABB as a copy of [other].
   Aabb3.copy(Aabb3 other)
-      : _min = new Vector3.copy(other._min),
-        _max = new Vector3.copy(other._max);
+      : _min = Vector3.copy(other._min),
+        _max = Vector3.copy(other._max);
 
   /// Create a new AABB with a [min] and [max].
   Aabb3.minMax(Vector3 min, Vector3 max)
-      : _min = new Vector3.copy(min),
-        _max = new Vector3.copy(max);
+      : _min = Vector3.copy(min),
+        _max = Vector3.copy(max);
 
   /// Create a new AABB that encloses a [sphere].
-  factory Aabb3.fromSphere(Sphere sphere) => new Aabb3()..setSphere(sphere);
+  factory Aabb3.fromSphere(Sphere sphere) => Aabb3()..setSphere(sphere);
 
   /// Create a new AABB that encloses a [triangle].
   factory Aabb3.fromTriangle(Triangle triangle) =>
-      new Aabb3()..setTriangle(triangle);
+      Aabb3()..setTriangle(triangle);
 
   /// Create a new AABB that encloses a [quad].
-  factory Aabb3.fromQuad(Quad quad) => new Aabb3()..setQuad(quad);
+  factory Aabb3.fromQuad(Quad quad) => Aabb3()..setQuad(quad);
 
   /// Create a new AABB that encloses a [obb].
-  factory Aabb3.fromObb3(Obb3 obb) => new Aabb3()..setObb3(obb);
+  factory Aabb3.fromObb3(Obb3 obb) => Aabb3()..setObb3(obb);
 
   /// Create a new AABB that encloses a limited [ray] (or line segment) that has
   /// a minLimit and maxLimit.
   factory Aabb3.fromRay(Ray ray, double limitMin, double limitMax) =>
-      new Aabb3()..setRay(ray, limitMin, limitMax);
+      Aabb3()..setRay(ray, limitMin, limitMax);
 
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents) =>
-      new Aabb3()..setCenterAndHalfExtents(center, halfExtents);
+      Aabb3()..setCenterAndHalfExtents(center, halfExtents);
 
   /// Constructs [Aabb3] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float64List.bytesPerElement].
   Aabb3.fromBuffer(ByteBuffer buffer, int offset)
-      : _min = new Vector3.fromBuffer(buffer, offset),
-        _max = new Vector3.fromBuffer(
+      : _min = Vector3.fromBuffer(buffer, offset),
+        _max = Vector3.fromBuffer(
             buffer, offset + Float64List.bytesPerElement * 3);
 
   /// Set the AABB by a [center] and [halfExtents].
@@ -125,7 +125,7 @@ class Aabb3 {
 
   /// Set the AABB to enclose a [obb].
   void setObb3(Obb3 obb) {
-    final Vector3 corner = new Vector3.zero();
+    final Vector3 corner = Vector3.zero();
 
     obb.copyCorner(0, corner);
     _min.setFrom(corner);
@@ -205,8 +205,8 @@ class Aabb3 {
 
   /// Transform [this] by the transform [t].
   void transform(Matrix4 t) {
-    final Vector3 center = new Vector3.zero();
-    final Vector3 halfExtents = new Vector3.zero();
+    final Vector3 center = Vector3.zero();
+    final Vector3 halfExtents = Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t
       ..transform3(center)
@@ -221,8 +221,8 @@ class Aabb3 {
 
   /// Rotate [this] by the rotation matrix [t].
   void rotate(Matrix4 t) {
-    final Vector3 center = new Vector3.zero();
-    final Vector3 halfExtents = new Vector3.zero();
+    final Vector3 center = Vector3.zero();
+    final Vector3 halfExtents = Vector3.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t.absoluteRotate(halfExtents);
     _min
@@ -299,9 +299,9 @@ class Aabb3 {
 
   /// Return if [this] contains [other].
   bool containsSphere(Sphere other) {
-    final Vector3 boxExtends = new Vector3.all(other._radius);
+    final Vector3 boxExtends = Vector3.all(other._radius);
     final Aabb3 sphereBox =
-        new Aabb3.centerAndHalfExtents(other._center, boxExtends);
+        Aabb3.centerAndHalfExtents(other._center, boxExtends);
 
     return containsAabb3(sphereBox);
   }
@@ -372,19 +372,19 @@ class Aabb3 {
       (_max.z >= other.z);
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Vector3 _aabbCenter = new Vector3.zero();
-  static final Vector3 _aabbHalfExtents = new Vector3.zero();
-  static final Vector3 _v0 = new Vector3.zero();
-  static final Vector3 _v1 = new Vector3.zero();
-  static final Vector3 _v2 = new Vector3.zero();
-  static final Vector3 _f0 = new Vector3.zero();
-  static final Vector3 _f1 = new Vector3.zero();
-  static final Vector3 _f2 = new Vector3.zero();
-  static final Plane _trianglePlane = new Plane();
+  static final Vector3 _aabbCenter = Vector3.zero();
+  static final Vector3 _aabbHalfExtents = Vector3.zero();
+  static final Vector3 _v0 = Vector3.zero();
+  static final Vector3 _v1 = Vector3.zero();
+  static final Vector3 _v2 = Vector3.zero();
+  static final Vector3 _f0 = Vector3.zero();
+  static final Vector3 _f1 = Vector3.zero();
+  static final Vector3 _f2 = Vector3.zero();
+  static final Plane _trianglePlane = Plane();
 
-  static final Vector3 _u0 = new Vector3(1.0, 0.0, 0.0);
-  static final Vector3 _u1 = new Vector3(0.0, 1.0, 0.0);
-  static final Vector3 _u2 = new Vector3(0.0, 0.0, 1.0);
+  static final Vector3 _u0 = Vector3(1.0, 0.0, 0.0);
+  static final Vector3 _u1 = Vector3(0.0, 1.0, 0.0);
+  static final Vector3 _u2 = Vector3(0.0, 0.0, 1.0);
 
   /// Return if [this] intersects with [other].
   /// [epsilon] allows the caller to specify a custum eplsilon value that should
@@ -392,7 +392,7 @@ class Aabb3 {
   /// found, result is modified to contain more details about the type of
   /// intersection.
   bool intersectsWithTriangle(Triangle other,
-      {double epsilon: 1e-3, IntersectionResult result}) {
+      {double epsilon = 1e-3, IntersectionResult result}) {
     double p0, p1, p2, r, len;
     double a;
 
@@ -652,8 +652,8 @@ class Aabb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Triangle _quadTriangle0 = new Triangle();
-  static final Triangle _quadTriangle1 = new Triangle();
+  static final Triangle _quadTriangle0 = Triangle();
+  static final Triangle _quadTriangle1 = Triangle();
 
   /// Return if [this] intersects with [other].
   /// [epsilon] allows the caller to specify a custum eplsilon value that should

@@ -11,7 +11,7 @@ class ColorFilter extends GeometryFilter {
 
   @override
   List<VertexAttrib> get generates =>
-      <VertexAttrib>[new VertexAttrib('COLOR', 4, 'float')];
+      <VertexAttrib>[VertexAttrib('COLOR', 4, 'float')];
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
@@ -19,10 +19,10 @@ class ColorFilter extends GeometryFilter {
     if (mesh.getAttrib('COLOR') == null) {
       final List<VertexAttrib> attributes = <VertexAttrib>[]
         ..addAll(mesh.attribs)
-        ..add(new VertexAttrib('COLOR', 4, 'float'));
-      output = new MeshGeometry.resetAttribs(mesh, attributes);
+        ..add(VertexAttrib('COLOR', 4, 'float'));
+      output = MeshGeometry.resetAttribs(mesh, attributes);
     } else {
-      output = new MeshGeometry.copy(mesh);
+      output = MeshGeometry.copy(mesh);
     }
 
     final VectorList<Vector> colors = output.getViewForAttrib('COLOR');

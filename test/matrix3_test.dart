@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix3Adjoint() {
-  var input = new List<dynamic>();
-  var expectedOutput = new List<dynamic>();
+  var input = List<dynamic>();
+  var expectedOutput = List<dynamic>();
 
   input.add(parseMatrix<Matrix3>(
       ''' 0.285839018820374   0.380445846975357   0.053950118666607
@@ -49,8 +49,8 @@ void testMatrix3Adjoint() {
 }
 
 void testMatrix3Determinant() {
-  var input = new List<Matrix3>();
-  List<double> expectedOutput = new List<double>();
+  var input = List<Matrix3>();
+  List<double> expectedOutput = List<double>();
 
   input.add(parseMatrix<Matrix3>(
       '''0.285839018820374   0.380445846975357   0.053950118666607
@@ -68,9 +68,9 @@ void testMatrix3Determinant() {
 }
 
 void testMatrix3SelfTransposeMultiply() {
-  var inputA = new List<Matrix3>();
-  var inputB = new List<Matrix3>();
-  var expectedOutput = new List<Matrix3>();
+  var inputA = List<Matrix3>();
+  var inputB = List<Matrix3>();
+  var expectedOutput = List<Matrix3>();
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -108,9 +108,9 @@ void testMatrix3SelfTransposeMultiply() {
 }
 
 void testMatrix3SelfMultiply() {
-  var inputA = new List<Matrix3>();
-  var inputB = new List<Matrix3>();
-  var expectedOutput = new List<Matrix3>();
+  var inputA = List<Matrix3>();
+  var inputB = List<Matrix3>();
+  var expectedOutput = List<Matrix3>();
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -148,9 +148,9 @@ void testMatrix3SelfMultiply() {
 }
 
 void testMatrix3SelfMultiplyTranspose() {
-  var inputA = new List<Matrix3>();
-  var inputB = new List<Matrix3>();
-  var expectedOutput = new List<Matrix3>();
+  var inputA = List<Matrix3>();
+  var inputB = List<Matrix3>();
+  var expectedOutput = List<Matrix3>();
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -188,54 +188,54 @@ void testMatrix3SelfMultiplyTranspose() {
 }
 
 void testMatrix3Transform() {
-  Matrix3 rotX = new Matrix3.rotationX(math.pi / 4);
-  Matrix3 rotY = new Matrix3.rotationY(math.pi / 4);
-  Matrix3 rotZ = new Matrix3.rotationZ(math.pi / 4);
-  final input = new Vector3(1.0, 0.0, 0.0);
+  Matrix3 rotX = Matrix3.rotationX(math.pi / 4);
+  Matrix3 rotY = Matrix3.rotationY(math.pi / 4);
+  Matrix3 rotZ = Matrix3.rotationZ(math.pi / 4);
+  final input = Vector3(1.0, 0.0, 0.0);
 
   relativeTest(rotX.transformed(input), input);
   relativeTest(rotY.transformed(input),
-      new Vector3(1.0 / math.sqrt(2.0), 0.0, 1.0 / math.sqrt(2.0)));
+      Vector3(1.0 / math.sqrt(2.0), 0.0, 1.0 / math.sqrt(2.0)));
   relativeTest(rotZ.transformed(input),
-      new Vector3(1.0 / math.sqrt(2.0), 1.0 / math.sqrt(2.0), 0.0));
+      Vector3(1.0 / math.sqrt(2.0), 1.0 / math.sqrt(2.0), 0.0));
 }
 
 void testMatrix3Transform2() {
-  Matrix3 rotZ = new Matrix3.rotationZ(math.pi / 4);
-  Matrix3 trans = new Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
+  Matrix3 rotZ = Matrix3.rotationZ(math.pi / 4);
+  Matrix3 trans = Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
   Matrix3 transB =
-      new Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
+      Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
   expect(trans, equals(transB));
 
-  final input = new Vector2(1.0, 0.0);
+  final input = Vector2(1.0, 0.0);
 
-  relativeTest(rotZ.transform2(input.clone()),
-      new Vector2(math.sqrt(0.5), math.sqrt(0.5)));
+  relativeTest(
+      rotZ.transform2(input.clone()), Vector2(math.sqrt(0.5), math.sqrt(0.5)));
 
-  relativeTest(trans.transform2(input.clone()), new Vector2(4.0, 2.0));
+  relativeTest(trans.transform2(input.clone()), Vector2(4.0, 2.0));
 }
 
 void testMatrix3AbsoluteRotate2() {
-  Matrix3 rotZ = new Matrix3.rotationZ(-math.pi / 4);
-  Matrix3 rotZcw = new Matrix3.rotationZ(math.pi / 4);
+  Matrix3 rotZ = Matrix3.rotationZ(-math.pi / 4);
+  Matrix3 rotZcw = Matrix3.rotationZ(math.pi / 4);
   // Add translation
   rotZ.setEntry(2, 0, 3.0);
   rotZ.setEntry(2, 1, 2.0);
 
-  final input = new Vector2(1.0, 0.0);
+  final input = Vector2(1.0, 0.0);
 
   relativeTest(rotZ.absoluteRotate2(input.clone()),
-      new Vector2(math.sqrt(0.5), math.sqrt(0.5)));
+      Vector2(math.sqrt(0.5), math.sqrt(0.5)));
 
   relativeTest(rotZcw.absoluteRotate2(input.clone()),
-      new Vector2(math.sqrt(0.5), math.sqrt(0.5)));
+      Vector2(math.sqrt(0.5), math.sqrt(0.5)));
 }
 
 void testMatrix3ConstructorCopy() {
-  var a = new Vector3(1.0, 2.0, 3.0);
-  var b = new Vector3(4.0, 5.0, 6.0);
-  var c = new Vector3(7.0, 8.0, 9.0);
-  Matrix3 m = new Matrix3.columns(a, b, c);
+  var a = Vector3(1.0, 2.0, 3.0);
+  var b = Vector3(4.0, 5.0, 6.0);
+  var c = Vector3(7.0, 8.0, 9.0);
+  Matrix3 m = Matrix3.columns(a, b, c);
   expect(m.entry(0, 0), 1.0);
   expect(m.entry(2, 2), 9.0);
   c.z = 5.0;
@@ -245,8 +245,8 @@ void testMatrix3ConstructorCopy() {
 }
 
 void testMatrix3Inversion() {
-  Matrix3 m = new Matrix3(1.0, 0.0, 5.0, 2.0, 1.0, 6.0, 3.0, 4.0, 0.0);
-  Matrix3 result = new Matrix3.zero();
+  Matrix3 m = Matrix3(1.0, 0.0, 5.0, 2.0, 1.0, 6.0, 3.0, 4.0, 0.0);
+  Matrix3 result = Matrix3.zero();
   double det = result.copyInverse(m);
   expect(det, 1.0);
   expect(result.entry(0, 0), -24.0);
@@ -261,10 +261,9 @@ void testMatrix3Inversion() {
 }
 
 void testMatrix3Dot() {
-  final Matrix3 matrix =
-      new Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+  final Matrix3 matrix = Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
 
-  final Vector3 v = new Vector3(2.0, 3.0, 4.0);
+  final Vector3 v = Vector3(2.0, 3.0, 4.0);
 
   expect(matrix.dotRow(0, v), equals(42.0));
   expect(matrix.dotRow(1, v), equals(51.0));
@@ -275,7 +274,7 @@ void testMatrix3Dot() {
 }
 
 void testMatrix3Scale() {
-  final m = new Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+  final m = Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
   final n = m.scaled(2.0);
 
   expect(n.storage[0], equals(2.0));
@@ -290,20 +289,19 @@ void testMatrix3Scale() {
 }
 
 void testMatrix3Solving() {
-  final Matrix3 A =
-      new Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
+  final Matrix3 A = Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
 
-  final Vector3 b = new Vector3(32.0, 64.0, 72.0);
-  final Vector3 result = new Vector3.zero();
+  final Vector3 b = Vector3(32.0, 64.0, 72.0);
+  final Vector3 result = Vector3.zero();
 
-  final Vector2 b2 = new Vector2(32.0, 64.0);
-  final Vector2 result2 = new Vector2.zero();
+  final Vector2 b2 = Vector2(32.0, 64.0);
+  final Vector2 result2 = Vector2.zero();
 
   Matrix3.solve(A, result, b);
   Matrix3.solve2(A, result2, b2);
 
-  final Vector3 backwards = A.transform(new Vector3.copy(result));
-  final Vector2 backwards2 = A.transform2(new Vector2.copy(result2));
+  final Vector3 backwards = A.transform(Vector3.copy(result));
+  final Vector2 backwards2 = A.transform2(Vector2.copy(result2));
 
   expect(backwards.x, equals(b.x));
   expect(backwards.y, equals(b.y));
@@ -314,18 +312,17 @@ void testMatrix3Solving() {
 }
 
 void testMatrix3Equals() {
-  expect(new Matrix3.identity(), equals(new Matrix3.identity()));
-  expect(new Matrix3.zero(), isNot(equals(new Matrix3.identity())));
-  expect(new Matrix3.zero(), isNot(equals(5)));
-  expect(
-      new Matrix3.identity().hashCode, equals(new Matrix3.identity().hashCode));
+  expect(Matrix3.identity(), equals(Matrix3.identity()));
+  expect(Matrix3.zero(), isNot(equals(Matrix3.identity())));
+  expect(Matrix3.zero(), isNot(equals(5)));
+  expect(Matrix3.identity().hashCode, equals(Matrix3.identity().hashCode));
 }
 
 void testMatrixClassifiers() {
-  expect(new Matrix3.zero().isIdentity(), false);
-  expect(new Matrix3.zero().isZero(), true);
-  expect(new Matrix3.identity().isIdentity(), true);
-  expect(new Matrix3.identity().isZero(), false);
+  expect(Matrix3.zero().isIdentity(), false);
+  expect(Matrix3.zero().isZero(), true);
+  expect(Matrix3.identity().isIdentity(), true);
+  expect(Matrix3.identity().isZero(), false);
 }
 
 void main() {

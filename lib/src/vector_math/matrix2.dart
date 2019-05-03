@@ -52,32 +52,31 @@ class Matrix2 {
 
   /// New matrix with specified values.
   factory Matrix2(double arg0, double arg1, double arg2, double arg3) =>
-      new Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
+      Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
 
   /// New matrix from [values].
   factory Matrix2.fromList(List<double> values) =>
-      new Matrix2.zero()..setValues(values[0], values[1], values[2], values[3]);
+      Matrix2.zero()..setValues(values[0], values[1], values[2], values[3]);
 
   /// Zero matrix.
-  Matrix2.zero() : _m2storage = new Float32List(4);
+  Matrix2.zero() : _m2storage = Float32List(4);
 
   /// Identity matrix.
-  factory Matrix2.identity() => new Matrix2.zero()..setIdentity();
+  factory Matrix2.identity() => Matrix2.zero()..setIdentity();
 
   /// Copies values from [other].
-  factory Matrix2.copy(Matrix2 other) => new Matrix2.zero()..setFrom(other);
+  factory Matrix2.copy(Matrix2 other) => Matrix2.zero()..setFrom(other);
 
   /// Matrix with values from column arguments.
   factory Matrix2.columns(Vector2 arg0, Vector2 arg1) =>
-      new Matrix2.zero()..setColumns(arg0, arg1);
+      Matrix2.zero()..setColumns(arg0, arg1);
 
   /// Outer product of [u] and [v].
-  factory Matrix2.outer(Vector2 u, Vector2 v) =>
-      new Matrix2.zero()..setOuter(u, v);
+  factory Matrix2.outer(Vector2 u, Vector2 v) => Matrix2.zero()..setOuter(u, v);
 
   /// Rotation of [radians].
   factory Matrix2.rotation(double radians) =>
-      new Matrix2.zero()..setRotation(radians);
+      Matrix2.zero()..setRotation(radians);
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3) {
@@ -177,7 +176,7 @@ class Matrix2 {
 
   /// Gets the [row] of the matrix
   Vector2 getRow(int row) {
-    final Vector2 r = new Vector2.zero();
+    final Vector2 r = Vector2.zero();
     final Float32List rStorage = r._v2storage;
     rStorage[0] = _m2storage[index(row, 0)];
     rStorage[1] = _m2storage[index(row, 1)];
@@ -194,7 +193,7 @@ class Matrix2 {
 
   /// Gets the [column] of the matrix
   Vector2 getColumn(int column) {
-    final Vector2 r = new Vector2.zero();
+    final Vector2 r = Vector2.zero();
     final int entry = column * 2;
     final Float32List rStorage = r._v2storage;
     rStorage[1] = _m2storage[entry + 1];
@@ -203,7 +202,7 @@ class Matrix2 {
   }
 
   /// Create a copy of [this].
-  Matrix2 clone() => new Matrix2.copy(this);
+  Matrix2 clone() => Matrix2.copy(this);
 
   /// Copy [this] into [arg].
   Matrix2 copyInto(Matrix2 arg) {
@@ -226,7 +225,7 @@ class Matrix2 {
     if (arg is Matrix2) {
       return multiplied(arg);
     }
-    throw new ArgumentError(arg);
+    throw ArgumentError(arg);
   }
 
   /// Returns new matrix after component wise [this] + [arg]
@@ -265,7 +264,7 @@ class Matrix2 {
 
   /// Returns the component wise absolute value of this.
   Matrix2 absolute() {
-    final Matrix2 r = new Matrix2.zero();
+    final Matrix2 r = Matrix2.zero();
     final Float32List rStorage = r._m2storage;
     rStorage[0] = _m2storage[0].abs();
     rStorage[1] = _m2storage[1].abs();
@@ -484,7 +483,7 @@ class Matrix2 {
   /// [out].
   Vector2 transformed(Vector2 arg, [Vector2 out]) {
     if (out == null) {
-      out = new Vector2.copy(arg);
+      out = Vector2.copy(arg);
     } else {
       out.setFrom(arg);
     }

@@ -9,10 +9,10 @@ part of vector_math_geometry;
 /// [indices] is assumed to represent a triangle list.
 void generateNormals(
     Vector3List normals, Vector3List positions, Uint16List indices) {
-  final Vector3 p0 = new Vector3.zero(),
-      p1 = new Vector3.zero(),
-      p2 = new Vector3.zero(),
-      norm = new Vector3.zero();
+  final Vector3 p0 = Vector3.zero(),
+      p1 = Vector3.zero(),
+      p2 = Vector3.zero(),
+      norm = Vector3.zero();
 
   // Loop through every polygon, find it's normal, and add that to the vertex
   // normals.
@@ -57,22 +57,22 @@ void generateNormals(
 /// http://www.terathon.com/code/tangent.html
 void generateTangents(Vector4List tangents, Vector3List positions,
     Vector3List normals, Vector2List texCoords, Uint16List indices) {
-  final Vector3 p0 = new Vector3.zero(),
-      p1 = new Vector3.zero(),
-      p2 = new Vector3.zero(),
-      n = new Vector3.zero(),
-      t = new Vector3.zero(),
-      udir = new Vector3.zero(),
-      vdir = new Vector3.zero();
+  final Vector3 p0 = Vector3.zero(),
+      p1 = Vector3.zero(),
+      p2 = Vector3.zero(),
+      n = Vector3.zero(),
+      t = Vector3.zero(),
+      udir = Vector3.zero(),
+      vdir = Vector3.zero();
 
-  final Vector2 uv0 = new Vector2.zero(),
-      uv1 = new Vector2.zero(),
-      uv2 = new Vector2.zero();
+  final Vector2 uv0 = Vector2.zero(),
+      uv1 = Vector2.zero(),
+      uv2 = Vector2.zero();
 
-  final Vector4 tan = new Vector4.zero();
+  final Vector4 tan = Vector4.zero();
 
-  final Vector3List tan0 = new Vector3List(positions.length),
-      tan1 = new Vector3List(positions.length);
+  final Vector3List tan0 = Vector3List(positions.length),
+      tan1 = Vector3List(positions.length);
 
   for (int i = 0; i < indices.length; i += 3) {
     final int i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];

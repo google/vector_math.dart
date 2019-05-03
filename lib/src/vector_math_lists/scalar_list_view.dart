@@ -30,7 +30,7 @@ class ScalarListView {
       : _offset = offset,
         _stride = stride == 0 ? 1 : stride,
         _length = length,
-        _buffer = new Float32List(_listLength(offset, stride, length));
+        _buffer = Float32List(_listLength(offset, stride, length));
 
   /// Create a new vector list from a list of vectors that have a size of
   /// [vectorLength]. Optionally it is possible to specify an [offset] in the
@@ -40,7 +40,7 @@ class ScalarListView {
         _stride = stride == 0 ? 1 : stride,
         _length = list.length,
         _buffer =
-            new Float32List(offset + list.length * (stride == 0 ? 1 : stride)) {
+            Float32List(offset + list.length * (stride == 0 ? 1 : stride)) {
     for (int i = 0; i < _length; i++) {
       this[i] = list[i];
     }

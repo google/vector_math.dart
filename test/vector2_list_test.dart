@@ -14,8 +14,8 @@ import 'package:vector_math/vector_math_lists.dart';
 import 'test_utils.dart';
 
 void testVector2ListWithOffset() {
-  Vector2List list = new Vector2List(10, 1);
-  list[0] = new Vector2(1.0, 2.0);
+  Vector2List list = Vector2List(10, 1);
+  list[0] = Vector2(1.0, 2.0);
   relativeTest(list[0].x, 1.0);
   relativeTest(list[0].y, 2.0);
   relativeTest(list.buffer[0], 0.0); // unset
@@ -25,12 +25,12 @@ void testVector2ListWithOffset() {
 }
 
 void testVector2ListView() {
-  Float32List buffer = new Float32List(8);
-  Vector2List list = new Vector2List.view(buffer, 1, 3);
+  Float32List buffer = Float32List(8);
+  Vector2List list = Vector2List.view(buffer, 1, 3);
   // The list length should be (8 - 1) ~/ 3 == 2.
   expect(list.length, 2);
-  list[0] = new Vector2(1.0, 2.0);
-  list[1] = new Vector2(3.0, 4.0);
+  list[0] = Vector2(1.0, 2.0);
+  list[1] = Vector2(3.0, 4.0);
   expect(buffer[0], 0.0);
   expect(buffer[1], 1.0);
   expect(buffer[2], 2.0);
@@ -42,13 +42,13 @@ void testVector2ListView() {
 }
 
 void testVector2ListViewTightFit() {
-  Float32List buffer = new Float32List(8);
-  Vector2List list = new Vector2List.view(buffer, 2, 4);
+  Float32List buffer = Float32List(8);
+  Vector2List list = Vector2List.view(buffer, 2, 4);
   // The list length should be (8 - 2) ~/ 2 == 2 as the stride of the last
   // element is negligible.
   expect(list.length, 2);
-  list[0] = new Vector2(1.0, 2.0);
-  list[1] = new Vector2(3.0, 4.0);
+  list[0] = Vector2(1.0, 2.0);
+  list[1] = Vector2(3.0, 4.0);
   expect(buffer[0], 0.0);
   expect(buffer[1], 0.0);
   expect(buffer[2], 1.0);
@@ -60,11 +60,11 @@ void testVector2ListViewTightFit() {
 }
 
 void testVector2ListFromList() {
-  List<Vector2> input = new List<Vector2>(3);
-  input[0] = new Vector2(1.0, 2.0);
-  input[1] = new Vector2(3.0, 4.0);
-  input[2] = new Vector2(5.0, 6.0);
-  Vector2List list = new Vector2List.fromList(input, 2, 5);
+  List<Vector2> input = List<Vector2>(3);
+  input[0] = Vector2(1.0, 2.0);
+  input[1] = Vector2(3.0, 4.0);
+  input[2] = Vector2(5.0, 6.0);
+  Vector2List list = Vector2List.fromList(input, 2, 5);
   expect(list.buffer.length, 17);
   expect(list.buffer[0], 0.0);
   expect(list.buffer[1], 0.0);
@@ -86,7 +86,7 @@ void testVector2ListFromList() {
 }
 
 void testVector2ListSetValue() {
-  final list = new Vector2List(2);
+  final list = Vector2List(2);
 
   list.setValues(1, 1.0, 2.0);
 
@@ -97,8 +97,7 @@ void testVector2ListSetValue() {
 }
 
 void testVector2ListSetZero() {
-  final list =
-      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+  final list = Vector2List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
 
   list.setZero(1);
 
@@ -109,8 +108,7 @@ void testVector2ListSetZero() {
 }
 
 void testVector2ListAdd() {
-  final list =
-      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+  final list = Vector2List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
 
   list.add(1, $v2(2.0, 2.0));
 
@@ -121,8 +119,7 @@ void testVector2ListAdd() {
 }
 
 void testVector2ListAddScaled() {
-  final list =
-      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+  final list = Vector2List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
 
   list.addScaled(1, $v2(2.0, 2.0), 2.0);
 
@@ -133,8 +130,7 @@ void testVector2ListAddScaled() {
 }
 
 void testVector2ListSub() {
-  final list =
-      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+  final list = Vector2List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
 
   list.sub(1, $v2(2.0, 2.0));
 
@@ -145,8 +141,7 @@ void testVector2ListSub() {
 }
 
 void testVector2ListMultiply() {
-  final list =
-      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+  final list = Vector2List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
 
   list.multiply(1, $v2(2.0, 3.0));
 
@@ -157,8 +152,7 @@ void testVector2ListMultiply() {
 }
 
 void testVector2ListScale() {
-  final list =
-      new Vector2List.view(new Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
+  final list = Vector2List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0]));
 
   list.scale(1, 2.0);
 

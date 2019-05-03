@@ -40,44 +40,43 @@ class Quaternion {
     _qStorage[3] = w;
   }
 
-  Quaternion._() : _qStorage = new Float32List(4);
+  Quaternion._() : _qStorage = Float32List(4);
 
   /// Constructs a quaternion using the raw values [x], [y], [z], and [w].
   factory Quaternion(double x, double y, double z, double w) =>
-      new Quaternion._()..setValues(x, y, z, w);
+      Quaternion._()..setValues(x, y, z, w);
 
   /// Constructs a quaternion from a rotation matrix [rotationMatrix].
   factory Quaternion.fromRotation(Matrix3 rotationMatrix) =>
-      new Quaternion._()..setFromRotation(rotationMatrix);
+      Quaternion._()..setFromRotation(rotationMatrix);
 
   /// Constructs a quaternion from a rotation of [angle] around [axis].
   factory Quaternion.axisAngle(Vector3 axis, double angle) =>
-      new Quaternion._()..setAxisAngle(axis, angle);
+      Quaternion._()..setAxisAngle(axis, angle);
 
   /// Constructs a quaternion to be the rotation that rotates vector [a] to [b].
   factory Quaternion.fromTwoVectors(Vector3 a, Vector3 b) =>
-      new Quaternion._()..setFromTwoVectors(a, b);
+      Quaternion._()..setFromTwoVectors(a, b);
 
   /// Constructs a quaternion as a copy of [original].
   factory Quaternion.copy(Quaternion original) =>
-      new Quaternion._()..setFrom(original);
+      Quaternion._()..setFrom(original);
 
   /// Constructs a quaternion with a random rotation. The random number
   /// generator [rn] is used to generate the random numbers for the rotation.
-  factory Quaternion.random(math.Random rn) =>
-      new Quaternion._()..setRandom(rn);
+  factory Quaternion.random(math.Random rn) => Quaternion._()..setRandom(rn);
 
   /// Constructs a quaternion set to the identity quaternion.
-  factory Quaternion.identity() => new Quaternion._().._qStorage[3] = 1.0;
+  factory Quaternion.identity() => Quaternion._().._qStorage[3] = 1.0;
 
   /// Constructs a quaternion from time derivative of [q] with angular
   /// velocity [omega].
   factory Quaternion.dq(Quaternion q, Vector3 omega) =>
-      new Quaternion._()..setDQ(q, omega);
+      Quaternion._()..setDQ(q, omega);
 
   /// Constructs a quaternion from [yaw], [pitch] and [roll].
   factory Quaternion.euler(double yaw, double pitch, double roll) =>
-      new Quaternion._()..setEuler(yaw, pitch, roll);
+      Quaternion._()..setEuler(yaw, pitch, roll);
 
   /// Constructs a quaternion with given Float32List as [storage].
   Quaternion.fromFloat32List(this._qStorage);
@@ -86,10 +85,10 @@ class Quaternion {
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float32List.bytesPerElement].
   Quaternion.fromBuffer(ByteBuffer buffer, int offset)
-      : _qStorage = new Float32List.view(buffer, offset, 4);
+      : _qStorage = Float32List.view(buffer, offset, 4);
 
   /// Returns a new copy of [this].
-  Quaternion clone() => new Quaternion.copy(this);
+  Quaternion clone() => Quaternion.copy(this);
 
   /// Copy [source] into [this].
   void setFrom(Quaternion source) {
@@ -174,15 +173,15 @@ class Quaternion {
       // Find one by taking the cross product of v1 with an appropriate unit axis
       if (v1.x > v1.y && v1.x > v1.z) {
         // v1 points in a dominantly x direction, so don't cross with that axis
-        axis = v1.cross(new Vector3(0.0, 1.0, 0.0));
+        axis = v1.cross(Vector3(0.0, 1.0, 0.0));
       } else {
         // Predominantly points in some other direction, so x-axis should be safe
-        axis = v1.cross(new Vector3(1.0, 0.0, 0.0));
+        axis = v1.cross(Vector3(1.0, 0.0, 0.0));
       }
     } else if ((1.0 - c).abs() < 0.0005) {
       // c \approx 1 is 0-degree rotation, axis is arbitrary
       angle = 0.0;
-      axis = new Vector3(1.0, 0.0, 0.0);
+      axis = Vector3(1.0, 0.0, 0.0);
     }
 
     setAxisAngle(axis.normalized(), angle);
@@ -294,11 +293,11 @@ class Quaternion {
     final double den = 1.0 - (_qStorage[3] * _qStorage[3]);
     if (den < 0.0005) {
       // 0-angle rotation, so axis does not matter
-      return new Vector3.zero();
+      return Vector3.zero();
     }
 
     final double scale = 1.0 / math.sqrt(den);
-    return new Vector3(
+    return Vector3(
         _qStorage[0] * scale, _qStorage[1] * scale, _qStorage[2] * scale);
   }
 
@@ -386,7 +385,7 @@ class Quaternion {
     final double oz = otherStorage[2];
     final double oy = otherStorage[1];
     final double ox = otherStorage[0];
-    return new Quaternion(
+    return Quaternion(
         _w * ox + _x * ow + _y * oz - _z * oy,
         _w * oy + _y * ow + _z * ox - _x * oz,
         _w * oz + _z * ow + _x * oy - _y * ox,
@@ -411,7 +410,7 @@ class Quaternion {
   }
 
   /// Returns a rotation matrix containing the same rotation as [this].
-  Matrix3 asRotationMatrix() => copyRotationInto(new Matrix3.zero());
+  Matrix3 asRotationMatrix() => copyRotationInto(Matrix3.zero());
 
   /// Set [rotationMatrix] to a rotation matrix containing the same rotation as
   /// [this].

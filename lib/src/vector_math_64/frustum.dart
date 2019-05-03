@@ -33,19 +33,18 @@ class Frustum {
 
   /// Create a new frustum without initializing its bounds.
   Frustum()
-      : _plane0 = new Plane(),
-        _plane1 = new Plane(),
-        _plane2 = new Plane(),
-        _plane3 = new Plane(),
-        _plane4 = new Plane(),
-        _plane5 = new Plane();
+      : _plane0 = Plane(),
+        _plane1 = Plane(),
+        _plane2 = Plane(),
+        _plane3 = Plane(),
+        _plane4 = Plane(),
+        _plane5 = Plane();
 
   /// Create a new frustum as a copy of [other].
-  factory Frustum.copy(Frustum other) => new Frustum()..copyFrom(other);
+  factory Frustum.copy(Frustum other) => Frustum()..copyFrom(other);
 
   /// Create a new furstum from a [matrix].
-  factory Frustum.matrix(Matrix4 matrix) =>
-      new Frustum()..setFromMatrix(matrix);
+  factory Frustum.matrix(Matrix4 matrix) => Frustum()..setFromMatrix(matrix);
 
   /// Copy the [other] frustum into [this].
   void copyFrom(Frustum other) {

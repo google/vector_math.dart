@@ -15,68 +15,68 @@ import 'package:vector_math/vector_math_geometry.dart';
 import 'test_utils.dart';
 
 void testGenerateNormals() {
-  final Vector3List positions = new Vector3List.fromList([
-    new Vector3(-1.0, 1.0, 1.0),
-    new Vector3(1.0, 1.0, 1.0),
-    new Vector3(1.0, 1.0, -1.0),
-    new Vector3(1.0, -1.0, 1.0),
+  final Vector3List positions = Vector3List.fromList([
+    Vector3(-1.0, 1.0, 1.0),
+    Vector3(1.0, 1.0, 1.0),
+    Vector3(1.0, 1.0, -1.0),
+    Vector3(1.0, -1.0, 1.0),
   ]);
 
-  final Uint16List indices = new Uint16List.fromList([0, 1, 2, 3, 2, 1]);
+  final Uint16List indices = Uint16List.fromList([0, 1, 2, 3, 2, 1]);
 
-  Vector3List normals = new Vector3List(positions.length);
+  Vector3List normals = Vector3List(positions.length);
 
   generateNormals(normals, positions, indices);
 
-  relativeTest(normals[0], new Vector3(0.0, 1.0, 0.0));
-  relativeTest(normals[1], new Vector3(0.70710, 0.70710, 0.0));
-  relativeTest(normals[2], new Vector3(0.70710, 0.70710, 0.0));
-  relativeTest(normals[3], new Vector3(1.0, 0.0, 0.0));
+  relativeTest(normals[0], Vector3(0.0, 1.0, 0.0));
+  relativeTest(normals[1], Vector3(0.70710, 0.70710, 0.0));
+  relativeTest(normals[2], Vector3(0.70710, 0.70710, 0.0));
+  relativeTest(normals[3], Vector3(1.0, 0.0, 0.0));
 }
 
 void testGenerateTangents() {
-  final Vector3List positions = new Vector3List.fromList([
-    new Vector3(-1.0, 1.0, 1.0),
-    new Vector3(1.0, 1.0, 1.0),
-    new Vector3(1.0, 1.0, -1.0),
-    new Vector3(1.0, -1.0, 1.0),
+  final Vector3List positions = Vector3List.fromList([
+    Vector3(-1.0, 1.0, 1.0),
+    Vector3(1.0, 1.0, 1.0),
+    Vector3(1.0, 1.0, -1.0),
+    Vector3(1.0, -1.0, 1.0),
   ]);
 
-  final Vector3List normals = new Vector3List.fromList([
-    new Vector3(0.0, 1.0, 0.0),
-    new Vector3(0.70710, 0.70710, 0.0),
-    new Vector3(0.70710, 0.70710, 0.0),
-    new Vector3(1.0, 0.0, 0.0),
+  final Vector3List normals = Vector3List.fromList([
+    Vector3(0.0, 1.0, 0.0),
+    Vector3(0.70710, 0.70710, 0.0),
+    Vector3(0.70710, 0.70710, 0.0),
+    Vector3(1.0, 0.0, 0.0),
   ]);
 
-  final Vector2List texCoords = new Vector2List.fromList([
-    new Vector2(-1.0, 1.0),
-    new Vector2(1.0, 1.0),
-    new Vector2(1.0, -1.0),
-    new Vector2(-1.0, 1.0),
+  final Vector2List texCoords = Vector2List.fromList([
+    Vector2(-1.0, 1.0),
+    Vector2(1.0, 1.0),
+    Vector2(1.0, -1.0),
+    Vector2(-1.0, 1.0),
   ]);
 
-  final Uint16List indices = new Uint16List.fromList([0, 1, 2, 3, 2, 1]);
+  final Uint16List indices = Uint16List.fromList([0, 1, 2, 3, 2, 1]);
 
-  Vector4List tangents = new Vector4List(positions.length);
+  Vector4List tangents = Vector4List(positions.length);
 
   generateTangents(tangents, positions, normals, texCoords, indices);
 
-  relativeTest(tangents[0], new Vector4(1.0, 0.0, 0.0, -1.0));
-  relativeTest(tangents[1], new Vector4(0.70710, 0.70710, 0.0, 1.0));
-  relativeTest(tangents[2], new Vector4(0.70710, 0.70710, 0.0, 1.0));
-  relativeTest(tangents[3], new Vector4(0.0, 1.0, 0.0, 1.0));
+  relativeTest(tangents[0], Vector4(1.0, 0.0, 0.0, -1.0));
+  relativeTest(tangents[1], Vector4(0.70710, 0.70710, 0.0, 1.0));
+  relativeTest(tangents[2], Vector4(0.70710, 0.70710, 0.0, 1.0));
+  relativeTest(tangents[3], Vector4(0.0, 1.0, 0.0, 1.0));
 }
 
 MeshGeometry filterUnitCube(GeometryFilter filter) {
-  CubeGenerator generator = new CubeGenerator();
+  CubeGenerator generator = CubeGenerator();
   return generator.createCube(1.0, 1.0, 1.0, filters: [filter]);
 }
 
 void testTransformFilter() {
-  Matrix4 scaleMat = new Matrix4.identity();
+  Matrix4 scaleMat = Matrix4.identity();
   scaleMat.scale(2.0, 2.0, 2.0);
-  TransformFilter filter = new TransformFilter(scaleMat);
+  TransformFilter filter = TransformFilter(scaleMat);
   MeshGeometry cube = filterUnitCube(filter);
 
   // Check to ensure all the vertices were properly scaled
@@ -90,7 +90,7 @@ void testTransformFilter() {
 }
 
 void testFlatShadeFilter() {
-  FlatShadeFilter filter = new FlatShadeFilter();
+  FlatShadeFilter filter = FlatShadeFilter();
   MeshGeometry cube = filterUnitCube(filter);
 
   // Flat shading removes indices and duplicates vertices
@@ -99,7 +99,7 @@ void testFlatShadeFilter() {
 }
 
 void testBarycentricFilter() {
-  BarycentricFilter filter = new BarycentricFilter();
+  BarycentricFilter filter = BarycentricFilter();
   MeshGeometry cube = filterUnitCube(filter);
 
   // Generating barycentric coords removes indices and duplicates vertices
@@ -110,8 +110,8 @@ void testBarycentricFilter() {
 }
 
 void testColorFilter() {
-  Vector4 filterColor = new Vector4(1.0, 0.0, 0.0, 1.0);
-  ColorFilter filter = new ColorFilter(filterColor);
+  Vector4 filterColor = Vector4(1.0, 0.0, 0.0, 1.0);
+  ColorFilter filter = ColorFilter(filterColor);
   MeshGeometry cube = filterUnitCube(filter);
 
   // Ensure that the same color was applied to all vertices
@@ -124,14 +124,14 @@ void testColorFilter() {
 
 void testCombineIndices() {
   // Combining two meshes should generate indices that are not out of range.
-  SphereGenerator sphereGenerator = new SphereGenerator();
+  SphereGenerator sphereGenerator = SphereGenerator();
 
   MeshGeometry sphere0 =
       sphereGenerator.createSphere(10.0, latSegments: 8, lonSegments: 8);
   MeshGeometry sphere1 =
       sphereGenerator.createSphere(10.0, latSegments: 8, lonSegments: 8);
 
-  MeshGeometry combined = new MeshGeometry.combine([sphere0, sphere1]);
+  MeshGeometry combined = MeshGeometry.combine([sphere0, sphere1]);
   expect(combined.indices, everyElement(lessThan(combined.length)));
 }
 

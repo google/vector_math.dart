@@ -14,7 +14,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix4InstacingFromFloat32List() {
-  final Float32List float32List = new Float32List.fromList([
+  final Float32List float32List = Float32List.fromList([
     1.0,
     2.0,
     3.0,
@@ -32,8 +32,8 @@ void testMatrix4InstacingFromFloat32List() {
     15.0,
     16.0
   ]);
-  final Matrix4 input = new Matrix4.fromFloat32List(float32List);
-  final Matrix4 inputB = new Matrix4.fromList(float32List);
+  final Matrix4 input = Matrix4.fromFloat32List(float32List);
+  final Matrix4 inputB = Matrix4.fromList(float32List);
   expect(input, equals(inputB));
 
   expect(input.storage[0], equals(1.0));
@@ -58,7 +58,7 @@ void testMatrix4InstacingFromFloat32List() {
 }
 
 void testMatrix4InstacingFromByteBuffer() {
-  final Float32List float32List = new Float32List.fromList([
+  final Float32List float32List = Float32List.fromList([
     1.0,
     2.0,
     3.0,
@@ -78,9 +78,9 @@ void testMatrix4InstacingFromByteBuffer() {
     17.0
   ]);
   final ByteBuffer buffer = float32List.buffer;
-  final Matrix4 zeroOffset = new Matrix4.fromBuffer(buffer, 0);
+  final Matrix4 zeroOffset = Matrix4.fromBuffer(buffer, 0);
   final Matrix4 offsetVector =
-      new Matrix4.fromBuffer(buffer, Float32List.bytesPerElement);
+      Matrix4.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.storage[0], equals(1.0));
   expect(zeroOffset.storage[1], equals(2.0));
@@ -118,8 +118,8 @@ void testMatrix4InstacingFromByteBuffer() {
 }
 
 void testMatrix4Transpose() {
-  var inputA = new List<Matrix4>();
-  var expectedOutput = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var expectedOutput = List<Matrix4>();
   inputA.add(parseMatrix<Matrix4>(
       '''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
          0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
@@ -134,9 +134,9 @@ void testMatrix4Transpose() {
 }
 
 void testMatrix4VectorMultiplication() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Vector4>();
-  var expectedOutput = new List<Vector4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Vector4>();
+  var expectedOutput = List<Vector4>();
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
@@ -162,9 +162,9 @@ void testMatrix4VectorMultiplication() {
 }
 
 void testMatrix4Multiplication() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Matrix4>();
-  var expectedOutput = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Matrix4>();
+  var expectedOutput = List<Matrix4>();
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.587044704531417   0.230488160211558   0.170708047147859   0.923379642103244
@@ -193,8 +193,8 @@ void testMatrix4Multiplication() {
 }
 
 void testMatrix4Adjoint() {
-  var input = new List<Matrix4>();
-  var expectedOutput = new List<Matrix4>();
+  var input = List<Matrix4>();
+  var expectedOutput = List<Matrix4>();
 
   input.add(parseMatrix<Matrix4>(
       '''0.934010684229183   0.011902069501241   0.311215042044805   0.262971284540144
@@ -236,8 +236,8 @@ void testMatrix4Adjoint() {
 }
 
 void testMatrix4Determinant() {
-  var input = new List<Matrix4>();
-  List<double> expectedOutput = new List<double>();
+  var input = List<Matrix4>();
+  List<double> expectedOutput = List<double>();
   input.add(parseMatrix<Matrix4>(
       '''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
          0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
@@ -268,9 +268,9 @@ void testMatrix4Determinant() {
 }
 
 void testMatrix4SelfTransposeMultiply() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Matrix4>();
-  var expectedOutput = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Matrix4>();
+  var expectedOutput = List<Matrix4>();
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -299,9 +299,9 @@ void testMatrix4SelfTransposeMultiply() {
 }
 
 void testMatrix4SelfMultiply() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Matrix4>();
-  var expectedOutput = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Matrix4>();
+  var expectedOutput = List<Matrix4>();
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -330,9 +330,9 @@ void testMatrix4SelfMultiply() {
 }
 
 void testMatrix4SelfMultiplyTranspose() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Matrix4>();
-  var expectedOutput = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Matrix4>();
+  var expectedOutput = List<Matrix4>();
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -361,15 +361,15 @@ void testMatrix4SelfMultiplyTranspose() {
 }
 
 void testMatrix4Translation() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Matrix4>();
-  var output1 = new List<Matrix4>();
-  var output2 = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Matrix4>();
+  var output1 = List<Matrix4>();
+  var output2 = List<Matrix4>();
 
-  inputA.add(new Matrix4.identity());
-  inputB.add(new Matrix4.translationValues(1.0, 3.0, 5.7));
+  inputA.add(Matrix4.identity());
+  inputB.add(Matrix4.translationValues(1.0, 3.0, 5.7));
   output1.add(inputA[0] * inputB[0] as Matrix4);
-  output2.add((new Matrix4.identity())..translate(1.0, 3.0, 5.7));
+  output2.add((Matrix4.identity())..translate(1.0, 3.0, 5.7));
 
   assert(inputA.length == inputB.length);
   assert(output1.length == output2.length);
@@ -380,15 +380,15 @@ void testMatrix4Translation() {
 }
 
 void testMatrix4Scale() {
-  var inputA = new List<Matrix4>();
-  var inputB = new List<Matrix4>();
-  var output1 = new List<Matrix4>();
-  var output2 = new List<Matrix4>();
+  var inputA = List<Matrix4>();
+  var inputB = List<Matrix4>();
+  var output1 = List<Matrix4>();
+  var output2 = List<Matrix4>();
 
-  inputA.add(new Matrix4.identity());
-  inputB.add(new Matrix4.diagonal3Values(1.0, 3.0, 5.7));
+  inputA.add(Matrix4.identity());
+  inputB.add(Matrix4.diagonal3Values(1.0, 3.0, 5.7));
   output1.add(inputA[0] * inputB[0] as Matrix4);
-  output2.add(new Matrix4.identity()..scale(1.0, 3.0, 5.7));
+  output2.add(Matrix4.identity()..scale(1.0, 3.0, 5.7));
 
   assert(inputA.length == inputB.length);
   assert(output1.length == output2.length);
@@ -399,26 +399,26 @@ void testMatrix4Scale() {
 }
 
 void testMatrix4Rotate() {
-  var output1 = new List<Matrix4>();
-  var output2 = new List<Matrix4>();
-  output1.add(new Matrix4.rotationX(1.57079632679));
-  output2.add(new Matrix4.identity()..rotateX(1.57079632679));
-  output1.add(new Matrix4.rotationY(1.57079632679 * 0.5));
-  output2.add(new Matrix4.identity()..rotateY(1.57079632679 * 0.5));
-  output1.add(new Matrix4.rotationZ(1.57079632679 * 0.25));
-  output2.add(new Matrix4.identity()..rotateZ(1.57079632679 * 0.25));
+  var output1 = List<Matrix4>();
+  var output2 = List<Matrix4>();
+  output1.add(Matrix4.rotationX(1.57079632679));
+  output2.add(Matrix4.identity()..rotateX(1.57079632679));
+  output1.add(Matrix4.rotationY(1.57079632679 * 0.5));
+  output2.add(Matrix4.identity()..rotateY(1.57079632679 * 0.5));
+  output1.add(Matrix4.rotationZ(1.57079632679 * 0.25));
+  output2.add(Matrix4.identity()..rotateZ(1.57079632679 * 0.25));
   {
-    var axis = new Vector3(1.1, 1.1, 1.1);
+    var axis = Vector3(1.1, 1.1, 1.1);
     axis.normalize();
     double angle = 1.5;
 
-    Quaternion q = new Quaternion.axisAngle(axis, angle);
+    Quaternion q = Quaternion.axisAngle(axis, angle);
     Matrix3 R = q.asRotationMatrix();
-    Matrix4 T = new Matrix4.identity();
+    Matrix4 T = Matrix4.identity();
     T.setRotation(R);
     output1.add(T);
 
-    output2.add(new Matrix4.identity()..rotate(axis, angle));
+    output2.add(Matrix4.identity()..rotate(axis, angle));
   }
   assert(output1.length == output2.length);
   for (int i = 0; i < output1.length; i++) {
@@ -428,21 +428,21 @@ void testMatrix4Rotate() {
 }
 
 void testMatrix4GetRotation() {
-  final mat4 = new Matrix4.rotationX(math.pi) *
-      new Matrix4.rotationY(-math.pi) *
-      new Matrix4.rotationZ(math.pi) as Matrix4;
-  final mat3 = new Matrix3.rotationX(math.pi) *
-      new Matrix3.rotationY(-math.pi) *
-      new Matrix3.rotationZ(math.pi) as Matrix3;
+  final mat4 = Matrix4.rotationX(math.pi) *
+      Matrix4.rotationY(-math.pi) *
+      Matrix4.rotationZ(math.pi) as Matrix4;
+  final mat3 = Matrix3.rotationX(math.pi) *
+      Matrix3.rotationY(-math.pi) *
+      Matrix3.rotationZ(math.pi) as Matrix3;
   final matRot = mat4.getRotation();
 
   relativeTest(mat3, matRot);
 }
 
 void testMatrix4Column() {
-  Matrix4 I = new Matrix4.zero();
+  Matrix4 I = Matrix4.zero();
   expect(I[0], 0.0);
-  var c0 = new Vector4(1.0, 2.0, 3.0, 4.0);
+  var c0 = Vector4(1.0, 2.0, 3.0, 4.0);
   I.setColumn(0, c0);
   expect(I[0], 1.0);
   c0.x = 4.0;
@@ -451,9 +451,9 @@ void testMatrix4Column() {
 }
 
 void testMatrix4Inversion() {
-  Matrix4 m = new Matrix4(1.0, 0.0, 2.0, 2.0, 0.0, 2.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+  Matrix4 m = Matrix4(1.0, 0.0, 2.0, 2.0, 0.0, 2.0, 1.0, 0.0, 0.0, 1.0, 0.0,
       1.0, 1.0, 2.0, 1.0, 4.0);
-  Matrix4 result = new Matrix4.zero();
+  Matrix4 result = Matrix4.zero();
   double det = result.copyInverse(m);
   expect(det, 2.0);
   expect(result.entry(0, 0), -2.0);
@@ -475,10 +475,10 @@ void testMatrix4Inversion() {
 }
 
 void testMatrix4Dot() {
-  final Matrix4 matrix = new Matrix4(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0,
-      9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0);
+  final Matrix4 matrix = Matrix4(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
+      10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0);
 
-  final Vector4 v = new Vector4(1.0, 2.0, 3.0, 4.0);
+  final Vector4 v = Vector4(1.0, 2.0, 3.0, 4.0);
 
   expect(matrix.dotRow(0, v), equals(90.0));
   expect(matrix.dotRow(1, v), equals(100.0));
@@ -490,36 +490,36 @@ void testMatrix4Dot() {
 
 void testMatrix4PerspectiveTransform() {
   final matrix = makePerspectiveMatrix(math.pi, 1.0, 1.0, 100.0);
-  final vec = new Vector3(10.0, 20.0, 30.0);
+  final vec = Vector3(10.0, 20.0, 30.0);
 
   matrix.perspectiveTransform(vec);
 
-  relativeTest(vec, new Vector3(0.0, 0.0, 1.087));
+  relativeTest(vec, Vector3(0.0, 0.0, 1.087));
 }
 
 void testMatrix4Solving() {
-  final Matrix4 A = new Matrix4(2.0, 12.0, 8.0, 8.0, 20.0, 24.0, 26.0, 4.0, 8.0,
+  final Matrix4 A = Matrix4(2.0, 12.0, 8.0, 8.0, 20.0, 24.0, 26.0, 4.0, 8.0,
       4.0, 60.0, 12.0, 16.0, 16.0, 14.0, 64.0);
 
   final Matrix3 A_small =
-      new Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
+      Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
 
-  final Vector4 b = new Vector4(32.0, 64.0, 72.0, 8.0);
-  final Vector4 result = new Vector4.zero();
+  final Vector4 b = Vector4(32.0, 64.0, 72.0, 8.0);
+  final Vector4 result = Vector4.zero();
 
-  final Vector3 b3 = new Vector3(32.0, 64.0, 72.0);
-  final Vector3 result3 = new Vector3.zero();
+  final Vector3 b3 = Vector3(32.0, 64.0, 72.0);
+  final Vector3 result3 = Vector3.zero();
 
-  final Vector2 b2 = new Vector2(32.0, 64.0);
-  final Vector2 result2 = new Vector2.zero();
+  final Vector2 b2 = Vector2(32.0, 64.0);
+  final Vector2 result2 = Vector2.zero();
 
   Matrix4.solve(A, result, b);
   Matrix4.solve3(A, result3, b3);
   Matrix4.solve2(A, result2, b2);
 
-  final Vector4 backwards = A.transform(new Vector4.copy(result));
-  final Vector3 backwards3 = A.transform3(new Vector3.copy(result3));
-  final Vector2 backwards2 = A_small.transform2(new Vector2.copy(result2));
+  final Vector4 backwards = A.transform(Vector4.copy(result));
+  final Vector3 backwards3 = A.transform3(Vector3.copy(result3));
+  final Vector2 backwards2 = A_small.transform2(Vector2.copy(result2));
 
   expect(backwards2.x, equals(b.x));
   expect(backwards2.y, equals(b.y));
@@ -536,36 +536,36 @@ void testMatrix4Solving() {
 
 void testMatrix4Compose() {
   var tValues = [
-    new Vector3.zero(),
-    new Vector3(3.0, 0.0, 0.0),
-    new Vector3(0.0, 4.0, 0.0),
-    new Vector3(0.0, 0.0, 5.0),
-    new Vector3(-6.0, 0.0, 0.0),
-    new Vector3(0.0, -7.0, 0.0),
-    new Vector3(0.0, 0.0, -8.0),
-    new Vector3(-2.0, 5.0, -9.0),
-    new Vector3(-2.0, -5.0, -9.0)
+    Vector3.zero(),
+    Vector3(3.0, 0.0, 0.0),
+    Vector3(0.0, 4.0, 0.0),
+    Vector3(0.0, 0.0, 5.0),
+    Vector3(-6.0, 0.0, 0.0),
+    Vector3(0.0, -7.0, 0.0),
+    Vector3(0.0, 0.0, -8.0),
+    Vector3(-2.0, 5.0, -9.0),
+    Vector3(-2.0, -5.0, -9.0)
   ];
 
   var sValues = [
-    new Vector3(1.0, 1.0, 1.0),
-    new Vector3(2.0, 2.0, 2.0),
-    new Vector3(1.0, -1.0, 1.0),
-    new Vector3(-1.0, 1.0, 1.0),
-    new Vector3(1.0, 1.0, -1.0),
-    new Vector3(2.0, -2.0, 1.0),
-    new Vector3(-1.0, 2.0, -2.0),
-    new Vector3(-1.0, -1.0, -1.0),
-    new Vector3(-2.0, -2.0, -2.0)
+    Vector3(1.0, 1.0, 1.0),
+    Vector3(2.0, 2.0, 2.0),
+    Vector3(1.0, -1.0, 1.0),
+    Vector3(-1.0, 1.0, 1.0),
+    Vector3(1.0, 1.0, -1.0),
+    Vector3(2.0, -2.0, 1.0),
+    Vector3(-1.0, 2.0, -2.0),
+    Vector3(-1.0, -1.0, -1.0),
+    Vector3(-2.0, -2.0, -2.0)
   ];
 
   var rValues = [
-    new Quaternion.identity(),
-    new Quaternion(0.42073549240394825, 0.42073549240394825,
-        0.22984884706593015, 0.7701511529340699),
-    new Quaternion(0.16751879124639693, -0.5709414713577319,
-        0.16751879124639693, 0.7860666291368439),
-    new Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614)
+    Quaternion.identity(),
+    Quaternion(0.42073549240394825, 0.42073549240394825, 0.22984884706593015,
+        0.7701511529340699),
+    Quaternion(0.16751879124639693, -0.5709414713577319, 0.16751879124639693,
+        0.7860666291368439),
+    Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614)
   ];
 
   for (var ti = 0; ti < tValues.length; ti++) {
@@ -575,15 +575,15 @@ void testMatrix4Compose() {
         final s = sValues[si];
         final r = rValues[ri];
 
-        final m = new Matrix4.compose(t, r, s);
+        final m = Matrix4.compose(t, r, s);
 
-        var t2 = new Vector3.zero();
-        var r2 = new Quaternion.identity();
-        var s2 = new Vector3.zero();
+        var t2 = Vector3.zero();
+        var r2 = Quaternion.identity();
+        var s2 = Vector3.zero();
 
         m.decompose(t2, r2, s2);
 
-        final m2 = new Matrix4.compose(t2, r2, s2);
+        final m2 = Matrix4.compose(t2, r2, s2);
 
         relativeTest(m2, m);
       }
@@ -592,36 +592,33 @@ void testMatrix4Compose() {
 }
 
 void testMatrix4Equals() {
-  expect(new Matrix4.identity(), equals(new Matrix4.identity()));
-  expect(new Matrix4.zero(), isNot(equals(new Matrix4.identity())));
-  expect(new Matrix4.zero(), isNot(equals(5)));
-  expect(
-      new Matrix4.identity().hashCode, equals(new Matrix4.identity().hashCode));
+  expect(Matrix4.identity(), equals(Matrix4.identity()));
+  expect(Matrix4.zero(), isNot(equals(Matrix4.identity())));
+  expect(Matrix4.zero(), isNot(equals(5)));
+  expect(Matrix4.identity().hashCode, equals(Matrix4.identity().hashCode));
 }
 
 void testMatrix4InvertConstructor() {
   bool exception = false;
   try {
-    new Matrix4.inverted(new Matrix4.zero());
+    Matrix4.inverted(Matrix4.zero());
     expect(false, isTrue); // don't hit here.
   } catch (ArgumentError) {
     exception = true;
   }
   expect(exception, isTrue);
 
-  expect(new Matrix4.inverted(new Matrix4.identity()),
-      equals(new Matrix4.identity()));
+  expect(Matrix4.inverted(Matrix4.identity()), equals(Matrix4.identity()));
 }
 
 void testMatrix4tryInvert() {
-  expect(Matrix4.tryInvert(new Matrix4.zero()), isNull);
-  expect(Matrix4.tryInvert(new Matrix4.identity()),
-      equals(new Matrix4.identity()));
+  expect(Matrix4.tryInvert(Matrix4.zero()), isNull);
+  expect(Matrix4.tryInvert(Matrix4.identity()), equals(Matrix4.identity()));
 }
 
 void testMatrix4SkewConstructor() {
-  var m = new Matrix4.skew(0.0, 1.57);
-  var m2 = new Matrix4.skewY(1.57);
+  var m = Matrix4.skew(0.0, 1.57);
+  var m2 = Matrix4.skewY(1.57);
 
   expect(m.entry(0, 0), equals(1.0));
   expect(m.entry(1, 1), equals(1.0));
@@ -632,8 +629,8 @@ void testMatrix4SkewConstructor() {
 
   expect(m2, equals(m));
 
-  var n = new Matrix4.skew(1.57, 0.0);
-  var n2 = new Matrix4.skewX(1.57);
+  var n = Matrix4.skew(1.57, 0.0);
+  var n2 = Matrix4.skewX(1.57);
 
   expect(n.entry(0, 0), equals(1.0));
   expect(n.entry(1, 1), equals(1.0));
@@ -647,10 +644,10 @@ void testMatrix4SkewConstructor() {
 
 void testLeftTranslate() {
   // Our test point.
-  var p = new Vector3(0.5, 0.0, 0.0);
+  var p = Vector3(0.5, 0.0, 0.0);
 
   // Scale 2x matrix.
-  var m = new Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  var m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
   // After scaling, translate along the X axis.
   m.leftTranslate(1.0);
 
@@ -663,7 +660,7 @@ void testLeftTranslate() {
   expect(result.z, equals(0.0));
 
   // Scale 2x matrix.
-  m = new Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
   // Before scaling, translate along the X axis.
   m.translate(1.0);
 
@@ -677,10 +674,10 @@ void testLeftTranslate() {
 }
 
 void testMatrixClassifiers() {
-  expect(new Matrix4.zero().isIdentity(), false);
-  expect(new Matrix4.zero().isZero(), true);
-  expect(new Matrix4.identity().isIdentity(), true);
-  expect(new Matrix4.identity().isZero(), false);
+  expect(Matrix4.zero().isIdentity(), false);
+  expect(Matrix4.zero().isZero(), true);
+  expect(Matrix4.identity().isIdentity(), true);
+  expect(Matrix4.identity().isZero(), false);
 }
 
 void main() {

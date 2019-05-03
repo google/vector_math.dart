@@ -14,8 +14,8 @@ import 'package:vector_math/vector_math_lists.dart';
 import 'test_utils.dart';
 
 void testVector3ListWithOffset() {
-  Vector3List list = new Vector3List(10, 1);
-  list[0] = new Vector3(1.0, 2.0, 3.0);
+  Vector3List list = Vector3List(10, 1);
+  list[0] = Vector3(1.0, 2.0, 3.0);
   relativeTest(list[0].x, 1.0);
   relativeTest(list[0].y, 2.0);
   relativeTest(list[0].z, 3.0);
@@ -27,12 +27,12 @@ void testVector3ListWithOffset() {
 }
 
 void testVector3ListView() {
-  Float32List buffer = new Float32List(10);
-  Vector3List list = new Vector3List.view(buffer, 1, 4);
+  Float32List buffer = Float32List(10);
+  Vector3List list = Vector3List.view(buffer, 1, 4);
   // The list length should be (10 - 1) ~/ 4 == 2.
   expect(list.length, 2);
-  list[0] = new Vector3(1.0, 2.0, 3.0);
-  list[1] = new Vector3(4.0, 5.0, 6.0);
+  list[0] = Vector3(1.0, 2.0, 3.0);
+  list[1] = Vector3(4.0, 5.0, 6.0);
   expect(buffer[0], 0.0);
   expect(buffer[1], 1.0);
   expect(buffer[2], 2.0);
@@ -46,13 +46,13 @@ void testVector3ListView() {
 }
 
 void testVector3ListViewTightFit() {
-  Float32List buffer = new Float32List(10);
-  Vector3List list = new Vector3List.view(buffer, 2, 5);
+  Float32List buffer = Float32List(10);
+  Vector3List list = Vector3List.view(buffer, 2, 5);
   // The list length should be (10 - 2) ~/ 4 == 2 as the stride of the last
   // element is negligible.
   expect(list.length, 2);
-  list[0] = new Vector3(1.0, 2.0, 3.0);
-  list[1] = new Vector3(4.0, 5.0, 6.0);
+  list[0] = Vector3(1.0, 2.0, 3.0);
+  list[1] = Vector3(4.0, 5.0, 6.0);
   expect(buffer[0], 0.0);
   expect(buffer[1], 0.0);
   expect(buffer[2], 1.0);
@@ -66,11 +66,11 @@ void testVector3ListViewTightFit() {
 }
 
 void testVector3ListFromList() {
-  List<Vector3> input = new List<Vector3>(3);
-  input[0] = new Vector3(1.0, 2.0, 3.0);
-  input[1] = new Vector3(4.0, 5.0, 6.0);
-  input[2] = new Vector3(7.0, 8.0, 9.0);
-  Vector3List list = new Vector3List.fromList(input, 2, 5);
+  List<Vector3> input = List<Vector3>(3);
+  input[0] = Vector3(1.0, 2.0, 3.0);
+  input[1] = Vector3(4.0, 5.0, 6.0);
+  input[2] = Vector3(7.0, 8.0, 9.0);
+  Vector3List list = Vector3List.fromList(input, 2, 5);
   expect(list.buffer.length, 17);
   expect(list.buffer[0], 0.0);
   expect(list.buffer[1], 0.0);
@@ -92,7 +92,7 @@ void testVector3ListFromList() {
 }
 
 void testVector3ListSetValue() {
-  final list = new Vector3List(2);
+  final list = Vector3List(2);
 
   list.setValues(1, 1.0, 2.0, 3.0);
 
@@ -105,8 +105,8 @@ void testVector3ListSetValue() {
 }
 
 void testVector3ListSetZero() {
-  final list = new Vector3List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list =
+      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
 
   list.setZero(1);
 
@@ -119,8 +119,8 @@ void testVector3ListSetZero() {
 }
 
 void testVector3ListAdd() {
-  final list = new Vector3List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list =
+      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
 
   list.add(1, $v3(2.0, 2.0, 2.0));
 
@@ -133,8 +133,8 @@ void testVector3ListAdd() {
 }
 
 void testVector3ListAddScaled() {
-  final list = new Vector3List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list =
+      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
 
   list.addScaled(1, $v3(2.0, 2.0, 2.0), 2.0);
 
@@ -147,8 +147,8 @@ void testVector3ListAddScaled() {
 }
 
 void testVector3ListSub() {
-  final list = new Vector3List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list =
+      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
 
   list.sub(1, $v3(2.0, 2.0, 2.0));
 
@@ -161,8 +161,8 @@ void testVector3ListSub() {
 }
 
 void testVector3ListMultiply() {
-  final list = new Vector3List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list =
+      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
 
   list.multiply(1, $v3(2.0, 3.0, 4.0));
 
@@ -175,8 +175,8 @@ void testVector3ListMultiply() {
 }
 
 void testVector3ListScale() {
-  final list = new Vector3List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list =
+      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
 
   list.scale(1, 2.0);
 

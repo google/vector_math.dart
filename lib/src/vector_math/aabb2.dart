@@ -23,29 +23,29 @@ class Aabb2 {
 
   /// Create a new AABB with [min] and [max] set to the origin.
   Aabb2()
-      : _min = new Vector2.zero(),
-        _max = new Vector2.zero();
+      : _min = Vector2.zero(),
+        _max = Vector2.zero();
 
   /// Create a new AABB as a copy of [other].
   Aabb2.copy(Aabb2 other)
-      : _min = new Vector2.copy(other._min),
-        _max = new Vector2.copy(other._max);
+      : _min = Vector2.copy(other._min),
+        _max = Vector2.copy(other._max);
 
   /// Create a new AABB with a [min] and [max].
   Aabb2.minMax(Vector2 min, Vector2 max)
-      : _min = new Vector2.copy(min),
-        _max = new Vector2.copy(max);
+      : _min = Vector2.copy(min),
+        _max = Vector2.copy(max);
 
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents) =>
-      new Aabb2()..setCenterAndHalfExtents(center, halfExtents);
+      Aabb2()..setCenterAndHalfExtents(center, halfExtents);
 
   /// Constructs [Aabb2] with a min/max [storage] that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float32List.bytesPerElement].
   Aabb2.fromBuffer(ByteBuffer buffer, int offset)
-      : _min = new Vector2.fromBuffer(buffer, offset),
-        _max = new Vector2.fromBuffer(
+      : _min = Vector2.fromBuffer(buffer, offset),
+        _max = Vector2.fromBuffer(
             buffer, offset + Float32List.bytesPerElement * 2);
 
   /// Set the AABB by a [center] and [halfExtents].
@@ -78,8 +78,8 @@ class Aabb2 {
 
   /// Transform [this] by the transform [t].
   void transform(Matrix3 t) {
-    final Vector2 center = new Vector2.zero();
-    final Vector2 halfExtents = new Vector2.zero();
+    final Vector2 center = Vector2.zero();
+    final Vector2 halfExtents = Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t
       ..transform2(center)
@@ -94,8 +94,8 @@ class Aabb2 {
 
   /// Rotate [this] by the rotation matrix [t].
   void rotate(Matrix3 t) {
-    final Vector2 center = new Vector2.zero();
-    final Vector2 halfExtents = new Vector2.zero();
+    final Vector2 center = Vector2.zero();
+    final Vector2 halfExtents = Vector2.zero();
     copyCenterAndHalfExtents(center, halfExtents);
     t.absoluteRotate2(halfExtents);
     _min

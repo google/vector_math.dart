@@ -93,7 +93,7 @@ void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
 /// [upDirection] specifies the direction of the up vector (usually, +Y).
 Matrix4 makeViewMatrix(
     Vector3 cameraPosition, Vector3 cameraFocusPosition, Vector3 upDirection) {
-  final Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = Matrix4.zero();
   setViewMatrix(r, cameraPosition, cameraFocusPosition, upDirection);
   return r;
 }
@@ -135,7 +135,7 @@ void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
 /// (always positive).
 Matrix4 makePerspectiveMatrix(
     double fovYRadians, double aspectRatio, double zNear, double zFar) {
-  final Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = Matrix4.zero();
   setPerspectiveMatrix(r, fovYRadians, aspectRatio, zNear, zFar);
   return r;
 }
@@ -171,7 +171,7 @@ void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
 /// (always positive).
 Matrix4 makeInfiniteMatrix(
     double fovYRadians, double aspectRatio, double zNear) {
-  final Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = Matrix4.zero();
   setInfiniteMatrix(r, fovYRadians, aspectRatio, zNear);
   return r;
 }
@@ -211,7 +211,7 @@ void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right,
 /// planes.
 Matrix4 makeFrustumMatrix(double left, double right, double bottom, double top,
     double near, double far) {
-  final Matrix4 view = new Matrix4.zero();
+  final Matrix4 view = Matrix4.zero();
   setFrustumMatrix(view, left, right, bottom, top, near, far);
   return view;
 }
@@ -253,7 +253,7 @@ void setOrthographicMatrix(Matrix4 orthographicMatrix, double left,
 /// planes.
 Matrix4 makeOrthographicMatrix(double left, double right, double bottom,
     double top, double near, double far) {
-  final Matrix4 r = new Matrix4.zero();
+  final Matrix4 r = Matrix4.zero();
   setOrthographicMatrix(r, left, right, bottom, top, near, far);
   return r;
 }
@@ -261,15 +261,15 @@ Matrix4 makeOrthographicMatrix(double left, double right, double bottom,
 /// Returns a transformation matrix that transforms points onto
 /// the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
-  final Vector4 v = new Vector4(planeNormal.storage[0], planeNormal.storage[1],
+  final Vector4 v = Vector4(planeNormal.storage[0], planeNormal.storage[1],
       planeNormal.storage[2], 0.0);
-  final Matrix4 outer = new Matrix4.outer(v, v);
-  Matrix4 r = new Matrix4.zero();
+  final Matrix4 outer = Matrix4.outer(v, v);
+  Matrix4 r = Matrix4.zero();
   r = r - outer;
   final Vector3 scaledNormal =
       (planeNormal.scaled(dot3(planePoint, planeNormal)));
-  final Vector4 T = new Vector4(scaledNormal.storage[0],
-      scaledNormal.storage[1], scaledNormal.storage[2], 1.0);
+  final Vector4 T = Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
+      scaledNormal.storage[2], 1.0);
   r.setColumn(3, T);
   return r;
 }
@@ -277,15 +277,15 @@ Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
 /// Returns a transformation matrix that transforms points by reflecting
 /// them through the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
-  final Vector4 v = new Vector4(planeNormal.storage[0], planeNormal.storage[1],
+  final Vector4 v = Vector4(planeNormal.storage[0], planeNormal.storage[1],
       planeNormal.storage[2], 0.0);
-  final Matrix4 outer = new Matrix4.outer(v, v)..scale(2.0);
-  Matrix4 r = new Matrix4.zero();
+  final Matrix4 outer = Matrix4.outer(v, v)..scale(2.0);
+  Matrix4 r = Matrix4.zero();
   r = r - outer;
   final double scale = 2.0 * planePoint.dot(planeNormal);
   final Vector3 scaledNormal = (planeNormal.scaled(scale));
-  final Vector4 T = new Vector4(scaledNormal.storage[0],
-      scaledNormal.storage[1], scaledNormal.storage[2], 1.0);
+  final Vector4 T = Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
+      scaledNormal.storage[2], 1.0);
   r.setColumn(3, T);
   return r;
 }
@@ -334,12 +334,12 @@ bool unproject(
   }
 
   // Copy camera matrix.
-  final Matrix4 invertedCameraMatrix = new Matrix4.copy(cameraMatrix);
+  final Matrix4 invertedCameraMatrix = Matrix4.copy(cameraMatrix);
   // Invert the camera matrix.
   invertedCameraMatrix.invert();
   // Determine intersection point.
   final Vector4 v =
-      new Vector4(pickX.toDouble(), pickY.toDouble(), pickZ.toDouble(), 1.0);
+      Vector4(pickX.toDouble(), pickY.toDouble(), pickZ.toDouble(), 1.0);
   invertedCameraMatrix.transform(v);
   if (v.w == 0.0) {
     return false;

@@ -1,4 +1,11 @@
+include: package:pedantic/analysis_options.yaml
 analyzer:
 #  strong-mode:
-#    implicit-dynamic: False
-#    implicit-casts: False
+#    implicit-casts: false
+linter:
+  rules:
+  - prefer_equal_for_default_values
+  - prefer_generic_function_type_aliases
+  - slash_for_doc_comments
+  - unnecessary_const
+  - unnecessary_new

@@ -130,7 +130,7 @@ class Matrix44Operations {
   /// Compute the inverse of the upper 3x3 of the 4x4 [matrix] starting
   /// at [offset].
   static double inverse33(Float32List matrix, int offset) =>
-      throw new UnimplementedError();
+      throw UnimplementedError();
 
   /// [out] = [a] * [b]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32List out, int outOffset, Float32List a,
@@ -298,7 +298,7 @@ class Matrix44SIMDOperations {
       int matrixOffset, Float32x4List vector, int vectorOffset) {
     final Float32x4 v = vector[vectorOffset];
     final Float32x4 xxxx = v.shuffle(Float32x4.xxxx);
-    Float32x4 z = new Float32x4.zero();
+    Float32x4 z = Float32x4.zero();
     z += xxxx * matrix[0 + matrixOffset];
     final Float32x4 yyyy = v.shuffle(Float32x4.yyyy);
     z += yyyy * matrix[1 + matrixOffset];
@@ -309,7 +309,7 @@ class Matrix44SIMDOperations {
   }
 
   static void zero(Float32x4List matrix, int offset) {
-    final Float32x4 z = new Float32x4.zero();
+    final Float32x4 z = Float32x4.zero();
     matrix[offset++] = z;
     matrix[offset++] = z;
     matrix[offset++] = z;

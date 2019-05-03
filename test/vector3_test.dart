@@ -14,8 +14,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testVector3InstacinfFromFloat32List() {
-  final Float32List float32List = new Float32List.fromList([1.0, 2.0, 3.0]);
-  final Vector3 input = new Vector3.fromFloat32List(float32List);
+  final Float32List float32List = Float32List.fromList([1.0, 2.0, 3.0]);
+  final Vector3 input = Vector3.fromFloat32List(float32List);
 
   expect(input.x, equals(1.0));
   expect(input.y, equals(2.0));
@@ -23,12 +23,11 @@ void testVector3InstacinfFromFloat32List() {
 }
 
 void testVector3InstacingFromByteBuffer() {
-  final Float32List float32List =
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final Float32List float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
   final ByteBuffer buffer = float32List.buffer;
-  final Vector3 zeroOffset = new Vector3.fromBuffer(buffer, 0);
+  final Vector3 zeroOffset = Vector3.fromBuffer(buffer, 0);
   final Vector3 offsetVector =
-      new Vector3.fromBuffer(buffer, Float32List.bytesPerElement);
+      Vector3.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
@@ -40,8 +39,8 @@ void testVector3InstacingFromByteBuffer() {
 }
 
 void testVector3Add() {
-  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
-  final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+  final Vector3 a = Vector3(5.0, 7.0, 3.0);
+  final Vector3 b = Vector3(3.0, 8.0, 2.0);
 
   a.add(b);
   expect(a.x, equals(8.0));
@@ -55,10 +54,10 @@ void testVector3Add() {
 }
 
 void testVector3MinMax() {
-  final Vector3 a = new Vector3(5.0, 7.0, -3.0);
-  final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+  final Vector3 a = Vector3(5.0, 7.0, -3.0);
+  final Vector3 b = Vector3(3.0, 8.0, 2.0);
 
-  Vector3 result = new Vector3.zero();
+  Vector3 result = Vector3.zero();
 
   Vector3.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -72,10 +71,10 @@ void testVector3MinMax() {
 }
 
 void testVector3Mix() {
-  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
-  final Vector3 b = new Vector3(3.0, 8.0, 2.0);
+  final Vector3 a = Vector3(5.0, 7.0, 3.0);
+  final Vector3 b = Vector3(3.0, 8.0, 2.0);
 
-  Vector3 result = new Vector3.zero();
+  Vector3 result = Vector3.zero();
 
   Vector3.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -94,9 +93,9 @@ void testVector3Mix() {
 }
 
 void testVector3DotProduct() {
-  List<Vector3> inputA = new List<Vector3>();
-  List<Vector3> inputB = new List<Vector3>();
-  List<double> expectedOutput = new List<double>();
+  List<Vector3> inputA = List<Vector3>();
+  List<Vector3> inputB = List<Vector3>();
+  List<double> expectedOutput = List<double>();
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
                                      0.902716109915281'''));
@@ -116,9 +115,9 @@ void testVector3DotProduct() {
 
 void testVector3Postmultiplication() {
   Matrix3 inputMatrix =
-      (new Matrix3.rotationX(.4)) * (new Matrix3.rotationZ(.5)) as Matrix3;
-  Vector3 inputVector = new Vector3(1.0, 2.0, 3.0);
-  Matrix3 inputInv = new Matrix3.copy(inputMatrix);
+      (Matrix3.rotationX(.4)) * (Matrix3.rotationZ(.5)) as Matrix3;
+  Vector3 inputVector = Vector3(1.0, 2.0, 3.0);
+  Matrix3 inputInv = Matrix3.copy(inputMatrix);
   inputInv.invert();
   Vector3 resultOld = inputMatrix.transposed() * inputVector as Vector3;
   Vector3 resultOldvInv = inputInv * inputVector as Vector3;
@@ -133,9 +132,9 @@ void testVector3Postmultiplication() {
 }
 
 void testVector3CrossProduct() {
-  List<Vector3> inputA = new List<Vector3>();
-  List<Vector3> inputB = new List<Vector3>();
-  List<Vector3> expectedOutput = new List<Vector3>();
+  List<Vector3> inputA = List<Vector3>();
+  List<Vector3> inputB = List<Vector3>();
+  List<Vector3> expectedOutput = List<Vector3>();
 
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
@@ -161,46 +160,46 @@ void testVector3CrossProduct() {
   assert(inputB.length == expectedOutput.length);
 
   for (int i = 0; i < inputA.length; i++) {
-    Vector3 output = new Vector3.zero();
+    Vector3 output = Vector3.zero();
     cross3(inputA[i], inputB[i], output);
     relativeTest(output, expectedOutput[i]);
   }
 
   {
-    Vector3 x = new Vector3(1.0, 0.0, 0.0);
-    Vector3 y = new Vector3(0.0, 1.0, 0.0);
-    Vector3 z = new Vector3(0.0, 0.0, 1.0);
+    Vector3 x = Vector3(1.0, 0.0, 0.0);
+    Vector3 y = Vector3(0.0, 1.0, 0.0);
+    Vector3 z = Vector3(0.0, 0.0, 1.0);
     Vector3 output;
 
     output = x.cross(y);
-    relativeTest(output, new Vector3(0.0, 0.0, 1.0));
+    relativeTest(output, Vector3(0.0, 0.0, 1.0));
     output = y.cross(x);
-    relativeTest(output, new Vector3(0.0, 0.0, -1.0));
+    relativeTest(output, Vector3(0.0, 0.0, -1.0));
 
     output = x.cross(z);
-    relativeTest(output, new Vector3(0.0, -1.0, 0.0));
+    relativeTest(output, Vector3(0.0, -1.0, 0.0));
     output = z.cross(x);
-    relativeTest(output, new Vector3(0.0, 1.0, 0.0));
+    relativeTest(output, Vector3(0.0, 1.0, 0.0));
 
     output = y.cross(z);
-    relativeTest(output, new Vector3(1.0, 0.0, 0.0));
+    relativeTest(output, Vector3(1.0, 0.0, 0.0));
     output = z.cross(y);
-    relativeTest(output, new Vector3(-1.0, 0.0, 0.0));
+    relativeTest(output, Vector3(-1.0, 0.0, 0.0));
   }
 }
 
 void testVector3Constructor() {
-  var v1 = new Vector3(2.0, 4.0, -1.5);
+  var v1 = Vector3(2.0, 4.0, -1.5);
   expect(v1.x, equals(2.0));
   expect(v1.y, equals(4.0));
   expect(v1.z, equals(-1.5));
 
-  var v2 = new Vector3.all(2.0);
+  var v2 = Vector3.all(2.0);
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
 
-  var v3 = new Vector3.random(new math.Random());
+  var v3 = Vector3.random(math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -210,7 +209,7 @@ void testVector3Constructor() {
 }
 
 void testVector3Length() {
-  final Vector3 a = new Vector3(5.0, 7.0, 3.0);
+  final Vector3 a = Vector3(5.0, 7.0, 3.0);
 
   relativeTest(a.length, 9.1104);
   relativeTest(a.length2, 83.0);
@@ -222,34 +221,32 @@ void testVector3Length() {
 }
 
 void testVector3SetLength() {
-  final v0 = new Vector3(1.0, 2.0, 1.0);
-  final v1 = new Vector3(3.0, -2.0, 2.0);
-  final v2 = new Vector3(-1.0, 2.0, -2.0);
-  final v3 = new Vector3(1.0, 0.0, 0.0);
+  final v0 = Vector3(1.0, 2.0, 1.0);
+  final v1 = Vector3(3.0, -2.0, 2.0);
+  final v2 = Vector3(-1.0, 2.0, -2.0);
+  final v3 = Vector3(1.0, 0.0, 0.0);
 
   v0.length = 0.0;
-  relativeTest(v0, new Vector3.zero());
+  relativeTest(v0, Vector3.zero());
   relativeTest(v0.length, 0.0);
 
   v1.length = 2.0;
-  relativeTest(v1,
-      new Vector3(1.4552137851715088, -0.9701424837112427, 0.9701424837112427));
+  relativeTest(
+      v1, Vector3(1.4552137851715088, -0.9701424837112427, 0.9701424837112427));
   relativeTest(v1.length, 2.0);
 
   v2.length = 0.5;
-  relativeTest(
-      v2,
-      new Vector3(
-          -0.1666666716337204, 0.3333333432674408, -0.3333333432674408));
+  relativeTest(v2,
+      Vector3(-0.1666666716337204, 0.3333333432674408, -0.3333333432674408));
   relativeTest(v2.length, 0.5);
 
   v3.length = -1.0;
-  relativeTest(v3, new Vector3(-1.0, 0.0, 0.0));
+  relativeTest(v3, Vector3(-1.0, 0.0, 0.0));
   relativeTest(v3.length, 1.0);
 }
 
 void testVector3Negate() {
-  var vec3 = new Vector4(1.0, 2.0, 3.0, 4.0);
+  var vec3 = Vector4(1.0, 2.0, 3.0, 4.0);
   vec3.negate();
   expect(vec3.x, equals(-1.0));
   expect(vec3.y, equals(-2.0));
@@ -258,77 +255,77 @@ void testVector3Negate() {
 }
 
 void testVector3Equals() {
-  var v3 = new Vector3(1.0, 2.0, 3.0);
-  expect(v3 == new Vector3(1.0, 2.0, 3.0), isTrue);
-  expect(v3 == new Vector3(0.0, 2.0, 3.0), isFalse);
-  expect(v3 == new Vector3(1.0, 0.0, 3.0), isFalse);
-  expect(v3 == new Vector3(1.0, 2.0, 0.0), isFalse);
-  expect(new Vector3(1.0, 2.0, 3.0).hashCode,
-      equals(new Vector3(1.0, 2.0, 3.0).hashCode));
+  var v3 = Vector3(1.0, 2.0, 3.0);
+  expect(v3 == Vector3(1.0, 2.0, 3.0), isTrue);
+  expect(v3 == Vector3(0.0, 2.0, 3.0), isFalse);
+  expect(v3 == Vector3(1.0, 0.0, 3.0), isFalse);
+  expect(v3 == Vector3(1.0, 2.0, 0.0), isFalse);
+  expect(
+      Vector3(1.0, 2.0, 3.0).hashCode, equals(Vector3(1.0, 2.0, 3.0).hashCode));
 }
 
 void testVector3Reflect() {
-  var v = new Vector3(5.0, 0.0, 0.0);
-  v.reflect(new Vector3(-1.0, 0.0, 0.0));
+  var v = Vector3(5.0, 0.0, 0.0);
+  v.reflect(Vector3(-1.0, 0.0, 0.0));
   expect(v.x, equals(-5.0));
   expect(v.y, equals(0.0));
   expect(v.y, equals(0.0));
 
-  v = new Vector3(0.0, 5.0, 0.0);
-  v.reflect(new Vector3(0.0, -1.0, 0.0));
+  v = Vector3(0.0, 5.0, 0.0);
+  v.reflect(Vector3(0.0, -1.0, 0.0));
   expect(v.x, equals(0.0));
   expect(v.y, equals(-5.0));
   expect(v.z, equals(0.0));
 
-  v = new Vector3(0.0, 0.0, 5.0);
-  v.reflect(new Vector3(0.0, 0.0, -1.0));
+  v = Vector3(0.0, 0.0, 5.0);
+  v.reflect(Vector3(0.0, 0.0, -1.0));
   expect(v.x, equals(0.0));
   expect(v.y, equals(0.0));
   expect(v.z, equals(-5.0));
 
-  v = new Vector3(-5.0, 0.0, 0.0);
-  v.reflect(new Vector3(1.0, 0.0, 0.0));
+  v = Vector3(-5.0, 0.0, 0.0);
+  v.reflect(Vector3(1.0, 0.0, 0.0));
   expect(v.x, equals(5.0));
   expect(v.y, equals(0.0));
   expect(v.y, equals(0.0));
 
-  v = new Vector3(0.0, -5.0, 0.0);
-  v.reflect(new Vector3(0.0, 1.0, 0.0));
+  v = Vector3(0.0, -5.0, 0.0);
+  v.reflect(Vector3(0.0, 1.0, 0.0));
   expect(v.x, equals(0.0));
   expect(v.y, equals(5.0));
   expect(v.z, equals(0.0));
 
-  v = new Vector3(0.0, 0.0, -5.0);
-  v.reflect(new Vector3(0.0, 0.0, 1.0));
+  v = Vector3(0.0, 0.0, -5.0);
+  v.reflect(Vector3(0.0, 0.0, 1.0));
   expect(v.x, equals(0.0));
   expect(v.y, equals(0.0));
   expect(v.z, equals(5.0));
 
-  v = new Vector3(4.0, 4.0, 4.0);
-  v.reflect(new Vector3(-1.0, -1.0, -1.0).normalized());
+  v = Vector3(4.0, 4.0, 4.0);
+  v.reflect(Vector3(-1.0, -1.0, -1.0).normalized());
   relativeTest(v.x, -4.0);
   relativeTest(v.y, -4.0);
   relativeTest(v.z, -4.0);
 
-  v = new Vector3(-4.0, -4.0, -4.0);
-  v.reflect(new Vector3(1.0, 1.0, 1.0).normalized());
+  v = Vector3(-4.0, -4.0, -4.0);
+  v.reflect(Vector3(1.0, 1.0, 1.0).normalized());
   relativeTest(v.x, 4.0);
   relativeTest(v.y, 4.0);
   relativeTest(v.z, 4.0);
 
-  v = new Vector3(10.0, 20.0, 2.0);
-  v.reflect(new Vector3(-10.0, -20.0, -2.0).normalized());
+  v = Vector3(10.0, 20.0, 2.0);
+  v.reflect(Vector3(-10.0, -20.0, -2.0).normalized());
   relativeTest(v.x, -10.0);
   relativeTest(v.y, -20.0);
   relativeTest(v.z, -2.0);
 }
 
 void testVector3Projection() {
-  var v = new Vector3(1.0, 1.0, 1.0);
+  var v = Vector3(1.0, 1.0, 1.0);
   var a = 2.0 / 3.0;
   var b = 1.0 / 3.0;
-  var m = new Matrix4(
-      a, b, -b, 0.0, b, a, b, 0.0, -b, b, a, 0.0, 0.0, 0.0, 0.0, 1.0);
+  var m =
+      Matrix4(a, b, -b, 0.0, b, a, b, 0.0, -b, b, a, 0.0, 0.0, 0.0, 0.0, 1.0);
 
   v.applyProjection(m);
   relativeTest(v.x, a);
@@ -337,27 +334,27 @@ void testVector3Projection() {
 }
 
 void testVector3DistanceTo() {
-  var a = new Vector3(1.0, 1.0, 1.0);
-  var b = new Vector3(1.0, 3.0, 1.0);
-  var c = new Vector3(1.0, 1.0, -1.0);
+  var a = Vector3(1.0, 1.0, 1.0);
+  var b = Vector3(1.0, 3.0, 1.0);
+  var c = Vector3(1.0, 1.0, -1.0);
 
   expect(a.distanceTo(b), equals(2.0));
   expect(a.distanceTo(c), equals(2.0));
 }
 
 void testVector3DistanceToSquared() {
-  var a = new Vector3(1.0, 1.0, 1.0);
-  var b = new Vector3(1.0, 3.0, 1.0);
-  var c = new Vector3(1.0, 1.0, -1.0);
+  var a = Vector3(1.0, 1.0, 1.0);
+  var b = Vector3(1.0, 3.0, 1.0);
+  var c = Vector3(1.0, 1.0, -1.0);
 
   expect(a.distanceToSquared(b), equals(4.0));
   expect(a.distanceToSquared(c), equals(4.0));
 }
 
 void testVector3AngleTo() {
-  final v0 = new Vector3(1.0, 0.0, 0.0);
-  final v1 = new Vector3(0.0, 1.0, 0.0);
-  final v2 = new Vector3(1.0, 1.0, 0.0);
+  final v0 = Vector3(1.0, 0.0, 0.0);
+  final v1 = Vector3(0.0, 1.0, 0.0);
+  final v2 = Vector3(1.0, 1.0, 0.0);
   final v3 = v2.normalized();
   final tol = 1e-8;
 
@@ -368,9 +365,9 @@ void testVector3AngleTo() {
 }
 
 void testVector3AngleToSigned() {
-  final v0 = new Vector3(1.0, 0.0, 0.0);
-  final v1 = new Vector3(0.0, 1.0, 0.0);
-  final n = new Vector3(0.0, 0.0, 1.0);
+  final v0 = Vector3(1.0, 0.0, 0.0);
+  final v1 = Vector3(0.0, 1.0, 0.0);
+  final n = Vector3(0.0, 0.0, 1.0);
 
   expect(v0.angleToSigned(v0, n), equals(0.0));
   expect(v0.angleToSigned(v1, n), equals(math.pi / 2.0));
@@ -379,24 +376,24 @@ void testVector3AngleToSigned() {
 
 void testVector3Clamp() {
   final x = 2.0, y = 3.0, z = 4.0;
-  final v0 = new Vector3(x, y, z);
-  final v1 = new Vector3(-x, -y, -z);
-  final v2 = new Vector3(-2.0 * x, 2.0 * y, -2.0 * z)..clamp(v1, v0);
+  final v0 = Vector3(x, y, z);
+  final v1 = Vector3(-x, -y, -z);
+  final v2 = Vector3(-2.0 * x, 2.0 * y, -2.0 * z)..clamp(v1, v0);
 
   expect(v2.storage, orderedEquals(<double>[-x, y, -z]));
 }
 
 void testVector3ClampScalar() {
   final x = 2.0;
-  final v0 = new Vector3(-2.0 * x, 2.0 * x, -2.0 * x)..clampScalar(-x, x);
+  final v0 = Vector3(-2.0 * x, 2.0 * x, -2.0 * x)..clampScalar(-x, x);
 
   expect(v0.storage, orderedEquals(<double>[-x, x, -x]));
 }
 
 void testVector3Floor() {
-  final v0 = new Vector3(-0.1, 0.1, -0.1)..floor();
-  final v1 = new Vector3(-0.5, 0.5, -0.5)..floor();
-  final v2 = new Vector3(-0.9, 0.9, -0.5)..floor();
+  final v0 = Vector3(-0.1, 0.1, -0.1)..floor();
+  final v1 = Vector3(-0.5, 0.5, -0.5)..floor();
+  final v2 = Vector3(-0.9, 0.9, -0.5)..floor();
 
   expect(v0.storage, orderedEquals(<double>[-1.0, 0.0, -1.0]));
   expect(v1.storage, orderedEquals(<double>[-1.0, 0.0, -1.0]));
@@ -404,9 +401,9 @@ void testVector3Floor() {
 }
 
 void testVector3Ceil() {
-  final v0 = new Vector3(-0.1, 0.1, -0.1)..ceil();
-  final v1 = new Vector3(-0.5, 0.5, -0.5)..ceil();
-  final v2 = new Vector3(-0.9, 0.9, -0.9)..ceil();
+  final v0 = Vector3(-0.1, 0.1, -0.1)..ceil();
+  final v1 = Vector3(-0.5, 0.5, -0.5)..ceil();
+  final v2 = Vector3(-0.9, 0.9, -0.9)..ceil();
 
   expect(v0.storage, orderedEquals(<double>[0.0, 1.0, 0.0]));
   expect(v1.storage, orderedEquals(<double>[0.0, 1.0, 0.0]));
@@ -414,9 +411,9 @@ void testVector3Ceil() {
 }
 
 void testVector3Round() {
-  final v0 = new Vector3(-0.1, 0.1, -0.1)..round();
-  final v1 = new Vector3(-0.5, 0.5, -0.5)..round();
-  final v2 = new Vector3(-0.9, 0.9, -0.9)..round();
+  final v0 = Vector3(-0.1, 0.1, -0.1)..round();
+  final v1 = Vector3(-0.5, 0.5, -0.5)..round();
+  final v2 = Vector3(-0.9, 0.9, -0.9)..round();
 
   expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
   expect(v1.storage, orderedEquals(<double>[-1.0, 1.0, -1.0]));
@@ -424,12 +421,12 @@ void testVector3Round() {
 }
 
 void testVector3RoundToZero() {
-  final v0 = new Vector3(-0.1, 0.1, -0.1)..roundToZero();
-  final v1 = new Vector3(-0.5, 0.5, -0.5)..roundToZero();
-  final v2 = new Vector3(-0.9, 0.9, -0.9)..roundToZero();
-  final v3 = new Vector3(-1.1, 1.1, -1.1)..roundToZero();
-  final v4 = new Vector3(-1.5, 1.5, -1.5)..roundToZero();
-  final v5 = new Vector3(-1.9, 1.9, -1.9)..roundToZero();
+  final v0 = Vector3(-0.1, 0.1, -0.1)..roundToZero();
+  final v1 = Vector3(-0.5, 0.5, -0.5)..roundToZero();
+  final v2 = Vector3(-0.9, 0.9, -0.9)..roundToZero();
+  final v3 = Vector3(-1.1, 1.1, -1.1)..roundToZero();
+  final v4 = Vector3(-1.5, 1.5, -1.5)..roundToZero();
+  final v5 = Vector3(-1.9, 1.9, -1.9)..roundToZero();
 
   expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
   expect(v1.storage, orderedEquals(<double>[0.0, 0.0, 0.0]));
@@ -440,14 +437,12 @@ void testVector3RoundToZero() {
 }
 
 void testVector3ApplyQuaternion() {
-  final q = new Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614);
-  final v = new Vector3(0.417267069084370, 0.049654430325742, 0.753423475845592)
+  final q = Quaternion(0.0, 0.9238795292366128, 0.0, 0.38268342717215614);
+  final v = Vector3(0.417267069084370, 0.049654430325742, 0.753423475845592)
     ..applyQuaternion(q);
 
-  relativeTest(
-      v,
-      new Vector3(
-          0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
+  relativeTest(v,
+      Vector3(0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
 }
 
 void main() {

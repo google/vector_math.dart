@@ -10,7 +10,7 @@ class GeometryGeneratorFlags {
   final bool tangents;
 
   GeometryGeneratorFlags(
-      {this.texCoords: true, this.normals: true, this.tangents: true});
+      {this.texCoords = true, this.normals = true, this.tangents = true});
 }
 
 abstract class GeometryGenerator {
@@ -19,7 +19,7 @@ abstract class GeometryGenerator {
 
   MeshGeometry createGeometry(
       {GeometryGeneratorFlags flags, List<GeometryFilter> filters}) {
-    flags ??= new GeometryGeneratorFlags();
+    flags ??= GeometryGeneratorFlags();
 
     VertexAttrib positionAttrib;
     VertexAttrib texCoordAttrib;
@@ -33,26 +33,26 @@ abstract class GeometryGenerator {
 
     final List<VertexAttrib> attribs = <VertexAttrib>[];
 
-    positionAttrib = new VertexAttrib('POSITION', 3, 'float');
+    positionAttrib = VertexAttrib('POSITION', 3, 'float');
     attribs.add(positionAttrib);
 
     if (flags.texCoords || flags.tangents) {
-      texCoordAttrib = new VertexAttrib('TEXCOORD0', 2, 'float');
+      texCoordAttrib = VertexAttrib('TEXCOORD0', 2, 'float');
       attribs.add(texCoordAttrib);
     }
 
     if (flags.normals || flags.tangents) {
-      normalAttrib = new VertexAttrib('NORMAL', 3, 'float');
+      normalAttrib = VertexAttrib('NORMAL', 3, 'float');
       attribs.add(normalAttrib);
     }
 
     if (flags.tangents) {
-      tangentAttrib = new VertexAttrib('TANGENT', 4, 'float');
+      tangentAttrib = VertexAttrib('TANGENT', 4, 'float');
       attribs.add(tangentAttrib);
     }
 
-    MeshGeometry mesh = new MeshGeometry(vertexCount, attribs)
-      ..indices = new Uint16List(indexCount);
+    MeshGeometry mesh = MeshGeometry(vertexCount, attribs)
+      ..indices = Uint16List(indexCount);
     generateIndices(mesh.indices);
 
     VectorList<Vector> view = mesh.getViewForAttrib('POSITION');
@@ -110,7 +110,7 @@ abstract class GeometryGenerator {
 
       // These are TERRIBLE texture coords, but it's better than nothing.
       // Override this function and put better ones in place!
-      texCoords[i] = new Vector2(p.x + p.z, p.y + p.z);
+      texCoords[i] = Vector2(p.x + p.z, p.y + p.z);
     }
   }
 

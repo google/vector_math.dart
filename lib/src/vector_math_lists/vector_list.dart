@@ -32,10 +32,10 @@ abstract class VectorList<T extends Vector> {
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
         _length = length,
-        _buffer = new Float32List(
+        _buffer = Float32List(
             VectorList._listLength(offset, stride, vectorLength, length)) {
     if (_stride < _vectorLength) {
-      throw new ArgumentError('Stride cannot be smaller than the vector size.');
+      throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
   }
 
@@ -48,10 +48,10 @@ abstract class VectorList<T extends Vector> {
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
         _length = list.length,
-        _buffer = new Float32List(
+        _buffer = Float32List(
             offset + list.length * (stride == 0 ? vectorLength : stride)) {
     if (_stride < _vectorLength) {
-      throw new ArgumentError('Stride cannot be smaller than the vector size.');
+      throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
     for (int i = 0; i < _length; i++) {
       store(i, list[i]);
@@ -70,7 +70,7 @@ abstract class VectorList<T extends Vector> {
             (stride == 0 ? vectorLength : stride),
         _buffer = buffer {
     if (_stride < _vectorLength) {
-      throw new ArgumentError('Stride cannot be smaller than the vector size.');
+      throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
   }
 
@@ -88,7 +88,7 @@ abstract class VectorList<T extends Vector> {
   /// Copy a range of [count] vectors beginning at [srcOffset] from [src] into
   /// this list starting at [offset].
   void copy(VectorList<T> src,
-      {int srcOffset: 0, int offset: 0, int count: 0}) {
+      {int srcOffset = 0, int offset = 0, int count = 0}) {
     if (count == 0) {
       count = math.min(length - offset, src.length - srcOffset);
     }

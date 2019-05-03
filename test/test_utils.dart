@@ -8,11 +8,11 @@ import 'package:test/test.dart';
 
 import 'package:vector_math/vector_math.dart';
 
-Vector2 $v2(double x, double y) => new Vector2(x, y);
+Vector2 $v2(double x, double y) => Vector2(x, y);
 
-Vector3 $v3(double x, double y, double z) => new Vector3(x, y, z);
+Vector3 $v3(double x, double y, double z) => Vector3(x, y, z);
 
-Vector4 $v4(double x, double y, double z, double w) => new Vector4(x, y, z, w);
+Vector4 $v4(double x, double y, double z, double w) => Vector4(x, y, z, w);
 
 void relativeTest(dynamic output, dynamic expectedOutput) {
   final num errorThreshold = 0.0005;
@@ -34,13 +34,13 @@ dynamic makeMatrix(int rows, int cols) {
   }
 
   if (cols == 2) {
-    return new Matrix2.zero();
+    return Matrix2.zero();
   }
   if (cols == 3) {
-    return new Matrix3.zero();
+    return Matrix3.zero();
   }
   if (cols == 4) {
-    return new Matrix4.zero();
+    return Matrix4.zero();
   }
 
   return null;
@@ -49,7 +49,7 @@ dynamic makeMatrix(int rows, int cols) {
 T parseMatrix<T>(String input) {
   input = input.trim();
   List<String> rows = input.split("\n");
-  List<double> values = new List<double>();
+  List<double> values = List<double>();
   int col_count = 0;
   for (int i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
@@ -82,9 +82,9 @@ T parseMatrix<T>(String input) {
 
 T parseVector<T extends Vector>(String v) {
   v = v.trim();
-  Pattern pattern = new RegExp('[\\s]+', multiLine: true, caseSensitive: false);
+  Pattern pattern = RegExp('[\\s]+', multiLine: true, caseSensitive: false);
   List<String> rows = v.split(pattern);
-  List<double> values = new List<double>();
+  List<double> values = List<double>();
   for (int i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
     if (rows[i].isEmpty) {
@@ -95,11 +95,11 @@ T parseVector<T extends Vector>(String v) {
 
   Vector r;
   if (values.length == 2) {
-    r = new Vector2(values[0], values[1]);
+    r = Vector2(values[0], values[1]);
   } else if (values.length == 3) {
-    r = new Vector3(values[0], values[1], values[2]);
+    r = Vector3(values[0], values[1], values[2]);
   } else if (values.length == 4) {
-    r = new Vector4(values[0], values[1], values[2], values[3]);
+    r = Vector4(values[0], values[1], values[2], values[3]);
   }
 
   return r as T;

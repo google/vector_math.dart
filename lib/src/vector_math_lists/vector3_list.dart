@@ -22,7 +22,7 @@ class Vector3List extends VectorList<Vector3> {
       : super.view(buffer, 3, offset, stride);
 
   @override
-  Vector3 newVector() => new Vector3.zero();
+  Vector3 newVector() => Vector3.zero();
 
   /// Retrieves the vector at [index] and stores it in [vector].
   @override

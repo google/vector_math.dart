@@ -11,7 +11,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testToGrayscale() {
-  final input = new Vector4(0.0, 1.0, 0.5, 1.0);
+  final input = Vector4(0.0, 1.0, 0.5, 1.0);
   final output = input.clone();
 
   Colors.toGrayscale(output, output);
@@ -23,7 +23,7 @@ void testToGrayscale() {
 }
 
 void testHexString() {
-  final color = new Vector4.zero();
+  final color = Vector4.zero();
 
   Colors.fromHexString('#6495ED', color);
 
@@ -129,7 +129,7 @@ void testHexString() {
 }
 
 void testFromRgba() {
-  final output = new Vector4.zero();
+  final output = Vector4.zero();
 
   Colors.fromRgba(100, 149, 237, 255, output);
 
@@ -140,11 +140,11 @@ void testFromRgba() {
 }
 
 void testAlphaBlend() {
-  final output = new Vector4.zero();
-  final foreground1 = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
-  final foreground2 = new Vector4(0.3921, 0.5843, 0.9294, 0.5);
-  final background1 = new Vector4(1.0, 0.0, 0.0, 1.0);
-  final background2 = new Vector4(1.0, 0.5, 0.0, 0.5);
+  final output = Vector4.zero();
+  final foreground1 = Vector4(0.3921, 0.5843, 0.9294, 1.0);
+  final foreground2 = Vector4(0.3921, 0.5843, 0.9294, 0.5);
+  final background1 = Vector4(1.0, 0.0, 0.0, 1.0);
+  final background2 = Vector4(1.0, 0.5, 0.0, 0.5);
 
   output.setFrom(foreground1);
   Colors.alphaBlend(output, background1, output);
@@ -178,9 +178,9 @@ void testAlphaBlend() {
 }
 
 void testLinearGamma() {
-  final gamma = new Vector4.zero();
-  final linear = new Vector4.zero();
-  final foreground = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+  final gamma = Vector4.zero();
+  final linear = Vector4.zero();
+  final foreground = Vector4(0.3921, 0.5843, 0.9294, 1.0);
 
   gamma.setFrom(foreground);
   Colors.linearToGamma(gamma, gamma);
@@ -200,9 +200,9 @@ void testLinearGamma() {
 }
 
 void testRgbHsl() {
-  final hsl = new Vector4.zero();
-  final rgb = new Vector4.zero();
-  final input = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+  final hsl = Vector4.zero();
+  final rgb = Vector4.zero();
+  final input = Vector4(0.3921, 0.5843, 0.9294, 1.0);
 
   hsl.setFrom(input);
   Colors.rgbToHsl(hsl, hsl);
@@ -243,9 +243,9 @@ void testRgbHsl() {
 }
 
 void testRgbHsv() {
-  final hsv = new Vector4.zero();
-  final rgb = new Vector4.zero();
-  final input = new Vector4(0.3921, 0.5843, 0.9294, 1.0);
+  final hsv = Vector4.zero();
+  final rgb = Vector4.zero();
+  final input = Vector4(0.3921, 0.5843, 0.9294, 1.0);
 
   hsv.setFrom(input);
   Colors.rgbToHsv(hsv, hsv);

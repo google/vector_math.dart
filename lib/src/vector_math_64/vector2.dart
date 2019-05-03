@@ -35,20 +35,20 @@ class Vector2 implements Vector {
   }
 
   /// Construct a new vector with the specified values.
-  factory Vector2(double x, double y) => new Vector2.zero()..setValues(x, y);
+  factory Vector2(double x, double y) => Vector2.zero()..setValues(x, y);
 
   /// Initialized with values from [array] starting at [offset].
   factory Vector2.array(List<double> array, [int offset = 0]) =>
-      new Vector2.zero()..copyFromArray(array, offset);
+      Vector2.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
-  Vector2.zero() : _v2storage = new Float64List(2);
+  Vector2.zero() : _v2storage = Float64List(2);
 
   /// Splat [value] into all lanes of the vector.
-  factory Vector2.all(double value) => new Vector2.zero()..splat(value);
+  factory Vector2.all(double value) => Vector2.zero()..splat(value);
 
   /// Copy of [other].
-  factory Vector2.copy(Vector2 other) => new Vector2.zero()..setFrom(other);
+  factory Vector2.copy(Vector2 other) => Vector2.zero()..setFrom(other);
 
   /// Constructs Vector2 with a given [Float64List] as [storage].
   Vector2.fromFloat64List(this._v2storage);
@@ -56,13 +56,13 @@ class Vector2 implements Vector {
   /// Constructs Vector2 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Vector2.fromBuffer(ByteBuffer buffer, int offset)
-      : _v2storage = new Float64List.view(buffer, offset, 2);
+      : _v2storage = Float64List.view(buffer, offset, 2);
 
   /// Generate random vector in the range (0, 0) to (1, 1). You can
   /// optionally pass your own random number generator.
   factory Vector2.random([math.Random rng]) {
-    rng ??= new math.Random();
-    return new Vector2(rng.nextDouble(), rng.nextDouble());
+    rng ??= math.Random();
+    return Vector2(rng.nextDouble(), rng.nextDouble());
   }
 
   /// Set the values of the vector.
@@ -388,7 +388,7 @@ class Vector2 implements Vector {
   }
 
   /// Clone of [this].
-  Vector2 clone() => new Vector2.copy(this);
+  Vector2 clone() => Vector2.copy(this);
 
   /// Copy [this] into [arg]. Returns [arg].
   Vector2 copyInto(Vector2 arg) {
@@ -432,50 +432,50 @@ class Vector2 implements Vector {
   set gr(Vector2 arg) => yx = arg;
   set st(Vector2 arg) => xy = arg;
   set ts(Vector2 arg) => yx = arg;
-  Vector2 get xx => new Vector2(_v2storage[0], _v2storage[0]);
-  Vector2 get xy => new Vector2(_v2storage[0], _v2storage[1]);
-  Vector2 get yx => new Vector2(_v2storage[1], _v2storage[0]);
-  Vector2 get yy => new Vector2(_v2storage[1], _v2storage[1]);
-  Vector3 get xxx => new Vector3(_v2storage[0], _v2storage[0], _v2storage[0]);
-  Vector3 get xxy => new Vector3(_v2storage[0], _v2storage[0], _v2storage[1]);
-  Vector3 get xyx => new Vector3(_v2storage[0], _v2storage[1], _v2storage[0]);
-  Vector3 get xyy => new Vector3(_v2storage[0], _v2storage[1], _v2storage[1]);
-  Vector3 get yxx => new Vector3(_v2storage[1], _v2storage[0], _v2storage[0]);
-  Vector3 get yxy => new Vector3(_v2storage[1], _v2storage[0], _v2storage[1]);
-  Vector3 get yyx => new Vector3(_v2storage[1], _v2storage[1], _v2storage[0]);
-  Vector3 get yyy => new Vector3(_v2storage[1], _v2storage[1], _v2storage[1]);
+  Vector2 get xx => Vector2(_v2storage[0], _v2storage[0]);
+  Vector2 get xy => Vector2(_v2storage[0], _v2storage[1]);
+  Vector2 get yx => Vector2(_v2storage[1], _v2storage[0]);
+  Vector2 get yy => Vector2(_v2storage[1], _v2storage[1]);
+  Vector3 get xxx => Vector3(_v2storage[0], _v2storage[0], _v2storage[0]);
+  Vector3 get xxy => Vector3(_v2storage[0], _v2storage[0], _v2storage[1]);
+  Vector3 get xyx => Vector3(_v2storage[0], _v2storage[1], _v2storage[0]);
+  Vector3 get xyy => Vector3(_v2storage[0], _v2storage[1], _v2storage[1]);
+  Vector3 get yxx => Vector3(_v2storage[1], _v2storage[0], _v2storage[0]);
+  Vector3 get yxy => Vector3(_v2storage[1], _v2storage[0], _v2storage[1]);
+  Vector3 get yyx => Vector3(_v2storage[1], _v2storage[1], _v2storage[0]);
+  Vector3 get yyy => Vector3(_v2storage[1], _v2storage[1], _v2storage[1]);
   Vector4 get xxxx =>
-      new Vector4(_v2storage[0], _v2storage[0], _v2storage[0], _v2storage[0]);
+      Vector4(_v2storage[0], _v2storage[0], _v2storage[0], _v2storage[0]);
   Vector4 get xxxy =>
-      new Vector4(_v2storage[0], _v2storage[0], _v2storage[0], _v2storage[1]);
+      Vector4(_v2storage[0], _v2storage[0], _v2storage[0], _v2storage[1]);
   Vector4 get xxyx =>
-      new Vector4(_v2storage[0], _v2storage[0], _v2storage[1], _v2storage[0]);
+      Vector4(_v2storage[0], _v2storage[0], _v2storage[1], _v2storage[0]);
   Vector4 get xxyy =>
-      new Vector4(_v2storage[0], _v2storage[0], _v2storage[1], _v2storage[1]);
+      Vector4(_v2storage[0], _v2storage[0], _v2storage[1], _v2storage[1]);
   Vector4 get xyxx =>
-      new Vector4(_v2storage[0], _v2storage[1], _v2storage[0], _v2storage[0]);
+      Vector4(_v2storage[0], _v2storage[1], _v2storage[0], _v2storage[0]);
   Vector4 get xyxy =>
-      new Vector4(_v2storage[0], _v2storage[1], _v2storage[0], _v2storage[1]);
+      Vector4(_v2storage[0], _v2storage[1], _v2storage[0], _v2storage[1]);
   Vector4 get xyyx =>
-      new Vector4(_v2storage[0], _v2storage[1], _v2storage[1], _v2storage[0]);
+      Vector4(_v2storage[0], _v2storage[1], _v2storage[1], _v2storage[0]);
   Vector4 get xyyy =>
-      new Vector4(_v2storage[0], _v2storage[1], _v2storage[1], _v2storage[1]);
+      Vector4(_v2storage[0], _v2storage[1], _v2storage[1], _v2storage[1]);
   Vector4 get yxxx =>
-      new Vector4(_v2storage[1], _v2storage[0], _v2storage[0], _v2storage[0]);
+      Vector4(_v2storage[1], _v2storage[0], _v2storage[0], _v2storage[0]);
   Vector4 get yxxy =>
-      new Vector4(_v2storage[1], _v2storage[0], _v2storage[0], _v2storage[1]);
+      Vector4(_v2storage[1], _v2storage[0], _v2storage[0], _v2storage[1]);
   Vector4 get yxyx =>
-      new Vector4(_v2storage[1], _v2storage[0], _v2storage[1], _v2storage[0]);
+      Vector4(_v2storage[1], _v2storage[0], _v2storage[1], _v2storage[0]);
   Vector4 get yxyy =>
-      new Vector4(_v2storage[1], _v2storage[0], _v2storage[1], _v2storage[1]);
+      Vector4(_v2storage[1], _v2storage[0], _v2storage[1], _v2storage[1]);
   Vector4 get yyxx =>
-      new Vector4(_v2storage[1], _v2storage[1], _v2storage[0], _v2storage[0]);
+      Vector4(_v2storage[1], _v2storage[1], _v2storage[0], _v2storage[0]);
   Vector4 get yyxy =>
-      new Vector4(_v2storage[1], _v2storage[1], _v2storage[0], _v2storage[1]);
+      Vector4(_v2storage[1], _v2storage[1], _v2storage[0], _v2storage[1]);
   Vector4 get yyyx =>
-      new Vector4(_v2storage[1], _v2storage[1], _v2storage[1], _v2storage[0]);
+      Vector4(_v2storage[1], _v2storage[1], _v2storage[1], _v2storage[0]);
   Vector4 get yyyy =>
-      new Vector4(_v2storage[1], _v2storage[1], _v2storage[1], _v2storage[1]);
+      Vector4(_v2storage[1], _v2storage[1], _v2storage[1], _v2storage[1]);
   double get r => x;
   double get g => y;
   double get s => x;

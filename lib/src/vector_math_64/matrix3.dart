@@ -101,42 +101,41 @@ class Matrix3 {
   /// New matrix with specified values.
   factory Matrix3(double arg0, double arg1, double arg2, double arg3,
           double arg4, double arg5, double arg6, double arg7, double arg8) =>
-      new Matrix3.zero()
+      Matrix3.zero()
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
   /// New matrix from [values].
-  factory Matrix3.fromList(List<double> values) => new Matrix3.zero()
+  factory Matrix3.fromList(List<double> values) => Matrix3.zero()
     ..setValues(values[0], values[1], values[2], values[3], values[4],
         values[5], values[6], values[7], values[8]);
 
   /// Constructs a new [Matrix3] filled with zeros.
-  Matrix3.zero() : _m3storage = new Float64List(9);
+  Matrix3.zero() : _m3storage = Float64List(9);
 
   /// Identity matrix.
-  factory Matrix3.identity() => new Matrix3.zero()..setIdentity();
+  factory Matrix3.identity() => Matrix3.zero()..setIdentity();
 
   /// Copes values from [other].
-  factory Matrix3.copy(Matrix3 other) => new Matrix3.zero()..setFrom(other);
+  factory Matrix3.copy(Matrix3 other) => Matrix3.zero()..setFrom(other);
 
   /// Constructs a new mat3 from columns.
   factory Matrix3.columns(Vector3 arg0, Vector3 arg1, Vector3 arg2) =>
-      new Matrix3.zero()..setColumns(arg0, arg1, arg2);
+      Matrix3.zero()..setColumns(arg0, arg1, arg2);
 
   /// Outer product of [u] and [v].
-  factory Matrix3.outer(Vector3 u, Vector3 v) =>
-      new Matrix3.zero()..setOuter(u, v);
+  factory Matrix3.outer(Vector3 u, Vector3 v) => Matrix3.zero()..setOuter(u, v);
 
   /// Rotation of [radians_] around X axis.
   factory Matrix3.rotationX(double radians) =>
-      new Matrix3.zero()..setRotationX(radians);
+      Matrix3.zero()..setRotationX(radians);
 
   /// Rotation of [radians_] around Y axis.
   factory Matrix3.rotationY(double radians) =>
-      new Matrix3.zero()..setRotationY(radians);
+      Matrix3.zero()..setRotationY(radians);
 
   /// Rotation of [radians_] around Z axis.
   factory Matrix3.rotationZ(double radians) =>
-      new Matrix3.zero()..setRotationZ(radians);
+      Matrix3.zero()..setRotationZ(radians);
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3,
@@ -280,7 +279,7 @@ class Matrix3 {
 
   /// Gets the [row] of the matrix
   Vector3 getRow(int row) {
-    final Vector3 r = new Vector3.zero();
+    final Vector3 r = Vector3.zero();
     final Float64List rStorage = r._v3storage;
     rStorage[0] = _m3storage[index(row, 0)];
     rStorage[1] = _m3storage[index(row, 1)];
@@ -299,7 +298,7 @@ class Matrix3 {
 
   /// Gets the [column] of the matrix
   Vector3 getColumn(int column) {
-    final Vector3 r = new Vector3.zero();
+    final Vector3 r = Vector3.zero();
     final Float64List rStorage = r._v3storage;
     final int entry = column * 3;
     rStorage[2] = _m3storage[entry + 2];
@@ -309,7 +308,7 @@ class Matrix3 {
   }
 
   /// Clone of [this].
-  Matrix3 clone() => new Matrix3.copy(this);
+  Matrix3 clone() => Matrix3.copy(this);
 
   /// Copy [this] into [arg].
   Matrix3 copyInto(Matrix3 arg) {
@@ -337,7 +336,7 @@ class Matrix3 {
     if (arg is Matrix3) {
       return multiplied(arg);
     }
-    throw new ArgumentError(arg);
+    throw ArgumentError(arg);
   }
 
   /// Returns new matrix after component wise [this] + [arg]
@@ -394,7 +393,7 @@ class Matrix3 {
 
   /// Returns the component wise absolute value of this.
   Matrix3 absolute() {
-    final Matrix3 r = new Matrix3.zero();
+    final Matrix3 r = Matrix3.zero();
     final Float64List rStorage = r._m3storage;
     rStorage[0] = _m3storage[0].abs();
     rStorage[1] = _m3storage[1].abs();
@@ -835,7 +834,7 @@ class Matrix3 {
   /// [out].
   Vector3 transformed(Vector3 arg, [Vector3 out]) {
     if (out == null) {
-      out = new Vector3.copy(arg);
+      out = Vector3.copy(arg);
     } else {
       out.setFrom(arg);
     }
@@ -873,7 +872,7 @@ class Matrix3 {
   /// Multiply [this] to each set of xyz values in [array] starting at [offset].
   List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
     for (int i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final Vector3 v = new Vector3.array(array, j)..applyMatrix3(this);
+      final Vector3 v = Vector3.array(array, j)..applyMatrix3(this);
       array[j] = v.storage[0];
       array[j + 1] = v.storage[1];
       array[j + 2] = v.storage[2];
@@ -886,21 +885,21 @@ class Matrix3 {
     final double x = _m3storage[0];
     final double y = _m3storage[1];
     final double z = _m3storage[2];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   Vector3 get up {
     final double x = _m3storage[3];
     final double y = _m3storage[4];
     final double z = _m3storage[5];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   Vector3 get forward {
     final double x = _m3storage[6];
     final double y = _m3storage[7];
     final double z = _m3storage[8];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   /// Is [this] the identity matrix?

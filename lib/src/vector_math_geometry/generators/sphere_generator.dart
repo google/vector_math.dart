@@ -16,8 +16,8 @@ class SphereGenerator extends GeometryGenerator {
   int get indexCount => 6 * _lonSegments * _latSegments;
 
   MeshGeometry createSphere(num radius,
-      {int latSegments: 16,
-      int lonSegments: 16,
+      {int latSegments = 16,
+      int lonSegments = 16,
       GeometryGeneratorFlags flags,
       List<GeometryFilter> filters}) {
     _radius = radius.toDouble();
@@ -57,7 +57,7 @@ class SphereGenerator extends GeometryGenerator {
       for (int x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
 
-        positions[i++] = new Vector3(_radius * math.cos(u * math.pi * 2.0) * sv,
+        positions[i++] = Vector3(_radius * math.cos(u * math.pi * 2.0) * sv,
             _radius * cv, _radius * math.sin(u * math.pi * 2.0) * sv);
       }
     }
@@ -72,7 +72,7 @@ class SphereGenerator extends GeometryGenerator {
 
       for (int x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
-        texCoords[i++] = new Vector2(u, v);
+        texCoords[i++] = Vector2(u, v);
       }
     }
   }
@@ -89,7 +89,7 @@ class SphereGenerator extends GeometryGenerator {
       for (int x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
 
-        normals[i++] = new Vector3(math.cos(u * math.pi * 2.0) * sv, cv,
+        normals[i++] = Vector3(math.cos(u * math.pi * 2.0) * sv, cv,
             math.sin(u * math.pi * 2.0) * sv);
       }
     }

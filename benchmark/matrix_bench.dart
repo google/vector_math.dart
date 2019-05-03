@@ -11,12 +11,12 @@ import 'package:benchmark_harness/benchmark_harness.dart';
 
 class MatrixMultiplyBenchmark extends BenchmarkBase {
   MatrixMultiplyBenchmark() : super("MatrixMultiply");
-  final Float32List A = new Float32List(16);
-  final Float32List B = new Float32List(16);
-  final Float32List C = new Float32List(16);
+  final Float32List A = Float32List(16);
+  final Float32List B = Float32List(16);
+  final Float32List C = Float32List(16);
 
   static void main() {
-    new MatrixMultiplyBenchmark().report();
+    MatrixMultiplyBenchmark().report();
   }
 
   @override
@@ -29,12 +29,12 @@ class MatrixMultiplyBenchmark extends BenchmarkBase {
 
 class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
   SIMDMatrixMultiplyBenchmark() : super("SIMDMatrixMultiply");
-  final Float32x4List A = new Float32x4List(4);
-  final Float32x4List B = new Float32x4List(4);
-  final Float32x4List C = new Float32x4List(4);
+  final Float32x4List A = Float32x4List(4);
+  final Float32x4List B = Float32x4List(4);
+  final Float32x4List C = Float32x4List(4);
 
   static void main() {
-    new SIMDMatrixMultiplyBenchmark().report();
+    SIMDMatrixMultiplyBenchmark().report();
   }
 
   @override
@@ -47,12 +47,12 @@ class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
 
 class VectorTransformBenchmark extends BenchmarkBase {
   VectorTransformBenchmark() : super("VectorTransform");
-  final Float32List A = new Float32List(16);
-  final Float32List B = new Float32List(4);
-  final Float32List C = new Float32List(4);
+  final Float32List A = Float32List(16);
+  final Float32List B = Float32List(4);
+  final Float32List C = Float32List(4);
 
   static void main() {
-    new VectorTransformBenchmark().report();
+    VectorTransformBenchmark().report();
   }
 
   @override
@@ -65,12 +65,12 @@ class VectorTransformBenchmark extends BenchmarkBase {
 
 class SIMDVectorTransformBenchmark extends BenchmarkBase {
   SIMDVectorTransformBenchmark() : super("SIMDVectorTransform");
-  final Float32x4List A = new Float32x4List(4);
-  final Float32x4List B = new Float32x4List(1);
-  final Float32x4List C = new Float32x4List(1);
+  final Float32x4List A = Float32x4List(4);
+  final Float32x4List B = Float32x4List(1);
+  final Float32x4List C = Float32x4List(1);
 
   static void main() {
-    new SIMDVectorTransformBenchmark().report();
+    SIMDVectorTransformBenchmark().report();
   }
 
   @override
@@ -84,13 +84,13 @@ class SIMDVectorTransformBenchmark extends BenchmarkBase {
 class ViewMatrixBenchmark extends BenchmarkBase {
   ViewMatrixBenchmark() : super("setViewMatrix");
 
-  final Matrix4 M = new Matrix4.zero();
-  final Vector3 P = new Vector3.zero();
-  final Vector3 F = new Vector3.zero();
-  final Vector3 U = new Vector3.zero();
+  final Matrix4 M = Matrix4.zero();
+  final Vector3 P = Vector3.zero();
+  final Vector3 F = Vector3.zero();
+  final Vector3 U = Vector3.zero();
 
   static void main() {
-    new ViewMatrixBenchmark().report();
+    ViewMatrixBenchmark().report();
   }
 
   @override

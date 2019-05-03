@@ -11,7 +11,7 @@ class Plane {
   /// Find the intersection point between the three planes [a], [b] and [c] and
   /// copy it into [result].
   static void intersection(Plane a, Plane b, Plane c, Vector3 result) {
-    final Vector3 cross = new Vector3.zero();
+    final Vector3 cross = Vector3.zero();
 
     b.normal.crossInto(c.normal, cross);
 
@@ -38,19 +38,19 @@ class Plane {
   set constant(double value) => _constant = value;
 
   Plane()
-      : _normal = new Vector3.zero(),
+      : _normal = Vector3.zero(),
         _constant = 0.0;
 
   Plane.copy(Plane other)
-      : _normal = new Vector3.copy(other._normal),
+      : _normal = Vector3.copy(other._normal),
         _constant = other._constant;
 
   Plane.components(double x, double y, double z, double w)
-      : _normal = new Vector3(x, y, z),
+      : _normal = Vector3(x, y, z),
         _constant = w;
 
   Plane.normalconstant(Vector3 normal_, double constant_)
-      : _normal = new Vector3.copy(normal_),
+      : _normal = Vector3.copy(normal_),
         _constant = constant_;
 
   void copyFrom(Plane o) {

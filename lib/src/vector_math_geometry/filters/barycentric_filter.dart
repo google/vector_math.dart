@@ -7,19 +7,19 @@ part of vector_math_geometry;
 class BarycentricFilter extends GeometryFilter {
   @override
   List<VertexAttrib> get generates =>
-      <VertexAttrib>[new VertexAttrib('BARYCENTRIC', 3, 'float')];
+      <VertexAttrib>[VertexAttrib('BARYCENTRIC', 3, 'float')];
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
     final List<VertexAttrib> newAttribs =
-        new List<VertexAttrib>.from(mesh.attribs, growable: true);
+        List<VertexAttrib>.from(mesh.attribs, growable: true);
 
     if (mesh.getAttrib('BARYCENTRIC') == null) {
-      newAttribs.add(new VertexAttrib('BARYCENTRIC', 3, 'float'));
+      newAttribs.add(VertexAttrib('BARYCENTRIC', 3, 'float'));
     }
 
     final MeshGeometry output =
-        new MeshGeometry(mesh.triangleVertexCount, newAttribs);
+        MeshGeometry(mesh.triangleVertexCount, newAttribs);
 
     Vector3List barycentricCoords;
     final VectorList<Vector> view = output.getViewForAttrib('BARYCENTRIC');
@@ -40,9 +40,9 @@ class BarycentricFilter extends GeometryFilter {
       destAttribs.add(output.getViewForAttrib(attrib.name));
     }
 
-    final Vector3 b0 = new Vector3(1.0, 0.0, 0.0);
-    final Vector3 b1 = new Vector3(0.0, 1.0, 0.0);
-    final Vector3 b2 = new Vector3(0.0, 0.0, 1.0);
+    final Vector3 b0 = Vector3(1.0, 0.0, 0.0);
+    final Vector3 b1 = Vector3(0.0, 1.0, 0.0);
+    final Vector3 b2 = Vector3(0.0, 0.0, 1.0);
 
     int i0, i1, i2;
 

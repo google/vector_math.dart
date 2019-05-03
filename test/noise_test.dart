@@ -9,10 +9,10 @@ import 'package:test/test.dart';
 import 'package:vector_math/vector_math.dart';
 
 void testSimplexNoise() {
-  final SimplexNoise noise = new SimplexNoise();
+  final SimplexNoise noise = SimplexNoise();
 
-  List<double> values2D = new List<double>(10);
-  List<double> values3D = new List<double>(10);
+  List<double> values2D = List<double>(10);
+  List<double> values3D = List<double>(10);
 
   // Cache several values at known coordinates
   for (int i = 0; i < values2D.length; ++i) {

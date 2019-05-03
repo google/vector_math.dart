@@ -151,7 +151,7 @@ class Matrix4 {
   /// Returns a matrix that is the inverse of [other] if [other] is invertible,
   /// otherwise `null`.
   static Matrix4 tryInvert(Matrix4 other) {
-    final Matrix4 r = new Matrix4.zero();
+    final Matrix4 r = Matrix4.zero();
     final double determinant = r.copyInverse(other);
     if (determinant == 0.0) {
       return null;
@@ -196,12 +196,12 @@ class Matrix4 {
           double arg13,
           double arg14,
           double arg15) =>
-      new Matrix4.zero()
+      Matrix4.zero()
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
             arg10, arg11, arg12, arg13, arg14, arg15);
 
   /// New matrix from [values].
-  factory Matrix4.fromList(List<double> values) => new Matrix4.zero()
+  factory Matrix4.fromList(List<double> values) => Matrix4.zero()
     ..setValues(
         values[0],
         values[1],
@@ -221,21 +221,20 @@ class Matrix4 {
         values[15]);
 
   /// Zero matrix.
-  Matrix4.zero() : _m4storage = new Float64List(16);
+  Matrix4.zero() : _m4storage = Float64List(16);
 
   /// Identity matrix.
-  factory Matrix4.identity() => new Matrix4.zero()..setIdentity();
+  factory Matrix4.identity() => Matrix4.zero()..setIdentity();
 
   /// Copies values from [other].
-  factory Matrix4.copy(Matrix4 other) => new Matrix4.zero()..setFrom(other);
+  factory Matrix4.copy(Matrix4 other) => Matrix4.zero()..setFrom(other);
 
   /// Constructs a matrix that is the inverse of [other].
   factory Matrix4.inverted(Matrix4 other) {
-    final Matrix4 r = new Matrix4.zero();
+    final Matrix4 r = Matrix4.zero();
     final double determinant = r.copyInverse(other);
     if (determinant == 0.0) {
-      throw new ArgumentError.value(
-          other, 'other', 'Matrix cannot be inverted');
+      throw ArgumentError.value(other, 'other', 'Matrix cannot be inverted');
     }
     return r;
   }
@@ -243,41 +242,40 @@ class Matrix4 {
   /// Constructs a new mat4 from columns.
   factory Matrix4.columns(
           Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) =>
-      new Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
+      Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
 
   /// Outer product of [u] and [v].
-  factory Matrix4.outer(Vector4 u, Vector4 v) =>
-      new Matrix4.zero()..setOuter(u, v);
+  factory Matrix4.outer(Vector4 u, Vector4 v) => Matrix4.zero()..setOuter(u, v);
 
   /// Rotation of [radians_] around X.
-  factory Matrix4.rotationX(double radians) => new Matrix4.zero()
+  factory Matrix4.rotationX(double radians) => Matrix4.zero()
     .._m4storage[15] = 1.0
     ..setRotationX(radians);
 
   /// Rotation of [radians_] around Y.
-  factory Matrix4.rotationY(double radians) => new Matrix4.zero()
+  factory Matrix4.rotationY(double radians) => Matrix4.zero()
     .._m4storage[15] = 1.0
     ..setRotationY(radians);
 
   /// Rotation of [radians_] around Z.
-  factory Matrix4.rotationZ(double radians) => new Matrix4.zero()
+  factory Matrix4.rotationZ(double radians) => Matrix4.zero()
     .._m4storage[15] = 1.0
     ..setRotationZ(radians);
 
   /// Translation matrix.
-  factory Matrix4.translation(Vector3 translation) => new Matrix4.zero()
+  factory Matrix4.translation(Vector3 translation) => Matrix4.zero()
     ..setIdentity()
     ..setTranslation(translation);
 
   /// Translation matrix.
   factory Matrix4.translationValues(double x, double y, double z) =>
-      new Matrix4.zero()
+      Matrix4.zero()
         ..setIdentity()
         ..setTranslationRaw(x, y, z);
 
   /// Scale matrix.
   factory Matrix4.diagonal3(Vector3 scale) {
-    final Matrix4 m = new Matrix4.zero();
+    final Matrix4 m = Matrix4.zero();
     final Float64List mStorage = m._m4storage;
     final Float64List scaleStorage = scale._v3storage;
     mStorage[15] = 1.0;
@@ -289,7 +287,7 @@ class Matrix4 {
 
   /// Scale matrix.
   factory Matrix4.diagonal3Values(double x, double y, double z) =>
-      new Matrix4.zero()
+      Matrix4.zero()
         .._m4storage[15] = 1.0
         .._m4storage[10] = z
         .._m4storage[5] = y
@@ -297,21 +295,21 @@ class Matrix4 {
 
   /// Skew matrix around X axis
   factory Matrix4.skewX(double alpha) {
-    final Matrix4 m = new Matrix4.identity();
+    final Matrix4 m = Matrix4.identity();
     m._m4storage[4] = math.tan(alpha);
     return m;
   }
 
   /// Skew matrix around Y axis.
   factory Matrix4.skewY(double beta) {
-    final Matrix4 m = new Matrix4.identity();
+    final Matrix4 m = Matrix4.identity();
     m._m4storage[1] = math.tan(beta);
     return m;
   }
 
   /// Skew matrix around X axis (alpha) and Y axis (beta).
   factory Matrix4.skew(double alpha, double beta) {
-    final Matrix4 m = new Matrix4.identity();
+    final Matrix4 m = Matrix4.identity();
     m._m4storage[1] = math.tan(beta);
     m._m4storage[4] = math.tan(alpha);
     return m;
@@ -323,12 +321,12 @@ class Matrix4 {
   /// Constructs Matrix4 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Matrix4.fromBuffer(ByteBuffer buffer, int offset)
-      : _m4storage = new Float64List.view(buffer, offset, 16);
+      : _m4storage = Float64List.view(buffer, offset, 16);
 
   /// Constructs Matrix4 from [translation], [rotation] and [scale].
   factory Matrix4.compose(
           Vector3 translation, Quaternion rotation, Vector3 scale) =>
-      new Matrix4.zero()
+      Matrix4.zero()
         ..setFromTranslationRotationScale(translation, rotation, scale);
 
   /// Sets the diagonal to [arg].
@@ -580,7 +578,7 @@ class Matrix4 {
 
   /// Gets the [row] of the matrix
   Vector4 getRow(int row) {
-    final Vector4 r = new Vector4.zero();
+    final Vector4 r = Vector4.zero();
     final Float64List rStorage = r._v4storage;
     rStorage[0] = _m4storage[index(row, 0)];
     rStorage[1] = _m4storage[index(row, 1)];
@@ -601,7 +599,7 @@ class Matrix4 {
 
   /// Gets the [column] of the matrix
   Vector4 getColumn(int column) {
-    final Vector4 r = new Vector4.zero();
+    final Vector4 r = Vector4.zero();
     final Float64List rStorage = r._v4storage;
     final int entry = column * 4;
     rStorage[3] = _m4storage[entry + 3];
@@ -612,7 +610,7 @@ class Matrix4 {
   }
 
   /// Clone matrix.
-  Matrix4 clone() => new Matrix4.copy(this);
+  Matrix4 clone() => Matrix4.copy(this);
 
   /// Copy into [arg].
   Matrix4 copyInto(Matrix4 arg) {
@@ -653,7 +651,7 @@ class Matrix4 {
     if (arg is Matrix4) {
       return multiplied(arg);
     }
-    throw new ArgumentError(arg);
+    throw ArgumentError(arg);
   }
 
   /// Returns new matrix after component wise [this] + [arg]
@@ -980,7 +978,7 @@ class Matrix4 {
 
   /// Returns the component wise absolute value of this.
   Matrix4 absolute() {
-    final Matrix4 r = new Matrix4.zero();
+    final Matrix4 r = Matrix4.zero();
     final Float64List rStorage = r._m4storage;
     rStorage[0] = _m4storage[0].abs();
     rStorage[1] = _m4storage[1].abs();
@@ -1121,7 +1119,7 @@ class Matrix4 {
     final double z = _m4storage[14];
     final double y = _m4storage[13];
     final double x = _m4storage[12];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   /// Sets the translation vector in this homogeneous transformation matrix.
@@ -1144,7 +1142,7 @@ class Matrix4 {
 
   /// Returns the rotation matrix from this homogeneous transformation matrix.
   Matrix3 getRotation() {
-    final Matrix3 r = new Matrix3.zero();
+    final Matrix3 r = Matrix3.zero();
     copyRotation(r);
     return r;
   }
@@ -1180,7 +1178,7 @@ class Matrix4 {
 
   /// Returns the normal matrix from this homogeneous transformation matrix. The normal
   /// matrix is the transpose of the inverse of the top-left 3x3 part of this 4x4 matrix.
-  Matrix3 getNormalMatrix() => new Matrix3.identity()..copyNormalMatrix(this);
+  Matrix3 getNormalMatrix() => Matrix3.identity()..copyNormalMatrix(this);
 
   /// Returns the max scale value of the 3 axes.
   double getMaxScaleOnAxis() {
@@ -1776,7 +1774,7 @@ class Matrix4 {
 
   /// Decomposes [this] into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
-    final Vector3 v = new Vector3.zero();
+    final Vector3 v = Vector3.zero();
     double sx =
         (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
     final double sy =
@@ -1796,7 +1794,7 @@ class Matrix4 {
     final double invSY = 1.0 / sy;
     final double invSZ = 1.0 / sz;
 
-    final Matrix4 m = new Matrix4.copy(this);
+    final Matrix4 m = Matrix4.copy(this);
     m._m4storage[0] *= invSX;
     m._m4storage[1] *= invSX;
     m._m4storage[2] *= invSX;
@@ -1836,7 +1834,7 @@ class Matrix4 {
   /// [this]. If a [out] parameter is supplied, the copy is stored in [out].
   Vector3 rotated3(Vector3 arg, [Vector3 out]) {
     if (out == null) {
-      out = new Vector3.copy(arg);
+      out = Vector3.copy(arg);
     } else {
       out.setFrom(arg);
     }
@@ -1870,7 +1868,7 @@ class Matrix4 {
   /// [out].
   Vector3 transformed3(Vector3 arg, [Vector3 out]) {
     if (out == null) {
-      out = new Vector3.copy(arg);
+      out = Vector3.copy(arg);
     } else {
       out.setFrom(arg);
     }
@@ -1936,7 +1934,7 @@ class Matrix4 {
   /// [out].
   Vector4 transformed(Vector4 arg, [Vector4 out]) {
     if (out == null) {
-      out = new Vector4.copy(arg);
+      out = Vector4.copy(arg);
     } else {
       out.setFrom(arg);
     }
@@ -1988,7 +1986,7 @@ class Matrix4 {
   /// Multiply [this] to each set of xyz values in [array] starting at [offset].
   List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
     for (int i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final Vector3 v = new Vector3.array(array, j)..applyMatrix4(this);
+      final Vector3 v = Vector3.array(array, j)..applyMatrix4(this);
       array[j] = v.storage[0];
       array[j + 1] = v.storage[1];
       array[j + 2] = v.storage[2];
@@ -2001,21 +1999,21 @@ class Matrix4 {
     final double x = _m4storage[0];
     final double y = _m4storage[1];
     final double z = _m4storage[2];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   Vector3 get up {
     final double x = _m4storage[4];
     final double y = _m4storage[5];
     final double z = _m4storage[6];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   Vector3 get forward {
     final double x = _m4storage[8];
     final double y = _m4storage[9];
     final double z = _m4storage[10];
-    return new Vector3(x, y, z);
+    return Vector3(x, y, z);
   }
 
   /// Is [this] the identity matrix?

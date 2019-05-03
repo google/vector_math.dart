@@ -14,8 +14,8 @@ import 'package:vector_math/vector_math_lists.dart';
 import 'test_utils.dart';
 
 void testVector4ListWithOffset() {
-  Vector4List list = new Vector4List(12, 1);
-  list[0] = new Vector4(1.0, 2.0, 3.0, 4.0);
+  Vector4List list = Vector4List(12, 1);
+  list[0] = Vector4(1.0, 2.0, 3.0, 4.0);
   relativeTest(list[0].x, 1.0);
   relativeTest(list[0].y, 2.0);
   relativeTest(list[0].z, 3.0);
@@ -29,12 +29,12 @@ void testVector4ListWithOffset() {
 }
 
 void testVector4ListView() {
-  Float32List buffer = new Float32List(12);
-  Vector4List list = new Vector4List.view(buffer, 1, 5);
+  Float32List buffer = Float32List(12);
+  Vector4List list = Vector4List.view(buffer, 1, 5);
   // The list length should be (12 - 1) ~/ 5 == 2.
   expect(list.length, 2);
-  list[0] = new Vector4(1.0, 2.0, 3.0, 4.0);
-  list[1] = new Vector4(5.0, 6.0, 7.0, 8.0);
+  list[0] = Vector4(1.0, 2.0, 3.0, 4.0);
+  list[1] = Vector4(5.0, 6.0, 7.0, 8.0);
   expect(buffer[0], 0.0);
   expect(buffer[1], 1.0);
   expect(buffer[2], 2.0);
@@ -50,13 +50,13 @@ void testVector4ListView() {
 }
 
 void testVector4ListViewTightFit() {
-  Float32List buffer = new Float32List(12);
-  Vector4List list = new Vector4List.view(buffer, 2, 5);
+  Float32List buffer = Float32List(12);
+  Vector4List list = Vector4List.view(buffer, 2, 5);
   // The list length should be (12 - 2) ~/ 5 == 2 as the stride of the last
   // element is negligible.
   expect(list.length, 2);
-  list[0] = new Vector4(1.0, 2.0, 3.0, 4.0);
-  list[1] = new Vector4(5.0, 6.0, 7.0, 8.0);
+  list[0] = Vector4(1.0, 2.0, 3.0, 4.0);
+  list[1] = Vector4(5.0, 6.0, 7.0, 8.0);
   expect(buffer[0], 0.0);
   expect(buffer[1], 0.0);
   expect(buffer[2], 1.0);
@@ -72,11 +72,11 @@ void testVector4ListViewTightFit() {
 }
 
 void testVector4ListFromList() {
-  List<Vector4> input = new List<Vector4>(3);
-  input[0] = new Vector4(1.0, 2.0, 3.0, 4.0);
-  input[1] = new Vector4(5.0, 6.0, 7.0, 8.0);
-  input[2] = new Vector4(9.0, 10.0, 11.0, 12.0);
-  Vector4List list = new Vector4List.fromList(input, 2, 5);
+  List<Vector4> input = List<Vector4>(3);
+  input[0] = Vector4(1.0, 2.0, 3.0, 4.0);
+  input[1] = Vector4(5.0, 6.0, 7.0, 8.0);
+  input[2] = Vector4(9.0, 10.0, 11.0, 12.0);
+  Vector4List list = Vector4List.fromList(input, 2, 5);
   expect(list.buffer.length, 17);
   expect(list.buffer[0], 0.0);
   expect(list.buffer[1], 0.0);
@@ -98,7 +98,7 @@ void testVector4ListFromList() {
 }
 
 void testVector4ListSetValue() {
-  final list = new Vector4List(2);
+  final list = Vector4List(2);
 
   list.setValues(1, 1.0, 2.0, 3.0, 4.0);
 
@@ -113,8 +113,8 @@ void testVector4ListSetValue() {
 }
 
 void testVector4ListSetZero() {
-  final list = new Vector4List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+  final list = Vector4List.view(
+      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
 
   list.setZero(1);
 
@@ -129,8 +129,8 @@ void testVector4ListSetZero() {
 }
 
 void testVector4ListAdd() {
-  final list = new Vector4List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+  final list = Vector4List.view(
+      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
 
   list.add(1, $v4(2.0, 2.0, 2.0, 2.0));
 
@@ -145,8 +145,8 @@ void testVector4ListAdd() {
 }
 
 void testVector4ListAddScaled() {
-  final list = new Vector4List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+  final list = Vector4List.view(
+      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
 
   list.addScaled(1, $v4(2.0, 2.0, 2.0, 2.0), 2.0);
 
@@ -161,8 +161,8 @@ void testVector4ListAddScaled() {
 }
 
 void testVector4ListSub() {
-  final list = new Vector4List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+  final list = Vector4List.view(
+      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
 
   list.sub(1, $v4(2.0, 2.0, 2.0, 2.0));
 
@@ -177,8 +177,8 @@ void testVector4ListSub() {
 }
 
 void testVector4ListMultiply() {
-  final list = new Vector4List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+  final list = Vector4List.view(
+      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
 
   list.multiply(1, $v4(2.0, 3.0, 4.0, 5.0));
 
@@ -193,8 +193,8 @@ void testVector4ListMultiply() {
 }
 
 void testVector4ListScale() {
-  final list = new Vector4List.view(
-      new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+  final list = Vector4List.view(
+      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
 
   list.scale(1, 2.0);
 

@@ -2,10 +2,13 @@
 
 # Fast fail the script on failures.
 set -e
+set -x
 
 if [ "$TRAVIS_DART_VERSION" = "dev" ]; then
   dartfmt -n --set-exit-if-changed .
 fi
+
+dartanalyzer --fatal-warnings --fatal-infos .
 
 # Run the tests.
 pub run test

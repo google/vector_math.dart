@@ -17,18 +17,18 @@ class Ray {
 
   /// Create a new, uninitialized ray.
   Ray()
-      : _origin = new Vector3.zero(),
-        _direction = new Vector3.zero();
+      : _origin = Vector3.zero(),
+        _direction = Vector3.zero();
 
   /// Create a ray as a copy of [other].
   Ray.copy(Ray other)
-      : _origin = new Vector3.copy(other._origin),
-        _direction = new Vector3.copy(other._direction);
+      : _origin = Vector3.copy(other._origin),
+        _direction = Vector3.copy(other._direction);
 
   /// Create a ray with an [origin] and a [direction].
   Ray.originDirection(Vector3 origin, Vector3 direction)
-      : _origin = new Vector3.copy(origin),
-        _direction = new Vector3.copy(direction);
+      : _origin = Vector3.copy(origin),
+        _direction = Vector3.copy(direction);
 
   /// Copy the [origin] and [direction] from [other] into [this].
   void copyFrom(Ray other) {
@@ -71,11 +71,11 @@ class Ray {
   // Some varaibles that are used for intersectsWithTriangle and
   // intersectsWithQuad. The performance is better in Dart and JS if we avoid
   // to create temporary instance over and over. Also reduce GC.
-  static final Vector3 _e1 = new Vector3.zero();
-  static final Vector3 _e2 = new Vector3.zero();
-  static final Vector3 _q = new Vector3.zero();
-  static final Vector3 _s = new Vector3.zero();
-  static final Vector3 _r = new Vector3.zero();
+  static final Vector3 _e1 = Vector3.zero();
+  static final Vector3 _e2 = Vector3.zero();
+  static final Vector3 _q = Vector3.zero();
+  static final Vector3 _s = Vector3.zero();
+  static final Vector3 _r = Vector3.zero();
 
   /// Return the distance from the origin of [this] to the intersection with
   /// [other] if [this] intersects with [other], or null if the don't intersect.

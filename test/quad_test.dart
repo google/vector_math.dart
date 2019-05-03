@@ -11,30 +11,23 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testQuadCopyNormalInto() {
-  final quad = new Quad.points(
-      new Vector3(1.0, 0.0, 1.0),
-      new Vector3(0.0, 2.0, 1.0),
-      new Vector3(1.0, 0.0, 0.0),
-      new Vector3(0.0, 2.0, 0.0));
-  final normal = new Vector3.zero();
+  final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
+      Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
+  final normal = Vector3.zero();
 
   quad.copyNormalInto(normal);
 
-  relativeTest(
-      normal, new Vector3(-0.8944271802902222, -0.4472135901451111, 0.0));
+  relativeTest(normal, Vector3(-0.8944271802902222, -0.4472135901451111, 0.0));
 }
 
 void testQuadCopyTriangles() {
-  final quad = new Quad.points(
-      new Vector3(1.0, 0.0, 1.0),
-      new Vector3(0.0, 2.0, 1.0),
-      new Vector3(1.0, 0.0, 0.0),
-      new Vector3(0.0, 2.0, 0.0));
-  final t1 = new Triangle();
-  final t2 = new Triangle();
-  final normal = new Vector3.zero();
-  final t1Normal = new Vector3.zero();
-  final t2Normal = new Vector3.zero();
+  final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
+      Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
+  final t1 = Triangle();
+  final t2 = Triangle();
+  final normal = Vector3.zero();
+  final t1Normal = Vector3.zero();
+  final t2Normal = Vector3.zero();
 
   quad.copyNormalInto(normal);
 

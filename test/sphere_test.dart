@@ -11,7 +11,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testSphereContainsVector3() {
-  final parent = new Sphere.centerRadius($v3(1.0, 1.0, 1.0), 2.0);
+  final parent = Sphere.centerRadius($v3(1.0, 1.0, 1.0), 2.0);
   final child = $v3(1.0, 1.0, 2.0);
   final cutting = $v3(1.0, 3.0, 1.0);
   final outside = $v3(-10.0, 10.0, 10.0);
@@ -22,7 +22,7 @@ void testSphereContainsVector3() {
 }
 
 void testSphereIntersectionVector3() {
-  final parent = new Sphere.centerRadius($v3(1.0, 1.0, 1.0), 2.0);
+  final parent = Sphere.centerRadius($v3(1.0, 1.0, 1.0), 2.0);
   final child = $v3(1.0, 1.0, 2.0);
   final cutting = $v3(1.0, 3.0, 1.0);
   final outside = $v3(-10.0, 10.0, 10.0);
@@ -33,10 +33,10 @@ void testSphereIntersectionVector3() {
 }
 
 void testSphereIntersectionSphere() {
-  final parent = new Sphere.centerRadius($v3(1.0, 1.0, 1.0), 2.0);
-  final child = new Sphere.centerRadius($v3(1.0, 1.0, 2.0), 1.0);
-  final cutting = new Sphere.centerRadius($v3(1.0, 6.0, 1.0), 3.0);
-  final outside = new Sphere.centerRadius($v3(10.0, -1.0, 1.0), 1.0);
+  final parent = Sphere.centerRadius($v3(1.0, 1.0, 1.0), 2.0);
+  final child = Sphere.centerRadius($v3(1.0, 1.0, 2.0), 1.0);
+  final cutting = Sphere.centerRadius($v3(1.0, 6.0, 1.0), 3.0);
+  final outside = Sphere.centerRadius($v3(10.0, -1.0, 1.0), 1.0);
 
   expect(parent.intersectsWithSphere(child), isTrue);
   expect(parent.intersectsWithSphere(cutting), isTrue);

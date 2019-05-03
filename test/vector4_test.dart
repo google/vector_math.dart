@@ -15,8 +15,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testVector4InstacinfFromFloat32List() {
-  final float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
-  final input = new Vector4.fromFloat32List(float32List);
+  final float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final input = Vector4.fromFloat32List(float32List);
 
   expect(input.x, equals(1.0));
   expect(input.y, equals(2.0));
@@ -25,11 +25,10 @@ void testVector4InstacinfFromFloat32List() {
 }
 
 void testVector4InstacingFromByteBuffer() {
-  final float32List = new Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
+  final float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
   final buffer = float32List.buffer;
-  final zeroOffset = new Vector4.fromBuffer(buffer, 0);
-  final offsetVector =
-      new Vector4.fromBuffer(buffer, Float32List.bytesPerElement);
+  final zeroOffset = Vector4.fromBuffer(buffer, 0);
+  final offsetVector = Vector4.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
@@ -43,8 +42,8 @@ void testVector4InstacingFromByteBuffer() {
 }
 
 void testVector4Add() {
-  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
-  final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+  final Vector4 a = Vector4(5.0, 7.0, 3.0, 10.0);
+  final Vector4 b = Vector4(3.0, 8.0, 2.0, 2.0);
 
   a.add(b);
   expect(a.x, equals(8.0));
@@ -60,10 +59,10 @@ void testVector4Add() {
 }
 
 void testVector4MinMax() {
-  final Vector4 a = new Vector4(5.0, 7.0, -3.0, 10.0);
-  final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+  final Vector4 a = Vector4(5.0, 7.0, -3.0, 10.0);
+  final Vector4 b = Vector4(3.0, 8.0, 2.0, 2.0);
 
-  Vector4 result = new Vector4.zero();
+  Vector4 result = Vector4.zero();
 
   Vector4.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -79,10 +78,10 @@ void testVector4MinMax() {
 }
 
 void testVector4Mix() {
-  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
-  final Vector4 b = new Vector4(3.0, 8.0, 2.0, 2.0);
+  final Vector4 a = Vector4(5.0, 7.0, 3.0, 10.0);
+  final Vector4 b = Vector4(3.0, 8.0, 2.0, 2.0);
 
-  Vector4 result = new Vector4.zero();
+  Vector4 result = Vector4.zero();
 
   Vector4.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -104,19 +103,19 @@ void testVector4Mix() {
 }
 
 void testVector4Constructor() {
-  var v1 = new Vector4(2.0, 4.0, -1.5, 10.0);
+  var v1 = Vector4(2.0, 4.0, -1.5, 10.0);
   expect(v1.x, equals(2.0));
   expect(v1.y, equals(4.0));
   expect(v1.z, equals(-1.5));
   expect(v1.w, equals(10.0));
 
-  var v2 = new Vector4.all(2.0);
+  var v2 = Vector4.all(2.0);
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
   expect(v2.w, equals(2.0));
 
-  var v3 = new Vector4.random(new math.Random());
+  var v3 = Vector4.random(math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -128,7 +127,7 @@ void testVector4Constructor() {
 }
 
 void testVector4Length() {
-  final Vector4 a = new Vector4(5.0, 7.0, 3.0, 10.0);
+  final Vector4 a = Vector4(5.0, 7.0, 3.0, 10.0);
 
   relativeTest(a.length, 13.5277);
   relativeTest(a.length2, 183.0);
@@ -141,36 +140,36 @@ void testVector4Length() {
 }
 
 void testVector4SetLength() {
-  final v0 = new Vector4(1.0, 2.0, 1.0, 1.0);
-  final v1 = new Vector4(3.0, -2.0, 2.0, 1.0);
-  final v2 = new Vector4(-1.0, 2.0, -2.0, -3.0);
-  final v3 = new Vector4(1.0, 0.0, 0.0, 0.0);
+  final v0 = Vector4(1.0, 2.0, 1.0, 1.0);
+  final v1 = Vector4(3.0, -2.0, 2.0, 1.0);
+  final v2 = Vector4(-1.0, 2.0, -2.0, -3.0);
+  final v3 = Vector4(1.0, 0.0, 0.0, 0.0);
 
   v0.length = 0.0;
-  relativeTest(v0, new Vector4.zero());
+  relativeTest(v0, Vector4.zero());
   relativeTest(v0.length, 0.0);
 
   v1.length = 2.0;
   relativeTest(
       v1,
-      new Vector4(1.4142135381698608, -0.9428090453147888, 0.9428090453147888,
+      Vector4(1.4142135381698608, -0.9428090453147888, 0.9428090453147888,
           0.4714045226573944));
   relativeTest(v1.length, 2.0);
 
   v2.length = 0.5;
   relativeTest(
       v2,
-      new Vector4(-0.1178511306643486, 0.2357022613286972, -0.2357022613286972,
+      Vector4(-0.1178511306643486, 0.2357022613286972, -0.2357022613286972,
           -0.3535533845424652));
   relativeTest(v2.length, 0.5);
 
   v3.length = -1.0;
-  relativeTest(v3, new Vector4(-1.0, 0.0, 0.0, 0.0));
+  relativeTest(v3, Vector4(-1.0, 0.0, 0.0, 0.0));
   relativeTest(v3.length, 1.0);
 }
 
 void testVector4Negate() {
-  var vec3 = new Vector4(1.0, 2.0, 3.0, 4.0);
+  var vec3 = Vector4(1.0, 2.0, 3.0, 4.0);
   vec3.negate();
   expect(vec3.x, equals(-1.0));
   expect(vec3.y, equals(-2.0));
@@ -179,29 +178,29 @@ void testVector4Negate() {
 }
 
 void testVector4Equals() {
-  var v4 = new Vector4(1.0, 2.0, 3.0, 4.0);
-  expect(v4 == new Vector4(1.0, 2.0, 3.0, 4.0), isTrue);
-  expect(v4 == new Vector4(0.0, 2.0, 3.0, 4.0), isFalse);
-  expect(v4 == new Vector4(1.0, 0.0, 3.0, 4.0), isFalse);
-  expect(v4 == new Vector4(1.0, 2.0, 0.0, 4.0), isFalse);
-  expect(v4 == new Vector4(1.0, 2.0, 3.0, 0.0), isFalse);
-  expect(new Vector4(1.0, 2.0, 3.0, 4.0).hashCode,
-      equals(new Vector4(1.0, 2.0, 3.0, 4.0).hashCode));
+  var v4 = Vector4(1.0, 2.0, 3.0, 4.0);
+  expect(v4 == Vector4(1.0, 2.0, 3.0, 4.0), isTrue);
+  expect(v4 == Vector4(0.0, 2.0, 3.0, 4.0), isFalse);
+  expect(v4 == Vector4(1.0, 0.0, 3.0, 4.0), isFalse);
+  expect(v4 == Vector4(1.0, 2.0, 0.0, 4.0), isFalse);
+  expect(v4 == Vector4(1.0, 2.0, 3.0, 0.0), isFalse);
+  expect(Vector4(1.0, 2.0, 3.0, 4.0).hashCode,
+      equals(Vector4(1.0, 2.0, 3.0, 4.0).hashCode));
 }
 
 void testVector4DistanceTo() {
-  var a = new Vector4(1.0, 1.0, 1.0, 0.0);
-  var b = new Vector4(1.0, 3.0, 1.0, 0.0);
-  var c = new Vector4(1.0, 1.0, -1.0, 0.0);
+  var a = Vector4(1.0, 1.0, 1.0, 0.0);
+  var b = Vector4(1.0, 3.0, 1.0, 0.0);
+  var c = Vector4(1.0, 1.0, -1.0, 0.0);
 
   expect(a.distanceTo(b), equals(2.0));
   expect(a.distanceTo(c), equals(2.0));
 }
 
 void testVector4DistanceToSquared() {
-  var a = new Vector4(1.0, 1.0, 1.0, 0.0);
-  var b = new Vector4(1.0, 3.0, 1.0, 0.0);
-  var c = new Vector4(1.0, 1.0, -1.0, 0.0);
+  var a = Vector4(1.0, 1.0, 1.0, 0.0);
+  var b = Vector4(1.0, 3.0, 1.0, 0.0);
+  var c = Vector4(1.0, 1.0, -1.0, 0.0);
 
   expect(a.distanceToSquared(b), equals(4.0));
   expect(a.distanceToSquared(c), equals(4.0));
@@ -209,25 +208,24 @@ void testVector4DistanceToSquared() {
 
 void testVector4Clamp() {
   final x = 2.0, y = 3.0, z = 4.0, w = 5.0;
-  final v0 = new Vector4(x, y, z, w);
-  final v1 = new Vector4(-x, -y, -z, -w);
-  final v2 = new Vector4(-2.0 * x, 2.0 * y, -2.0 * z, 2.0 * w)..clamp(v1, v0);
+  final v0 = Vector4(x, y, z, w);
+  final v1 = Vector4(-x, -y, -z, -w);
+  final v2 = Vector4(-2.0 * x, 2.0 * y, -2.0 * z, 2.0 * w)..clamp(v1, v0);
 
   expect(v2.storage, orderedEquals(<double>[-x, y, -z, w]));
 }
 
 void testVector4ClampScalar() {
   final x = 2.0;
-  final v0 = new Vector4(-2.0 * x, 2.0 * x, -2.0 * x, 2.0 * x)
-    ..clampScalar(-x, x);
+  final v0 = Vector4(-2.0 * x, 2.0 * x, -2.0 * x, 2.0 * x)..clampScalar(-x, x);
 
   expect(v0.storage, orderedEquals(<double>[-x, x, -x, x]));
 }
 
 void testVector4Floor() {
-  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..floor();
-  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..floor();
-  final v2 = new Vector4(-0.9, 0.9, -0.5, 0.9)..floor();
+  final v0 = Vector4(-0.1, 0.1, -0.1, 0.1)..floor();
+  final v1 = Vector4(-0.5, 0.5, -0.5, 0.5)..floor();
+  final v2 = Vector4(-0.9, 0.9, -0.5, 0.9)..floor();
 
   expect(v0.storage, orderedEquals(<double>[-1.0, 0.0, -1.0, 0.0]));
   expect(v1.storage, orderedEquals(<double>[-1.0, 0.0, -1.0, 0.0]));
@@ -235,9 +233,9 @@ void testVector4Floor() {
 }
 
 void testVector4Ceil() {
-  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..ceil();
-  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..ceil();
-  final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..ceil();
+  final v0 = Vector4(-0.1, 0.1, -0.1, 0.1)..ceil();
+  final v1 = Vector4(-0.5, 0.5, -0.5, 0.5)..ceil();
+  final v2 = Vector4(-0.9, 0.9, -0.9, 0.9)..ceil();
 
   expect(v0.storage, orderedEquals(<double>[0.0, 1.0, 0.0, 1.0]));
   expect(v1.storage, orderedEquals(<double>[0.0, 1.0, 0.0, 1.0]));
@@ -245,9 +243,9 @@ void testVector4Ceil() {
 }
 
 void testVector4Round() {
-  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..round();
-  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..round();
-  final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..round();
+  final v0 = Vector4(-0.1, 0.1, -0.1, 0.1)..round();
+  final v1 = Vector4(-0.5, 0.5, -0.5, 0.5)..round();
+  final v2 = Vector4(-0.9, 0.9, -0.9, 0.9)..round();
 
   expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));
   expect(v1.storage, orderedEquals(<double>[-1.0, 1.0, -1.0, 1.0]));
@@ -255,12 +253,12 @@ void testVector4Round() {
 }
 
 void testVector4RoundToZero() {
-  final v0 = new Vector4(-0.1, 0.1, -0.1, 0.1)..roundToZero();
-  final v1 = new Vector4(-0.5, 0.5, -0.5, 0.5)..roundToZero();
-  final v2 = new Vector4(-0.9, 0.9, -0.9, 0.9)..roundToZero();
-  final v3 = new Vector4(-1.1, 1.1, -1.1, 1.1)..roundToZero();
-  final v4 = new Vector4(-1.5, 1.5, -1.5, 1.5)..roundToZero();
-  final v5 = new Vector4(-1.9, 1.9, -1.9, 1.9)..roundToZero();
+  final v0 = Vector4(-0.1, 0.1, -0.1, 0.1)..roundToZero();
+  final v1 = Vector4(-0.5, 0.5, -0.5, 0.5)..roundToZero();
+  final v2 = Vector4(-0.9, 0.9, -0.9, 0.9)..roundToZero();
+  final v3 = Vector4(-1.1, 1.1, -1.1, 1.1)..roundToZero();
+  final v4 = Vector4(-1.5, 1.5, -1.5, 1.5)..roundToZero();
+  final v5 = Vector4(-1.9, 1.9, -1.9, 1.9)..roundToZero();
 
   expect(v0.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));
   expect(v1.storage, orderedEquals(<double>[0.0, 0.0, 0.0, 0.0]));

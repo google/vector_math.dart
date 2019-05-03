@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 import 'package:vector_math/vector_math_lists.dart';
 
 void testScalarListViewWithOffset() {
-  final list = new ScalarListView(10, 1);
+  final list = ScalarListView(10, 1);
   list[0] = 1.0;
   expect(list[0], equals(1.0));
   expect(list.buffer[0], equals(0.0)); // unset
@@ -22,8 +22,8 @@ void testScalarListViewWithOffset() {
 }
 
 void testScalarListView() {
-  final buffer = new Float32List(10);
-  final list = new ScalarListView.view(buffer, 1, 4);
+  final buffer = Float32List(10);
+  final list = ScalarListView.view(buffer, 1, 4);
   expect(list.length, 2);
   list[0] = 1.0;
   list[1] = 4.0;
@@ -40,11 +40,11 @@ void testScalarListView() {
 }
 
 void testScalarListViewFromList() {
-  List<double> input = new List<double>(3);
+  List<double> input = List<double>(3);
   input[0] = 1.0;
   input[1] = 4.0;
   input[2] = 7.0;
-  final list = new ScalarListView.fromList(input, 2, 3);
+  final list = ScalarListView.fromList(input, 2, 3);
   expect(list.buffer.length, 11);
   expect(list.buffer[0], 0.0);
   expect(list.buffer[1], 0.0);

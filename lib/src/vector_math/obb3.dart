@@ -29,28 +29,28 @@ class Obb3 {
 
   /// Create a new OBB with erverything set to zero.
   Obb3()
-      : _center = new Vector3.zero(),
-        _halfExtents = new Vector3.zero(),
-        _axis0 = new Vector3(1.0, 0.0, 0.0),
-        _axis1 = new Vector3(0.0, 1.0, 0.0),
-        _axis2 = new Vector3(0.0, 0.0, 1.0);
+      : _center = Vector3.zero(),
+        _halfExtents = Vector3.zero(),
+        _axis0 = Vector3(1.0, 0.0, 0.0),
+        _axis1 = Vector3(0.0, 1.0, 0.0),
+        _axis2 = Vector3(0.0, 0.0, 1.0);
 
   /// Create a new OBB as a copy of [other].
   Obb3.copy(Obb3 other)
-      : _center = new Vector3.copy(other._center),
-        _halfExtents = new Vector3.copy(other._halfExtents),
-        _axis0 = new Vector3.copy(other._axis0),
-        _axis1 = new Vector3.copy(other._axis1),
-        _axis2 = new Vector3.copy(other._axis2);
+      : _center = Vector3.copy(other._center),
+        _halfExtents = Vector3.copy(other._halfExtents),
+        _axis0 = Vector3.copy(other._axis0),
+        _axis1 = Vector3.copy(other._axis1),
+        _axis2 = Vector3.copy(other._axis2);
 
   /// Create a new OBB using [center], [halfExtents] and axis.
   Obb3.centerExtentsAxes(Vector3 center, Vector3 halfExtents, Vector3 axis0,
       Vector3 axis1, Vector3 axis2)
-      : _center = new Vector3.copy(center),
-        _halfExtents = new Vector3.copy(halfExtents),
-        _axis0 = new Vector3.copy(axis0),
-        _axis1 = new Vector3.copy(axis1),
-        _axis2 = new Vector3.copy(axis2);
+      : _center = Vector3.copy(center),
+        _halfExtents = Vector3.copy(halfExtents),
+        _axis0 = Vector3.copy(axis0),
+        _axis1 = Vector3.copy(axis1),
+        _axis2 = Vector3.copy(axis2);
 
   /// Copy from [other] into [this].
   void copyFrom(Obb3 other) {
@@ -187,9 +187,9 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithObb3
-  static final Matrix3 _r = new Matrix3.zero();
-  static final Matrix3 _absR = new Matrix3.zero();
-  static final Vector3 _t = new Vector3.zero();
+  static final Matrix3 _r = Matrix3.zero();
+  static final Matrix3 _absR = Matrix3.zero();
+  static final Vector3 _t = Vector3.zero();
 
   /// Check for intersection between [this] and [other].
   bool intersectsWithObb3(Obb3 other, [double epsilon = 1e-3]) {
@@ -339,9 +339,9 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Triangle _triangle = new Triangle();
-  static final Aabb3 _aabb3 = new Aabb3();
-  static final Vector3 _zeroVector = new Vector3.zero();
+  static final Triangle _triangle = Triangle();
+  static final Aabb3 _aabb3 = Aabb3();
+  static final Vector3 _zeroVector = Vector3.zero();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithTriangle(Triangle other, {IntersectionResult result}) {
@@ -366,7 +366,7 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithVector3
-  static final Vector3 _vector = new Vector3.zero();
+  static final Vector3 _vector = Vector3.zero();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithVector3(Vector3 other) {
@@ -381,8 +381,8 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Triangle _quadTriangle0 = new Triangle();
-  static final Triangle _quadTriangle1 = new Triangle();
+  static final Triangle _quadTriangle0 = Triangle();
+  static final Triangle _quadTriangle1 = Triangle();
 
   /// Return if [this] intersects with [other]
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {

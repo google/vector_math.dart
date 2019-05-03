@@ -13,7 +13,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testAabb2Center() {
-  final aabb = new Aabb2.minMax($v2(1.0, 2.0), $v2(8.0, 16.0));
+  final aabb = Aabb2.minMax($v2(1.0, 2.0), $v2(8.0, 16.0));
   final center = aabb.center;
 
   expect(center.x, equals(4.5));
@@ -21,11 +21,11 @@ void testAabb2Center() {
 }
 
 void testAabb2CopyCenterAndHalfExtents() {
-  final a1 = new Aabb2.minMax($v2(10.0, 20.0), $v2(20.0, 40.0));
-  final a2 = new Aabb2.minMax($v2(-10.0, -20.0), $v2(0.0, 0.0));
+  final a1 = Aabb2.minMax($v2(10.0, 20.0), $v2(20.0, 40.0));
+  final a2 = Aabb2.minMax($v2(-10.0, -20.0), $v2(0.0, 0.0));
 
-  final center = new Vector2.zero();
-  final halfExtents = new Vector2.zero();
+  final center = Vector2.zero();
+  final halfExtents = Vector2.zero();
 
   a1.copyCenterAndHalfExtents(center, halfExtents);
 
@@ -39,8 +39,8 @@ void testAabb2CopyCenterAndHalfExtents() {
 }
 
 void testAabb2CenterAndHalfExtents() {
-  final a1 = new Aabb2.centerAndHalfExtents($v2(0.0, 0.0), $v2(10.0, 20.0));
-  final a2 = new Aabb2.centerAndHalfExtents($v2(-10.0, -20.0), $v2(10.0, 20.0));
+  final a1 = Aabb2.centerAndHalfExtents($v2(0.0, 0.0), $v2(10.0, 20.0));
+  final a2 = Aabb2.centerAndHalfExtents($v2(-10.0, -20.0), $v2(10.0, 20.0));
 
   relativeTest(a1.min, $v2(-10.0, -20.0));
   relativeTest(a1.max, $v2(10.0, 20.0));
@@ -50,8 +50,8 @@ void testAabb2CenterAndHalfExtents() {
 }
 
 void testAabb2SetCenterAndHalfExtents() {
-  final a1 = new Aabb2();
-  final a2 = new Aabb2();
+  final a1 = Aabb2();
+  final a2 = Aabb2();
 
   a1.setCenterAndHalfExtents($v2(0.0, 0.0), $v2(10.0, 20.0));
 
@@ -65,11 +65,11 @@ void testAabb2SetCenterAndHalfExtents() {
 }
 
 void testAabb2ContainsAabb2() {
-  final parent = new Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
-  final child = new Aabb2.minMax($v2(2.0, 2.0), $v2(7.0, 7.0));
-  final cutting = new Aabb2.minMax($v2(0.0, 0.0), $v2(5.0, 5.0));
-  final outside = new Aabb2.minMax($v2(10.0, 10.0), $v2(20.0, 20.0));
-  final grandParent = new Aabb2.minMax($v2(0.0, 0.0), $v2(10.0, 10.0));
+  final parent = Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
+  final child = Aabb2.minMax($v2(2.0, 2.0), $v2(7.0, 7.0));
+  final cutting = Aabb2.minMax($v2(0.0, 0.0), $v2(5.0, 5.0));
+  final outside = Aabb2.minMax($v2(10.0, 10.0), $v2(20.0, 20.0));
+  final grandParent = Aabb2.minMax($v2(0.0, 0.0), $v2(10.0, 10.0));
 
   expect(parent.containsAabb2(child), isTrue);
   expect(parent.containsAabb2(parent), isFalse);
@@ -79,7 +79,7 @@ void testAabb2ContainsAabb2() {
 }
 
 void testAabb2ContainsVector2() {
-  final parent = new Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
+  final parent = Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
   final child = $v2(2.0, 2.0);
   final cutting = $v2(1.0, 8.0);
   final outside = $v2(-1.0, 0.0);
@@ -90,15 +90,15 @@ void testAabb2ContainsVector2() {
 }
 
 void testAabb2IntersectionAabb2() {
-  final parent = new Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
-  final child = new Aabb2.minMax($v2(2.0, 2.0), $v2(7.0, 7.0));
-  final cutting = new Aabb2.minMax($v2(0.0, 0.0), $v2(5.0, 5.0));
-  final outside = new Aabb2.minMax($v2(10.0, 10.0), $v2(20.0, 20.0));
-  final grandParent = new Aabb2.minMax($v2(0.0, 0.0), $v2(10.0, 10.0));
+  final parent = Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
+  final child = Aabb2.minMax($v2(2.0, 2.0), $v2(7.0, 7.0));
+  final cutting = Aabb2.minMax($v2(0.0, 0.0), $v2(5.0, 5.0));
+  final outside = Aabb2.minMax($v2(10.0, 10.0), $v2(20.0, 20.0));
+  final grandParent = Aabb2.minMax($v2(0.0, 0.0), $v2(10.0, 10.0));
 
-  final siblingOne = new Aabb2.minMax($v2(0.0, 0.0), $v2(3.0, 3.0));
-  final siblingTwo = new Aabb2.minMax($v2(3.0, 0.0), $v2(6.0, 3.0));
-  final siblingThree = new Aabb2.minMax($v2(3.0, 3.0), $v2(6.0, 6.0));
+  final siblingOne = Aabb2.minMax($v2(0.0, 0.0), $v2(3.0, 3.0));
+  final siblingTwo = Aabb2.minMax($v2(3.0, 0.0), $v2(6.0, 3.0));
+  final siblingThree = Aabb2.minMax($v2(3.0, 3.0), $v2(6.0, 6.0));
 
   expect(parent.intersectsWithAabb2(child), isTrue);
   expect(child.intersectsWithAabb2(parent), isTrue);
@@ -121,7 +121,7 @@ void testAabb2IntersectionAabb2() {
 }
 
 void testAabb2IntersectionVector2() {
-  final parent = new Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
+  final parent = Aabb2.minMax($v2(1.0, 1.0), $v2(8.0, 8.0));
   final child = $v2(2.0, 2.0);
   final cutting = $v2(1.0, 8.0);
   final outside = $v2(-1.0, 0.0);
@@ -132,8 +132,8 @@ void testAabb2IntersectionVector2() {
 }
 
 void testAabb2Hull() {
-  final a = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 4.0));
-  final b = new Aabb2.minMax($v2(3.0, 2.0), $v2(6.0, 2.0));
+  final a = Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 4.0));
+  final b = Aabb2.minMax($v2(3.0, 2.0), $v2(6.0, 2.0));
 
   a.hull(b);
 
@@ -144,7 +144,7 @@ void testAabb2Hull() {
 }
 
 void testAabb2HullPoint() {
-  final a = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 4.0));
+  final a = Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 4.0));
   final b = $v2(6.0, 2.0);
 
   a.hullPoint(b);
@@ -165,8 +165,8 @@ void testAabb2HullPoint() {
 }
 
 void testAabb2Rotate() {
-  final rotation = new Matrix3.rotationZ(math.pi / 4);
-  final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
+  final rotation = Matrix3.rotationZ(math.pi / 4);
+  final input = Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
   final result = input..rotate(rotation);
 
@@ -179,8 +179,8 @@ void testAabb2Rotate() {
 }
 
 void testAabb2Transform() {
-  final rotation = new Matrix3.rotationZ(math.pi / 4);
-  final input = new Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
+  final rotation = Matrix3.rotationZ(math.pi / 4);
+  final input = Aabb2.minMax($v2(1.0, 1.0), $v2(3.0, 3.0));
 
   final result = input..transform(rotation);
   final newCenterY = math.sqrt(8);

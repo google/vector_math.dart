@@ -98,12 +98,12 @@ class SimplexNoise {
       g[0] * x + g[1] * y + g[2] * z + g[3] * w;
 
   SimplexNoise([math.Random r]) {
-    r ??= new math.Random();
+    r ??= math.Random();
     final List<int> p =
-        new List<int>.generate(256, (_) => r.nextInt(256), growable: false);
-    _perm = new List<int>.generate(p.length * 2, (int i) => p[i % p.length],
+        List<int>.generate(256, (_) => r.nextInt(256), growable: false);
+    _perm = List<int>.generate(p.length * 2, (int i) => p[i % p.length],
         growable: false);
-    _permMod12 = new List<int>.generate(_perm.length, (int i) => _perm[i] % 12,
+    _permMod12 = List<int>.generate(_perm.length, (int i) => _perm[i] % 12,
         growable: false);
   }
 

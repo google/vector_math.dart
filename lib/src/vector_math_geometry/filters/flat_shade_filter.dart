@@ -7,27 +7,25 @@ part of vector_math_geometry;
 class FlatShadeFilter extends GeometryFilter {
   @override
   List<VertexAttrib> get requires =>
-      <VertexAttrib>[new VertexAttrib('POSITION', 3, 'float')];
+      <VertexAttrib>[VertexAttrib('POSITION', 3, 'float')];
 
   @override
   List<VertexAttrib> get generates =>
-      <VertexAttrib>[new VertexAttrib('NORMAL', 3, 'float')];
+      <VertexAttrib>[VertexAttrib('NORMAL', 3, 'float')];
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
     final List<VertexAttrib> newAttribs =
-        new List<VertexAttrib>.from(mesh.attribs, growable: true);
+        List<VertexAttrib>.from(mesh.attribs, growable: true);
 
     if (mesh.getAttrib('NORMAL') == null) {
-      newAttribs.add(new VertexAttrib('NORMAL', 3, 'float'));
+      newAttribs.add(VertexAttrib('NORMAL', 3, 'float'));
     }
 
     final MeshGeometry output =
-        new MeshGeometry(mesh.triangleVertexCount, newAttribs);
+        MeshGeometry(mesh.triangleVertexCount, newAttribs);
 
-    final Vector3 p0 = new Vector3.zero(),
-        p1 = new Vector3.zero(),
-        p2 = new Vector3.zero();
+    final Vector3 p0 = Vector3.zero(), p1 = Vector3.zero(), p2 = Vector3.zero();
 
     final VectorList<Vector> srcPosition = mesh.getViewForAttrib('POSITION');
     final VectorList<Vector> destPosition = output.getViewForAttrib('POSITION');

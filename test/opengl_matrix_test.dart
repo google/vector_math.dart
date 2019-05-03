@@ -12,9 +12,9 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testUnproject() {
-  Vector3 position = new Vector3(0.0, 0.0, 0.0);
-  Vector3 focusPosition = new Vector3(0.0, 0.0, -1.0);
-  Vector3 upDirection = new Vector3(0.0, 1.0, 0.0);
+  Vector3 position = Vector3(0.0, 0.0, 0.0);
+  Vector3 focusPosition = Vector3(0.0, 0.0, -1.0);
+  Vector3 upDirection = Vector3(0.0, 1.0, 0.0);
   Matrix4 lookat = makeViewMatrix(position, focusPosition, upDirection);
   double n = 0.1;
   double f = 1000.0;
@@ -24,14 +24,14 @@ void testUnproject() {
   double t = 10.0;
   Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
   Matrix4 C = frustum * lookat as Matrix4;
-  Vector3 re = new Vector3.zero();
+  Vector3 re = Vector3.zero();
   unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
 }
 
 void testLookAt() {
-  Vector3 eyePosition = new Vector3(0.0, 0.0, 0.0);
-  Vector3 lookAtPosition = new Vector3(0.0, 0.0, -1.0);
-  Vector3 upDirection = new Vector3(0.0, 1.0, 0.0);
+  Vector3 eyePosition = Vector3(0.0, 0.0, 0.0);
+  Vector3 lookAtPosition = Vector3(0.0, 0.0, -1.0);
+  Vector3 upDirection = Vector3(0.0, 1.0, 0.0);
 
   Matrix4 lookat = makeViewMatrix(eyePosition, lookAtPosition, upDirection);
   assert(lookat.getColumn(0).w == 0.0);
@@ -39,9 +39,9 @@ void testLookAt() {
   assert(lookat.getColumn(2).w == 0.0);
   assert(lookat.getColumn(3).w == 1.0);
 
-  relativeTest(lookat.getColumn(0), new Vector4(1.0, 0.0, 0.0, 0.0));
-  relativeTest(lookat.getColumn(1), new Vector4(0.0, 1.0, 0.0, 0.0));
-  relativeTest(lookat.getColumn(2), new Vector4(0.0, 0.0, 1.0, 0.0));
+  relativeTest(lookat.getColumn(0), Vector4(1.0, 0.0, 0.0, 0.0));
+  relativeTest(lookat.getColumn(1), Vector4(0.0, 1.0, 0.0, 0.0));
+  relativeTest(lookat.getColumn(2), Vector4(0.0, 0.0, 1.0, 0.0));
 }
 
 void testFrustumMatrix() {
@@ -52,16 +52,12 @@ void testFrustumMatrix() {
   double b = -1.0;
   double t = 1.0;
   Matrix4 frustum = makeFrustumMatrix(l, r, b, t, n, f);
+  relativeTest(frustum.getColumn(0), Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
+  relativeTest(frustum.getColumn(1), Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
+  relativeTest(frustum.getColumn(2),
+      Vector4((r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
   relativeTest(
-      frustum.getColumn(0), new Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
-  relativeTest(
-      frustum.getColumn(1), new Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
-  relativeTest(
-      frustum.getColumn(2),
-      new Vector4(
-          (r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
-  relativeTest(
-      frustum.getColumn(3), new Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
+      frustum.getColumn(3), Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
 }
 
 void testPerspectiveMatrix() {
@@ -71,12 +67,11 @@ void testPerspectiveMatrix() {
   final double zFar = 100.0;
 
   Matrix4 perspective = makePerspectiveMatrix(fov, aspectRatio, zNear, zFar);
-  relativeTest(perspective.getColumn(0), new Vector4(0.5, 0.0, 0.0, 0.0));
-  relativeTest(perspective.getColumn(1), new Vector4(0.0, 1.0, 0.0, 0.0));
+  relativeTest(perspective.getColumn(0), Vector4(0.5, 0.0, 0.0, 0.0));
+  relativeTest(perspective.getColumn(1), Vector4(0.0, 1.0, 0.0, 0.0));
   relativeTest(
-      perspective.getColumn(2), new Vector4(0.0, 0.0, -101.0 / 99.0, -1.0));
-  relativeTest(
-      perspective.getColumn(3), new Vector4(0.0, 0.0, -200.0 / 99.0, 0.0));
+      perspective.getColumn(2), Vector4(0.0, 0.0, -101.0 / 99.0, -1.0));
+  relativeTest(perspective.getColumn(3), Vector4(0.0, 0.0, -200.0 / 99.0, 0.0));
 }
 
 void testInfiniteMatrix() {
@@ -85,10 +80,10 @@ void testInfiniteMatrix() {
   final double zNear = 1.0;
 
   Matrix4 infinite = makeInfiniteMatrix(fov, aspectRatio, zNear);
-  relativeTest(infinite.getColumn(0), new Vector4(0.5, 0.0, 0.0, 0.0));
-  relativeTest(infinite.getColumn(1), new Vector4(0.0, 1.0, 0.0, 0.0));
-  relativeTest(infinite.getColumn(2), new Vector4(0.0, 0.0, -1.0, -1.0));
-  relativeTest(infinite.getColumn(3), new Vector4(0.0, 0.0, -2.0, 0.0));
+  relativeTest(infinite.getColumn(0), Vector4(0.5, 0.0, 0.0, 0.0));
+  relativeTest(infinite.getColumn(1), Vector4(0.0, 1.0, 0.0, 0.0));
+  relativeTest(infinite.getColumn(2), Vector4(0.0, 0.0, -1.0, -1.0));
+  relativeTest(infinite.getColumn(3), Vector4(0.0, 0.0, -2.0, 0.0));
 }
 
 void testOrthographicMatrix() {
@@ -99,24 +94,22 @@ void testOrthographicMatrix() {
   double b = -1.0;
   double t = 1.0;
   Matrix4 ortho = makeOrthographicMatrix(l, r, b, t, n, f);
-  relativeTest(ortho.getColumn(0), new Vector4(2 / (r - l), 0.0, 0.0, 0.0));
-  relativeTest(ortho.getColumn(1), new Vector4(0.0, 2 / (t - b), 0.0, 0.0));
-  relativeTest(ortho.getColumn(2), new Vector4(0.0, 0.0, -2 / (f - n), 0.0));
-  relativeTest(
-      ortho.getColumn(3),
-      new Vector4(
-          -(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
+  relativeTest(ortho.getColumn(0), Vector4(2 / (r - l), 0.0, 0.0, 0.0));
+  relativeTest(ortho.getColumn(1), Vector4(0.0, 2 / (t - b), 0.0, 0.0));
+  relativeTest(ortho.getColumn(2), Vector4(0.0, 0.0, -2 / (f - n), 0.0));
+  relativeTest(ortho.getColumn(3),
+      Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
 }
 
 void testModelMatrix() {
-  Matrix4 view = new Matrix4.zero();
-  Vector3 position = new Vector3(1.0, 1.0, 1.0);
-  Vector3 focus = new Vector3(0.0, 0.0, -1.0);
-  Vector3 up = new Vector3(0.0, 1.0, 0.0);
+  Matrix4 view = Matrix4.zero();
+  Vector3 position = Vector3(1.0, 1.0, 1.0);
+  Vector3 focus = Vector3(0.0, 0.0, -1.0);
+  Vector3 up = Vector3(0.0, 1.0, 0.0);
 
   setViewMatrix(view, position, focus, up);
 
-  Matrix4 model = new Matrix4.zero();
+  Matrix4 model = Matrix4.zero();
 
   Vector3 forward = focus.clone();
   forward.sub(position);
@@ -130,7 +123,7 @@ void testModelMatrix() {
   Matrix4 result1 = view.clone();
   result1.multiply(model);
 
-  relativeTest(result1, new Matrix4.identity());
+  relativeTest(result1, Matrix4.identity());
 }
 
 void main() {

@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix2Adjoint() {
-  var input = new List<Matrix2>();
-  var expectedOutput = new List<Matrix2>();
+  var input = List<Matrix2>();
+  var expectedOutput = List<Matrix2>();
 
   input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
                                     0.585264091152724   0.917193663829810'''));
@@ -36,8 +36,8 @@ void testMatrix2Adjoint() {
 }
 
 void testMatrix2Determinant() {
-  var input = new List<Matrix2>();
-  List<double> expectedOutput = new List<double>();
+  var input = List<Matrix2>();
+  List<double> expectedOutput = List<double>();
 
   input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
                                     0.585264091152724   0.917193663829810'''));
@@ -53,14 +53,14 @@ void testMatrix2Determinant() {
 }
 
 void testMatrix2Transform() {
-  var rot = new Matrix2.rotation(math.pi / 4);
-  final input = new Vector2(0.234245234259, 0.890723489233);
+  var rot = Matrix2.rotation(math.pi / 4);
+  final input = Vector2(0.234245234259, 0.890723489233);
 
-  final expected = new Vector2(
+  final expected = Vector2(
       rot.entry(0, 0) * input.x + rot.entry(0, 1) * input.y,
       rot.entry(1, 0) * input.x + rot.entry(1, 1) * input.y);
 
-  final transExpected = new Vector2(
+  final transExpected = Vector2(
       rot.entry(0, 0) * input.x + rot.entry(1, 0) * input.y,
       rot.entry(0, 1) * input.x + rot.entry(1, 1) * input.y);
 
@@ -69,8 +69,8 @@ void testMatrix2Transform() {
 }
 
 void testMatrix2Inversion() {
-  Matrix2 m = new Matrix2(4.0, 3.0, 3.0, 2.0);
-  Matrix2 result = new Matrix2.zero();
+  Matrix2 m = Matrix2(4.0, 3.0, 3.0, 2.0);
+  Matrix2 result = Matrix2.zero();
   double det = result.copyInverse(m);
   expect(det, -1.0);
   expect(result.entry(0, 0), -2.0);
@@ -80,9 +80,9 @@ void testMatrix2Inversion() {
 }
 
 void testMatrix2Dot() {
-  final Matrix2 matrix = new Matrix2(1.0, 2.0, 3.0, 4.0);
+  final Matrix2 matrix = Matrix2(1.0, 2.0, 3.0, 4.0);
 
-  final Vector2 v = new Vector2(3.0, 4.0);
+  final Vector2 v = Vector2(3.0, 4.0);
 
   expect(matrix.dotRow(0, v), equals(15.0));
   expect(matrix.dotRow(1, v), equals(22.0));
@@ -91,7 +91,7 @@ void testMatrix2Dot() {
 }
 
 void testMatrix2Scale() {
-  final m = new Matrix2(1.0, 2.0, 3.0, 4.0);
+  final m = Matrix2(1.0, 2.0, 3.0, 4.0);
   final n = m.scaled(2.0);
 
   expect(n.storage[0], equals(2.0));
@@ -101,26 +101,25 @@ void testMatrix2Scale() {
 }
 
 void testMatrix2Solving() {
-  final Matrix2 A = new Matrix2(2.0, 2.0, 8.0, 20.0);
-  final Matrix2 AA = new Matrix2.fromList([2.0, 2.0, 8.0, 20.0]);
+  final Matrix2 A = Matrix2(2.0, 2.0, 8.0, 20.0);
+  final Matrix2 AA = Matrix2.fromList([2.0, 2.0, 8.0, 20.0]);
   expect(A, equals(AA));
-  final Vector2 b = new Vector2(20.0, 64.0);
-  final Vector2 result = new Vector2.zero();
+  final Vector2 b = Vector2(20.0, 64.0);
+  final Vector2 result = Vector2.zero();
 
   Matrix2.solve(A, result, b);
 
-  final Vector2 backwards = A.transform(new Vector2.copy(result));
+  final Vector2 backwards = A.transform(Vector2.copy(result));
 
   expect(backwards.x, equals(b.x));
   expect(backwards.y, equals(b.y));
 }
 
 void testMatrix2Equals() {
-  expect(new Matrix2.identity(), equals(new Matrix2.identity()));
-  expect(new Matrix2.zero(), isNot(equals(new Matrix2.identity())));
-  expect(new Matrix2.zero(), isNot(equals(5)));
-  expect(
-      new Matrix2.identity().hashCode, equals(new Matrix2.identity().hashCode));
+  expect(Matrix2.identity(), equals(Matrix2.identity()));
+  expect(Matrix2.zero(), isNot(equals(Matrix2.identity())));
+  expect(Matrix2.zero(), isNot(equals(5)));
+  expect(Matrix2.identity().hashCode, equals(Matrix2.identity().hashCode));
 }
 
 void main() {
