@@ -40,7 +40,7 @@ class Aabb2 {
   factory Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents) =>
       Aabb2()..setCenterAndHalfExtents(center, halfExtents);
 
-  /// Constructs [Aabb2] with a min/max [storage] that views given [buffer]
+  /// Constructs [Aabb2] with a min/max storage that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float32List.bytesPerElement].
   Aabb2.fromBuffer(ByteBuffer buffer, int offset)
@@ -58,7 +58,7 @@ class Aabb2 {
       ..add(halfExtents);
   }
 
-  /// Copy the [center] and the [halfExtends] of [this].
+  /// Copy the [center] and the [halfExtents] of this.
   void copyCenterAndHalfExtents(Vector2 center, Vector2 halfExtents) {
     center
       ..setFrom(_min)
@@ -70,13 +70,13 @@ class Aabb2 {
       ..scale(0.5);
   }
 
-  /// Copy the [min] and [max] from [other] into [this].
+  /// Copy the [min] and [max] from [other] into this.
   void copyFrom(Aabb2 other) {
     _min.setFrom(other._min);
     _max.setFrom(other._max);
   }
 
-  /// Transform [this] by the transform [t].
+  /// Transform this by the transform [t].
   void transform(Matrix3 t) {
     final Vector2 center = Vector2.zero();
     final Vector2 halfExtents = Vector2.zero();
@@ -92,7 +92,7 @@ class Aabb2 {
       ..add(halfExtents);
   }
 
-  /// Rotate [this] by the rotation matrix [t].
+  /// Rotate this by the rotation matrix [t].
   void rotate(Matrix3 t) {
     final Vector2 center = Vector2.zero();
     final Vector2 halfExtents = Vector2.zero();
@@ -106,32 +106,32 @@ class Aabb2 {
       ..add(halfExtents);
   }
 
-  /// Create a copy of [this] that is transformed by the transform [t] and store
+  /// Create a copy of this that is transformed by the transform [t] and store
   /// it in [out].
   Aabb2 transformed(Matrix3 t, Aabb2 out) => out
     ..copyFrom(this)
     ..transform(t);
 
-  /// Create a copy of [this] that is rotated by the rotation matrix [t] and
+  /// Create a copy of this that is rotated by the rotation matrix [t] and
   /// store it in [out].
   Aabb2 rotated(Matrix3 t, Aabb2 out) => out
     ..copyFrom(this)
     ..rotate(t);
 
-  /// Set the min and max of [this] so that [this] is a hull of [this] and
+  /// Set the min and max of this so that this is a hull of this and
   /// [other].
   void hull(Aabb2 other) {
     Vector2.min(_min, other._min, _min);
     Vector2.max(_max, other._max, _max);
   }
 
-  /// Set the min and max of [this] so that [this] contains [point].
+  /// Set the min and max of this so that this contains [point].
   void hullPoint(Vector2 point) {
     Vector2.min(_min, point, _min);
     Vector2.max(_max, point, _max);
   }
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsAabb2(Aabb2 other) {
     final Vector2 otherMax = other._max;
     final Vector2 otherMin = other._min;
@@ -142,14 +142,14 @@ class Aabb2 {
         (_max.x > otherMax.x);
   }
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsVector2(Vector2 other) =>
       (_min.x < other.x) &&
       (_min.y < other.y) &&
       (_max.x > other.x) &&
       (_max.y > other.y);
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithAabb2(Aabb2 other) {
     final Vector2 otherMax = other._max;
     final Vector2 otherMin = other._min;
@@ -160,7 +160,7 @@ class Aabb2 {
         (_max.y >= otherMin.y);
   }
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithVector2(Vector2 other) =>
       (_min.x <= other.x) &&
       (_min.y <= other.y) &&

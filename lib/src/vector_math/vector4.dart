@@ -188,7 +188,7 @@ class Vector4 implements Vector {
     return sum;
   }
 
-  /// Normalizes [this].
+  /// Normalizes this.
   double normalize() {
     final double l = length;
     if (l == 0.0) {
@@ -202,12 +202,12 @@ class Vector4 implements Vector {
     return l;
   }
 
-  /// Normalizes [this]. Returns length of vector before normalization.
+  /// Normalizes this. Returns length of vector before normalization.
   /// DEPRCATED: Use [normalize].
   @deprecated
   double normalizeLength() => normalize();
 
-  /// Normalizes copy of [this].
+  /// Normalizes copy of this.
   Vector4 normalized() => clone()..normalize();
 
   /// Normalize vector into [out].
@@ -218,10 +218,10 @@ class Vector4 implements Vector {
     return out;
   }
 
-  /// Distance from [this] to [arg]
+  /// Distance from this to [arg]
   double distanceTo(Vector4 arg) => math.sqrt(distanceToSquared(arg));
 
-  /// Squared distance from [this] to [arg]
+  /// Squared distance from this to [arg]
   double distanceToSquared(Vector4 arg) {
     final Float32List argStorage = arg._v4storage;
     final double dx = _v4storage[0] - argStorage[0];
@@ -243,7 +243,7 @@ class Vector4 implements Vector {
     return sum;
   }
 
-  /// Multiplies [this] by [arg].
+  /// Multiplies this by [arg].
   void applyMatrix4(Matrix4 arg) {
     final double v1 = _v4storage[0];
     final double v2 = _v4storage[1];
@@ -268,14 +268,14 @@ class Vector4 implements Vector {
         argStorage[15] * v4;
   }
 
-  /// Relative error between [this] and [correct]
+  /// Relative error between this and [correct]
   double relativeError(Vector4 correct) {
     final double correct_norm = correct.length;
     final double diff_norm = (this - correct).length;
     return diff_norm / correct_norm;
   }
 
-  /// Absolute error between [this] and [correct]
+  /// Absolute error between this and [correct]
   double absoluteError(Vector4 correct) => (this - correct).length;
 
   /// True if any component is infinite.
@@ -306,7 +306,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] + argStorage[3];
   }
 
-  /// Add [arg] scaled by [factor] to [this].
+  /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector4 arg, double factor) {
     final Float32List argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] + argStorage[0] * factor;
@@ -315,7 +315,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] + argStorage[3] * factor;
   }
 
-  /// Subtract [arg] from [this].
+  /// Subtract [arg] from this.
   void sub(Vector4 arg) {
     final Float32List argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] - argStorage[0];
@@ -324,7 +324,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] - argStorage[3];
   }
 
-  /// Multiply [this] by [arg].
+  /// Multiply this by [arg].
   void multiply(Vector4 arg) {
     final Float32List argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] * argStorage[0];
@@ -333,7 +333,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] * argStorage[3];
   }
 
-  /// Divide [this] by [arg].
+  /// Divide this by [arg].
   void div(Vector4 arg) {
     final Float32List argStorage = arg._v4storage;
     _v4storage[0] = _v4storage[0] / argStorage[0];
@@ -342,7 +342,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] / argStorage[3];
   }
 
-  /// Scale [this] by [arg].
+  /// Scale this by [arg].
   void scale(double arg) {
     _v4storage[0] = _v4storage[0] * arg;
     _v4storage[1] = _v4storage[1] * arg;
@@ -350,10 +350,10 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3] * arg;
   }
 
-  /// Create a copy of [this] scaled by [arg].
+  /// Create a copy of this scaled by [arg].
   Vector4 scaled(double arg) => clone()..scale(arg);
 
-  /// Negate [this].
+  /// Negate this.
   void negate() {
     _v4storage[0] = -_v4storage[0];
     _v4storage[1] = -_v4storage[1];
@@ -361,7 +361,7 @@ class Vector4 implements Vector {
     _v4storage[3] = -_v4storage[3];
   }
 
-  /// Set [this] to the absolute.
+  /// Set this to the absolute.
   void absolute() {
     _v4storage[3] = _v4storage[3].abs();
     _v4storage[2] = _v4storage[2].abs();
@@ -369,7 +369,7 @@ class Vector4 implements Vector {
     _v4storage[0] = _v4storage[0].abs();
   }
 
-  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
+  /// Clamp each entry n in this in the range [min[n]]-[max[n]].
   void clamp(Vector4 min, Vector4 max) {
     final Float32List minStorage = min.storage;
     final Float32List maxStorage = max.storage;
@@ -383,7 +383,7 @@ class Vector4 implements Vector {
         _v4storage[3].clamp(minStorage[3], maxStorage[3]).toDouble();
   }
 
-  /// Clamp entries in [this] in the range [min]-[max].
+  /// Clamp entries in this in the range [min]-[max].
   void clampScalar(double min, double max) {
     _v4storage[0] = _v4storage[0].clamp(min, max).toDouble();
     _v4storage[1] = _v4storage[1].clamp(min, max).toDouble();
@@ -391,7 +391,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3].clamp(min, max).toDouble();
   }
 
-  /// Floor entries in [this].
+  /// Floor entries in this.
   void floor() {
     _v4storage[0] = _v4storage[0].floorToDouble();
     _v4storage[1] = _v4storage[1].floorToDouble();
@@ -399,7 +399,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3].floorToDouble();
   }
 
-  /// Ceil entries in [this].
+  /// Ceil entries in this.
   void ceil() {
     _v4storage[0] = _v4storage[0].ceilToDouble();
     _v4storage[1] = _v4storage[1].ceilToDouble();
@@ -407,7 +407,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3].ceilToDouble();
   }
 
-  /// Round entries in [this].
+  /// Round entries in this.
   void round() {
     _v4storage[0] = _v4storage[0].roundToDouble();
     _v4storage[1] = _v4storage[1].roundToDouble();
@@ -415,7 +415,7 @@ class Vector4 implements Vector {
     _v4storage[3] = _v4storage[3].roundToDouble();
   }
 
-  /// Round entries in [this] towards zero.
+  /// Round entries in this towards zero.
   void roundToZero() {
     _v4storage[0] = _v4storage[0] < 0.0
         ? _v4storage[0].ceilToDouble()
@@ -431,10 +431,10 @@ class Vector4 implements Vector {
         : _v4storage[3].floorToDouble();
   }
 
-  /// Create a copy of [this].
+  /// Create a copy of this.
   Vector4 clone() => Vector4.copy(this);
 
-  /// Copy [this]
+  /// Copy this
   Vector4 copyInto(Vector4 arg) {
     final Float32List argStorage = arg._v4storage;
     argStorage[0] = _v4storage[0];
@@ -444,7 +444,7 @@ class Vector4 implements Vector {
     return arg;
   }
 
-  /// Copies [this] into [array] starting at [offset].
+  /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
     array[offset + 0] = _v4storage[0];
     array[offset + 1] = _v4storage[1];
@@ -452,7 +452,7 @@ class Vector4 implements Vector {
     array[offset + 3] = _v4storage[3];
   }
 
-  /// Copies elements from [array] into [this] starting at [offset].
+  /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
     _v4storage[0] = array[offset + 0];
     _v4storage[1] = array[offset + 1];

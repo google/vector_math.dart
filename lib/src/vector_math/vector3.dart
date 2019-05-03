@@ -165,7 +165,7 @@ class Vector3 implements Vector {
     return sum;
   }
 
-  /// Normalizes [this].
+  /// Normalizes this.
   double normalize() {
     final double l = length;
     if (l == 0.0) {
@@ -178,12 +178,12 @@ class Vector3 implements Vector {
     return l;
   }
 
-  /// Normalize [this]. Returns length of vector before normalization.
+  /// Normalize this. Returns length of vector before normalization.
   /// DEPRCATED: Use [normalize].
   @deprecated
   double normalizeLength() => normalize();
 
-  /// Normalizes copy of [this].
+  /// Normalizes copy of this.
   Vector3 normalized() => Vector3.copy(this)..normalize();
 
   /// Normalize vector into [out].
@@ -194,10 +194,10 @@ class Vector3 implements Vector {
     return out;
   }
 
-  /// Distance from [this] to [arg]
+  /// Distance from this to [arg]
   double distanceTo(Vector3 arg) => math.sqrt(distanceToSquared(arg));
 
-  /// Squared distance from [this] to [arg]
+  /// Squared distance from this to [arg]
   double distanceToSquared(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     final double dx = _v3storage[0] - argStorage[0];
@@ -207,7 +207,7 @@ class Vector3 implements Vector {
     return dx * dx + dy * dy + dz * dz;
   }
 
-  /// Returns the angle between [this] vector and [other] in radians.
+  /// Returns the angle between this vector and [other] in radians.
   double angleTo(Vector3 other) {
     final Float32List otherStorage = other._v3storage;
     if (_v3storage[0] == otherStorage[0] &&
@@ -221,7 +221,7 @@ class Vector3 implements Vector {
     return math.acos(d.clamp(-1.0, 1.0));
   }
 
-  /// Returns the signed angle between [this] and [other] around [normal]
+  /// Returns the signed angle between this and [other] around [normal]
   /// in radians.
   double angleToSigned(Vector3 other, Vector3 normal) {
     final double angle = angleTo(other);
@@ -241,7 +241,7 @@ class Vector3 implements Vector {
     return sum;
   }
 
-  /// Transforms [this] into the product of [this] as a row vector,
+  /// Transforms this into the product of this as a row vector,
   /// postmultiplied by matrix, [arg].
   /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
   /// the inverse of the transformation.
@@ -287,15 +287,15 @@ class Vector3 implements Vector {
     return out;
   }
 
-  /// Reflect [this].
+  /// Reflect this.
   void reflect(Vector3 normal) {
     sub(normal.scaled(2.0 * normal.dot(this)));
   }
 
-  /// Reflected copy of [this].
+  /// Reflected copy of this.
   Vector3 reflected(Vector3 normal) => clone()..reflect(normal);
 
-  /// Projects [this] using the projection matrix [arg]
+  /// Projects this using the projection matrix [arg]
   void applyProjection(Matrix4 arg) {
     final Float32List argStorage = arg.storage;
     final double x = _v3storage[0];
@@ -347,7 +347,7 @@ class Vector3 implements Vector {
     _v3storage[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
   }
 
-  /// Multiplies [this] by [arg].
+  /// Multiplies this by [arg].
   void applyMatrix3(Matrix3 arg) {
     final Float32List argStorage = arg.storage;
     final double v0 = _v3storage[0];
@@ -361,7 +361,7 @@ class Vector3 implements Vector {
         argStorage[2] * v0 + argStorage[5] * v1 + argStorage[8] * v2;
   }
 
-  /// Multiplies [this] by a 4x3 subset of [arg]. Expects [arg] to be an affine
+  /// Multiplies this by a 4x3 subset of [arg]. Expects [arg] to be an affine
   /// transformation matrix.
   void applyMatrix4(Matrix4 arg) {
     final Float32List argStorage = arg.storage;
@@ -382,14 +382,14 @@ class Vector3 implements Vector {
         argStorage[14];
   }
 
-  /// Relative error between [this] and [correct]
+  /// Relative error between this and [correct]
   double relativeError(Vector3 correct) {
     final double correct_norm = correct.length;
     final double diff_norm = (this - correct).length;
     return diff_norm / correct_norm;
   }
 
-  /// Absolute error between [this] and [correct]
+  /// Absolute error between this and [correct]
   double absoluteError(Vector3 correct) => (this - correct).length;
 
   /// True if any component is infinite.
@@ -410,7 +410,7 @@ class Vector3 implements Vector {
     return is_nan;
   }
 
-  /// Add [arg] to [this].
+  /// Add [arg] to this.
   void add(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] + argStorage[0];
@@ -418,7 +418,7 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2] + argStorage[2];
   }
 
-  /// Add [arg] scaled by [factor] to [this].
+  /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector3 arg, double factor) {
     final Float32List argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] + argStorage[0] * factor;
@@ -426,7 +426,7 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2] + argStorage[2] * factor;
   }
 
-  /// Subtract [arg] from [this].
+  /// Subtract [arg] from this.
   void sub(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] - argStorage[0];
@@ -434,7 +434,7 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2] - argStorage[2];
   }
 
-  /// Multiply entries in [this] with entries in [arg].
+  /// Multiply entries in this with entries in [arg].
   void multiply(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] * argStorage[0];
@@ -442,7 +442,7 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2] * argStorage[2];
   }
 
-  /// Divide entries in [this] with entries in [arg].
+  /// Divide entries in this with entries in [arg].
   void divide(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     _v3storage[0] = _v3storage[0] / argStorage[0];
@@ -450,17 +450,17 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2] / argStorage[2];
   }
 
-  /// Scale [this].
+  /// Scale this.
   void scale(double arg) {
     _v3storage[2] = _v3storage[2] * arg;
     _v3storage[1] = _v3storage[1] * arg;
     _v3storage[0] = _v3storage[0] * arg;
   }
 
-  /// Create a copy of [this] and scale it by [arg].
+  /// Create a copy of this and scale it by [arg].
   Vector3 scaled(double arg) => clone()..scale(arg);
 
-  /// Negate [this].
+  /// Negate this.
   void negate() {
     _v3storage[2] = -_v3storage[2];
     _v3storage[1] = -_v3storage[1];
@@ -474,7 +474,7 @@ class Vector3 implements Vector {
     _v3storage[2] = _v3storage[2].abs();
   }
 
-  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
+  /// Clamp each entry n in this in the range [min[n]]-[max[n]].
   void clamp(Vector3 min, Vector3 max) {
     final Float32List minStorage = min.storage;
     final Float32List maxStorage = max.storage;
@@ -486,35 +486,35 @@ class Vector3 implements Vector {
         _v3storage[2].clamp(minStorage[2], maxStorage[2]).toDouble();
   }
 
-  /// Clamp entries in [this] in the range [min]-[max].
+  /// Clamp entries in this in the range [min]-[max].
   void clampScalar(double min, double max) {
     _v3storage[0] = _v3storage[0].clamp(min, max).toDouble();
     _v3storage[1] = _v3storage[1].clamp(min, max).toDouble();
     _v3storage[2] = _v3storage[2].clamp(min, max).toDouble();
   }
 
-  /// Floor entries in [this].
+  /// Floor entries in this.
   void floor() {
     _v3storage[0] = _v3storage[0].floorToDouble();
     _v3storage[1] = _v3storage[1].floorToDouble();
     _v3storage[2] = _v3storage[2].floorToDouble();
   }
 
-  /// Ceil entries in [this].
+  /// Ceil entries in this.
   void ceil() {
     _v3storage[0] = _v3storage[0].ceilToDouble();
     _v3storage[1] = _v3storage[1].ceilToDouble();
     _v3storage[2] = _v3storage[2].ceilToDouble();
   }
 
-  /// Round entries in [this].
+  /// Round entries in this.
   void round() {
     _v3storage[0] = _v3storage[0].roundToDouble();
     _v3storage[1] = _v3storage[1].roundToDouble();
     _v3storage[2] = _v3storage[2].roundToDouble();
   }
 
-  /// Round entries in [this] towards zero.
+  /// Round entries in this towards zero.
   void roundToZero() {
     _v3storage[0] = _v3storage[0] < 0.0
         ? _v3storage[0].ceilToDouble()
@@ -527,10 +527,10 @@ class Vector3 implements Vector {
         : _v3storage[2].floorToDouble();
   }
 
-  /// Clone of [this].
+  /// Clone of this.
   Vector3 clone() => Vector3.copy(this);
 
-  /// Copy [this] into [arg].
+  /// Copy this into [arg].
   Vector3 copyInto(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     argStorage[0] = _v3storage[0];
@@ -539,14 +539,14 @@ class Vector3 implements Vector {
     return arg;
   }
 
-  /// Copies [this] into [array] starting at [offset].
+  /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
     array[offset + 2] = _v3storage[2];
     array[offset + 1] = _v3storage[1];
     array[offset + 0] = _v3storage[0];
   }
 
-  /// Copies elements from [array] into [this] starting at [offset].
+  /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
     _v3storage[2] = array[offset + 2];
     _v3storage[1] = array[offset + 1];

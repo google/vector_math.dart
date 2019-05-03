@@ -23,8 +23,9 @@ class ScalarListView {
     return offset + width * length;
   }
 
-  /// Create a new vector list with [length] elements that have a size of
-  /// [vectorLength]. Optionally it is possible to specify an [offset] in the
+  /// Create a new vector list with [length] elements.
+  ///
+  /// Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
   ScalarListView(int length, [int offset = 0, int stride = 0])
       : _offset = offset,
@@ -32,8 +33,9 @@ class ScalarListView {
         _length = length,
         _buffer = Float32List(_listLength(offset, stride, length));
 
-  /// Create a new vector list from a list of vectors that have a size of
-  /// [vectorLength]. Optionally it is possible to specify an [offset] in the
+  /// Create a new vector list from a list of vectors.
+  ///
+  /// Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
   ScalarListView.fromList(List<double> list, [int offset = 0, int stride = 0])
       : _offset = offset,

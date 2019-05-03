@@ -87,10 +87,10 @@ class Quaternion {
   Quaternion.fromBuffer(ByteBuffer buffer, int offset)
       : _qStorage = Float32List.view(buffer, offset, 4);
 
-  /// Returns a new copy of [this].
+  /// Returns a new copy of this.
   Quaternion clone() => Quaternion.copy(this);
 
-  /// Copy [source] into [this].
+  /// Copy [source] into this.
   void setFrom(Quaternion source) {
     final Float32List sourceStorage = source._qStorage;
     _qStorage[0] = sourceStorage[0];
@@ -246,7 +246,7 @@ class Quaternion {
     _qStorage[3] = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
   }
 
-  /// Normalize [this].
+  /// Normalize this.
   double normalize() {
     final double l = length;
     if (l == 0.0) {
@@ -260,14 +260,14 @@ class Quaternion {
     return l;
   }
 
-  /// Conjugate [this].
+  /// Conjugate this.
   void conjugate() {
     _qStorage[2] = -_qStorage[2];
     _qStorage[1] = -_qStorage[1];
     _qStorage[0] = -_qStorage[0];
   }
 
-  /// Invert [this].
+  /// Invert this.
   void inverse() {
     final double l = 1.0 / length2;
     _qStorage[3] = _qStorage[3] * l;
@@ -276,13 +276,13 @@ class Quaternion {
     _qStorage[0] = -_qStorage[0] * l;
   }
 
-  /// Normalized copy of [this].
+  /// Normalized copy of this.
   Quaternion normalized() => clone()..normalize();
 
-  /// Conjugated copy of [this].
+  /// Conjugated copy of this.
   Quaternion conjugated() => clone()..conjugate();
 
-  /// Inverted copy of [this].
+  /// Inverted copy of this.
   Quaternion inverted() => clone()..inverse();
 
   /// [radians] of rotation around the [axis] of the rotation.
@@ -320,7 +320,7 @@ class Quaternion {
     return out;
   }
 
-  /// Rotates [v] by [this].
+  /// Rotates [v] by this.
   Vector3 rotate(Vector3 v) {
     // conjugate(this) * [v,0] * this
     final double _w = _qStorage[3];
@@ -345,7 +345,7 @@ class Quaternion {
     return v;
   }
 
-  /// Add [arg] to [this].
+  /// Add [arg] to this.
   void add(Quaternion arg) {
     final Float32List argStorage = arg._qStorage;
     _qStorage[0] = _qStorage[0] + argStorage[0];
@@ -354,7 +354,7 @@ class Quaternion {
     _qStorage[3] = _qStorage[3] + argStorage[3];
   }
 
-  /// Subtracts [arg] from [this].
+  /// Subtracts [arg] from this.
   void sub(Quaternion arg) {
     final Float32List argStorage = arg._qStorage;
     _qStorage[0] = _qStorage[0] - argStorage[0];
@@ -363,7 +363,7 @@ class Quaternion {
     _qStorage[3] = _qStorage[3] - argStorage[3];
   }
 
-  /// Scales [this] by [scale].
+  /// Scales this by [scale].
   void scale(double scale) {
     _qStorage[3] = _qStorage[3] * scale;
     _qStorage[2] = _qStorage[2] * scale;
@@ -371,10 +371,10 @@ class Quaternion {
     _qStorage[0] = _qStorage[0] * scale;
   }
 
-  /// Scaled copy of [this].
+  /// Scaled copy of this.
   Quaternion scaled(double scale) => clone()..scale(scale);
 
-  /// [this] rotated by [other].
+  /// this rotated by [other].
   Quaternion operator *(Quaternion other) {
     final double _w = _qStorage[3];
     final double _z = _qStorage[2];
@@ -392,13 +392,13 @@ class Quaternion {
         _w * ow - _x * ox - _y * oy - _z * oz);
   }
 
-  /// Returns copy of [this] + [other].
+  /// Returns copy of this + [other].
   Quaternion operator +(Quaternion other) => clone()..add(other);
 
-  /// Returns copy of [this] - [other].
+  /// Returns copy of this - [other].
   Quaternion operator -(Quaternion other) => clone()..sub(other);
 
-  /// Returns negated copy of [this].
+  /// Returns negated copy of this.
   Quaternion operator -() => conjugated();
 
   /// Access the component of the quaternion at the index [i].
@@ -409,11 +409,11 @@ class Quaternion {
     _qStorage[i] = arg;
   }
 
-  /// Returns a rotation matrix containing the same rotation as [this].
+  /// Returns a rotation matrix containing the same rotation as this.
   Matrix3 asRotationMatrix() => copyRotationInto(Matrix3.zero());
 
   /// Set [rotationMatrix] to a rotation matrix containing the same rotation as
-  /// [this].
+  /// this.
   Matrix3 copyRotationInto(Matrix3 rotationMatrix) {
     final double d = length2;
     assert(d != 0.0);
@@ -458,7 +458,7 @@ class Quaternion {
   String toString() => '${_qStorage[0]}, ${_qStorage[1]},'
       ' ${_qStorage[2]} @ ${_qStorage[3]}';
 
-  /// Relative error between [this] and [correct].
+  /// Relative error between this and [correct].
   double relativeError(Quaternion correct) {
     final Quaternion diff = correct - this;
     final double norm_diff = diff.length;
@@ -466,7 +466,7 @@ class Quaternion {
     return norm_diff / correct_norm;
   }
 
-  /// Absolute error between [this] and [correct].
+  /// Absolute error between this and [correct].
   double absoluteError(Quaternion correct) {
     final double this_norm = length;
     final double correct_norm = correct.length;

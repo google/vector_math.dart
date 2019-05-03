@@ -55,7 +55,7 @@ class Aabb3 {
   factory Aabb3.centerAndHalfExtents(Vector3 center, Vector3 halfExtents) =>
       Aabb3()..setCenterAndHalfExtents(center, halfExtents);
 
-  /// Constructs [Aabb3] with a min/max [storage] that views given [buffer]
+  /// Constructs [Aabb3] with a min/max storage that views given [buffer]
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float64List.bytesPerElement].
   Aabb3.fromBuffer(ByteBuffer buffer, int offset)
@@ -177,7 +177,7 @@ class Aabb3 {
     }
   }
 
-  /// Copy the [center] and the [halfExtends] of [this].
+  /// Copy the [center] and the [halfExtents] of this.
   void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     center
       ..setFrom(_min)
@@ -189,7 +189,7 @@ class Aabb3 {
       ..scale(0.5);
   }
 
-  /// Copy the [center] of [this].
+  /// Copy the [center] of this.
   void copyCenter(Vector3 center) {
     center
       ..setFrom(_min)
@@ -197,13 +197,13 @@ class Aabb3 {
       ..scale(0.5);
   }
 
-  /// Copy the [min] and [max] from [other] into [this].
+  /// Copy the [min] and [max] from [other] into this.
   void copyFrom(Aabb3 other) {
     _min.setFrom(other._min);
     _max.setFrom(other._max);
   }
 
-  /// Transform [this] by the transform [t].
+  /// Transform this by the transform [t].
   void transform(Matrix4 t) {
     final Vector3 center = Vector3.zero();
     final Vector3 halfExtents = Vector3.zero();
@@ -219,7 +219,7 @@ class Aabb3 {
       ..add(halfExtents);
   }
 
-  /// Rotate [this] by the rotation matrix [t].
+  /// Rotate this by the rotation matrix [t].
   void rotate(Matrix4 t) {
     final Vector3 center = Vector3.zero();
     final Vector3 halfExtents = Vector3.zero();
@@ -233,13 +233,13 @@ class Aabb3 {
       ..add(halfExtents);
   }
 
-  /// Create a copy of [this] that is transformed by the transform [t] and store
+  /// Create a copy of this that is transformed by the transform [t] and store
   /// it in [out].
   Aabb3 transformed(Matrix4 t, Aabb3 out) => out
     ..copyFrom(this)
     ..transform(t);
 
-  /// Create a copy of [this] that is rotated by the rotation matrix [t] and
+  /// Create a copy of this that is rotated by the rotation matrix [t] and
   /// store it in [out].
   Aabb3 rotated(Matrix4 t, Aabb3 out) => out
     ..copyFrom(this)
@@ -271,20 +271,20 @@ class Aabb3 {
     }
   }
 
-  /// Set the min and max of [this] so that [this] is a hull of [this] and
+  /// Set the min and max of this so that this is a hull of this and
   /// [other].
   void hull(Aabb3 other) {
     Vector3.min(_min, other._min, _min);
     Vector3.max(_max, other._max, _max);
   }
 
-  /// Set the min and max of [this] so that [this] contains [point].
+  /// Set the min and max of this so that this contains [point].
   void hullPoint(Vector3 point) {
     Vector3.min(_min, point, _min);
     Vector3.max(_max, point, _max);
   }
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsAabb3(Aabb3 other) {
     final Vector3 otherMax = other._max;
     final Vector3 otherMin = other._min;
@@ -297,7 +297,7 @@ class Aabb3 {
         (_max.z > otherMax.z);
   }
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsSphere(Sphere other) {
     final Vector3 boxExtends = Vector3.all(other.radius);
     final Aabb3 sphereBox =
@@ -306,7 +306,7 @@ class Aabb3 {
     return containsAabb3(sphereBox);
   }
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsVector3(Vector3 other) =>
       (_min.x < other.x) &&
       (_min.y < other.y) &&
@@ -315,13 +315,13 @@ class Aabb3 {
       (_max.y > other.y) &&
       (_max.z > other.z);
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsTriangle(Triangle other) =>
       containsVector3(other._point0) &&
       containsVector3(other._point1) &&
       containsVector3(other._point2);
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
     final Vector3 otherMax = other._max;
     final Vector3 otherMin = other._min;
@@ -334,7 +334,7 @@ class Aabb3 {
         (_max.z >= otherMin.z);
   }
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithSphere(Sphere other) {
     final Vector3 center = other._center;
     final double radius = other.radius;
@@ -362,7 +362,7 @@ class Aabb3 {
     return d <= radius * radius;
   }
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithVector3(Vector3 other) =>
       (_min.x <= other.x) &&
       (_min.y <= other.y) &&
@@ -386,7 +386,7 @@ class Aabb3 {
   static final Vector3 _u1 = Vector3(0.0, 1.0, 0.0);
   static final Vector3 _u2 = Vector3(0.0, 0.0, 1.0);
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   /// [epsilon] allows the caller to specify a custum eplsilon value that should
   /// be used for the test. If [result] is specified and an intersection is
   /// found, result is modified to contain more details about the type of
@@ -627,7 +627,7 @@ class Aabb3 {
     return intersectsWithPlane(_trianglePlane, result: result);
   }
 
-  /// Return if [this] intersects with [other]
+  /// Return if this intersects with [other]
   bool intersectsWithPlane(Plane other, {IntersectionResult result}) {
     // This line is not necessary with a (center, extents) AABB representation
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
@@ -655,9 +655,9 @@ class Aabb3 {
   static final Triangle _quadTriangle0 = Triangle();
   static final Triangle _quadTriangle1 = Triangle();
 
-  /// Return if [this] intersects with [other].
-  /// [epsilon] allows the caller to specify a custum eplsilon value that should
-  /// be used for the test. If [result] is specified and an intersection is
+  /// Return `true` if this intersects with [other].
+  ///
+  /// If [result] is specified and an intersection is
   /// found, result is modified to contain more details about the type of
   /// intersection.
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {

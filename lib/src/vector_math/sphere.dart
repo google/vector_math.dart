@@ -28,21 +28,21 @@ class Sphere {
   Sphere.centerRadius(Vector3 center, this.radius)
       : _center = Vector3.copy(center);
 
-  /// Copy the sphere from [other] into [this].
+  /// Copy the sphere from [other] into this.
   void copyFrom(Sphere other) {
     _center.setFrom(other._center);
     radius = other.radius;
   }
 
-  /// Return if [this] contains [other].
+  /// Return if this contains [other].
   bool containsVector3(Vector3 other) =>
       other.distanceToSquared(center) < radius * radius;
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithVector3(Vector3 other) =>
       other.distanceToSquared(center) <= radius * radius;
 
-  /// Return if [this] intersects with [other].
+  /// Return if this intersects with [other].
   bool intersectsWithSphere(Sphere other) {
     final double radiusSum = radius + other.radius;
 
