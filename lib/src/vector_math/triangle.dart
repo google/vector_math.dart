@@ -37,14 +37,14 @@ class Triangle {
         _point1 = Vector3.copy(point1),
         _point2 = Vector3.copy(point2);
 
-  /// Copy the triangle from [other] into [this].
+  /// Copy the triangle from [other] into this.
   void copyFrom(Triangle other) {
     _point0.setFrom(other._point0);
     _point1.setFrom(other._point1);
     _point2.setFrom(other._point2);
   }
 
-  /// Copy the normal of [this] into [normal].
+  /// Copy the normal of this into [normal].
   void copyNormalInto(Vector3 normal) {
     final Vector3 v0 = point0.clone()..sub(point1);
     normal
@@ -54,12 +54,12 @@ class Triangle {
       ..normalize();
   }
 
-  /// Transform [this] by the transform [t].
+  /// Transform this by the transform [t].
   void transform(Matrix4 t) {
     t..transform3(_point0)..transform3(_point1)..transform3(_point2);
   }
 
-  /// Translate [this] by [offset].
+  /// Translate this by [offset].
   void translate(Vector3 offset) {
     _point0.add(offset);
     _point1.add(offset);

@@ -13,10 +13,6 @@
 /// In addition some utilities are available as color operations (See [Colors]
 /// class), noise generators ([SimplexNoise]) and common OpenGL operations
 /// (like [makeViewMatrix], [makePerspectiveMatrix], or [pickRay]).
-///
-/// There is also a [vector_math_64] library available that uses double
-/// precision (64-bit) instead of single precision (32-bit) floating point
-/// numbers for storage.
 library vector_math;
 
 import 'dart:math' as math;

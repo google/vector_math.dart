@@ -30,16 +30,16 @@ class Ray {
       : _origin = Vector3.copy(origin),
         _direction = Vector3.copy(direction);
 
-  /// Copy the [origin] and [direction] from [other] into [this].
+  /// Copy the [origin] and [direction] from [other] into this.
   void copyFrom(Ray other) {
     _origin.setFrom(other._origin);
     _direction.setFrom(other._direction);
   }
 
-  /// Returns the position on [this] with a distance of [t] from [origin].
+  /// Returns the position on this with a distance of [t] from [origin].
   Vector3 at(double t) => _direction.scaled(t)..add(_origin);
 
-  /// Copy the position on [this] with a distance of [t] from [origin] into
+  /// Copy the position on this with a distance of [t] from [origin] into
   /// [other].
   void copyAt(Vector3 other, double t) {
     other
@@ -48,8 +48,8 @@ class Ray {
       ..add(_origin);
   }
 
-  /// Return the distance from the origin of [this] to the intersection with
-  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  /// Return the distance from the origin of this to the intersection with
+  /// [other] if this intersects with [other], or null if the don't intersect.
   double intersectsWithSphere(Sphere other) {
     final double r = other.radius;
     final double r2 = r * r;
@@ -77,8 +77,8 @@ class Ray {
   static final Vector3 _s = Vector3.zero();
   static final Vector3 _r = Vector3.zero();
 
-  /// Return the distance from the origin of [this] to the intersection with
-  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  /// Return the distance from the origin of this to the intersection with
+  /// [other] if this intersects with [other], or null if the don't intersect.
   double intersectsWithTriangle(Triangle other) {
     const double EPSILON = 10e-6;
 
@@ -122,8 +122,8 @@ class Ray {
     return t;
   }
 
-  /// Return the distance from the origin of [this] to the intersection with
-  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  /// Return the distance from the origin of this to the intersection with
+  /// [other] if this intersects with [other], or null if the don't intersect.
   double intersectsWithQuad(Quad other) {
     const double EPSILON = 10e-6;
 
@@ -198,8 +198,8 @@ class Ray {
     return null;
   }
 
-  /// Return the distance from the origin of [this] to the intersection with
-  /// [other] if [this] intersects with [other], or null if the don't intersect.
+  /// Return the distance from the origin of this to the intersection with
+  /// [other] if this intersects with [other], or null if the don't intersect.
   double intersectsWithAabb3(Aabb3 other) {
     final Vector3 otherMin = other.min;
     final Vector3 otherMax = other.max;

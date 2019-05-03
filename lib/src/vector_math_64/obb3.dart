@@ -52,7 +52,7 @@ class Obb3 {
         _axis1 = Vector3.copy(axis1),
         _axis2 = Vector3.copy(axis2);
 
-  /// Copy from [other] into [this].
+  /// Copy from [other] into this.
   void copyFrom(Obb3 other) {
     _center.setFrom(other._center);
     _halfExtents.setFrom(other._halfExtents);
@@ -61,7 +61,7 @@ class Obb3 {
     _axis2.setFrom(other._axis2);
   }
 
-  /// Copy from [this] into [other].
+  /// Copy from this into [other].
   void copyInto(Obb3 other) {
     other._center.setFrom(_center);
     other._halfExtents.setFrom(_halfExtents);
@@ -70,19 +70,19 @@ class Obb3 {
     other._axis2.setFrom(_axis2);
   }
 
-  /// Reset the rotation of [this].
+  /// Reset the rotation of this.
   void resetRotation() {
     _axis0.setValues(1.0, 0.0, 0.0);
     _axis1.setValues(0.0, 1.0, 0.0);
     _axis2.setValues(0.0, 0.0, 1.0);
   }
 
-  /// Translate [this] by [offset].
+  /// Translate this by [offset].
   void translate(Vector3 offset) {
     _center.add(offset);
   }
 
-  /// Rotate [this] by the rotation matrix [t].
+  /// Rotate this by the rotation matrix [t].
   void rotate(Matrix3 t) {
     t
       ..transform(_axis0..scale(_halfExtents.x))
@@ -95,7 +95,7 @@ class Obb3 {
       ..z = _axis2.normalize();
   }
 
-  /// Transform [this] by the transform [t].
+  /// Transform this by the transform [t].
   void transform(Matrix4 t) {
     t
       ..transform3(_center)
@@ -191,7 +191,7 @@ class Obb3 {
   static final Matrix3 _absR = Matrix3.zero();
   static final Vector3 _t = Vector3.zero();
 
-  /// Check for intersection between [this] and [other].
+  /// Check for intersection between this and [other].
   bool intersectsWithObb3(Obb3 other, [double epsilon = 1e-3]) {
     // Compute rotation matrix expressing other in this's coordinate frame
     _r
@@ -343,7 +343,7 @@ class Obb3 {
   static final Aabb3 _aabb3 = Aabb3();
   static final Vector3 _zeroVector = Vector3.zero();
 
-  /// Return if [this] intersects with [other]
+  /// Return if this intersects with [other]
   bool intersectsWithTriangle(Triangle other, {IntersectionResult result}) {
     _triangle.copyFrom(other);
 
@@ -368,7 +368,7 @@ class Obb3 {
   // Avoid allocating these instance on every call to intersectsWithVector3
   static final Vector3 _vector = Vector3.zero();
 
-  /// Return if [this] intersects with [other]
+  /// Return if this intersects with [other]
   bool intersectsWithVector3(Vector3 other) {
     _vector
       ..setFrom(other)
@@ -384,7 +384,7 @@ class Obb3 {
   static final Triangle _quadTriangle0 = Triangle();
   static final Triangle _quadTriangle1 = Triangle();
 
-  /// Return if [this] intersects with [other]
+  /// Return if this intersects with [other]
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 

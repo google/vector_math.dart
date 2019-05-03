@@ -154,7 +154,7 @@ class Vector2 implements Vector {
     return sum;
   }
 
-  /// Normalize [this].
+  /// Normalize this.
   double normalize() {
     final double l = length;
     if (l == 0.0) {
@@ -166,12 +166,12 @@ class Vector2 implements Vector {
     return l;
   }
 
-  /// Normalize [this]. Returns length of vector before normalization.
+  /// Normalize this. Returns length of vector before normalization.
   /// DEPRECATED: Use [normalize].
   @deprecated
   double normalizeLength() => normalize();
 
-  /// Normalized copy of [this].
+  /// Normalized copy of this.
   Vector2 normalized() => clone()..normalize();
 
   /// Normalize vector into [out].
@@ -182,10 +182,10 @@ class Vector2 implements Vector {
     return out;
   }
 
-  /// Distance from [this] to [arg]
+  /// Distance from this to [arg]
   double distanceTo(Vector2 arg) => math.sqrt(distanceToSquared(arg));
 
-  /// Squared distance from [this] to [arg]
+  /// Squared distance from this to [arg]
   double distanceToSquared(Vector2 arg) {
     final double dx = x - arg.x;
     final double dy = y - arg.y;
@@ -193,7 +193,7 @@ class Vector2 implements Vector {
     return dx * dx + dy * dy;
   }
 
-  /// Returns the angle between [this] vector and [other] in radians.
+  /// Returns the angle between this vector and [other] in radians.
   double angleTo(Vector2 other) {
     final Float64List otherStorage = other._v2storage;
     if (_v2storage[0] == otherStorage[0] && _v2storage[1] == otherStorage[1]) {
@@ -205,7 +205,7 @@ class Vector2 implements Vector {
     return math.acos(d.clamp(-1.0, 1.0));
   }
 
-  /// Returns the signed angle between [this] and [other] in radians.
+  /// Returns the signed angle between this and [other] in radians.
   double angleToSigned(Vector2 other) {
     final Float64List otherStorage = other._v2storage;
     if (_v2storage[0] == otherStorage[0] && _v2storage[1] == otherStorage[1]) {
@@ -228,7 +228,7 @@ class Vector2 implements Vector {
   }
 
   ///
-  /// Transforms [this] into the product of [this] as a row vector,
+  /// Transforms this into the product of this as a row vector,
   /// postmultiplied by matrix, [arg].
   /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
   /// the inverse of the transformation.
@@ -247,28 +247,28 @@ class Vector2 implements Vector {
     return _v2storage[0] * otherStorage[1] - _v2storage[1] * otherStorage[0];
   }
 
-  /// Rotate [this] by 90 degrees then scale it. Store result in [out]. Return [out].
+  /// Rotate this by 90 degrees then scale it. Store result in [out]. Return [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
     out.setValues(-scale * _v2storage[1], scale * _v2storage[0]);
     return out;
   }
 
-  /// Reflect [this].
+  /// Reflect this.
   void reflect(Vector2 normal) {
     sub(normal.scaled(2.0 * normal.dot(this)));
   }
 
-  /// Reflected copy of [this].
+  /// Reflected copy of this.
   Vector2 reflected(Vector2 normal) => clone()..reflect(normal);
 
-  /// Relative error between [this] and [correct]
+  /// Relative error between this and [correct]
   double relativeError(Vector2 correct) {
     final double correct_norm = correct.length;
     final double diff_norm = (this - correct).length;
     return diff_norm / correct_norm;
   }
 
-  /// Absolute error between [this] and [correct]
+  /// Absolute error between this and [correct]
   double absoluteError(Vector2 correct) => (this - correct).length;
 
   /// True if any component is infinite.
@@ -287,48 +287,48 @@ class Vector2 implements Vector {
     return is_nan;
   }
 
-  /// Add [arg] to [this].
+  /// Add [arg] to this.
   void add(Vector2 arg) {
     final Float64List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] + argStorage[0];
     _v2storage[1] = _v2storage[1] + argStorage[1];
   }
 
-  /// Add [arg] scaled by [factor] to [this].
+  /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector2 arg, double factor) {
     final Float64List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] + argStorage[0] * factor;
     _v2storage[1] = _v2storage[1] + argStorage[1] * factor;
   }
 
-  /// Subtract [arg] from [this].
+  /// Subtract [arg] from this.
   void sub(Vector2 arg) {
     final Float64List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] - argStorage[0];
     _v2storage[1] = _v2storage[1] - argStorage[1];
   }
 
-  /// Multiply entries in [this] with entries in [arg].
+  /// Multiply entries in this with entries in [arg].
   void multiply(Vector2 arg) {
     final Float64List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] * argStorage[0];
     _v2storage[1] = _v2storage[1] * argStorage[1];
   }
 
-  /// Divide entries in [this] with entries in [arg].
+  /// Divide entries in this with entries in [arg].
   void divide(Vector2 arg) {
     final Float64List argStorage = arg._v2storage;
     _v2storage[0] = _v2storage[0] / argStorage[0];
     _v2storage[1] = _v2storage[1] / argStorage[1];
   }
 
-  /// Scale [this] by [arg].
+  /// Scale this by [arg].
   void scale(double arg) {
     _v2storage[1] = _v2storage[1] * arg;
     _v2storage[0] = _v2storage[0] * arg;
   }
 
-  /// Return a copy of [this] scaled by [arg].
+  /// Return a copy of this scaled by [arg].
   Vector2 scaled(double arg) => clone()..scale(arg);
 
   /// Negate.
@@ -343,7 +343,7 @@ class Vector2 implements Vector {
     _v2storage[0] = _v2storage[0].abs();
   }
 
-  /// Clamp each entry n in [this] in the range [min[n]]-[max[n]].
+  /// Clamp each entry n in this in the range [min[n]]-[max[n]].
   void clamp(Vector2 min, Vector2 max) {
     final Float64List minStorage = min.storage;
     final Float64List maxStorage = max.storage;
@@ -353,31 +353,31 @@ class Vector2 implements Vector {
         _v2storage[1].clamp(minStorage[1], maxStorage[1]).toDouble();
   }
 
-  /// Clamp entries [this] in the range [min]-[max].
+  /// Clamp entries this in the range [min]-[max].
   void clampScalar(double min, double max) {
     _v2storage[0] = _v2storage[0].clamp(min, max).toDouble();
     _v2storage[1] = _v2storage[1].clamp(min, max).toDouble();
   }
 
-  /// Floor entries in [this].
+  /// Floor entries in this.
   void floor() {
     _v2storage[0] = _v2storage[0].floorToDouble();
     _v2storage[1] = _v2storage[1].floorToDouble();
   }
 
-  /// Ceil entries in [this].
+  /// Ceil entries in this.
   void ceil() {
     _v2storage[0] = _v2storage[0].ceilToDouble();
     _v2storage[1] = _v2storage[1].ceilToDouble();
   }
 
-  /// Round entries in [this].
+  /// Round entries in this.
   void round() {
     _v2storage[0] = _v2storage[0].roundToDouble();
     _v2storage[1] = _v2storage[1].roundToDouble();
   }
 
-  /// Round entries in [this] towards zero.
+  /// Round entries in this towards zero.
   void roundToZero() {
     _v2storage[0] = _v2storage[0] < 0.0
         ? _v2storage[0].ceilToDouble()
@@ -387,10 +387,10 @@ class Vector2 implements Vector {
         : _v2storage[1].floorToDouble();
   }
 
-  /// Clone of [this].
+  /// Clone of this.
   Vector2 clone() => Vector2.copy(this);
 
-  /// Copy [this] into [arg]. Returns [arg].
+  /// Copy this into [arg]. Returns [arg].
   Vector2 copyInto(Vector2 arg) {
     final Float64List argStorage = arg._v2storage;
     argStorage[1] = _v2storage[1];
@@ -398,13 +398,13 @@ class Vector2 implements Vector {
     return arg;
   }
 
-  /// Copies [this] into [array] starting at [offset].
+  /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
     array[offset + 1] = _v2storage[1];
     array[offset + 0] = _v2storage[0];
   }
 
-  /// Copies elements from [array] into [this] starting at [offset].
+  /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
     _v2storage[1] = array[offset + 1];
     _v2storage[0] = array[offset + 0];

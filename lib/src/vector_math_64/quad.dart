@@ -44,7 +44,7 @@ class Quad {
         _point2 = Vector3.copy(point2),
         _point3 = Vector3.copy(point3);
 
-  /// Copy the quad from [other] into [this].
+  /// Copy the quad from [other] into this.
   void copyFrom(Quad other) {
     _point0.setFrom(other._point0);
     _point1.setFrom(other._point1);
@@ -52,7 +52,7 @@ class Quad {
     _point3.setFrom(other._point3);
   }
 
-  /// Copy the normal of [this] into [normal].
+  /// Copy the normal of this into [normal].
   void copyNormalInto(Vector3 normal) {
     final Vector3 v0 = _point0.clone()..sub(_point1);
     normal
@@ -62,7 +62,7 @@ class Quad {
       ..normalize();
   }
 
-  /// Copies the two triangles that define [this].
+  /// Copies the two triangles that define this.
   void copyTriangles(Triangle triangle0, Triangle triangle1) {
     triangle0._point0.setFrom(_point0);
     triangle0._point1.setFrom(_point1);
@@ -72,7 +72,7 @@ class Quad {
     triangle1._point2.setFrom(_point2);
   }
 
-  /// Transform [this] by the transform [t].
+  /// Transform this by the transform [t].
   void transform(Matrix4 t) {
     t
       ..transform3(_point0)
@@ -81,7 +81,7 @@ class Quad {
       ..transform3(_point3);
   }
 
-  /// Translate [this] by [offset].
+  /// Translate this by [offset].
   void translate(Vector3 offset) {
     _point0.add(offset);
     _point1.add(offset);

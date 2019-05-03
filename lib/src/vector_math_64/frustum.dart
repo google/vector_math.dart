@@ -46,7 +46,7 @@ class Frustum {
   /// Create a new furstum from a [matrix].
   factory Frustum.matrix(Matrix4 matrix) => Frustum()..setFromMatrix(matrix);
 
-  /// Copy the [other] frustum into [this].
+  /// Copy the [other] frustum into this.
   void copyFrom(Frustum other) {
     _plane0.copyFrom(other._plane0);
     _plane1.copyFrom(other._plane1);
@@ -56,7 +56,7 @@ class Frustum {
     _plane5.copyFrom(other._plane5);
   }
 
-  /// Set [this] from [matrix].
+  /// Set this from [matrix].
   void setFromMatrix(Matrix4 matrix) {
     final Float64List me = matrix.storage;
     final double me0 = me[0], me1 = me[1], me2 = me[2], me3 = me[3];
@@ -84,7 +84,7 @@ class Frustum {
       ..normalize();
   }
 
-  /// Check if [this] contains a [point].
+  /// Check if this contains a [point].
   bool containsVector3(Vector3 point) {
     if (_plane0.distanceToVector3(point) < 0.0) {
       return false;
@@ -113,7 +113,7 @@ class Frustum {
     return true;
   }
 
-  /// Check if [this] intersects with [aabb].
+  /// Check if this intersects with [aabb].
   bool intersectsWithAabb3(Aabb3 aabb) {
     if (_intersectsWithAabb3CheckPlane(aabb, _plane0)) {
       return false;
@@ -142,7 +142,7 @@ class Frustum {
     return true;
   }
 
-  /// Check if [this] intersects with [sphere].
+  /// Check if this intersects with [sphere].
   bool intersectsWithSphere(Sphere sphere) {
     final double negativeRadius = -sphere.radius;
     final Vector3 center = sphere.center;
@@ -174,7 +174,7 @@ class Frustum {
     return true;
   }
 
-  /// Calculate the corners of a [frustum] at write them into [corner0] to
+  /// Calculate the corners of this and write them into [corner0] to
   // [corner7].
   void calculateCorners(
       Vector3 corner0,

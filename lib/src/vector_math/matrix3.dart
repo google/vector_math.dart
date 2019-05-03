@@ -125,15 +125,15 @@ class Matrix3 {
   /// Outer product of [u] and [v].
   factory Matrix3.outer(Vector3 u, Vector3 v) => Matrix3.zero()..setOuter(u, v);
 
-  /// Rotation of [radians_] around X axis.
+  /// Rotation of [radians] around X axis.
   factory Matrix3.rotationX(double radians) =>
       Matrix3.zero()..setRotationX(radians);
 
-  /// Rotation of [radians_] around Y axis.
+  /// Rotation of [radians] around Y axis.
   factory Matrix3.rotationY(double radians) =>
       Matrix3.zero()..setRotationY(radians);
 
-  /// Rotation of [radians_] around Z axis.
+  /// Rotation of [radians] around Z axis.
   factory Matrix3.rotationZ(double radians) =>
       Matrix3.zero()..setRotationZ(radians);
 
@@ -181,7 +181,7 @@ class Matrix3 {
     _m3storage[0] = argStorage[0];
   }
 
-  /// Set [this] to the outer product of [u] and [v].
+  /// Set this to the outer product of [u] and [v].
   void setOuter(Vector3 u, Vector3 v) {
     final Float32List uStorage = u._v3storage;
     final Float32List vStorage = v._v3storage;
@@ -307,10 +307,10 @@ class Matrix3 {
     return r;
   }
 
-  /// Clone of [this].
+  /// Clone of this.
   Matrix3 clone() => Matrix3.copy(this);
 
-  /// Copy [this] into [arg].
+  /// Copy this into [arg].
   Matrix3 copyInto(Matrix3 arg) {
     final Float32List argStorage = arg._m3storage;
     argStorage[0] = _m3storage[0];
@@ -325,7 +325,7 @@ class Matrix3 {
     return arg;
   }
 
-  /// Returns a new vector or matrix by multiplying [this] with [arg].
+  /// Returns a new vector or matrix by multiplying this with [arg].
   dynamic operator *(dynamic arg) {
     if (arg is double) {
       return scaled(arg);
@@ -339,16 +339,16 @@ class Matrix3 {
     throw ArgumentError(arg);
   }
 
-  /// Returns new matrix after component wise [this] + [arg]
+  /// Returns new matrix after component wise this + [arg]
   Matrix3 operator +(Matrix3 arg) => clone()..add(arg);
 
-  /// Returns new matrix after component wise [this] - [arg]
+  /// Returns new matrix after component wise this - [arg]
   Matrix3 operator -(Matrix3 arg) => clone()..sub(arg);
 
   /// Returns new matrix -this
   Matrix3 operator -() => clone()..negate();
 
-  /// Zeros [this].
+  /// Zeros this.
   void setZero() {
     _m3storage[0] = 0.0;
     _m3storage[1] = 0.0;
@@ -361,7 +361,7 @@ class Matrix3 {
     _m3storage[8] = 0.0;
   }
 
-  /// Makes [this] into the identity matrix.
+  /// Makes this into the identity matrix.
   void setIdentity() {
     _m3storage[0] = 1.0;
     _m3storage[1] = 0.0;
@@ -377,7 +377,7 @@ class Matrix3 {
   /// Returns the tranpose of this.
   Matrix3 transposed() => clone()..transpose();
 
-  /// Transpose [this].
+  /// Transpose this.
   void transpose() {
     double temp;
     temp = _m3storage[3];
@@ -471,7 +471,7 @@ class Matrix3 {
     return norm;
   }
 
-  /// Returns relative error between [this] and [correct]
+  /// Returns relative error between this and [correct]
   double relativeError(Matrix3 correct) {
     final Matrix3 diff = correct - this;
     final double correct_norm = correct.infinityNorm();
@@ -479,7 +479,7 @@ class Matrix3 {
     return diff_norm / correct_norm;
   }
 
-  /// Returns absolute error between [this] and [correct]
+  /// Returns absolute error between this and [correct]
   double absoluteError(Matrix3 correct) {
     final double this_norm = infinityNorm();
     final double correct_norm = correct.infinityNorm();
@@ -602,7 +602,7 @@ class Matrix3 {
     _m3storage[8] = (m00 * m11 - m01 * m10) * scale;
   }
 
-  /// Rotates [arg] by the absolute rotation of [this]
+  /// Rotates [arg] by the absolute rotation of this
   /// Returns [arg].
   /// Primarily used by AABB transformation code.
   Vector3 absoluteRotate(Vector3 arg) {
@@ -625,7 +625,7 @@ class Matrix3 {
     return arg;
   }
 
-  /// Rotates [arg] by the absolute rotation of [this]
+  /// Rotates [arg] by the absolute rotation of this
   /// Returns [arg].
   /// Primarily used by AABB transformation code.
   Vector2 absoluteRotate2(Vector2 arg) {
@@ -641,7 +641,7 @@ class Matrix3 {
     return arg;
   }
 
-  /// Transforms [arg] with [this].
+  /// Transforms [arg] with this.
   Vector2 transform2(Vector2 arg) {
     final Float32List argStorage = arg._v2storage;
     final double x_ = (storage[0] * arg.storage[0]) +
@@ -655,7 +655,7 @@ class Matrix3 {
     return arg;
   }
 
-  /// Scales [this] by [scale].
+  /// Scales this by [scale].
   void scale(double scale) {
     _m3storage[0] = _m3storage[0] * scale;
     _m3storage[1] = _m3storage[1] * scale;
@@ -668,10 +668,10 @@ class Matrix3 {
     _m3storage[8] = _m3storage[8] * scale;
   }
 
-  /// Create a copy of [this] and scale it by [scale].
+  /// Create a copy of this and scale it by [scale].
   Matrix3 scaled(double scale) => clone()..scale(scale);
 
-  /// Add [o] to [this].
+  /// Add [o] to this.
   void add(Matrix3 o) {
     final Float32List oStorage = o._m3storage;
     _m3storage[0] = _m3storage[0] + oStorage[0];
@@ -685,7 +685,7 @@ class Matrix3 {
     _m3storage[8] = _m3storage[8] + oStorage[8];
   }
 
-  /// Subtract [o] from [this].
+  /// Subtract [o] from this.
   void sub(Matrix3 o) {
     final Float32List oStorage = o._m3storage;
     _m3storage[0] = _m3storage[0] - oStorage[0];
@@ -699,7 +699,7 @@ class Matrix3 {
     _m3storage[8] = _m3storage[8] - oStorage[8];
   }
 
-  /// Negate [this].
+  /// Negate this.
   void negate() {
     _m3storage[0] = -_m3storage[0];
     _m3storage[1] = -_m3storage[1];
@@ -712,7 +712,7 @@ class Matrix3 {
     _m3storage[8] = -_m3storage[8];
   }
 
-  /// Multiply [this] by [arg].
+  /// Multiply this by [arg].
   void multiply(Matrix3 arg) {
     final double m00 = _m3storage[0];
     final double m01 = _m3storage[3];
@@ -744,7 +744,7 @@ class Matrix3 {
     _m3storage[8] = (m20 * n02) + (m21 * n12) + (m22 * n22);
   }
 
-  /// Create a copy of [this] and multiply it by [arg].
+  /// Create a copy of this and multiply it by [arg].
   Matrix3 multiplied(Matrix3 arg) => clone()..multiply(arg);
 
   void transposeMultiply(Matrix3 arg) {
@@ -810,7 +810,7 @@ class Matrix3 {
   }
 
   /// Transform [arg] of type [Vector3] using the transformation defined by
-  /// [this].
+  /// this.
   Vector3 transform(Vector3 arg) {
     final Float32List argStorage = arg._v3storage;
     final double x_ = (storage[0] * argStorage[0]) +
@@ -830,7 +830,7 @@ class Matrix3 {
   }
 
   /// Transform a copy of [arg] of type [Vector3] using the transformation
-  /// defined by [this]. If a [out] parameter is supplied, the copy is stored in
+  /// defined by this. If a [out] parameter is supplied, the copy is stored in
   /// [out].
   Vector3 transformed(Vector3 arg, [Vector3 out]) {
     if (out == null) {
@@ -841,7 +841,7 @@ class Matrix3 {
     return transform(out);
   }
 
-  /// Copies [this] into [array] starting at [offset].
+  /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset = 0]) {
     final int i = offset;
     array[i + 8] = _m3storage[8];
@@ -855,7 +855,7 @@ class Matrix3 {
     array[i + 0] = _m3storage[0];
   }
 
-  /// Copies elements from [array] into [this] starting at [offset].
+  /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
     final int i = offset;
     _m3storage[8] = array[i + 8];
@@ -869,7 +869,7 @@ class Matrix3 {
     _m3storage[0] = array[i + 0];
   }
 
-  /// Multiply [this] to each set of xyz values in [array] starting at [offset].
+  /// Multiply this to each set of xyz values in [array] starting at [offset].
   List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
     for (int i = 0, j = offset; i < array.length; i += 3, j += 3) {
       final Vector3 v = Vector3.array(array, j)..applyMatrix3(this);
@@ -902,7 +902,7 @@ class Matrix3 {
     return Vector3(x, y, z);
   }
 
-  /// Is [this] the identity matrix?
+  /// Is this the identity matrix?
   bool isIdentity() =>
       _m3storage[0] == 1.0 // col 1
       &&
@@ -917,7 +917,7 @@ class Matrix3 {
       _m3storage[7] == 0.0 &&
       _m3storage[8] == 1.0;
 
-  /// Is [this] the zero matrix?
+  /// Is this the zero matrix?
   bool isZero() =>
       _m3storage[0] == 0.0 // col 1
       &&

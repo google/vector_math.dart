@@ -105,7 +105,7 @@ class Matrix2 {
     _m2storage[0] = argStorage[0];
   }
 
-  /// Set [this] to the outer product of [u] and [v].
+  /// Set this to the outer product of [u] and [v].
   void setOuter(Vector2 u, Vector2 v) {
     final Float32List uStorage = u._v2storage;
     final Float32List vStorage = v._v2storage;
@@ -201,10 +201,10 @@ class Matrix2 {
     return r;
   }
 
-  /// Create a copy of [this].
+  /// Create a copy of this.
   Matrix2 clone() => Matrix2.copy(this);
 
-  /// Copy [this] into [arg].
+  /// Copy this into [arg].
   Matrix2 copyInto(Matrix2 arg) {
     final Float32List argStorage = arg._m2storage;
     argStorage[0] = _m2storage[0];
@@ -214,7 +214,7 @@ class Matrix2 {
     return arg;
   }
 
-  /// Returns a new vector or matrix by multiplying [this] with [arg].
+  /// Returns a new vector or matrix by multiplying this with [arg].
   dynamic operator *(dynamic arg) {
     if (arg is double) {
       return scaled(arg);
@@ -228,16 +228,16 @@ class Matrix2 {
     throw ArgumentError(arg);
   }
 
-  /// Returns new matrix after component wise [this] + [arg]
+  /// Returns new matrix after component wise this + [arg]
   Matrix2 operator +(Matrix2 arg) => clone()..add(arg);
 
-  /// Returns new matrix after component wise [this] - [arg]
+  /// Returns new matrix after component wise this - [arg]
   Matrix2 operator -(Matrix2 arg) => clone()..sub(arg);
 
   /// Returns new matrix -this
   Matrix2 operator -() => clone()..negate();
 
-  /// Zeros [this].
+  /// Zeros this.
   void setZero() {
     _m2storage[0] = 0.0;
     _m2storage[1] = 0.0;
@@ -245,7 +245,7 @@ class Matrix2 {
     _m2storage[3] = 0.0;
   }
 
-  /// Makes [this] into the identity matrix.
+  /// Makes this into the identity matrix.
   void setIdentity() {
     _m2storage[0] = 1.0;
     _m2storage[1] = 0.0;
@@ -316,7 +316,7 @@ class Matrix2 {
     return norm;
   }
 
-  /// Returns relative error between [this] and [correct]
+  /// Returns relative error between this and [correct]
   double relativeError(Matrix2 correct) {
     final Matrix2 diff = correct - this;
     final double correct_norm = correct.infinityNorm();
@@ -324,7 +324,7 @@ class Matrix2 {
     return diff_norm / correct_norm;
   }
 
-  /// Returns absolute error between [this] and [correct]
+  /// Returns absolute error between this and [correct]
   double absoluteError(Matrix2 correct) {
     final double this_norm = infinityNorm();
     final double correct_norm = correct.infinityNorm();
@@ -382,7 +382,7 @@ class Matrix2 {
     _m2storage[3] = temp * scale;
   }
 
-  /// Scale [this] by [scale].
+  /// Scale this by [scale].
   void scale(double scale) {
     _m2storage[0] = _m2storage[0] * scale;
     _m2storage[1] = _m2storage[1] * scale;
@@ -390,10 +390,10 @@ class Matrix2 {
     _m2storage[3] = _m2storage[3] * scale;
   }
 
-  /// Create a copy of [this] scaled by [scale].
+  /// Create a copy of this scaled by [scale].
   Matrix2 scaled(double scale) => clone()..scale(scale);
 
-  /// Add [o] to [this].
+  /// Add [o] to this.
   void add(Matrix2 o) {
     final Float32List oStorage = o._m2storage;
     _m2storage[0] = _m2storage[0] + oStorage[0];
@@ -402,7 +402,7 @@ class Matrix2 {
     _m2storage[3] = _m2storage[3] + oStorage[3];
   }
 
-  /// Subtract [o] from [this].
+  /// Subtract [o] from this.
   void sub(Matrix2 o) {
     final Float32List oStorage = o._m2storage;
     _m2storage[0] = _m2storage[0] - oStorage[0];
@@ -411,7 +411,7 @@ class Matrix2 {
     _m2storage[3] = _m2storage[3] - oStorage[3];
   }
 
-  /// Negate [this].
+  /// Negate this.
   void negate() {
     _m2storage[0] = -_m2storage[0];
     _m2storage[1] = -_m2storage[1];
@@ -419,7 +419,7 @@ class Matrix2 {
     _m2storage[3] = -_m2storage[3];
   }
 
-  /// Multiply [this] with [arg] and store it in [this].
+  /// Multiply this with [arg] and store it in this.
   void multiply(Matrix2 arg) {
     final double m00 = _m2storage[0];
     final double m01 = _m2storage[2];
@@ -436,10 +436,10 @@ class Matrix2 {
     _m2storage[3] = (m10 * n01) + (m11 * n11);
   }
 
-  /// Multiply [this] with [arg] and return the product.
+  /// Multiply this with [arg] and return the product.
   Matrix2 multiplied(Matrix2 arg) => clone()..multiply(arg);
 
-  /// Multiply a transposed [this] with [arg].
+  /// Multiply a transposed this with [arg].
   void transposeMultiply(Matrix2 arg) {
     final double m00 = _m2storage[0];
     final double m01 = _m2storage[1];
@@ -452,7 +452,7 @@ class Matrix2 {
     _m2storage[3] = (m10 * argStorage[2]) + (m11 * argStorage[3]);
   }
 
-  /// Multiply [this] with a transposed [arg].
+  /// Multiply this with a transposed [arg].
   void multiplyTranspose(Matrix2 arg) {
     final double m00 = _m2storage[0];
     final double m01 = _m2storage[2];
@@ -466,7 +466,7 @@ class Matrix2 {
   }
 
   /// Transform [arg] of type [Vector2] using the transformation defined by
-  /// [this].
+  /// this.
   Vector2 transform(Vector2 arg) {
     final Float32List argStorage = arg._v2storage;
     final double x =
@@ -479,7 +479,7 @@ class Matrix2 {
   }
 
   /// Transform a copy of [arg] of type [Vector2] using the transformation
-  /// defined by [this]. If a [out] parameter is supplied, the copy is stored in
+  /// defined by this. If a [out] parameter is supplied, the copy is stored in
   /// [out].
   Vector2 transformed(Vector2 arg, [Vector2 out]) {
     if (out == null) {
@@ -490,7 +490,7 @@ class Matrix2 {
     return transform(out);
   }
 
-  /// Copies [this] into [array] starting at [offset].
+  /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset = 0]) {
     final int i = offset;
     array[i + 3] = _m2storage[3];
@@ -499,7 +499,7 @@ class Matrix2 {
     array[i + 0] = _m2storage[0];
   }
 
-  /// Copies elements from [array] into [this] starting at [offset].
+  /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
     final int i = offset;
     _m2storage[3] = array[i + 3];
