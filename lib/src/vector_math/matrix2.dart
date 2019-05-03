@@ -302,16 +302,16 @@ class Matrix2 {
   double infinityNorm() {
     double norm = 0.0;
     {
-      double row_norm = 0.0;
-      row_norm += _m2storage[0].abs();
-      row_norm += _m2storage[1].abs();
-      norm = row_norm > norm ? row_norm : norm;
+      double rowNorm = 0.0;
+      rowNorm += _m2storage[0].abs();
+      rowNorm += _m2storage[1].abs();
+      norm = rowNorm > norm ? rowNorm : norm;
     }
     {
-      double row_norm = 0.0;
-      row_norm += _m2storage[2].abs();
-      row_norm += _m2storage[3].abs();
-      norm = row_norm > norm ? row_norm : norm;
+      double rowNorm = 0.0;
+      rowNorm += _m2storage[2].abs();
+      rowNorm += _m2storage[3].abs();
+      norm = rowNorm > norm ? rowNorm : norm;
     }
     return norm;
   }
@@ -319,9 +319,9 @@ class Matrix2 {
   /// Returns relative error between this and [correct]
   double relativeError(Matrix2 correct) {
     final Matrix2 diff = correct - this;
-    final double correct_norm = correct.infinityNorm();
+    final double correctNorm = correct.infinityNorm();
     final double diff_norm = diff.infinityNorm();
-    return diff_norm / correct_norm;
+    return diff_norm / correctNorm;
   }
 
   /// Returns absolute error between this and [correct]
