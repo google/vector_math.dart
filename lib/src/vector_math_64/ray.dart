@@ -80,7 +80,7 @@ class Ray {
   /// Return the distance from the origin of this to the intersection with
   /// [other] if this intersects with [other], or null if the don't intersect.
   double intersectsWithTriangle(Triangle other) {
-    const double EPSILON = 10e-6;
+    const double epsilon = 10e-6;
 
     final Vector3 point0 = other._point0;
     final Vector3 point1 = other._point1;
@@ -96,7 +96,7 @@ class Ray {
     _direction.crossInto(_e2, _q);
     final double a = _e1.dot(_q);
 
-    if (a > -EPSILON && a < EPSILON) {
+    if (a > -epsilon && a < epsilon) {
       return null;
     }
 
@@ -113,7 +113,7 @@ class Ray {
     _s.crossInto(_e1, _r);
     final double v = f * (_direction.dot(_r));
 
-    if (v < -EPSILON || u + v > 1.0 + EPSILON) {
+    if (v < -epsilon || u + v > 1.0 + epsilon) {
       return null;
     }
 
@@ -125,7 +125,7 @@ class Ray {
   /// Return the distance from the origin of this to the intersection with
   /// [other] if this intersects with [other], or null if the don't intersect.
   double intersectsWithQuad(Quad other) {
-    const double EPSILON = 10e-6;
+    const double epsilon = 10e-6;
 
     // First triangle
     Vector3 point0 = other._point0;
@@ -142,7 +142,7 @@ class Ray {
     _direction.crossInto(_e2, _q);
     final double a0 = _e1.dot(_q);
 
-    if (!(a0 > -EPSILON && a0 < EPSILON)) {
+    if (!(a0 > -epsilon && a0 < epsilon)) {
       final double f = 1 / a0;
       _s
         ..setFrom(_origin)
@@ -153,7 +153,7 @@ class Ray {
         _s.crossInto(_e1, _r);
         final double v = f * (_direction.dot(_r));
 
-        if (!(v < -EPSILON || u + v > 1.0 + EPSILON)) {
+        if (!(v < -epsilon || u + v > 1.0 + epsilon)) {
           final double t = f * (_e2.dot(_r));
 
           return t;
@@ -176,7 +176,7 @@ class Ray {
     _direction.crossInto(_e2, _q);
     final double a1 = _e1.dot(_q);
 
-    if (!(a1 > -EPSILON && a1 < EPSILON)) {
+    if (!(a1 > -epsilon && a1 < epsilon)) {
       final double f = 1 / a1;
       _s
         ..setFrom(_origin)
@@ -187,7 +187,7 @@ class Ray {
         _s.crossInto(_e1, _r);
         final double v = f * (_direction.dot(_r));
 
-        if (!(v < -EPSILON || u + v > 1.0 + EPSILON)) {
+        if (!(v < -epsilon || u + v > 1.0 + epsilon)) {
           final double t = f * (_e2.dot(_r));
 
           return t;

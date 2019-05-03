@@ -84,8 +84,8 @@ class SimplexNoise {
   // Skewing and unskewing factors for 2, 3, and 4 dimensions
   static final double _F2 = 0.5 * (math.sqrt(3.0) - 1.0);
   static final double _G2 = (3.0 - math.sqrt(3.0)) / 6.0;
-  static const double _F3 = 1.0 / 3.0;
-  static const double _G3 = 1.0 / 6.0;
+  static const double _f3 = 1.0 / 3.0;
+  static const double _g3 = 1.0 / 6.0;
   static final double _F4 = (math.sqrt(5.0) - 1.0) / 4.0;
   static final double _G4 = (5.0 - math.sqrt(5.0)) / 20.0;
 
@@ -179,11 +179,11 @@ class SimplexNoise {
     double n0, n1, n2, n3; // Noise contributions from the four corners
     // Skew the input space to determine which simplex cell we're in
     final double s =
-        (xin + yin + zin) * _F3; // Very nice and simple skew factor for 3D
+        (xin + yin + zin) * _f3; // Very nice and simple skew factor for 3D
     final int i = (xin + s).floor();
     final int j = (yin + s).floor();
     final int k = (zin + s).floor();
-    final double t = (i + j + k) * _G3;
+    final double t = (i + j + k) * _g3;
     final double X0 = i - t; // Unskew the cell origin back to (x,y,z) space
     final double Y0 = j - t;
     final double Z0 = k - t;
@@ -251,17 +251,17 @@ class SimplexNoise {
     // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where
     // c = 1/6.
     final double x1 =
-        x0 - i1 + _G3; // Offsets for second corner in (x,y,z) coords
-    final double y1 = y0 - j1 + _G3;
-    final double z1 = z0 - k1 + _G3;
+        x0 - i1 + _g3; // Offsets for second corner in (x,y,z) coords
+    final double y1 = y0 - j1 + _g3;
+    final double z1 = z0 - k1 + _g3;
     final double x2 =
-        x0 - i2 + 2.0 * _G3; // Offsets for third corner in (x,y,z) coords
-    final double y2 = y0 - j2 + 2.0 * _G3;
-    final double z2 = z0 - k2 + 2.0 * _G3;
+        x0 - i2 + 2.0 * _g3; // Offsets for third corner in (x,y,z) coords
+    final double y2 = y0 - j2 + 2.0 * _g3;
+    final double z2 = z0 - k2 + 2.0 * _g3;
     final double x3 =
-        x0 - 1.0 + 3.0 * _G3; // Offsets for last corner in (x,y,z) coords
-    final double y3 = y0 - 1.0 + 3.0 * _G3;
-    final double z3 = z0 - 1.0 + 3.0 * _G3;
+        x0 - 1.0 + 3.0 * _g3; // Offsets for last corner in (x,y,z) coords
+    final double y3 = y0 - 1.0 + 3.0 * _g3;
+    final double z3 = z0 - 1.0 + 3.0 * _g3;
     // Work out the hashed gradient indices of the four simplex corners
     final int ii = i & 255;
     final int jj = j & 255;
