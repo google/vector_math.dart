@@ -67,10 +67,10 @@ Map<String, GenerateFunction> generators = <String, GenerateFunction>{
   'ring': generateRing
 };
 
-void main(List<String> args_) {
-  final List<String> args = List<String>.from(args_, growable: true);
+void main(List<String> args) {
+  final List<String> fixedArgs = List<String>.unmodifiable(args);
 
-  if (args.isEmpty) {
+  if (fixedArgs.isEmpty) {
     print('mesh_generator.dart <type> [<arg0> ... <argN>]');
     print('');
     print('<type> = cube, sphere, cylinder');
@@ -82,13 +82,13 @@ void main(List<String> args_) {
     print('');
     return;
   }
-  final String type = args.removeAt(0);
+  final String type = fixedArgs.removeAt(0);
   final GenerateFunction generator = generators[type];
   if (generator == null) {
     print('Could not find generator for $type');
     return;
   }
-  final MeshGeometry geometry = generator(args);
+  final MeshGeometry geometry = generator(fixedArgs);
   if (geometry == null) {
     print('Error generating geometry for $type');
     return;

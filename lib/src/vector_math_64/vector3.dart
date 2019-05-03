@@ -70,10 +70,10 @@ class Vector3 implements Vector {
   }
 
   /// Set the values of the vector.
-  void setValues(double x_, double y_, double z_) {
-    _v3storage[0] = x_;
-    _v3storage[1] = y_;
-    _v3storage[2] = z_;
+  void setValues(double x, double y, double z) {
+    _v3storage[0] = x;
+    _v3storage[1] = y;
+    _v3storage[2] = z;
   }
 
   /// Zero vector.
@@ -403,11 +403,11 @@ class Vector3 implements Vector {
 
   /// True if any component is NaN.
   bool get isNaN {
-    bool is_nan = false;
-    is_nan = is_nan || _v3storage[0].isNaN;
-    is_nan = is_nan || _v3storage[1].isNaN;
-    is_nan = is_nan || _v3storage[2].isNaN;
-    return is_nan;
+    bool isNan = false;
+    isNan = isNan || _v3storage[0].isNaN;
+    isNan = isNan || _v3storage[1].isNaN;
+    isNan = isNan || _v3storage[2].isNaN;
+    return isNan;
   }
 
   /// Add [arg] to this.
