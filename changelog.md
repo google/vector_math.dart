@@ -1,4 +1,6 @@
-# Changelog - vector_math
+## 2.0.9
+
+- Update Dart SDK constraint to `>=2.1.0 <3.0.0`.
 
 ## v 2.0.8 - July 2018
 
