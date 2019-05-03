@@ -8,13 +8,13 @@ import 'package:vector_math/vector_math_64.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
 
 mixin Setup on BenchmarkBase {
-  final beginTransform = new Matrix4.compose(
+  final beginTransform = Matrix4.compose(
     Vector3(1.0, 1.0, 1.0),
     Quaternion.euler(0.0, 0.0, 0.0),
     Vector3(1.0, 1.0, 1.0),
   );
 
-  final Matrix4 endTransform = new Matrix4.compose(
+  final Matrix4 endTransform = Matrix4.compose(
     Vector3(5.0, 260.0, 1.0),
     Quaternion.euler(0.0, 1.0, -0.7),
     Vector3(0.6, 0.6, 0.6),
@@ -31,7 +31,7 @@ mixin Setup on BenchmarkBase {
       sum_traces += m2.trace();
     }
     if (sum_traces < 6320 || sum_traces > 6321) {
-      throw 'Bad result: ${sum_traces}';
+      throw StateError('Bad result: $sum_traces');
     }
   }
 
@@ -41,6 +41,7 @@ mixin Setup on BenchmarkBase {
 class Matrix4TweenBenchmark1 extends BenchmarkBase with Setup {
   Matrix4TweenBenchmark1() : super("Matrix4TweenBenchmark1");
 
+  @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {
     final Vector3 beginTranslation = Vector3.zero();
     final Vector3 endTranslation = Vector3.zero();
@@ -62,6 +63,7 @@ class Matrix4TweenBenchmark1 extends BenchmarkBase with Setup {
 class Matrix4TweenBenchmark2 extends BenchmarkBase with Setup {
   Matrix4TweenBenchmark2() : super("Matrix4TweenBenchmark2");
 
+  @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {
     begin.decompose(beginTranslation, beginRotation, beginScale);
     end.decompose(endTranslation, endRotation, endScale);
@@ -86,6 +88,7 @@ class Matrix4TweenBenchmark2 extends BenchmarkBase with Setup {
 class Matrix4TweenBenchmark3 extends BenchmarkBase with Setup {
   Matrix4TweenBenchmark3() : super("Matrix4TweenBenchmark3");
 
+  @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {
     if (beginTranslation == null) _lerpInit();
     begin.decompose(beginTranslation, beginRotation, beginScale);
@@ -106,7 +109,7 @@ class Matrix4TweenBenchmark3 extends BenchmarkBase with Setup {
   static Vector3 beginScale;
   static Vector3 endScale;
   static Vector3 lerpScale;
-  static _lerpInit() {
+  static void _lerpInit() {
     beginTranslation = Vector3.zero();
     endTranslation = Vector3.zero();
     lerpTranslation = Vector3.zero();
