@@ -1774,7 +1774,7 @@ class Matrix4 {
 
   /// Decomposes this into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
-    final Vector3 v = Vector3.zero();
+    final Vector3 v = _decomposeV ??= Vector3.zero();
     double sx =
         (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
     final double sy =
@@ -1815,6 +1815,7 @@ class Matrix4 {
     scale._v3storage[2] = sz;
   }
 
+  static Vector3 _decomposeV;
   static Matrix4 _decomposeM;
   static Matrix3 _decomposeR;
 
