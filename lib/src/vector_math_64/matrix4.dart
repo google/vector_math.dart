@@ -1794,7 +1794,8 @@ class Matrix4 {
     final double invSY = 1.0 / sy;
     final double invSZ = 1.0 / sz;
 
-    final Matrix4 m = Matrix4.copy(this);
+    final Matrix4 m = _decomposeM ??= Matrix4.zero();
+    m.setFrom(this);
     m._m4storage[0] *= invSX;
     m._m4storage[1] *= invSX;
     m._m4storage[2] *= invSX;
@@ -1805,12 +1806,17 @@ class Matrix4 {
     m._m4storage[9] *= invSZ;
     m._m4storage[10] *= invSZ;
 
-    rotation.setFromRotation(m.getRotation());
+    final Matrix3 r = _decomposeR ??= Matrix3.zero();
+    m.copyRotation(r);
+    rotation.setFromRotation(r);
 
     scale._v3storage[0] = sx;
     scale._v3storage[1] = sy;
     scale._v3storage[2] = sz;
   }
+
+  static Matrix4 _decomposeM;
+  static Matrix3 _decomposeR;
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by this.
   Vector3 rotate3(Vector3 arg) {
