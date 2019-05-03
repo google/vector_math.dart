@@ -79,7 +79,6 @@ void testHexString() {
 
   expect(Colors.toHexString(color, alpha: true), equals('88ff00ff'));
 
-
   Colors.fromHexString('#8F0f', color);
 
   relativeTest(color.r, 1.0);
@@ -126,7 +125,7 @@ void testHexString() {
   expect(Colors.toHexString(color, alpha: true), equals('00000000'));
 
   expect(() => Colors.fromHexString('vector_math rules!', color),
-      throwsA(new isInstanceOf<FormatException>()));
+      throwsA(isA<FormatException>()));
 }
 
 void testFromRgba() {
