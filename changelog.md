@@ -1,6 +1,7 @@
 ## 2.0.9
 
 - Update Dart SDK constraint to `>=2.1.0 <3.0.0`.
+- Improve performance of Matrix4.decompose by reusing objects.
 
 ## v 2.0.8 - July 2018
 
