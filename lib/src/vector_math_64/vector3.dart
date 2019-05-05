@@ -81,6 +81,9 @@ class Vector3 implements Vector {
 
   /// Zero vector.
   void setZero() {
+    _setZero(_v3storage);
+  }
+  static void _setZero(Float64List _v3storage) {
     _v3storage[2] = 0.0;
     _v3storage[1] = 0.0;
     _v3storage[0] = 0.0;
@@ -88,7 +91,9 @@ class Vector3 implements Vector {
 
   /// Set the values by copying them from [other].
   void setFrom(Vector3 other) {
-    final Float64List otherStorage = other._v3storage;
+    _setFrom(_v3storage, other._v3storage);
+  }
+  static void _setFrom(Float64List _v3storage, Float64List otherStorage) {
     _v3storage[0] = otherStorage[0];
     _v3storage[1] = otherStorage[1];
     _v3storage[2] = otherStorage[2];
@@ -157,7 +162,9 @@ class Vector3 implements Vector {
   }
 
   /// Length.
-  double get length => math.sqrt(length2);
+  double get length => _length(_v3storage);
+  static double _length(Float64List _v3storage) =>
+      math.sqrt(_length2(_v3storage));
 
   /// Length squared.
   double get length2 => _length2(_v3storage);
@@ -170,8 +177,9 @@ class Vector3 implements Vector {
   }
 
   /// Normalizes this.
-  double normalize() {
-    final double l = length;
+  double normalize() => _normalize(_v3storage);
+  static double _normalize(Float64List _v3storage) {
+    final double l = _length(_v3storage);
     if (l == 0.0) {
       return 0.0;
     }
@@ -236,8 +244,8 @@ class Vector3 implements Vector {
   }
 
   /// Inner product.
-  double dot(Vector3 other) {
-    final Float64List otherStorage = other._v3storage;
+  double dot(Vector3 other) => _dot(_v3storage, other._v3storage);
+  static double _dot(Float64List _v3storage, Float64List otherStorage) {
     double sum;
     sum = _v3storage[0] * otherStorage[0];
     sum += _v3storage[1] * otherStorage[1];
@@ -264,7 +272,8 @@ class Vector3 implements Vector {
   }
 
   /// Cross product.
-  Vector3 cross(Vector3 other) {
+  Vector3 cross(Vector3 other) => crossInto(other, Vector3.zero());
+  /*
     final double _x = _v3storage[0];
     final double _y = _v3storage[1];
     final double _z = _v3storage[2];
@@ -274,21 +283,23 @@ class Vector3 implements Vector {
     final double oz = otherStorage[2];
     return Vector3(_y * oz - _z * oy, _z * ox - _x * oz, _x * oy - _y * ox);
   }
-
+*/
   /// Cross product. Stores result in [out].
+  @pragma('dart2js:tryInline')
   Vector3 crossInto(Vector3 other, Vector3 out) {
+    _crossInto(_v3storage, other._v3storage, out._v3storage);
+    return out;
+  }
+  static _crossInto(Float64List _v3storage, Float64List otherStorage, Float64List outStorage,) {
     final double x = _v3storage[0];
     final double y = _v3storage[1];
     final double z = _v3storage[2];
-    final Float64List otherStorage = other._v3storage;
     final double ox = otherStorage[0];
     final double oy = otherStorage[1];
     final double oz = otherStorage[2];
-    final Float64List outStorage = out._v3storage;
     outStorage[0] = y * oz - z * oy;
     outStorage[1] = z * ox - x * oz;
     outStorage[2] = x * oy - y * ox;
-    return out;
   }
 
   /// Reflect this.
@@ -432,7 +443,9 @@ class Vector3 implements Vector {
 
   /// Subtract [arg] from this.
   void sub(Vector3 arg) {
-    final Float64List argStorage = arg._v3storage;
+    _sub2(_v3storage, arg._v3storage);
+  }
+  static void _sub2(Float64List _v3storage, Float64List argStorage) {
     _v3storage[0] = _v3storage[0] - argStorage[0];
     _v3storage[1] = _v3storage[1] - argStorage[1];
     _v3storage[2] = _v3storage[2] - argStorage[2];
@@ -456,6 +469,9 @@ class Vector3 implements Vector {
 
   /// Scale this.
   void scale(double arg) {
+    _scale(_v3storage, arg);
+  }
+  static void _scale(Float64List _v3storage, double arg) {
     _v3storage[2] = _v3storage[2] * arg;
     _v3storage[1] = _v3storage[1] * arg;
     _v3storage[0] = _v3storage[0] * arg;
