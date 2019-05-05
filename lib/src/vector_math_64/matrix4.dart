@@ -355,6 +355,28 @@ class Matrix4 {
       double arg13,
       double arg14,
       double arg15) {
+    _setValues(_m4storage, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+        arg9, arg10, arg11, arg12, arg13, arg14, arg15);
+  }
+
+  static void _setValues(
+      Float64List _m4storage,
+      double arg0,
+      double arg1,
+      double arg2,
+      double arg3,
+      double arg4,
+      double arg5,
+      double arg6,
+      double arg7,
+      double arg8,
+      double arg9,
+      double arg10,
+      double arg11,
+      double arg12,
+      double arg13,
+      double arg14,
+      double arg15) {
     _m4storage[15] = arg15;
     _m4storage[14] = arg14;
     _m4storage[13] = arg13;
