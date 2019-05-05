@@ -71,6 +71,9 @@ class Vector3 implements Vector {
 
   /// Set the values of the vector.
   void setValues(double x, double y, double z) {
+    _setValues(_v3storage, x, y, z);
+  }
+  static void _setValues(Float32List _v3storage, double x, double y, double z) {
     _v3storage[0] = x;
     _v3storage[1] = y;
     _v3storage[2] = z;
@@ -157,7 +160,8 @@ class Vector3 implements Vector {
   double get length => math.sqrt(length2);
 
   /// Length squared.
-  double get length2 {
+  double get length2 => _length2(_v3storage);
+  static double _length2(Float32List _v3storage) {
     double sum;
     sum = _v3storage[0] * _v3storage[0];
     sum += _v3storage[1] * _v3storage[1];
