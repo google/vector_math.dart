@@ -809,6 +809,11 @@ class Matrix4 {
 
   /// Rotate this [angle] radians around X
   void rotateX(double angle) {
+    _rotateX(_m4storage, angle);
+  }
+
+  static void _rotateX(Float64List _m4storage, double angle) {
+    _m4storage[15];
     final double cosAngle = math.cos(angle);
     final double sinAngle = math.sin(angle);
     final double t1 = _m4storage[4] * cosAngle + _m4storage[8] * sinAngle;
@@ -831,6 +836,11 @@ class Matrix4 {
 
   /// Rotate this matrix [angle] radians around Y
   void rotateY(double angle) {
+    _rotateY(_m4storage, angle);
+  }
+
+  void _rotateY(Float64List _m4storage, double angle) {
+    _m4storage[15];
     final double cosAngle = math.cos(angle);
     final double sinAngle = math.sin(angle);
     final double t1 = _m4storage[0] * cosAngle + _m4storage[8] * -sinAngle;
@@ -853,6 +863,11 @@ class Matrix4 {
 
   /// Rotate this matrix [angle] radians around Z
   void rotateZ(double angle) {
+    _rotateZ(_m4storage, angle);
+  }
+
+  void _rotateZ(Float64List _m4storage, double angle) {
+    _m4storage[15];
     final double cosAngle = math.cos(angle);
     final double sinAngle = math.sin(angle);
     final double t1 = _m4storage[0] * cosAngle + _m4storage[4] * sinAngle;
