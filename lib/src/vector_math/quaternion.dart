@@ -92,7 +92,12 @@ class Quaternion {
 
   /// Copy [source] into this.
   void setFrom(Quaternion source) {
-    final Float32List sourceStorage = source._qStorage;
+    _setFrom(_qStorage, source._qStorage);
+  }
+
+  static void _setFrom(Float32List _qStorage, Float32List sourceStorage) {
+    _qStorage[3];
+    sourceStorage[3];
     _qStorage[0] = sourceStorage[0];
     _qStorage[1] = sourceStorage[1];
     _qStorage[2] = sourceStorage[2];
@@ -101,6 +106,12 @@ class Quaternion {
 
   /// Set the quaternion to the raw values [x], [y], [z], and [w].
   void setValues(double x, double y, double z, double w) {
+    _setValues(_qStorage, x, y, z, w);
+  }
+
+  static void _setValues(
+      Float32List _qStorage, double x, double y, double z, double w) {
+    _qStorage[3];
     _qStorage[0] = x;
     _qStorage[1] = y;
     _qStorage[2] = z;
@@ -122,7 +133,7 @@ class Quaternion {
   }
 
   /// Set the quaternion with rotation from a rotation matrix [rotationMatrix].
-  void setFromRotation(Matrix3 rotationMatrix) {
+  void XsetFromRotation(Matrix3 rotationMatrix) {
     final Float32List rotationMatrixStorage = rotationMatrix.storage;
     final double trace = rotationMatrix.trace();
     if (trace > 0.0) {
@@ -152,6 +163,45 @@ class Quaternion {
           s;
       _qStorage[k] = (rotationMatrixStorage[rotationMatrix.index(k, i)] +
               rotationMatrixStorage[rotationMatrix.index(i, k)]) *
+          s;
+    }
+  }
+
+  /// Set the quaternion with rotation from a rotation matrix [rotationMatrix].
+  void setFromRotation(Matrix3 rotationMatrix) {
+    _setFromRotation(_qStorage, rotationMatrix._m3storage);
+  }
+
+  static void _setFromRotation(
+      Float32List _qStorage, Float32List rotationMatrixStorage) {
+    final double trace = Matrix3._trace(rotationMatrixStorage);
+    if (trace > 0.0) {
+      double s = math.sqrt(trace + 1.0);
+      _qStorage[3] = s * 0.5;
+      s = 0.5 / s;
+      _qStorage[0] = (rotationMatrixStorage[5] - rotationMatrixStorage[7]) * s;
+      _qStorage[1] = (rotationMatrixStorage[6] - rotationMatrixStorage[2]) * s;
+      _qStorage[2] = (rotationMatrixStorage[1] - rotationMatrixStorage[3]) * s;
+    } else {
+      final int i = rotationMatrixStorage[0] < rotationMatrixStorage[4]
+          ? (rotationMatrixStorage[4] < rotationMatrixStorage[8] ? 2 : 1)
+          : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
+      final int j = (i + 1) % 3;
+      final int k = (i + 2) % 3;
+      double s = math.sqrt(rotationMatrixStorage[Matrix3._index(i, i)] -
+          rotationMatrixStorage[Matrix3._index(j, j)] -
+          rotationMatrixStorage[Matrix3._index(k, k)] +
+          1.0);
+      _qStorage[i] = s * 0.5;
+      s = 0.5 / s;
+      _qStorage[3] = (rotationMatrixStorage[Matrix3._index(k, j)] -
+              rotationMatrixStorage[Matrix3._index(j, k)]) *
+          s;
+      _qStorage[j] = (rotationMatrixStorage[Matrix3._index(j, i)] +
+              rotationMatrixStorage[Matrix3._index(i, j)]) *
+          s;
+      _qStorage[k] = (rotationMatrixStorage[Matrix3._index(k, i)] +
+              rotationMatrixStorage[Matrix3._index(i, k)]) *
           s;
     }
   }
@@ -247,8 +297,10 @@ class Quaternion {
   }
 
   /// Normalize this.
-  double normalize() {
-    final double l = length;
+  double normalize() => _normalize(_qStorage);
+
+  static double _normalize(Float32List _qStorage) {
+    final double l = _length(_qStorage);
     if (l == 0.0) {
       return 0.0;
     }
@@ -302,7 +354,10 @@ class Quaternion {
   }
 
   /// Length squared.
-  double get length2 {
+  double get length2 => _length2(_qStorage);
+
+  static double _length2(Float32List _qStorage) {
+    _qStorage[3];
     final double x = _qStorage[0];
     final double y = _qStorage[1];
     final double z = _qStorage[2];
@@ -311,7 +366,10 @@ class Quaternion {
   }
 
   /// Length.
-  double get length => math.sqrt(length2);
+  double get length => _length(_qStorage);
+
+  static double _length(Float32List _qStorage) =>
+      math.sqrt(_length2(_qStorage));
 
   /// Returns a copy of [v] rotated by quaternion.
   Vector3 rotated(Vector3 v) {

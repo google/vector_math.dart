@@ -82,6 +82,8 @@ class Matrix3 {
   /// Return index in storage for [row], [col] value.
   int index(int row, int col) => (col * 3) + row;
 
+  static int _index(int row, int col) => (col * 3) + row;
+
   /// Value at [row], [col].
   double entry(int row, int col) {
     assert((row >= 0) && (row < dimension));
@@ -436,7 +438,9 @@ class Matrix3 {
 
   /// Returns the trace of the matrix. The trace of a matrix is the sum of
   /// the diagonal entries.
-  double trace() {
+  double trace() => _trace(_m3storage);
+
+  static double _trace(Float64List _m3storage) {
     double t = 0.0;
     t += _m3storage[0];
     t += _m3storage[4];

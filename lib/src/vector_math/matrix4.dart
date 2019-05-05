@@ -1776,6 +1776,12 @@ class Matrix4 {
 
   /// Multiply this with a transposed [arg].
   void multiplyTranspose(Matrix4 arg) {
+    _multiplyTranspose(_m4storage, arg._m4storage);
+  }
+
+  void _multiplyTranspose(Float32List _m4storage, Float32List argStorage) {
+    _m4storage[15];
+    argStorage[15];
     final double m00 = _m4storage[0];
     final double m01 = _m4storage[4];
     final double m02 = _m4storage[8];
@@ -1792,7 +1798,6 @@ class Matrix4 {
     final double m31 = _m4storage[7];
     final double m32 = _m4storage[11];
     final double m33 = _m4storage[15];
-    final Float32List argStorage = arg._m4storage;
     _m4storage[0] = (m00 * argStorage[0]) +
         (m01 * argStorage[4]) +
         (m02 * argStorage[8]) +
@@ -1908,7 +1913,13 @@ class Matrix4 {
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by this.
   Vector3 rotate3(Vector3 arg) {
-    final Float32List argStorage = arg._v3storage;
+    _rotate3(_m4storage, arg._v3storage);
+    return arg;
+  }
+
+  static void _rotate3(Float32List _m4storage, Float32List argStorage) {
+    _m4storage[15];
+    argStorage[2];
     final double x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]);
@@ -1921,7 +1932,6 @@ class Matrix4 {
     argStorage[0] = x_;
     argStorage[1] = y_;
     argStorage[2] = z_;
-    return arg;
   }
 
   /// Rotate a copy of [arg] of type [Vector3] using the rotation defined by
