@@ -73,6 +73,7 @@ class Vector3 implements Vector {
   void setValues(double x, double y, double z) {
     _setValues(_v3storage, x, y, z);
   }
+
   static void _setValues(Float32List _v3storage, double x, double y, double z) {
     _v3storage[0] = x;
     _v3storage[1] = y;
@@ -83,6 +84,7 @@ class Vector3 implements Vector {
   void setZero() {
     _setZero(_v3storage);
   }
+
   static void _setZero(Float32List _v3storage) {
     _v3storage[2] = 0.0;
     _v3storage[1] = 0.0;
@@ -93,6 +95,7 @@ class Vector3 implements Vector {
   void setFrom(Vector3 other) {
     _setFrom(_v3storage, other._v3storage);
   }
+
   static void _setFrom(Float32List _v3storage, Float32List otherStorage) {
     _v3storage[0] = otherStorage[0];
     _v3storage[1] = otherStorage[1];
@@ -103,6 +106,7 @@ class Vector3 implements Vector {
   void splat(double arg) {
     _splat(_v3storage, arg);
   }
+
   static void _splat(Float32List _v3storage, double arg) {
     _v3storage[2] = arg;
     _v3storage[1] = arg;
@@ -231,7 +235,8 @@ class Vector3 implements Vector {
       return 0.0;
     }
 
-    final double d = _dot(_v3storage, otherStorage) / (_length(_v3storage) * _length(otherStorage));
+    final double d = _dot(_v3storage, otherStorage) /
+        (_length(_v3storage) * _length(otherStorage));
 
     return math.acos(d.clamp(-1.0, 1.0));
   }
@@ -293,7 +298,12 @@ class Vector3 implements Vector {
     _crossInto(_v3storage, other._v3storage, out._v3storage);
     return out;
   }
-  static _crossInto(Float32List _v3storage, Float32List otherStorage, Float32List outStorage,) {
+
+  static _crossInto(
+    Float32List _v3storage,
+    Float32List otherStorage,
+    Float32List outStorage,
+  ) {
     final double x = _v3storage[0];
     final double y = _v3storage[1];
     final double z = _v3storage[2];
@@ -432,6 +442,7 @@ class Vector3 implements Vector {
   void add(Vector3 arg) {
     _add2(_v3storage, arg._v3storage);
   }
+
   static void _add2(Float32List _v3storage, Float32List argStorage) {
     _v3storage[0] = _v3storage[0] + argStorage[0];
     _v3storage[1] = _v3storage[1] + argStorage[1];
@@ -440,7 +451,13 @@ class Vector3 implements Vector {
 
   /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector3 arg, double factor) {
-    final Float32List argStorage = arg._v3storage;
+    _addScaled(_v3storage, arg._v3storage, factor);
+  }
+
+  static void _addScaled(
+      Float32List _v3storage, Float32List argStorage, double factor) {
+    _v3storage[2];
+    argStorage[2];
     _v3storage[0] = _v3storage[0] + argStorage[0] * factor;
     _v3storage[1] = _v3storage[1] + argStorage[1] * factor;
     _v3storage[2] = _v3storage[2] + argStorage[2] * factor;
@@ -450,6 +467,7 @@ class Vector3 implements Vector {
   void sub(Vector3 arg) {
     _sub2(_v3storage, arg._v3storage);
   }
+
   static void _sub2(Float32List _v3storage, Float32List argStorage) {
     _v3storage[0] = _v3storage[0] - argStorage[0];
     _v3storage[1] = _v3storage[1] - argStorage[1];
@@ -476,6 +494,7 @@ class Vector3 implements Vector {
   void scale(double arg) {
     _scale(_v3storage, arg);
   }
+
   static void _scale(Float32List _v3storage, double arg) {
     _v3storage[2] = _v3storage[2] * arg;
     _v3storage[1] = _v3storage[1] * arg;

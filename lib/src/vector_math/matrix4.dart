@@ -401,6 +401,7 @@ class Matrix4 {
   void setFrom(Matrix4 arg) {
     _setFrom(_m4storage, arg._m4storage);
   }
+
   static void _setFrom(Float32List _m4storage, Float32List argStorage) {
     _m4storage[15] = argStorage[15];
     _m4storage[14] = argStorage[14];
@@ -959,6 +960,7 @@ class Matrix4 {
   void transpose() {
     _transpose(_m4storage);
   }
+
   static void _transpose(Float32List _m4storage) {
     _m4storage[15];
     double temp;
@@ -1386,6 +1388,7 @@ class Matrix4 {
   void scaleAdjoint(double scale) {
     _scaleAdjoint(_m4storage, scale);
   }
+
   static void _scaleAdjoint(Float32List _m4storage, double scale) {
     _m4storage[15];
     // Adapted from code by Richard Carling.
@@ -1864,6 +1867,7 @@ class Matrix4 {
     _transform3(_m4storage, arg._v3storage);
     return arg;
   }
+
   static void _transform3(Float32List _m4storage, Float32List argStorage) {
     _m4storage[15];
     argStorage[2];
@@ -1902,7 +1906,8 @@ class Matrix4 {
     _transform(_m4storage, arg._v4storage);
     return arg;
   }
-  static void  _transform(Float32List _m4storage, Float32List argStorage) {
+
+  static void _transform(Float32List _m4storage, Float32List argStorage) {
     _m4storage[15];
     argStorage[3];
     final double x_ = (_m4storage[0] * argStorage[0]) +
