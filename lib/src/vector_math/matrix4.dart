@@ -399,7 +399,9 @@ class Matrix4 {
 
   /// Sets the entire matrix to the matrix in [arg].
   void setFrom(Matrix4 arg) {
-    final Float32List argStorage = arg._m4storage;
+    _setFrom(_m4storage, arg._m4storage);
+  }
+  static void _setFrom(Float32List _m4storage, Float32List argStorage) {
     _m4storage[15] = argStorage[15];
     _m4storage[14] = argStorage[14];
     _m4storage[13] = argStorage[13];
@@ -955,6 +957,10 @@ class Matrix4 {
   Matrix4 transposed() => clone()..transpose();
 
   void transpose() {
+    _transpose(_m4storage);
+  }
+  static void _transpose(Float32List _m4storage) {
+    _m4storage[15];
     double temp;
     temp = _m4storage[4];
     _m4storage[4] = _m4storage[1];
@@ -1378,6 +1384,10 @@ class Matrix4 {
 
   /// Converts into Adjugate matrix and scales by [scale]
   void scaleAdjoint(double scale) {
+    _scaleAdjoint(_m4storage, scale);
+  }
+  static void _scaleAdjoint(Float32List _m4storage, double scale) {
+    _m4storage[15];
     // Adapted from code by Richard Carling.
     final double a1 = _m4storage[0];
     final double b1 = _m4storage[4];
