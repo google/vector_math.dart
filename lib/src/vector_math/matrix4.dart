@@ -1685,6 +1685,13 @@ class Matrix4 {
 
   /// Multiply a transposed this with [arg].
   void transposeMultiply(Matrix4 arg) {
+    _transposeMultiply(_m4storage, arg._m4storage);
+  }
+
+  static void _transposeMultiply(
+      Float32List _m4storage, Float32List argStorage) {
+    _m4storage[15];
+    argStorage[15];
     final double m00 = _m4storage[0];
     final double m01 = _m4storage[1];
     final double m02 = _m4storage[2];
@@ -1701,7 +1708,6 @@ class Matrix4 {
     final double m31 = _m4storage[13];
     final double m32 = _m4storage[14];
     final double m33 = _m4storage[15];
-    final Float32List argStorage = arg._m4storage;
     _m4storage[0] = (m00 * argStorage[0]) +
         (m01 * argStorage[1]) +
         (m02 * argStorage[2]) +

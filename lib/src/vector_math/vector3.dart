@@ -317,7 +317,14 @@ class Vector3 implements Vector {
 
   /// Reflect this.
   void reflect(Vector3 normal) {
-    sub(normal.scaled(2.0 * normal.dot(this)));
+    _reflect(_v3storage, normal._v3storage);
+    //sub(normal.scaled(2.0 * normal.dot(this)));
+  }
+
+  static void _reflect(Float32List thisStorage, Float32List normalStorage) {
+    double scale = 2.0 * _dot(normalStorage, thisStorage);
+    _addScaled(thisStorage, normalStorage, -scale);
+    //sub(normal.scaled(2.0 * normal.dot(this)));
   }
 
   /// Reflected copy of this.
@@ -502,6 +509,7 @@ class Vector3 implements Vector {
   }
 
   /// Create a copy of this and scale it by [arg].
+  @pragma('dart2js:tryInline')
   Vector3 scaled(double arg) => clone()..scale(arg);
 
   /// Negate this.
