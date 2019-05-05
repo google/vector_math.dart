@@ -220,15 +220,15 @@ class Vector3 implements Vector {
   }
 
   /// Returns the angle between this vector and [other] in radians.
-  double angleTo(Vector3 other) {
-    final Float64List otherStorage = other._v3storage;
+  double angleTo(Vector3 other) => _angleTo(_v3storage, other._v3storage);
+  static double _angleTo(Float64List _v3storage, Float64List otherStorage) {
     if (_v3storage[0] == otherStorage[0] &&
         _v3storage[1] == otherStorage[1] &&
         _v3storage[2] == otherStorage[2]) {
       return 0.0;
     }
 
-    final double d = dot(other) / (length * other.length);
+    final double d = _dot(_v3storage, otherStorage) / (_length(_v3storage) * _length(otherStorage));
 
     return math.acos(d.clamp(-1.0, 1.0));
   }
