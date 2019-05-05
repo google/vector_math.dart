@@ -445,7 +445,14 @@ class Matrix4 {
 
   /// Sets the matrix from translation [arg0] and rotation [arg1].
   void setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
-    final Float64List arg1Storage = arg1._qStorage;
+    _setFromTranslationRotation(_m4storage, arg0._v3storage, arg1._qStorage);
+  }
+
+  static void _setFromTranslationRotation(Float64List _m4storage,
+      Float64List arg0Storage, Float64List arg1Storage) {
+    _m4storage[15];
+    arg0Storage[2];
+    arg1Storage[3];
     final double x = arg1Storage[0];
     final double y = arg1Storage[1];
     final double z = arg1Storage[2];
@@ -463,7 +470,6 @@ class Matrix4 {
     final double wy = w * y2;
     final double wz = w * z2;
 
-    final Float64List arg0Storage = arg0._v3storage;
     _m4storage[0] = 1.0 - (yy + zz);
     _m4storage[1] = xy + wz;
     _m4storage[2] = xz - wy;
@@ -774,8 +780,14 @@ class Matrix4 {
 
   /// Rotate this [angle] radians around [axis]
   void rotate(Vector3 axis, double angle) {
-    final double len = axis.length;
-    final Float64List axisStorage = axis._v3storage;
+    _rotate(_m4storage, axis._v3storage, angle);
+  }
+
+  static void _rotate(
+      Float64List _m4storage, Float64List axisStorage, double angle) {
+    _m4storage[15];
+    axisStorage[2];
+    final double len = Vector3._length(axisStorage);
     final double x = axisStorage[0] / len;
     final double y = axisStorage[1] / len;
     final double z = axisStorage[2] / len;
