@@ -14,27 +14,46 @@ class Vector3 implements Vector {
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
-    result
-      ..x = math.min(a.x, b.x)
-      ..y = math.min(a.y, b.y)
-      ..z = math.min(a.z, b.z);
+    _min(a._v3storage, b._v3storage, result._v3storage);
+  }
+
+  static void _min(Float64List a, Float64List b, Float64List r) {
+    a[2];
+    b[2];
+    r[2];
+    r[0] = math.min(a[0], b[0]);
+    r[1] = math.min(a[1], b[1]);
+    r[2] = math.min(a[2], b[2]);
   }
 
   /// Set the values of [result] to the maximum of [a] and [b] for each line.
   static void max(Vector3 a, Vector3 b, Vector3 result) {
-    result
-      ..x = math.max(a.x, b.x)
-      ..y = math.max(a.y, b.y)
-      ..z = math.max(a.z, b.z);
+    _max(a._v3storage, b._v3storage, result._v3storage);
+  }
+
+  static void _max(Float64List a, Float64List b, Float64List r) {
+    a[2];
+    b[2];
+    r[2];
+    r[0] = math.max(a[0], b[0]);
+    r[1] = math.max(a[1], b[1]);
+    r[2] = math.max(a[2], b[2]);
   }
 
   /// Interpolate between [min] and [max] with the amount of [a] using a linear
   /// interpolation and store the values in [result].
   static void mix(Vector3 min, Vector3 max, double a, Vector3 result) {
-    result
-      ..x = min.x + a * (max.x - min.x)
-      ..y = min.y + a * (max.y - min.y)
-      ..z = min.z + a * (max.z - min.z);
+    _mix(min._v3storage, max._v3storage, a, result._v3storage);
+  }
+
+  static void _mix(
+      Float64List min, Float64List max, double a, Float64List result) {
+    min[2];
+    max[2];
+    result[2];
+    result[0] = min[0] + a * (max[0] - min[0]);
+    result[1] = min[1] + a * (max[1] - min[1]);
+    result[2] = min[2] + a * (max[2] - min[2]);
   }
 
   /// Construct a new vector with the specified values.
@@ -296,11 +315,8 @@ class Vector3 implements Vector {
     return out;
   }
 
-  static _crossInto(
-    Float64List _v3storage,
-    Float64List otherStorage,
-    Float64List outStorage,
-  ) {
+  static _crossInto(Float64List _v3storage, Float64List otherStorage,
+      Float64List outStorage) {
     _v3storage[2];
     otherStorage[2];
     outStorage[2];
@@ -322,9 +338,8 @@ class Vector3 implements Vector {
   }
 
   static void _reflect(Float64List thisStorage, Float64List normalStorage) {
-    double scale = 2.0 * _dot(normalStorage, thisStorage);
-    _addScaled(thisStorage, normalStorage, -scale);
-    //sub(normal.scaled(2.0 * normal.dot(this)));
+    double scale = -2.0 * _dot(normalStorage, thisStorage);
+    _addScaled(thisStorage, normalStorage, scale);
   }
 
   /// Reflected copy of this.
@@ -332,7 +347,12 @@ class Vector3 implements Vector {
 
   /// Projects this using the projection matrix [arg]
   void applyProjection(Matrix4 arg) {
-    final Float64List argStorage = arg.storage;
+    _applyProjection(_v3storage, arg._m4storage);
+  }
+
+  void _applyProjection(Float64List _v3storage, Float64List argStorage) {
+    _v3storage[2];
+    argStorage[15];
     final double x = _v3storage[0];
     final double y = _v3storage[1];
     final double z = _v3storage[2];
