@@ -1851,7 +1851,12 @@ class Matrix4 {
   /// Transform [arg] of type [Vector3] using the transformation defined by
   /// this.
   Vector3 transform3(Vector3 arg) {
-    final Float64List argStorage = arg._v3storage;
+    _transform3(_m4storage, arg._v3storage);
+    return arg;
+  }
+  static void _transform3(Float64List _m4storage, Float64List argStorage) {
+    _m4storage[15];
+    argStorage[2];
     final double x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
@@ -1867,7 +1872,6 @@ class Matrix4 {
     argStorage[0] = x_;
     argStorage[1] = y_;
     argStorage[2] = z_;
-    return arg;
   }
 
   /// Transform a copy of [arg] of type [Vector3] using the transformation
@@ -1885,7 +1889,12 @@ class Matrix4 {
   /// Transform [arg] of type [Vector4] using the transformation defined by
   /// this.
   Vector4 transform(Vector4 arg) {
-    final Float64List argStorage = arg._v4storage;
+    _transform(_m4storage, arg._v4storage);
+    return arg;
+  }
+  static void  _transform(Float64List _m4storage, Float64List argStorage) {
+    _m4storage[15];
+    argStorage[3];
     final double x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
@@ -1906,7 +1915,6 @@ class Matrix4 {
     argStorage[1] = y_;
     argStorage[2] = z_;
     argStorage[3] = w_;
-    return arg;
   }
 
   /// Transform [arg] of type [Vector3] using the perspective transformation
