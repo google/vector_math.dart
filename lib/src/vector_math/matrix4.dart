@@ -1031,7 +1031,10 @@ class Matrix4 {
   }
 
   /// Returns the determinant of this matrix.
-  double determinant() {
+  double determinant() => _determinant(_m4storage);
+
+  static double _determinant(Float32List _m4storage){
+    _m4storage[15];
     final double det2_01_01 =
         _m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4];
     final double det2_01_02 =
@@ -1252,8 +1255,12 @@ class Matrix4 {
   double invert() => copyInverse(this);
 
   /// Set this matrix to be the inverse of [arg]
-  double copyInverse(Matrix4 arg) {
-    final Float32List argStorage = arg._m4storage;
+  double copyInverse(Matrix4 arg) =>
+    _copyInverse(_m4storage, arg._m4storage);
+
+  static double _copyInverse(Float32List _m4storage, Float32List argStorage) {
+    _m4storage[15];
+    argStorage[15];
     final double a00 = argStorage[0];
     final double a01 = argStorage[1];
     final double a02 = argStorage[2];
@@ -1285,7 +1292,7 @@ class Matrix4 {
     final double det =
         b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
     if (det == 0.0) {
-      setFrom(arg);
+      Matrix4._setFrom(_m4storage, argStorage);
       return 0.0;
     }
     final double invDet = 1.0 / det;
