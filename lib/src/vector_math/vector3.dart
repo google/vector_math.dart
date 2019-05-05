@@ -218,7 +218,13 @@ class Vector3 implements Vector {
 
   /// Squared distance from this to [arg]
   double distanceToSquared(Vector3 arg) {
-    final Float32List argStorage = arg._v3storage;
+    return _distanceToSquared(_v3storage, arg._v3storage);
+  }
+
+  static double _distanceToSquared(
+      Float32List _v3storage, Float32List argStorage) {
+    _v3storage[2];
+    argStorage[2];
     final double dx = _v3storage[0] - argStorage[0];
     final double dy = _v3storage[1] - argStorage[1];
     final double dz = _v3storage[2] - argStorage[2];
@@ -253,6 +259,7 @@ class Vector3 implements Vector {
 
   /// Inner product.
   double dot(Vector3 other) => _dot(_v3storage, other._v3storage);
+
   static double _dot(Float32List _v3storage, Float32List otherStorage) {
     double sum;
     sum = _v3storage[0] * otherStorage[0];
@@ -281,17 +288,7 @@ class Vector3 implements Vector {
 
   /// Cross product.
   Vector3 cross(Vector3 other) => crossInto(other, Vector3.zero());
-  /*
-    final double _x = _v3storage[0];
-    final double _y = _v3storage[1];
-    final double _z = _v3storage[2];
-    final Float32List otherStorage = other._v3storage;
-    final double ox = otherStorage[0];
-    final double oy = otherStorage[1];
-    final double oz = otherStorage[2];
-    return Vector3(_y * oz - _z * oy, _z * ox - _x * oz, _x * oy - _y * ox);
-  }
-*/
+
   /// Cross product. Stores result in [out].
   @pragma('dart2js:tryInline')
   Vector3 crossInto(Vector3 other, Vector3 out) {
@@ -304,6 +301,9 @@ class Vector3 implements Vector {
     Float32List otherStorage,
     Float32List outStorage,
   ) {
+    _v3storage[2];
+    otherStorage[2];
+    outStorage[2];
     final double x = _v3storage[0];
     final double y = _v3storage[1];
     final double z = _v3storage[2];
