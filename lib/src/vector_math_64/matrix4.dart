@@ -916,6 +916,10 @@ class Matrix4 {
 
   /// Zeros this.
   void setZero() {
+    _setZero(_m4storage);
+  }
+
+  static void _setZero(Float64List _m4storage) {
     _m4storage[0] = 0.0;
     _m4storage[1] = 0.0;
     _m4storage[2] = 0.0;
@@ -936,6 +940,10 @@ class Matrix4 {
 
   /// Makes this into the identity matrix.
   void setIdentity() {
+    _setIdentity(_m4storage);
+  }
+
+  static void _setIdentity(Float64List _m4storage) {
     _m4storage[0] = 1.0;
     _m4storage[1] = 0.0;
     _m4storage[2] = 0.0;
@@ -2047,48 +2055,54 @@ class Matrix4 {
   }
 
   /// Is this the identity matrix?
-  bool isIdentity() =>
-      _m4storage[0] == 1.0 // col 1
-      &&
-      _m4storage[1] == 0.0 &&
-      _m4storage[2] == 0.0 &&
-      _m4storage[3] == 0.0 &&
-      _m4storage[4] == 0.0 // col 2
-      &&
-      _m4storage[5] == 1.0 &&
-      _m4storage[6] == 0.0 &&
-      _m4storage[7] == 0.0 &&
-      _m4storage[8] == 0.0 // col 3
-      &&
-      _m4storage[9] == 0.0 &&
-      _m4storage[10] == 1.0 &&
-      _m4storage[11] == 0.0 &&
-      _m4storage[12] == 0.0 // col 4
-      &&
-      _m4storage[13] == 0.0 &&
-      _m4storage[14] == 0.0 &&
-      _m4storage[15] == 1.0;
+  bool isIdentity() => _isIdentity(_m4storage);
+  static bool _isIdentity(Float64List _m4storage) {
+    _m4storage[15];
+    return _m4storage[0] == 1.0 // col 1
+        &&
+        _m4storage[1] == 0.0 &&
+        _m4storage[2] == 0.0 &&
+        _m4storage[3] == 0.0 &&
+        _m4storage[4] == 0.0 // col 2
+        &&
+        _m4storage[5] == 1.0 &&
+        _m4storage[6] == 0.0 &&
+        _m4storage[7] == 0.0 &&
+        _m4storage[8] == 0.0 // col 3
+        &&
+        _m4storage[9] == 0.0 &&
+        _m4storage[10] == 1.0 &&
+        _m4storage[11] == 0.0 &&
+        _m4storage[12] == 0.0 // col 4
+        &&
+        _m4storage[13] == 0.0 &&
+        _m4storage[14] == 0.0 &&
+        _m4storage[15] == 1.0;
+  }
 
   /// Is this the zero matrix?
-  bool isZero() =>
-      _m4storage[0] == 0.0 // col 1
-      &&
-      _m4storage[1] == 0.0 &&
-      _m4storage[2] == 0.0 &&
-      _m4storage[3] == 0.0 &&
-      _m4storage[4] == 0.0 // col 2
-      &&
-      _m4storage[5] == 0.0 &&
-      _m4storage[6] == 0.0 &&
-      _m4storage[7] == 0.0 &&
-      _m4storage[8] == 0.0 // col 3
-      &&
-      _m4storage[9] == 0.0 &&
-      _m4storage[10] == 0.0 &&
-      _m4storage[11] == 0.0 &&
-      _m4storage[12] == 0.0 // col 4
-      &&
-      _m4storage[13] == 0.0 &&
-      _m4storage[14] == 0.0 &&
-      _m4storage[15] == 0.0;
+  bool isZero() => _isZero(_m4storage);
+  static bool _isZero(Float64List _m4storage) {
+    _m4storage[15];
+    return _m4storage[0] == 0.0 // col 1
+        &&
+        _m4storage[1] == 0.0 &&
+        _m4storage[2] == 0.0 &&
+        _m4storage[3] == 0.0 &&
+        _m4storage[4] == 0.0 // col 2
+        &&
+        _m4storage[5] == 0.0 &&
+        _m4storage[6] == 0.0 &&
+        _m4storage[7] == 0.0 &&
+        _m4storage[8] == 0.0 // col 3
+        &&
+        _m4storage[9] == 0.0 &&
+        _m4storage[10] == 0.0 &&
+        _m4storage[11] == 0.0 &&
+        _m4storage[12] == 0.0 // col 4
+        &&
+        _m4storage[13] == 0.0 &&
+        _m4storage[14] == 0.0 &&
+        _m4storage[15] == 0.0;
+  }
 }
