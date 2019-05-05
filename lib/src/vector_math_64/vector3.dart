@@ -101,6 +101,9 @@ class Vector3 implements Vector {
 
   /// Splat [arg] into all lanes of the vector.
   void splat(double arg) {
+    _splat(_v3storage, arg);
+  }
+  static void _splat(Float64List _v3storage, double arg) {
     _v3storage[2] = arg;
     _v3storage[1] = arg;
     _v3storage[0] = arg;
@@ -427,7 +430,9 @@ class Vector3 implements Vector {
 
   /// Add [arg] to this.
   void add(Vector3 arg) {
-    final Float64List argStorage = arg._v3storage;
+    _add2(_v3storage, arg._v3storage);
+  }
+  static void _add2(Float64List _v3storage, Float64List argStorage) {
     _v3storage[0] = _v3storage[0] + argStorage[0];
     _v3storage[1] = _v3storage[1] + argStorage[1];
     _v3storage[2] = _v3storage[2] + argStorage[2];
