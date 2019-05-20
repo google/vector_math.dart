@@ -133,47 +133,14 @@ class Quaternion {
   }
 
   /// Set the quaternion with rotation from a rotation matrix [rotationMatrix].
-  void XsetFromRotation(Matrix3 rotationMatrix) {
-    final Float32List rotationMatrixStorage = rotationMatrix.storage;
-    final double trace = rotationMatrix.trace();
-    if (trace > 0.0) {
-      double s = math.sqrt(trace + 1.0);
-      _qStorage[3] = s * 0.5;
-      s = 0.5 / s;
-      _qStorage[0] = (rotationMatrixStorage[5] - rotationMatrixStorage[7]) * s;
-      _qStorage[1] = (rotationMatrixStorage[6] - rotationMatrixStorage[2]) * s;
-      _qStorage[2] = (rotationMatrixStorage[1] - rotationMatrixStorage[3]) * s;
-    } else {
-      final int i = rotationMatrixStorage[0] < rotationMatrixStorage[4]
-          ? (rotationMatrixStorage[4] < rotationMatrixStorage[8] ? 2 : 1)
-          : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
-      final int j = (i + 1) % 3;
-      final int k = (i + 2) % 3;
-      double s = math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
-          rotationMatrixStorage[rotationMatrix.index(j, j)] -
-          rotationMatrixStorage[rotationMatrix.index(k, k)] +
-          1.0);
-      _qStorage[i] = s * 0.5;
-      s = 0.5 / s;
-      _qStorage[3] = (rotationMatrixStorage[rotationMatrix.index(k, j)] -
-              rotationMatrixStorage[rotationMatrix.index(j, k)]) *
-          s;
-      _qStorage[j] = (rotationMatrixStorage[rotationMatrix.index(j, i)] +
-              rotationMatrixStorage[rotationMatrix.index(i, j)]) *
-          s;
-      _qStorage[k] = (rotationMatrixStorage[rotationMatrix.index(k, i)] +
-              rotationMatrixStorage[rotationMatrix.index(i, k)]) *
-          s;
-    }
-  }
-
-  /// Set the quaternion with rotation from a rotation matrix [rotationMatrix].
   void setFromRotation(Matrix3 rotationMatrix) {
     _setFromRotation(_qStorage, rotationMatrix._m3storage);
   }
 
   static void _setFromRotation(
-      Float32List _qStorage, Float32List rotationMatrixStorage) {
+    Float32List _qStorage, Float32List rotationMatrixStorage) {
+    _qStorage[2];
+    rotationMatrixStorage[8];
     final double trace = Matrix3._trace(rotationMatrixStorage);
     if (trace > 0.0) {
       double s = math.sqrt(trace + 1.0);
