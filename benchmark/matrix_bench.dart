@@ -105,7 +105,7 @@ class ViewMatrixBenchmark extends BenchmarkBase {
 class Aabb2TransformBenchmark extends BenchmarkBase {
   Aabb2TransformBenchmark() : super("aabb2Transform");
 
-  static final Matrix3 M = Matrix3.rotationZ(math.pi/4);
+  static final Matrix3 M = Matrix3.rotationZ(math.pi / 4);
   static final Vector2 P1 = Vector2(10.0, 10.0);
   static final Vector2 P2 = Vector2(20.0, 30.0);
   static final Vector2 P3 = Vector2(100.0, 50.0);
@@ -134,7 +134,7 @@ class Aabb2TransformBenchmark extends BenchmarkBase {
 class Aabb2RotateBenchmark extends BenchmarkBase {
   Aabb2RotateBenchmark() : super("aabb2Rotate");
 
-  static final Matrix3 M = Matrix3.rotationZ(math.pi/4);
+  static final Matrix3 M = Matrix3.rotationZ(math.pi / 4);
   static final Vector2 P1 = Vector2(10.0, 10.0);
   static final Vector2 P2 = Vector2(20.0, 30.0);
   static final Vector2 P3 = Vector2(100.0, 50.0);
@@ -163,9 +163,9 @@ class Aabb2RotateBenchmark extends BenchmarkBase {
 class Matrix3DeterminantBenchmark extends BenchmarkBase {
   Matrix3DeterminantBenchmark() : super("Matrix3.determinant");
 
-  final Matrix3 MX = Matrix3.rotationX(math.pi/4);
-  final Matrix3 MY = Matrix3.rotationY(math.pi/4);
-  final Matrix3 MZ = Matrix3.rotationZ(math.pi/4);
+  final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
+  final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
+  final Matrix3 MZ = Matrix3.rotationZ(math.pi / 4);
 
   static void main() {
     Matrix3DeterminantBenchmark().report();
@@ -184,9 +184,9 @@ class Matrix3DeterminantBenchmark extends BenchmarkBase {
 class Matrix3TransformVector3Benchmark extends BenchmarkBase {
   Matrix3TransformVector3Benchmark() : super("Matrix3.transform(Vector3)");
 
-  final Matrix3 MX = Matrix3.rotationX(math.pi/4);
-  final Matrix3 MY = Matrix3.rotationY(math.pi/4);
-  final Matrix3 MZ = Matrix3.rotationZ(math.pi/4);
+  final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
+  final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
+  final Matrix3 MZ = Matrix3.rotationZ(math.pi / 4);
   final Vector3 V1 = Vector3(10.0, 20.0, 1.0);
   final Vector3 V2 = Vector3(-10.0, 20.0, 1.0);
   final Vector3 V3 = Vector3(10.0, -20.0, 1.0);
@@ -214,9 +214,9 @@ class Matrix3TransformVector3Benchmark extends BenchmarkBase {
 class Matrix3TransformVector2Benchmark extends BenchmarkBase {
   Matrix3TransformVector2Benchmark() : super("Matrix3.transform(Vector2)");
 
-  final Matrix3 MX = Matrix3.rotationX(math.pi/4);
-  final Matrix3 MY = Matrix3.rotationY(math.pi/4);
-  final Matrix3 MZ = Matrix3.rotationZ(math.pi/4);
+  final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
+  final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
+  final Matrix3 MZ = Matrix3.rotationZ(math.pi / 4);
   final Vector2 V1 = Vector2(10.0, 20.0);
   final Vector2 V2 = Vector2(-10.0, 20.0);
   final Vector2 V3 = Vector2(10.0, -20.0);
@@ -244,9 +244,9 @@ class Matrix3TransformVector2Benchmark extends BenchmarkBase {
 class Matrix3TransposeMultiplyBenchmark extends BenchmarkBase {
   Matrix3TransposeMultiplyBenchmark() : super("Matrix3.transposeMultiply");
 
-  final Matrix3 MX = Matrix3.rotationX(math.pi/4);
-  final Matrix3 MY = Matrix3.rotationY(math.pi/4);
-  final Matrix3 MZ = Matrix3.rotationZ(math.pi/4);
+  final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
+  final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
+  final Matrix3 MZ = Matrix3.rotationZ(math.pi / 4);
   final Matrix3 temp = Matrix3.zero();
 
   static void main() {

@@ -78,9 +78,8 @@ class Aabb2 {
 
   static Vector2 _center;
   static Vector2 _halfExtents;
-  void _updateCenterAndHalfExtents() =>
-      copyCenterAndHalfExtents(
-        _center      ??= Vector2.zero(),
+  void _updateCenterAndHalfExtents() => copyCenterAndHalfExtents(
+        _center ??= Vector2.zero(),
         _halfExtents ??= Vector2.zero(),
       );
 
