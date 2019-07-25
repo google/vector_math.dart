@@ -160,6 +160,64 @@ class Aabb2RotateBenchmark extends BenchmarkBase {
   }
 }
 
+class Aabb3TransformBenchmark extends BenchmarkBase {
+  Aabb3TransformBenchmark() : super("aabb3Transform");
+
+  static final Matrix4 M = Matrix4.rotationZ(math.pi / 4);
+  static final Vector3 P1 = Vector3(10.0, 10.0, 0.0);
+  static final Vector3 P2 = Vector3(20.0, 30.0, 1.0);
+  static final Vector3 P3 = Vector3(100.0, 50.0, 10.0);
+  static final Aabb3 B1 = Aabb3.minMax(P1, P2);
+  static final Aabb3 B2 = Aabb3.minMax(P1, P3);
+  static final Aabb3 B3 = Aabb3.minMax(P2, P3);
+  static final Aabb3 temp = Aabb3();
+
+  static void main() {
+    Aabb3TransformBenchmark().report();
+  }
+
+  @override
+  void run() {
+    for (int i = 0; i < 100; i++) {
+      temp.copyFrom(B1);
+      temp.transform(M);
+      temp.copyFrom(B2);
+      temp.transform(M);
+      temp.copyFrom(B3);
+      temp.transform(M);
+    }
+  }
+}
+
+class Aabb3RotateBenchmark extends BenchmarkBase {
+  Aabb3RotateBenchmark() : super("aabb3Rotate");
+
+  static final Matrix4 M = Matrix4.rotationZ(math.pi / 4);
+  static final Vector3 P1 = Vector3(10.0, 10.0, 0.0);
+  static final Vector3 P2 = Vector3(20.0, 30.0, 1.0);
+  static final Vector3 P3 = Vector3(100.0, 50.0, 10.0);
+  static final Aabb3 B1 = Aabb3.minMax(P1, P2);
+  static final Aabb3 B2 = Aabb3.minMax(P1, P3);
+  static final Aabb3 B3 = Aabb3.minMax(P2, P3);
+  static final Aabb3 temp = Aabb3();
+
+  static void main() {
+    Aabb3RotateBenchmark().report();
+  }
+
+  @override
+  void run() {
+    for (int i = 0; i < 100; i++) {
+      temp.copyFrom(B1);
+      temp.rotate(M);
+      temp.copyFrom(B2);
+      temp.rotate(M);
+      temp.copyFrom(B3);
+      temp.rotate(M);
+    }
+  }
+}
+
 class Matrix3DeterminantBenchmark extends BenchmarkBase {
   Matrix3DeterminantBenchmark() : super("Matrix3.determinant");
 
@@ -272,6 +330,8 @@ void main() {
   ViewMatrixBenchmark.main();
   Aabb2TransformBenchmark.main();
   Aabb2RotateBenchmark.main();
+  Aabb3TransformBenchmark.main();
+  Aabb3RotateBenchmark.main();
   Matrix3DeterminantBenchmark.main();
   Matrix3TransformVector3Benchmark.main();
   Matrix3TransformVector2Benchmark.main();
