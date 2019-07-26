@@ -203,34 +203,37 @@ class Aabb3 {
     _max.setFrom(other._max);
   }
 
+  static Vector3 _center;
+  static Vector3 _halfExtents;
+  void _updateCenterAndHalfExtents() => copyCenterAndHalfExtents(
+        _center ??= Vector3.zero(),
+        _halfExtents ??= Vector3.zero(),
+      );
+
   /// Transform this by the transform [t].
   void transform(Matrix4 t) {
-    final Vector3 center = Vector3.zero();
-    final Vector3 halfExtents = Vector3.zero();
-    copyCenterAndHalfExtents(center, halfExtents);
+    _updateCenterAndHalfExtents();
     t
-      ..transform3(center)
-      ..absoluteRotate(halfExtents);
+      ..transform3(_center)
+      ..absoluteRotate(_halfExtents);
     _min
-      ..setFrom(center)
-      ..sub(halfExtents);
+      ..setFrom(_center)
+      ..sub(_halfExtents);
     _max
-      ..setFrom(center)
-      ..add(halfExtents);
+      ..setFrom(_center)
+      ..add(_halfExtents);
   }
 
   /// Rotate this by the rotation matrix [t].
   void rotate(Matrix4 t) {
-    final Vector3 center = Vector3.zero();
-    final Vector3 halfExtents = Vector3.zero();
-    copyCenterAndHalfExtents(center, halfExtents);
-    t.absoluteRotate(halfExtents);
+    _updateCenterAndHalfExtents();
+    t.absoluteRotate(_halfExtents);
     _min
-      ..setFrom(center)
-      ..sub(halfExtents);
+      ..setFrom(_center)
+      ..sub(_halfExtents);
     _max
-      ..setFrom(center)
-      ..add(halfExtents);
+      ..setFrom(_center)
+      ..add(_halfExtents);
   }
 
   /// Create a copy of this that is transformed by the transform [t] and store

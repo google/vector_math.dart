@@ -410,11 +410,11 @@ class Matrix3 {
   /// Returns the determinant of this matrix.
   double determinant() {
     final double x = _m3storage[0] *
-        ((storage[4] * _m3storage[8]) - (storage[5] * _m3storage[7]));
+        ((_m3storage[4] * _m3storage[8]) - (_m3storage[5] * _m3storage[7]));
     final double y = _m3storage[1] *
-        ((storage[3] * _m3storage[8]) - (storage[5] * _m3storage[6]));
+        ((_m3storage[3] * _m3storage[8]) - (_m3storage[5] * _m3storage[6]));
     final double z = _m3storage[2] *
-        ((storage[3] * _m3storage[7]) - (storage[4] * _m3storage[6]));
+        ((_m3storage[3] * _m3storage[7]) - (_m3storage[4] * _m3storage[6]));
     return x - y + z;
   }
 
@@ -644,11 +644,11 @@ class Matrix3 {
   /// Transforms [arg] with this.
   Vector2 transform2(Vector2 arg) {
     final Float64List argStorage = arg._v2storage;
-    final double x_ = (storage[0] * arg.storage[0]) +
-        (storage[3] * arg.storage[1]) +
+    final double x_ = (_m3storage[0] * argStorage[0]) +
+        (_m3storage[3] * argStorage[1]) +
         _m3storage[6];
-    final double y_ = (storage[1] * arg.storage[0]) +
-        (storage[4] * arg.storage[1]) +
+    final double y_ = (_m3storage[1] * argStorage[0]) +
+        (_m3storage[4] * argStorage[1]) +
         _m3storage[7];
     argStorage[0] = x_;
     argStorage[1] = y_;
@@ -759,23 +759,23 @@ class Matrix3 {
     final double m22 = _m3storage[8];
     final Float64List argStorage = arg._m3storage;
     _m3storage[0] =
-        (m00 * argStorage[0]) + (m01 * arg.storage[1]) + (m02 * arg.storage[2]);
+        (m00 * argStorage[0]) + (m01 * argStorage[1]) + (m02 * argStorage[2]);
     _m3storage[3] =
-        (m00 * argStorage[3]) + (m01 * arg.storage[4]) + (m02 * arg.storage[5]);
+        (m00 * argStorage[3]) + (m01 * argStorage[4]) + (m02 * argStorage[5]);
     _m3storage[6] =
-        (m00 * argStorage[6]) + (m01 * arg.storage[7]) + (m02 * arg.storage[8]);
+        (m00 * argStorage[6]) + (m01 * argStorage[7]) + (m02 * argStorage[8]);
     _m3storage[1] =
-        (m10 * argStorage[0]) + (m11 * arg.storage[1]) + (m12 * arg.storage[2]);
+        (m10 * argStorage[0]) + (m11 * argStorage[1]) + (m12 * argStorage[2]);
     _m3storage[4] =
-        (m10 * argStorage[3]) + (m11 * arg.storage[4]) + (m12 * arg.storage[5]);
+        (m10 * argStorage[3]) + (m11 * argStorage[4]) + (m12 * argStorage[5]);
     _m3storage[7] =
-        (m10 * argStorage[6]) + (m11 * arg.storage[7]) + (m12 * arg.storage[8]);
+        (m10 * argStorage[6]) + (m11 * argStorage[7]) + (m12 * argStorage[8]);
     _m3storage[2] =
-        (m20 * argStorage[0]) + (m21 * arg.storage[1]) + (m22 * arg.storage[2]);
+        (m20 * argStorage[0]) + (m21 * argStorage[1]) + (m22 * argStorage[2]);
     _m3storage[5] =
-        (m20 * argStorage[3]) + (m21 * arg.storage[4]) + (m22 * arg.storage[5]);
+        (m20 * argStorage[3]) + (m21 * argStorage[4]) + (m22 * argStorage[5]);
     _m3storage[8] =
-        (m20 * argStorage[6]) + (m21 * arg.storage[7]) + (m22 * arg.storage[8]);
+        (m20 * argStorage[6]) + (m21 * argStorage[7]) + (m22 * argStorage[8]);
   }
 
   void multiplyTranspose(Matrix3 arg) {
@@ -813,15 +813,15 @@ class Matrix3 {
   /// this.
   Vector3 transform(Vector3 arg) {
     final Float64List argStorage = arg._v3storage;
-    final double x_ = (storage[0] * argStorage[0]) +
-        (storage[3] * argStorage[1]) +
-        (storage[6] * argStorage[2]);
-    final double y_ = (storage[1] * argStorage[0]) +
-        (storage[4] * argStorage[1]) +
-        (storage[7] * argStorage[2]);
-    final double z_ = (storage[2] * argStorage[0]) +
-        (storage[5] * argStorage[1]) +
-        (storage[8] * argStorage[2]);
+    final double x_ = (_m3storage[0] * argStorage[0]) +
+        (_m3storage[3] * argStorage[1]) +
+        (_m3storage[6] * argStorage[2]);
+    final double y_ = (_m3storage[1] * argStorage[0]) +
+        (_m3storage[4] * argStorage[1]) +
+        (_m3storage[7] * argStorage[2]);
+    final double z_ = (_m3storage[2] * argStorage[0]) +
+        (_m3storage[5] * argStorage[1]) +
+        (_m3storage[8] * argStorage[2]);
     arg
       ..x = x_
       ..y = y_
