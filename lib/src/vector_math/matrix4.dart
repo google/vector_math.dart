@@ -1990,13 +1990,26 @@ class Matrix4 {
     _m4storage[0] = array[i + 0];
   }
 
-  /// Multiply this to each set of xyz values in [array] starting at [offset].
-  List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
-    for (int i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final Vector3 v = Vector3.array(array, j)..applyMatrix4(this);
-      array[j] = v.storage[0];
-      array[j + 1] = v.storage[1];
-      array[j + 2] = v.storage[2];
+  /// Multiply this to each set of xyz values in [array] starting at [start]
+  /// inclusive to [end] exclusive.
+  ///
+  /// The provided range, given by [start] and [end], must be valid at the time
+  /// of the call.
+  ///
+  /// The API assumes that array is length 3N and that [start] and [end] are
+  /// multiples of 3.
+  List<double> applyToVector3Array(
+    List<double> array, [
+    int start = 0,
+    int end,
+  ]) {
+    for (int i = start;
+        i + 2 < math.min(array.length, end ?? array.length);
+        i += 3) {
+      final Vector3 v = Vector3.array(array, i)..applyMatrix4(this);
+      array[i] = v.storage[0];
+      array[i + 1] = v.storage[1];
+      array[i + 2] = v.storage[2];
     }
 
     return array;
