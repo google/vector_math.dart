@@ -325,6 +325,23 @@ void testMatrixClassifiers() {
   expect(Matrix3.identity().isZero(), false);
 }
 
+void testApplyToVector3Array() {
+  var offset = 3;
+  var scale2 = Matrix3.rotationZ(math.pi);
+  List<double> a = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6];
+  List<double> res1 = scale2.applyToVector3Array(List.from(a));
+  List<double> res2 = scale2.applyToVector3Array(List.from(a), offset);
+  List<double> res3 = scale2.applyToVector3Array(List.from(a), 0, offset);
+  expect(
+    a.getRange(0, offset).toList()..addAll(res1.getRange(offset, a.length)),
+    res2,
+  );
+  expect(
+    res1.getRange(0, offset).toList()..addAll(a.getRange(offset, a.length)),
+    res3,
+  );
+}
+
 void main() {
   group('Matrix3', () {
     test('Determinant', testMatrix3Determinant);
@@ -342,5 +359,6 @@ void main() {
     test('solving', testMatrix3Solving);
     test('equals', testMatrix3Equals);
     test('matrix classifiers', testMatrixClassifiers);
+    test('applyToVector3Array', testApplyToVector3Array);
   });
 }
