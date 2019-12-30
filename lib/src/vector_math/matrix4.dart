@@ -20,7 +20,7 @@ class Matrix4 {
     final double a22 = A.entry(1, 1);
     final double bx = b.x - A._m4storage[8];
     final double by = b.y - A._m4storage[9];
-    double det = a11 * a22 - a12 * a21;
+    var det = a11 * a22 - a12 * a21;
 
     if (det != 0.0) {
       det = 1.0 / det;
@@ -118,7 +118,7 @@ class Matrix4 {
     final double bZ = b.storage[2];
     final double bW = b.storage[3];
 
-    double det =
+    var det =
         b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
     if (det != 0.0) {
@@ -1052,7 +1052,7 @@ class Matrix4 {
   /// Returns the trace of the matrix. The trace of a matrix is the sum of the
   /// diagonal entries.
   double trace() {
-    double t = 0.0;
+    var t = 0.0;
     t += _m4storage[0];
     t += _m4storage[5];
     t += _m4storage[10];
@@ -1062,9 +1062,9 @@ class Matrix4 {
 
   /// Returns infinity norm of the matrix. Used for numerical analysis.
   double infinityNorm() {
-    double norm = 0.0;
+    var norm = 0.0;
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m4storage[0].abs();
       row_norm += _m4storage[1].abs();
       row_norm += _m4storage[2].abs();
@@ -1072,7 +1072,7 @@ class Matrix4 {
       norm = row_norm > norm ? row_norm : norm;
     }
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m4storage[4].abs();
       row_norm += _m4storage[5].abs();
       row_norm += _m4storage[6].abs();
@@ -1080,7 +1080,7 @@ class Matrix4 {
       norm = row_norm > norm ? row_norm : norm;
     }
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m4storage[8].abs();
       row_norm += _m4storage[9].abs();
       row_norm += _m4storage[10].abs();
@@ -1088,7 +1088,7 @@ class Matrix4 {
       norm = row_norm > norm ? row_norm : norm;
     }
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m4storage[12].abs();
       row_norm += _m4storage[13].abs();
       row_norm += _m4storage[14].abs();
@@ -1775,8 +1775,7 @@ class Matrix4 {
   /// Decomposes this into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
     final Vector3 v = _decomposeV ??= Vector3.zero();
-    double sx =
-        (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
+    var sx = (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
     final double sy =
         (v..setValues(_m4storage[4], _m4storage[5], _m4storage[6])).length;
     final double sz =

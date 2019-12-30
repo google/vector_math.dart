@@ -152,10 +152,10 @@ class Matrix44Operations {
     final double a32 = a[aOffset++];
     final double a33 = a[aOffset++];
 
-    double b0 = b[bOffset++];
-    double b1 = b[bOffset++];
-    double b2 = b[bOffset++];
-    double b3 = b[bOffset++];
+    var b0 = b[bOffset++];
+    var b1 = b[bOffset++];
+    var b2 = b[bOffset++];
+    var b3 = b[bOffset++];
     out[outOffset++] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
     out[outOffset++] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
     out[outOffset++] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
@@ -298,7 +298,7 @@ class Matrix44SIMDOperations {
       int matrixOffset, Float32x4List vector, int vectorOffset) {
     final Float32x4 v = vector[vectorOffset];
     final Float32x4 xxxx = v.shuffle(Float32x4.xxxx);
-    Float32x4 z = Float32x4.zero();
+    var z = Float32x4.zero();
     z += xxxx * matrix[0 + matrixOffset];
     final Float32x4 yyyy = v.shuffle(Float32x4.yyyy);
     z += yyyy * matrix[1 + matrixOffset];

@@ -146,7 +146,7 @@ class SimplexNoise {
     final int gi1 = _permMod12[ii + i1 + _perm[jj + j1]];
     final int gi2 = _permMod12[ii + 1 + _perm[jj + 1]];
     // Calculate the contribution from the three corners
-    double t0 = 0.5 - x0 * x0 - y0 * y0;
+    var t0 = 0.5 - x0 * x0 - y0 * y0;
     if (t0 < 0) {
       n0 = 0.0;
     } else {
@@ -155,14 +155,14 @@ class SimplexNoise {
           t0 *
           _dot2(_grad3[gi0], x0, y0); // (x,y) of grad3 used for 2D gradient
     }
-    double t1 = 0.5 - x1 * x1 - y1 * y1;
+    var t1 = 0.5 - x1 * x1 - y1 * y1;
     if (t1 < 0) {
       n1 = 0.0;
     } else {
       t1 *= t1;
       n1 = t1 * t1 * _dot2(_grad3[gi1], x1, y1);
     }
-    double t2 = 0.5 - x2 * x2 - y2 * y2;
+    var t2 = 0.5 - x2 * x2 - y2 * y2;
     if (t2 < 0) {
       n2 = 0.0;
     } else {
@@ -271,28 +271,28 @@ class SimplexNoise {
     final int gi2 = _permMod12[ii + i2 + _perm[jj + j2 + _perm[kk + k2]]];
     final int gi3 = _permMod12[ii + 1 + _perm[jj + 1 + _perm[kk + 1]]];
     // Calculate the contribution from the four corners
-    double t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0;
+    var t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0;
     if (t0 < 0) {
       n0 = 0.0;
     } else {
       t0 *= t0;
       n0 = t0 * t0 * _dot3(_grad3[gi0], x0, y0, z0);
     }
-    double t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1;
+    var t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1;
     if (t1 < 0) {
       n1 = 0.0;
     } else {
       t1 *= t1;
       n1 = t1 * t1 * _dot3(_grad3[gi1], x1, y1, z1);
     }
-    double t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2;
+    var t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2;
     if (t2 < 0) {
       n2 = 0.0;
     } else {
       t2 *= t2;
       n2 = t2 * t2 * _dot3(_grad3[gi2], x2, y2, z2);
     }
-    double t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3;
+    var t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3;
     if (t3 < 0) {
       n3 = 0.0;
     } else {
@@ -327,10 +327,10 @@ class SimplexNoise {
     // determine the magnitude ordering of x0, y0, z0 and w0.
     // Six pair-wise comparisons are performed between each possible pair
     // of the four coordinates, and the results are used to rank the numbers.
-    int rankx = 0;
-    int ranky = 0;
-    int rankz = 0;
-    int rankw = 0;
+    var rankx = 0;
+    var ranky = 0;
+    var rankz = 0;
+    var rankw = 0;
     if (x0 > y0) {
       rankx++;
     } else {
@@ -419,35 +419,35 @@ class SimplexNoise {
     final int gi4 =
         _perm[ii + 1 + _perm[jj + 1 + _perm[kk + 1 + _perm[ll + 1]]]] % 32;
     // Calculate the contribution from the five corners
-    double t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;
+    var t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;
     if (t0 < 0) {
       n0 = 0.0;
     } else {
       t0 *= t0;
       n0 = t0 * t0 * _dot4(_grad4[gi0], x0, y0, z0, w0);
     }
-    double t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1 - w1 * w1;
+    var t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1 - w1 * w1;
     if (t1 < 0) {
       n1 = 0.0;
     } else {
       t1 *= t1;
       n1 = t1 * t1 * _dot4(_grad4[gi1], x1, y1, z1, w1);
     }
-    double t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2 - w2 * w2;
+    var t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2 - w2 * w2;
     if (t2 < 0) {
       n2 = 0.0;
     } else {
       t2 *= t2;
       n2 = t2 * t2 * _dot4(_grad4[gi2], x2, y2, z2, w2);
     }
-    double t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3 - w3 * w3;
+    var t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3 - w3 * w3;
     if (t3 < 0) {
       n3 = 0.0;
     } else {
       t3 *= t3;
       n3 = t3 * t3 * _dot4(_grad4[gi3], x3, y3, z3, w3);
     }
-    double t4 = 0.6 - x4 * x4 - y4 * y4 - z4 * z4 - w4 * w4;
+    var t4 = 0.6 - x4 * x4 - y4 * y4 - z4 * z4 - w4 * w4;
     if (t4 < 0) {
       n4 = 0.0;
     } else {

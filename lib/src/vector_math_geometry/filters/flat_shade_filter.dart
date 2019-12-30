@@ -39,7 +39,7 @@ class FlatShadeFilter extends GeometryFilter {
 
     final List<VectorList<Vector>> srcAttribs = <VectorList<Vector>>[];
     final List<VectorList<Vector>> destAttribs = <VectorList<Vector>>[];
-    for (VertexAttrib attrib in mesh.attribs) {
+    for (var attrib in mesh.attribs) {
       if (attrib.name == 'POSITION' || attrib.name == 'NORMAL') {
         continue;
       }
@@ -48,7 +48,7 @@ class FlatShadeFilter extends GeometryFilter {
       destAttribs.add(output.getViewForAttrib(attrib.name));
     }
 
-    for (int i = 0; i < output.length; i += 3) {
+    for (var i = 0; i < output.length; i += 3) {
       final int i0 = mesh.indices[i];
       final int i1 = mesh.indices[i + 1];
       final int i2 = mesh.indices[i + 2];
@@ -69,7 +69,7 @@ class FlatShadeFilter extends GeometryFilter {
       normals[i + 2] = p0;
 
       // Copy the remaining attributes over
-      for (int j = 0; j < srcAttribs.length; ++j) {
+      for (var j = 0; j < srcAttribs.length; ++j) {
         destAttribs[j][i] = srcAttribs[j][i0];
         destAttribs[j][i + 1] = srcAttribs[j][i1];
         destAttribs[j][i + 2] = srcAttribs[j][i2];

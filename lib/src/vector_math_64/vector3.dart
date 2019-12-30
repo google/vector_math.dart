@@ -142,7 +142,7 @@ class Vector3 implements Vector {
     if (value == 0.0) {
       setZero();
     } else {
-      double l = length;
+      var l = length;
       if (l == 0.0) {
         return;
       }
@@ -394,7 +394,7 @@ class Vector3 implements Vector {
 
   /// True if any component is infinite.
   bool get isInfinite {
-    bool is_infinite = false;
+    var is_infinite = false;
     is_infinite = is_infinite || _v3storage[0].isInfinite;
     is_infinite = is_infinite || _v3storage[1].isInfinite;
     is_infinite = is_infinite || _v3storage[2].isInfinite;
@@ -403,7 +403,7 @@ class Vector3 implements Vector {
 
   /// True if any component is NaN.
   bool get isNaN {
-    bool isNan = false;
+    var isNan = false;
     isNan = isNan || _v3storage[0].isNaN;
     isNan = isNan || _v3storage[1].isNaN;
     isNan = isNan || _v3storage[2].isNaN;

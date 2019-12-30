@@ -33,8 +33,8 @@ class CircleGenerator extends GeometryGenerator {
   void generateVertexPositions(Vector3List positions, Uint16List indices) {
     final Vector3 v = Vector3.zero();
     positions[0] = v;
-    int index = 1;
-    for (int i = 0; i <= _segments; i++) {
+    var index = 1;
+    for (var i = 0; i <= _segments; i++) {
       final double percent = i / _segments;
       v
         ..x = _radius * math.cos(_thetaStart + percent * _thetaLength)
@@ -50,8 +50,8 @@ class CircleGenerator extends GeometryGenerator {
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
     final Vector2 v = Vector2(0.5, 0.5);
     texCoords[0] = v;
-    int index = 1;
-    for (int i = 0; i <= _segments; i++) {
+    var index = 1;
+    for (var i = 0; i <= _segments; i++) {
       final Vector3 position = positions[index];
       final double x = (position.x / (_radius + 1.0)) * 0.5;
       final double y = (position.z / (_radius + 1.0)) * 0.5;
@@ -66,8 +66,8 @@ class CircleGenerator extends GeometryGenerator {
 
   @override
   void generateIndices(Uint16List indices) {
-    int index = 0;
-    for (int i = 1; i <= _segments; i++) {
+    var index = 0;
+    for (var i = 1; i <= _segments; i++) {
       indices[index] = i;
       indices[index + 1] = i + 1;
       indices[index + 2] = 0;

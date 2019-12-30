@@ -16,7 +16,7 @@ void generateNormals(
 
   // Loop through every polygon, find it's normal, and add that to the vertex
   // normals.
-  for (int i = 0; i < indices.length; i += 3) {
+  for (var i = 0; i < indices.length; i += 3) {
     final int i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
     positions..load(i0, p0)..load(i1, p1)..load(i2, p2);
 
@@ -38,7 +38,7 @@ void generateNormals(
   }
 
   // Loop through all the normals and normalize them.
-  for (int i = 0; i < normals.length; ++i) {
+  for (var i = 0; i < normals.length; ++i) {
     normals.load(i, norm);
     normals[i] = norm..normalize();
   }
@@ -74,7 +74,7 @@ void generateTangents(Vector4List tangents, Vector3List positions,
   final Vector3List tan0 = Vector3List(positions.length),
       tan1 = Vector3List(positions.length);
 
-  for (int i = 0; i < indices.length; i += 3) {
+  for (var i = 0; i < indices.length; i += 3) {
     final int i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
     positions..load(i0, p0)..load(i1, p1)..load(i2, p2);
 
@@ -108,7 +108,7 @@ void generateTangents(Vector4List tangents, Vector3List positions,
     tan1[i2] = p0..add(vdir);
   }
 
-  for (int i = 0; i < tangents.length; ++i) {
+  for (var i = 0; i < tangents.length; ++i) {
     normals.load(i, n);
     tan0.load(i, t);
 

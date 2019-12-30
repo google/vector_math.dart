@@ -128,9 +128,9 @@ class Ray {
     const double epsilon = 10e-6;
 
     // First triangle
-    Vector3 point0 = other._point0;
-    Vector3 point1 = other._point1;
-    Vector3 point2 = other._point2;
+    var point0 = other._point0;
+    var point1 = other._point1;
+    var point2 = other._point2;
 
     _e1
       ..setFrom(point1)
@@ -204,17 +204,17 @@ class Ray {
     final Vector3 otherMin = other.min;
     final Vector3 otherMax = other.max;
 
-    double tNear = -double.maxFinite;
-    double tFar = double.maxFinite;
+    var tNear = -double.maxFinite;
+    var tFar = double.maxFinite;
 
-    for (int i = 0; i < 3; ++i) {
+    for (var i = 0; i < 3; ++i) {
       if (_direction[i] == 0.0) {
         if (_origin[i] < otherMin[i] || _origin[i] > otherMax[i]) {
           return null;
         }
       } else {
-        double t1 = (otherMin[i] - _origin[i]) / _direction[i];
-        double t2 = (otherMax[i] - _origin[i]) / _direction[i];
+        var t1 = (otherMin[i] - _origin[i]) / _direction[i];
+        var t2 = (otherMax[i] - _origin[i]) / _direction[i];
 
         if (t1 > t2) {
           final double temp = t1;

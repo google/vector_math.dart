@@ -79,13 +79,13 @@ class MeshGeometry {
   final int stride;
 
   factory MeshGeometry(int length, List<VertexAttrib> attributes) {
-    int stride = 0;
-    for (VertexAttrib a in attributes) {
+    var stride = 0;
+    for (var a in attributes) {
       stride += a.elementSize * a.size;
     }
-    int offset = 0;
+    var offset = 0;
     final List<VertexAttrib> attribs = <VertexAttrib>[];
-    for (VertexAttrib a in attributes) {
+    for (var a in attributes) {
       attribs.add(VertexAttrib._resetStrideOffset(a, stride, offset));
       offset += a.elementSize * a.size;
     }
@@ -116,7 +116,7 @@ class MeshGeometry {
 
   factory MeshGeometry.fromJson(Map<String, Object> json) {
     Float32List buffer;
-    final Object jsonBuffer = json["buffer"];
+    final Object jsonBuffer = json['buffer'];
     if (jsonBuffer is List<double>) {
       buffer = Float32List.fromList(jsonBuffer);
     } else {
@@ -124,7 +124,7 @@ class MeshGeometry {
           jsonBuffer, 'json["buffer"]', 'Value type must be List<double>');
     }
 
-    final Object jsonAttribs = json["attribs"];
+    final Object jsonAttribs = json['attribs'];
     Map<String, Object> jsonAttribsMap;
     if (jsonAttribs is Map<String, Object>) {
       jsonAttribsMap = jsonAttribs;
@@ -133,8 +133,8 @@ class MeshGeometry {
           'Value type must be Map<String, Object>');
     }
     List<VertexAttrib> attribs;
-    int stride = 0;
-    for (String key in jsonAttribsMap.keys) {
+    var stride = 0;
+    for (var key in jsonAttribsMap.keys) {
       VertexAttrib attrib;
       final Object jsonAttrib = jsonAttribsMap[key];
       if (jsonAttrib is Map<String, Object>) {
@@ -149,7 +149,7 @@ class MeshGeometry {
     final MeshGeometry mesh = MeshGeometry._internal(
         buffer.lengthInBytes ~/ stride, stride, attribs, buffer);
 
-    final Object jsonIndices = json["indices"];
+    final Object jsonIndices = json['indices'];
     if (jsonIndices is List<int>) {
       mesh.indices = Uint16List.fromList(jsonIndices);
     }
@@ -163,13 +163,13 @@ class MeshGeometry {
       ..indices = inputMesh.indices;
 
     // Copy over the attributes that were specified
-    for (VertexAttrib attrib in mesh.attribs) {
+    for (var attrib in mesh.attribs) {
       final VertexAttrib inputAttrib = inputMesh.getAttrib(attrib.name);
       if (inputAttrib != null) {
         if (inputAttrib.size != attrib.size ||
             inputAttrib.type != attrib.type) {
           throw Exception(
-              "Attributes size or type is mismatched: ${attrib.name}");
+              'Attributes size or type is mismatched: ${attrib.name}');
         }
 
         final VectorList<Vector> inputView =
@@ -186,18 +186,18 @@ class MeshGeometry {
   factory MeshGeometry.combine(List<MeshGeometry> meshes) {
     if (meshes == null || meshes.length < 2) {
       throw Exception(
-          "Must provide at least two MeshGeometry instances to combine.");
+          'Must provide at least two MeshGeometry instances to combine.');
     }
 
     // When combining meshes they must all have a matching set of VertexAttribs
     final MeshGeometry firstMesh = meshes[0];
-    int totalVerts = firstMesh.length;
-    int totalIndices = firstMesh.indices != null ? firstMesh.indices.length : 0;
-    for (int i = 1; i < meshes.length; ++i) {
+    var totalVerts = firstMesh.length;
+    var totalIndices = firstMesh.indices != null ? firstMesh.indices.length : 0;
+    for (var i = 1; i < meshes.length; ++i) {
       final MeshGeometry srcMesh = meshes[i];
       if (!firstMesh.attribsAreCompatible(srcMesh)) {
         throw Exception(
-            "All meshes must have identical attributes to combine.");
+            'All meshes must have identical attributes to combine.');
       }
       totalVerts += srcMesh.length;
       totalIndices += srcMesh.indices != null ? srcMesh.indices.length : 0;
@@ -211,15 +211,15 @@ class MeshGeometry {
     }
 
     // Copy over the buffer data:
-    int bufferOffset = 0;
-    int indexOffset = 0;
-    int vertexOffset = 0;
-    for (int i = 0; i < meshes.length; ++i) {
+    var bufferOffset = 0;
+    var indexOffset = 0;
+    var vertexOffset = 0;
+    for (var i = 0; i < meshes.length; ++i) {
       final MeshGeometry srcMesh = meshes[i];
       mesh.buffer.setAll(bufferOffset, srcMesh.buffer);
 
       if (totalIndices > 0) {
-        for (int j = 0; j < srcMesh.indices.length; ++j) {
+        for (var j = 0; j < srcMesh.indices.length; ++j) {
           mesh.indices[j + indexOffset] = srcMesh.indices[j] + vertexOffset;
         }
         vertexOffset += srcMesh.length;
@@ -243,10 +243,10 @@ class MeshGeometry {
   }
 
   static VertexAttrib attribFromJson(String name, Map<String, Object> json) {
-    final Object jsonSize = json["size"];
-    final Object jsonType = json["type"];
-    final Object jsonStride = json["stride"];
-    final Object jsonOffset = json["offset"];
+    final Object jsonSize = json['size'];
+    final Object jsonType = json['type'];
+    final Object jsonStride = json['stride'];
+    final Object jsonOffset = json['offset'];
     if (jsonSize is int &&
         jsonType is String &&
         jsonStride is int &&
@@ -259,7 +259,7 @@ class MeshGeometry {
   }
 
   VertexAttrib getAttrib(String name) {
-    for (VertexAttrib attrib in attribs) {
+    for (var attrib in attribs) {
       if (attrib.name == name) {
         return attrib;
       }
@@ -268,7 +268,7 @@ class MeshGeometry {
   }
 
   VectorList<Vector> getViewForAttrib(String name) {
-    for (VertexAttrib attrib in attribs) {
+    for (var attrib in attribs) {
       if (attrib.name == name) {
         return attrib.getView(buffer);
       }
@@ -281,7 +281,7 @@ class MeshGeometry {
       return false;
     }
 
-    for (VertexAttrib attrib in attribs) {
+    for (var attrib in attribs) {
       final VertexAttrib otherAttrib = mesh.getAttrib(attrib.name);
       if (otherAttrib == null) {
         return false;

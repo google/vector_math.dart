@@ -51,11 +51,11 @@ abstract class GeometryGenerator {
       attribs.add(tangentAttrib);
     }
 
-    MeshGeometry mesh = MeshGeometry(vertexCount, attribs)
+    var mesh = MeshGeometry(vertexCount, attribs)
       ..indices = Uint16List(indexCount);
     generateIndices(mesh.indices);
 
-    VectorList<Vector> view = mesh.getViewForAttrib('POSITION');
+    var view = mesh.getViewForAttrib('POSITION');
     if (view is Vector3List) {
       positionView = view;
       generateVertexPositions(positionView, mesh.indices);
@@ -87,7 +87,7 @@ abstract class GeometryGenerator {
     }
 
     if (filters != null) {
-      for (GeometryFilter filter in filters) {
+      for (var filter in filters) {
         if (filter.inplace && filter is InplaceGeometryFilter) {
           filter.filterInplace(mesh);
         } else {
@@ -105,7 +105,7 @@ abstract class GeometryGenerator {
 
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
-    for (int i = 0; i < positions.length; ++i) {
+    for (var i = 0; i < positions.length; ++i) {
       final Vector3 p = positions[i];
 
       // These are TERRIBLE texture coords, but it's better than nothing.

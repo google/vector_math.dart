@@ -168,7 +168,7 @@ class Colors {
     final double d = max - min;
     final double v = max;
     final double s = max == 0.0 ? 0.0 : d / max;
-    double h = 0.0;
+    var h = 0.0;
 
     if (max != min) {
       if (max == rgbColor.r) {
@@ -223,8 +223,8 @@ class Colors {
     final double max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
     final double min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
     final double l = (max + min) / 2.0;
-    double h = 0.0;
-    double s = 0.0;
+    var h = 0.0;
+    var s = 0.0;
 
     if (max != min) {
       final double d = max - min;

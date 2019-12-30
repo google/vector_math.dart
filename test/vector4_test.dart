@@ -60,7 +60,7 @@ void testVector4MinMax() {
   final Vector4 a = Vector4(5.0, 7.0, -3.0, 10.0);
   final Vector4 b = Vector4(3.0, 8.0, 2.0, 2.0);
 
-  Vector4 result = Vector4.zero();
+  var result = Vector4.zero();
 
   Vector4.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -79,7 +79,7 @@ void testVector4Mix() {
   final Vector4 a = Vector4(5.0, 7.0, 3.0, 10.0);
   final Vector4 b = Vector4(3.0, 8.0, 2.0, 2.0);
 
-  Vector4 result = Vector4.zero();
+  var result = Vector4.zero();
 
   Vector4.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));

@@ -17,8 +17,7 @@ class ColorFilter extends GeometryFilter {
   MeshGeometry filter(MeshGeometry mesh) {
     MeshGeometry output;
     if (mesh.getAttrib('COLOR') == null) {
-      final List<VertexAttrib> attributes = <VertexAttrib>[]
-        ..addAll(mesh.attribs)
+      final attributes = <VertexAttrib>[...mesh.attribs]
         ..add(VertexAttrib('COLOR', 4, 'float'));
       output = MeshGeometry.resetAttribs(mesh, attributes);
     } else {
@@ -27,7 +26,7 @@ class ColorFilter extends GeometryFilter {
 
     final VectorList<Vector> colors = output.getViewForAttrib('COLOR');
     if (colors is Vector4List) {
-      for (int i = 0; i < colors.length; ++i) {
+      for (var i = 0; i < colors.length; ++i) {
         colors[i] = color;
       }
       return output;
