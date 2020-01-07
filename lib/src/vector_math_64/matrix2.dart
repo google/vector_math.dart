@@ -20,7 +20,7 @@ class Matrix2 {
     final double a22 = A.entry(1, 1);
     final double bx = b.x;
     final double by = b.y;
-    double det = a11 * a22 - a12 * a21;
+    var det = a11 * a22 - a12 * a21;
 
     if (det != 0.0) {
       det = 1.0 / det;
@@ -292,7 +292,7 @@ class Matrix2 {
 
   /// Trace of the matrix.
   double trace() {
-    double t = 0.0;
+    var t = 0.0;
     t += _m2storage[0];
     t += _m2storage[3];
     return t;
@@ -300,15 +300,15 @@ class Matrix2 {
 
   /// Returns infinity norm of the matrix. Used for numerical analysis.
   double infinityNorm() {
-    double norm = 0.0;
+    var norm = 0.0;
     {
-      double rowNorm = 0.0;
+      var rowNorm = 0.0;
       rowNorm += _m2storage[0].abs();
       rowNorm += _m2storage[1].abs();
       norm = rowNorm > norm ? rowNorm : norm;
     }
     {
-      double rowNorm = 0.0;
+      var rowNorm = 0.0;
       rowNorm += _m2storage[2].abs();
       rowNorm += _m2storage[3].abs();
       norm = rowNorm > norm ? rowNorm : norm;

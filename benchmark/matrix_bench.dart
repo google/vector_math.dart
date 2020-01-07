@@ -11,7 +11,7 @@ import 'package:vector_math/vector_math_operations.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
 
 class MatrixMultiplyBenchmark extends BenchmarkBase {
-  MatrixMultiplyBenchmark() : super("MatrixMultiply");
+  MatrixMultiplyBenchmark() : super('MatrixMultiply');
   final Float32List A = Float32List(16);
   final Float32List B = Float32List(16);
   final Float32List C = Float32List(16);
@@ -22,14 +22,14 @@ class MatrixMultiplyBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 200; i++) {
+    for (var i = 0; i < 200; i++) {
       Matrix44Operations.multiply(C, 0, A, 0, B, 0);
     }
   }
 }
 
 class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
-  SIMDMatrixMultiplyBenchmark() : super("SIMDMatrixMultiply");
+  SIMDMatrixMultiplyBenchmark() : super('SIMDMatrixMultiply');
   final Float32x4List A = Float32x4List(4);
   final Float32x4List B = Float32x4List(4);
   final Float32x4List C = Float32x4List(4);
@@ -40,14 +40,14 @@ class SIMDMatrixMultiplyBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 200; i++) {
+    for (var i = 0; i < 200; i++) {
       Matrix44SIMDOperations.multiply(C, 0, A, 0, B, 0);
     }
   }
 }
 
 class VectorTransformBenchmark extends BenchmarkBase {
-  VectorTransformBenchmark() : super("VectorTransform");
+  VectorTransformBenchmark() : super('VectorTransform');
   final Float32List A = Float32List(16);
   final Float32List B = Float32List(4);
   final Float32List C = Float32List(4);
@@ -58,14 +58,14 @@ class VectorTransformBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 200; i++) {
+    for (var i = 0; i < 200; i++) {
       Matrix44Operations.transform4(C, 0, A, 0, B, 0);
     }
   }
 }
 
 class SIMDVectorTransformBenchmark extends BenchmarkBase {
-  SIMDVectorTransformBenchmark() : super("SIMDVectorTransform");
+  SIMDVectorTransformBenchmark() : super('SIMDVectorTransform');
   final Float32x4List A = Float32x4List(4);
   final Float32x4List B = Float32x4List(1);
   final Float32x4List C = Float32x4List(1);
@@ -76,14 +76,14 @@ class SIMDVectorTransformBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 200; i++) {
+    for (var i = 0; i < 200; i++) {
       Matrix44SIMDOperations.transform4(C, 0, A, 0, B, 0);
     }
   }
 }
 
 class ViewMatrixBenchmark extends BenchmarkBase {
-  ViewMatrixBenchmark() : super("setViewMatrix");
+  ViewMatrixBenchmark() : super('setViewMatrix');
 
   final Matrix4 M = Matrix4.zero();
   final Vector3 P = Vector3.zero();
@@ -96,14 +96,14 @@ class ViewMatrixBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
       setViewMatrix(M, P, F, U);
     }
   }
 }
 
 class Aabb2TransformBenchmark extends BenchmarkBase {
-  Aabb2TransformBenchmark() : super("aabb2Transform");
+  Aabb2TransformBenchmark() : super('aabb2Transform');
 
   static final Matrix3 M = Matrix3.rotationZ(math.pi / 4);
   static final Vector2 P1 = Vector2(10.0, 10.0);
@@ -120,7 +120,7 @@ class Aabb2TransformBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
       temp.copyFrom(B1);
       temp.transform(M);
       temp.copyFrom(B2);
@@ -132,7 +132,7 @@ class Aabb2TransformBenchmark extends BenchmarkBase {
 }
 
 class Aabb2RotateBenchmark extends BenchmarkBase {
-  Aabb2RotateBenchmark() : super("aabb2Rotate");
+  Aabb2RotateBenchmark() : super('aabb2Rotate');
 
   static final Matrix3 M = Matrix3.rotationZ(math.pi / 4);
   static final Vector2 P1 = Vector2(10.0, 10.0);
@@ -149,7 +149,7 @@ class Aabb2RotateBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
       temp.copyFrom(B1);
       temp.rotate(M);
       temp.copyFrom(B2);
@@ -161,7 +161,7 @@ class Aabb2RotateBenchmark extends BenchmarkBase {
 }
 
 class Aabb3TransformBenchmark extends BenchmarkBase {
-  Aabb3TransformBenchmark() : super("aabb3Transform");
+  Aabb3TransformBenchmark() : super('aabb3Transform');
 
   static final Matrix4 M = Matrix4.rotationZ(math.pi / 4);
   static final Vector3 P1 = Vector3(10.0, 10.0, 0.0);
@@ -178,7 +178,7 @@ class Aabb3TransformBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
       temp.copyFrom(B1);
       temp.transform(M);
       temp.copyFrom(B2);
@@ -190,7 +190,7 @@ class Aabb3TransformBenchmark extends BenchmarkBase {
 }
 
 class Aabb3RotateBenchmark extends BenchmarkBase {
-  Aabb3RotateBenchmark() : super("aabb3Rotate");
+  Aabb3RotateBenchmark() : super('aabb3Rotate');
 
   static final Matrix4 M = Matrix4.rotationZ(math.pi / 4);
   static final Vector3 P1 = Vector3(10.0, 10.0, 0.0);
@@ -207,7 +207,7 @@ class Aabb3RotateBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
       temp.copyFrom(B1);
       temp.rotate(M);
       temp.copyFrom(B2);
@@ -219,7 +219,7 @@ class Aabb3RotateBenchmark extends BenchmarkBase {
 }
 
 class Matrix3DeterminantBenchmark extends BenchmarkBase {
-  Matrix3DeterminantBenchmark() : super("Matrix3.determinant");
+  Matrix3DeterminantBenchmark() : super('Matrix3.determinant');
 
   final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
   final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
@@ -231,7 +231,7 @@ class Matrix3DeterminantBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 800; i++) {
+    for (var i = 0; i < 800; i++) {
       MX.determinant();
       MY.determinant();
       MZ.determinant();
@@ -240,7 +240,7 @@ class Matrix3DeterminantBenchmark extends BenchmarkBase {
 }
 
 class Matrix3TransformVector3Benchmark extends BenchmarkBase {
-  Matrix3TransformVector3Benchmark() : super("Matrix3.transform(Vector3)");
+  Matrix3TransformVector3Benchmark() : super('Matrix3.transform(Vector3)');
 
   final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
   final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
@@ -255,7 +255,7 @@ class Matrix3TransformVector3Benchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 800; i++) {
+    for (var i = 0; i < 800; i++) {
       MX.transform(V1);
       MX.transform(V2);
       MX.transform(V3);
@@ -270,7 +270,7 @@ class Matrix3TransformVector3Benchmark extends BenchmarkBase {
 }
 
 class Matrix3TransformVector2Benchmark extends BenchmarkBase {
-  Matrix3TransformVector2Benchmark() : super("Matrix3.transform(Vector2)");
+  Matrix3TransformVector2Benchmark() : super('Matrix3.transform(Vector2)');
 
   final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
   final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
@@ -285,7 +285,7 @@ class Matrix3TransformVector2Benchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 800; i++) {
+    for (var i = 0; i < 800; i++) {
       MX.transform2(V1);
       MX.transform2(V2);
       MX.transform2(V3);
@@ -300,7 +300,7 @@ class Matrix3TransformVector2Benchmark extends BenchmarkBase {
 }
 
 class Matrix3TransposeMultiplyBenchmark extends BenchmarkBase {
-  Matrix3TransposeMultiplyBenchmark() : super("Matrix3.transposeMultiply");
+  Matrix3TransposeMultiplyBenchmark() : super('Matrix3.transposeMultiply');
 
   final Matrix3 MX = Matrix3.rotationX(math.pi / 4);
   final Matrix3 MY = Matrix3.rotationY(math.pi / 4);
@@ -313,7 +313,7 @@ class Matrix3TransposeMultiplyBenchmark extends BenchmarkBase {
 
   @override
   void run() {
-    for (int i = 0; i < 100; i++) {
+    for (var i = 0; i < 100; i++) {
       temp.setIdentity();
       temp.transposeMultiply(MX);
       temp.transposeMultiply(MY);

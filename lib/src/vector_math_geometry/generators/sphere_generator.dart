@@ -29,12 +29,12 @@ class SphereGenerator extends GeometryGenerator {
 
   @override
   void generateIndices(Uint16List indices) {
-    int i = 0;
-    for (int y = 0; y < _latSegments; ++y) {
+    var i = 0;
+    for (var y = 0; y < _latSegments; ++y) {
       final int base1 = (_lonSegments + 1) * y;
       final int base2 = (_lonSegments + 1) * (y + 1);
 
-      for (int x = 0; x < _lonSegments; ++x) {
+      for (var x = 0; x < _lonSegments; ++x) {
         indices[i++] = base1 + x;
         indices[i++] = base1 + x + 1;
         indices[i++] = base2 + x;
@@ -48,13 +48,13 @@ class SphereGenerator extends GeometryGenerator {
 
   @override
   void generateVertexPositions(Vector3List positions, Uint16List indices) {
-    int i = 0;
-    for (int y = 0; y <= _latSegments; ++y) {
+    var i = 0;
+    for (var y = 0; y <= _latSegments; ++y) {
       final double v = y / _latSegments;
       final double sv = math.sin(v * math.pi);
       final double cv = math.cos(v * math.pi);
 
-      for (int x = 0; x <= _lonSegments; ++x) {
+      for (var x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
 
         positions[i++] = Vector3(_radius * math.cos(u * math.pi * 2.0) * sv,
@@ -66,11 +66,11 @@ class SphereGenerator extends GeometryGenerator {
   @override
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
-    int i = 0;
-    for (int y = 0; y <= _latSegments; ++y) {
+    var i = 0;
+    for (var y = 0; y <= _latSegments; ++y) {
       final double v = y / _latSegments;
 
-      for (int x = 0; x <= _lonSegments; ++x) {
+      for (var x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
         texCoords[i++] = Vector2(u, v);
       }
@@ -80,13 +80,13 @@ class SphereGenerator extends GeometryGenerator {
   @override
   void generateVertexNormals(
       Vector3List normals, Vector3List positions, Uint16List indices) {
-    int i = 0;
-    for (int y = 0; y <= _latSegments; ++y) {
+    var i = 0;
+    for (var y = 0; y <= _latSegments; ++y) {
       final double v = y / _latSegments;
       final double sv = math.sin(v * math.pi);
       final double cv = math.cos(v * math.pi);
 
-      for (int x = 0; x <= _lonSegments; ++x) {
+      for (var x = 0; x <= _lonSegments; ++x) {
         final double u = x / _lonSegments;
 
         normals[i++] = Vector3(math.cos(u * math.pi * 2.0) * sv, cv,

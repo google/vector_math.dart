@@ -48,17 +48,17 @@ dynamic makeMatrix(int rows, int cols) {
 
 T parseMatrix<T>(String input) {
   input = input.trim();
-  List<String> rows = input.split("\n");
-  List<double> values = <double>[];
-  int col_count = 0;
-  for (int i = 0; i < rows.length; i++) {
+  var rows = input.split('\n');
+  var values = <double>[];
+  var col_count = 0;
+  for (var i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
-    List<String> cols = rows[i].split(" ");
-    for (int j = 0; j < cols.length; j++) {
+    var cols = rows[i].split(' ');
+    for (var j = 0; j < cols.length; j++) {
       cols[j] = cols[j].trim();
     }
 
-    for (int j = 0; j < cols.length; j++) {
+    for (var j = 0; j < cols.length; j++) {
       if (cols[j].isEmpty) {
         continue;
       }
@@ -70,8 +70,8 @@ T parseMatrix<T>(String input) {
   }
 
   dynamic m = makeMatrix(rows.length, col_count);
-  for (int j = 0; j < rows.length; j++) {
-    for (int i = 0; i < col_count; i++) {
+  for (var j = 0; j < rows.length; j++) {
+    for (var i = 0; i < col_count; i++) {
       m[m.index(j, i)] = values[j * col_count + i];
       //m[i][j] = values[j*col_count+i];
     }
@@ -83,9 +83,9 @@ T parseMatrix<T>(String input) {
 T parseVector<T extends Vector>(String v) {
   v = v.trim();
   Pattern pattern = RegExp('[\\s]+', multiLine: true, caseSensitive: false);
-  List<String> rows = v.split(pattern);
-  List<double> values = <double>[];
-  for (int i = 0; i < rows.length; i++) {
+  var rows = v.split(pattern);
+  var values = <double>[];
+  for (var i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
     if (rows[i].isEmpty) {
       continue;

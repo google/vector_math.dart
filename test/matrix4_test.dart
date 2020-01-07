@@ -127,7 +127,7 @@ void testMatrix4Transpose() {
          0.111202755293787   0.403912145588115   0.956134540229802   0.353158571222071'''));
   expectedOutput.add(inputA[0].transposed());
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     inputA[i].transpose();
     relativeTest(inputA[i], expectedOutput[i]);
   }
@@ -155,7 +155,7 @@ void testMatrix4VectorMultiplication() {
   assert(inputA.length == inputB.length);
   assert(expectedOutput.length == inputB.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     var output = inputA[i] * inputB[i] as Vector4;
     relativeTest(output, expectedOutput[i]);
   }
@@ -185,7 +185,7 @@ void testMatrix4Multiplication() {
   assert(inputA.length == inputB.length);
   assert(expectedOutput.length == inputB.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     var output = inputA[i] * inputB[i] as Matrix4;
     //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
     relativeTest(output, expectedOutput[i]);
@@ -228,7 +228,7 @@ void testMatrix4Adjoint() {
 
   assert(input.length == expectedOutput.length);
 
-  for (int i = 0; i < input.length; i++) {
+  for (var i = 0; i < input.length; i++) {
     var output = input[i].clone();
     output.scaleAdjoint(1.0);
     relativeTest(output, expectedOutput[i]);
@@ -237,7 +237,7 @@ void testMatrix4Adjoint() {
 
 void testMatrix4Determinant() {
   var input = <Matrix4>[];
-  List<double> expectedOutput = <double>[];
+  var expectedOutput = <double>[];
   input.add(parseMatrix<Matrix4>(
       '''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
          0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
@@ -260,8 +260,8 @@ void testMatrix4Determinant() {
   expectedOutput.add(0.117969860982876);
   assert(input.length == expectedOutput.length);
 
-  for (int i = 0; i < input.length; i++) {
-    double output = input[i].determinant();
+  for (var i = 0; i < input.length; i++) {
+    var output = input[i].determinant();
     //print('${input[i].cols}x${input[i].rows} = $output');
     relativeTest(output, expectedOutput[i]);
   }
@@ -291,7 +291,7 @@ void testMatrix4SelfTransposeMultiply() {
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     var output = inputA[i].clone();
     output.transposeMultiply(inputB[i]);
     relativeTest(output, expectedOutput[i]);
@@ -322,7 +322,7 @@ void testMatrix4SelfMultiply() {
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     var output = inputA[i].clone();
     output.multiply(inputB[i]);
     relativeTest(output, expectedOutput[i]);
@@ -353,7 +353,7 @@ void testMatrix4SelfMultiplyTranspose() {
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     var output = inputA[i].clone();
     output.multiplyTranspose(inputB[i]);
     relativeTest(output, expectedOutput[i]);
@@ -374,7 +374,7 @@ void testMatrix4Translation() {
   assert(inputA.length == inputB.length);
   assert(output1.length == output2.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     relativeTest(output1[i], output2[i]);
   }
 }
@@ -393,7 +393,7 @@ void testMatrix4Scale() {
   assert(inputA.length == inputB.length);
   assert(output1.length == output2.length);
 
-  for (int i = 0; i < inputA.length; i++) {
+  for (var i = 0; i < inputA.length; i++) {
     relativeTest(output1[i], output2[i]);
   }
 }
@@ -410,18 +410,18 @@ void testMatrix4Rotate() {
   {
     var axis = Vector3(1.1, 1.1, 1.1);
     axis.normalize();
-    double angle = 1.5;
+    var angle = 1.5;
 
-    Quaternion q = Quaternion.axisAngle(axis, angle);
-    Matrix3 R = q.asRotationMatrix();
-    Matrix4 T = Matrix4.identity();
+    var q = Quaternion.axisAngle(axis, angle);
+    var R = q.asRotationMatrix();
+    var T = Matrix4.identity();
     T.setRotation(R);
     output1.add(T);
 
     output2.add(Matrix4.identity()..rotate(axis, angle));
   }
   assert(output1.length == output2.length);
-  for (int i = 0; i < output1.length; i++) {
+  for (var i = 0; i < output1.length; i++) {
     relativeTest(output1[i], output2[i]);
   }
   return;
@@ -440,7 +440,7 @@ void testMatrix4GetRotation() {
 }
 
 void testMatrix4Column() {
-  Matrix4 I = Matrix4.zero();
+  var I = Matrix4.zero();
   expect(I[0], 0.0);
   var c0 = Vector4(1.0, 2.0, 3.0, 4.0);
   I.setColumn(0, c0);
@@ -451,10 +451,10 @@ void testMatrix4Column() {
 }
 
 void testMatrix4Inversion() {
-  Matrix4 m = Matrix4(1.0, 0.0, 2.0, 2.0, 0.0, 2.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-      1.0, 1.0, 2.0, 1.0, 4.0);
-  Matrix4 result = Matrix4.zero();
-  double det = result.copyInverse(m);
+  var m = Matrix4(1.0, 0.0, 2.0, 2.0, 0.0, 2.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0,
+      1.0, 2.0, 1.0, 4.0);
+  var result = Matrix4.zero();
+  var det = result.copyInverse(m);
   expect(det, 2.0);
   expect(result.entry(0, 0), -2.0);
   expect(result.entry(1, 0), 1.0);
@@ -599,7 +599,7 @@ void testMatrix4Equals() {
 }
 
 void testMatrix4InvertConstructor() {
-  bool exception = false;
+  var exception = false;
   try {
     Matrix4.inverted(Matrix4.zero());
     expect(false, isTrue); // don't hit here.

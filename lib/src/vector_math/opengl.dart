@@ -264,7 +264,7 @@ Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
   final Vector4 v = Vector4(planeNormal.storage[0], planeNormal.storage[1],
       planeNormal.storage[2], 0.0);
   final Matrix4 outer = Matrix4.outer(v, v);
-  Matrix4 r = Matrix4.zero();
+  var r = Matrix4.zero();
   r = r - outer;
   final Vector3 scaledNormal =
       planeNormal.scaled(dot3(planePoint, planeNormal));
@@ -280,7 +280,7 @@ Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
   final Vector4 v = Vector4(planeNormal.storage[0], planeNormal.storage[1],
       planeNormal.storage[2], 0.0);
   final Matrix4 outer = Matrix4.outer(v, v)..scale(2.0);
-  Matrix4 r = Matrix4.zero();
+  var r = Matrix4.zero();
   r = r - outer;
   final double scale = 2.0 * planePoint.dot(planeNormal);
   final Vector3 scaledNormal = planeNormal.scaled(scale);

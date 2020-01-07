@@ -163,7 +163,7 @@ class Vector4 implements Vector {
     if (value == 0.0) {
       setZero();
     } else {
-      double l = length;
+      var l = length;
       if (l == 0.0) {
         return;
       }
@@ -280,7 +280,7 @@ class Vector4 implements Vector {
 
   /// True if any component is infinite.
   bool get isInfinite {
-    bool is_infinite = false;
+    var is_infinite = false;
     is_infinite = is_infinite || _v4storage[0].isInfinite;
     is_infinite = is_infinite || _v4storage[1].isInfinite;
     is_infinite = is_infinite || _v4storage[2].isInfinite;
@@ -290,7 +290,7 @@ class Vector4 implements Vector {
 
   /// True if any component is NaN.
   bool get isNaN {
-    bool is_nan = false;
+    var is_nan = false;
     is_nan = is_nan || _v4storage[0].isNaN;
     is_nan = is_nan || _v4storage[1].isNaN;
     is_nan = is_nan || _v4storage[2].isNaN;

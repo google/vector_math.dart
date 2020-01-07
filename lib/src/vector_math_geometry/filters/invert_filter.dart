@@ -12,7 +12,7 @@ class InvertFilter extends InplaceGeometryFilter {
     // to return a new geometry?
 
     // Swap all the triangle indices
-    for (int i = 0; i < mesh.indices.length; i += 3) {
+    for (var i = 0; i < mesh.indices.length; i += 3) {
       final int tmp = mesh.indices[i];
       mesh.indices[i] = mesh.indices[i + 2];
       mesh.indices[i + 2] = tmp;
@@ -20,7 +20,7 @@ class InvertFilter extends InplaceGeometryFilter {
 
     final VectorList<Vector> normals = mesh.getViewForAttrib('NORMAL');
     if (normals is Vector3List) {
-      for (int i = 0; i < normals.length; ++i) {
+      for (var i = 0; i < normals.length; ++i) {
         normals[i] = -normals[i];
       }
     }

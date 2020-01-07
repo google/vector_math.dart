@@ -31,7 +31,7 @@ class BarycentricFilter extends GeometryFilter {
 
     final List<VectorList<Vector>> srcAttribs = <VectorList<Vector>>[];
     final List<VectorList<Vector>> destAttribs = <VectorList<Vector>>[];
-    for (VertexAttrib attrib in mesh.attribs) {
+    for (var attrib in mesh.attribs) {
       if (attrib.name == 'BARYCENTRIC') {
         continue;
       }
@@ -46,7 +46,7 @@ class BarycentricFilter extends GeometryFilter {
 
     int i0, i1, i2;
 
-    for (int i = 0; i < output.length; i += 3) {
+    for (var i = 0; i < output.length; i += 3) {
       if (mesh.indices != null) {
         i0 = mesh.indices[i];
         i1 = mesh.indices[i + 1];
@@ -62,7 +62,7 @@ class BarycentricFilter extends GeometryFilter {
       barycentricCoords[i + 2] = b2;
 
       // Copy the remaining attributes over
-      for (int j = 0; j < srcAttribs.length; ++j) {
+      for (var j = 0; j < srcAttribs.length; ++j) {
         destAttribs[j][i] = srcAttribs[j][i0];
         destAttribs[j][i + 1] = srcAttribs[j][i1];
         destAttribs[j][i + 2] = srcAttribs[j][i2];

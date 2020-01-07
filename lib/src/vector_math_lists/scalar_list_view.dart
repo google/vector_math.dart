@@ -43,7 +43,7 @@ class ScalarListView {
         _length = list.length,
         _buffer =
             Float32List(offset + list.length * (stride == 0 ? 1 : stride)) {
-    for (int i = 0; i < _length; i++) {
+    for (var i = 0; i < _length; i++) {
       this[i] = list[i];
     }
   }

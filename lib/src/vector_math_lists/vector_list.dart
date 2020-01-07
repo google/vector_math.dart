@@ -53,7 +53,7 @@ abstract class VectorList<T extends Vector> {
     if (_stride < _vectorLength) {
       throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
-    for (int i = 0; i < _length; i++) {
+    for (var i = 0; i < _length; i++) {
       store(i, list[i]);
     }
   }
@@ -93,10 +93,10 @@ abstract class VectorList<T extends Vector> {
       count = math.min(length - offset, src.length - srcOffset);
     }
     final int minVectorLength = math.min(_vectorLength, src._vectorLength);
-    for (int i = 0; i < count; i++) {
-      int index = _vectorIndexToBufferIndex(i + offset);
-      int srcIndex = src._vectorIndexToBufferIndex(i + srcOffset);
-      for (int j = 0; j < minVectorLength; j++) {
+    for (var i = 0; i < count; i++) {
+      var index = _vectorIndexToBufferIndex(i + offset);
+      var srcIndex = src._vectorIndexToBufferIndex(i + srcOffset);
+      for (var j = 0; j < minVectorLength; j++) {
         _buffer[index++] = src._buffer[srcIndex++];
       }
     }

@@ -14,7 +14,7 @@ import 'package:vector_math/vector_math_lists.dart';
 import 'test_utils.dart';
 
 void testVector4ListWithOffset() {
-  Vector4List list = Vector4List(12, 1);
+  var list = Vector4List(12, 1);
   list[0] = Vector4(1.0, 2.0, 3.0, 4.0);
   relativeTest(list[0].x, 1.0);
   relativeTest(list[0].y, 2.0);
@@ -29,8 +29,8 @@ void testVector4ListWithOffset() {
 }
 
 void testVector4ListView() {
-  Float32List buffer = Float32List(12);
-  Vector4List list = Vector4List.view(buffer, 1, 5);
+  var buffer = Float32List(12);
+  var list = Vector4List.view(buffer, 1, 5);
   // The list length should be (12 - 1) ~/ 5 == 2.
   expect(list.length, 2);
   list[0] = Vector4(1.0, 2.0, 3.0, 4.0);
@@ -50,8 +50,8 @@ void testVector4ListView() {
 }
 
 void testVector4ListViewTightFit() {
-  Float32List buffer = Float32List(12);
-  Vector4List list = Vector4List.view(buffer, 2, 5);
+  var buffer = Float32List(12);
+  var list = Vector4List.view(buffer, 2, 5);
   // The list length should be (12 - 2) ~/ 5 == 2 as the stride of the last
   // element is negligible.
   expect(list.length, 2);
@@ -72,11 +72,11 @@ void testVector4ListViewTightFit() {
 }
 
 void testVector4ListFromList() {
-  List<Vector4> input = List<Vector4>(3);
+  var input = List<Vector4>(3);
   input[0] = Vector4(1.0, 2.0, 3.0, 4.0);
   input[1] = Vector4(5.0, 6.0, 7.0, 8.0);
   input[2] = Vector4(9.0, 10.0, 11.0, 12.0);
-  Vector4List list = Vector4List.fromList(input, 2, 5);
+  var list = Vector4List.fromList(input, 2, 5);
   expect(list.buffer.length, 17);
   expect(list.buffer[0], 0.0);
   expect(list.buffer[1], 0.0);

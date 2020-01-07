@@ -20,7 +20,7 @@ class Matrix3 {
     final double a22 = A.entry(1, 1);
     final double bx = b.x - A.storage[6];
     final double by = b.y - A.storage[7];
-    double det = a11 * a22 - a12 * a21;
+    var det = a11 * a22 - a12 * a21;
 
     if (det != 0.0) {
       det = 1.0 / det;
@@ -437,7 +437,7 @@ class Matrix3 {
   /// Returns the trace of the matrix. The trace of a matrix is the sum of
   /// the diagonal entries.
   double trace() {
-    double t = 0.0;
+    var t = 0.0;
     t += _m3storage[0];
     t += _m3storage[4];
     t += _m3storage[8];
@@ -446,23 +446,23 @@ class Matrix3 {
 
   /// Returns infinity norm of the matrix. Used for numerical analysis.
   double infinityNorm() {
-    double norm = 0.0;
+    var norm = 0.0;
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m3storage[0].abs();
       row_norm += _m3storage[1].abs();
       row_norm += _m3storage[2].abs();
       norm = row_norm > norm ? row_norm : norm;
     }
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m3storage[3].abs();
       row_norm += _m3storage[4].abs();
       row_norm += _m3storage[5].abs();
       norm = row_norm > norm ? row_norm : norm;
     }
     {
-      double row_norm = 0.0;
+      var row_norm = 0.0;
       row_norm += _m3storage[6].abs();
       row_norm += _m3storage[7].abs();
       row_norm += _m3storage[8].abs();

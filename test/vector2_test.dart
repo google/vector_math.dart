@@ -50,7 +50,7 @@ void testVector2MinMax() {
   final Vector2 a = Vector2(5.0, 7.0);
   final Vector2 b = Vector2(3.0, 8.0);
 
-  Vector2 result = Vector2.zero();
+  var result = Vector2.zero();
 
   Vector2.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -65,7 +65,7 @@ void testVector2Mix() {
   final Vector2 a = Vector2(5.0, 7.0);
   final Vector2 b = Vector2(3.0, 8.0);
 
-  Vector2 result = Vector2.zero();
+  var result = Vector2.zero();
 
   Vector2.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -89,15 +89,15 @@ void testVector2DotProduct() {
 }
 
 void testVector2Postmultiplication() {
-  Matrix2 inputMatrix = Matrix2.rotation(.2);
-  Vector2 inputVector = Vector2(1.0, 0.0);
-  Matrix2 inputInv = Matrix2.copy(inputMatrix);
+  var inputMatrix = Matrix2.rotation(.2);
+  var inputVector = Vector2(1.0, 0.0);
+  var inputInv = Matrix2.copy(inputMatrix);
   inputInv.invert();
   // print("input $inputMatrix");
   // print("input $inputInv");
-  Vector2 resultOld = inputMatrix.transposed() * inputVector as Vector2;
-  Vector2 resultOldvInv = inputInv * inputVector as Vector2;
-  Vector2 resultNew = inputVector..postmultiply(inputMatrix);
+  var resultOld = inputMatrix.transposed() * inputVector as Vector2;
+  var resultOldvInv = inputInv * inputVector as Vector2;
+  var resultNew = inputVector..postmultiply(inputMatrix);
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
   //matrix inversion can introduce a small error
@@ -107,7 +107,7 @@ void testVector2Postmultiplication() {
 void testVector2CrossProduct() {
   final Vector2 inputA = Vector2(0.417267069084370, 0.049654430325742);
   final Vector2 inputB = Vector2(0.944787189721646, 0.490864092468080);
-  double expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
+  var expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
   dynamic result;
   result = cross2(inputA, inputB);
   relativeTest(result, expectedOutputCross);

@@ -22,11 +22,11 @@ mixin Setup on BenchmarkBase {
 
   @override
   void run() {
-    double sum_traces = 0;
-    for (int i = 0; i <= 1024; i++) {
-      double t = i / 1024.0;
-      Matrix4 m1 = lerp(beginTransform, endTransform, t);
-      Matrix4 m2 = lerp(endTransform, beginTransform, t);
+    var sum_traces = 0.0;
+    for (var i = 0; i <= 1024; i++) {
+      var t = i / 1024.0;
+      var m1 = lerp(beginTransform, endTransform, t);
+      var m2 = lerp(endTransform, beginTransform, t);
       sum_traces += m1.trace();
       sum_traces += m2.trace();
     }
@@ -39,7 +39,7 @@ mixin Setup on BenchmarkBase {
 }
 
 class Matrix4TweenBenchmark1 extends BenchmarkBase with Setup {
-  Matrix4TweenBenchmark1() : super("Matrix4TweenBenchmark1");
+  Matrix4TweenBenchmark1() : super('Matrix4TweenBenchmark1');
 
   @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {
@@ -61,7 +61,7 @@ class Matrix4TweenBenchmark1 extends BenchmarkBase with Setup {
 }
 
 class Matrix4TweenBenchmark2 extends BenchmarkBase with Setup {
-  Matrix4TweenBenchmark2() : super("Matrix4TweenBenchmark2");
+  Matrix4TweenBenchmark2() : super('Matrix4TweenBenchmark2');
 
   @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {
@@ -86,7 +86,7 @@ class Matrix4TweenBenchmark2 extends BenchmarkBase with Setup {
 }
 
 class Matrix4TweenBenchmark3 extends BenchmarkBase with Setup {
-  Matrix4TweenBenchmark3() : super("Matrix4TweenBenchmark3");
+  Matrix4TweenBenchmark3() : super('Matrix4TweenBenchmark3');
 
   @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {

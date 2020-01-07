@@ -341,10 +341,10 @@ class Aabb3 {
   bool intersectsWithSphere(Sphere other) {
     final Vector3 center = other._center;
     final double radius = other.radius;
-    double d = 0.0;
-    double e = 0.0;
+    var d = 0.0;
+    var e = 0.0;
 
-    for (int i = 0; i < 3; ++i) {
+    for (var i = 0; i < 3; ++i) {
       if ((e = center[i] - _min[i]) < 0.0) {
         if (e < -radius) {
           return false;

@@ -24,7 +24,7 @@ void testGenerateNormals() {
 
   final Uint16List indices = Uint16List.fromList([0, 1, 2, 3, 2, 1]);
 
-  Vector3List normals = Vector3List(positions.length);
+  var normals = Vector3List(positions.length);
 
   generateNormals(normals, positions, indices);
 
@@ -58,7 +58,7 @@ void testGenerateTangents() {
 
   final Uint16List indices = Uint16List.fromList([0, 1, 2, 3, 2, 1]);
 
-  Vector4List tangents = Vector4List(positions.length);
+  var tangents = Vector4List(positions.length);
 
   generateTangents(tangents, positions, normals, texCoords, indices);
 
@@ -69,20 +69,20 @@ void testGenerateTangents() {
 }
 
 MeshGeometry filterUnitCube(GeometryFilter filter) {
-  CubeGenerator generator = CubeGenerator();
+  var generator = CubeGenerator();
   return generator.createCube(1.0, 1.0, 1.0, filters: [filter]);
 }
 
 void testTransformFilter() {
-  Matrix4 scaleMat = Matrix4.identity();
+  var scaleMat = Matrix4.identity();
   scaleMat.scale(2.0, 2.0, 2.0);
-  TransformFilter filter = TransformFilter(scaleMat);
-  MeshGeometry cube = filterUnitCube(filter);
+  var filter = TransformFilter(scaleMat);
+  var cube = filterUnitCube(filter);
 
   // Check to ensure all the vertices were properly scaled
-  Vector3List positions = cube.getViewForAttrib("POSITION") as Vector3List;
-  for (int i = 0; i < positions.length; ++i) {
-    Vector3 position = positions[i];
+  var positions = cube.getViewForAttrib('POSITION') as Vector3List;
+  for (var i = 0; i < positions.length; ++i) {
+    var position = positions[i];
     expect(position.storage[0].abs(), equals(2.0));
     expect(position.storage[1].abs(), equals(2.0));
     expect(position.storage[2].abs(), equals(2.0));
@@ -90,8 +90,8 @@ void testTransformFilter() {
 }
 
 void testFlatShadeFilter() {
-  FlatShadeFilter filter = FlatShadeFilter();
-  MeshGeometry cube = filterUnitCube(filter);
+  var filter = FlatShadeFilter();
+  var cube = filterUnitCube(filter);
 
   // Flat shading removes indices and duplicates vertices
   expect(cube.indices, equals(null));
@@ -99,39 +99,39 @@ void testFlatShadeFilter() {
 }
 
 void testBarycentricFilter() {
-  BarycentricFilter filter = BarycentricFilter();
-  MeshGeometry cube = filterUnitCube(filter);
+  var filter = BarycentricFilter();
+  var cube = filterUnitCube(filter);
 
   // Generating barycentric coords removes indices and duplicates vertices
   expect(cube.indices, equals(null));
   expect(cube.length, equals(36));
 
-  expect(cube.getViewForAttrib("BARYCENTRIC"), isNotNull);
+  expect(cube.getViewForAttrib('BARYCENTRIC'), isNotNull);
 }
 
 void testColorFilter() {
-  Vector4 filterColor = Vector4(1.0, 0.0, 0.0, 1.0);
-  ColorFilter filter = ColorFilter(filterColor);
-  MeshGeometry cube = filterUnitCube(filter);
+  var filterColor = Vector4(1.0, 0.0, 0.0, 1.0);
+  var filter = ColorFilter(filterColor);
+  var cube = filterUnitCube(filter);
 
   // Ensure that the same color was applied to all vertices
-  Vector4List colors = cube.getViewForAttrib("COLOR") as Vector4List;
-  for (int i = 0; i < colors.length; ++i) {
-    Vector4 color = colors[i];
+  var colors = cube.getViewForAttrib('COLOR') as Vector4List;
+  for (var i = 0; i < colors.length; ++i) {
+    var color = colors[i];
     relativeTest(color, filterColor);
   }
 }
 
 void testCombineIndices() {
   // Combining two meshes should generate indices that are not out of range.
-  SphereGenerator sphereGenerator = SphereGenerator();
+  var sphereGenerator = SphereGenerator();
 
-  MeshGeometry sphere0 =
+  var sphere0 =
       sphereGenerator.createSphere(10.0, latSegments: 8, lonSegments: 8);
-  MeshGeometry sphere1 =
+  var sphere1 =
       sphereGenerator.createSphere(10.0, latSegments: 8, lonSegments: 8);
 
-  MeshGeometry combined = MeshGeometry.combine([sphere0, sphere1]);
+  var combined = MeshGeometry.combine([sphere0, sphere1]);
   expect(combined.indices, everyElement(lessThan(combined.length)));
 }
 

@@ -56,7 +56,7 @@ void testVector3MinMax() {
   final Vector3 a = Vector3(5.0, 7.0, -3.0);
   final Vector3 b = Vector3(3.0, 8.0, 2.0);
 
-  Vector3 result = Vector3.zero();
+  var result = Vector3.zero();
 
   Vector3.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -73,7 +73,7 @@ void testVector3Mix() {
   final Vector3 a = Vector3(5.0, 7.0, 3.0);
   final Vector3 b = Vector3(3.0, 8.0, 2.0);
 
-  Vector3 result = Vector3.zero();
+  var result = Vector3.zero();
 
   Vector3.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -92,9 +92,9 @@ void testVector3Mix() {
 }
 
 void testVector3DotProduct() {
-  List<Vector3> inputA = <Vector3>[];
-  List<Vector3> inputB = <Vector3>[];
-  List<double> expectedOutput = <double>[];
+  var inputA = <Vector3>[];
+  var inputB = <Vector3>[];
+  var expectedOutput = <double>[];
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
                                      0.902716109915281'''));
@@ -104,23 +104,23 @@ void testVector3DotProduct() {
   expectedOutput.add(0.860258396944727);
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
-  for (int i = 0; i < inputA.length; i++) {
-    double output1 = dot3(inputA[i], inputB[i]);
-    double output2 = dot3(inputB[i], inputA[i]);
+  for (var i = 0; i < inputA.length; i++) {
+    var output1 = dot3(inputA[i], inputB[i]);
+    var output2 = dot3(inputB[i], inputA[i]);
     relativeTest(output1, expectedOutput[i]);
     relativeTest(output2, expectedOutput[i]);
   }
 }
 
 void testVector3Postmultiplication() {
-  Matrix3 inputMatrix =
+  var inputMatrix =
       (Matrix3.rotationX(.4)) * (Matrix3.rotationZ(.5)) as Matrix3;
-  Vector3 inputVector = Vector3(1.0, 2.0, 3.0);
-  Matrix3 inputInv = Matrix3.copy(inputMatrix);
+  var inputVector = Vector3(1.0, 2.0, 3.0);
+  var inputInv = Matrix3.copy(inputMatrix);
   inputInv.invert();
-  Vector3 resultOld = inputMatrix.transposed() * inputVector as Vector3;
-  Vector3 resultOldvInv = inputInv * inputVector as Vector3;
-  Vector3 resultNew = inputVector..postmultiply(inputMatrix);
+  var resultOld = inputMatrix.transposed() * inputVector as Vector3;
+  var resultOldvInv = inputInv * inputVector as Vector3;
+  var resultNew = inputVector..postmultiply(inputMatrix);
 
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
@@ -131,9 +131,9 @@ void testVector3Postmultiplication() {
 }
 
 void testVector3CrossProduct() {
-  List<Vector3> inputA = <Vector3>[];
-  List<Vector3> inputB = <Vector3>[];
-  List<Vector3> expectedOutput = <Vector3>[];
+  var inputA = <Vector3>[];
+  var inputB = <Vector3>[];
+  var expectedOutput = <Vector3>[];
 
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
@@ -158,16 +158,16 @@ void testVector3CrossProduct() {
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
-  for (int i = 0; i < inputA.length; i++) {
-    Vector3 output = Vector3.zero();
+  for (var i = 0; i < inputA.length; i++) {
+    var output = Vector3.zero();
     cross3(inputA[i], inputB[i], output);
     relativeTest(output, expectedOutput[i]);
   }
 
   {
-    Vector3 x = Vector3(1.0, 0.0, 0.0);
-    Vector3 y = Vector3(0.0, 1.0, 0.0);
-    Vector3 z = Vector3(0.0, 0.0, 1.0);
+    var x = Vector3(1.0, 0.0, 0.0);
+    var y = Vector3(0.0, 1.0, 0.0);
+    var z = Vector3(0.0, 0.0, 1.0);
     Vector3 output;
 
     output = x.cross(y);

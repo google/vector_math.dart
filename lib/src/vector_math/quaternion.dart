@@ -126,7 +126,7 @@ class Quaternion {
     final Float32List rotationMatrixStorage = rotationMatrix.storage;
     final double trace = rotationMatrix.trace();
     if (trace > 0.0) {
-      double s = math.sqrt(trace + 1.0);
+      var s = math.sqrt(trace + 1.0);
       _qStorage[3] = s * 0.5;
       s = 0.5 / s;
       _qStorage[0] = (rotationMatrixStorage[5] - rotationMatrixStorage[7]) * s;
@@ -138,7 +138,7 @@ class Quaternion {
           : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
       final int j = (i + 1) % 3;
       final int k = (i + 2) % 3;
-      double s = math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
+      var s = math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
           rotationMatrixStorage[rotationMatrix.index(j, j)] -
           rotationMatrixStorage[rotationMatrix.index(k, k)] +
           1.0);
@@ -161,8 +161,8 @@ class Quaternion {
     final Vector3 v2 = b.normalized();
 
     final double c = v1.dot(v2);
-    double angle = math.acos(c);
-    Vector3 axis = v1.cross(v2);
+    var angle = math.acos(c);
+    var axis = v1.cross(v2);
 
     if ((1.0 + c).abs() < 0.0005) {
       // c \approx -1 indicates 180 degree rotation

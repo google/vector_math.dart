@@ -173,7 +173,7 @@ class Obb3 {
 
     q.setFrom(_center);
 
-    double dist = d.dot(_axis0);
+    var dist = d.dot(_axis0);
     dist = dist.clamp(-_halfExtents.x, _halfExtents.x).toDouble();
     q.addScaled(_axis0, dist);
 
@@ -216,8 +216,8 @@ class Obb3 {
     // Compute common subexpressions. Add in an epsilon term to
     // counteract arithmetic errors when two edges are parallel and
     // their cross product is (near) null.
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < 3; j++) {
         _absR.setEntry(i, j, _r.entry(i, j).abs() + epsilon);
       }
     }
@@ -226,7 +226,7 @@ class Obb3 {
     double rb;
 
     // Test axes L = A0, L = A1, L = A2
-    for (int i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       ra = _halfExtents[i];
       rb = other._halfExtents[0] * _absR.entry(i, 0) +
           other._halfExtents[1] * _absR.entry(i, 1) +
@@ -238,7 +238,7 @@ class Obb3 {
     }
 
     // Test axes L = B0, L = B1, L = B2
-    for (int i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       ra = _halfExtents[0] * _absR.entry(0, i) +
           _halfExtents[1] * _absR.entry(1, i) +
           _halfExtents[2] * _absR.entry(2, i);
