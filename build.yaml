@@ -8,3 +8,5 @@ targets:
         generate_for:
           include:
           - test/**.dart
+          exclude:
+          - test/**vm_test.dart

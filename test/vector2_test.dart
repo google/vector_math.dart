@@ -114,9 +114,9 @@ void testVector2CrossProduct() {
   result = Vector2.zero();
   cross2A(1.0, inputA, result as Vector2);
   relativeTest(result, Vector2(-inputA.y, inputA.x));
-  cross2B(inputA, 1.0, result as Vector2);
+  cross2B(inputA, 1.0, result);
   relativeTest(result, Vector2(inputA.y, -inputA.x));
-  cross2B(inputA, 1.0, result as Vector2);
+  cross2B(inputA, 1.0, result);
   relativeTest(result, Vector2(inputA.y, -inputA.x));
 }
 

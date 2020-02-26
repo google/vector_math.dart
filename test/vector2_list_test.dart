@@ -60,10 +60,11 @@ void testVector2ListViewTightFit() {
 }
 
 void testVector2ListFromList() {
-  final input = List<Vector2>(3);
-  input[0] = Vector2(1.0, 2.0);
-  input[1] = Vector2(3.0, 4.0);
-  input[2] = Vector2(5.0, 6.0);
+  final input = [
+    Vector2(1.0, 2.0),
+    Vector2(3.0, 4.0),
+    Vector2(5.0, 6.0),
+  ];
   final list = Vector2List.fromList(input, 2, 5);
   expect(list.buffer.length, 17);
   expect(list.buffer[0], 0.0);

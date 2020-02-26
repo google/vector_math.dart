@@ -76,12 +76,10 @@ class Aabb2 {
     _max.setFrom(other._max);
   }
 
-  static Vector2 _center;
-  static Vector2 _halfExtents;
-  void _updateCenterAndHalfExtents() => copyCenterAndHalfExtents(
-        _center ??= Vector2.zero(),
-        _halfExtents ??= Vector2.zero(),
-      );
+  static late final _center = Vector2.zero();
+  static late final _halfExtents = Vector2.zero();
+  void _updateCenterAndHalfExtents() =>
+      copyCenterAndHalfExtents(_center, _halfExtents);
 
   /// Transform this by the transform [t].
   void transform(Matrix3 t) {

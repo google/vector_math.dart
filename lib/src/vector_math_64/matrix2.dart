@@ -145,7 +145,7 @@ class Matrix2 {
 
   /// Check if two matrices are the same.
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       (other is Matrix2) &&
       (_m2storage[0] == other._m2storage[0]) &&
       (_m2storage[1] == other._m2storage[1]) &&
@@ -479,7 +479,7 @@ class Matrix2 {
   /// Transform a copy of [arg] of type [Vector2] using the transformation
   /// defined by this. If a [out] parameter is supplied, the copy is stored in
   /// [out].
-  Vector2 transformed(Vector2 arg, [Vector2 out]) {
+  Vector2 transformed(Vector2 arg, [Vector2? out]) {
     if (out == null) {
       out = Vector2.copy(arg);
     } else {

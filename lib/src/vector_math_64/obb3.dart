@@ -344,7 +344,7 @@ class Obb3 {
   static final _zeroVector = Vector3.zero();
 
   /// Return if this intersects with [other]
-  bool intersectsWithTriangle(Triangle other, {IntersectionResult result}) {
+  bool intersectsWithTriangle(Triangle other, {IntersectionResult? result}) {
     _triangle.copyFrom(other);
 
     _triangle.point0
@@ -385,7 +385,7 @@ class Obb3 {
   static final _quadTriangle1 = Triangle();
 
   /// Return if this intersects with [other]
-  bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
+  bool intersectsWithQuad(Quad other, {IntersectionResult? result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 
     return intersectsWithTriangle(_quadTriangle0, result: result) ||

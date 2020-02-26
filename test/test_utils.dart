@@ -101,6 +101,8 @@ T parseVector<T extends Vector>(String v) {
     r = Vector3(values[0], values[1], values[2]);
   } else if (values.length == 4) {
     r = Vector4(values[0], values[1], values[2], values[3]);
+  } else {
+    throw UnimplementedError();
   }
 
   return r as T;

@@ -70,7 +70,7 @@ class Vector4 implements Vector {
 
   /// Generate random vector in the range (0, 0, 0, 0) to (1, 1, 1, 1). You can
   /// optionally pass your own random number generator.
-  factory Vector4.random([math.Random rng]) {
+  factory Vector4.random([math.Random? rng]) {
     rng ??= math.Random();
     return Vector4(
         rng.nextDouble(), rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
@@ -124,7 +124,7 @@ class Vector4 implements Vector {
 
   /// Check if two vectors are the same.
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       (other is Vector4) &&
       (_v4storage[0] == other._v4storage[0]) &&
       (_v4storage[1] == other._v4storage[1]) &&

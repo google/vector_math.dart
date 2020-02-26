@@ -32,7 +32,7 @@ class FlatShadeFilter extends GeometryFilter {
     if (srcPosition is! Vector3List ||
         destPosition is! Vector3List ||
         normals is! Vector3List) {
-      return null;
+      throw UnimplementedError();
     }
 
     final srcAttribs = <VectorList<Vector>>[];
@@ -42,14 +42,14 @@ class FlatShadeFilter extends GeometryFilter {
         continue;
       }
 
-      srcAttribs.add(mesh.getViewForAttrib(attrib.name));
-      destAttribs.add(output.getViewForAttrib(attrib.name));
+      srcAttribs.add(mesh.getViewForAttrib(attrib.name)!);
+      destAttribs.add(output.getViewForAttrib(attrib.name)!);
     }
 
     for (var i = 0; i < output.length; i += 3) {
-      final i0 = mesh.indices[i];
-      final i1 = mesh.indices[i + 1];
-      final i2 = mesh.indices[i + 2];
+      final i0 = mesh.indices![i];
+      final i1 = mesh.indices![i + 1];
+      final i2 = mesh.indices![i + 2];
 
       srcPosition..load(i0, p0)..load(i1, p1)..load(i2, p2);
 

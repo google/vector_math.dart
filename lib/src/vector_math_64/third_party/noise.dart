@@ -78,8 +78,8 @@ class SimplexNoise {
   ];
 
   // To remove the need for index wrapping, double the permutation table length
-  List<int> _perm;
-  List<int> _permMod12;
+  late final List<int> _perm;
+  late final List<int> _permMod12;
 
   // Skewing and unskewing factors for 2, 3, and 4 dimensions
   static final _F2 = 0.5 * (math.sqrt(3.0) - 1.0);
@@ -97,9 +97,9 @@ class SimplexNoise {
   double _dot4(List<double> g, double x, double y, double z, double w) =>
       g[0] * x + g[1] * y + g[2] * z + g[3] * w;
 
-  SimplexNoise([math.Random r]) {
+  SimplexNoise([math.Random? r]) {
     r ??= math.Random();
-    final p = List<int>.generate(256, (_) => r.nextInt(256), growable: false);
+    final p = List<int>.generate(256, (_) => r!.nextInt(256), growable: false);
     _perm = List<int>.generate(p.length * 2, (int i) => p[i % p.length],
         growable: false);
     _permMod12 = List<int>.generate(_perm.length, (int i) => _perm[i] % 12,

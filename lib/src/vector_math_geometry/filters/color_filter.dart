@@ -33,7 +33,7 @@ class ColorFilter extends GeometryFilter {
       }
       return output;
     } else {
-      return null;
+      throw UnimplementedError();
     }
   }
 }

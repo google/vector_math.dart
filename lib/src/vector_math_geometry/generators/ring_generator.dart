@@ -5,12 +5,12 @@
 part of vector_math_geometry;
 
 class RingGenerator extends GeometryGenerator {
-  double _innerRadius;
-  double _outerRadius;
-  int _segments;
-  double _thetaStart;
-  double _thetaLength;
-  bool _stripTextureCoordinates;
+  late final double _innerRadius;
+  late final double _outerRadius;
+  late final int _segments;
+  late final double _thetaStart;
+  late final double _thetaLength;
+  late final bool _stripTextureCoordinates;
 
   @override
   int get vertexCount => (_segments + 1) * 2;
@@ -19,8 +19,8 @@ class RingGenerator extends GeometryGenerator {
   int get indexCount => _segments * 3 * 2;
 
   MeshGeometry createRing(double innerRadius, double outerRadius,
-      {GeometryGeneratorFlags flags,
-      List<GeometryFilter> filters,
+      {GeometryGeneratorFlags? flags,
+      List<GeometryFilter>? filters,
       int segments = 64,
       double thetaStart = 0.0,
       double thetaLength = math.pi * 2.0,

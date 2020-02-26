@@ -72,10 +72,11 @@ void testVector4ListViewTightFit() {
 }
 
 void testVector4ListFromList() {
-  final input = List<Vector4>(3);
-  input[0] = Vector4(1.0, 2.0, 3.0, 4.0);
-  input[1] = Vector4(5.0, 6.0, 7.0, 8.0);
-  input[2] = Vector4(9.0, 10.0, 11.0, 12.0);
+  final input = [
+    Vector4(1.0, 2.0, 3.0, 4.0),
+    Vector4(5.0, 6.0, 7.0, 8.0),
+    Vector4(9.0, 10.0, 11.0, 12.0),
+  ];
   final list = Vector4List.fromList(input, 2, 5);
   expect(list.buffer.length, 17);
   expect(list.buffer[0], 0.0);

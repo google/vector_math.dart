@@ -40,10 +40,11 @@ void testScalarListView() {
 }
 
 void testScalarListViewFromList() {
-  final input = List<double>(3);
-  input[0] = 1.0;
-  input[1] = 4.0;
-  input[2] = 7.0;
+  final input = [
+    1.0,
+    4.0,
+    7.0,
+  ];
   final list = ScalarListView.fromList(input, 2, 3);
   expect(list.buffer.length, 11);
   expect(list.buffer[0], 0.0);

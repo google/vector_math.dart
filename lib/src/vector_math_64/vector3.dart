@@ -64,7 +64,7 @@ class Vector3 implements Vector {
 
   /// Generate random vector in the range (0, 0, 0) to (1, 1, 1). You can
   /// optionally pass your own random number generator.
-  factory Vector3.random([math.Random rng]) {
+  factory Vector3.random([math.Random? rng]) {
     rng ??= math.Random();
     return Vector3(rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
   }
@@ -104,7 +104,7 @@ class Vector3 implements Vector {
 
   /// Check if two vectors are the same.
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       (other is Vector3) &&
       (_v3storage[0] == other._v3storage[0]) &&
       (_v3storage[1] == other._v3storage[1]) &&

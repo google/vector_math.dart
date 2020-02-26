@@ -150,7 +150,7 @@ class Matrix4 {
 
   /// Returns a matrix that is the inverse of [other] if [other] is invertible,
   /// otherwise `null`.
-  static Matrix4 tryInvert(Matrix4 other) {
+  static Matrix4? tryInvert(Matrix4 other) {
     final r = Matrix4.zero();
     final determinant = r.copyInverse(other);
     if (determinant == 0.0) {
@@ -521,7 +521,7 @@ class Matrix4 {
 
   /// Check if two matrices are the same.
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       (other is Matrix4) &&
       (_m4storage[0] == other._m4storage[0]) &&
       (_m4storage[1] == other._m4storage[1]) &&
@@ -678,6 +678,8 @@ class Matrix4 {
       tx = x;
       ty = y;
       tz = z;
+    } else {
+      throw UnimplementedError();
     }
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
@@ -720,6 +722,8 @@ class Matrix4 {
       tx = x;
       ty = y;
       tz = z;
+    } else {
+      throw UnimplementedError();
     }
 
     // Column 1
@@ -861,7 +865,7 @@ class Matrix4 {
   }
 
   /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
-  void scale(dynamic x, [double y, double z]) {
+  void scale(dynamic x, [double? y, double? z]) {
     double sx;
     double sy;
     double sz;
@@ -878,6 +882,8 @@ class Matrix4 {
       sx = x;
       sy = y ?? x;
       sz = z ?? x;
+    } else {
+      throw UnimplementedError();
     }
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
@@ -899,7 +905,7 @@ class Matrix4 {
 
   /// Create a copy of this scaled by a [Vector3], [Vector4] or [x],[y], and
   /// [z].
-  Matrix4 scaled(dynamic x, [double y, double z]) => clone()..scale(x, y, z);
+  Matrix4 scaled(dynamic x, [double? y, double? z]) => clone()..scale(x, y, z);
 
   /// Zeros this.
   void setZero() {
@@ -1804,9 +1810,9 @@ class Matrix4 {
     scale._v3storage[2] = sz;
   }
 
-  static Vector3 _decomposeV;
-  static Matrix4 _decomposeM;
-  static Matrix3 _decomposeR;
+  static Vector3? _decomposeV;
+  static Matrix4? _decomposeM;
+  static Matrix3? _decomposeR;
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by this.
   Vector3 rotate3(Vector3 arg) {
@@ -1828,7 +1834,7 @@ class Matrix4 {
 
   /// Rotate a copy of [arg] of type [Vector3] using the rotation defined by
   /// this. If a [out] parameter is supplied, the copy is stored in [out].
-  Vector3 rotated3(Vector3 arg, [Vector3 out]) {
+  Vector3 rotated3(Vector3 arg, [Vector3? out]) {
     if (out == null) {
       out = Vector3.copy(arg);
     } else {
@@ -1862,7 +1868,7 @@ class Matrix4 {
   /// Transform a copy of [arg] of type [Vector3] using the transformation
   /// defined by this. If a [out] parameter is supplied, the copy is stored in
   /// [out].
-  Vector3 transformed3(Vector3 arg, [Vector3 out]) {
+  Vector3 transformed3(Vector3 arg, [Vector3? out]) {
     if (out == null) {
       out = Vector3.copy(arg);
     } else {
@@ -1928,7 +1934,7 @@ class Matrix4 {
   /// Transform a copy of [arg] of type [Vector4] using the transformation
   /// defined by this. If a [out] parameter is supplied, the copy is stored in
   /// [out].
-  Vector4 transformed(Vector4 arg, [Vector4 out]) {
+  Vector4 transformed(Vector4 arg, [Vector4? out]) {
     if (out == null) {
       out = Vector4.copy(arg);
     } else {

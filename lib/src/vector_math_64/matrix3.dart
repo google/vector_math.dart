@@ -236,7 +236,7 @@ class Matrix3 {
 
   /// Check if two matrices are the same.
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       (other is Matrix3) &&
       (_m3storage[0] == other._m3storage[0]) &&
       (_m3storage[1] == other._m3storage[1]) &&
@@ -832,7 +832,7 @@ class Matrix3 {
   /// Transform a copy of [arg] of type [Vector3] using the transformation
   /// defined by this. If a [out] parameter is supplied, the copy is stored in
   /// [out].
-  Vector3 transformed(Vector3 arg, [Vector3 out]) {
+  Vector3 transformed(Vector3 arg, [Vector3? out]) {
     if (out == null) {
       out = Vector3.copy(arg);
     } else {

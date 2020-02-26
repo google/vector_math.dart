@@ -5,9 +5,9 @@
 part of vector_math_geometry;
 
 class SphereGenerator extends GeometryGenerator {
-  double _radius;
-  int _latSegments;
-  int _lonSegments;
+  late double _radius;
+  late int _latSegments;
+  late int _lonSegments;
 
   @override
   int get vertexCount => (_lonSegments + 1) * (_latSegments + 1);
@@ -18,8 +18,8 @@ class SphereGenerator extends GeometryGenerator {
   MeshGeometry createSphere(num radius,
       {int latSegments = 16,
       int lonSegments = 16,
-      GeometryGeneratorFlags flags,
-      List<GeometryFilter> filters}) {
+      GeometryGeneratorFlags? flags,
+      List<GeometryFilter>? filters}) {
     _radius = radius.toDouble();
     _latSegments = latSegments;
     _lonSegments = lonSegments;

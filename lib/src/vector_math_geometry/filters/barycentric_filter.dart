@@ -24,7 +24,7 @@ class BarycentricFilter extends GeometryFilter {
     if (view is Vector3List) {
       barycentricCoords = view;
     } else {
-      return null;
+      throw UnimplementedError();
     }
 
     final srcAttribs = <VectorList<Vector>>[];
@@ -34,8 +34,8 @@ class BarycentricFilter extends GeometryFilter {
         continue;
       }
 
-      srcAttribs.add(mesh.getViewForAttrib(attrib.name));
-      destAttribs.add(output.getViewForAttrib(attrib.name));
+      srcAttribs.add(mesh.getViewForAttrib(attrib.name)!);
+      destAttribs.add(output.getViewForAttrib(attrib.name)!);
     }
 
     final b0 = Vector3(1.0, 0.0, 0.0);
@@ -46,9 +46,9 @@ class BarycentricFilter extends GeometryFilter {
 
     for (var i = 0; i < output.length; i += 3) {
       if (mesh.indices != null) {
-        i0 = mesh.indices[i];
-        i1 = mesh.indices[i + 1];
-        i2 = mesh.indices[i + 2];
+        i0 = mesh.indices![i];
+        i1 = mesh.indices![i + 1];
+        i2 = mesh.indices![i + 2];
       } else {
         i0 = i;
         i1 = i + 1;

@@ -5,10 +5,10 @@
 part of vector_math_geometry;
 
 class CircleGenerator extends GeometryGenerator {
-  double _radius;
-  int _segments;
-  double _thetaStart;
-  double _thetaLength;
+  late final double _radius;
+  late final int _segments;
+  late final double _thetaStart;
+  late final double _thetaLength;
 
   @override
   int get vertexCount => _segments + 2;
@@ -17,8 +17,8 @@ class CircleGenerator extends GeometryGenerator {
   int get indexCount => _segments * 3;
 
   MeshGeometry createCircle(double radius,
-      {GeometryGeneratorFlags flags,
-      List<GeometryFilter> filters,
+      {GeometryGeneratorFlags? flags,
+      List<GeometryFilter>? filters,
       int segments = 64,
       double thetaStart = 0.0,
       double thetaLength = math.pi * 2.0}) {

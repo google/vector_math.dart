@@ -50,7 +50,7 @@ class Ray {
 
   /// Return the distance from the origin of this to the intersection with
   /// [other] if this intersects with [other], or null if the don't intersect.
-  double intersectsWithSphere(Sphere other) {
+  double? intersectsWithSphere(Sphere other) {
     final r = other.radius;
     final r2 = r * r;
     final l = other._center.clone()..sub(_origin);
@@ -79,7 +79,7 @@ class Ray {
 
   /// Return the distance from the origin of this to the intersection with
   /// [other] if this intersects with [other], or null if the don't intersect.
-  double intersectsWithTriangle(Triangle other) {
+  double? intersectsWithTriangle(Triangle other) {
     const epsilon = 10e-6;
 
     final point0 = other._point0;
@@ -124,7 +124,7 @@ class Ray {
 
   /// Return the distance from the origin of this to the intersection with
   /// [other] if this intersects with [other], or null if the don't intersect.
-  double intersectsWithQuad(Quad other) {
+  double? intersectsWithQuad(Quad other) {
     const epsilon = 10e-6;
 
     // First triangle
@@ -200,7 +200,7 @@ class Ray {
 
   /// Return the distance from the origin of this to the intersection with
   /// [other] if this intersects with [other], or null if the don't intersect.
-  double intersectsWithAabb3(Aabb3 other) {
+  double? intersectsWithAabb3(Aabb3 other) {
     final otherMin = other.min;
     final otherMax = other.max;
 

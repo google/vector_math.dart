@@ -11,8 +11,8 @@ import 'package:vector_math/vector_math.dart';
 void testSimplexNoise() {
   final noise = SimplexNoise();
 
-  final values2D = List<double>(10);
-  final values3D = List<double>(10);
+  final values2D = List<double>.filled(10, 0);
+  final values3D = List<double>.filled(10, 0);
 
   // Cache several values at known coordinates
   for (var i = 0; i < values2D.length; ++i) {

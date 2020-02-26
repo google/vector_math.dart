@@ -18,7 +18,7 @@ abstract class GeometryGenerator {
   int get indexCount;
 
   MeshGeometry createGeometry(
-      {GeometryGeneratorFlags flags, List<GeometryFilter> filters}) {
+      {GeometryGeneratorFlags? flags, List<GeometryFilter>? filters}) {
     flags ??= GeometryGeneratorFlags();
 
     VertexAttrib positionAttrib;
@@ -26,9 +26,9 @@ abstract class GeometryGenerator {
     VertexAttrib normalAttrib;
     VertexAttrib tangentAttrib;
 
-    Vector2List texCoordView;
-    Vector3List positionView;
-    Vector3List normalView;
+    Vector2List? texCoordView;
+    Vector3List? positionView;
+    Vector3List? normalView;
     Vector4List tangentView;
 
     final attribs = <VertexAttrib>[];
@@ -53,19 +53,19 @@ abstract class GeometryGenerator {
 
     var mesh = MeshGeometry(vertexCount, attribs)
       ..indices = Uint16List(indexCount);
-    generateIndices(mesh.indices);
+    generateIndices(mesh.indices!);
 
     var view = mesh.getViewForAttrib('POSITION');
     if (view is Vector3List) {
       positionView = view;
-      generateVertexPositions(positionView, mesh.indices);
+      generateVertexPositions(positionView!, mesh.indices!);
     }
 
     if (flags.texCoords || flags.tangents) {
       view = mesh.getViewForAttrib('TEXCOORD0');
       if (view is Vector2List) {
         texCoordView = view;
-        generateVertexTexCoords(texCoordView, positionView, mesh.indices);
+        generateVertexTexCoords(texCoordView!, positionView!, mesh.indices!);
       }
     }
 
@@ -73,7 +73,7 @@ abstract class GeometryGenerator {
       view = mesh.getViewForAttrib('NORMAL');
       if (view is Vector3List) {
         normalView = view;
-        generateVertexNormals(normalView, positionView, mesh.indices);
+        generateVertexNormals(normalView!, positionView!, mesh.indices!);
       }
     }
 
@@ -81,8 +81,8 @@ abstract class GeometryGenerator {
       view = mesh.getViewForAttrib('TANGENT');
       if (view is Vector4List) {
         tangentView = view;
-        generateVertexTangents(
-            tangentView, positionView, normalView, texCoordView, mesh.indices);
+        generateVertexTangents(tangentView, positionView!, normalView!,
+            texCoordView!, mesh.indices!);
       }
     }
 

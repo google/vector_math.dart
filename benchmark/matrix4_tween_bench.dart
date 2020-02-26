@@ -89,7 +89,6 @@ class Matrix4TweenBenchmark3 extends BenchmarkBase with Setup {
 
   @override
   Matrix4 lerp(Matrix4 begin, Matrix4 end, double t) {
-    if (beginTranslation == null) _lerpInit();
     begin.decompose(beginTranslation, beginRotation, beginScale);
     end.decompose(endTranslation, endRotation, endScale);
     Vector3.mix(beginTranslation, endTranslation, t, lerpTranslation);
@@ -99,25 +98,14 @@ class Matrix4TweenBenchmark3 extends BenchmarkBase with Setup {
     return Matrix4.compose(lerpTranslation, lerpRotation, lerpScale);
   }
 
-  // Manually initialized pre-allocated vectors.
-  static Vector3 beginTranslation;
-  static Vector3 endTranslation;
-  static Vector3 lerpTranslation;
-  static Quaternion beginRotation;
-  static Quaternion endRotation;
-  static Vector3 beginScale;
-  static Vector3 endScale;
-  static Vector3 lerpScale;
-  static void _lerpInit() {
-    beginTranslation = Vector3.zero();
-    endTranslation = Vector3.zero();
-    lerpTranslation = Vector3.zero();
-    beginRotation = Quaternion.identity();
-    endRotation = Quaternion.identity();
-    beginScale = Vector3.zero();
-    endScale = Vector3.zero();
-    lerpScale = Vector3.zero();
-  }
+  late final beginTranslation = Vector3.zero();
+  late final endTranslation = Vector3.zero();
+  late final lerpTranslation = Vector3.zero();
+  late final beginRotation = Quaternion.identity();
+  late final endRotation = Quaternion.identity();
+  late final beginScale = Vector3.zero();
+  late final endScale = Vector3.zero();
+  late final lerpScale = Vector3.zero();
 }
 
 void main() {

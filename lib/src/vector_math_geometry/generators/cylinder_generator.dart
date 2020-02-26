@@ -5,10 +5,10 @@
 part of vector_math_geometry;
 
 class CylinderGenerator extends GeometryGenerator {
-  double _topRadius;
-  double _bottomRadius;
-  double _height;
-  int _segments;
+  late final double _topRadius;
+  late final double _bottomRadius;
+  late final double _height;
+  late final int _segments;
 
   @override
   int get vertexCount => ((_segments + 1) * 2) + (_segments * 2);
@@ -18,8 +18,8 @@ class CylinderGenerator extends GeometryGenerator {
 
   MeshGeometry createCylinder(num topRadius, num bottomRadius, num height,
       {int segments = 16,
-      GeometryGeneratorFlags flags,
-      List<GeometryFilter> filters}) {
+      GeometryGeneratorFlags? flags,
+      List<GeometryFilter>? filters}) {
     _topRadius = topRadius.toDouble();
     _bottomRadius = bottomRadius.toDouble();
     _height = height.toDouble();

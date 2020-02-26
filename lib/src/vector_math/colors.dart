@@ -30,17 +30,17 @@ class Colors {
 
     if (fullMatch != null) {
       if (fullMatch[4] == null) {
-        final r = int.parse(fullMatch[1], radix: 16);
-        final g = int.parse(fullMatch[2], radix: 16);
-        final b = int.parse(fullMatch[3], radix: 16);
+        final r = int.parse(fullMatch[1]!, radix: 16);
+        final g = int.parse(fullMatch[2]!, radix: 16);
+        final b = int.parse(fullMatch[3]!, radix: 16);
 
         fromRgba(r, g, b, 255, result);
         return;
       } else {
-        final a = int.parse(fullMatch[1], radix: 16);
-        final r = int.parse(fullMatch[2], radix: 16);
-        final g = int.parse(fullMatch[3], radix: 16);
-        final b = int.parse(fullMatch[4], radix: 16);
+        final a = int.parse(fullMatch[1]!, radix: 16);
+        final r = int.parse(fullMatch[2]!, radix: 16);
+        final g = int.parse(fullMatch[3]!, radix: 16);
+        final b = int.parse(fullMatch[4]!, radix: 16);
 
         fromRgba(r, g, b, a, result);
         return;
@@ -51,17 +51,17 @@ class Colors {
 
     if (smallMatch != null) {
       if (smallMatch[4] == null) {
-        final r = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
-        final g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
-        final b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
+        final r = int.parse(smallMatch[1]! + smallMatch[1]!, radix: 16);
+        final g = int.parse(smallMatch[2]! + smallMatch[2]!, radix: 16);
+        final b = int.parse(smallMatch[3]! + smallMatch[3]!, radix: 16);
 
         fromRgba(r, g, b, 255, result);
         return;
       } else {
-        final a = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
-        final r = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
-        final g = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
-        final b = int.parse(smallMatch[4] + smallMatch[4], radix: 16);
+        final a = int.parse(smallMatch[1]! + smallMatch[1]!, radix: 16);
+        final r = int.parse(smallMatch[2]! + smallMatch[2]!, radix: 16);
+        final g = int.parse(smallMatch[3]! + smallMatch[3]!, radix: 16);
+        final b = int.parse(smallMatch[4]! + smallMatch[4]!, radix: 16);
 
         fromRgba(r, g, b, a, result);
         return;

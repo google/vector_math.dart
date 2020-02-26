@@ -60,7 +60,7 @@ class Vector2 implements Vector {
 
   /// Generate random vector in the range (0, 0) to (1, 1). You can
   /// optionally pass your own random number generator.
-  factory Vector2.random([math.Random rng]) {
+  factory Vector2.random([math.Random? rng]) {
     rng ??= math.Random();
     return Vector2(rng.nextDouble(), rng.nextDouble());
   }
@@ -96,7 +96,7 @@ class Vector2 implements Vector {
 
   /// Check if two vectors are the same.
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       (other is Vector2) &&
       (_v2storage[0] == other._v2storage[0]) &&
       (_v2storage[1] == other._v2storage[1]);

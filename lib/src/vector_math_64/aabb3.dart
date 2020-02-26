@@ -203,12 +203,10 @@ class Aabb3 {
     _max.setFrom(other._max);
   }
 
-  static Vector3 _center;
-  static Vector3 _halfExtents;
-  void _updateCenterAndHalfExtents() => copyCenterAndHalfExtents(
-        _center ??= Vector3.zero(),
-        _halfExtents ??= Vector3.zero(),
-      );
+  static late final _center = Vector3.zero();
+  static late final _halfExtents = Vector3.zero();
+  void _updateCenterAndHalfExtents() =>
+      copyCenterAndHalfExtents(_center, _halfExtents);
 
   /// Transform this by the transform [t].
   void transform(Matrix4 t) {
@@ -394,7 +392,7 @@ class Aabb3 {
   /// found, result is modified to contain more details about the type of
   /// intersection.
   bool intersectsWithTriangle(Triangle other,
-      {double epsilon = 1e-3, IntersectionResult result}) {
+      {double epsilon = 1e-3, IntersectionResult? result}) {
     double p0, p1, p2, r, len;
     double a;
 
@@ -437,7 +435,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p2) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u0.crossInto(_f0, result.axis);
       }
@@ -455,7 +453,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p1) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u0.crossInto(_f1, result.axis);
       }
@@ -473,7 +471,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p1) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u0.crossInto(_f2, result.axis);
       }
@@ -491,7 +489,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p2) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u1.crossInto(_f0, result.axis);
       }
@@ -509,7 +507,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p1) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u1.crossInto(_f1, result.axis);
       }
@@ -527,7 +525,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p1) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u1.crossInto(_f2, result.axis);
       }
@@ -545,7 +543,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p2) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u2.crossInto(_f0, result.axis);
       }
@@ -563,7 +561,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p1) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u2.crossInto(_f1, result.axis);
       }
@@ -581,7 +579,7 @@ class Aabb3 {
       }
 
       a = math.min(p0, p1) - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         _u2.crossInto(_f2, result.axis);
       }
@@ -594,7 +592,7 @@ class Aabb3 {
       return false;
     }
     a = math.min(_v0.x, math.min(_v1.x, _v2.x)) - _aabbHalfExtents[0];
-    if (result != null && (result._depth == null || result._depth < a)) {
+    if (result != null && (result._depth == null || (result._depth!) < a)) {
       result._depth = a;
       result.axis.setFrom(_u0);
     }
@@ -604,7 +602,7 @@ class Aabb3 {
       return false;
     }
     a = math.min(_v0.y, math.min(_v1.y, _v2.y)) - _aabbHalfExtents[1];
-    if (result != null && (result._depth == null || result._depth < a)) {
+    if (result != null && (result._depth == null || (result._depth!) < a)) {
       result._depth = a;
       result.axis.setFrom(_u1);
     }
@@ -614,7 +612,7 @@ class Aabb3 {
       return false;
     }
     a = math.min(_v0.z, math.min(_v1.z, _v2.z)) - _aabbHalfExtents[2];
-    if (result != null && (result._depth == null || result._depth < a)) {
+    if (result != null && (result._depth == null || (result._depth!) < a)) {
       result._depth = a;
       result.axis.setFrom(_u2);
     }
@@ -630,7 +628,7 @@ class Aabb3 {
   }
 
   /// Return if this intersects with [other]
-  bool intersectsWithPlane(Plane other, {IntersectionResult result}) {
+  bool intersectsWithPlane(Plane other, {IntersectionResult? result}) {
     // This line is not necessary with a (center, extents) AABB representation
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
@@ -643,7 +641,7 @@ class Aabb3 {
     // Intersection occurs when distance s falls within [-r,+r] interval
     if (s.abs() <= r) {
       final a = s - r;
-      if (result != null && (result._depth == null || result._depth < a)) {
+      if (result != null && (result._depth == null || (result._depth!) < a)) {
         result._depth = a;
         result.axis.setFrom(other.normal);
       }
@@ -662,7 +660,7 @@ class Aabb3 {
   /// If [result] is specified and an intersection is
   /// found, result is modified to contain more details about the type of
   /// intersection.
-  bool intersectsWithQuad(Quad other, {IntersectionResult result}) {
+  bool intersectsWithQuad(Quad other, {IntersectionResult? result}) {
     other.copyTriangles(_quadTriangle0, _quadTriangle1);
 
     return intersectsWithTriangle(_quadTriangle0, result: result) ||

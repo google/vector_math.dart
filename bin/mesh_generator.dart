@@ -7,9 +7,9 @@ library vector_math.mesh_generator;
 import 'dart:convert';
 import 'package:vector_math/vector_math_geometry.dart';
 
-typedef GenerateFunction = MeshGeometry Function(List<String> args);
+typedef GenerateFunction = MeshGeometry? Function(List<String> args);
 
-MeshGeometry generateCube(List<String> args) {
+MeshGeometry? generateCube(List<String> args) {
   if (args.length != 3) {
     return null;
   }
@@ -20,7 +20,7 @@ MeshGeometry generateCube(List<String> args) {
   return generator.createCube(width, height, depth);
 }
 
-MeshGeometry generateSphere(List<String> args) {
+MeshGeometry? generateSphere(List<String> args) {
   if (args.length != 1) {
     return null;
   }
@@ -29,7 +29,7 @@ MeshGeometry generateSphere(List<String> args) {
   return generator.createSphere(radius);
 }
 
-MeshGeometry generateCircle(List<String> args) {
+MeshGeometry? generateCircle(List<String> args) {
   if (args.length != 1) {
     return null;
   }
@@ -38,7 +38,7 @@ MeshGeometry generateCircle(List<String> args) {
   return generator.createCircle(radius);
 }
 
-MeshGeometry generateCylinder(List<String> args) {
+MeshGeometry? generateCylinder(List<String> args) {
   if (args.length != 3) {
     return null;
   }
@@ -49,7 +49,7 @@ MeshGeometry generateCylinder(List<String> args) {
   return generator.createCylinder(topRadius, bottomRadius, height);
 }
 
-MeshGeometry generateRing(List<String> args) {
+MeshGeometry? generateRing(List<String> args) {
   if (args.length != 2) {
     return null;
   }
