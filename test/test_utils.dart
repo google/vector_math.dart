@@ -69,7 +69,7 @@ T parseMatrix<T>(String input) {
     }
   }
 
-  dynamic m = makeMatrix(rows.length, col_count);
+  var m = makeMatrix(rows.length, col_count);
   for (var j = 0; j < rows.length; j++) {
     for (var i = 0; i < col_count; i++) {
       m[m.index(j, i)] = values[j * col_count + i];

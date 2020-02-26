@@ -42,7 +42,7 @@ void testMatrix3Adjoint() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    dynamic output = input[i].clone();
+    var output = input[i].clone();
     output.scaleAdjoint(1.0);
     relativeTest(output, expectedOutput[i]);
   }
