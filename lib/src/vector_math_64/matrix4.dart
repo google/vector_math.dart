@@ -14,12 +14,12 @@ class Matrix4 {
 
   /// Solve [A] * [x] = [b].
   static void solve2(Matrix4 A, Vector2 x, Vector2 b) {
-    final double a11 = A.entry(0, 0);
-    final double a12 = A.entry(0, 1);
-    final double a21 = A.entry(1, 0);
-    final double a22 = A.entry(1, 1);
-    final double bx = b.x - A._m4storage[8];
-    final double by = b.y - A._m4storage[9];
+    final a11 = A.entry(0, 0);
+    final a12 = A.entry(0, 1);
+    final a21 = A.entry(1, 0);
+    final a22 = A.entry(1, 1);
+    final bx = b.x - A._m4storage[8];
+    final by = b.y - A._m4storage[9];
     var det = a11 * a22 - a12 * a21;
 
     if (det != 0.0) {
@@ -33,18 +33,18 @@ class Matrix4 {
 
   /// Solve [A] * [x] = [b].
   static void solve3(Matrix4 A, Vector3 x, Vector3 b) {
-    final double A0x = A.entry(0, 0);
-    final double A0y = A.entry(1, 0);
-    final double A0z = A.entry(2, 0);
-    final double A1x = A.entry(0, 1);
-    final double A1y = A.entry(1, 1);
-    final double A1z = A.entry(2, 1);
-    final double A2x = A.entry(0, 2);
-    final double A2y = A.entry(1, 2);
-    final double A2z = A.entry(2, 2);
-    final double bx = b.x - A._m4storage[12];
-    final double by = b.y - A._m4storage[13];
-    final double bz = b.z - A._m4storage[14];
+    final A0x = A.entry(0, 0);
+    final A0y = A.entry(1, 0);
+    final A0z = A.entry(2, 0);
+    final A1x = A.entry(0, 1);
+    final A1y = A.entry(1, 1);
+    final A1z = A.entry(2, 1);
+    final A2x = A.entry(0, 2);
+    final A2y = A.entry(1, 2);
+    final A2z = A.entry(2, 2);
+    final bx = b.x - A._m4storage[12];
+    final by = b.y - A._m4storage[13];
+    final bz = b.z - A._m4storage[14];
     double rx, ry, rz;
     double det;
 
@@ -60,21 +60,21 @@ class Matrix4 {
     }
 
     // b dot [Column1 cross Column 2]
-    final double x_ = det * (bx * rx + by * ry + bz * rz);
+    final x_ = det * (bx * rx + by * ry + bz * rz);
 
     // Column2 cross b
     rx = -(A2y * bz - A2z * by);
     ry = -(A2z * bx - A2x * bz);
     rz = -(A2x * by - A2y * bx);
     // Column0 dot -[Column2 cross b (Column3)]
-    final double y_ = det * (A0x * rx + A0y * ry + A0z * rz);
+    final y_ = det * (A0x * rx + A0y * ry + A0z * rz);
 
     // b cross Column 1
     rx = -(by * A1z - bz * A1y);
     ry = -(bz * A1x - bx * A1z);
     rz = -(bx * A1y - by * A1x);
     // Column0 dot -[b cross Column 1]
-    final double z_ = det * (A0x * rx + A0y * ry + A0z * rz);
+    final z_ = det * (A0x * rx + A0y * ry + A0z * rz);
 
     x
       ..x = x_
@@ -84,39 +84,39 @@ class Matrix4 {
 
   /// Solve [A] * [x] = [b].
   static void solve(Matrix4 A, Vector4 x, Vector4 b) {
-    final double a00 = A._m4storage[0];
-    final double a01 = A._m4storage[1];
-    final double a02 = A._m4storage[2];
-    final double a03 = A._m4storage[3];
-    final double a10 = A._m4storage[4];
-    final double a11 = A._m4storage[5];
-    final double a12 = A._m4storage[6];
-    final double a13 = A._m4storage[7];
-    final double a20 = A._m4storage[8];
-    final double a21 = A._m4storage[9];
-    final double a22 = A._m4storage[10];
-    final double a23 = A._m4storage[11];
-    final double a30 = A._m4storage[12];
-    final double a31 = A._m4storage[13];
-    final double a32 = A._m4storage[14];
-    final double a33 = A._m4storage[15];
-    final double b00 = a00 * a11 - a01 * a10;
-    final double b01 = a00 * a12 - a02 * a10;
-    final double b02 = a00 * a13 - a03 * a10;
-    final double b03 = a01 * a12 - a02 * a11;
-    final double b04 = a01 * a13 - a03 * a11;
-    final double b05 = a02 * a13 - a03 * a12;
-    final double b06 = a20 * a31 - a21 * a30;
-    final double b07 = a20 * a32 - a22 * a30;
-    final double b08 = a20 * a33 - a23 * a30;
-    final double b09 = a21 * a32 - a22 * a31;
-    final double b10 = a21 * a33 - a23 * a31;
-    final double b11 = a22 * a33 - a23 * a32;
+    final a00 = A._m4storage[0];
+    final a01 = A._m4storage[1];
+    final a02 = A._m4storage[2];
+    final a03 = A._m4storage[3];
+    final a10 = A._m4storage[4];
+    final a11 = A._m4storage[5];
+    final a12 = A._m4storage[6];
+    final a13 = A._m4storage[7];
+    final a20 = A._m4storage[8];
+    final a21 = A._m4storage[9];
+    final a22 = A._m4storage[10];
+    final a23 = A._m4storage[11];
+    final a30 = A._m4storage[12];
+    final a31 = A._m4storage[13];
+    final a32 = A._m4storage[14];
+    final a33 = A._m4storage[15];
+    final b00 = a00 * a11 - a01 * a10;
+    final b01 = a00 * a12 - a02 * a10;
+    final b02 = a00 * a13 - a03 * a10;
+    final b03 = a01 * a12 - a02 * a11;
+    final b04 = a01 * a13 - a03 * a11;
+    final b05 = a02 * a13 - a03 * a12;
+    final b06 = a20 * a31 - a21 * a30;
+    final b07 = a20 * a32 - a22 * a30;
+    final b08 = a20 * a33 - a23 * a30;
+    final b09 = a21 * a32 - a22 * a31;
+    final b10 = a21 * a33 - a23 * a31;
+    final b11 = a22 * a33 - a23 * a32;
 
-    final double bX = b.storage[0];
-    final double bY = b.storage[1];
-    final double bZ = b.storage[2];
-    final double bW = b.storage[3];
+    final bX = b.storage[0];
+    final bY = b.storage[1];
+    final bZ = b.storage[2];
+    final bW = b.storage[3];
 
     var det =
         b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
@@ -151,8 +151,8 @@ class Matrix4 {
   /// Returns a matrix that is the inverse of [other] if [other] is invertible,
   /// otherwise `null`.
   static Matrix4 tryInvert(Matrix4 other) {
-    final Matrix4 r = Matrix4.zero();
-    final double determinant = r.copyInverse(other);
+    final r = Matrix4.zero();
+    final determinant = r.copyInverse(other);
     if (determinant == 0.0) {
       return null;
     }
@@ -231,8 +231,8 @@ class Matrix4 {
 
   /// Constructs a matrix that is the inverse of [other].
   factory Matrix4.inverted(Matrix4 other) {
-    final Matrix4 r = Matrix4.zero();
-    final double determinant = r.copyInverse(other);
+    final r = Matrix4.zero();
+    final determinant = r.copyInverse(other);
     if (determinant == 0.0) {
       throw ArgumentError.value(other, 'other', 'Matrix cannot be inverted');
     }
@@ -275,9 +275,9 @@ class Matrix4 {
 
   /// Scale matrix.
   factory Matrix4.diagonal3(Vector3 scale) {
-    final Matrix4 m = Matrix4.zero();
-    final Float64List mStorage = m._m4storage;
-    final Float64List scaleStorage = scale._v3storage;
+    final m = Matrix4.zero();
+    final mStorage = m._m4storage;
+    final scaleStorage = scale._v3storage;
     mStorage[15] = 1.0;
     mStorage[10] = scaleStorage[2];
     mStorage[5] = scaleStorage[1];
@@ -295,21 +295,21 @@ class Matrix4 {
 
   /// Skew matrix around X axis
   factory Matrix4.skewX(double alpha) {
-    final Matrix4 m = Matrix4.identity();
+    final m = Matrix4.identity();
     m._m4storage[4] = math.tan(alpha);
     return m;
   }
 
   /// Skew matrix around Y axis.
   factory Matrix4.skewY(double beta) {
-    final Matrix4 m = Matrix4.identity();
+    final m = Matrix4.identity();
     m._m4storage[1] = math.tan(beta);
     return m;
   }
 
   /// Skew matrix around X axis (alpha) and Y axis (beta).
   factory Matrix4.skew(double alpha, double beta) {
-    final Matrix4 m = Matrix4.identity();
+    final m = Matrix4.identity();
     m._m4storage[1] = math.tan(beta);
     m._m4storage[4] = math.tan(alpha);
     return m;
@@ -375,10 +375,10 @@ class Matrix4 {
 
   /// Sets the entire matrix to the column values.
   void setColumns(Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) {
-    final Float64List arg0Storage = arg0._v4storage;
-    final Float64List arg1Storage = arg1._v4storage;
-    final Float64List arg2Storage = arg2._v4storage;
-    final Float64List arg3Storage = arg3._v4storage;
+    final arg0Storage = arg0._v4storage;
+    final arg1Storage = arg1._v4storage;
+    final arg2Storage = arg2._v4storage;
+    final arg3Storage = arg3._v4storage;
     _m4storage[0] = arg0Storage[0];
     _m4storage[1] = arg0Storage[1];
     _m4storage[2] = arg0Storage[2];
@@ -399,7 +399,7 @@ class Matrix4 {
 
   /// Sets the entire matrix to the matrix in [arg].
   void setFrom(Matrix4 arg) {
-    final Float64List argStorage = arg._m4storage;
+    final argStorage = arg._m4storage;
     _m4storage[15] = argStorage[15];
     _m4storage[14] = argStorage[14];
     _m4storage[13] = argStorage[13];
@@ -420,25 +420,25 @@ class Matrix4 {
 
   /// Sets the matrix from translation [arg0] and rotation [arg1].
   void setFromTranslationRotation(Vector3 arg0, Quaternion arg1) {
-    final Float64List arg1Storage = arg1._qStorage;
-    final double x = arg1Storage[0];
-    final double y = arg1Storage[1];
-    final double z = arg1Storage[2];
-    final double w = arg1Storage[3];
-    final double x2 = x + x;
-    final double y2 = y + y;
-    final double z2 = z + z;
-    final double xx = x * x2;
-    final double xy = x * y2;
-    final double xz = x * z2;
-    final double yy = y * y2;
-    final double yz = y * z2;
-    final double zz = z * z2;
-    final double wx = w * x2;
-    final double wy = w * y2;
-    final double wz = w * z2;
+    final arg1Storage = arg1._qStorage;
+    final x = arg1Storage[0];
+    final y = arg1Storage[1];
+    final z = arg1Storage[2];
+    final w = arg1Storage[3];
+    final x2 = x + x;
+    final y2 = y + y;
+    final z2 = z + z;
+    final xx = x * x2;
+    final xy = x * y2;
+    final xz = x * z2;
+    final yy = y * y2;
+    final yz = y * z2;
+    final zz = z * z2;
+    final wx = w * x2;
+    final wy = w * y2;
+    final wz = w * z2;
 
-    final Float64List arg0Storage = arg0._v3storage;
+    final arg0Storage = arg0._v3storage;
     _m4storage[0] = 1.0 - (yy + zz);
     _m4storage[1] = xy + wz;
     _m4storage[2] = xz - wy;
@@ -466,7 +466,7 @@ class Matrix4 {
 
   /// Sets the upper 2x2 of the matrix to be [arg].
   void setUpper2x2(Matrix2 arg) {
-    final Float64List argStorage = arg._m2storage;
+    final argStorage = arg._m2storage;
     _m4storage[0] = argStorage[0];
     _m4storage[1] = argStorage[1];
     _m4storage[4] = argStorage[2];
@@ -475,7 +475,7 @@ class Matrix4 {
 
   /// Sets the diagonal of the matrix to be [arg].
   void setDiagonal(Vector4 arg) {
-    final Float64List argStorage = arg._v4storage;
+    final argStorage = arg._v4storage;
     _m4storage[0] = argStorage[0];
     _m4storage[5] = argStorage[1];
     _m4storage[10] = argStorage[2];
@@ -483,8 +483,8 @@ class Matrix4 {
   }
 
   void setOuter(Vector4 u, Vector4 v) {
-    final Float64List uStorage = u._v4storage;
-    final Float64List vStorage = v._v4storage;
+    final uStorage = u._v4storage;
+    final vStorage = v._v4storage;
     _m4storage[0] = uStorage[0] * vStorage[0];
     _m4storage[1] = uStorage[0] * vStorage[1];
     _m4storage[2] = uStorage[0] * vStorage[2];
@@ -569,7 +569,7 @@ class Matrix4 {
 
   /// Assigns the [row] of the matrix [arg]
   void setRow(int row, Vector4 arg) {
-    final Float64List argStorage = arg._v4storage;
+    final argStorage = arg._v4storage;
     _m4storage[index(row, 0)] = argStorage[0];
     _m4storage[index(row, 1)] = argStorage[1];
     _m4storage[index(row, 2)] = argStorage[2];
@@ -578,8 +578,8 @@ class Matrix4 {
 
   /// Gets the [row] of the matrix
   Vector4 getRow(int row) {
-    final Vector4 r = Vector4.zero();
-    final Float64List rStorage = r._v4storage;
+    final r = Vector4.zero();
+    final rStorage = r._v4storage;
     rStorage[0] = _m4storage[index(row, 0)];
     rStorage[1] = _m4storage[index(row, 1)];
     rStorage[2] = _m4storage[index(row, 2)];
@@ -589,8 +589,8 @@ class Matrix4 {
 
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector4 arg) {
-    final int entry = column * 4;
-    final Float64List argStorage = arg._v4storage;
+    final entry = column * 4;
+    final argStorage = arg._v4storage;
     _m4storage[entry + 3] = argStorage[3];
     _m4storage[entry + 2] = argStorage[2];
     _m4storage[entry + 1] = argStorage[1];
@@ -599,9 +599,9 @@ class Matrix4 {
 
   /// Gets the [column] of the matrix
   Vector4 getColumn(int column) {
-    final Vector4 r = Vector4.zero();
-    final Float64List rStorage = r._v4storage;
-    final int entry = column * 4;
+    final r = Vector4.zero();
+    final rStorage = r._v4storage;
+    final entry = column * 4;
     rStorage[3] = _m4storage[entry + 3];
     rStorage[2] = _m4storage[entry + 2];
     rStorage[1] = _m4storage[entry + 1];
@@ -614,7 +614,7 @@ class Matrix4 {
 
   /// Copy into [arg].
   Matrix4 copyInto(Matrix4 arg) {
-    final Float64List argStorage = arg._m4storage;
+    final argStorage = arg._m4storage;
     argStorage[0] = _m4storage[0];
     argStorage[1] = _m4storage[1];
     argStorage[2] = _m4storage[2];
@@ -665,7 +665,7 @@ class Matrix4 {
     double tx;
     double ty;
     double tz;
-    final double tw = x is Vector4 ? x.w : 1.0;
+    final tw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
       tx = x.x;
       ty = x.y;
@@ -679,19 +679,19 @@ class Matrix4 {
       ty = y;
       tz = z;
     }
-    final double t1 = _m4storage[0] * tx +
+    final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
         _m4storage[12] * tw;
-    final double t2 = _m4storage[1] * tx +
+    final t2 = _m4storage[1] * tx +
         _m4storage[5] * ty +
         _m4storage[9] * tz +
         _m4storage[13] * tw;
-    final double t3 = _m4storage[2] * tx +
+    final t3 = _m4storage[2] * tx +
         _m4storage[6] * ty +
         _m4storage[10] * tz +
         _m4storage[14] * tw;
-    final double t4 = _m4storage[3] * tx +
+    final t4 = _m4storage[3] * tx +
         _m4storage[7] * ty +
         _m4storage[11] * tz +
         _m4storage[15] * tw;
@@ -707,7 +707,7 @@ class Matrix4 {
     double tx;
     double ty;
     double tz;
-    final double tw = x is Vector4 ? x.w : 1.0;
+    final tw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
       tx = x.x;
       ty = x.y;
@@ -749,46 +749,36 @@ class Matrix4 {
 
   /// Rotate this [angle] radians around [axis]
   void rotate(Vector3 axis, double angle) {
-    final double len = axis.length;
-    final Float64List axisStorage = axis._v3storage;
-    final double x = axisStorage[0] / len;
-    final double y = axisStorage[1] / len;
-    final double z = axisStorage[2] / len;
-    final double c = math.cos(angle);
-    final double s = math.sin(angle);
-    final double C = 1.0 - c;
-    final double m11 = x * x * C + c;
-    final double m12 = x * y * C - z * s;
-    final double m13 = x * z * C + y * s;
-    final double m21 = y * x * C + z * s;
-    final double m22 = y * y * C + c;
-    final double m23 = y * z * C - x * s;
-    final double m31 = z * x * C - y * s;
-    final double m32 = z * y * C + x * s;
-    final double m33 = z * z * C + c;
-    final double t1 =
-        _m4storage[0] * m11 + _m4storage[4] * m21 + _m4storage[8] * m31;
-    final double t2 =
-        _m4storage[1] * m11 + _m4storage[5] * m21 + _m4storage[9] * m31;
-    final double t3 =
-        _m4storage[2] * m11 + _m4storage[6] * m21 + _m4storage[10] * m31;
-    final double t4 =
-        _m4storage[3] * m11 + _m4storage[7] * m21 + _m4storage[11] * m31;
-    final double t5 =
-        _m4storage[0] * m12 + _m4storage[4] * m22 + _m4storage[8] * m32;
-    final double t6 =
-        _m4storage[1] * m12 + _m4storage[5] * m22 + _m4storage[9] * m32;
-    final double t7 =
-        _m4storage[2] * m12 + _m4storage[6] * m22 + _m4storage[10] * m32;
-    final double t8 =
-        _m4storage[3] * m12 + _m4storage[7] * m22 + _m4storage[11] * m32;
-    final double t9 =
-        _m4storage[0] * m13 + _m4storage[4] * m23 + _m4storage[8] * m33;
-    final double t10 =
-        _m4storage[1] * m13 + _m4storage[5] * m23 + _m4storage[9] * m33;
-    final double t11 =
+    final len = axis.length;
+    final axisStorage = axis._v3storage;
+    final x = axisStorage[0] / len;
+    final y = axisStorage[1] / len;
+    final z = axisStorage[2] / len;
+    final c = math.cos(angle);
+    final s = math.sin(angle);
+    final C = 1.0 - c;
+    final m11 = x * x * C + c;
+    final m12 = x * y * C - z * s;
+    final m13 = x * z * C + y * s;
+    final m21 = y * x * C + z * s;
+    final m22 = y * y * C + c;
+    final m23 = y * z * C - x * s;
+    final m31 = z * x * C - y * s;
+    final m32 = z * y * C + x * s;
+    final m33 = z * z * C + c;
+    final t1 = _m4storage[0] * m11 + _m4storage[4] * m21 + _m4storage[8] * m31;
+    final t2 = _m4storage[1] * m11 + _m4storage[5] * m21 + _m4storage[9] * m31;
+    final t3 = _m4storage[2] * m11 + _m4storage[6] * m21 + _m4storage[10] * m31;
+    final t4 = _m4storage[3] * m11 + _m4storage[7] * m21 + _m4storage[11] * m31;
+    final t5 = _m4storage[0] * m12 + _m4storage[4] * m22 + _m4storage[8] * m32;
+    final t6 = _m4storage[1] * m12 + _m4storage[5] * m22 + _m4storage[9] * m32;
+    final t7 = _m4storage[2] * m12 + _m4storage[6] * m22 + _m4storage[10] * m32;
+    final t8 = _m4storage[3] * m12 + _m4storage[7] * m22 + _m4storage[11] * m32;
+    final t9 = _m4storage[0] * m13 + _m4storage[4] * m23 + _m4storage[8] * m33;
+    final t10 = _m4storage[1] * m13 + _m4storage[5] * m23 + _m4storage[9] * m33;
+    final t11 =
         _m4storage[2] * m13 + _m4storage[6] * m23 + _m4storage[10] * m33;
-    final double t12 =
+    final t12 =
         _m4storage[3] * m13 + _m4storage[7] * m23 + _m4storage[11] * m33;
     _m4storage[0] = t1;
     _m4storage[1] = t2;
@@ -806,16 +796,16 @@ class Matrix4 {
 
   /// Rotate this [angle] radians around X
   void rotateX(double angle) {
-    final double cosAngle = math.cos(angle);
-    final double sinAngle = math.sin(angle);
-    final double t1 = _m4storage[4] * cosAngle + _m4storage[8] * sinAngle;
-    final double t2 = _m4storage[5] * cosAngle + _m4storage[9] * sinAngle;
-    final double t3 = _m4storage[6] * cosAngle + _m4storage[10] * sinAngle;
-    final double t4 = _m4storage[7] * cosAngle + _m4storage[11] * sinAngle;
-    final double t5 = _m4storage[4] * -sinAngle + _m4storage[8] * cosAngle;
-    final double t6 = _m4storage[5] * -sinAngle + _m4storage[9] * cosAngle;
-    final double t7 = _m4storage[6] * -sinAngle + _m4storage[10] * cosAngle;
-    final double t8 = _m4storage[7] * -sinAngle + _m4storage[11] * cosAngle;
+    final cosAngle = math.cos(angle);
+    final sinAngle = math.sin(angle);
+    final t1 = _m4storage[4] * cosAngle + _m4storage[8] * sinAngle;
+    final t2 = _m4storage[5] * cosAngle + _m4storage[9] * sinAngle;
+    final t3 = _m4storage[6] * cosAngle + _m4storage[10] * sinAngle;
+    final t4 = _m4storage[7] * cosAngle + _m4storage[11] * sinAngle;
+    final t5 = _m4storage[4] * -sinAngle + _m4storage[8] * cosAngle;
+    final t6 = _m4storage[5] * -sinAngle + _m4storage[9] * cosAngle;
+    final t7 = _m4storage[6] * -sinAngle + _m4storage[10] * cosAngle;
+    final t8 = _m4storage[7] * -sinAngle + _m4storage[11] * cosAngle;
     _m4storage[4] = t1;
     _m4storage[5] = t2;
     _m4storage[6] = t3;
@@ -828,16 +818,16 @@ class Matrix4 {
 
   /// Rotate this matrix [angle] radians around Y
   void rotateY(double angle) {
-    final double cosAngle = math.cos(angle);
-    final double sinAngle = math.sin(angle);
-    final double t1 = _m4storage[0] * cosAngle + _m4storage[8] * -sinAngle;
-    final double t2 = _m4storage[1] * cosAngle + _m4storage[9] * -sinAngle;
-    final double t3 = _m4storage[2] * cosAngle + _m4storage[10] * -sinAngle;
-    final double t4 = _m4storage[3] * cosAngle + _m4storage[11] * -sinAngle;
-    final double t5 = _m4storage[0] * sinAngle + _m4storage[8] * cosAngle;
-    final double t6 = _m4storage[1] * sinAngle + _m4storage[9] * cosAngle;
-    final double t7 = _m4storage[2] * sinAngle + _m4storage[10] * cosAngle;
-    final double t8 = _m4storage[3] * sinAngle + _m4storage[11] * cosAngle;
+    final cosAngle = math.cos(angle);
+    final sinAngle = math.sin(angle);
+    final t1 = _m4storage[0] * cosAngle + _m4storage[8] * -sinAngle;
+    final t2 = _m4storage[1] * cosAngle + _m4storage[9] * -sinAngle;
+    final t3 = _m4storage[2] * cosAngle + _m4storage[10] * -sinAngle;
+    final t4 = _m4storage[3] * cosAngle + _m4storage[11] * -sinAngle;
+    final t5 = _m4storage[0] * sinAngle + _m4storage[8] * cosAngle;
+    final t6 = _m4storage[1] * sinAngle + _m4storage[9] * cosAngle;
+    final t7 = _m4storage[2] * sinAngle + _m4storage[10] * cosAngle;
+    final t8 = _m4storage[3] * sinAngle + _m4storage[11] * cosAngle;
     _m4storage[0] = t1;
     _m4storage[1] = t2;
     _m4storage[2] = t3;
@@ -850,16 +840,16 @@ class Matrix4 {
 
   /// Rotate this matrix [angle] radians around Z
   void rotateZ(double angle) {
-    final double cosAngle = math.cos(angle);
-    final double sinAngle = math.sin(angle);
-    final double t1 = _m4storage[0] * cosAngle + _m4storage[4] * sinAngle;
-    final double t2 = _m4storage[1] * cosAngle + _m4storage[5] * sinAngle;
-    final double t3 = _m4storage[2] * cosAngle + _m4storage[6] * sinAngle;
-    final double t4 = _m4storage[3] * cosAngle + _m4storage[7] * sinAngle;
-    final double t5 = _m4storage[0] * -sinAngle + _m4storage[4] * cosAngle;
-    final double t6 = _m4storage[1] * -sinAngle + _m4storage[5] * cosAngle;
-    final double t7 = _m4storage[2] * -sinAngle + _m4storage[6] * cosAngle;
-    final double t8 = _m4storage[3] * -sinAngle + _m4storage[7] * cosAngle;
+    final cosAngle = math.cos(angle);
+    final sinAngle = math.sin(angle);
+    final t1 = _m4storage[0] * cosAngle + _m4storage[4] * sinAngle;
+    final t2 = _m4storage[1] * cosAngle + _m4storage[5] * sinAngle;
+    final t3 = _m4storage[2] * cosAngle + _m4storage[6] * sinAngle;
+    final t4 = _m4storage[3] * cosAngle + _m4storage[7] * sinAngle;
+    final t5 = _m4storage[0] * -sinAngle + _m4storage[4] * cosAngle;
+    final t6 = _m4storage[1] * -sinAngle + _m4storage[5] * cosAngle;
+    final t7 = _m4storage[2] * -sinAngle + _m4storage[6] * cosAngle;
+    final t8 = _m4storage[3] * -sinAngle + _m4storage[7] * cosAngle;
     _m4storage[0] = t1;
     _m4storage[1] = t2;
     _m4storage[2] = t3;
@@ -875,7 +865,7 @@ class Matrix4 {
     double sx;
     double sy;
     double sz;
-    final double sw = x is Vector4 ? x.w : 1.0;
+    final sw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
       sx = x.x;
       sy = x.y;
@@ -978,8 +968,8 @@ class Matrix4 {
 
   /// Returns the component wise absolute value of this.
   Matrix4 absolute() {
-    final Matrix4 r = Matrix4.zero();
-    final Float64List rStorage = r._m4storage;
+    final r = Matrix4.zero();
+    final rStorage = r._m4storage;
     rStorage[0] = _m4storage[0].abs();
     rStorage[1] = _m4storage[1].abs();
     rStorage[2] = _m4storage[2].abs();
@@ -1001,28 +991,28 @@ class Matrix4 {
 
   /// Returns the determinant of this matrix.
   double determinant() {
-    final double det2_01_01 =
+    final det2_01_01 =
         _m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4];
-    final double det2_01_02 =
+    final det2_01_02 =
         _m4storage[0] * _m4storage[6] - _m4storage[2] * _m4storage[4];
-    final double det2_01_03 =
+    final det2_01_03 =
         _m4storage[0] * _m4storage[7] - _m4storage[3] * _m4storage[4];
-    final double det2_01_12 =
+    final det2_01_12 =
         _m4storage[1] * _m4storage[6] - _m4storage[2] * _m4storage[5];
-    final double det2_01_13 =
+    final det2_01_13 =
         _m4storage[1] * _m4storage[7] - _m4storage[3] * _m4storage[5];
-    final double det2_01_23 =
+    final det2_01_23 =
         _m4storage[2] * _m4storage[7] - _m4storage[3] * _m4storage[6];
-    final double det3_201_012 = _m4storage[8] * det2_01_12 -
+    final det3_201_012 = _m4storage[8] * det2_01_12 -
         _m4storage[9] * det2_01_02 +
         _m4storage[10] * det2_01_01;
-    final double det3_201_013 = _m4storage[8] * det2_01_13 -
+    final det3_201_013 = _m4storage[8] * det2_01_13 -
         _m4storage[9] * det2_01_03 +
         _m4storage[11] * det2_01_01;
-    final double det3_201_023 = _m4storage[8] * det2_01_23 -
+    final det3_201_023 = _m4storage[8] * det2_01_23 -
         _m4storage[10] * det2_01_03 +
         _m4storage[11] * det2_01_02;
-    final double det3_201_123 = _m4storage[9] * det2_01_23 -
+    final det3_201_123 = _m4storage[9] * det2_01_23 -
         _m4storage[10] * det2_01_13 +
         _m4storage[11] * det2_01_12;
     return -det3_201_123 * _m4storage[12] +
@@ -1033,7 +1023,7 @@ class Matrix4 {
 
   /// Returns the dot product of row [i] and [v].
   double dotRow(int i, Vector4 v) {
-    final Float64List vStorage = v._v4storage;
+    final vStorage = v._v4storage;
     return _m4storage[i] * vStorage[0] +
         _m4storage[4 + i] * vStorage[1] +
         _m4storage[8 + i] * vStorage[2] +
@@ -1042,7 +1032,7 @@ class Matrix4 {
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector4 v) {
-    final Float64List vStorage = v._v4storage;
+    final vStorage = v._v4storage;
     return _m4storage[j * 4] * vStorage[0] +
         _m4storage[j * 4 + 1] * vStorage[1] +
         _m4storage[j * 4 + 2] * vStorage[2] +
@@ -1100,34 +1090,34 @@ class Matrix4 {
 
   /// Returns relative error between this and [correct]
   double relativeError(Matrix4 correct) {
-    final Matrix4 diff = correct - this;
-    final double correct_norm = correct.infinityNorm();
-    final double diff_norm = diff.infinityNorm();
+    final diff = correct - this;
+    final correct_norm = correct.infinityNorm();
+    final diff_norm = diff.infinityNorm();
     return diff_norm / correct_norm;
   }
 
   /// Returns absolute error between this and [correct]
   double absoluteError(Matrix4 correct) {
-    final double this_norm = infinityNorm();
-    final double correct_norm = correct.infinityNorm();
-    final double diff_norm = (this_norm - correct_norm).abs();
+    final this_norm = infinityNorm();
+    final correct_norm = correct.infinityNorm();
+    final diff_norm = (this_norm - correct_norm).abs();
     return diff_norm;
   }
 
   /// Returns the translation vector from this homogeneous transformation matrix.
   Vector3 getTranslation() {
-    final double z = _m4storage[14];
-    final double y = _m4storage[13];
-    final double x = _m4storage[12];
+    final z = _m4storage[14];
+    final y = _m4storage[13];
+    final x = _m4storage[12];
     return Vector3(x, y, z);
   }
 
   /// Sets the translation vector in this homogeneous transformation matrix.
   void setTranslation(Vector3 t) {
-    final Float64List tStorage = t._v3storage;
-    final double z = tStorage[2];
-    final double y = tStorage[1];
-    final double x = tStorage[0];
+    final tStorage = t._v3storage;
+    final z = tStorage[2];
+    final y = tStorage[1];
+    final x = tStorage[0];
     _m4storage[14] = z;
     _m4storage[13] = y;
     _m4storage[12] = x;
@@ -1142,7 +1132,7 @@ class Matrix4 {
 
   /// Returns the rotation matrix from this homogeneous transformation matrix.
   Matrix3 getRotation() {
-    final Matrix3 r = Matrix3.zero();
+    final r = Matrix3.zero();
     copyRotation(r);
     return r;
   }
@@ -1150,7 +1140,7 @@ class Matrix4 {
   /// Copies the rotation matrix from this homogeneous transformation matrix
   /// into [rotation].
   void copyRotation(Matrix3 rotation) {
-    final Float64List rStorage = rotation._m3storage;
+    final rStorage = rotation._m3storage;
     rStorage[0] = _m4storage[0];
     rStorage[1] = _m4storage[1];
     rStorage[2] = _m4storage[2];
@@ -1164,7 +1154,7 @@ class Matrix4 {
 
   /// Sets the rotation matrix in this homogeneous transformation matrix.
   void setRotation(Matrix3 r) {
-    final Float64List rStorage = r._m3storage;
+    final rStorage = r._m3storage;
     _m4storage[0] = rStorage[0];
     _m4storage[1] = rStorage[1];
     _m4storage[2] = rStorage[2];
@@ -1182,13 +1172,13 @@ class Matrix4 {
 
   /// Returns the max scale value of the 3 axes.
   double getMaxScaleOnAxis() {
-    final double scaleXSq = _m4storage[0] * _m4storage[0] +
+    final scaleXSq = _m4storage[0] * _m4storage[0] +
         _m4storage[1] * _m4storage[1] +
         _m4storage[2] * _m4storage[2];
-    final double scaleYSq = _m4storage[4] * _m4storage[4] +
+    final scaleYSq = _m4storage[4] * _m4storage[4] +
         _m4storage[5] * _m4storage[5] +
         _m4storage[6] * _m4storage[6];
-    final double scaleZSq = _m4storage[8] * _m4storage[8] +
+    final scaleZSq = _m4storage[8] * _m4storage[8] +
         _m4storage[9] * _m4storage[9] +
         _m4storage[10] * _m4storage[10];
     return math.sqrt(math.max(scaleXSq, math.max(scaleYSq, scaleZSq)));
@@ -1222,42 +1212,42 @@ class Matrix4 {
 
   /// Set this matrix to be the inverse of [arg]
   double copyInverse(Matrix4 arg) {
-    final Float64List argStorage = arg._m4storage;
-    final double a00 = argStorage[0];
-    final double a01 = argStorage[1];
-    final double a02 = argStorage[2];
-    final double a03 = argStorage[3];
-    final double a10 = argStorage[4];
-    final double a11 = argStorage[5];
-    final double a12 = argStorage[6];
-    final double a13 = argStorage[7];
-    final double a20 = argStorage[8];
-    final double a21 = argStorage[9];
-    final double a22 = argStorage[10];
-    final double a23 = argStorage[11];
-    final double a30 = argStorage[12];
-    final double a31 = argStorage[13];
-    final double a32 = argStorage[14];
-    final double a33 = argStorage[15];
-    final double b00 = a00 * a11 - a01 * a10;
-    final double b01 = a00 * a12 - a02 * a10;
-    final double b02 = a00 * a13 - a03 * a10;
-    final double b03 = a01 * a12 - a02 * a11;
-    final double b04 = a01 * a13 - a03 * a11;
-    final double b05 = a02 * a13 - a03 * a12;
-    final double b06 = a20 * a31 - a21 * a30;
-    final double b07 = a20 * a32 - a22 * a30;
-    final double b08 = a20 * a33 - a23 * a30;
-    final double b09 = a21 * a32 - a22 * a31;
-    final double b10 = a21 * a33 - a23 * a31;
-    final double b11 = a22 * a33 - a23 * a32;
-    final double det =
+    final argStorage = arg._m4storage;
+    final a00 = argStorage[0];
+    final a01 = argStorage[1];
+    final a02 = argStorage[2];
+    final a03 = argStorage[3];
+    final a10 = argStorage[4];
+    final a11 = argStorage[5];
+    final a12 = argStorage[6];
+    final a13 = argStorage[7];
+    final a20 = argStorage[8];
+    final a21 = argStorage[9];
+    final a22 = argStorage[10];
+    final a23 = argStorage[11];
+    final a30 = argStorage[12];
+    final a31 = argStorage[13];
+    final a32 = argStorage[14];
+    final a33 = argStorage[15];
+    final b00 = a00 * a11 - a01 * a10;
+    final b01 = a00 * a12 - a02 * a10;
+    final b02 = a00 * a13 - a03 * a10;
+    final b03 = a01 * a12 - a02 * a11;
+    final b04 = a01 * a13 - a03 * a11;
+    final b05 = a02 * a13 - a03 * a12;
+    final b06 = a20 * a31 - a21 * a30;
+    final b07 = a20 * a32 - a22 * a30;
+    final b08 = a20 * a33 - a23 * a30;
+    final b09 = a21 * a32 - a22 * a31;
+    final b10 = a21 * a33 - a23 * a31;
+    final b11 = a22 * a33 - a23 * a32;
+    final det =
         b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
     if (det == 0.0) {
       setFrom(arg);
       return 0.0;
     }
-    final double invDet = 1.0 / det;
+    final invDet = 1.0 / det;
     _m4storage[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
     _m4storage[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
     _m4storage[2] = (a31 * b05 - a32 * b04 + a33 * b03) * invDet;
@@ -1278,11 +1268,11 @@ class Matrix4 {
   }
 
   double invertRotation() {
-    final double det = determinant();
+    final det = determinant();
     if (det == 0.0) {
       return 0.0;
     }
-    final double invDet = 1.0 / det;
+    final invDet = 1.0 / det;
     double ix;
     double iy;
     double iz;
@@ -1324,8 +1314,8 @@ class Matrix4 {
 
   /// Sets the upper 3x3 to a rotation of [radians] around X
   void setRotationX(double radians) {
-    final double c = math.cos(radians);
-    final double s = math.sin(radians);
+    final c = math.cos(radians);
+    final s = math.sin(radians);
     _m4storage[0] = 1.0;
     _m4storage[1] = 0.0;
     _m4storage[2] = 0.0;
@@ -1342,8 +1332,8 @@ class Matrix4 {
 
   /// Sets the upper 3x3 to a rotation of [radians] around Y
   void setRotationY(double radians) {
-    final double c = math.cos(radians);
-    final double s = math.sin(radians);
+    final c = math.cos(radians);
+    final s = math.sin(radians);
     _m4storage[0] = c;
     _m4storage[1] = 0.0;
     _m4storage[2] = -s;
@@ -1360,8 +1350,8 @@ class Matrix4 {
 
   /// Sets the upper 3x3 to a rotation of [radians] around Z
   void setRotationZ(double radians) {
-    final double c = math.cos(radians);
-    final double s = math.sin(radians);
+    final c = math.cos(radians);
+    final s = math.sin(radians);
     _m4storage[0] = c;
     _m4storage[1] = s;
     _m4storage[2] = 0.0;
@@ -1379,22 +1369,22 @@ class Matrix4 {
   /// Converts into Adjugate matrix and scales by [scale]
   void scaleAdjoint(double scale) {
     // Adapted from code by Richard Carling.
-    final double a1 = _m4storage[0];
-    final double b1 = _m4storage[4];
-    final double c1 = _m4storage[8];
-    final double d1 = _m4storage[12];
-    final double a2 = _m4storage[1];
-    final double b2 = _m4storage[5];
-    final double c2 = _m4storage[9];
-    final double d2 = _m4storage[13];
-    final double a3 = _m4storage[2];
-    final double b3 = _m4storage[6];
-    final double c3 = _m4storage[10];
-    final double d3 = _m4storage[14];
-    final double a4 = _m4storage[3];
-    final double b4 = _m4storage[7];
-    final double c4 = _m4storage[11];
-    final double d4 = _m4storage[15];
+    final a1 = _m4storage[0];
+    final b1 = _m4storage[4];
+    final c1 = _m4storage[8];
+    final d1 = _m4storage[12];
+    final a2 = _m4storage[1];
+    final b2 = _m4storage[5];
+    final c2 = _m4storage[9];
+    final d2 = _m4storage[13];
+    final a3 = _m4storage[2];
+    final b3 = _m4storage[6];
+    final c3 = _m4storage[10];
+    final d3 = _m4storage[14];
+    final a4 = _m4storage[3];
+    final b4 = _m4storage[7];
+    final c4 = _m4storage[11];
+    final d4 = _m4storage[15];
     _m4storage[0] = (b2 * (c3 * d4 - c4 * d3) -
             c2 * (b3 * d4 - b4 * d3) +
             d2 * (b3 * c4 - b4 * c3)) *
@@ -1465,19 +1455,19 @@ class Matrix4 {
   /// Returns [arg].
   /// Primarily used by AABB transformation code.
   Vector3 absoluteRotate(Vector3 arg) {
-    final double m00 = _m4storage[0].abs();
-    final double m01 = _m4storage[4].abs();
-    final double m02 = _m4storage[8].abs();
-    final double m10 = _m4storage[1].abs();
-    final double m11 = _m4storage[5].abs();
-    final double m12 = _m4storage[9].abs();
-    final double m20 = _m4storage[2].abs();
-    final double m21 = _m4storage[6].abs();
-    final double m22 = _m4storage[10].abs();
-    final Float64List argStorage = arg._v3storage;
-    final double x = argStorage[0];
-    final double y = argStorage[1];
-    final double z = argStorage[2];
+    final m00 = _m4storage[0].abs();
+    final m01 = _m4storage[4].abs();
+    final m02 = _m4storage[8].abs();
+    final m10 = _m4storage[1].abs();
+    final m11 = _m4storage[5].abs();
+    final m12 = _m4storage[9].abs();
+    final m20 = _m4storage[2].abs();
+    final m21 = _m4storage[6].abs();
+    final m22 = _m4storage[10].abs();
+    final argStorage = arg._v3storage;
+    final x = argStorage[0];
+    final y = argStorage[1];
+    final z = argStorage[2];
     argStorage[0] = x * m00 + y * m01 + z * m02 + 0.0 * 0.0;
     argStorage[1] = x * m10 + y * m11 + z * m12 + 0.0 * 0.0;
     argStorage[2] = x * m20 + y * m21 + z * m22 + 0.0 * 0.0;
@@ -1486,7 +1476,7 @@ class Matrix4 {
 
   /// Adds [o] to this.
   void add(Matrix4 o) {
-    final Float64List oStorage = o._m4storage;
+    final oStorage = o._m4storage;
     _m4storage[0] = _m4storage[0] + oStorage[0];
     _m4storage[1] = _m4storage[1] + oStorage[1];
     _m4storage[2] = _m4storage[2] + oStorage[2];
@@ -1507,7 +1497,7 @@ class Matrix4 {
 
   /// Subtracts [o] from this.
   void sub(Matrix4 o) {
-    final Float64List oStorage = o._m4storage;
+    final oStorage = o._m4storage;
     _m4storage[0] = _m4storage[0] - oStorage[0];
     _m4storage[1] = _m4storage[1] - oStorage[1];
     _m4storage[2] = _m4storage[2] - oStorage[2];
@@ -1548,39 +1538,39 @@ class Matrix4 {
 
   /// Multiply this by [arg].
   void multiply(Matrix4 arg) {
-    final double m00 = _m4storage[0];
-    final double m01 = _m4storage[4];
-    final double m02 = _m4storage[8];
-    final double m03 = _m4storage[12];
-    final double m10 = _m4storage[1];
-    final double m11 = _m4storage[5];
-    final double m12 = _m4storage[9];
-    final double m13 = _m4storage[13];
-    final double m20 = _m4storage[2];
-    final double m21 = _m4storage[6];
-    final double m22 = _m4storage[10];
-    final double m23 = _m4storage[14];
-    final double m30 = _m4storage[3];
-    final double m31 = _m4storage[7];
-    final double m32 = _m4storage[11];
-    final double m33 = _m4storage[15];
-    final Float64List argStorage = arg._m4storage;
-    final double n00 = argStorage[0];
-    final double n01 = argStorage[4];
-    final double n02 = argStorage[8];
-    final double n03 = argStorage[12];
-    final double n10 = argStorage[1];
-    final double n11 = argStorage[5];
-    final double n12 = argStorage[9];
-    final double n13 = argStorage[13];
-    final double n20 = argStorage[2];
-    final double n21 = argStorage[6];
-    final double n22 = argStorage[10];
-    final double n23 = argStorage[14];
-    final double n30 = argStorage[3];
-    final double n31 = argStorage[7];
-    final double n32 = argStorage[11];
-    final double n33 = argStorage[15];
+    final m00 = _m4storage[0];
+    final m01 = _m4storage[4];
+    final m02 = _m4storage[8];
+    final m03 = _m4storage[12];
+    final m10 = _m4storage[1];
+    final m11 = _m4storage[5];
+    final m12 = _m4storage[9];
+    final m13 = _m4storage[13];
+    final m20 = _m4storage[2];
+    final m21 = _m4storage[6];
+    final m22 = _m4storage[10];
+    final m23 = _m4storage[14];
+    final m30 = _m4storage[3];
+    final m31 = _m4storage[7];
+    final m32 = _m4storage[11];
+    final m33 = _m4storage[15];
+    final argStorage = arg._m4storage;
+    final n00 = argStorage[0];
+    final n01 = argStorage[4];
+    final n02 = argStorage[8];
+    final n03 = argStorage[12];
+    final n10 = argStorage[1];
+    final n11 = argStorage[5];
+    final n12 = argStorage[9];
+    final n13 = argStorage[13];
+    final n20 = argStorage[2];
+    final n21 = argStorage[6];
+    final n22 = argStorage[10];
+    final n23 = argStorage[14];
+    final n30 = argStorage[3];
+    final n31 = argStorage[7];
+    final n32 = argStorage[11];
+    final n33 = argStorage[15];
     _m4storage[0] = (m00 * n00) + (m01 * n10) + (m02 * n20) + (m03 * n30);
     _m4storage[4] = (m00 * n01) + (m01 * n11) + (m02 * n21) + (m03 * n31);
     _m4storage[8] = (m00 * n02) + (m01 * n12) + (m02 * n22) + (m03 * n32);
@@ -1604,23 +1594,23 @@ class Matrix4 {
 
   /// Multiply a transposed this with [arg].
   void transposeMultiply(Matrix4 arg) {
-    final double m00 = _m4storage[0];
-    final double m01 = _m4storage[1];
-    final double m02 = _m4storage[2];
-    final double m03 = _m4storage[3];
-    final double m10 = _m4storage[4];
-    final double m11 = _m4storage[5];
-    final double m12 = _m4storage[6];
-    final double m13 = _m4storage[7];
-    final double m20 = _m4storage[8];
-    final double m21 = _m4storage[9];
-    final double m22 = _m4storage[10];
-    final double m23 = _m4storage[11];
-    final double m30 = _m4storage[12];
-    final double m31 = _m4storage[13];
-    final double m32 = _m4storage[14];
-    final double m33 = _m4storage[15];
-    final Float64List argStorage = arg._m4storage;
+    final m00 = _m4storage[0];
+    final m01 = _m4storage[1];
+    final m02 = _m4storage[2];
+    final m03 = _m4storage[3];
+    final m10 = _m4storage[4];
+    final m11 = _m4storage[5];
+    final m12 = _m4storage[6];
+    final m13 = _m4storage[7];
+    final m20 = _m4storage[8];
+    final m21 = _m4storage[9];
+    final m22 = _m4storage[10];
+    final m23 = _m4storage[11];
+    final m30 = _m4storage[12];
+    final m31 = _m4storage[13];
+    final m32 = _m4storage[14];
+    final m33 = _m4storage[15];
+    final argStorage = arg._m4storage;
     _m4storage[0] = (m00 * argStorage[0]) +
         (m01 * argStorage[1]) +
         (m02 * argStorage[2]) +
@@ -1689,23 +1679,23 @@ class Matrix4 {
 
   /// Multiply this with a transposed [arg].
   void multiplyTranspose(Matrix4 arg) {
-    final double m00 = _m4storage[0];
-    final double m01 = _m4storage[4];
-    final double m02 = _m4storage[8];
-    final double m03 = _m4storage[12];
-    final double m10 = _m4storage[1];
-    final double m11 = _m4storage[5];
-    final double m12 = _m4storage[9];
-    final double m13 = _m4storage[13];
-    final double m20 = _m4storage[2];
-    final double m21 = _m4storage[6];
-    final double m22 = _m4storage[10];
-    final double m23 = _m4storage[14];
-    final double m30 = _m4storage[3];
-    final double m31 = _m4storage[7];
-    final double m32 = _m4storage[11];
-    final double m33 = _m4storage[15];
-    final Float64List argStorage = arg._m4storage;
+    final m00 = _m4storage[0];
+    final m01 = _m4storage[4];
+    final m02 = _m4storage[8];
+    final m03 = _m4storage[12];
+    final m10 = _m4storage[1];
+    final m11 = _m4storage[5];
+    final m12 = _m4storage[9];
+    final m13 = _m4storage[13];
+    final m20 = _m4storage[2];
+    final m21 = _m4storage[6];
+    final m22 = _m4storage[10];
+    final m23 = _m4storage[14];
+    final m30 = _m4storage[3];
+    final m31 = _m4storage[7];
+    final m32 = _m4storage[11];
+    final m33 = _m4storage[15];
+    final argStorage = arg._m4storage;
     _m4storage[0] = (m00 * argStorage[0]) +
         (m01 * argStorage[4]) +
         (m02 * argStorage[8]) +
@@ -1774,11 +1764,11 @@ class Matrix4 {
 
   /// Decomposes this into [translation], [rotation] and [scale] components.
   void decompose(Vector3 translation, Quaternion rotation, Vector3 scale) {
-    final Vector3 v = _decomposeV ??= Vector3.zero();
+    final v = _decomposeV ??= Vector3.zero();
     var sx = (v..setValues(_m4storage[0], _m4storage[1], _m4storage[2])).length;
-    final double sy =
+    final sy =
         (v..setValues(_m4storage[4], _m4storage[5], _m4storage[6])).length;
-    final double sz =
+    final sz =
         (v..setValues(_m4storage[8], _m4storage[9], _m4storage[10])).length;
 
     if (determinant() < 0) {
@@ -1789,11 +1779,11 @@ class Matrix4 {
     translation._v3storage[1] = _m4storage[13];
     translation._v3storage[2] = _m4storage[14];
 
-    final double invSX = 1.0 / sx;
-    final double invSY = 1.0 / sy;
-    final double invSZ = 1.0 / sz;
+    final invSX = 1.0 / sx;
+    final invSY = 1.0 / sy;
+    final invSZ = 1.0 / sz;
 
-    final Matrix4 m = _decomposeM ??= Matrix4.zero();
+    final m = _decomposeM ??= Matrix4.zero();
     m.setFrom(this);
     m._m4storage[0] *= invSX;
     m._m4storage[1] *= invSX;
@@ -1805,7 +1795,7 @@ class Matrix4 {
     m._m4storage[9] *= invSZ;
     m._m4storage[10] *= invSZ;
 
-    final Matrix3 r = _decomposeR ??= Matrix3.zero();
+    final r = _decomposeR ??= Matrix3.zero();
     m.copyRotation(r);
     rotation.setFromRotation(r);
 
@@ -1820,14 +1810,14 @@ class Matrix4 {
 
   /// Rotate [arg] of type [Vector3] using the rotation defined by this.
   Vector3 rotate3(Vector3 arg) {
-    final Float64List argStorage = arg._v3storage;
-    final double x_ = (_m4storage[0] * argStorage[0]) +
+    final argStorage = arg._v3storage;
+    final x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]);
-    final double y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ = (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]);
-    final double z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ = (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]);
     argStorage[0] = x_;
@@ -1850,16 +1840,16 @@ class Matrix4 {
   /// Transform [arg] of type [Vector3] using the transformation defined by
   /// this.
   Vector3 transform3(Vector3 arg) {
-    final Float64List argStorage = arg._v3storage;
-    final double x_ = (_m4storage[0] * argStorage[0]) +
+    final argStorage = arg._v3storage;
+    final x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
         _m4storage[12];
-    final double y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ = (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]) +
         _m4storage[13];
-    final double z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ = (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]) +
         _m4storage[14];
@@ -1884,20 +1874,20 @@ class Matrix4 {
   /// Transform [arg] of type [Vector4] using the transformation defined by
   /// this.
   Vector4 transform(Vector4 arg) {
-    final Float64List argStorage = arg._v4storage;
-    final double x_ = (_m4storage[0] * argStorage[0]) +
+    final argStorage = arg._v4storage;
+    final x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
         (_m4storage[12] * argStorage[3]);
-    final double y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ = (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]) +
         (_m4storage[13] * argStorage[3]);
-    final double z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ = (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]) +
         (_m4storage[14] * argStorage[3]);
-    final double w_ = (_m4storage[3] * argStorage[0]) +
+    final w_ = (_m4storage[3] * argStorage[0]) +
         (_m4storage[7] * argStorage[1]) +
         (_m4storage[11] * argStorage[2]) +
         (_m4storage[15] * argStorage[3]);
@@ -1911,20 +1901,20 @@ class Matrix4 {
   /// Transform [arg] of type [Vector3] using the perspective transformation
   /// defined by this.
   Vector3 perspectiveTransform(Vector3 arg) {
-    final Float64List argStorage = arg._v3storage;
-    final double x_ = (_m4storage[0] * argStorage[0]) +
+    final argStorage = arg._v3storage;
+    final x_ = (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
         _m4storage[12];
-    final double y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ = (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]) +
         _m4storage[13];
-    final double z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ = (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]) +
         _m4storage[14];
-    final double w_ = 1.0 /
+    final w_ = 1.0 /
         ((_m4storage[3] * argStorage[0]) +
             (_m4storage[7] * argStorage[1]) +
             (_m4storage[11] * argStorage[2]) +
@@ -1949,7 +1939,7 @@ class Matrix4 {
 
   /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset = 0]) {
-    final int i = offset;
+    final i = offset;
     array[i + 15] = _m4storage[15];
     array[i + 14] = _m4storage[14];
     array[i + 13] = _m4storage[13];
@@ -1970,7 +1960,7 @@ class Matrix4 {
 
   /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    final int i = offset;
+    final i = offset;
     _m4storage[15] = array[i + 15];
     _m4storage[14] = array[i + 14];
     _m4storage[13] = array[i + 13];
@@ -1991,8 +1981,8 @@ class Matrix4 {
 
   /// Multiply this to each set of xyz values in [array] starting at [offset].
   List<double> applyToVector3Array(List<double> array, [int offset = 0]) {
-    for (int i = 0, j = offset; i < array.length; i += 3, j += 3) {
-      final Vector3 v = Vector3.array(array, j)..applyMatrix4(this);
+    for (var i = 0, j = offset; i < array.length; i += 3, j += 3) {
+      final v = Vector3.array(array, j)..applyMatrix4(this);
       array[j] = v.storage[0];
       array[j + 1] = v.storage[1];
       array[j + 2] = v.storage[2];
@@ -2002,23 +1992,23 @@ class Matrix4 {
   }
 
   Vector3 get right {
-    final double x = _m4storage[0];
-    final double y = _m4storage[1];
-    final double z = _m4storage[2];
+    final x = _m4storage[0];
+    final y = _m4storage[1];
+    final z = _m4storage[2];
     return Vector3(x, y, z);
   }
 
   Vector3 get up {
-    final double x = _m4storage[4];
-    final double y = _m4storage[5];
-    final double z = _m4storage[6];
+    final x = _m4storage[4];
+    final y = _m4storage[5];
+    final z = _m4storage[6];
     return Vector3(x, y, z);
   }
 
   Vector3 get forward {
-    final double x = _m4storage[8];
-    final double y = _m4storage[9];
-    final double z = _m4storage[10];
+    final x = _m4storage[8];
+    final y = _m4storage[9];
+    final z = _m4storage[10];
     return Vector3(x, y, z);
   }
 

@@ -20,7 +20,7 @@ abstract class VectorList<T extends Vector> {
   Float32List get buffer => _buffer;
 
   static int _listLength(int offset, int stride, int vectorLength, int length) {
-    final int width = stride == 0 ? vectorLength : stride;
+    final width = stride == 0 ? vectorLength : stride;
     return offset + width * length;
   }
 
@@ -92,7 +92,7 @@ abstract class VectorList<T extends Vector> {
     if (count == 0) {
       count = math.min(length - offset, src.length - srcOffset);
     }
-    final int minVectorLength = math.min(_vectorLength, src._vectorLength);
+    final minVectorLength = math.min(_vectorLength, src._vectorLength);
     for (var i = 0; i < count; i++) {
       var index = _vectorIndexToBufferIndex(i + offset);
       var srcIndex = src._vectorIndexToBufferIndex(i + srcOffset);
@@ -104,7 +104,7 @@ abstract class VectorList<T extends Vector> {
 
   /// Retrieves the vector at [index].
   T operator [](int index) {
-    final T r = newVector();
+    final r = newVector();
     load(index, r);
     return r;
   }

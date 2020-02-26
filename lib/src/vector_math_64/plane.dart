@@ -11,21 +11,21 @@ class Plane {
   /// Find the intersection point between the three planes [a], [b] and [c] and
   /// copy it into [result].
   static void intersection(Plane a, Plane b, Plane c, Vector3 result) {
-    final Vector3 cross = Vector3.zero();
+    final cross = Vector3.zero();
 
     b.normal.crossInto(c.normal, cross);
 
-    final double f = -a.normal.dot(cross);
+    final f = -a.normal.dot(cross);
 
-    final Vector3 v1 = cross.scaled(a.constant);
+    final v1 = cross.scaled(a.constant);
 
     c.normal.crossInto(a.normal, cross);
 
-    final Vector3 v2 = cross.scaled(b.constant);
+    final v2 = cross.scaled(b.constant);
 
     a.normal.crossInto(b.normal, cross);
 
-    final Vector3 v3 = cross.scaled(c.constant);
+    final v3 = cross.scaled(c.constant);
 
     result
       ..x = (v1.x + v2.x + v3.x) / f
@@ -60,7 +60,7 @@ class Plane {
   }
 
   void normalize() {
-    final double inverseLength = 1.0 / normal.length;
+    final inverseLength = 1.0 / normal.length;
     _normal.scale(inverseLength);
     constant *= inverseLength;
   }

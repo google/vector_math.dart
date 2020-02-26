@@ -34,8 +34,8 @@ void testVector2InstacingFromByteBuffer() {
 }
 
 void testVector2Add() {
-  final Vector2 a = Vector2(5.0, 7.0);
-  final Vector2 b = Vector2(3.0, 8.0);
+  final a = Vector2(5.0, 7.0);
+  final b = Vector2(3.0, 8.0);
 
   a.add(b);
   expect(a.x, equals(8.0));
@@ -47,8 +47,8 @@ void testVector2Add() {
 }
 
 void testVector2MinMax() {
-  final Vector2 a = Vector2(5.0, 7.0);
-  final Vector2 b = Vector2(3.0, 8.0);
+  final a = Vector2(5.0, 7.0);
+  final b = Vector2(3.0, 8.0);
 
   var result = Vector2.zero();
 
@@ -62,8 +62,8 @@ void testVector2MinMax() {
 }
 
 void testVector2Mix() {
-  final Vector2 a = Vector2(5.0, 7.0);
-  final Vector2 b = Vector2(3.0, 8.0);
+  final a = Vector2(5.0, 7.0);
+  final b = Vector2(3.0, 8.0);
 
   var result = Vector2.zero();
 
@@ -81,9 +81,9 @@ void testVector2Mix() {
 }
 
 void testVector2DotProduct() {
-  final Vector2 inputA = Vector2(0.417267069084370, 0.049654430325742);
-  final Vector2 inputB = Vector2(0.944787189721646, 0.490864092468080);
-  final double expectedOutput = 0.418602158442475;
+  final inputA = Vector2(0.417267069084370, 0.049654430325742);
+  final inputB = Vector2(0.944787189721646, 0.490864092468080);
+  final expectedOutput = 0.418602158442475;
   relativeTest(dot2(inputA, inputB), expectedOutput);
   relativeTest(dot2(inputB, inputA), expectedOutput);
 }
@@ -105,8 +105,8 @@ void testVector2Postmultiplication() {
 }
 
 void testVector2CrossProduct() {
-  final Vector2 inputA = Vector2(0.417267069084370, 0.049654430325742);
-  final Vector2 inputB = Vector2(0.944787189721646, 0.490864092468080);
+  final inputA = Vector2(0.417267069084370, 0.049654430325742);
+  final inputB = Vector2(0.944787189721646, 0.490864092468080);
   var expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
   dynamic result;
   result = cross2(inputA, inputB);
@@ -121,8 +121,8 @@ void testVector2CrossProduct() {
 }
 
 void testVector2OrthogonalScale() {
-  final Vector2 input = Vector2(0.5, 0.75);
-  final Vector2 output = Vector2.zero();
+  final input = Vector2(0.5, 0.75);
+  final output = Vector2.zero();
 
   input.scaleOrthogonalInto(2.0, output);
   expect(output.x, equals(-1.5));
@@ -152,7 +152,7 @@ void testVector2Constructor() {
 }
 
 void testVector2Length() {
-  final Vector2 a = Vector2(5.0, 7.0);
+  final a = Vector2(5.0, 7.0);
 
   relativeTest(a.length, 8.6);
   relativeTest(a.length2, 74.0);

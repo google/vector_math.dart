@@ -9,40 +9,36 @@ part of vector_math_operations;
 class Matrix44Operations {
   /// Compute the determinant of the 4x4 [matrix] starting at [offset].
   static double determinant(Float32List matrix, int offset) {
-    final double m0 = matrix[0 + offset];
-    final double m1 = matrix[1 + offset];
-    final double m2 = matrix[2 + offset];
-    final double m3 = matrix[3 + offset];
-    final double m4 = matrix[4 + offset];
-    final double m5 = matrix[5 + offset];
-    final double m6 = matrix[6 + offset];
-    final double m7 = matrix[7 + offset];
+    final m0 = matrix[0 + offset];
+    final m1 = matrix[1 + offset];
+    final m2 = matrix[2 + offset];
+    final m3 = matrix[3 + offset];
+    final m4 = matrix[4 + offset];
+    final m5 = matrix[5 + offset];
+    final m6 = matrix[6 + offset];
+    final m7 = matrix[7 + offset];
 
-    final double det2_01_01 = m0 * m5 - m1 * m4;
-    final double det2_01_02 = m0 * m6 - m2 * m4;
-    final double det2_01_03 = m0 * m7 - m3 * m4;
-    final double det2_01_12 = m1 * m6 - m2 * m5;
-    final double det2_01_13 = m1 * m7 - m3 * m5;
-    final double det2_01_23 = m2 * m7 - m3 * m6;
+    final det2_01_01 = m0 * m5 - m1 * m4;
+    final det2_01_02 = m0 * m6 - m2 * m4;
+    final det2_01_03 = m0 * m7 - m3 * m4;
+    final det2_01_12 = m1 * m6 - m2 * m5;
+    final det2_01_13 = m1 * m7 - m3 * m5;
+    final det2_01_23 = m2 * m7 - m3 * m6;
 
-    final double m8 = matrix[8 + offset];
-    final double m9 = matrix[9 + offset];
-    final double m10 = matrix[10 + offset];
-    final double m11 = matrix[11 + offset];
+    final m8 = matrix[8 + offset];
+    final m9 = matrix[9 + offset];
+    final m10 = matrix[10 + offset];
+    final m11 = matrix[11 + offset];
 
-    final double det3_201_012 =
-        m8 * det2_01_12 - m9 * det2_01_02 + m10 * det2_01_01;
-    final double det3_201_013 =
-        m8 * det2_01_13 - m9 * det2_01_03 + m11 * det2_01_01;
-    final double det3_201_023 =
-        m8 * det2_01_23 - m10 * det2_01_03 + m11 * det2_01_02;
-    final double det3_201_123 =
-        m9 * det2_01_23 - m10 * det2_01_13 + m11 * det2_01_12;
+    final det3_201_012 = m8 * det2_01_12 - m9 * det2_01_02 + m10 * det2_01_01;
+    final det3_201_013 = m8 * det2_01_13 - m9 * det2_01_03 + m11 * det2_01_01;
+    final det3_201_023 = m8 * det2_01_23 - m10 * det2_01_03 + m11 * det2_01_02;
+    final det3_201_123 = m9 * det2_01_23 - m10 * det2_01_13 + m11 * det2_01_12;
 
-    final double m12 = matrix[12 + offset];
-    final double m13 = matrix[13 + offset];
-    final double m14 = matrix[14 + offset];
-    final double m15 = matrix[15 + offset];
+    final m12 = matrix[12 + offset];
+    final m13 = matrix[13 + offset];
+    final m14 = matrix[14 + offset];
+    final m15 = matrix[15 + offset];
 
     return -det3_201_123 * m12 +
         det3_201_023 * m13 -
@@ -53,59 +49,59 @@ class Matrix44Operations {
   /// Compute the determinant of the upper 3x3 of the 4x4 [matrix] starting at
   /// [offset].
   static double determinant33(Float32List matrix, int offset) {
-    final double m0 = matrix[0 + offset];
-    final double m1 = matrix[1 + offset];
-    final double m2 = matrix[2 + offset];
-    final double m4 = matrix[4 + offset];
-    final double m5 = matrix[5 + offset];
-    final double m6 = matrix[6 + offset];
-    final double m8 = matrix[8 + offset];
-    final double m9 = matrix[9 + offset];
-    final double m10 = matrix[10 + offset];
-    final double x = m0 * ((m5 * m10) - (m6 * m8));
-    final double y = m1 * ((m4 * m10) - (m6 * m8));
-    final double z = m2 * ((m4 * m9) - (m5 * m8));
+    final m0 = matrix[0 + offset];
+    final m1 = matrix[1 + offset];
+    final m2 = matrix[2 + offset];
+    final m4 = matrix[4 + offset];
+    final m5 = matrix[5 + offset];
+    final m6 = matrix[6 + offset];
+    final m8 = matrix[8 + offset];
+    final m9 = matrix[9 + offset];
+    final m10 = matrix[10 + offset];
+    final x = m0 * ((m5 * m10) - (m6 * m8));
+    final y = m1 * ((m4 * m10) - (m6 * m8));
+    final z = m2 * ((m4 * m9) - (m5 * m8));
     return x - y + z;
   }
 
   /// Compute the inverse of the 4x4 [matrix] starting at [offset].
   static double inverse(Float32List matrix, int offset) {
-    final double a00 = matrix[0];
-    final double a01 = matrix[1];
-    final double a02 = matrix[2];
-    final double a03 = matrix[3];
-    final double a10 = matrix[4];
-    final double a11 = matrix[5];
-    final double a12 = matrix[6];
-    final double a13 = matrix[7];
-    final double a20 = matrix[8];
-    final double a21 = matrix[9];
-    final double a22 = matrix[10];
-    final double a23 = matrix[11];
-    final double a30 = matrix[12];
-    final double a31 = matrix[13];
-    final double a32 = matrix[14];
-    final double a33 = matrix[15];
-    final double b00 = a00 * a11 - a01 * a10;
-    final double b01 = a00 * a12 - a02 * a10;
-    final double b02 = a00 * a13 - a03 * a10;
-    final double b03 = a01 * a12 - a02 * a11;
-    final double b04 = a01 * a13 - a03 * a11;
-    final double b05 = a02 * a13 - a03 * a12;
-    final double b06 = a20 * a31 - a21 * a30;
-    final double b07 = a20 * a32 - a22 * a30;
-    final double b08 = a20 * a33 - a23 * a30;
-    final double b09 = a21 * a32 - a22 * a31;
-    final double b10 = a21 * a33 - a23 * a31;
-    final double b11 = a22 * a33 - a23 * a32;
-    final double det =
+    final a00 = matrix[0];
+    final a01 = matrix[1];
+    final a02 = matrix[2];
+    final a03 = matrix[3];
+    final a10 = matrix[4];
+    final a11 = matrix[5];
+    final a12 = matrix[6];
+    final a13 = matrix[7];
+    final a20 = matrix[8];
+    final a21 = matrix[9];
+    final a22 = matrix[10];
+    final a23 = matrix[11];
+    final a30 = matrix[12];
+    final a31 = matrix[13];
+    final a32 = matrix[14];
+    final a33 = matrix[15];
+    final b00 = a00 * a11 - a01 * a10;
+    final b01 = a00 * a12 - a02 * a10;
+    final b02 = a00 * a13 - a03 * a10;
+    final b03 = a01 * a12 - a02 * a11;
+    final b04 = a01 * a13 - a03 * a11;
+    final b05 = a02 * a13 - a03 * a12;
+    final b06 = a20 * a31 - a21 * a30;
+    final b07 = a20 * a32 - a22 * a30;
+    final b08 = a20 * a33 - a23 * a30;
+    final b09 = a21 * a32 - a22 * a31;
+    final b10 = a21 * a33 - a23 * a31;
+    final b11 = a22 * a33 - a23 * a32;
+    final det =
         b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
 
     if (det == 0.0) {
       return det;
     }
 
-    final double invDet = 1.0 / det;
+    final invDet = 1.0 / det;
 
     matrix[0] = (a11 * b11 - a12 * b10 + a13 * b09) * invDet;
     matrix[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet;
@@ -135,22 +131,22 @@ class Matrix44Operations {
   /// [out] = [a] * [b]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32List out, int outOffset, Float32List a,
       int aOffset, Float32List b, int bOffset) {
-    final double a00 = a[aOffset++];
-    final double a01 = a[aOffset++];
-    final double a02 = a[aOffset++];
-    final double a03 = a[aOffset++];
-    final double a10 = a[aOffset++];
-    final double a11 = a[aOffset++];
-    final double a12 = a[aOffset++];
-    final double a13 = a[aOffset++];
-    final double a20 = a[aOffset++];
-    final double a21 = a[aOffset++];
-    final double a22 = a[aOffset++];
-    final double a23 = a[aOffset++];
-    final double a30 = a[aOffset++];
-    final double a31 = a[aOffset++];
-    final double a32 = a[aOffset++];
-    final double a33 = a[aOffset++];
+    final a00 = a[aOffset++];
+    final a01 = a[aOffset++];
+    final a02 = a[aOffset++];
+    final a03 = a[aOffset++];
+    final a10 = a[aOffset++];
+    final a11 = a[aOffset++];
+    final a12 = a[aOffset++];
+    final a13 = a[aOffset++];
+    final a20 = a[aOffset++];
+    final a21 = a[aOffset++];
+    final a22 = a[aOffset++];
+    final a23 = a[aOffset++];
+    final a30 = a[aOffset++];
+    final a31 = a[aOffset++];
+    final a32 = a[aOffset++];
+    final a33 = a[aOffset++];
 
     var b0 = b[bOffset++];
     var b1 = b[bOffset++];
@@ -200,29 +196,29 @@ class Matrix44Operations {
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
   static void transform4(Float32List out, int outOffset, Float32List matrix,
       int matrixOffset, Float32List vector, int vectorOffset) {
-    final double x = vector[vectorOffset++];
-    final double y = vector[vectorOffset++];
-    final double z = vector[vectorOffset++];
-    final double w = vector[vectorOffset++];
-    final double m0 = matrix[matrixOffset];
-    final double m4 = matrix[4 + matrixOffset];
-    final double m8 = matrix[8 + matrixOffset];
-    final double m12 = matrix[12 + matrixOffset];
+    final x = vector[vectorOffset++];
+    final y = vector[vectorOffset++];
+    final z = vector[vectorOffset++];
+    final w = vector[vectorOffset++];
+    final m0 = matrix[matrixOffset];
+    final m4 = matrix[4 + matrixOffset];
+    final m8 = matrix[8 + matrixOffset];
+    final m12 = matrix[12 + matrixOffset];
     out[outOffset++] = m0 * x + m4 * y + m8 * z + m12 * w;
-    final double m1 = matrix[1 + matrixOffset];
-    final double m5 = matrix[5 + matrixOffset];
-    final double m9 = matrix[9 + matrixOffset];
-    final double m13 = matrix[13 + matrixOffset];
+    final m1 = matrix[1 + matrixOffset];
+    final m5 = matrix[5 + matrixOffset];
+    final m9 = matrix[9 + matrixOffset];
+    final m13 = matrix[13 + matrixOffset];
     out[outOffset++] = m1 * x + m5 * y + m9 * z + m13 * w;
-    final double m2 = matrix[2 + matrixOffset];
-    final double m6 = matrix[6 + matrixOffset];
-    final double m10 = matrix[10 + matrixOffset];
-    final double m14 = matrix[14 + matrixOffset];
+    final m2 = matrix[2 + matrixOffset];
+    final m6 = matrix[6 + matrixOffset];
+    final m10 = matrix[10 + matrixOffset];
+    final m14 = matrix[14 + matrixOffset];
     out[outOffset++] = m2 * x + m6 * y + m10 * z + m14 * w;
-    final double m3 = matrix[3 + matrixOffset];
-    final double m7 = matrix[7 + matrixOffset];
-    final double m11 = matrix[11 + matrixOffset];
-    final double m15 = matrix[15 + matrixOffset];
+    final m3 = matrix[3 + matrixOffset];
+    final m7 = matrix[7 + matrixOffset];
+    final m11 = matrix[11 + matrixOffset];
+    final m15 = matrix[15 + matrixOffset];
     out[outOffset++] = m3 * x + m7 * y + m11 * z + m15 * w;
   }
 
@@ -266,26 +262,26 @@ class Matrix44SIMDOperations {
   /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(Float32x4List out, int outOffset, Float32x4List A,
       int aOffset, Float32x4List B, int bOffset) {
-    final Float32x4 a0 = A[aOffset++];
-    final Float32x4 a1 = A[aOffset++];
-    final Float32x4 a2 = A[aOffset++];
-    final Float32x4 a3 = A[aOffset++];
-    final Float32x4 b0 = B[bOffset++];
+    final a0 = A[aOffset++];
+    final a1 = A[aOffset++];
+    final a2 = A[aOffset++];
+    final a3 = A[aOffset++];
+    final b0 = B[bOffset++];
     out[outOffset++] = b0.shuffle(Float32x4.xxxx) * a0 +
         b0.shuffle(Float32x4.yyyy) * a1 +
         b0.shuffle(Float32x4.zzzz) * a2 +
         b0.shuffle(Float32x4.wwww) * a3;
-    final Float32x4 b1 = B[bOffset++];
+    final b1 = B[bOffset++];
     out[outOffset++] = b1.shuffle(Float32x4.xxxx) * a0 +
         b1.shuffle(Float32x4.yyyy) * a1 +
         b1.shuffle(Float32x4.zzzz) * a2 +
         b1.shuffle(Float32x4.wwww) * a3;
-    final Float32x4 b2 = B[bOffset++];
+    final b2 = B[bOffset++];
     out[outOffset++] = b2.shuffle(Float32x4.xxxx) * a0 +
         b2.shuffle(Float32x4.yyyy) * a1 +
         b2.shuffle(Float32x4.zzzz) * a2 +
         b2.shuffle(Float32x4.wwww) * a3;
-    final Float32x4 b3 = B[bOffset++];
+    final b3 = B[bOffset++];
     out[outOffset++] = b3.shuffle(Float32x4.xxxx) * a0 +
         b3.shuffle(Float32x4.yyyy) * a1 +
         b3.shuffle(Float32x4.zzzz) * a2 +
@@ -296,20 +292,20 @@ class Matrix44SIMDOperations {
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
   static void transform4(Float32x4List out, int outOffset, Float32x4List matrix,
       int matrixOffset, Float32x4List vector, int vectorOffset) {
-    final Float32x4 v = vector[vectorOffset];
-    final Float32x4 xxxx = v.shuffle(Float32x4.xxxx);
+    final v = vector[vectorOffset];
+    final xxxx = v.shuffle(Float32x4.xxxx);
     var z = Float32x4.zero();
     z += xxxx * matrix[0 + matrixOffset];
-    final Float32x4 yyyy = v.shuffle(Float32x4.yyyy);
+    final yyyy = v.shuffle(Float32x4.yyyy);
     z += yyyy * matrix[1 + matrixOffset];
-    final Float32x4 zzzz = v.shuffle(Float32x4.zzzz);
+    final zzzz = v.shuffle(Float32x4.zzzz);
     z += zzzz * matrix[2 + matrixOffset];
     z += matrix[3 + matrixOffset];
     out[0 + outOffset] = z;
   }
 
   static void zero(Float32x4List matrix, int offset) {
-    final Float32x4 z = Float32x4.zero();
+    final z = Float32x4.zero();
     matrix[offset++] = z;
     matrix[offset++] = z;
     matrix[offset++] = z;

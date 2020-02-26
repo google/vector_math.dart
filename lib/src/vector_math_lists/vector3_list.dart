@@ -27,7 +27,7 @@ class Vector3List extends VectorList<Vector3> {
   /// Retrieves the vector at [index] and stores it in [vector].
   @override
   void load(int index, Vector3 vector) {
-    final int i = _vectorIndexToBufferIndex(index);
+    final i = _vectorIndexToBufferIndex(index);
     vector.storage[0] = _buffer[i + 0];
     vector.storage[1] = _buffer[i + 1];
     vector.storage[2] = _buffer[i + 2];
@@ -36,8 +36,8 @@ class Vector3List extends VectorList<Vector3> {
   /// Store [vector] in the list at [index].
   @override
   void store(int index, Vector3 vector) {
-    final int i = _vectorIndexToBufferIndex(index);
-    final Float32List storage = vector.storage;
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
     _buffer[i + 0] = storage[0];
     _buffer[i + 1] = storage[1];
     _buffer[i + 2] = storage[2];
@@ -48,7 +48,7 @@ class Vector3List extends VectorList<Vector3> {
 
   /// Set the vector at [index] to [x], [y], and [z].
   void setValues(int index, double x, double y, double z) {
-    final int i = _vectorIndexToBufferIndex(index);
+    final i = _vectorIndexToBufferIndex(index);
     buffer[i + 0] = x;
     buffer[i + 1] = y;
     buffer[i + 2] = z;
@@ -56,8 +56,8 @@ class Vector3List extends VectorList<Vector3> {
 
   /// Add [vector] to the vector at [index].
   void add(int index, Vector3 vector) {
-    final int i = _vectorIndexToBufferIndex(index);
-    final Float32List storage = vector.storage;
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
     buffer[i + 0] += storage[0];
     buffer[i + 1] += storage[1];
     buffer[i + 2] += storage[2];
@@ -65,8 +65,8 @@ class Vector3List extends VectorList<Vector3> {
 
   /// Add [vector] scaled by [factor] to the vector at [index].
   void addScaled(int index, Vector3 vector, double factor) {
-    final int i = _vectorIndexToBufferIndex(index);
-    final Float32List storage = vector.storage;
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
     buffer[i + 0] += storage[0] * factor;
     buffer[i + 1] += storage[1] * factor;
     buffer[i + 2] += storage[2] * factor;
@@ -74,8 +74,8 @@ class Vector3List extends VectorList<Vector3> {
 
   /// Substract [vector] from the vector at [index].
   void sub(int index, Vector3 vector) {
-    final int i = _vectorIndexToBufferIndex(index);
-    final Float32List storage = vector.storage;
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
     buffer[i + 0] -= storage[0];
     buffer[i + 1] -= storage[1];
     buffer[i + 2] -= storage[2];
@@ -83,8 +83,8 @@ class Vector3List extends VectorList<Vector3> {
 
   /// Multiply the vector at [index] by [vector].
   void multiply(int index, Vector3 vector) {
-    final int i = _vectorIndexToBufferIndex(index);
-    final Float32List storage = vector.storage;
+    final i = _vectorIndexToBufferIndex(index);
+    final storage = vector.storage;
     buffer[i + 0] *= storage[0];
     buffer[i + 1] *= storage[1];
     buffer[i + 2] *= storage[2];
@@ -92,7 +92,7 @@ class Vector3List extends VectorList<Vector3> {
 
   /// Scale the vector at [index] by [factor].
   void scale(int index, double factor) {
-    final int i = _vectorIndexToBufferIndex(index);
+    final i = _vectorIndexToBufferIndex(index);
     buffer[i + 0] *= factor;
     buffer[i + 1] *= factor;
     buffer[i + 2] *= factor;

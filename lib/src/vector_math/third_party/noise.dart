@@ -82,12 +82,12 @@ class SimplexNoise {
   List<int> _permMod12;
 
   // Skewing and unskewing factors for 2, 3, and 4 dimensions
-  static final double _F2 = 0.5 * (math.sqrt(3.0) - 1.0);
-  static final double _G2 = (3.0 - math.sqrt(3.0)) / 6.0;
+  static final _F2 = 0.5 * (math.sqrt(3.0) - 1.0);
+  static final _G2 = (3.0 - math.sqrt(3.0)) / 6.0;
   static const double _f3 = 1.0 / 3.0;
   static const double _g3 = 1.0 / 6.0;
-  static final double _F4 = (math.sqrt(5.0) - 1.0) / 4.0;
-  static final double _G4 = (5.0 - math.sqrt(5.0)) / 20.0;
+  static final _F4 = (math.sqrt(5.0) - 1.0) / 4.0;
+  static final _G4 = (5.0 - math.sqrt(5.0)) / 20.0;
 
   double _dot2(List<double> g, double x, double y) => g[0] * x + g[1] * y;
 
@@ -99,8 +99,7 @@ class SimplexNoise {
 
   SimplexNoise([math.Random r]) {
     r ??= math.Random();
-    final List<int> p =
-        List<int>.generate(256, (_) => r.nextInt(256), growable: false);
+    final p = List<int>.generate(256, (_) => r.nextInt(256), growable: false);
     _perm = List<int>.generate(p.length * 2, (int i) => p[i % p.length],
         growable: false);
     _permMod12 = List<int>.generate(_perm.length, (int i) => _perm[i] % 12,
@@ -110,14 +109,14 @@ class SimplexNoise {
   double noise2D(double xin, double yin) {
     double n0, n1, n2; // Noise contributions from the three corners
     // Skew the input space to determine which simplex cell we're in
-    final double s = (xin + yin) * _F2; // Hairy factor for 2D
-    final int i = (xin + s).floor();
-    final int j = (yin + s).floor();
-    final double t = (i + j) * _G2;
-    final double X0 = i - t; // Unskew the cell origin back to (x,y) space
-    final double Y0 = j - t;
-    final double x0 = xin - X0; // The x,y distances from the cell origin
-    final double y0 = yin - Y0;
+    final s = (xin + yin) * _F2; // Hairy factor for 2D
+    final i = (xin + s).floor();
+    final j = (yin + s).floor();
+    final t = (i + j) * _G2;
+    final X0 = i - t; // Unskew the cell origin back to (x,y) space
+    final Y0 = j - t;
+    final x0 = xin - X0; // The x,y distances from the cell origin
+    final y0 = yin - Y0;
     // For the 2D case, the simplex shape is an equilateral triangle.
     // Determine which simplex we are in.
     int i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
@@ -132,19 +131,19 @@ class SimplexNoise {
     // A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
     // a step of (0,1) in (i,j) means a step of (-c,1-c) in (x,y), where
     // c = (3-sqrt(3))/6
-    final double x1 =
+    final x1 =
         x0 - i1 + _G2; // Offsets for middle corner in (x,y) unskewed coords
-    final double y1 = y0 - j1 + _G2;
-    final double x2 = x0 -
+    final y1 = y0 - j1 + _G2;
+    final x2 = x0 -
         1.0 +
         2.0 * _G2; // Offsets for last corner in (x,y) unskewed coords
-    final double y2 = y0 - 1.0 + 2.0 * _G2;
+    final y2 = y0 - 1.0 + 2.0 * _G2;
     // Work out the hashed gradient indices of the three simplex corners
-    final int ii = i & 255;
-    final int jj = j & 255;
-    final int gi0 = _permMod12[ii + _perm[jj]];
-    final int gi1 = _permMod12[ii + i1 + _perm[jj + j1]];
-    final int gi2 = _permMod12[ii + 1 + _perm[jj + 1]];
+    final ii = i & 255;
+    final jj = j & 255;
+    final gi0 = _permMod12[ii + _perm[jj]];
+    final gi1 = _permMod12[ii + i1 + _perm[jj + j1]];
+    final gi2 = _permMod12[ii + 1 + _perm[jj + 1]];
     // Calculate the contribution from the three corners
     var t0 = 0.5 - x0 * x0 - y0 * y0;
     if (t0 < 0) {
@@ -178,18 +177,18 @@ class SimplexNoise {
   double noise3D(double xin, double yin, double zin) {
     double n0, n1, n2, n3; // Noise contributions from the four corners
     // Skew the input space to determine which simplex cell we're in
-    final double s =
+    final s =
         (xin + yin + zin) * _f3; // Very nice and simple skew factor for 3D
-    final int i = (xin + s).floor();
-    final int j = (yin + s).floor();
-    final int k = (zin + s).floor();
-    final double t = (i + j + k) * _g3;
-    final double X0 = i - t; // Unskew the cell origin back to (x,y,z) space
-    final double Y0 = j - t;
-    final double Z0 = k - t;
-    final double x0 = xin - X0; // The x,y,z distances from the cell origin
-    final double y0 = yin - Y0;
-    final double z0 = zin - Z0;
+    final i = (xin + s).floor();
+    final j = (yin + s).floor();
+    final k = (zin + s).floor();
+    final t = (i + j + k) * _g3;
+    final X0 = i - t; // Unskew the cell origin back to (x,y,z) space
+    final Y0 = j - t;
+    final Z0 = k - t;
+    final x0 = xin - X0; // The x,y,z distances from the cell origin
+    final y0 = yin - Y0;
+    final z0 = zin - Z0;
     // For the 3D case, the simplex shape is a slightly irregular tetrahedron.
     // Determine which simplex we are in.
     int i1, j1, k1; // Offsets for second corner of simplex in (i,j,k) coords
@@ -250,26 +249,25 @@ class SimplexNoise {
     // a step of (0,1,0) in (i,j,k) means a step of (-c,1-c,-c) in (x,y,z), and
     // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where
     // c = 1/6.
-    final double x1 =
-        x0 - i1 + _g3; // Offsets for second corner in (x,y,z) coords
-    final double y1 = y0 - j1 + _g3;
-    final double z1 = z0 - k1 + _g3;
-    final double x2 =
+    final x1 = x0 - i1 + _g3; // Offsets for second corner in (x,y,z) coords
+    final y1 = y0 - j1 + _g3;
+    final z1 = z0 - k1 + _g3;
+    final x2 =
         x0 - i2 + 2.0 * _g3; // Offsets for third corner in (x,y,z) coords
-    final double y2 = y0 - j2 + 2.0 * _g3;
-    final double z2 = z0 - k2 + 2.0 * _g3;
-    final double x3 =
+    final y2 = y0 - j2 + 2.0 * _g3;
+    final z2 = z0 - k2 + 2.0 * _g3;
+    final x3 =
         x0 - 1.0 + 3.0 * _g3; // Offsets for last corner in (x,y,z) coords
-    final double y3 = y0 - 1.0 + 3.0 * _g3;
-    final double z3 = z0 - 1.0 + 3.0 * _g3;
+    final y3 = y0 - 1.0 + 3.0 * _g3;
+    final z3 = z0 - 1.0 + 3.0 * _g3;
     // Work out the hashed gradient indices of the four simplex corners
-    final int ii = i & 255;
-    final int jj = j & 255;
-    final int kk = k & 255;
-    final int gi0 = _permMod12[ii + _perm[jj + _perm[kk]]];
-    final int gi1 = _permMod12[ii + i1 + _perm[jj + j1 + _perm[kk + k1]]];
-    final int gi2 = _permMod12[ii + i2 + _perm[jj + j2 + _perm[kk + k2]]];
-    final int gi3 = _permMod12[ii + 1 + _perm[jj + 1 + _perm[kk + 1]]];
+    final ii = i & 255;
+    final jj = j & 255;
+    final kk = k & 255;
+    final gi0 = _permMod12[ii + _perm[jj + _perm[kk]]];
+    final gi1 = _permMod12[ii + i1 + _perm[jj + j1 + _perm[kk + k1]]];
+    final gi2 = _permMod12[ii + i2 + _perm[jj + j2 + _perm[kk + k2]]];
+    final gi3 = _permMod12[ii + 1 + _perm[jj + 1 + _perm[kk + 1]]];
     // Calculate the contribution from the four corners
     var t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0;
     if (t0 < 0) {
@@ -308,20 +306,20 @@ class SimplexNoise {
   double noise4D(double x, double y, double z, double w) {
     double n0, n1, n2, n3, n4; // Noise contributions from the five corners
     // Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
-    final double s = (x + y + z + w) * _F4; // Factor for 4D skewing
-    final int i = (x + s).floor();
-    final int j = (y + s).floor();
-    final int k = (z + s).floor();
-    final int l = (w + s).floor();
-    final double t = (i + j + k + l) * _G4; // Factor for 4D unskewing
-    final double X0 = i - t; // Unskew the cell origin back to (x,y,z,w) space
-    final double Y0 = j - t;
-    final double Z0 = k - t;
-    final double W0 = l - t;
-    final double x0 = x - X0; // The x,y,z,w distances from the cell origin
-    final double y0 = y - Y0;
-    final double z0 = z - Z0;
-    final double w0 = w - W0;
+    final s = (x + y + z + w) * _F4; // Factor for 4D skewing
+    final i = (x + s).floor();
+    final j = (y + s).floor();
+    final k = (z + s).floor();
+    final l = (w + s).floor();
+    final t = (i + j + k + l) * _G4; // Factor for 4D unskewing
+    final X0 = i - t; // Unskew the cell origin back to (x,y,z,w) space
+    final Y0 = j - t;
+    final Z0 = k - t;
+    final W0 = l - t;
+    final x0 = x - X0; // The x,y,z,w distances from the cell origin
+    final y0 = y - Y0;
+    final z0 = z - Z0;
+    final w0 = w - W0;
     // For the 4D case, the simplex is a 4D shape I won't even try to describe.
     // To find out which of the 24 possible simplices we're in, we need to
     // determine the magnitude ordering of x0, y0, z0 and w0.
@@ -384,39 +382,38 @@ class SimplexNoise {
     k3 = rankz >= 1 ? 1 : 0;
     l3 = rankw >= 1 ? 1 : 0;
     // The fifth corner has all coordinate offsets = 1, so no need to compute that.
-    final double x1 =
-        x0 - i1 + _G4; // Offsets for second corner in (x,y,z,w) coords
-    final double y1 = y0 - j1 + _G4;
-    final double z1 = z0 - k1 + _G4;
-    final double w1 = w0 - l1 + _G4;
-    final double x2 =
+    final x1 = x0 - i1 + _G4; // Offsets for second corner in (x,y,z,w) coords
+    final y1 = y0 - j1 + _G4;
+    final z1 = z0 - k1 + _G4;
+    final w1 = w0 - l1 + _G4;
+    final x2 =
         x0 - i2 + 2.0 * _G4; // Offsets for third corner in (x,y,z,w) coords
-    final double y2 = y0 - j2 + 2.0 * _G4;
-    final double z2 = z0 - k2 + 2.0 * _G4;
-    final double w2 = w0 - l2 + 2.0 * _G4;
-    final double x3 =
+    final y2 = y0 - j2 + 2.0 * _G4;
+    final z2 = z0 - k2 + 2.0 * _G4;
+    final w2 = w0 - l2 + 2.0 * _G4;
+    final x3 =
         x0 - i3 + 3.0 * _G4; // Offsets for fourth corner in (x,y,z,w) coords
-    final double y3 = y0 - j3 + 3.0 * _G4;
-    final double z3 = z0 - k3 + 3.0 * _G4;
-    final double w3 = w0 - l3 + 3.0 * _G4;
-    final double x4 =
+    final y3 = y0 - j3 + 3.0 * _G4;
+    final z3 = z0 - k3 + 3.0 * _G4;
+    final w3 = w0 - l3 + 3.0 * _G4;
+    final x4 =
         x0 - 1.0 + 4.0 * _G4; // Offsets for last corner in (x,y,z,w) coords
-    final double y4 = y0 - 1.0 + 4.0 * _G4;
-    final double z4 = z0 - 1.0 + 4.0 * _G4;
-    final double w4 = w0 - 1.0 + 4.0 * _G4;
+    final y4 = y0 - 1.0 + 4.0 * _G4;
+    final z4 = z0 - 1.0 + 4.0 * _G4;
+    final w4 = w0 - 1.0 + 4.0 * _G4;
     // Work out the hashed gradient indices of the five simplex corners
-    final int ii = i & 255;
-    final int jj = j & 255;
-    final int kk = k & 255;
-    final int ll = l & 255;
-    final int gi0 = _perm[ii + _perm[jj + _perm[kk + _perm[ll]]]] % 32;
-    final int gi1 =
+    final ii = i & 255;
+    final jj = j & 255;
+    final kk = k & 255;
+    final ll = l & 255;
+    final gi0 = _perm[ii + _perm[jj + _perm[kk + _perm[ll]]]] % 32;
+    final gi1 =
         _perm[ii + i1 + _perm[jj + j1 + _perm[kk + k1 + _perm[ll + l1]]]] % 32;
-    final int gi2 =
+    final gi2 =
         _perm[ii + i2 + _perm[jj + j2 + _perm[kk + k2 + _perm[ll + l2]]]] % 32;
-    final int gi3 =
+    final gi3 =
         _perm[ii + i3 + _perm[jj + j3 + _perm[kk + k3 + _perm[ll + l3]]]] % 32;
-    final int gi4 =
+    final gi4 =
         _perm[ii + 1 + _perm[jj + 1 + _perm[kk + 1 + _perm[ll + 1]]]] % 32;
     // Calculate the contribution from the five corners
     var t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;

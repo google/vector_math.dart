@@ -13,10 +13,10 @@ MeshGeometry generateCube(List<String> args) {
   if (args.length != 3) {
     return null;
   }
-  final double width = double.parse(args[0]);
-  final double height = double.parse(args[1]);
-  final double depth = double.parse(args[2]);
-  final CubeGenerator generator = CubeGenerator();
+  final width = double.parse(args[0]);
+  final height = double.parse(args[1]);
+  final depth = double.parse(args[2]);
+  final generator = CubeGenerator();
   return generator.createCube(width, height, depth);
 }
 
@@ -24,8 +24,8 @@ MeshGeometry generateSphere(List<String> args) {
   if (args.length != 1) {
     return null;
   }
-  final double radius = double.parse(args[0]);
-  final SphereGenerator generator = SphereGenerator();
+  final radius = double.parse(args[0]);
+  final generator = SphereGenerator();
   return generator.createSphere(radius);
 }
 
@@ -33,8 +33,8 @@ MeshGeometry generateCircle(List<String> args) {
   if (args.length != 1) {
     return null;
   }
-  final double radius = double.parse(args[0]);
-  final CircleGenerator generator = CircleGenerator();
+  final radius = double.parse(args[0]);
+  final generator = CircleGenerator();
   return generator.createCircle(radius);
 }
 
@@ -42,10 +42,10 @@ MeshGeometry generateCylinder(List<String> args) {
   if (args.length != 3) {
     return null;
   }
-  final double topRadius = double.parse(args[0]);
-  final double bottomRadius = double.parse(args[1]);
-  final double height = double.parse(args[2]);
-  final CylinderGenerator generator = CylinderGenerator();
+  final topRadius = double.parse(args[0]);
+  final bottomRadius = double.parse(args[1]);
+  final height = double.parse(args[2]);
+  final generator = CylinderGenerator();
   return generator.createCylinder(topRadius, bottomRadius, height);
 }
 
@@ -53,9 +53,9 @@ MeshGeometry generateRing(List<String> args) {
   if (args.length != 2) {
     return null;
   }
-  final double innerRadius = double.parse(args[0]);
-  final double outerRadius = double.parse(args[1]);
-  final RingGenerator generator = RingGenerator();
+  final innerRadius = double.parse(args[0]);
+  final outerRadius = double.parse(args[1]);
+  final generator = RingGenerator();
   return generator.createRing(innerRadius, outerRadius);
 }
 
@@ -68,7 +68,7 @@ Map<String, GenerateFunction> generators = <String, GenerateFunction>{
 };
 
 void main(List<String> args) {
-  final List<String> fixedArgs = List<String>.unmodifiable(args);
+  final fixedArgs = List<String>.unmodifiable(args);
 
   if (fixedArgs.isEmpty) {
     print('mesh_generator.dart <type> [<arg0> ... <argN>]');
@@ -82,13 +82,13 @@ void main(List<String> args) {
     print('');
     return;
   }
-  final String type = fixedArgs.removeAt(0);
-  final GenerateFunction generator = generators[type];
+  final type = fixedArgs.removeAt(0);
+  final generator = generators[type];
   if (generator == null) {
     print('Could not find generator for $type');
     return;
   }
-  final MeshGeometry geometry = generator(fixedArgs);
+  final geometry = generator(fixedArgs);
   if (geometry == null) {
     print('Error generating geometry for $type');
     return;

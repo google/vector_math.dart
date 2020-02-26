@@ -15,21 +15,19 @@ class FlatShadeFilter extends GeometryFilter {
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
-    final List<VertexAttrib> newAttribs =
-        List<VertexAttrib>.from(mesh.attribs, growable: true);
+    final newAttribs = List<VertexAttrib>.from(mesh.attribs, growable: true);
 
     if (mesh.getAttrib('NORMAL') == null) {
       newAttribs.add(VertexAttrib('NORMAL', 3, 'float'));
     }
 
-    final MeshGeometry output =
-        MeshGeometry(mesh.triangleVertexCount, newAttribs);
+    final output = MeshGeometry(mesh.triangleVertexCount, newAttribs);
 
-    final Vector3 p0 = Vector3.zero(), p1 = Vector3.zero(), p2 = Vector3.zero();
+    final p0 = Vector3.zero(), p1 = Vector3.zero(), p2 = Vector3.zero();
 
-    final VectorList<Vector> srcPosition = mesh.getViewForAttrib('POSITION');
-    final VectorList<Vector> destPosition = output.getViewForAttrib('POSITION');
-    final VectorList<Vector> normals = output.getViewForAttrib('NORMAL');
+    final srcPosition = mesh.getViewForAttrib('POSITION');
+    final destPosition = output.getViewForAttrib('POSITION');
+    final normals = output.getViewForAttrib('NORMAL');
 
     if (srcPosition is! Vector3List ||
         destPosition is! Vector3List ||
@@ -37,8 +35,8 @@ class FlatShadeFilter extends GeometryFilter {
       return null;
     }
 
-    final List<VectorList<Vector>> srcAttribs = <VectorList<Vector>>[];
-    final List<VectorList<Vector>> destAttribs = <VectorList<Vector>>[];
+    final srcAttribs = <VectorList<Vector>>[];
+    final destAttribs = <VectorList<Vector>>[];
     for (var attrib in mesh.attribs) {
       if (attrib.name == 'POSITION' || attrib.name == 'NORMAL') {
         continue;
@@ -49,9 +47,9 @@ class FlatShadeFilter extends GeometryFilter {
     }
 
     for (var i = 0; i < output.length; i += 3) {
-      final int i0 = mesh.indices[i];
-      final int i1 = mesh.indices[i + 1];
-      final int i2 = mesh.indices[i + 2];
+      final i0 = mesh.indices[i];
+      final i1 = mesh.indices[i + 1];
+      final i2 = mesh.indices[i + 2];
 
       srcPosition..load(i0, p0)..load(i1, p1)..load(i2, p2);
 

@@ -11,7 +11,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testFrustumContainsVector3() {
-  final Frustum frustum =
+  final frustum =
       Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
   expect(frustum.containsVector3($v3(0.0, 0.0, 0.0)), isFalse);
@@ -30,7 +30,7 @@ void testFrustumContainsVector3() {
 }
 
 void testFrustumIntersectsWithSphere() {
-  final Frustum frustum =
+  final frustum =
       Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
   expect(
@@ -120,7 +120,7 @@ void testFrustumIntersectsWithSphere() {
 }
 
 void testFrustumIntersectsWithAabb3() {
-  final Frustum frustum =
+  final frustum =
       Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
   expect(
@@ -162,7 +162,7 @@ void testFrustumIntersectsWithAabb3() {
 }
 
 void testFrustumCalculateCorners() {
-  final Frustum frustum =
+  final frustum =
       Frustum.matrix(makeFrustumMatrix(-1.0, 1.0, -1.0, 1.0, 1.0, 100.0));
 
   final c0 = Vector3.zero();

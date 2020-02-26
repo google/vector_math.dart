@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testQuaternionInstacinfFromFloat32List() {
-  final Float32List float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
-  final Quaternion input = Quaternion.fromFloat32List(float32List);
+  final float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final input = Quaternion.fromFloat32List(float32List);
 
   expect(input.x, equals(1.0));
   expect(input.y, equals(2.0));
@@ -23,11 +23,10 @@ void testQuaternionInstacinfFromFloat32List() {
 }
 
 void testQuaternionInstacingFromByteBuffer() {
-  final Float32List float32List =
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
-  final ByteBuffer buffer = float32List.buffer;
-  final Quaternion zeroOffset = Quaternion.fromBuffer(buffer, 0);
-  final Quaternion offsetVector =
+  final float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
+  final buffer = float32List.buffer;
+  final zeroOffset = Quaternion.fromBuffer(buffer, 0);
+  final offsetVector =
       Quaternion.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.x, equals(1.0));

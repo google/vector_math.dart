@@ -260,9 +260,9 @@ void testMatrix3Inversion() {
 }
 
 void testMatrix3Dot() {
-  final Matrix3 matrix = Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
+  final matrix = Matrix3(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0);
 
-  final Vector3 v = Vector3(2.0, 3.0, 4.0);
+  final v = Vector3(2.0, 3.0, 4.0);
 
   expect(matrix.dotRow(0, v), equals(42.0));
   expect(matrix.dotRow(1, v), equals(51.0));
@@ -288,19 +288,19 @@ void testMatrix3Scale() {
 }
 
 void testMatrix3Solving() {
-  final Matrix3 A = Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
+  final A = Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
 
-  final Vector3 b = Vector3(32.0, 64.0, 72.0);
-  final Vector3 result = Vector3.zero();
+  final b = Vector3(32.0, 64.0, 72.0);
+  final result = Vector3.zero();
 
-  final Vector2 b2 = Vector2(32.0, 64.0);
-  final Vector2 result2 = Vector2.zero();
+  final b2 = Vector2(32.0, 64.0);
+  final result2 = Vector2.zero();
 
   Matrix3.solve(A, result, b);
   Matrix3.solve2(A, result2, b2);
 
-  final Vector3 backwards = A.transform(Vector3.copy(result));
-  final Vector2 backwards2 = A.transform2(Vector2.copy(result2));
+  final backwards = A.transform(Vector3.copy(result));
+  final backwards2 = A.transform2(Vector2.copy(result2));
 
   expect(backwards.x, equals(b.x));
   expect(backwards.y, equals(b.y));

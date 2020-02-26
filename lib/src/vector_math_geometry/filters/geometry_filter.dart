@@ -19,7 +19,7 @@ abstract class InplaceGeometryFilter extends GeometryFilter {
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
-    final MeshGeometry output = MeshGeometry.copy(mesh);
+    final output = MeshGeometry.copy(mesh);
     filterInplace(output);
     return output;
   }

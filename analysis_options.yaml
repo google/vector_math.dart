@@ -1,11 +1,5 @@
 include: package:pedantic/analysis_options.yaml
 
-analyzer:
-#  strong-mode:
-#    implicit-casts: false
-  errors:
-    omit_local_variable_types: ignore #1929 cases
-
 linter:
   rules:
   - avoid_bool_literals_in_conditional_expressions

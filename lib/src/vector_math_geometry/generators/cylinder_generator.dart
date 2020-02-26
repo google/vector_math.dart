@@ -34,7 +34,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Sides
     var base1 = 0;
-    final int base2 = _segments + 1;
+    final base2 = _segments + 1;
     for (var x = 0; x < _segments; ++x) {
       indices[i++] = base1 + x;
       indices[i++] = base1 + x + 1;
@@ -68,7 +68,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Top
     for (var x = 0; x <= _segments; ++x) {
-      final double u = x / _segments;
+      final u = x / _segments;
 
       positions[i++] = Vector3(_topRadius * math.cos(u * math.pi * 2.0),
           _height * 0.5, _topRadius * math.sin(u * math.pi * 2.0));
@@ -76,7 +76,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Bottom
     for (var x = 0; x <= _segments; ++x) {
-      final double u = x / _segments;
+      final u = x / _segments;
 
       positions[i++] = Vector3(_bottomRadius * math.cos(u * math.pi * 2.0),
           _height * -0.5, _bottomRadius * math.sin(u * math.pi * 2.0));
@@ -84,7 +84,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Top cap
     for (var x = 0; x < _segments; ++x) {
-      final double u = x / _segments;
+      final u = x / _segments;
 
       positions[i++] = Vector3(_topRadius * math.cos(u * math.pi * 2.0),
           _height * 0.5, _topRadius * math.sin(u * math.pi * 2.0));
@@ -92,7 +92,7 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Bottom cap
     for (var x = 0; x < _segments; ++x) {
-      final double u = x / _segments;
+      final u = x / _segments;
 
       positions[i++] = Vector3(_bottomRadius * math.cos(u * math.pi * 2.0),
           _height * -0.5, _bottomRadius * math.sin(u * math.pi * 2.0));
@@ -106,26 +106,26 @@ class CylinderGenerator extends GeometryGenerator {
 
     // Cylinder top
     for (var x = 0; x <= _segments; ++x) {
-      final double u = 1.0 - (x / _segments);
+      final u = 1.0 - (x / _segments);
       texCoords[i++] = Vector2(u, 0.0);
     }
 
     // Cylinder bottom
     for (var x = 0; x <= _segments; ++x) {
-      final double u = 1.0 - (x / _segments);
+      final u = 1.0 - (x / _segments);
       texCoords[i++] = Vector2(u, 1.0);
     }
 
     // Top cap
     for (var x = 0; x < _segments; ++x) {
-      final double r = (x / _segments) * math.pi * 2.0;
+      final r = (x / _segments) * math.pi * 2.0;
       texCoords[i++] =
           Vector2(math.cos(r) * 0.5 + 0.5, math.sin(r) * 0.5 + 0.5);
     }
 
     // Bottom cap
     for (var x = 0; x < _segments; ++x) {
-      final double r = (x / _segments) * math.pi * 2.0;
+      final r = (x / _segments) * math.pi * 2.0;
       texCoords[i++] =
           Vector2(math.cos(r) * 0.5 + 0.5, math.sin(r) * 0.5 + 0.5);
     }

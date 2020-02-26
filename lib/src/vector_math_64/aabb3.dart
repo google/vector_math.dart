@@ -125,7 +125,7 @@ class Aabb3 {
 
   /// Set the AABB to enclose a [obb].
   void setObb3(Obb3 obb) {
-    final Vector3 corner = Vector3.zero();
+    final corner = Vector3.zero();
 
     obb.copyCorner(0, corner);
     _min.setFrom(corner);
@@ -159,19 +159,19 @@ class Aabb3 {
     ray..copyAt(_min, limitMin)..copyAt(_max, limitMax);
 
     if (_max.x < _min.x) {
-      final double temp = _max.x;
+      final temp = _max.x;
       _max.x = _min.x;
       _min.x = temp;
     }
 
     if (_max.y < _min.y) {
-      final double temp = _max.y;
+      final temp = _max.y;
       _max.y = _min.y;
       _min.y = temp;
     }
 
     if (_max.z < _min.z) {
-      final double temp = _max.z;
+      final temp = _max.z;
       _max.z = _min.z;
       _min.z = temp;
     }
@@ -289,8 +289,8 @@ class Aabb3 {
 
   /// Return if this contains [other].
   bool containsAabb3(Aabb3 other) {
-    final Vector3 otherMax = other._max;
-    final Vector3 otherMin = other._min;
+    final otherMax = other._max;
+    final otherMin = other._min;
 
     return (_min.x < otherMin.x) &&
         (_min.y < otherMin.y) &&
@@ -302,9 +302,8 @@ class Aabb3 {
 
   /// Return if this contains [other].
   bool containsSphere(Sphere other) {
-    final Vector3 boxExtends = Vector3.all(other.radius);
-    final Aabb3 sphereBox =
-        Aabb3.centerAndHalfExtents(other._center, boxExtends);
+    final boxExtends = Vector3.all(other.radius);
+    final sphereBox = Aabb3.centerAndHalfExtents(other._center, boxExtends);
 
     return containsAabb3(sphereBox);
   }
@@ -326,8 +325,8 @@ class Aabb3 {
 
   /// Return if this intersects with [other].
   bool intersectsWithAabb3(Aabb3 other) {
-    final Vector3 otherMax = other._max;
-    final Vector3 otherMin = other._min;
+    final otherMax = other._max;
+    final otherMin = other._min;
 
     return (_min.x <= otherMax.x) &&
         (_min.y <= otherMax.y) &&
@@ -339,8 +338,8 @@ class Aabb3 {
 
   /// Return if this intersects with [other].
   bool intersectsWithSphere(Sphere other) {
-    final Vector3 center = other._center;
-    final double radius = other.radius;
+    final center = other._center;
+    final radius = other.radius;
     var d = 0.0;
     var e = 0.0;
 
@@ -375,19 +374,19 @@ class Aabb3 {
       (_max.z >= other.z);
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Vector3 _aabbCenter = Vector3.zero();
-  static final Vector3 _aabbHalfExtents = Vector3.zero();
-  static final Vector3 _v0 = Vector3.zero();
-  static final Vector3 _v1 = Vector3.zero();
-  static final Vector3 _v2 = Vector3.zero();
-  static final Vector3 _f0 = Vector3.zero();
-  static final Vector3 _f1 = Vector3.zero();
-  static final Vector3 _f2 = Vector3.zero();
-  static final Plane _trianglePlane = Plane();
+  static final _aabbCenter = Vector3.zero();
+  static final _aabbHalfExtents = Vector3.zero();
+  static final _v0 = Vector3.zero();
+  static final _v1 = Vector3.zero();
+  static final _v2 = Vector3.zero();
+  static final _f0 = Vector3.zero();
+  static final _f1 = Vector3.zero();
+  static final _f2 = Vector3.zero();
+  static final _trianglePlane = Plane();
 
-  static final Vector3 _u0 = Vector3(1.0, 0.0, 0.0);
-  static final Vector3 _u1 = Vector3(0.0, 1.0, 0.0);
-  static final Vector3 _u2 = Vector3(0.0, 0.0, 1.0);
+  static final _u0 = Vector3(1.0, 0.0, 0.0);
+  static final _u1 = Vector3(0.0, 1.0, 0.0);
+  static final _u2 = Vector3(0.0, 0.0, 1.0);
 
   /// Return if this intersects with [other].
   /// [epsilon] allows the caller to specify a custum eplsilon value that should
@@ -636,14 +635,14 @@ class Aabb3 {
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
     // Compute the projection interval radius of b onto L(t) = b.c + t * p.n
-    final double r = _aabbHalfExtents[0] * other.normal[0].abs() +
+    final r = _aabbHalfExtents[0] * other.normal[0].abs() +
         _aabbHalfExtents[1] * other.normal[1].abs() +
         _aabbHalfExtents[2] * other.normal[2].abs();
     // Compute distance of box center from plane
-    final double s = other.normal.dot(_aabbCenter) - other.constant;
+    final s = other.normal.dot(_aabbCenter) - other.constant;
     // Intersection occurs when distance s falls within [-r,+r] interval
     if (s.abs() <= r) {
-      final double a = s - r;
+      final a = s - r;
       if (result != null && (result._depth == null || result._depth < a)) {
         result._depth = a;
         result.axis.setFrom(other.normal);
@@ -655,8 +654,8 @@ class Aabb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Triangle _quadTriangle0 = Triangle();
-  static final Triangle _quadTriangle1 = Triangle();
+  static final _quadTriangle0 = Triangle();
+  static final _quadTriangle1 = Triangle();
 
   /// Return `true` if this intersects with [other].
   ///

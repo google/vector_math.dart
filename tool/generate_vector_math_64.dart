@@ -15,8 +15,8 @@ Future<Null> main() async {
 }
 
 Future<Null> generateVectorMath64() async {
-  final Directory directory = Directory('lib/src/vector_math_64/');
-  final File libraryFile = File('lib/vector_math_64.dart');
+  final directory = Directory('lib/src/vector_math_64/');
+  final libraryFile = File('lib/vector_math_64.dart');
 
   if (await directory.exists()) {
     await directory.delete(recursive: true);
@@ -38,18 +38,18 @@ Future<Null> generateVectorMath64() async {
 }
 
 Future<Null> _processFile(String inputFileName) async {
-  final File inputFile = File(inputFileName);
+  final inputFile = File(inputFileName);
 
-  final String input = await inputFile.readAsString();
-  final String output = _convertToVectorMath64(input);
+  final input = await inputFile.readAsString();
+  final output = _convertToVectorMath64(input);
 
-  final String outputFileName =
+  final outputFileName =
       inputFileName.replaceAll('vector_math', 'vector_math_64');
-  final Directory dir = Directory(p.dirname(outputFileName));
+  final dir = Directory(p.dirname(outputFileName));
 
   await dir.create(recursive: true);
 
-  final File outputFile = File(outputFileName);
+  final outputFile = File(outputFileName);
   await outputFile.writeAsString(output);
 }
 

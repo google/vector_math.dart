@@ -14,7 +14,7 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix4InstacingFromFloat32List() {
-  final Float32List float32List = Float32List.fromList([
+  final float32List = Float32List.fromList([
     1.0,
     2.0,
     3.0,
@@ -32,8 +32,8 @@ void testMatrix4InstacingFromFloat32List() {
     15.0,
     16.0
   ]);
-  final Matrix4 input = Matrix4.fromFloat32List(float32List);
-  final Matrix4 inputB = Matrix4.fromList(float32List);
+  final input = Matrix4.fromFloat32List(float32List);
+  final inputB = Matrix4.fromList(float32List);
   expect(input, equals(inputB));
 
   expect(input.storage[0], equals(1.0));
@@ -58,7 +58,7 @@ void testMatrix4InstacingFromFloat32List() {
 }
 
 void testMatrix4InstacingFromByteBuffer() {
-  final Float32List float32List = Float32List.fromList([
+  final float32List = Float32List.fromList([
     1.0,
     2.0,
     3.0,
@@ -77,10 +77,9 @@ void testMatrix4InstacingFromByteBuffer() {
     16.0,
     17.0
   ]);
-  final ByteBuffer buffer = float32List.buffer;
-  final Matrix4 zeroOffset = Matrix4.fromBuffer(buffer, 0);
-  final Matrix4 offsetVector =
-      Matrix4.fromBuffer(buffer, Float32List.bytesPerElement);
+  final buffer = float32List.buffer;
+  final zeroOffset = Matrix4.fromBuffer(buffer, 0);
+  final offsetVector = Matrix4.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.storage[0], equals(1.0));
   expect(zeroOffset.storage[1], equals(2.0));
@@ -475,10 +474,10 @@ void testMatrix4Inversion() {
 }
 
 void testMatrix4Dot() {
-  final Matrix4 matrix = Matrix4(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0,
-      10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0);
+  final matrix = Matrix4(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0,
+      11.0, 12.0, 13.0, 14.0, 15.0, 16.0);
 
-  final Vector4 v = Vector4(1.0, 2.0, 3.0, 4.0);
+  final v = Vector4(1.0, 2.0, 3.0, 4.0);
 
   expect(matrix.dotRow(0, v), equals(90.0));
   expect(matrix.dotRow(1, v), equals(100.0));
@@ -498,28 +497,27 @@ void testMatrix4PerspectiveTransform() {
 }
 
 void testMatrix4Solving() {
-  final Matrix4 A = Matrix4(2.0, 12.0, 8.0, 8.0, 20.0, 24.0, 26.0, 4.0, 8.0,
-      4.0, 60.0, 12.0, 16.0, 16.0, 14.0, 64.0);
+  final A = Matrix4(2.0, 12.0, 8.0, 8.0, 20.0, 24.0, 26.0, 4.0, 8.0, 4.0, 60.0,
+      12.0, 16.0, 16.0, 14.0, 64.0);
 
-  final Matrix3 A_small =
-      Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
+  final A_small = Matrix3(2.0, 12.0, 8.0, 20.0, 24.0, 26.0, 8.0, 4.0, 60.0);
 
-  final Vector4 b = Vector4(32.0, 64.0, 72.0, 8.0);
-  final Vector4 result = Vector4.zero();
+  final b = Vector4(32.0, 64.0, 72.0, 8.0);
+  final result = Vector4.zero();
 
-  final Vector3 b3 = Vector3(32.0, 64.0, 72.0);
-  final Vector3 result3 = Vector3.zero();
+  final b3 = Vector3(32.0, 64.0, 72.0);
+  final result3 = Vector3.zero();
 
-  final Vector2 b2 = Vector2(32.0, 64.0);
-  final Vector2 result2 = Vector2.zero();
+  final b2 = Vector2(32.0, 64.0);
+  final result2 = Vector2.zero();
 
   Matrix4.solve(A, result, b);
   Matrix4.solve3(A, result3, b3);
   Matrix4.solve2(A, result2, b2);
 
-  final Vector4 backwards = A.transform(Vector4.copy(result));
-  final Vector3 backwards3 = A.transform3(Vector3.copy(result3));
-  final Vector2 backwards2 = A_small.transform2(Vector2.copy(result2));
+  final backwards = A.transform(Vector4.copy(result));
+  final backwards3 = A.transform3(Vector3.copy(result3));
+  final backwards2 = A_small.transform2(Vector2.copy(result2));
 
   expect(backwards2.x, equals(b.x));
   expect(backwards2.y, equals(b.y));

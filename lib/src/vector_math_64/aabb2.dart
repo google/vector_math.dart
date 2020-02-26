@@ -136,8 +136,8 @@ class Aabb2 {
 
   /// Return if this contains [other].
   bool containsAabb2(Aabb2 other) {
-    final Vector2 otherMax = other._max;
-    final Vector2 otherMin = other._min;
+    final otherMax = other._max;
+    final otherMin = other._min;
 
     return (_min.x < otherMin.x) &&
         (_min.y < otherMin.y) &&
@@ -154,8 +154,8 @@ class Aabb2 {
 
   /// Return if this intersects with [other].
   bool intersectsWithAabb2(Aabb2 other) {
-    final Vector2 otherMax = other._max;
-    final Vector2 otherMin = other._min;
+    final otherMax = other._max;
+    final otherMin = other._min;
 
     return (_min.x <= otherMax.x) &&
         (_min.y <= otherMax.y) &&

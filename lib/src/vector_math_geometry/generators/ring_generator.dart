@@ -36,10 +36,10 @@ class RingGenerator extends GeometryGenerator {
 
   @override
   void generateVertexPositions(Vector3List positions, Uint16List indices) {
-    final Vector3 v = Vector3.zero();
+    final v = Vector3.zero();
     var index = 0;
     for (var i = 0; i <= _segments; i++) {
-      final double percent = i / _segments;
+      final percent = i / _segments;
       v
         ..x = _innerRadius * math.cos(_thetaStart + percent * _thetaLength)
         ..z = _innerRadius * math.sin(_thetaStart + percent * _thetaLength);
@@ -58,10 +58,10 @@ class RingGenerator extends GeometryGenerator {
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
     if (_stripTextureCoordinates) {
-      final Vector2 v = Vector2.zero();
+      final v = Vector2.zero();
       var index = 0;
       for (var i = 0; i <= _segments; i++) {
-        final double percent = i / _segments;
+        final percent = i / _segments;
         v
           ..x = 0.0
           ..y = percent;
@@ -74,7 +74,7 @@ class RingGenerator extends GeometryGenerator {
         index++;
       }
     } else {
-      final Vector2 v = Vector2.zero();
+      final v = Vector2.zero();
       var index = 0;
       for (var i = 0; i <= _segments; i++) {
         var position = positions[index];
@@ -101,7 +101,7 @@ class RingGenerator extends GeometryGenerator {
   @override
   void generateIndices(Uint16List indices) {
     var index = 0;
-    final int length = _segments * 2;
+    final length = _segments * 2;
     for (var i = 0; i < length; i += 2) {
       indices[index + 0] = i + 0;
       indices[index + 1] = i + 1;

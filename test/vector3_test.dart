@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testVector3InstacinfFromFloat32List() {
-  final Float32List float32List = Float32List.fromList([1.0, 2.0, 3.0]);
-  final Vector3 input = Vector3.fromFloat32List(float32List);
+  final float32List = Float32List.fromList([1.0, 2.0, 3.0]);
+  final input = Vector3.fromFloat32List(float32List);
 
   expect(input.x, equals(1.0));
   expect(input.y, equals(2.0));
@@ -22,11 +22,10 @@ void testVector3InstacinfFromFloat32List() {
 }
 
 void testVector3InstacingFromByteBuffer() {
-  final Float32List float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
-  final ByteBuffer buffer = float32List.buffer;
-  final Vector3 zeroOffset = Vector3.fromBuffer(buffer, 0);
-  final Vector3 offsetVector =
-      Vector3.fromBuffer(buffer, Float32List.bytesPerElement);
+  final float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0]);
+  final buffer = float32List.buffer;
+  final zeroOffset = Vector3.fromBuffer(buffer, 0);
+  final offsetVector = Vector3.fromBuffer(buffer, Float32List.bytesPerElement);
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
@@ -38,8 +37,8 @@ void testVector3InstacingFromByteBuffer() {
 }
 
 void testVector3Add() {
-  final Vector3 a = Vector3(5.0, 7.0, 3.0);
-  final Vector3 b = Vector3(3.0, 8.0, 2.0);
+  final a = Vector3(5.0, 7.0, 3.0);
+  final b = Vector3(3.0, 8.0, 2.0);
 
   a.add(b);
   expect(a.x, equals(8.0));
@@ -53,8 +52,8 @@ void testVector3Add() {
 }
 
 void testVector3MinMax() {
-  final Vector3 a = Vector3(5.0, 7.0, -3.0);
-  final Vector3 b = Vector3(3.0, 8.0, 2.0);
+  final a = Vector3(5.0, 7.0, -3.0);
+  final b = Vector3(3.0, 8.0, 2.0);
 
   var result = Vector3.zero();
 
@@ -70,8 +69,8 @@ void testVector3MinMax() {
 }
 
 void testVector3Mix() {
-  final Vector3 a = Vector3(5.0, 7.0, 3.0);
-  final Vector3 b = Vector3(3.0, 8.0, 2.0);
+  final a = Vector3(5.0, 7.0, 3.0);
+  final b = Vector3(3.0, 8.0, 2.0);
 
   var result = Vector3.zero();
 
@@ -208,7 +207,7 @@ void testVector3Constructor() {
 }
 
 void testVector3Length() {
-  final Vector3 a = Vector3(5.0, 7.0, 3.0);
+  final a = Vector3(5.0, 7.0, 3.0);
 
   relativeTest(a.length, 9.1104);
   relativeTest(a.length2, 83.0);

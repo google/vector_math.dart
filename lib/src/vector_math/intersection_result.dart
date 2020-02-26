@@ -11,7 +11,7 @@ class IntersectionResult {
   double get depth => _depth;
 
   /// The [axis] of the intersection.
-  final Vector3 axis = Vector3.zero();
+  final axis = Vector3.zero();
 
   IntersectionResult();
 }

@@ -8,10 +8,10 @@ part of vector_math_64;
 /// manipulating colors. In addition to that, some known colors can be accessed
 /// for fast prototyping.
 class Colors {
-  static final RegExp _hexStringFullRegex = RegExp(
+  static final _hexStringFullRegex = RegExp(
       r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})(?:([0-9a-f]{2}))?',
       caseSensitive: false);
-  static final RegExp _hexStringSmallRegex = RegExp(
+  static final _hexStringSmallRegex = RegExp(
       r'\#?([0-9a-f])([0-9a-f])([0-9a-f])(?:([0-9a-f]))?',
       caseSensitive: false);
 
@@ -26,42 +26,42 @@ class Colors {
   /// corresponding color value and store it in [result]. The first group is
   /// treated as the alpha channel if a [value] with four groups is passed.
   static void fromHexString(String value, Vector4 result) {
-    final Match fullMatch = _hexStringFullRegex.matchAsPrefix(value);
+    final fullMatch = _hexStringFullRegex.matchAsPrefix(value);
 
     if (fullMatch != null) {
       if (fullMatch[4] == null) {
-        final int r = int.parse(fullMatch[1], radix: 16);
-        final int g = int.parse(fullMatch[2], radix: 16);
-        final int b = int.parse(fullMatch[3], radix: 16);
+        final r = int.parse(fullMatch[1], radix: 16);
+        final g = int.parse(fullMatch[2], radix: 16);
+        final b = int.parse(fullMatch[3], radix: 16);
 
         fromRgba(r, g, b, 255, result);
         return;
       } else {
-        final int a = int.parse(fullMatch[1], radix: 16);
-        final int r = int.parse(fullMatch[2], radix: 16);
-        final int g = int.parse(fullMatch[3], radix: 16);
-        final int b = int.parse(fullMatch[4], radix: 16);
+        final a = int.parse(fullMatch[1], radix: 16);
+        final r = int.parse(fullMatch[2], radix: 16);
+        final g = int.parse(fullMatch[3], radix: 16);
+        final b = int.parse(fullMatch[4], radix: 16);
 
         fromRgba(r, g, b, a, result);
         return;
       }
     }
 
-    final Match smallMatch = _hexStringSmallRegex.matchAsPrefix(value);
+    final smallMatch = _hexStringSmallRegex.matchAsPrefix(value);
 
     if (smallMatch != null) {
       if (smallMatch[4] == null) {
-        final int r = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
-        final int g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
-        final int b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
+        final r = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
+        final g = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
+        final b = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
 
         fromRgba(r, g, b, 255, result);
         return;
       } else {
-        final int a = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
-        final int r = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
-        final int g = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
-        final int b = int.parse(smallMatch[4] + smallMatch[4], radix: 16);
+        final a = int.parse(smallMatch[1] + smallMatch[1], radix: 16);
+        final r = int.parse(smallMatch[2] + smallMatch[2], radix: 16);
+        final g = int.parse(smallMatch[3] + smallMatch[3], radix: 16);
+        final b = int.parse(smallMatch[4] + smallMatch[4], radix: 16);
 
         fromRgba(r, g, b, a, result);
         return;
@@ -77,25 +77,25 @@ class Colors {
   /// (default false).
   static String toHexString(Vector4 input,
       {bool alpha = false, bool short = false}) {
-    final int r = (input.r * 0xFF).floor() & 0xFF;
-    final int g = (input.g * 0xFF).floor() & 0xFF;
-    final int b = (input.b * 0xFF).floor() & 0xFF;
-    final int a = (input.a * 0xFF).floor() & 0xFF;
+    final r = (input.r * 0xFF).floor() & 0xFF;
+    final g = (input.g * 0xFF).floor() & 0xFF;
+    final b = (input.b * 0xFF).floor() & 0xFF;
+    final a = (input.a * 0xFF).floor() & 0xFF;
 
-    final bool isShort = short &&
+    final isShort = short &&
         ((r >> 4) == (r & 0xF)) &&
         ((g >> 4) == (g & 0xF)) &&
         ((b >> 4) == (b & 0xF)) &&
         (!alpha || (a >> 4) == (a & 0xF));
 
     if (isShort) {
-      final String rgb = (r & 0xF).toRadixString(16) +
+      final rgb = (r & 0xF).toRadixString(16) +
           (g & 0xF).toRadixString(16) +
           (b & 0xF).toRadixString(16);
 
       return alpha ? (a & 0xF).toRadixString(16) + rgb : rgb;
     } else {
-      final String rgb = r.toRadixString(16).padLeft(2, '0') +
+      final rgb = r.toRadixString(16).padLeft(2, '0') +
           g.toRadixString(16).padLeft(2, '0') +
           b.toRadixString(16).padLeft(2, '0');
 
@@ -107,16 +107,16 @@ class Colors {
   /// in [result].
   static void alphaBlend(
       Vector4 foreground, Vector4 background, Vector4 result) {
-    final double a = foreground.a + (1.0 - foreground.a) * background.a;
-    final double factor = 1.0 / a;
+    final a = foreground.a + (1.0 - foreground.a) * background.a;
+    final factor = 1.0 / a;
 
-    final double r = factor *
+    final r = factor *
         (foreground.a * foreground.r +
             (1.0 - foreground.a) * background.a * background.r);
-    final double g = factor *
+    final g = factor *
         (foreground.a * foreground.g +
             (1.0 - foreground.a) * background.a * background.g);
-    final double b = factor *
+    final b = factor *
         (foreground.a * foreground.b +
             (1.0 - foreground.a) * background.a * background.b);
 
@@ -125,7 +125,7 @@ class Colors {
 
   /// Convert a [input] color to a gray scaled color and store it in [result].
   static void toGrayscale(Vector4 input, Vector4 result) {
-    final double value = 0.21 * input.r + 0.71 * input.g + 0.07 * input.b;
+    final value = 0.21 * input.r + 0.71 * input.g + 0.07 * input.b;
 
     result
       ..r = value
@@ -139,7 +139,7 @@ class Colors {
   /// the default value is 2.2.
   static void linearToGamma(Vector4 linearColor, Vector4 gammaColor,
       [double gamma = 2.2]) {
-    final double exponent = 1.0 / gamma;
+    final exponent = 1.0 / gamma;
 
     gammaColor
       ..r = math.pow(linearColor.r, exponent).toDouble()
@@ -163,11 +163,11 @@ class Colors {
   /// Convert [rgbColor] from rgb color model to the hue, saturation, and value
   /// (HSV) color model and store it in [hsvColor].
   static void rgbToHsv(Vector4 rgbColor, Vector4 hsvColor) {
-    final double max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
-    final double min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
-    final double d = max - min;
-    final double v = max;
-    final double s = max == 0.0 ? 0.0 : d / max;
+    final max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
+    final min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
+    final d = max - min;
+    final v = max;
+    final s = max == 0.0 ? 0.0 : d / max;
     var h = 0.0;
 
     if (max != min) {
@@ -189,11 +189,11 @@ class Colors {
   /// Convert [hsvColor] from hue, saturation, and value (HSV) color model to
   /// the RGB color model and store it in [rgbColor].
   static void hsvToRgb(Vector4 hsvColor, Vector4 rgbColor) {
-    final int i = (hsvColor.x * 6.0).floor();
-    final double f = hsvColor.x * 6.0 - i.toDouble();
-    final double p = hsvColor.z * (1.0 - hsvColor.y);
-    final double q = hsvColor.z * (1.0 - f * hsvColor.y);
-    final double t = hsvColor.z * (1.0 - (1.0 - f) * hsvColor.y);
+    final i = (hsvColor.x * 6.0).floor();
+    final f = hsvColor.x * 6.0 - i.toDouble();
+    final p = hsvColor.z * (1.0 - hsvColor.y);
+    final q = hsvColor.z * (1.0 - f * hsvColor.y);
+    final t = hsvColor.z * (1.0 - (1.0 - f) * hsvColor.y);
 
     switch (i % 6) {
       case 0:
@@ -220,14 +220,14 @@ class Colors {
   /// Convert [rgbColor] from rgb color model to the hue, saturation, and
   /// lightness (HSL) color model and store it in [hslColor].
   static void rgbToHsl(Vector4 rgbColor, Vector4 hslColor) {
-    final double max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
-    final double min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
-    final double l = (max + min) / 2.0;
+    final max = math.max(math.max(rgbColor.r, rgbColor.g), rgbColor.b);
+    final min = math.min(math.min(rgbColor.r, rgbColor.g), rgbColor.b);
+    final l = (max + min) / 2.0;
     var h = 0.0;
     var s = 0.0;
 
     if (max != min) {
-      final double d = max - min;
+      final d = max - min;
 
       s = l > 0.5 ? d / (2.0 - max - min) : d / (max + min);
 
@@ -252,14 +252,14 @@ class Colors {
     if (hslColor.y == 0.0) {
       rgbColor.setValues(hslColor.z, hslColor.z, hslColor.z, hslColor.a);
     } else {
-      final double q = hslColor.z < 0.5
+      final q = hslColor.z < 0.5
           ? hslColor.z * (1.0 + hslColor.y)
           : hslColor.z + hslColor.y - hslColor.z * hslColor.y;
-      final double p = 2.0 * hslColor.z - q;
+      final p = 2.0 * hslColor.z - q;
 
-      final double r = _hueToRgb(p, q, hslColor.x + 1.0 / 3.0);
-      final double g = _hueToRgb(p, q, hslColor.x);
-      final double b = _hueToRgb(p, q, hslColor.x - 1.0 / 3.0);
+      final r = _hueToRgb(p, q, hslColor.x + 1.0 / 3.0);
+      final g = _hueToRgb(p, q, hslColor.x);
+      final b = _hueToRgb(p, q, hslColor.x - 1.0 / 3.0);
 
       rgbColor.setValues(r, g, b, hslColor.a);
     }

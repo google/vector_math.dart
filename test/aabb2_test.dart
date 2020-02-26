@@ -154,7 +154,7 @@ void testAabb2HullPoint() {
   expect(a.max.x, equals(6.0));
   expect(a.max.y, equals(4.0));
 
-  final Vector2 c = $v2(0.0, 1.0);
+  final c = $v2(0.0, 1.0);
 
   a.hullPoint(c);
 

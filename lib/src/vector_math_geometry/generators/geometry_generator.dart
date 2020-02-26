@@ -31,7 +31,7 @@ abstract class GeometryGenerator {
     Vector3List normalView;
     Vector4List tangentView;
 
-    final List<VertexAttrib> attribs = <VertexAttrib>[];
+    final attribs = <VertexAttrib>[];
 
     positionAttrib = VertexAttrib('POSITION', 3, 'float');
     attribs.add(positionAttrib);
@@ -106,7 +106,7 @@ abstract class GeometryGenerator {
   void generateVertexTexCoords(
       Vector2List texCoords, Vector3List positions, Uint16List indices) {
     for (var i = 0; i < positions.length; ++i) {
-      final Vector3 p = positions[i];
+      final p = positions[i];
 
       // These are TERRIBLE texture coords, but it's better than nothing.
       // Override this function and put better ones in place!

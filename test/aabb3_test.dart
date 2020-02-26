@@ -304,7 +304,7 @@ void testAabb3HullPoint() {
   expect(a.max.y, equals(4.0));
   expect(a.max.z, equals(10.0));
 
-  final Vector3 c = $v3(6.0, 0.0, 2.0);
+  final c = $v3(6.0, 0.0, 2.0);
 
   a.hullPoint(c);
 

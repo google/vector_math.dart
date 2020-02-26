@@ -9,7 +9,7 @@ part of vector_math_64;
 /// be any vector, matrix, or quaternion.
 double relativeError(dynamic calculated, dynamic correct) {
   if (calculated is num && correct is num) {
-    final double diff = (calculated - correct).abs().toDouble();
+    final diff = (calculated - correct).abs().toDouble();
     return diff / correct;
   }
   // ignore: return_of_invalid_type
@@ -21,7 +21,7 @@ double relativeError(dynamic calculated, dynamic correct) {
 /// be any vector, matrix, or quaternion.
 double absoluteError(dynamic calculated, dynamic correct) {
   if (calculated is num && correct is num) {
-    final double diff = (calculated - correct).abs().toDouble();
+    final diff = (calculated - correct).abs().toDouble();
     return diff;
   }
   // ignore: return_of_invalid_type

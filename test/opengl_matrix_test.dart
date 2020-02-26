@@ -61,10 +61,10 @@ void testFrustumMatrix() {
 }
 
 void testPerspectiveMatrix() {
-  final double fov = pi / 2;
-  final double aspectRatio = 2.0;
-  final double zNear = 1.0;
-  final double zFar = 100.0;
+  final fov = pi / 2;
+  final aspectRatio = 2.0;
+  final zNear = 1.0;
+  final zFar = 100.0;
 
   var perspective = makePerspectiveMatrix(fov, aspectRatio, zNear, zFar);
   relativeTest(perspective.getColumn(0), Vector4(0.5, 0.0, 0.0, 0.0));
@@ -75,9 +75,9 @@ void testPerspectiveMatrix() {
 }
 
 void testInfiniteMatrix() {
-  final double fov = pi / 2;
-  final double aspectRatio = 2.0;
-  final double zNear = 1.0;
+  final fov = pi / 2;
+  final aspectRatio = 2.0;
+  final zNear = 1.0;
 
   var infinite = makeInfiniteMatrix(fov, aspectRatio, zNear);
   relativeTest(infinite.getColumn(0), Vector4(0.5, 0.0, 0.0, 0.0));

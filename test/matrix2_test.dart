@@ -80,9 +80,9 @@ void testMatrix2Inversion() {
 }
 
 void testMatrix2Dot() {
-  final Matrix2 matrix = Matrix2(1.0, 2.0, 3.0, 4.0);
+  final matrix = Matrix2(1.0, 2.0, 3.0, 4.0);
 
-  final Vector2 v = Vector2(3.0, 4.0);
+  final v = Vector2(3.0, 4.0);
 
   expect(matrix.dotRow(0, v), equals(15.0));
   expect(matrix.dotRow(1, v), equals(22.0));
@@ -101,15 +101,15 @@ void testMatrix2Scale() {
 }
 
 void testMatrix2Solving() {
-  final Matrix2 A = Matrix2(2.0, 2.0, 8.0, 20.0);
-  final Matrix2 AA = Matrix2.fromList([2.0, 2.0, 8.0, 20.0]);
+  final A = Matrix2(2.0, 2.0, 8.0, 20.0);
+  final AA = Matrix2.fromList([2.0, 2.0, 8.0, 20.0]);
   expect(A, equals(AA));
-  final Vector2 b = Vector2(20.0, 64.0);
-  final Vector2 result = Vector2.zero();
+  final b = Vector2(20.0, 64.0);
+  final result = Vector2.zero();
 
   Matrix2.solve(A, result, b);
 
-  final Vector2 backwards = A.transform(Vector2.copy(result));
+  final backwards = A.transform(Vector2.copy(result));
 
   expect(backwards.x, equals(b.x));
   expect(backwards.y, equals(b.y));

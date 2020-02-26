@@ -46,7 +46,7 @@ class Triangle {
 
   /// Copy the normal of this into [normal].
   void copyNormalInto(Vector3 normal) {
-    final Vector3 v0 = point0.clone()..sub(point1);
+    final v0 = point0.clone()..sub(point1);
     normal
       ..setFrom(point2)
       ..sub(point1)

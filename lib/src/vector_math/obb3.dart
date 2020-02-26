@@ -169,7 +169,7 @@ class Obb3 {
 
   /// Find the closest point [q] on the OBB to the point [p] and store it in [q].
   void closestPointTo(Vector3 p, Vector3 q) {
-    final Vector3 d = p - _center;
+    final d = p - _center;
 
     q.setFrom(_center);
 
@@ -187,9 +187,9 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithObb3
-  static final Matrix3 _r = Matrix3.zero();
-  static final Matrix3 _absR = Matrix3.zero();
-  static final Vector3 _t = Vector3.zero();
+  static final _r = Matrix3.zero();
+  static final _absR = Matrix3.zero();
+  static final _t = Vector3.zero();
 
   /// Check for intersection between this and [other].
   bool intersectsWithObb3(Obb3 other, [double epsilon = 1e-3]) {
@@ -339,9 +339,9 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Triangle _triangle = Triangle();
-  static final Aabb3 _aabb3 = Aabb3();
-  static final Vector3 _zeroVector = Vector3.zero();
+  static final _triangle = Triangle();
+  static final _aabb3 = Aabb3();
+  static final _zeroVector = Vector3.zero();
 
   /// Return if this intersects with [other]
   bool intersectsWithTriangle(Triangle other, {IntersectionResult result}) {
@@ -366,7 +366,7 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithVector3
-  static final Vector3 _vector = Vector3.zero();
+  static final _vector = Vector3.zero();
 
   /// Return if this intersects with [other]
   bool intersectsWithVector3(Vector3 other) {
@@ -381,8 +381,8 @@ class Obb3 {
   }
 
   // Avoid allocating these instance on every call to intersectsWithTriangle
-  static final Triangle _quadTriangle0 = Triangle();
-  static final Triangle _quadTriangle1 = Triangle();
+  static final _quadTriangle0 = Triangle();
+  static final _quadTriangle1 = Triangle();
 
   /// Return if this intersects with [other]
   bool intersectsWithQuad(Quad other, {IntersectionResult result}) {

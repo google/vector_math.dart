@@ -54,7 +54,7 @@ class Quad {
 
   /// Copy the normal of this into [normal].
   void copyNormalInto(Vector3 normal) {
-    final Vector3 v0 = _point0.clone()..sub(_point1);
+    final v0 = _point0.clone()..sub(_point1);
     normal
       ..setFrom(_point2)
       ..sub(_point1)

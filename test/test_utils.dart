@@ -15,14 +15,14 @@ Vector3 $v3(double x, double y, double z) => Vector3(x, y, z);
 Vector4 $v4(double x, double y, double z, double w) => Vector4(x, y, z, w);
 
 void relativeTest(dynamic output, dynamic expectedOutput) {
-  final num errorThreshold = 0.0005;
+  final errorThreshold = 0.0005;
   num error = relativeError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : relativeError = $error');
 }
 
 void absoluteTest(dynamic output, dynamic expectedOutput) {
-  final num errorThreshold = 0.0005;
+  final errorThreshold = 0.0005;
   num error = absoluteError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : absoluteError = $error');

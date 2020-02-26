@@ -19,7 +19,7 @@ class ScalarListView {
   Float32List get buffer => _buffer;
 
   static int _listLength(int offset, int stride, int length) {
-    final int width = stride == 0 ? 1 : stride;
+    final width = stride == 0 ? 1 : stride;
     return offset + width * length;
   }
 
@@ -69,7 +69,7 @@ class ScalarListView {
 
   /// Store [value] in the list at [index].
   void store(int index, double value) {
-    final int i = _elementIndexToBufferIndex(index);
+    final i = _elementIndexToBufferIndex(index);
     _buffer[i] = value;
   }
 

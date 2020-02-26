@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 import 'package:vector_math/vector_math.dart';
 
 void testSimplexNoise() {
-  final SimplexNoise noise = SimplexNoise();
+  final noise = SimplexNoise();
 
   var values2D = List<double>(10);
   var values3D = List<double>(10);
