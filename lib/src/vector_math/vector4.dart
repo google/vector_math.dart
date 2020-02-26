@@ -204,7 +204,7 @@ class Vector4 implements Vector {
 
   /// Normalizes this. Returns length of vector before normalization.
   /// DEPRCATED: Use [normalize].
-  @deprecated
+  @Deprecated('Use normalize instead.')
   double normalizeLength() => normalize();
 
   /// Normalizes copy of this.

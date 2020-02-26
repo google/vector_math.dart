@@ -10,8 +10,8 @@ library vector_math_geometry;
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'package:vector_math/vector_math.dart';
-import 'package:vector_math/vector_math_lists.dart';
+import 'vector_math.dart';
+import 'vector_math_lists.dart';
 
 part 'src/vector_math_geometry/mesh_geometry.dart';
 

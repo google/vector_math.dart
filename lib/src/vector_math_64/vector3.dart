@@ -180,7 +180,7 @@ class Vector3 implements Vector {
 
   /// Normalize this. Returns length of vector before normalization.
   /// DEPRCATED: Use [normalize].
-  @deprecated
+  @Deprecated('Use normalize instead.')
   double normalizeLength() => normalize();
 
   /// Normalizes copy of this.
