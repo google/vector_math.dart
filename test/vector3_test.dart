@@ -55,7 +55,7 @@ void testVector3MinMax() {
   final a = Vector3(5.0, 7.0, -3.0);
   final b = Vector3(3.0, 8.0, 2.0);
 
-  var result = Vector3.zero();
+  final result = Vector3.zero();
 
   Vector3.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -72,7 +72,7 @@ void testVector3Mix() {
   final a = Vector3(5.0, 7.0, 3.0);
   final b = Vector3(3.0, 8.0, 2.0);
 
-  var result = Vector3.zero();
+  final result = Vector3.zero();
 
   Vector3.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -91,9 +91,9 @@ void testVector3Mix() {
 }
 
 void testVector3DotProduct() {
-  var inputA = <Vector3>[];
-  var inputB = <Vector3>[];
-  var expectedOutput = <double>[];
+  final inputA = <Vector3>[];
+  final inputB = <Vector3>[];
+  final expectedOutput = <double>[];
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
                                      0.902716109915281'''));
@@ -104,22 +104,22 @@ void testVector3DotProduct() {
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
   for (var i = 0; i < inputA.length; i++) {
-    var output1 = dot3(inputA[i], inputB[i]);
-    var output2 = dot3(inputB[i], inputA[i]);
+    final output1 = dot3(inputA[i], inputB[i]);
+    final output2 = dot3(inputB[i], inputA[i]);
     relativeTest(output1, expectedOutput[i]);
     relativeTest(output2, expectedOutput[i]);
   }
 }
 
 void testVector3Postmultiplication() {
-  var inputMatrix =
+  final inputMatrix =
       (Matrix3.rotationX(.4)) * (Matrix3.rotationZ(.5)) as Matrix3;
-  var inputVector = Vector3(1.0, 2.0, 3.0);
-  var inputInv = Matrix3.copy(inputMatrix);
+  final inputVector = Vector3(1.0, 2.0, 3.0);
+  final inputInv = Matrix3.copy(inputMatrix);
   inputInv.invert();
-  var resultOld = inputMatrix.transposed() * inputVector as Vector3;
-  var resultOldvInv = inputInv * inputVector as Vector3;
-  var resultNew = inputVector..postmultiply(inputMatrix);
+  final resultOld = inputMatrix.transposed() * inputVector as Vector3;
+  final resultOldvInv = inputInv * inputVector as Vector3;
+  final resultNew = inputVector..postmultiply(inputMatrix);
 
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
@@ -130,9 +130,9 @@ void testVector3Postmultiplication() {
 }
 
 void testVector3CrossProduct() {
-  var inputA = <Vector3>[];
-  var inputB = <Vector3>[];
-  var expectedOutput = <Vector3>[];
+  final inputA = <Vector3>[];
+  final inputB = <Vector3>[];
+  final expectedOutput = <Vector3>[];
 
   inputA.add(parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
@@ -158,15 +158,15 @@ void testVector3CrossProduct() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = Vector3.zero();
+    final output = Vector3.zero();
     cross3(inputA[i], inputB[i], output);
     relativeTest(output, expectedOutput[i]);
   }
 
   {
-    var x = Vector3(1.0, 0.0, 0.0);
-    var y = Vector3(0.0, 1.0, 0.0);
-    var z = Vector3(0.0, 0.0, 1.0);
+    final x = Vector3(1.0, 0.0, 0.0);
+    final y = Vector3(0.0, 1.0, 0.0);
+    final z = Vector3(0.0, 0.0, 1.0);
     Vector3 output;
 
     output = x.cross(y);
@@ -187,17 +187,17 @@ void testVector3CrossProduct() {
 }
 
 void testVector3Constructor() {
-  var v1 = Vector3(2.0, 4.0, -1.5);
+  final v1 = Vector3(2.0, 4.0, -1.5);
   expect(v1.x, equals(2.0));
   expect(v1.y, equals(4.0));
   expect(v1.z, equals(-1.5));
 
-  var v2 = Vector3.all(2.0);
+  final v2 = Vector3.all(2.0);
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
 
-  var v3 = Vector3.random(math.Random());
+  final v3 = Vector3.random(math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -244,7 +244,7 @@ void testVector3SetLength() {
 }
 
 void testVector3Negate() {
-  var vec3 = Vector4(1.0, 2.0, 3.0, 4.0);
+  final vec3 = Vector4(1.0, 2.0, 3.0, 4.0);
   vec3.negate();
   expect(vec3.x, equals(-1.0));
   expect(vec3.y, equals(-2.0));
@@ -253,7 +253,7 @@ void testVector3Negate() {
 }
 
 void testVector3Equals() {
-  var v3 = Vector3(1.0, 2.0, 3.0);
+  final v3 = Vector3(1.0, 2.0, 3.0);
   expect(v3 == Vector3(1.0, 2.0, 3.0), isTrue);
   expect(v3 == Vector3(0.0, 2.0, 3.0), isFalse);
   expect(v3 == Vector3(1.0, 0.0, 3.0), isFalse);
@@ -319,10 +319,10 @@ void testVector3Reflect() {
 }
 
 void testVector3Projection() {
-  var v = Vector3(1.0, 1.0, 1.0);
-  var a = 2.0 / 3.0;
-  var b = 1.0 / 3.0;
-  var m =
+  final v = Vector3(1.0, 1.0, 1.0);
+  final a = 2.0 / 3.0;
+  final b = 1.0 / 3.0;
+  final m =
       Matrix4(a, b, -b, 0.0, b, a, b, 0.0, -b, b, a, 0.0, 0.0, 0.0, 0.0, 1.0);
 
   v.applyProjection(m);
@@ -332,18 +332,18 @@ void testVector3Projection() {
 }
 
 void testVector3DistanceTo() {
-  var a = Vector3(1.0, 1.0, 1.0);
-  var b = Vector3(1.0, 3.0, 1.0);
-  var c = Vector3(1.0, 1.0, -1.0);
+  final a = Vector3(1.0, 1.0, 1.0);
+  final b = Vector3(1.0, 3.0, 1.0);
+  final c = Vector3(1.0, 1.0, -1.0);
 
   expect(a.distanceTo(b), equals(2.0));
   expect(a.distanceTo(c), equals(2.0));
 }
 
 void testVector3DistanceToSquared() {
-  var a = Vector3(1.0, 1.0, 1.0);
-  var b = Vector3(1.0, 3.0, 1.0);
-  var c = Vector3(1.0, 1.0, -1.0);
+  final a = Vector3(1.0, 1.0, 1.0);
+  final b = Vector3(1.0, 3.0, 1.0);
+  final c = Vector3(1.0, 1.0, -1.0);
 
   expect(a.distanceToSquared(b), equals(4.0));
   expect(a.distanceToSquared(c), equals(4.0));

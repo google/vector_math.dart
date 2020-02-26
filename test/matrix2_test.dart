@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix2Adjoint() {
-  var input = <Matrix2>[];
-  var expectedOutput = <Matrix2>[];
+  final input = <Matrix2>[];
+  final expectedOutput = <Matrix2>[];
 
   input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
                                     0.585264091152724   0.917193663829810'''));
@@ -29,15 +29,15 @@ void testMatrix2Adjoint() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    var output = input[i].clone();
+    final output = input[i].clone();
     output.scaleAdjoint(1.0);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix2Determinant() {
-  var input = <Matrix2>[];
-  var expectedOutput = <double>[];
+  final input = <Matrix2>[];
+  final expectedOutput = <double>[];
 
   input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
                                     0.585264091152724   0.917193663829810'''));
@@ -46,14 +46,14 @@ void testMatrix2Determinant() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    var output = input[i].determinant();
+    final output = input[i].determinant();
     //print('${input[i].cols}x${input[i].rows} = $output');
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix2Transform() {
-  var rot = Matrix2.rotation(math.pi / 4);
+  final rot = Matrix2.rotation(math.pi / 4);
   final input = Vector2(0.234245234259, 0.890723489233);
 
   final expected = Vector2(
@@ -69,9 +69,9 @@ void testMatrix2Transform() {
 }
 
 void testMatrix2Inversion() {
-  var m = Matrix2(4.0, 3.0, 3.0, 2.0);
-  var result = Matrix2.zero();
-  var det = result.copyInverse(m);
+  final m = Matrix2(4.0, 3.0, 3.0, 2.0);
+  final result = Matrix2.zero();
+  final det = result.copyInverse(m);
   expect(det, -1.0);
   expect(result.entry(0, 0), -2.0);
   expect(result.entry(1, 0), 3.0);

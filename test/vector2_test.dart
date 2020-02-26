@@ -50,7 +50,7 @@ void testVector2MinMax() {
   final a = Vector2(5.0, 7.0);
   final b = Vector2(3.0, 8.0);
 
-  var result = Vector2.zero();
+  final result = Vector2.zero();
 
   Vector2.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -65,7 +65,7 @@ void testVector2Mix() {
   final a = Vector2(5.0, 7.0);
   final b = Vector2(3.0, 8.0);
 
-  var result = Vector2.zero();
+  final result = Vector2.zero();
 
   Vector2.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -89,15 +89,15 @@ void testVector2DotProduct() {
 }
 
 void testVector2Postmultiplication() {
-  var inputMatrix = Matrix2.rotation(.2);
-  var inputVector = Vector2(1.0, 0.0);
-  var inputInv = Matrix2.copy(inputMatrix);
+  final inputMatrix = Matrix2.rotation(.2);
+  final inputVector = Vector2(1.0, 0.0);
+  final inputInv = Matrix2.copy(inputMatrix);
   inputInv.invert();
   // print("input $inputMatrix");
   // print("input $inputInv");
-  var resultOld = inputMatrix.transposed() * inputVector as Vector2;
-  var resultOldvInv = inputInv * inputVector as Vector2;
-  var resultNew = inputVector..postmultiply(inputMatrix);
+  final resultOld = inputMatrix.transposed() * inputVector as Vector2;
+  final resultOldvInv = inputInv * inputVector as Vector2;
+  final resultNew = inputVector..postmultiply(inputMatrix);
   expect(resultNew.x, equals(resultOld.x));
   expect(resultNew.y, equals(resultOld.y));
   //matrix inversion can introduce a small error
@@ -107,7 +107,7 @@ void testVector2Postmultiplication() {
 void testVector2CrossProduct() {
   final inputA = Vector2(0.417267069084370, 0.049654430325742);
   final inputB = Vector2(0.944787189721646, 0.490864092468080);
-  var expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
+  final expectedOutputCross = inputA.x * inputB.y - inputA.y * inputB.x;
   dynamic result;
   result = cross2(inputA, inputB);
   relativeTest(result, expectedOutputCross);
@@ -136,15 +136,15 @@ void testVector2OrthogonalScale() {
 }
 
 void testVector2Constructor() {
-  var v1 = Vector2(2.0, 4.0);
+  final v1 = Vector2(2.0, 4.0);
   expect(v1.x, equals(2.0));
   expect(v1.y, equals(4.0));
 
-  var v2 = Vector2.all(2.0);
+  final v2 = Vector2.all(2.0);
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
 
-  var v3 = Vector2.random(math.Random());
+  final v3 = Vector2.random(math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -186,14 +186,14 @@ void testVector2SetLength() {
 }
 
 void testVector2Negate() {
-  var vec1 = Vector2(1.0, 2.0);
+  final vec1 = Vector2(1.0, 2.0);
   vec1.negate();
   expect(vec1.x, equals(-1.0));
   expect(vec1.y, equals(-2.0));
 }
 
 void testVector2Equals() {
-  var v2 = Vector2(1.0, 2.0);
+  final v2 = Vector2(1.0, 2.0);
   expect(v2 == Vector2(1.0, 2.0), isTrue);
   expect(v2 == Vector2(1.0, 0.0), isFalse);
   expect(v2 == Vector2(0.0, 2.0), isFalse);
@@ -233,18 +233,18 @@ void testVector2Reflect() {
 }
 
 void testVector2DistanceTo() {
-  var a = Vector2(1.0, 1.0);
-  var b = Vector2(3.0, 1.0);
-  var c = Vector2(1.0, -1.0);
+  final a = Vector2(1.0, 1.0);
+  final b = Vector2(3.0, 1.0);
+  final c = Vector2(1.0, -1.0);
 
   expect(a.distanceTo(b), equals(2.0));
   expect(a.distanceTo(c), equals(2.0));
 }
 
 void testVector2DistanceToSquared() {
-  var a = Vector2(1.0, 1.0);
-  var b = Vector2(3.0, 1.0);
-  var c = Vector2(1.0, -1.0);
+  final a = Vector2(1.0, 1.0);
+  final b = Vector2(3.0, 1.0);
+  final c = Vector2(1.0, -1.0);
 
   expect(a.distanceToSquared(b), equals(4.0));
   expect(a.distanceToSquared(c), equals(4.0));

@@ -40,7 +40,7 @@ void testScalarListView() {
 }
 
 void testScalarListViewFromList() {
-  var input = List<double>(3);
+  final input = List<double>(3);
   input[0] = 1.0;
   input[1] = 4.0;
   input[2] = 7.0;

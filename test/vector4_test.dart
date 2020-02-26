@@ -60,7 +60,7 @@ void testVector4MinMax() {
   final a = Vector4(5.0, 7.0, -3.0, 10.0);
   final b = Vector4(3.0, 8.0, 2.0, 2.0);
 
-  var result = Vector4.zero();
+  final result = Vector4.zero();
 
   Vector4.min(a, b, result);
   expect(result.x, equals(3.0));
@@ -79,7 +79,7 @@ void testVector4Mix() {
   final a = Vector4(5.0, 7.0, 3.0, 10.0);
   final b = Vector4(3.0, 8.0, 2.0, 2.0);
 
-  var result = Vector4.zero();
+  final result = Vector4.zero();
 
   Vector4.mix(a, b, 0.5, result);
   expect(result.x, equals(4.0));
@@ -101,19 +101,19 @@ void testVector4Mix() {
 }
 
 void testVector4Constructor() {
-  var v1 = Vector4(2.0, 4.0, -1.5, 10.0);
+  final v1 = Vector4(2.0, 4.0, -1.5, 10.0);
   expect(v1.x, equals(2.0));
   expect(v1.y, equals(4.0));
   expect(v1.z, equals(-1.5));
   expect(v1.w, equals(10.0));
 
-  var v2 = Vector4.all(2.0);
+  final v2 = Vector4.all(2.0);
   expect(v2.x, equals(2.0));
   expect(v2.y, equals(2.0));
   expect(v2.z, equals(2.0));
   expect(v2.w, equals(2.0));
 
-  var v3 = Vector4.random(math.Random());
+  final v3 = Vector4.random(math.Random());
   expect(v3.x, greaterThanOrEqualTo(0.0));
   expect(v3.x, lessThanOrEqualTo(1.0));
   expect(v3.y, greaterThanOrEqualTo(0.0));
@@ -167,7 +167,7 @@ void testVector4SetLength() {
 }
 
 void testVector4Negate() {
-  var vec3 = Vector4(1.0, 2.0, 3.0, 4.0);
+  final vec3 = Vector4(1.0, 2.0, 3.0, 4.0);
   vec3.negate();
   expect(vec3.x, equals(-1.0));
   expect(vec3.y, equals(-2.0));
@@ -176,7 +176,7 @@ void testVector4Negate() {
 }
 
 void testVector4Equals() {
-  var v4 = Vector4(1.0, 2.0, 3.0, 4.0);
+  final v4 = Vector4(1.0, 2.0, 3.0, 4.0);
   expect(v4 == Vector4(1.0, 2.0, 3.0, 4.0), isTrue);
   expect(v4 == Vector4(0.0, 2.0, 3.0, 4.0), isFalse);
   expect(v4 == Vector4(1.0, 0.0, 3.0, 4.0), isFalse);
@@ -187,18 +187,18 @@ void testVector4Equals() {
 }
 
 void testVector4DistanceTo() {
-  var a = Vector4(1.0, 1.0, 1.0, 0.0);
-  var b = Vector4(1.0, 3.0, 1.0, 0.0);
-  var c = Vector4(1.0, 1.0, -1.0, 0.0);
+  final a = Vector4(1.0, 1.0, 1.0, 0.0);
+  final b = Vector4(1.0, 3.0, 1.0, 0.0);
+  final c = Vector4(1.0, 1.0, -1.0, 0.0);
 
   expect(a.distanceTo(b), equals(2.0));
   expect(a.distanceTo(c), equals(2.0));
 }
 
 void testVector4DistanceToSquared() {
-  var a = Vector4(1.0, 1.0, 1.0, 0.0);
-  var b = Vector4(1.0, 3.0, 1.0, 0.0);
-  var c = Vector4(1.0, 1.0, -1.0, 0.0);
+  final a = Vector4(1.0, 1.0, 1.0, 0.0);
+  final b = Vector4(1.0, 3.0, 1.0, 0.0);
+  final c = Vector4(1.0, 1.0, -1.0, 0.0);
 
   expect(a.distanceToSquared(b), equals(4.0));
   expect(a.distanceToSquared(c), equals(4.0));
