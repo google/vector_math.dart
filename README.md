@@ -1,5 +1,3 @@
-# vector_math
-
 [![Build Status](https://travis-ci.org/google/vector_math.dart.svg?branch=master)](https://travis-ci.org/google/vector_math.dart)
 [![Coverage Status](https://coveralls.io/repos/google/vector_math.dart/badge.svg?branch=master)](https://coveralls.io/r/google/vector_math.dart?branch=master)
 
@@ -18,29 +16,9 @@ A Vector math library for 2D and 3D applications.
 * Well tested.
 * Heavily optimized.
 
-
 ## Libraries using vector_math
 
 * [Flutter](https://github.com/flutter/flutter)
-
-## Getting Started
-
-1\. Add the following to your project's **pubspec.yaml** and run ```pub get```.
-
-```yaml
-dependencies:
-  vector_math: any
-```
-
-2\. Add the correct import for your project.
-
-```dart
-import 'package:vector_math/vector_math.dart';
-```
-
-## Documentation
-
-Read the [docs](http://www.dartdocs.org/documentation/vector_math/latest/index.html#vector_math)
 
 ## Examples
 
