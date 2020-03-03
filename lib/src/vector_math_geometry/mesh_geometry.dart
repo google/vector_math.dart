@@ -182,7 +182,7 @@ class MeshGeometry {
   }
 
   factory MeshGeometry.combine(List<MeshGeometry> meshes) {
-    if (meshes == null || meshes.length < 2) {
+    if (meshes.length < 2) {
       throw Exception(
           'Must provide at least two MeshGeometry instances to combine.');
     }
