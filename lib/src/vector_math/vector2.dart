@@ -168,7 +168,7 @@ class Vector2 implements Vector {
 
   /// Normalize this. Returns length of vector before normalization.
   /// DEPRECATED: Use [normalize].
-  @deprecated
+  @Deprecated('Use normalize() insteaed.')
   double normalizeLength() => normalize();
 
   /// Normalized copy of this.

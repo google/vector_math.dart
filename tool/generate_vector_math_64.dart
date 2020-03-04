@@ -8,13 +8,13 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-Future<Null> main() async {
+Future<void> main() async {
   await generateVectorMath64();
 
   print('Generated vector_math_64');
 }
 
-Future<Null> generateVectorMath64() async {
+Future<void> generateVectorMath64() async {
   final Directory directory = Directory('lib/src/vector_math_64/');
   final File libraryFile = File('lib/vector_math_64.dart');
 
@@ -37,7 +37,7 @@ Future<Null> generateVectorMath64() async {
   }
 }
 
-Future<Null> _processFile(String inputFileName) async {
+Future<void> _processFile(String inputFileName) async {
   final File inputFile = File(inputFileName);
 
   final String input = await inputFile.readAsString();
