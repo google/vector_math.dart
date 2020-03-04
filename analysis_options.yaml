@@ -12,7 +12,6 @@ linter:
   - avoid_classes_with_only_static_members
   - avoid_function_literals_in_foreach_calls
   - avoid_renaming_method_parameters
-  #- avoid_returning_null
   - avoid_returning_null_for_future
   - avoid_returning_null_for_void
   - avoid_returning_this
@@ -21,7 +20,6 @@ linter:
   - await_only_futures
   - camel_case_types
   - cancel_subscriptions
-  #- cascade_invocations
   - comment_references
   - constant_identifier_names
   - control_flow_in_finally
@@ -36,7 +34,6 @@ linter:
   - list_remove_unrelated_type
   - literal_only_boolean_expressions
   - no_adjacent_strings_in_list
-  #- non_constant_identifier_names
   - only_throw_errors
   - overridden_fields
   - package_api_docs
