@@ -44,15 +44,15 @@ void testQuaternionInstacingFromByteBuffer() {
 void testConjugate(List<Quaternion> input, List<Quaternion> expectedOutput) {
   assert(input.length == expectedOutput.length);
   for (var i = 0; i < input.length; i++) {
-    var output = input[i]..conjugate();
+    final output = input[i]..conjugate();
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testQuaternionMatrixRoundTrip(List<Quaternion> input) {
   for (var i = 0; i < input.length; i++) {
-    var R = input[i].asRotationMatrix();
-    var output = Quaternion.fromRotation(R);
+    final R = input[i].asRotationMatrix();
+    final output = Quaternion.fromRotation(R);
     relativeTest(output, input[i]);
   }
 }
@@ -60,7 +60,7 @@ void testQuaternionMatrixRoundTrip(List<Quaternion> input) {
 void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB,
     List<Quaternion> expectedOutput) {
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i] * inputB[i];
+    final output = inputA[i] * inputB[i];
     relativeTest(output, expectedOutput[i]);
   }
 }
@@ -70,17 +70,17 @@ void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB,
   assert((inputA.length == inputB.length) &&
       (inputB.length == expectedOutput.length));
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].rotate(inputB[i]);
+    final output = inputA[i].rotate(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testQuaternionConjugate() {
-  var input = <Quaternion>[];
+  final input = <Quaternion>[];
   input.add(Quaternion.identity());
   input.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
   input.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
-  var expectedOutput = <Quaternion>[];
+  final expectedOutput = <Quaternion>[];
   expectedOutput.add(Quaternion(-0.0, -0.0, -0.0, 1.0));
   expectedOutput.add(Quaternion(-0.18260, -0.54770, -0.73030, 0.36510));
   expectedOutput.add(Quaternion(-0.9889, -0.0, -0.0, 0.1483));
@@ -88,7 +88,7 @@ void testQuaternionConjugate() {
 }
 
 void testQuaternionMatrixQuaternionRoundTrip() {
-  var input = <Quaternion>[];
+  final input = <Quaternion>[];
   input.add(Quaternion.identity()..normalize());
   input.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510)..normalize());
   input.add(Quaternion(0.9889, 0.0, 0.0, 0.14834)..normalize());
@@ -100,22 +100,22 @@ void testQuaternionMatrixQuaternionRoundTrip() {
 }
 
 void testQuaternionMultiplying() {
-  var inputA = <Quaternion>[];
+  final inputA = <Quaternion>[];
   inputA.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
   inputA.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
-  var inputB = <Quaternion>[];
+  final inputB = <Quaternion>[];
   inputB.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
   inputB.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
-  var expectedOutput = <Quaternion>[];
+  final expectedOutput = <Quaternion>[];
   expectedOutput.add(Quaternion(0.388127, 0.803418, -0.433317, -0.126429));
   expectedOutput.add(Quaternion(0.388127, -0.64097, 0.649924, -0.126429));
   testQuaternionMultiply(inputA, inputB, expectedOutput);
 }
 
 void testQuaternionNormalize() {
-  var inputA = <Quaternion>[];
-  var inputB = <Vector3>[];
-  var expectedOutput = <Vector3>[];
+  final inputA = <Quaternion>[];
+  final inputB = <Vector3>[];
+  final expectedOutput = <Vector3>[];
 
   inputA.add(Quaternion(0.0, 1.0, 0.0, 1.0)..normalize());
   inputB.add(Vector3(1.0, 1.0, 1.0));
@@ -177,14 +177,14 @@ void testQuaternionNormalize() {
 void testQuaternionAxisAngle() {
   // Test conversion to and from axis-angle representation
   {
-    var q = Quaternion.axisAngle(Vector3(0.0, 1.0, 0.0), 0.5 * math.pi);
+    final q = Quaternion.axisAngle(Vector3(0.0, 1.0, 0.0), 0.5 * math.pi);
     relativeTest(q.radians, 0.5 * math.pi);
     relativeTest(q.axis, Vector3(0.0, 1.0, 0.0));
   }
 
   {
     // Degenerate test: 0-angle
-    var q = Quaternion.axisAngle(Vector3(1.0, 0.0, 0.0), 0.0);
+    final q = Quaternion.axisAngle(Vector3(1.0, 0.0, 0.0), 0.0);
     relativeTest(q.radians, 0.0);
   }
 }
@@ -192,25 +192,25 @@ void testQuaternionAxisAngle() {
 void testFromTwoVectors() {
   {
     // "Normal" test case
-    var a = Vector3(1.0, 0.0, 0.0);
-    var b = Vector3(0.0, 1.0, 0.0);
-    var q = Quaternion.fromTwoVectors(a, b);
+    final a = Vector3(1.0, 0.0, 0.0);
+    final b = Vector3(0.0, 1.0, 0.0);
+    final q = Quaternion.fromTwoVectors(a, b);
     relativeTest(q.radians, 0.5 * math.pi);
     relativeTest(q.axis, Vector3(0.0, 0.0, 1.0));
   }
   {
     // Degenerate null rotation
-    var a = Vector3(1.0, 0.0, 0.0);
-    var b = Vector3(1.0, 0.0, 0.0);
-    var q = Quaternion.fromTwoVectors(a, b);
+    final a = Vector3(1.0, 0.0, 0.0);
+    final b = Vector3(1.0, 0.0, 0.0);
+    final q = Quaternion.fromTwoVectors(a, b);
     relativeTest(q.radians, 0.0);
     // Axis can be arbitrary
   }
   {
     // Parallel vectors in opposite direction
-    var a = Vector3(1.0, 0.0, 0.0);
-    var b = Vector3(-1.0, 0.0, 0.0);
-    var q = Quaternion.fromTwoVectors(a, b);
+    final a = Vector3(1.0, 0.0, 0.0);
+    final b = Vector3(-1.0, 0.0, 0.0);
+    final q = Quaternion.fromTwoVectors(a, b);
     relativeTest(q.radians, math.pi);
   }
 }

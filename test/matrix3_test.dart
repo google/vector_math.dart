@@ -13,8 +13,8 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testMatrix3Adjoint() {
-  var input = <dynamic>[];
-  var expectedOutput = <dynamic>[];
+  final input = <dynamic>[];
+  final expectedOutput = <dynamic>[];
 
   input.add(parseMatrix<Matrix3>(
       ''' 0.285839018820374   0.380445846975357   0.053950118666607
@@ -42,15 +42,15 @@ void testMatrix3Adjoint() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    dynamic output = input[i].clone();
+    final dynamic output = input[i].clone();
     output.scaleAdjoint(1.0);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix3Determinant() {
-  var input = <Matrix3>[];
-  var expectedOutput = <double>[];
+  final input = <Matrix3>[];
+  final expectedOutput = <double>[];
 
   input.add(parseMatrix<Matrix3>(
       '''0.285839018820374   0.380445846975357   0.053950118666607
@@ -61,16 +61,16 @@ void testMatrix3Determinant() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    var output = input[i].determinant();
+    final output = input[i].determinant();
     //print('${input[i].cols}x${input[i].rows} = $output');
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix3SelfTransposeMultiply() {
-  var inputA = <Matrix3>[];
-  var inputB = <Matrix3>[];
-  var expectedOutput = <Matrix3>[];
+  final inputA = <Matrix3>[];
+  final inputB = <Matrix3>[];
+  final expectedOutput = <Matrix3>[];
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -101,16 +101,16 @@ void testMatrix3SelfTransposeMultiply() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].clone();
+    final output = inputA[i].clone();
     output.transposeMultiply(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix3SelfMultiply() {
-  var inputA = <Matrix3>[];
-  var inputB = <Matrix3>[];
-  var expectedOutput = <Matrix3>[];
+  final inputA = <Matrix3>[];
+  final inputB = <Matrix3>[];
+  final expectedOutput = <Matrix3>[];
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -141,16 +141,16 @@ void testMatrix3SelfMultiply() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].clone();
+    final output = inputA[i].clone();
     output.multiply(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix3SelfMultiplyTranspose() {
-  var inputA = <Matrix3>[];
-  var inputB = <Matrix3>[];
-  var expectedOutput = <Matrix3>[];
+  final inputA = <Matrix3>[];
+  final inputB = <Matrix3>[];
+  final expectedOutput = <Matrix3>[];
 
   inputA.add(parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
@@ -181,16 +181,16 @@ void testMatrix3SelfMultiplyTranspose() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].clone();
+    final output = inputA[i].clone();
     output.multiplyTranspose(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix3Transform() {
-  var rotX = Matrix3.rotationX(math.pi / 4);
-  var rotY = Matrix3.rotationY(math.pi / 4);
-  var rotZ = Matrix3.rotationZ(math.pi / 4);
+  final rotX = Matrix3.rotationX(math.pi / 4);
+  final rotY = Matrix3.rotationY(math.pi / 4);
+  final rotZ = Matrix3.rotationZ(math.pi / 4);
   final input = Vector3(1.0, 0.0, 0.0);
 
   relativeTest(rotX.transformed(input), input);
@@ -201,9 +201,10 @@ void testMatrix3Transform() {
 }
 
 void testMatrix3Transform2() {
-  var rotZ = Matrix3.rotationZ(math.pi / 4);
-  var trans = Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
-  var transB = Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
+  final rotZ = Matrix3.rotationZ(math.pi / 4);
+  final trans = Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
+  final transB =
+      Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
   expect(trans, equals(transB));
 
   final input = Vector2(1.0, 0.0);
@@ -215,8 +216,8 @@ void testMatrix3Transform2() {
 }
 
 void testMatrix3AbsoluteRotate2() {
-  var rotZ = Matrix3.rotationZ(-math.pi / 4);
-  var rotZcw = Matrix3.rotationZ(math.pi / 4);
+  final rotZ = Matrix3.rotationZ(-math.pi / 4);
+  final rotZcw = Matrix3.rotationZ(math.pi / 4);
   // Add translation
   rotZ.setEntry(2, 0, 3.0);
   rotZ.setEntry(2, 1, 2.0);
@@ -231,10 +232,10 @@ void testMatrix3AbsoluteRotate2() {
 }
 
 void testMatrix3ConstructorCopy() {
-  var a = Vector3(1.0, 2.0, 3.0);
-  var b = Vector3(4.0, 5.0, 6.0);
-  var c = Vector3(7.0, 8.0, 9.0);
-  var m = Matrix3.columns(a, b, c);
+  final a = Vector3(1.0, 2.0, 3.0);
+  final b = Vector3(4.0, 5.0, 6.0);
+  final c = Vector3(7.0, 8.0, 9.0);
+  final m = Matrix3.columns(a, b, c);
   expect(m.entry(0, 0), 1.0);
   expect(m.entry(2, 2), 9.0);
   c.z = 5.0;
@@ -244,9 +245,9 @@ void testMatrix3ConstructorCopy() {
 }
 
 void testMatrix3Inversion() {
-  var m = Matrix3(1.0, 0.0, 5.0, 2.0, 1.0, 6.0, 3.0, 4.0, 0.0);
-  var result = Matrix3.zero();
-  var det = result.copyInverse(m);
+  final m = Matrix3(1.0, 0.0, 5.0, 2.0, 1.0, 6.0, 3.0, 4.0, 0.0);
+  final result = Matrix3.zero();
+  final det = result.copyInverse(m);
   expect(det, 1.0);
   expect(result.entry(0, 0), -24.0);
   expect(result.entry(1, 0), 20.0);

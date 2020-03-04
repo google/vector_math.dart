@@ -24,9 +24,9 @@ mixin Setup on BenchmarkBase {
   void run() {
     var sum_traces = 0.0;
     for (var i = 0; i <= 1024; i++) {
-      var t = i / 1024.0;
-      var m1 = lerp(beginTransform, endTransform, t);
-      var m2 = lerp(endTransform, beginTransform, t);
+      final t = i / 1024.0;
+      final m1 = lerp(beginTransform, endTransform, t);
+      final m2 = lerp(endTransform, beginTransform, t);
       sum_traces += m1.trace();
       sum_traces += m2.trace();
     }
@@ -122,7 +122,7 @@ class Matrix4TweenBenchmark3 extends BenchmarkBase with Setup {
 }
 
 void main() {
-  var benchmarks = [
+  final benchmarks = [
     Matrix4TweenBenchmark1(),
     Matrix4TweenBenchmark2(),
     Matrix4TweenBenchmark3(),

@@ -16,14 +16,14 @@ Vector4 $v4(double x, double y, double z, double w) => Vector4(x, y, z, w);
 
 void relativeTest(dynamic output, dynamic expectedOutput) {
   final num errorThreshold = 0.0005;
-  num error = relativeError(output, expectedOutput).abs();
+  final num error = relativeError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : relativeError = $error');
 }
 
 void absoluteTest(dynamic output, dynamic expectedOutput) {
   final num errorThreshold = 0.0005;
-  num error = absoluteError(output, expectedOutput).abs();
+  final num error = absoluteError(output, expectedOutput).abs();
   expect(error >= errorThreshold, isFalse,
       reason: '$output != $expectedOutput : absoluteError = $error');
 }
@@ -48,12 +48,12 @@ dynamic makeMatrix(int rows, int cols) {
 
 T parseMatrix<T>(String input) {
   input = input.trim();
-  var rows = input.split('\n');
-  var values = <double>[];
+  final rows = input.split('\n');
+  final values = <double>[];
   var col_count = 0;
   for (var i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
-    var cols = rows[i].split(' ');
+    final cols = rows[i].split(' ');
     for (var j = 0; j < cols.length; j++) {
       cols[j] = cols[j].trim();
     }
@@ -69,7 +69,7 @@ T parseMatrix<T>(String input) {
     }
   }
 
-  dynamic m = makeMatrix(rows.length, col_count);
+  final dynamic m = makeMatrix(rows.length, col_count);
   for (var j = 0; j < rows.length; j++) {
     for (var i = 0; i < col_count; i++) {
       m[m.index(j, i)] = values[j * col_count + i];
@@ -82,9 +82,10 @@ T parseMatrix<T>(String input) {
 
 T parseVector<T extends Vector>(String v) {
   v = v.trim();
-  Pattern pattern = RegExp('[\\s]+', multiLine: true, caseSensitive: false);
-  var rows = v.split(pattern);
-  var values = <double>[];
+  final Pattern pattern =
+      RegExp('[\\s]+', multiLine: true, caseSensitive: false);
+  final rows = v.split(pattern);
+  final values = <double>[];
   for (var i = 0; i < rows.length; i++) {
     rows[i] = rows[i].trim();
     if (rows[i].isEmpty) {

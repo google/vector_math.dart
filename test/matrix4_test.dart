@@ -118,8 +118,8 @@ void testMatrix4InstacingFromByteBuffer() {
 }
 
 void testMatrix4Transpose() {
-  var inputA = <Matrix4>[];
-  var expectedOutput = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
   inputA.add(parseMatrix<Matrix4>(
       '''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
          0.900053846417662   0.389738836961253   0.131973292606335   0.059779542947156
@@ -134,9 +134,9 @@ void testMatrix4Transpose() {
 }
 
 void testMatrix4VectorMultiplication() {
-  var inputA = <Matrix4>[];
-  var inputB = <Vector4>[];
-  var expectedOutput = <Vector4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Vector4>[];
+  final expectedOutput = <Vector4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.337719409821377   0.780252068321138   0.096454525168389   0.575208595078466
@@ -156,15 +156,15 @@ void testMatrix4VectorMultiplication() {
   assert(expectedOutput.length == inputB.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i] * inputB[i] as Vector4;
+    final output = inputA[i] * inputB[i] as Vector4;
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4Multiplication() {
-  var inputA = <Matrix4>[];
-  var inputB = <Matrix4>[];
-  var expectedOutput = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.587044704531417   0.230488160211558   0.170708047147859   0.923379642103244
@@ -186,15 +186,15 @@ void testMatrix4Multiplication() {
   assert(expectedOutput.length == inputB.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i] * inputB[i] as Matrix4;
+    final output = inputA[i] * inputB[i] as Matrix4;
     //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4Adjoint() {
-  var input = <Matrix4>[];
-  var expectedOutput = <Matrix4>[];
+  final input = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
 
   input.add(parseMatrix<Matrix4>(
       '''0.934010684229183   0.011902069501241   0.311215042044805   0.262971284540144
@@ -229,15 +229,15 @@ void testMatrix4Adjoint() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    var output = input[i].clone();
+    final output = input[i].clone();
     output.scaleAdjoint(1.0);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4Determinant() {
-  var input = <Matrix4>[];
-  var expectedOutput = <double>[];
+  final input = <Matrix4>[];
+  final expectedOutput = <double>[];
   input.add(parseMatrix<Matrix4>(
       '''0.046171390631154   0.317099480060861   0.381558457093008   0.489764395788231
          0.097131781235848   0.950222048838355   0.765516788149002   0.445586200710899
@@ -261,16 +261,16 @@ void testMatrix4Determinant() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
-    var output = input[i].determinant();
+    final output = input[i].determinant();
     //print('${input[i].cols}x${input[i].rows} = $output');
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4SelfTransposeMultiply() {
-  var inputA = <Matrix4>[];
-  var inputB = <Matrix4>[];
-  var expectedOutput = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -292,16 +292,16 @@ void testMatrix4SelfTransposeMultiply() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].clone();
+    final output = inputA[i].clone();
     output.transposeMultiply(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4SelfMultiply() {
-  var inputA = <Matrix4>[];
-  var inputB = <Matrix4>[];
-  var expectedOutput = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -323,16 +323,16 @@ void testMatrix4SelfMultiply() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].clone();
+    final output = inputA[i].clone();
     output.multiply(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4SelfMultiplyTranspose() {
-  var inputA = <Matrix4>[];
-  var inputB = <Matrix4>[];
-  var expectedOutput = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
 
   inputA.add(parseMatrix<Matrix4>(
       '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
@@ -354,17 +354,17 @@ void testMatrix4SelfMultiplyTranspose() {
   assert(inputB.length == expectedOutput.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    var output = inputA[i].clone();
+    final output = inputA[i].clone();
     output.multiplyTranspose(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
 }
 
 void testMatrix4Translation() {
-  var inputA = <Matrix4>[];
-  var inputB = <Matrix4>[];
-  var output1 = <Matrix4>[];
-  var output2 = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
 
   inputA.add(Matrix4.identity());
   inputB.add(Matrix4.translationValues(1.0, 3.0, 5.7));
@@ -380,10 +380,10 @@ void testMatrix4Translation() {
 }
 
 void testMatrix4Scale() {
-  var inputA = <Matrix4>[];
-  var inputB = <Matrix4>[];
-  var output1 = <Matrix4>[];
-  var output2 = <Matrix4>[];
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
 
   inputA.add(Matrix4.identity());
   inputB.add(Matrix4.diagonal3Values(1.0, 3.0, 5.7));
@@ -399,8 +399,8 @@ void testMatrix4Scale() {
 }
 
 void testMatrix4Rotate() {
-  var output1 = <Matrix4>[];
-  var output2 = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
   output1.add(Matrix4.rotationX(1.57079632679));
   output2.add(Matrix4.identity()..rotateX(1.57079632679));
   output1.add(Matrix4.rotationY(1.57079632679 * 0.5));
@@ -408,13 +408,13 @@ void testMatrix4Rotate() {
   output1.add(Matrix4.rotationZ(1.57079632679 * 0.25));
   output2.add(Matrix4.identity()..rotateZ(1.57079632679 * 0.25));
   {
-    var axis = Vector3(1.1, 1.1, 1.1);
+    final axis = Vector3(1.1, 1.1, 1.1);
     axis.normalize();
-    var angle = 1.5;
+    final angle = 1.5;
 
-    var q = Quaternion.axisAngle(axis, angle);
-    var R = q.asRotationMatrix();
-    var T = Matrix4.identity();
+    final q = Quaternion.axisAngle(axis, angle);
+    final R = q.asRotationMatrix();
+    final T = Matrix4.identity();
     T.setRotation(R);
     output1.add(T);
 
@@ -440,9 +440,9 @@ void testMatrix4GetRotation() {
 }
 
 void testMatrix4Column() {
-  var I = Matrix4.zero();
+  final I = Matrix4.zero();
   expect(I[0], 0.0);
-  var c0 = Vector4(1.0, 2.0, 3.0, 4.0);
+  final c0 = Vector4(1.0, 2.0, 3.0, 4.0);
   I.setColumn(0, c0);
   expect(I[0], 1.0);
   c0.x = 4.0;
@@ -451,10 +451,10 @@ void testMatrix4Column() {
 }
 
 void testMatrix4Inversion() {
-  var m = Matrix4(1.0, 0.0, 2.0, 2.0, 0.0, 2.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0,
+  final m = Matrix4(1.0, 0.0, 2.0, 2.0, 0.0, 2.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0,
       1.0, 2.0, 1.0, 4.0);
-  var result = Matrix4.zero();
-  var det = result.copyInverse(m);
+  final result = Matrix4.zero();
+  final det = result.copyInverse(m);
   expect(det, 2.0);
   expect(result.entry(0, 0), -2.0);
   expect(result.entry(1, 0), 1.0);
@@ -535,7 +535,7 @@ void testMatrix4Solving() {
 }
 
 void testMatrix4Compose() {
-  var tValues = [
+  final tValues = [
     Vector3.zero(),
     Vector3(3.0, 0.0, 0.0),
     Vector3(0.0, 4.0, 0.0),
@@ -547,7 +547,7 @@ void testMatrix4Compose() {
     Vector3(-2.0, -5.0, -9.0)
   ];
 
-  var sValues = [
+  final sValues = [
     Vector3(1.0, 1.0, 1.0),
     Vector3(2.0, 2.0, 2.0),
     Vector3(1.0, -1.0, 1.0),
@@ -559,7 +559,7 @@ void testMatrix4Compose() {
     Vector3(-2.0, -2.0, -2.0)
   ];
 
-  var rValues = [
+  final rValues = [
     Quaternion.identity(),
     Quaternion(0.42073549240394825, 0.42073549240394825, 0.22984884706593015,
         0.7701511529340699),
@@ -577,9 +577,9 @@ void testMatrix4Compose() {
 
         final m = Matrix4.compose(t, r, s);
 
-        var t2 = Vector3.zero();
-        var r2 = Quaternion.identity();
-        var s2 = Vector3.zero();
+        final t2 = Vector3.zero();
+        final r2 = Quaternion.identity();
+        final s2 = Vector3.zero();
 
         m.decompose(t2, r2, s2);
 
@@ -617,8 +617,8 @@ void testMatrix4tryInvert() {
 }
 
 void testMatrix4SkewConstructor() {
-  var m = Matrix4.skew(0.0, 1.57);
-  var m2 = Matrix4.skewY(1.57);
+  final m = Matrix4.skew(0.0, 1.57);
+  final m2 = Matrix4.skewY(1.57);
 
   expect(m.entry(0, 0), equals(1.0));
   expect(m.entry(1, 1), equals(1.0));
@@ -629,8 +629,8 @@ void testMatrix4SkewConstructor() {
 
   expect(m2, equals(m));
 
-  var n = Matrix4.skew(1.57, 0.0);
-  var n2 = Matrix4.skewX(1.57);
+  final n = Matrix4.skew(1.57, 0.0);
+  final n2 = Matrix4.skewX(1.57);
 
   expect(n.entry(0, 0), equals(1.0));
   expect(n.entry(1, 1), equals(1.0));
@@ -644,7 +644,7 @@ void testMatrix4SkewConstructor() {
 
 void testLeftTranslate() {
   // Our test point.
-  var p = Vector3(0.5, 0.0, 0.0);
+  final p = Vector3(0.5, 0.0, 0.0);
 
   // Scale 2x matrix.
   var m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
