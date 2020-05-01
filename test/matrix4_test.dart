@@ -8,7 +8,6 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
@@ -599,15 +598,7 @@ void testMatrix4Equals() {
 }
 
 void testMatrix4InvertConstructor() {
-  var exception = false;
-  try {
-    Matrix4.inverted(Matrix4.zero());
-    expect(false, isTrue); // don't hit here.
-  } catch (ArgumentError) {
-    exception = true;
-  }
-  expect(exception, isTrue);
-
+  expect(() => Matrix4.inverted(Matrix4.zero()), throwsArgumentError);
   expect(Matrix4.inverted(Matrix4.identity()), equals(Matrix4.identity()));
 }
 
