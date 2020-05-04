@@ -19,7 +19,7 @@ class ColorFilter extends GeometryFilter {
     if (mesh.getAttrib('COLOR') == null) {
       final attributes = <VertexAttrib>[
         ...mesh.attribs,
-        VertexAttrib('COLOR', 4, 'float')
+        VertexAttrib('COLOR', 4, 'float'),
       ];
       output = MeshGeometry.resetAttribs(mesh, attributes);
     } else {
