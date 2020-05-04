@@ -58,14 +58,14 @@ abstract class GeometryGenerator {
     var view = mesh.getViewForAttrib('POSITION');
     if (view is Vector3List) {
       positionView = view;
-      generateVertexPositions(positionView!, mesh.indices!);
+      generateVertexPositions(positionView, mesh.indices!);
     }
 
     if (flags.texCoords || flags.tangents) {
       view = mesh.getViewForAttrib('TEXCOORD0');
       if (view is Vector2List) {
         texCoordView = view;
-        generateVertexTexCoords(texCoordView!, positionView!, mesh.indices!);
+        generateVertexTexCoords(texCoordView, positionView!, mesh.indices!);
       }
     }
 
@@ -73,7 +73,7 @@ abstract class GeometryGenerator {
       view = mesh.getViewForAttrib('NORMAL');
       if (view is Vector3List) {
         normalView = view;
-        generateVertexNormals(normalView!, positionView!, mesh.indices!);
+        generateVertexNormals(normalView, positionView!, mesh.indices!);
       }
     }
 
