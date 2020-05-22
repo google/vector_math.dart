@@ -678,6 +678,10 @@ class Matrix4 {
       tx = x;
       ty = y;
       tz = z;
+    } else if (x is int) {
+      tx = x.toDouble();
+      ty = y;
+      tz = z;
     }
     final double t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
@@ -718,6 +722,10 @@ class Matrix4 {
       tz = x.z;
     } else if (x is double) {
       tx = x;
+      ty = y;
+      tz = z;
+    } else if (x is int) {
+      tx = x.toDouble();
       ty = y;
       tz = z;
     }
@@ -888,6 +896,10 @@ class Matrix4 {
       sx = x;
       sy = y ?? x;
       sz = z ?? x;
+    } else if (x is int) {
+      sx = x.toDouble();
+      sy = y ?? x.toDouble();
+      sz = z ?? x.toDouble();
     }
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
