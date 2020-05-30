@@ -461,7 +461,7 @@ class Matrix4 {
   void setFromTranslationRotationScale(
       Vector3 translation, Quaternion rotation, Vector3 scale) {
     setFromTranslationRotation(translation, rotation);
-    this.scale(scale);
+    this.scale(scale.x, scale.y, scale.z);
   }
 
   /// Sets the upper 2x2 of the matrix to be [arg].
@@ -660,29 +660,15 @@ class Matrix4 {
   /// Returns new matrix after component wise this - [arg]
   Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
 
-  /// Translate this matrix by a [Vector3], [Vector4], or x,y,z
-  void translate(dynamic x, [double y = 0.0, double z = 0.0]) {
+  /// Translate this matrix by doubles x,y,z
+  void translate(double x, [double y = 0.0, double z = 0.0]) {
     double tx;
     double ty;
     double tz;
-    final double tw = x is Vector4 ? x.w : 1.0;
-    if (x is Vector3) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
-    } else if (x is Vector4) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
-    } else if (x is double) {
-      tx = x;
-      ty = y;
-      tz = z;
-    } else if (x is int) {
-      tx = x.toDouble();
-      ty = y;
-      tz = z;
-    }
+    final double tw = 1.0;
+    tx = x;
+    ty = y;
+    tz = z;
     final double t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
@@ -706,29 +692,15 @@ class Matrix4 {
   }
 
   /// Multiply this by a translation from the left.
-  /// The translation can be specified with a  [Vector3], [Vector4], or x, y, z.
-  void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0]) {
+  /// The translation can be specified with x, y, z.
+  void leftTranslate(double x, [double y = 0.0, double z = 0.0]) {
     double tx;
     double ty;
     double tz;
-    final double tw = x is Vector4 ? x.w : 1.0;
-    if (x is Vector3) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
-    } else if (x is Vector4) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
-    } else if (x is double) {
-      tx = x;
-      ty = y;
-      tz = z;
-    } else if (x is int) {
-      tx = x.toDouble();
-      ty = y;
-      tz = z;
-    }
+    final double tw = 1.0;
+    tx = x;
+    ty = y;
+    tz = z;
 
     // Column 1
     _m4storage[0] += tx * _m4storage[3];
@@ -878,29 +850,15 @@ class Matrix4 {
     _m4storage[7] = t8;
   }
 
-  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
-  void scale(dynamic x, [double y, double z]) {
+  /// Scale this matrix by x,y,z
+  void scale(double x, [double y, double z]) {
     double sx;
     double sy;
     double sz;
-    final double sw = x is Vector4 ? x.w : 1.0;
-    if (x is Vector3) {
-      sx = x.x;
-      sy = x.y;
-      sz = x.z;
-    } else if (x is Vector4) {
-      sx = x.x;
-      sy = x.y;
-      sz = x.z;
-    } else if (x is double) {
-      sx = x;
-      sy = y ?? x;
-      sz = z ?? x;
-    } else if (x is int) {
-      sx = x.toDouble();
-      sy = y ?? x.toDouble();
-      sz = z ?? x.toDouble();
-    }
+    final double sw = 1.0;
+    sx = x;
+    sy = y ?? x;
+    sz = z ?? x;
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
     _m4storage[2] *= sx;
@@ -919,9 +877,8 @@ class Matrix4 {
     _m4storage[15] *= sw;
   }
 
-  /// Create a copy of this scaled by a [Vector3], [Vector4] or [x],[y], and
-  /// [z].
-  Matrix4 scaled(dynamic x, [double y, double z]) => clone()..scale(x, y, z);
+  /// Create a copy of this scaled by [x],[y], and [z].
+  Matrix4 scaled(double x, [double y, double z]) => clone()..scale(x, y, z);
 
   /// Zeros this.
   void setZero() {
