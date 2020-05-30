@@ -1,3 +1,8 @@
+## 2.1.0
+
+- Removed dynamic dispatch for translate, leftTranslate, scale and scaled methods in Matrix4
+- All methods above now use doubles by default. Add 'byVector3' and 'byVector4' to any function for using respective function. (E.g: translate -> translateByVector3)
+
 ## 2.0.9
 
 - Update Dart SDK constraint to `>=2.3.0 <3.0.0`.

@@ -376,6 +376,44 @@ void testMatrix4Translation() {
   }
 }
 
+void testMatrix4TranslationByVector3() {
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
+
+  inputA.add(Matrix4.identity());
+  inputB.add(Matrix4.translationValues(1.0, 3.0, 5.7));
+  output1.add(inputA[0] * inputB[0] as Matrix4);
+  output2.add((Matrix4.identity())..translateByVector3(Vector3(1.0, 3.0, 5.7)));
+
+  assert(inputA.length == inputB.length);
+  assert(output1.length == output2.length);
+
+  for (var i = 0; i < inputA.length; i++) {
+    relativeTest(output1[i], output2[i]);
+  }
+}
+
+void testMatrix4TranslationByVector4() {
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
+
+  inputA.add(Matrix4.identity());
+  inputB.add(Matrix4.translationValues(1.0, 3.0, 5.7));
+  output1.add(inputA[0] * inputB[0] as Matrix4);
+  output2.add((Matrix4.identity())..translateByVector4(Vector4(1.0, 3.0, 5.7, 1.0)));
+
+  assert(inputA.length == inputB.length);
+  assert(output1.length == output2.length);
+
+  for (var i = 0; i < inputA.length; i++) {
+    relativeTest(output1[i], output2[i]);
+  }
+}
+
 void testMatrix4Scale() {
   final inputA = <Matrix4>[];
   final inputB = <Matrix4>[];
@@ -386,6 +424,44 @@ void testMatrix4Scale() {
   inputB.add(Matrix4.diagonal3Values(1.0, 3.0, 5.7));
   output1.add(inputA[0] * inputB[0] as Matrix4);
   output2.add(Matrix4.identity()..scale(1.0, 3.0, 5.7));
+
+  assert(inputA.length == inputB.length);
+  assert(output1.length == output2.length);
+
+  for (var i = 0; i < inputA.length; i++) {
+    relativeTest(output1[i], output2[i]);
+  }
+}
+
+void testMatrix4ScaleByVector3() {
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
+
+  inputA.add(Matrix4.identity());
+  inputB.add(Matrix4.diagonal3Values(1.0, 3.0, 5.7));
+  output1.add(inputA[0] * inputB[0] as Matrix4);
+  output2.add(Matrix4.identity()..scaleByVector3(Vector3(1.0, 3.0, 5.7)));
+
+  assert(inputA.length == inputB.length);
+  assert(output1.length == output2.length);
+
+  for (var i = 0; i < inputA.length; i++) {
+    relativeTest(output1[i], output2[i]);
+  }
+}
+
+void testMatrix4ScaleByVector4() {
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final output1 = <Matrix4>[];
+  final output2 = <Matrix4>[];
+
+  inputA.add(Matrix4.identity());
+  inputB.add(Matrix4.diagonal3Values(1.0, 3.0, 5.7));
+  output1.add(inputA[0] * inputB[0] as Matrix4);
+  output2.add(Matrix4.identity()..scaleByVector4(Vector4(1.0, 3.0, 5.7, 1.0)));
 
   assert(inputA.length == inputB.length);
   assert(output1.length == output2.length);
@@ -662,6 +738,68 @@ void testLeftTranslate() {
   expect(result.z, equals(0.0));
 }
 
+void testLeftTranslateByVector3() {
+  // Our test point.
+  final p = Vector3(0.5, 0.0, 0.0);
+
+  // Scale 2x matrix.
+  var m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  // After scaling, translate along the X axis.
+  m.leftTranslateByVector3(Vector3(1.0, 0.0, 0.0));
+
+  // Apply the transformation to p. This will move (0.5, 0, 0) to (2.0, 0, 0).
+  // Scale: 0.5 -> 1.0.
+  // Translate: 1.0 -> 2.0
+  var result = m.transformed3(p);
+  expect(result.x, equals(2.0));
+  expect(result.y, equals(0.0));
+  expect(result.z, equals(0.0));
+
+  // Scale 2x matrix.
+  m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  // Before scaling, translate along the X axis.
+  m.translate(1.0);
+
+  // Apply the transformation to p. This will move (0.5, 0, 0) to (3.0, 0, 0).
+  // Translate: 0.5 -> 1.5.
+  // Scale: 1.5 -> 3.0.
+  result = m.transformed3(p);
+  expect(result.x, equals(3.0));
+  expect(result.y, equals(0.0));
+  expect(result.z, equals(0.0));
+}
+
+void testLeftTranslateByVector4() {
+  // Our test point.
+  final p = Vector3(0.5, 0.0, 0.0);
+
+  // Scale 2x matrix.
+  var m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  // After scaling, translate along the X axis.
+  m.leftTranslateByVector4(Vector4(1.0, 0.0, 0.0, 0.0));
+
+  // Apply the transformation to p. This will move (0.5, 0, 0) to (2.0, 0, 0).
+  // Scale: 0.5 -> 1.0.
+  // Translate: 1.0 -> 2.0
+  var result = m.transformed3(p);
+  expect(result.x, equals(2.0));
+  expect(result.y, equals(0.0));
+  expect(result.z, equals(0.0));
+
+  // Scale 2x matrix.
+  m = Matrix4.diagonal3Values(2.0, 2.0, 2.0);
+  // Before scaling, translate along the X axis.
+  m.translate(1.0);
+
+  // Apply the transformation to p. This will move (0.5, 0, 0) to (3.0, 0, 0).
+  // Translate: 0.5 -> 1.5.
+  // Scale: 1.5 -> 3.0.
+  result = m.transformed3(p);
+  expect(result.x, equals(3.0));
+  expect(result.y, equals(0.0));
+  expect(result.z, equals(0.0));
+}
+
 void testMatrixClassifiers() {
   expect(Matrix4.zero().isIdentity(), false);
   expect(Matrix4.zero().isZero(), true);
@@ -682,7 +820,11 @@ void main() {
     test('Matrix multiplication', testMatrix4Multiplication);
     test('Matrix vector multiplication', testMatrix4VectorMultiplication);
     test('Matrix translate', testMatrix4Translation);
+    test('Matrix translate by Vector3', testMatrix4TranslationByVector3);
+    test('Matrix translate by Vector4', testMatrix4TranslationByVector4);
     test('Scale matrix', testMatrix4Scale);
+    test('Scale matrix by Vector3', testMatrix4ScaleByVector3);
+    test('Scale matrix by Vector4', testMatrix4ScaleByVector4);
     test('Rotate matrix', testMatrix4Rotate);
     test('Get rotation matrix', testMatrix4GetRotation);
     test('Set column', testMatrix4Column);
@@ -696,6 +838,8 @@ void main() {
     test('tryInvert', testMatrix4tryInvert);
     test('skew constructor', testMatrix4SkewConstructor);
     test('leftTranslate', testLeftTranslate);
+    test('leftTranslate Vector3', testLeftTranslateByVector3);
+    test('leftTranslate Vector4', testLeftTranslateByVector4);
     test('matrix classifiers', testMatrixClassifiers);
   });
 }
