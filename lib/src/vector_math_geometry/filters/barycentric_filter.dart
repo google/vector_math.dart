@@ -11,8 +11,7 @@ class BarycentricFilter extends GeometryFilter {
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
-    final List<VertexAttrib> newAttribs =
-        List<VertexAttrib>.from(mesh.attribs, growable: true);
+    final List<VertexAttrib> newAttribs = List<VertexAttrib>.from(mesh.attribs);
 
     if (mesh.getAttrib('BARYCENTRIC') == null) {
       newAttribs.add(VertexAttrib('BARYCENTRIC', 3, 'float'));

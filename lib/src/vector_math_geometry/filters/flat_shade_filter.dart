@@ -15,8 +15,7 @@ class FlatShadeFilter extends GeometryFilter {
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {
-    final List<VertexAttrib> newAttribs =
-        List<VertexAttrib>.from(mesh.attribs, growable: true);
+    final List<VertexAttrib> newAttribs = List<VertexAttrib>.from(mesh.attribs);
 
     if (mesh.getAttrib('NORMAL') == null) {
       newAttribs.add(VertexAttrib('NORMAL', 3, 'float'));
