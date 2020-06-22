@@ -1,11 +1,13 @@
 name: vector_math
-version: 2.0.9-dev
+version: 2.1.0-nnbd
 author: John McCutchan <john@johnmccutchan.com>
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/google/vector_math.dart
 
 environment:
-  sdk: '>=2.9.0-1 <3.0.0'
+  # This must remain a tight constraint (only allow dev versions) until nnbd is
+  # stable.
+  sdk: '>=2.9.0-18.0 <2.9.0'
 
 dev_dependencies:
   benchmark_harness: any

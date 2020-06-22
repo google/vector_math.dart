@@ -1,6 +1,6 @@
-## 2.0.9
+## v 2.1.0-nnbd - June 2020
 
-- Update Dart SDK constraint to `>=2.3.0 <3.0.0`.
+- Migrate to null safety
 - Improve performance of Matrix4.decompose by reusing objects.
 
 ## v 2.0.8 - July 2018
