@@ -8,10 +8,13 @@ if [ "$TRAVIS_DART_VERSION" = "dev" ]; then
   dartfmt -n --set-exit-if-changed .
 fi
 
-dartanalyzer --fatal-warnings --fatal-infos .
+# The lib dir should analyzer without enabling the experiment
+dartanalyzer --fatal-warnings --fatal-infos lib
+# The whole package should analyze with the experiment enabled 
+dartanalyzer --fatal-warnings --fatal-infos --enable-experiment=non-nullable .
 
 # Run the tests.
-pub run test
+pub run --enable-experiment=non-nullable test
 
 # Install dart_coveralls; gather and send coverage data.
 if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "dev" ]; then
