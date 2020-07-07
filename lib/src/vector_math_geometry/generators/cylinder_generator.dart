@@ -5,10 +5,10 @@
 part of vector_math_geometry;
 
 class CylinderGenerator extends GeometryGenerator {
-  late final double _topRadius;
-  late final double _bottomRadius;
-  late final double _height;
-  late final int _segments;
+  late double _topRadius;
+  late double _bottomRadius;
+  late double _height;
+  late int _segments;
 
   @override
   int get vertexCount => ((_segments + 1) * 2) + (_segments * 2);
