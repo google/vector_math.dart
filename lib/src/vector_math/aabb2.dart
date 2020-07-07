@@ -76,8 +76,8 @@ class Aabb2 {
     _max.setFrom(other._max);
   }
 
-  static late final _center = Vector2.zero();
-  static late final _halfExtents = Vector2.zero();
+  static final _center = Vector2.zero();
+  static final _halfExtents = Vector2.zero();
   void _updateCenterAndHalfExtents() =>
       copyCenterAndHalfExtents(_center, _halfExtents);
 

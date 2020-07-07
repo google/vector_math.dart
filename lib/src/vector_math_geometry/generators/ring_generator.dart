@@ -5,12 +5,12 @@
 part of vector_math_geometry;
 
 class RingGenerator extends GeometryGenerator {
-  late final double _innerRadius;
-  late final double _outerRadius;
-  late final int _segments;
-  late final double _thetaStart;
-  late final double _thetaLength;
-  late final bool _stripTextureCoordinates;
+  late double _innerRadius;
+  late double _outerRadius;
+  late int _segments;
+  late double _thetaStart;
+  late double _thetaLength;
+  late bool _stripTextureCoordinates;
 
   @override
   int get vertexCount => (_segments + 1) * 2;

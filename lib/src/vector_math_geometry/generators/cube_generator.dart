@@ -5,9 +5,9 @@
 part of vector_math_geometry;
 
 class CubeGenerator extends GeometryGenerator {
-  late final double _width;
-  late final double _height;
-  late final double _depth;
+  late double _width;
+  late double _height;
+  late double _depth;
 
   @override
   int get vertexCount => 24;
