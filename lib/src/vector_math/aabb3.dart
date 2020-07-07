@@ -203,8 +203,8 @@ class Aabb3 {
     _max.setFrom(other._max);
   }
 
-  static late final _center = Vector3.zero();
-  static late final _halfExtents = Vector3.zero();
+  static final _center = Vector3.zero();
+  static final _halfExtents = Vector3.zero();
   void _updateCenterAndHalfExtents() =>
       copyCenterAndHalfExtents(_center, _halfExtents);
 

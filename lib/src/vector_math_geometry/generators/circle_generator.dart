@@ -5,10 +5,10 @@
 part of vector_math_geometry;
 
 class CircleGenerator extends GeometryGenerator {
-  late final double _radius;
-  late final int _segments;
-  late final double _thetaStart;
-  late final double _thetaLength;
+  late double _radius;
+  late int _segments;
+  late double _thetaStart;
+  late double _thetaLength;
 
   @override
   int get vertexCount => _segments + 2;
