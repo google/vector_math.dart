@@ -1,4 +1,4 @@
-## v 2.1.0-nnbd - June 2020
+## v 2.1.0-nullsafety - June 2020
 
 - Migrate to null safety
 - Improve performance of Matrix4.decompose by reusing objects.
