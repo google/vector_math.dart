@@ -6,7 +6,7 @@ homepage: https://github.com/google/vector_math.dart
 environment:
   # This must remain a tight constraint (only allow dev versions) until nnbd is
   # stable.
-  sdk: '>=2.9.0-18.0 <2.10.0'
+  sdk: '>=2.9.0-18.0 <=2.9.10'
 
 dev_dependencies:
   benchmark_harness: any
