@@ -1,4 +1,8 @@
-## v 2.1.0-nullsafety - June 2020
+## v 2.1.0-nullsafety.1
+
+* Allow the <=2.9.10 stable sdks.
+
+## v 2.1.0-nullsafety
 
 - Migrate to null safety
 - Improve performance of Matrix4.decompose by reusing objects.
