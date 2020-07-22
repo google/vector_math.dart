@@ -1,12 +1,11 @@
 name: vector_math
-version: 2.1.0-nullsafety.1
+version: 2.1.0-nullsafety.2
 description: A Vector Math library for 2D and 3D applications.
 homepage: https://github.com/google/vector_math.dart
 
 environment:
-  # This must remain a tight constraint (only allow dev versions) until nnbd is
-  # stable.
-  sdk: '>=2.9.0-18.0 <=2.9.10'
+  # This must remain a tight constraint until nnbd is stable
+  sdk: '>=2.10.0-0 <2.10.0'
 
 dev_dependencies:
   benchmark_harness: any
@@ -31,12 +30,14 @@ dependency_overrides:
     git:
       url: git://github.com/dart-lang/sdk.git
       path: pkg/js
+      ref: 2-10-pkgs
   matcher:
     git: git://github.com/dart-lang/matcher.git
   meta:
     git:
       url: git://github.com/dart-lang/sdk.git
       path: pkg/meta
+      ref: 2-10-pkgs
   path:
     git: git://github.com/dart-lang/path.git
   pedantic:
