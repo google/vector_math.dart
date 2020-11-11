@@ -1,9 +1,5 @@
 include: package:pedantic/analysis_options.yaml
 
-analyzer:
-  enable-experiment:
-  - non-nullable
-
 linter:
   rules:
   - avoid_bool_literals_in_conditional_expressions
