@@ -7,11 +7,10 @@ environment:
   sdk: ">=2.12.0-0 <3.0.0"
 
 dev_dependencies:
-  benchmark_harness: any
-  path: ^1.8.0-nullsafety
-  pedantic: ^1.10.0-nullsafety
-  test: ^1.16.0-nullsafety
-
+  benchmark_harness: ^2.0.0-nullsafety.0
   build_runner: ^1.0.0
   build_test: ^1.2.0
   build_web_compilers: '>=1.2.0 <3.0.0'
+  path: ^1.8.0-nullsafety
+  pedantic: ^1.10.0-nullsafety
+  test: ^1.16.0-nullsafety
