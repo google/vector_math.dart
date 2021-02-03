@@ -1,25 +1,27 @@
-## v 2.1.0-nullsafety.6-dev
+## v 2.1.0
+
+- Stable release for null safety.
 
 ## v 2.1.0-nullsafety.5
 
-* Update SDK constraints to `>=2.12.0-0 <3.0.0` based on beta release
+- Update SDK constraints to `>=2.12.0-0 <3.0.0` based on beta release
   guidelines.
 
 ## v 2.1.0-nullsafety.4
 
-* Allow prerelease versions of the 2.12 sdk.
+- Allow prerelease versions of the 2.12 sdk.
 
 ## v 2.1.0-nullsafety.3
 
-* Allow 2.10 stable and 2.11.0 dev SDK versions.
+- Allow 2.10 stable and 2.11.0 dev SDK versions.
 
 ## v 2.1.0-nullsafety.2
 
-* Update for the 2.10 dev sdk.
+- Update for the 2.10 dev sdk.
 
 ## v 2.1.0-nullsafety.1
 
-* Allow the <=2.9.10 stable sdks.
+- Allow the <=2.9.10 stable sdks.
 
 ## v 2.1.0-nullsafety
 
