@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/google/vector_math.dart.svg?branch=master)](https://travis-ci.org/google/vector_math.dart)
+[![CI](https://github.com/google/vector_math.dart/workflows/ci/badge.svg?branch=master)](https://github.com/google/vector_math.dart/actions?query=workflow%3Aci+branch%3Amaster)
 [![Coverage Status](https://coveralls.io/repos/google/vector_math.dart/badge.svg?branch=master)](https://coveralls.io/r/google/vector_math.dart?branch=master)
 
 ## Introduction
