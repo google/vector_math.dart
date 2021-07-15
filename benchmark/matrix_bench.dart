@@ -4,9 +4,10 @@
 
 import 'dart:math' as math;
 import 'dart:typed_data';
+
+import 'package:benchmark_harness/benchmark_harness.dart';
 import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_operations.dart';
-import 'package:benchmark_harness/benchmark_harness.dart';
 
 class MatrixMultiplyBenchmark extends BenchmarkBase {
   MatrixMultiplyBenchmark() : super('MatrixMultiply');

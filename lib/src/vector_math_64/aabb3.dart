@@ -156,7 +156,9 @@ class Aabb3 {
   /// Set the AABB to enclose a limited [ray] (or line segment) that is limited
   /// by [limitMin] and [limitMax].
   void setRay(Ray ray, double limitMin, double limitMax) {
-    ray..copyAt(_min, limitMin)..copyAt(_max, limitMax);
+    ray
+      ..copyAt(_min, limitMin)
+      ..copyAt(_max, limitMax);
 
     if (_max.x < _min.x) {
       final temp = _max.x;

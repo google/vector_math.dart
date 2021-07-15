@@ -56,7 +56,10 @@ class Triangle {
 
   /// Transform this by the transform [t].
   void transform(Matrix4 t) {
-    t..transform3(_point0)..transform3(_point1)..transform3(_point2);
+    t
+      ..transform3(_point0)
+      ..transform3(_point1)
+      ..transform3(_point2);
   }
 
   /// Translate this by [offset].

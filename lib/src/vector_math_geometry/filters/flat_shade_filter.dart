@@ -51,7 +51,10 @@ class FlatShadeFilter extends GeometryFilter {
       final i1 = mesh.indices![i + 1];
       final i2 = mesh.indices![i + 2];
 
-      srcPosition..load(i0, p0)..load(i1, p1)..load(i2, p2);
+      srcPosition
+        ..load(i0, p0)
+        ..load(i1, p1)
+        ..load(i2, p2);
 
       destPosition[i] = p0;
       destPosition[i + 1] = p1;

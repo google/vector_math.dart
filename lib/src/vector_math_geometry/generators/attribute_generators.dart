@@ -18,7 +18,10 @@ void generateNormals(
   // normals.
   for (var i = 0; i < indices.length; i += 3) {
     final i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
-    positions..load(i0, p0)..load(i1, p1)..load(i2, p2);
+    positions
+      ..load(i0, p0)
+      ..load(i1, p1)
+      ..load(i2, p2);
 
     p1.sub(p0);
     p2.sub(p0);
@@ -74,9 +77,15 @@ void generateTangents(Vector4List tangents, Vector3List positions,
 
   for (var i = 0; i < indices.length; i += 3) {
     final i0 = indices[i], i1 = indices[i + 1], i2 = indices[i + 2];
-    positions..load(i0, p0)..load(i1, p1)..load(i2, p2);
+    positions
+      ..load(i0, p0)
+      ..load(i1, p1)
+      ..load(i2, p2);
 
-    texCoords..load(i0, uv0)..load(i1, uv1)..load(i2, uv2);
+    texCoords
+      ..load(i0, uv0)
+      ..load(i1, uv1)
+      ..load(i2, uv2);
 
     p1.sub(p0);
     p2.sub(p0);
