@@ -2,8 +2,8 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-import 'package:vector_math/vector_math_64.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
+import 'package:vector_math/vector_math_64.dart';
 
 mixin Setup on BenchmarkBase {
   final beginTransform = Matrix4.compose(

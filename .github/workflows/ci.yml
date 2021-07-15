@@ -17,7 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.0
-
+        with:
+          sdk: ${{ matrix.sdk }}
       - run: dart pub get
         id: install
       - run: dart format --output=none --set-exit-if-changed .
