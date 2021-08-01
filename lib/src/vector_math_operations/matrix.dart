@@ -4,6 +4,7 @@
 
 part of vector_math_operations;
 
+// ignore: avoid_classes_with_only_static_members
 /// Static methods operating on 4x4 matrices packed column major into a
 /// Float32List.
 class Matrix44Operations {
@@ -256,6 +257,7 @@ class Matrix44Operations {
   }
 }
 
+// ignore: avoid_classes_with_only_static_members
 /// Static methods operating on 4x4 matrices packed column major into a
 /// Float32x4List.
 class Matrix44SIMDOperations {
