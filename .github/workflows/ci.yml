@@ -14,11 +14,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [2.12.0, dev]
+        sdk: [2.14.0, dev]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1.0
+      - uses: actions/checkout@v2.3.4
+      - uses: dart-lang/setup-dart@v1.2
         with:
           sdk: ${{ matrix.sdk }}
       - run: dart pub get

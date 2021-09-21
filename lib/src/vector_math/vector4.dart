@@ -132,7 +132,7 @@ class Vector4 implements Vector {
       (_v4storage[3] == other._v4storage[3]);
 
   @override
-  int get hashCode => quiver.hashObjects(_v4storage);
+  int get hashCode => Object.hashAll(_v4storage);
 
   /// Negate.
   Vector4 operator -() => clone()..negate();

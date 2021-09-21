@@ -1,4 +1,7 @@
-## 2.1.1-dev
+## 2.1.1
+
+- Deprecate `hash.dart`.
+- Require Dart v2.14 or greater.
 
 ## 2.1.0
 
