@@ -1,33 +1,11 @@
-## 2.1.1-dev
+## 2.1.1
+
+- Deprecate `hash.dart`.
+- Require Dart v2.14 or greater.
 
 ## 2.1.0
 
 - Stable release for null safety.
-
-## 2.1.0-nullsafety.5
-
-- Update SDK constraints to `>=2.12.0-0 <3.0.0` based on beta release
-  guidelines.
-
-## 2.1.0-nullsafety.4
-
-- Allow prerelease versions of the 2.12 sdk.
-
-## 2.1.0-nullsafety.3
-
-- Allow 2.10 stable and 2.11.0 dev SDK versions.
-
-## 2.1.0-nullsafety.2
-
-- Update for the 2.10 dev sdk.
-
-## 2.1.0-nullsafety.1
-
-- Allow the <=2.9.10 stable sdks.
-
-## 2.1.0-nullsafety
-
-- Migrate to null safety
 - Improve performance of Matrix4.decompose by reusing objects.
 
 ## 2.0.8 - July 2018

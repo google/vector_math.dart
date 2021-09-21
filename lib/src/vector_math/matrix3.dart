@@ -249,7 +249,7 @@ class Matrix3 {
       (_m3storage[8] == other._m3storage[8]);
 
   @override
-  int get hashCode => quiver.hashObjects(_m3storage);
+  int get hashCode => Object.hashAll(_m3storage);
 
   /// Returns row 0
   Vector3 get row0 => getRow(0);

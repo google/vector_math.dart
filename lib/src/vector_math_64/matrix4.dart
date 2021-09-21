@@ -541,7 +541,7 @@ class Matrix4 {
       (_m4storage[15] == other._m4storage[15]);
 
   @override
-  int get hashCode => quiver.hashObjects(_m4storage);
+  int get hashCode => Object.hashAll(_m4storage);
 
   /// Returns row 0
   Vector4 get row0 => getRow(0);

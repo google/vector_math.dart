@@ -102,7 +102,7 @@ class Vector2 implements Vector {
       (_v2storage[1] == other._v2storage[1]);
 
   @override
-  int get hashCode => quiver.hashObjects(_v2storage);
+  int get hashCode => Object.hashAll(_v2storage);
 
   /// Negate.
   Vector2 operator -() => clone()..negate();
