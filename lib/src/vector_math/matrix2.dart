@@ -32,7 +32,7 @@ class Matrix2 {
   }
 
   /// Return index in storage for [row], [col] value.
-  int index(int row, int col) => (col * 2) + row;
+  int index(int row, int col) => (row * 2) + col;
 
   /// Value at [row], [col].
   double entry(int row, int col) {

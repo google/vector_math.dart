@@ -160,7 +160,7 @@ class Matrix4 {
   }
 
   /// Return index in storage for [row], [col] value.
-  int index(int row, int col) => (col * 4) + row;
+  int index(int row, int col) => (row * 4) + col;
 
   /// Value at [row], [col].
   double entry(int row, int col) {

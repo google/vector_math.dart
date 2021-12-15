@@ -80,7 +80,7 @@ class Matrix3 {
   }
 
   /// Return index in storage for [row], [col] value.
-  int index(int row, int col) => (col * 3) + row;
+  int index(int row, int col) => (row * 3) + col;
 
   /// Value at [row], [col].
   double entry(int row, int col) {
