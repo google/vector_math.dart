@@ -19,6 +19,7 @@ A Vector math library for 2D and 3D applications.
 ## Libraries using vector_math
 
 * [Flutter](https://github.com/flutter/flutter)
+* [Flame](https://github.com/flame-engine/flame)
 
 ## Examples
 
