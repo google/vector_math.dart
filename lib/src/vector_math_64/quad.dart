@@ -35,7 +35,7 @@ class Quad {
       : _point0 = Vector3.copy(other._point0),
         _point1 = Vector3.copy(other._point1),
         _point2 = Vector3.copy(other._point2),
-        _point3 = Vector3.copy(other._point2);
+        _point3 = Vector3.copy(other._point3);
 
   /// Create a quad by four points.
   Quad.points(Vector3 point0, Vector3 point1, Vector3 point2, Vector3 point3)

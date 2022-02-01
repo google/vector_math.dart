@@ -8,6 +8,17 @@ import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
 
+void testQuadCopy() {
+  final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
+      Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
+  final quadCopy = Quad.copy(quad);
+
+  relativeTest(quadCopy.point0, quad.point0);
+  relativeTest(quadCopy.point1, quad.point1);
+  relativeTest(quadCopy.point2, quad.point2);
+  relativeTest(quadCopy.point3, quad.point3);
+}
+
 void testQuadCopyNormalInto() {
   final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
       Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
@@ -39,6 +50,7 @@ void testQuadCopyTriangles() {
 
 void main() {
   group('Quad', () {
+    test('Copy', testQuadCopy);
     test('CopyNormalInto', testQuadCopyNormalInto);
     test('CopyTriangles', testQuadCopyTriangles);
   });
