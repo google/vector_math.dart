@@ -193,9 +193,30 @@ void testMatrix3Transform() {
 
   relativeTest(rotX.transformed(input), input);
   relativeTest(rotY.transformed(input),
-      Vector3(1.0 / math.sqrt(2.0), 0.0, 1.0 / math.sqrt(2.0)));
+      Vector3(1.0 / math.sqrt(2.0), 0.0, -1.0 / math.sqrt(2.0)));
   relativeTest(rotZ.transformed(input),
       Vector3(1.0 / math.sqrt(2.0), 1.0 / math.sqrt(2.0), 0.0));
+}
+
+void testMatrix3RotationX() {
+  final rotX = Matrix3.rotationX(math.pi / 2);
+  final input = Vector3(0.0, 1.0, 0.0);
+
+  relativeTest(rotX.transformed(input), Vector3(0.0, 0.0, 1.0));
+}
+
+void testMatrix3RotationY() {
+  final rotY = Matrix3.rotationY(math.pi / 2);
+  final input = Vector3(0.0, 0.0, 1.0);
+
+  relativeTest(rotY.transformed(input), Vector3(1.0, 0.0, 0.0));
+}
+
+void testMatrix3RotationZ() {
+  final rotZ = Matrix3.rotationZ(math.pi / 2);
+  final input = Vector3(1.0, 0.0, 0.0);
+
+  relativeTest(rotZ.transformed(input), Vector3(0.0, 1.0, 0.0));
 }
 
 void testMatrix3Transform2() {
@@ -333,6 +354,9 @@ void main() {
     test('transform 2D', testMatrix3Transform2);
     test('rotation 2D', testMatrix3AbsoluteRotate2);
     test('transform', testMatrix3Transform);
+    test('rotation 3D x', testMatrix3RotationX);
+    test('rotation 3D y', testMatrix3RotationY);
+    test('rotation 3D z', testMatrix3RotationZ);
     test('constructor', testMatrix3ConstructorCopy);
     test('inversion', testMatrix3Inversion);
     test('dot product', testMatrix3Dot);
