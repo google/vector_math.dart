@@ -31,13 +31,10 @@ jobs:
       - run: dart test
         if: matrix.sdk != 'dev' && steps.install.outcome == 'success'
 
-      - run: dart test --coverage coverage
+      - run: dart pub global run coverage:test_with_coverage
         if: matrix.sdk == 'dev' && steps.install.outcome == 'success'
-      - run: dart pub global activate coverage
-        if: matrix.sdk == 'dev'
-      - run: dart pub global run coverage:format_coverage -i coverage --report-on=lib --lcov > coverage/lcov.info
-        if: matrix.sdk == 'dev'
+        id: test_with_coverage
       - uses: coverallsapp/github-action@master
+        if: matrix.sdk == 'dev' && steps.test_with_coverage.outcome == 'success'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-        if: matrix.sdk == 'dev'
