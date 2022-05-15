@@ -35,7 +35,7 @@ jobs:
         if: matrix.sdk == 'dev' && steps.install.outcome == 'success'
       - run: dart pub global activate coverage
         if: matrix.sdk == 'dev'
-      - run: dart pub global run coverage:format_coverage --packages=.packages -i coverage --report-on=lib --lcov > coverage/lcov.info
+      - run: dart pub global run coverage:format_coverage -i coverage --report-on=lib --lcov > coverage/lcov.info
         if: matrix.sdk == 'dev'
       - uses: coverallsapp/github-action@master
         with:
