@@ -104,7 +104,7 @@ class Vector3 implements Vector {
 
   /// Check if two vectors are the same.
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       (other is Vector3) &&
       (_v3storage[0] == other._v3storage[0]) &&
       (_v3storage[1] == other._v3storage[1]) &&

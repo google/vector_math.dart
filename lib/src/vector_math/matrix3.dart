@@ -236,7 +236,7 @@ class Matrix3 {
 
   /// Check if two matrices are the same.
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       (other is Matrix3) &&
       (_m3storage[0] == other._m3storage[0]) &&
       (_m3storage[1] == other._m3storage[1]) &&
