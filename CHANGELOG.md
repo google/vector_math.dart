@@ -1,4 +1,4 @@
-## 2.1.3-dev
+## 2.1.3
 
 - `operator ==` overrides no longer take nullable arguments. This is only
   visible for classes that implement the interfaces defined in this package
