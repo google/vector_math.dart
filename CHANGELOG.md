@@ -1,3 +1,5 @@
+## 2.1.3-dev
+
 ## 2.1.2
 
 - Fix to `Quad.copy` ([#221](https://github.com/google/vector_math.dart/issues/221))

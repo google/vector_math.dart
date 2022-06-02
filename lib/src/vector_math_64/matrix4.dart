@@ -521,7 +521,7 @@ class Matrix4 {
 
   /// Check if two matrices are the same.
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       (other is Matrix4) &&
       (_m4storage[0] == other._m4storage[0]) &&
       (_m4storage[1] == other._m4storage[1]) &&

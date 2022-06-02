@@ -96,7 +96,7 @@ class Vector2 implements Vector {
 
   /// Check if two vectors are the same.
   @override
-  bool operator ==(Object? other) =>
+  bool operator ==(Object other) =>
       (other is Vector2) &&
       (_v2storage[0] == other._v2storage[0]) &&
       (_v2storage[1] == other._v2storage[1]);
