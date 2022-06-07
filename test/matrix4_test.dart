@@ -598,6 +598,111 @@ void testMatrix4InvertConstructor() {
   expect(Matrix4.inverted(Matrix4.identity()), equals(Matrix4.identity()));
 }
 
+void testMatrix4OnlyConstructor() {
+  const size = 16;
+
+  final m = Matrix4.only();
+  for (var i = 0; i < size; i++) {
+    expect(m.storage[i], equals(0.0));
+  }
+
+  final m2 = Matrix4.only(arg0: 1.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 0 ? 1.0 : 0.0;
+    expect(m2.storage[i], equals(expected));
+  }
+
+  final m3 = Matrix4.only(arg1: 2.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 1 ? 2.0 : 0.0;
+    expect(m3.storage[i], equals(expected));
+  }
+
+  final m4 = Matrix4.only(arg2: 3.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 2 ? 3.0 : 0.0;
+    expect(m4.storage[i], equals(expected));
+  }
+
+  final m5 = Matrix4.only(arg3: 4.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 3 ? 4.0 : 0.0;
+    expect(m5.storage[i], equals(expected));
+  }
+
+  final m6 = Matrix4.only(arg4: 5.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 4 ? 5.0 : 0.0;
+    expect(m6.storage[i], equals(expected));
+  }
+
+  final m7 = Matrix4.only(arg5: 6.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 5 ? 6.0 : 0.0;
+    expect(m7.storage[i], equals(expected));
+  }
+
+  final m8 = Matrix4.only(arg6: 7.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 6 ? 7.0 : 0.0;
+    expect(m8.storage[i], equals(expected));
+  }
+
+  final m9 = Matrix4.only(arg7: 8.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 7 ? 8.0 : 0.0;
+    expect(m9.storage[i], equals(expected));
+  }
+
+  final m10 = Matrix4.only(arg8: 9.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 8 ? 9.0 : 0.0;
+    expect(m10.storage[i], equals(expected));
+  }
+
+  final m11 = Matrix4.only(arg9: 10.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 9 ? 10.0 : 0.0;
+    expect(m11.storage[i], equals(expected));
+  }
+
+  final m12 = Matrix4.only(arg10: 11.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 10 ? 11.0 : 0.0;
+    expect(m12.storage[i], equals(expected));
+  }
+
+  final m13 = Matrix4.only(arg11: 12.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 11 ? 12.0 : 0.0;
+    expect(m13.storage[i], equals(expected));
+  }
+
+  final m14 = Matrix4.only(arg12: 13.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 12 ? 13.0 : 0.0;
+    expect(m14.storage[i], equals(expected));
+  }
+
+  final m15 = Matrix4.only(arg13: 14.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 13 ? 14.0 : 0.0;
+    expect(m15.storage[i], equals(expected));
+  }
+
+  final m16 = Matrix4.only(arg14: 15.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 14 ? 15.0 : 0.0;
+    expect(m16.storage[i], equals(expected));
+  }
+
+  final m17 = Matrix4.only(arg15: 16.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 15 ? 16.0 : 0.0;
+    expect(m17.storage[i], equals(expected));
+  }
+}
+
 void testMatrix4tryInvert() {
   expect(Matrix4.tryInvert(Matrix4.zero()), isNull);
   expect(Matrix4.tryInvert(Matrix4.identity()), equals(Matrix4.identity()));
@@ -691,6 +796,7 @@ void main() {
     test('compose/decompose', testMatrix4Compose);
     test('equals', testMatrix4Equals);
     test('invert constructor', testMatrix4InvertConstructor);
+    test('only constructor', testMatrix4OnlyConstructor);
     test('tryInvert', testMatrix4tryInvert);
     test('skew constructor', testMatrix4SkewConstructor);
     test('leftTranslate', testLeftTranslate);

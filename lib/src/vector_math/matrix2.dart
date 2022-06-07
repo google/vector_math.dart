@@ -54,6 +54,14 @@ class Matrix2 {
   factory Matrix2(double arg0, double arg1, double arg2, double arg3) =>
       Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
 
+  factory Matrix2.only({
+    double arg0 = 0,
+    double arg1 = 0,
+    double arg2 = 0,
+    double arg3 = 0,
+  }) =>
+      Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
+
   /// New matrix from [values].
   factory Matrix2.fromList(List<double> values) =>
       Matrix2.zero()..setValues(values[0], values[1], values[2], values[3]);

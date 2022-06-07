@@ -104,6 +104,21 @@ class Matrix3 {
       Matrix3.zero()
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
+  /// New matrix only with specified values.
+  factory Matrix3.only({
+    double arg0 = 0,
+    double arg1 = 0,
+    double arg2 = 0,
+    double arg3 = 0,
+    double arg4 = 0,
+    double arg5 = 0,
+    double arg6 = 0,
+    double arg7 = 0,
+    double arg8 = 0,
+  }) =>
+      Matrix3.zero()
+        ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+
   /// New matrix from [values].
   factory Matrix3.fromList(List<double> values) => Matrix3.zero()
     ..setValues(values[0], values[1], values[2], values[3], values[4],

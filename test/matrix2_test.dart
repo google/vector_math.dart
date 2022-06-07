@@ -120,10 +120,53 @@ void testMatrix2Equals() {
   expect(Matrix2.identity().hashCode, equals(Matrix2.identity().hashCode));
 }
 
+void testMatrix2Constructor() {
+  final m = Matrix2(1.0, 2.0, 3.0, 4.0);
+  expect(m.storage[0], equals(1.0));
+  expect(m.storage[1], equals(2.0));
+  expect(m.storage[2], equals(3.0));
+  expect(m.storage[3], equals(4.0));
+}
+
+void testMatrix2OnlyConstructor() {
+  const size = 4;
+
+  final m = Matrix2.only();
+  for (var i = 0; i < size; i++) {
+    expect(m.storage[i], equals(0.0));
+  }
+
+  final m2 = Matrix2.only(arg0: 1.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 0 ? 1.0 : 0.0;
+    expect(m2.storage[i], equals(expected));
+  }
+
+  final m3 = Matrix2.only(arg1: 2.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 1 ? 2.0 : 0.0;
+    expect(m3.storage[i], equals(expected));
+  }
+
+  final m4 = Matrix2.only(arg2: 3.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 2 ? 3.0 : 0.0;
+    expect(m4.storage[i], equals(expected));
+  }
+
+  final m5 = Matrix2.only(arg3: 4.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 3 ? 4.0 : 0.0;
+    expect(m5.storage[i], equals(expected));
+  }
+}
+
 void main() {
   group('Matrix2', () {
     test('Determinant', testMatrix2Determinant);
     test('Adjoint', testMatrix2Adjoint);
+    test('Constructor', testMatrix2Constructor);
+    test('only constructor', testMatrix2OnlyConstructor);
     test('transform 2D', testMatrix2Transform);
     test('inversion', testMatrix2Inversion);
     test('dot product', testMatrix2Dot);

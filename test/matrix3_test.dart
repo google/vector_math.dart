@@ -242,6 +242,69 @@ void testMatrix3ConstructorCopy() {
   expect(m.entry(2, 2), 9.0);
 }
 
+void testMatrix3OnlyConstructor() {
+  const size = 9;
+
+  final m = Matrix3.only();
+  for (var i = 0; i < size; i++) {
+    expect(m.storage[i], equals(0.0));
+  }
+
+  final m2 = Matrix3.only(arg0: 1.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 0 ? 1.0 : 0.0;
+    expect(m2.storage[i], equals(expected));
+  }
+
+  final m3 = Matrix3.only(arg1: 2.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 1 ? 2.0 : 0.0;
+    expect(m3.storage[i], equals(expected));
+  }
+
+  final m4 = Matrix3.only(arg2: 3.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 2 ? 3.0 : 0.0;
+    expect(m4.storage[i], equals(expected));
+  }
+
+  final m5 = Matrix3.only(arg3: 4.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 3 ? 4.0 : 0.0;
+    expect(m5.storage[i], equals(expected));
+  }
+
+  final m6 = Matrix3.only(arg4: 5.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 4 ? 5.0 : 0.0;
+    expect(m6.storage[i], equals(expected));
+  }
+
+  final m7 = Matrix3.only(arg5: 6.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 5 ? 6.0 : 0.0;
+    expect(m7.storage[i], equals(expected));
+  }
+
+  final m8 = Matrix3.only(arg6: 7.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 6 ? 7.0 : 0.0;
+    expect(m8.storage[i], equals(expected));
+  }
+
+  final m9 = Matrix3.only(arg7: 8.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 7 ? 8.0 : 0.0;
+    expect(m9.storage[i], equals(expected));
+  }
+
+  final m10 = Matrix3.only(arg8: 9.0);
+  for (var i = 0; i < size; i++) {
+    final expected = i == 8 ? 9.0 : 0.0;
+    expect(m10.storage[i], equals(expected));
+  }
+}
+
 void testMatrix3Inversion() {
   final m = Matrix3(1.0, 0.0, 5.0, 2.0, 1.0, 6.0, 3.0, 4.0, 0.0);
   final result = Matrix3.zero();
@@ -334,6 +397,7 @@ void main() {
     test('rotation 2D', testMatrix3AbsoluteRotate2);
     test('transform', testMatrix3Transform);
     test('constructor', testMatrix3ConstructorCopy);
+    test('only constructor', testMatrix3OnlyConstructor);
     test('inversion', testMatrix3Inversion);
     test('dot product', testMatrix3Dot);
     test('Scale', testMatrix3Scale);
