@@ -200,7 +200,7 @@ class Matrix4 {
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
             arg10, arg11, arg12, arg13, arg14, arg15);
 
-  /// Constructs a new mat4 only with specified values.
+  /// New matrix only with the specified values.
   factory Matrix4.only({
     double arg0 = 0,
     double arg1 = 0,

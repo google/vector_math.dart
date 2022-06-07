@@ -50,10 +50,11 @@ class Matrix2 {
     _m2storage[index(row, col)] = v;
   }
 
-  /// New matrix with specified values.
+  /// New matrix with the specified values.
   factory Matrix2(double arg0, double arg1, double arg2, double arg3) =>
       Matrix2.zero()..setValues(arg0, arg1, arg2, arg3);
 
+  /// New matrix only with the specified values.
   factory Matrix2.only({
     double arg0 = 0,
     double arg1 = 0,

@@ -104,7 +104,7 @@ class Matrix3 {
       Matrix3.zero()
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
-  /// New matrix only with specified values.
+  /// New matrix only with the specified values.
   factory Matrix3.only({
     double arg0 = 0,
     double arg1 = 0,
