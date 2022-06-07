@@ -37,6 +37,10 @@ class Vector2 implements Vector {
   /// Construct a new vector with the specified values.
   factory Vector2(double x, double y) => Vector2.zero()..setValues(x, y);
 
+  /// Construct a new vector only with the specified values.
+  factory Vector2.only({double x = 0, double y = 0}) =>
+      Vector2.zero()..setValues(x, y);
+
   /// Initialized with values from [array] starting at [offset].
   factory Vector2.array(List<double> array, [int offset = 0]) =>
       Vector2.zero()..copyFromArray(array, offset);

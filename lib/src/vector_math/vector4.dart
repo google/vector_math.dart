@@ -44,6 +44,15 @@ class Vector4 implements Vector {
   factory Vector4(double x, double y, double z, double w) =>
       Vector4.zero()..setValues(x, y, z, w);
 
+  /// Construct a new vector only with the specified values.
+  factory Vector4.only({
+    double x = 0,
+    double y = 0,
+    double z = 0,
+    double w = 0,
+  }) =>
+      Vector4.zero()..setValues(x, y, z, w);
+
   /// Initialized with values from [array] starting at [offset].
   factory Vector4.array(List<double> array, [int offset = 0]) =>
       Vector4.zero()..copyFromArray(array, offset);

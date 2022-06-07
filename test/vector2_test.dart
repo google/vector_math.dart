@@ -149,6 +149,20 @@ void testVector2Constructor() {
   expect(v3.y, lessThanOrEqualTo(1.0));
 }
 
+void testVector2OnlyConstructor() {
+  final v1 = Vector2.only();
+  expect(v1.x, equals(0.0));
+  expect(v1.y, equals(0.0));
+
+  final v2 = Vector2.only(x: 2.0);
+  expect(v2.x, equals(2.0));
+  expect(v2.y, equals(0.0));
+
+  final v3 = Vector2.only(y: 4.0);
+  expect(v3.x, equals(0.0));
+  expect(v3.y, equals(4.0));
+}
+
 void testVector2Length() {
   final a = Vector2(5.0, 7.0);
 
@@ -345,6 +359,7 @@ void main() {
     test('set length', testVector2SetLength);
     test('Negate', testVector2Negate);
     test('Constructor', testVector2Constructor);
+    test('only constructor', testVector2OnlyConstructor);
     test('add', testVector2Add);
     test('min/max', testVector2MinMax);
     test('mix', testVector2Mix);

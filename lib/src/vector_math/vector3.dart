@@ -41,6 +41,10 @@ class Vector3 implements Vector {
   factory Vector3(double x, double y, double z) =>
       Vector3.zero()..setValues(x, y, z);
 
+  /// Construct a new vector only with the specified values.
+  factory Vector3.only({double x = 0, double y = 0, double z = 0}) =>
+      Vector3.zero()..setValues(x, y, z);
+
   /// Initialized with values from [array] starting at [offset].
   factory Vector3.array(List<double> array, [int offset = 0]) =>
       Vector3.zero()..copyFromArray(array, offset);

@@ -122,6 +122,38 @@ void testVector4Constructor() {
   expect(v3.w, lessThanOrEqualTo(1.0));
 }
 
+void testVector4OnlyConstructor() {
+  final v1 = Vector4.only();
+  expect(v1.x, equals(0.0));
+  expect(v1.y, equals(0.0));
+  expect(v1.z, equals(0.0));
+  expect(v1.w, equals(0.0));
+
+  final v2 = Vector4.only(x: 2.0);
+  expect(v2.x, equals(2.0));
+  expect(v2.y, equals(0.0));
+  expect(v2.z, equals(0.0));
+  expect(v2.w, equals(0.0));
+
+  final v3 = Vector4.only(y: 4.0);
+  expect(v3.x, equals(0.0));
+  expect(v3.y, equals(4.0));
+  expect(v3.z, equals(0.0));
+  expect(v3.w, equals(0.0));
+
+  final v4 = Vector4.only(z: -1.5);
+  expect(v4.x, equals(0.0));
+  expect(v4.y, equals(0.0));
+  expect(v4.z, equals(-1.5));
+  expect(v4.w, equals(0.0));
+
+  final v5 = Vector4.only(w: 10.0);
+  expect(v5.x, equals(0.0));
+  expect(v5.y, equals(0.0));
+  expect(v5.z, equals(0.0));
+  expect(v5.w, equals(10.0));
+}
+
 void testVector4Length() {
   final a = Vector4(5.0, 7.0, 3.0, 10.0);
 
@@ -271,6 +303,7 @@ void main() {
     test('set length', testVector4SetLength);
     test('Negate', testVector4Negate);
     test('Constructor', testVector4Constructor);
+    test('only constructor', testVector4OnlyConstructor);
     test('add', testVector4Add);
     test('min/max', testVector4MinMax);
     test('mix', testVector4Mix);
