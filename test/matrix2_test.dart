@@ -130,5 +130,55 @@ void main() {
     test('Scale', testMatrix2Scale);
     test('solving', testMatrix2Solving);
     test('equals', testMatrix2Equals);
+
+    group('value setter', () {
+      test('r0c0 sets', () {
+        final m = Matrix2.zero();
+        const newValue = 2.0;
+
+        m.r0c0 = newValue;
+
+        expect(m.entry(0, 0), equals(newValue));
+        expect(m.entry(0, 1), equals(0.0));
+        expect(m.entry(1, 0), equals(0.0));
+        expect(m.entry(1, 1), equals(0.0));
+      });
+
+      test('r0c1 sets', () {
+        final m = Matrix2.zero();
+        const newValue = 2.0;
+
+        m.r0c1 = newValue;
+
+        expect(m.entry(0, 0), equals(0.0));
+        expect(m.entry(0, 1), equals(newValue));
+        expect(m.entry(1, 0), equals(0.0));
+        expect(m.entry(1, 1), equals(0.0));
+      });
+
+      test('r1c0 sets', () {
+        final m = Matrix2.zero();
+        const newValue = 2.0;
+
+        m.r1c0 = newValue;
+
+        expect(m.entry(0, 0), equals(0.0));
+        expect(m.entry(0, 1), equals(0.0));
+        expect(m.entry(1, 0), equals(newValue));
+        expect(m.entry(1, 1), equals(0.0));
+      });
+
+      test('r1c1 sets', () {
+        final m = Matrix2.zero();
+        const newValue = 2.0;
+
+        m.r1c1 = newValue;
+
+        expect(m.entry(0, 0), equals(0.0));
+        expect(m.entry(0, 1), equals(0.0));
+        expect(m.entry(1, 0), equals(0.0));
+        expect(m.entry(1, 1), equals(newValue));
+      });
+    });
   });
 }

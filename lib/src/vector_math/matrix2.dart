@@ -78,6 +78,18 @@ class Matrix2 {
   factory Matrix2.rotation(double radians) =>
       Matrix2.zero()..setRotation(radians);
 
+  /// Sets the value for row 0 and column 0.
+  set r0c0(double value) => _m2storage[index(0, 0)] = value;
+
+  /// Sets the value for row 0 and column 1.
+  set r0c1(double value) => _m2storage[index(0, 1)] = value;
+
+  /// Sets the value for row 1 and column 0.
+  set r1c0(double value) => _m2storage[index(1, 0)] = value;
+
+  /// Sets the value for row 1 and column 1.
+  set r1c1(double value) => _m2storage[index(1, 1)] = value;
+
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3) {
     _m2storage[3] = arg3;
