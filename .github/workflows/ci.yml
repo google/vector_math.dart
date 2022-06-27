@@ -34,7 +34,7 @@ jobs:
       - run: dart pub global activate coverage
         if: matrix.sdk == 'dev' && steps.install.outcome == 'success'
         id: install_pkg_coverage
-      - run: dart pub global run coverage:test_with_coverage
+      - run: dart pub global run coverage:test_with_coverage -f
         if: matrix.sdk == 'dev' && steps.install_pkg_coverage.outcome == 'success'
         id: test_with_coverage
       - uses: coverallsapp/github-action@master
