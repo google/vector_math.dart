@@ -11,8 +11,8 @@
 /// [Quad], [Ray], [Sphere] and [Triangle]).
 ///
 /// In addition some utilities are available as color operations (See [Colors]
-/// class), noise generators ([SimplexNoise]) and common OpenGL operations
-/// (like [makeViewMatrix], [makePerspectiveMatrix], or [pickRay]).
+/// class) and common OpenGL operations (like [makeViewMatrix],
+/// [makePerspectiveMatrix], or [pickRay]).
 library vector_math;
 
 import 'dart:math' as math;

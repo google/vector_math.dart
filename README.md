@@ -163,4 +163,3 @@ To automatically generate the latest version of ```vector_math_64```:
 ```
 ~/src/vector_math/> dart tool/generate_vector_math_64.dart
 ```
-

@@ -26,6 +26,8 @@ part of vector_math;
  * found at: http://webstaff.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
  */
 
+@Deprecated('This API will be removed '
+    '(see https:github.com/google/vector_math.dart/issues/270)')
 class SimplexNoise {
   static final List<List<double>> _grad3 = <List<double>>[
     <double>[1.0, 1.0, 0.0],
