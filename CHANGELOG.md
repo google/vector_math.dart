@@ -3,6 +3,8 @@
 - `operator ==` overrides no longer take nullable arguments. This is only
   visible for classes that implement the interfaces defined in this package
   which no longer need to also widen the argument type.
+- Deprecate `SimplexNoise`; see https:github.com/google/vector_math.dart/issues/270
+  for more information.
 
 ## 2.1.2
 
