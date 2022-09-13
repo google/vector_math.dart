@@ -212,6 +212,12 @@ void testFromTwoVectors() {
   }
 }
 
+void testSmallAngleQuaternionAxis() {
+  final q = Quaternion.axisAngle(Vector3(0.0, 0.0, 1.0), 0.6 * degrees2Radians);
+  relativeTest(q.axis, Vector3(0.0, 0.0, 1.0));
+  relativeTest(q.radians, 0.6 * degrees2Radians);
+}
+
 void main() {
   group('Quaternion', () {
     test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
@@ -223,5 +229,6 @@ void main() {
     test('Normalize', testQuaternionNormalize);
     test('Axis-Angle', testQuaternionAxisAngle);
     test('Construction from two vectors', testFromTwoVectors);
+    test('Axis of quaternion from small angle', testSmallAngleQuaternionAxis);
   });
 }

@@ -291,7 +291,7 @@ class Quaternion {
   /// [axis] of rotation.
   Vector3 get axis {
     final den = 1.0 - (_qStorage[3] * _qStorage[3]);
-    if (den < 0.0005) {
+    if (den < 0.00002) {
       // 0-angle rotation, so axis does not matter
       return Vector3.zero();
     }
