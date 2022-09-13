@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart' as v64;
 
 import 'test_utils.dart';
 
@@ -213,9 +214,15 @@ void testFromTwoVectors() {
 }
 
 void testSmallAngleQuaternionAxis() {
-  final q = Quaternion.axisAngle(Vector3(0.0, 0.0, 1.0), 0.6 * degrees2Radians);
-  relativeTest(q.axis, Vector3(0.0, 0.0, 1.0));
-  relativeTest(q.radians, 0.6 * degrees2Radians);
+  final quaternion32 =
+      Quaternion.axisAngle(Vector3(0.0, 0.0, 1.0), 0.6 * degrees2Radians);
+  relativeTest(quaternion32.axis, Vector3(0.0, 0.0, 1.0));
+  relativeTest(quaternion32.radians, 0.6 * degrees2Radians);
+  final quaternion64 =
+      v64.Quaternion.axisAngle(v64.Vector3(0, 0, 1), 0.01 * degrees2Radians);
+  expect(
+      quaternion64.axis.relativeError(v64.Vector3(0, 0, 1)), closeTo(0, 1e-5));
+  expect(quaternion64.radians, closeTo(0.01 * degrees2Radians, 1e-5));
 }
 
 void main() {
