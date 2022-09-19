@@ -154,7 +154,7 @@ void main() {
 
 ## Development
 
-To run thes tests:
+To run the unit tests:
 
 ```
 ~/src/vector_math/> dart test
