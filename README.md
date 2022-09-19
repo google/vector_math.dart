@@ -1,4 +1,6 @@
-[![CI](https://github.com/google/vector_math.dart/workflows/ci/badge.svg?branch=master)](https://github.com/google/vector_math.dart/actions?query=workflow%3Aci+branch%3Amaster)
+[![Dart](https://github.com/google/vector_math.dart/workflows/ci/badge.svg?branch=master)](https://github.com/google/vector_math.dart/actions?query=workflow%3Aci+branch%3Amaster)
+[![pub package](https://img.shields.io/pub/v/vector_math.svg)](https://pub.dev/packages/vector_math)
+[![package publisher](https://img.shields.io/pub/publisher/vector_math.svg)](https://pub.dev/packages/vector_math/publisher)
 [![Coverage Status](https://coveralls.io/repos/google/vector_math.dart/badge.svg?branch=master)](https://coveralls.io/r/google/vector_math.dart?branch=master)
 
 ## Introduction
@@ -152,13 +154,13 @@ void main() {
 
 ## Development
 
-To run test cases:
+To run the unit tests:
 
 ```
-~/src/vector_math/> pub run test:test
+~/src/vector_math/> dart test
 ```
 
-To automatically generate the latest version of ```vector_math_64```:
+To automatically generate the latest version of `vector_math_64`:
 
 ```
 ~/src/vector_math/> dart tool/generate_vector_math_64.dart
