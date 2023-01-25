@@ -158,6 +158,7 @@ class Vector2 implements Vector {
   double normalize() {
     final l = length;
     if (l == 0.0) {
+      print('Fix for flutter here'); // added to fix flutter crash 
       return 0.0;
     }
     final d = 1.0 / l;
