@@ -2,8 +2,6 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-library console_test_harness;
-
 import 'aabb2_test.dart' as aabb2;
 import 'aabb3_test.dart' as aabb3;
 import 'colors_test.dart' as colors;

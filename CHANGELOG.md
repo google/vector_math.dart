@@ -1,3 +1,7 @@
+## 2.1.5
+
+- Require Dart 2.19
+
 ## 2.1.4
 
 - Refactor the locations of the `SimplexNoise` related part files.

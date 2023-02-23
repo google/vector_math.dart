@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math_lists;
+part of '../../vector_math_lists.dart';
 
 /// Abstract base class for vector lists. See [Vector2List], [Vector3List], and
 /// [Vector4List] for implementations of this class.

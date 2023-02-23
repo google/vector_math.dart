@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math;
+part of '../../vector_math.dart';
 
 /// Defines a [Quaternion] (a four-dimensional vector) for efficient rotation
 /// calculations.
@@ -170,12 +170,14 @@ class Quaternion {
 
       // a and b are parallel in opposite directions. We need any
       // vector as our rotation axis that is perpendicular.
-      // Find one by taking the cross product of v1 with an appropriate unit axis
+      // Find one by taking the cross product of v1 with an appropriate unit
+      // axis
       if (v1.x > v1.y && v1.x > v1.z) {
         // v1 points in a dominantly x direction, so don't cross with that axis
         axis = v1.cross(Vector3(0.0, 1.0, 0.0));
       } else {
-        // Predominantly points in some other direction, so x-axis should be safe
+        // Predominantly points in some other direction, so x-axis should be
+        // safe
         axis = v1.cross(Vector3(1.0, 0.0, 0.0));
       }
     } else if ((1.0 - c).abs() < 0.0005) {
@@ -219,14 +221,14 @@ class Quaternion {
     final ox = omegaStorage[0];
     final oy = omegaStorage[1];
     final oz = omegaStorage[2];
-    final _x = ox * qw + oy * qz - oz * qy;
-    final _y = oy * qw + oz * qx - ox * qz;
-    final _z = oz * qw + ox * qy - oy * qx;
-    final _w = -ox * qx - oy * qy - oz * qz;
-    _qStorage[0] = _x * 0.5;
-    _qStorage[1] = _y * 0.5;
-    _qStorage[2] = _z * 0.5;
-    _qStorage[3] = _w * 0.5;
+    final x = ox * qw + oy * qz - oz * qy;
+    final y = oy * qw + oz * qx - ox * qz;
+    final z = oz * qw + ox * qy - oy * qx;
+    final w = -ox * qx - oy * qy - oz * qz;
+    _qStorage[0] = x * 0.5;
+    _qStorage[1] = y * 0.5;
+    _qStorage[2] = z * 0.5;
+    _qStorage[3] = w * 0.5;
   }
 
   /// Set quaternion with rotation of [yaw], [pitch] and [roll].
@@ -323,21 +325,21 @@ class Quaternion {
   /// Rotates [v] by this.
   Vector3 rotate(Vector3 v) {
     // conjugate(this) * [v,0] * this
-    final _w = _qStorage[3];
-    final _z = _qStorage[2];
-    final _y = _qStorage[1];
-    final _x = _qStorage[0];
-    final tiw = _w;
-    final tiz = -_z;
-    final tiy = -_y;
-    final tix = -_x;
+    final w = _qStorage[3];
+    final z = _qStorage[2];
+    final y = _qStorage[1];
+    final x = _qStorage[0];
+    final tiw = w;
+    final tiz = -z;
+    final tiy = -y;
+    final tix = -x;
     final tx = tiw * v.x + tix * 0.0 + tiy * v.z - tiz * v.y;
     final ty = tiw * v.y + tiy * 0.0 + tiz * v.x - tix * v.z;
     final tz = tiw * v.z + tiz * 0.0 + tix * v.y - tiy * v.x;
     final tw = tiw * 0.0 - tix * v.x - tiy * v.y - tiz * v.z;
-    final result_x = tw * _x + tx * _w + ty * _z - tz * _y;
-    final result_y = tw * _y + ty * _w + tz * _x - tx * _z;
-    final result_z = tw * _z + tz * _w + tx * _y - ty * _x;
+    final result_x = tw * x + tx * w + ty * z - tz * y;
+    final result_y = tw * y + ty * w + tz * x - tx * z;
+    final result_z = tw * z + tz * w + tx * y - ty * x;
     final vStorage = v.storage;
     vStorage[2] = result_z;
     vStorage[1] = result_y;
@@ -376,20 +378,20 @@ class Quaternion {
 
   /// this rotated by [other].
   Quaternion operator *(Quaternion other) {
-    final _w = _qStorage[3];
-    final _z = _qStorage[2];
-    final _y = _qStorage[1];
-    final _x = _qStorage[0];
+    final w = _qStorage[3];
+    final z = _qStorage[2];
+    final y = _qStorage[1];
+    final x = _qStorage[0];
     final otherStorage = other._qStorage;
     final ow = otherStorage[3];
     final oz = otherStorage[2];
     final oy = otherStorage[1];
     final ox = otherStorage[0];
     return Quaternion(
-        _w * ox + _x * ow + _y * oz - _z * oy,
-        _w * oy + _y * ow + _z * ox - _x * oz,
-        _w * oz + _z * ow + _x * oy - _y * ox,
-        _w * ow - _x * ox - _y * oy - _z * oz);
+        w * ox + x * ow + y * oz - z * oy,
+        w * oy + y * ow + z * ox - x * oz,
+        w * oz + z * ow + x * oy - y * ox,
+        w * ow - x * ox - y * oy - z * oz);
   }
 
   /// Returns copy of this + [other].
@@ -419,26 +421,26 @@ class Quaternion {
     assert(d != 0.0);
     final s = 2.0 / d;
 
-    final _x = _qStorage[0];
-    final _y = _qStorage[1];
-    final _z = _qStorage[2];
-    final _w = _qStorage[3];
+    final x = _qStorage[0];
+    final y = _qStorage[1];
+    final z = _qStorage[2];
+    final w = _qStorage[3];
 
-    final xs = _x * s;
-    final ys = _y * s;
-    final zs = _z * s;
+    final xs = x * s;
+    final ys = y * s;
+    final zs = z * s;
 
-    final wx = _w * xs;
-    final wy = _w * ys;
-    final wz = _w * zs;
+    final wx = w * xs;
+    final wy = w * ys;
+    final wz = w * zs;
 
-    final xx = _x * xs;
-    final xy = _x * ys;
-    final xz = _x * zs;
+    final xx = x * xs;
+    final xy = x * ys;
+    final xz = x * zs;
 
-    final yy = _y * ys;
-    final yz = _y * zs;
-    final zz = _z * zs;
+    final yy = y * ys;
+    final yz = y * zs;
+    final zz = z * zs;
 
     final rotationMatrixStorage = rotationMatrix.storage;
     rotationMatrixStorage[0] = 1.0 - (yy + zz); // column 0

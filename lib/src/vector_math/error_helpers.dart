@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math;
+part of '../../vector_math.dart';
 
 /// Returns relative error between [calculated] and [correct].
 /// The type of [calculated] and [correct] must match and can
@@ -12,8 +12,8 @@ double relativeError(dynamic calculated, dynamic correct) {
     final diff = (calculated - correct).abs().toDouble();
     return diff / correct;
   }
-  // ignore: return_of_invalid_type
-  return calculated.relativeError(correct);
+  // ignore: avoid_dynamic_calls
+  return calculated.relativeError(correct) as double;
 }
 
 /// Returns absolute error between [calculated] and [correct].
@@ -24,6 +24,6 @@ double absoluteError(dynamic calculated, dynamic correct) {
     final diff = (calculated - correct).abs().toDouble();
     return diff;
   }
-  // ignore: return_of_invalid_type
-  return calculated.absoluteError(correct);
+  // ignore: avoid_dynamic_calls
+  return calculated.absoluteError(correct) as double;
 }

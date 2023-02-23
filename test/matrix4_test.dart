@@ -183,7 +183,6 @@ void testMatrix4Multiplication() {
 
   for (var i = 0; i < inputA.length; i++) {
     final output = inputA[i] * inputB[i] as Matrix4;
-    //print('${inputA[i].cols}x${inputA[i].rows} * ${inputB[i].cols}x${inputB[i].rows} = ${output.cols}x${output.rows}');
     relativeTest(output, expectedOutput[i]);
   }
 }
@@ -424,12 +423,12 @@ void testMatrix4Rotate() {
 }
 
 void testMatrix4GetRotation() {
-  final mat4 = Matrix4.rotationX(math.pi) *
-      Matrix4.rotationY(-math.pi) *
-      Matrix4.rotationZ(math.pi) as Matrix4;
-  final mat3 = Matrix3.rotationX(math.pi) *
-      Matrix3.rotationY(-math.pi) *
-      Matrix3.rotationZ(math.pi) as Matrix3;
+  final mat4 =
+      (Matrix4.rotationX(math.pi) * Matrix4.rotationY(-math.pi) as Matrix4) *
+          Matrix4.rotationZ(math.pi) as Matrix4;
+  final mat3 =
+      (Matrix3.rotationX(math.pi) * Matrix3.rotationY(-math.pi) as Matrix3) *
+          Matrix3.rotationZ(math.pi) as Matrix3;
   final matRot = mat4.getRotation();
 
   relativeTest(mat3, matRot);

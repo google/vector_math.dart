@@ -19,7 +19,7 @@
 
 */
 
-part of vector_math;
+part of '../../vector_math.dart';
 
 /*
  * This is based on the implementation of Simplex Noise by Stefan Gustavson
@@ -249,8 +249,8 @@ class SimplexNoise {
     }
     // A step of (1,0,0) in (i,j,k) means a step of (1-c,-c,-c) in (x,y,z),
     // a step of (0,1,0) in (i,j,k) means a step of (-c,1-c,-c) in (x,y,z), and
-    // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where
-    // c = 1/6.
+    // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z),
+    // where c = 1/6.
     final x1 = x0 - i1 + _g3; // Offsets for second corner in (x,y,z) coords
     final y1 = y0 - j1 + _g3;
     final z1 = z0 - k1 + _g3;
@@ -365,9 +365,11 @@ class SimplexNoise {
     int i2, j2, k2, l2; // The integer offsets for the third simplex corner
     int i3, j3, k3, l3; // The integer offsets for the fourth simplex corner
     // simplex[c] is a 4-vector with the numbers 0, 1, 2 and 3 in some order.
-    // Many values of c will never occur, since e.g. x>y>z>w makes x<z, y<w and x<w
-    // impossible. Only the 24 indices which have non-zero entries make any sense.
-    // We use a thresholding to set the coordinates in turn from the largest magnitude.
+    // Many values of c will never occur, since e.g. x>y>z>w makes x<z, y<w and
+    // x<w impossible. Only the 24 indices which have non-zero entries make any
+    // sense.
+    // We use a thresholding to set the coordinates in turn from the largest
+    // magnitude.
     // Rank 3 denotes the largest coordinate.
     i1 = rankx >= 3 ? 1 : 0;
     j1 = ranky >= 3 ? 1 : 0;
@@ -383,7 +385,8 @@ class SimplexNoise {
     j3 = ranky >= 1 ? 1 : 0;
     k3 = rankz >= 1 ? 1 : 0;
     l3 = rankw >= 1 ? 1 : 0;
-    // The fifth corner has all coordinate offsets = 1, so no need to compute that.
+    // The fifth corner has all coordinate offsets = 1, so no need to compute
+    // that.
     final x1 = x0 - i1 + _G4; // Offsets for second corner in (x,y,z,w) coords
     final y1 = y0 - j1 + _G4;
     final z1 = z0 - k1 + _G4;

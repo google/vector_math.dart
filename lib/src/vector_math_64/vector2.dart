@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math_64;
+part of '../../vector_math_64.dart';
 
 /// 2D column vector.
 class Vector2 implements Vector {
@@ -230,8 +230,8 @@ class Vector2 implements Vector {
   ///
   /// Transforms this into the product of this as a row vector,
   /// postmultiplied by matrix, [arg].
-  /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
-  /// the inverse of the transformation.
+  /// If [arg] is a rotation matrix, this is a computational shortcut for
+  /// applying, the inverse of the transformation.
   ///
   void postmultiply(Matrix2 arg) {
     final argStorage = arg.storage;
@@ -247,7 +247,9 @@ class Vector2 implements Vector {
     return _v2storage[0] * otherStorage[1] - _v2storage[1] * otherStorage[0];
   }
 
-  /// Rotate this by 90 degrees then scale it. Store result in [out]. Return [out].
+  /// Rotate this by 90 degrees then scale it.
+  ///
+  /// Store result in [out]. Return [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
     out.setValues(-scale * _v2storage[1], scale * _v2storage[0]);
     return out;

@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math;
+part of '../../vector_math.dart';
 
 /// 4D Matrix.
 /// Values are stored in column major order.
@@ -1110,7 +1110,8 @@ class Matrix4 {
     return diff_norm;
   }
 
-  /// Returns the translation vector from this homogeneous transformation matrix.
+  /// Returns the translation vector from this homogeneous transformation
+  /// matrix.
   Vector3 getTranslation() {
     final z = _m4storage[14];
     final y = _m4storage[13];
@@ -1172,8 +1173,10 @@ class Matrix4 {
     _m4storage[10] = rStorage[8];
   }
 
-  /// Returns the normal matrix from this homogeneous transformation matrix. The normal
-  /// matrix is the transpose of the inverse of the top-left 3x3 part of this 4x4 matrix.
+  /// Returns the normal matrix from this homogeneous transformation matrix.
+  ///
+  /// The normal matrix is the transpose of the inverse of the top-left 3x3 part
+  /// of this 4x4 matrix.
   Matrix3 getNormalMatrix() => Matrix3.identity()..copyNormalMatrix(this);
 
   /// Returns the max scale value of the 3 axes.

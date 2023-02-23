@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 Vector2 $v2(double x, double y) => Vector2(x, y);
@@ -70,8 +69,8 @@ T parseMatrix<T>(String input) {
   final dynamic m = makeMatrix(rows.length, col_count);
   for (var j = 0; j < rows.length; j++) {
     for (var i = 0; i < col_count; i++) {
+      // ignore: avoid_dynamic_calls
       m[m.index(j, i)] = values[j * col_count + i];
-      //m[i][j] = values[j*col_count+i];
     }
   }
 

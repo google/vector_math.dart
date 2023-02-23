@@ -6,9 +6,9 @@
 /// performed on [Float32List] instances and SIMD optimized operations
 /// ([Matrix44SIMDOperations]) that can be performed on [Float32x4List]
 /// instances.
-library vector_math_operations;
+library;
 
 import 'dart:typed_data';
 
-part 'src/vector_math_operations/vector.dart';
 part 'src/vector_math_operations/matrix.dart';
+part 'src/vector_math_operations/vector.dart';

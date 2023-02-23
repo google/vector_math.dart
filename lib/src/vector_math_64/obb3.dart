@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Google Inc. Please see the AUTHORS file for details.
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
-part of vector_math_64;
+part of '../../vector_math_64.dart';
 
 /// Defines a 3-dimensional oriented bounding box defined with a [center],
 /// [halfExtents] and axes.
@@ -167,7 +167,8 @@ class Obb3 {
     }
   }
 
-  /// Find the closest point [q] on the OBB to the point [p] and store it in [q].
+  /// Find the closest point [q] on the OBB to the point [p] and store it in
+  /// [q].
   void closestPointTo(Vector3 p, Vector3 q) {
     final d = p - _center;
 
