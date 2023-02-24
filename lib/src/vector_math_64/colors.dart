@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math_64;
+part of '../../vector_math_64.dart';
 
 /// Contains functions for converting between different color models and
 /// manipulating colors. In addition to that, some known colors can be accessed

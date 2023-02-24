@@ -214,7 +214,7 @@ void testFromTwoVectors() {
 
 void main() {
   group('Quaternion', () {
-    test('Float32List instacing', testQuaternionInstacingFromByteBuffer);
+    test('Float32List instacing', testQuaternionInstacinfFromFloat32List);
     test('ByteBuffer instacing', testQuaternionInstacingFromByteBuffer);
     test('Conjugate', testQuaternionConjugate);
     test('Matrix Quaternion Round Trip',

@@ -13,7 +13,7 @@
 /// In addition some utilities are available as color operations (See [Colors]
 /// class) and common OpenGL operations (like [makeViewMatrix],
 /// [makePerspectiveMatrix], or [pickRay]).
-library vector_math;
+library;
 
 import 'dart:math' as math;
 import 'dart:typed_data';

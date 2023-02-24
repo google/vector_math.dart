@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math;
+part of '../../vector_math.dart';
 
 /// Defines a 3-dimensional axis-aligned bounding box between a [min] and a
 /// [max] position.
@@ -587,8 +587,10 @@ class Aabb3 {
       }
     }
 
-    // Test the three axes corresponding to the face normals of AABB b (category 1). // Exit if...
-    // ... [-e0, e0] and [min(v0.x,v1.x,v2.x), max(v0.x,v1.x,v2.x)] do not overlap
+    // Test the three axes corresponding to the face normals of AABB b
+    // (category 1).
+    // Exit if [-e0, e0] and [min(v0.x,v1.x,v2.x), max(v0.x,v1.x,v2.x)] do not
+    // overlap
     if (math.max(_v0.x, math.max(_v1.x, _v2.x)) < -_aabbHalfExtents[0] ||
         math.min(_v0.x, math.min(_v1.x, _v2.x)) > _aabbHalfExtents[0]) {
       return false;
@@ -598,7 +600,8 @@ class Aabb3 {
       result._depth = a;
       result.axis.setFrom(_u0);
     }
-    // ... [-e1, e1] and [min(v0.y,v1.y,v2.y), max(v0.y,v1.y,v2.y)] do not overlap
+    // ... [-e1, e1] and [min(v0.y,v1.y,v2.y), max(v0.y,v1.y,v2.y)] do not
+    // overlap
     if (math.max(_v0.y, math.max(_v1.y, _v2.y)) < -_aabbHalfExtents[1] ||
         math.min(_v0.y, math.min(_v1.y, _v2.y)) > _aabbHalfExtents[1]) {
       return false;
@@ -608,7 +611,8 @@ class Aabb3 {
       result._depth = a;
       result.axis.setFrom(_u1);
     }
-    // ... [-e2, e2] and [min(v0.z,v1.z,v2.z), max(v0.z,v1.z,v2.z)] do not overlap
+    // ... [-e2, e2] and [min(v0.z,v1.z,v2.z), max(v0.z,v1.z,v2.z)] do not
+    // overlap
     if (math.max(_v0.z, math.max(_v1.z, _v2.z)) < -_aabbHalfExtents[2] ||
         math.min(_v0.z, math.min(_v1.z, _v2.z)) > _aabbHalfExtents[2]) {
       return false;

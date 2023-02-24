@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math_64;
+part of '../../vector_math_64.dart';
 
 /// Defines a [Ray] by an [origin] and a [direction].
 class Ray {

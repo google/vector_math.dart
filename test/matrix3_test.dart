@@ -5,7 +5,6 @@
 import 'dart:math' as math;
 
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
@@ -40,7 +39,9 @@ void testMatrix3Adjoint() {
   assert(input.length == expectedOutput.length);
 
   for (var i = 0; i < input.length; i++) {
+    // ignore: avoid_dynamic_calls
     final dynamic output = input[i].clone();
+    // ignore: avoid_dynamic_calls
     output.scaleAdjoint(1.0);
     relativeTest(output, expectedOutput[i]);
   }

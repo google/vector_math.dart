@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math_geometry;
+part of '../../../vector_math_geometry.dart';
 
 /// Generate vertex normals based on a list of [positions] and [indices].
 /// [normals] is assumed to be zeroed out, and much match [positions] in length.

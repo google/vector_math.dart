@@ -2,7 +2,7 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-part of vector_math;
+part of '../../vector_math.dart';
 
 /// 3D column vector.
 class Vector3 implements Vector {
@@ -241,10 +241,11 @@ class Vector3 implements Vector {
     return sum;
   }
 
-  /// Transforms this into the product of this as a row vector,
-  /// postmultiplied by matrix, [arg].
-  /// If [arg] is a rotation matrix, this is a computational shortcut for applying,
-  /// the inverse of the transformation.
+  /// Transforms this into the product of this as a row vector, postmultiplied
+  /// by matrix, [arg].
+  ///
+  /// If [arg] is a rotation matrix, this is a computational shortcut for
+  /// applying, the inverse of the transformation.
   void postmultiply(Matrix3 arg) {
     final argStorage = arg.storage;
     final v0 = _v3storage[0];
@@ -261,14 +262,14 @@ class Vector3 implements Vector {
 
   /// Cross product.
   Vector3 cross(Vector3 other) {
-    final _x = _v3storage[0];
-    final _y = _v3storage[1];
-    final _z = _v3storage[2];
+    final x = _v3storage[0];
+    final y = _v3storage[1];
+    final z = _v3storage[2];
     final otherStorage = other._v3storage;
     final ox = otherStorage[0];
     final oy = otherStorage[1];
     final oz = otherStorage[2];
-    return Vector3(_y * oz - _z * oy, _z * ox - _x * oz, _x * oy - _y * ox);
+    return Vector3(y * oz - z * oy, z * ox - x * oz, x * oy - y * ox);
   }
 
   /// Cross product. Stores result in [out].
