@@ -12,8 +12,9 @@ double relativeError(dynamic calculated, dynamic correct) {
     final diff = (calculated - correct).abs().toDouble();
     return diff / correct;
   }
-  // ignore: avoid_dynamic_calls
-  return calculated.relativeError(correct) as double;
+  // avoiding an `as double` cast here to maximize speed on dart2js
+  // ignore: avoid_dynamic_calls, return_of_invalid_type
+  return calculated.relativeError(correct);
 }
 
 /// Returns absolute error between [calculated] and [correct].
@@ -24,6 +25,7 @@ double absoluteError(dynamic calculated, dynamic correct) {
     final diff = (calculated - correct).abs().toDouble();
     return diff;
   }
-  // ignore: avoid_dynamic_calls
-  return calculated.absoluteError(correct) as double;
+  // avoiding an `as double` cast here to maximize speed on dart2js
+  // ignore: avoid_dynamic_calls, return_of_invalid_type
+  return calculated.absoluteError(correct);
 }
