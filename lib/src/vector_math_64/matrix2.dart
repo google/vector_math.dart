@@ -88,8 +88,8 @@ class Matrix2 {
 
   /// Sets the entire matrix to the column values.
   void setColumns(Vector2 arg0, Vector2 arg1) {
-    final arg0Storage = arg0._v2storage;
-    final arg1Storage = arg1._v2storage;
+    final arg0Storage = arg0.storage;
+    final arg1Storage = arg1.storage;
     _m2storage[0] = arg0Storage[0];
     _m2storage[1] = arg0Storage[1];
     _m2storage[2] = arg1Storage[0];
@@ -107,8 +107,8 @@ class Matrix2 {
 
   /// Set this to the outer product of [u] and [v].
   void setOuter(Vector2 u, Vector2 v) {
-    final uStorage = u._v2storage;
-    final vStorage = v._v2storage;
+    final uStorage = u.storage;
+    final vStorage = v.storage;
     _m2storage[0] = uStorage[0] * vStorage[0];
     _m2storage[1] = uStorage[0] * vStorage[1];
     _m2storage[2] = uStorage[1] * vStorage[0];
@@ -123,7 +123,7 @@ class Matrix2 {
 
   /// Sets the diagonal of the matrix to be [arg].
   void setDiagonal(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _m2storage[0] = argStorage[0];
     _m2storage[3] = argStorage[1];
   }
@@ -169,7 +169,7 @@ class Matrix2 {
 
   /// Sets [row] of the matrix to values in [arg]
   void setRow(int row, Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _m2storage[index(row, 0)] = argStorage[0];
     _m2storage[index(row, 1)] = argStorage[1];
   }
@@ -177,7 +177,7 @@ class Matrix2 {
   /// Gets the [row] of the matrix
   Vector2 getRow(int row) {
     final r = Vector2.zero();
-    final rStorage = r._v2storage;
+    final rStorage = r.storage;
     rStorage[0] = _m2storage[index(row, 0)];
     rStorage[1] = _m2storage[index(row, 1)];
     return r;
@@ -185,7 +185,7 @@ class Matrix2 {
 
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     final entry = column * 2;
     _m2storage[entry + 1] = argStorage[1];
     _m2storage[entry + 0] = argStorage[0];
@@ -195,7 +195,7 @@ class Matrix2 {
   Vector2 getColumn(int column) {
     final r = Vector2.zero();
     final entry = column * 2;
-    final rStorage = r._v2storage;
+    final rStorage = r.storage;
     rStorage[1] = _m2storage[entry + 1];
     rStorage[0] = _m2storage[entry + 0];
     return r;
@@ -279,13 +279,13 @@ class Matrix2 {
 
   /// Returns the dot product of row [i] and [v].
   double dotRow(int i, Vector2 v) {
-    final vStorage = v._v2storage;
+    final vStorage = v.storage;
     return _m2storage[i] * vStorage[0] + _m2storage[2 + i] * vStorage[1];
   }
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector2 v) {
-    final vStorage = v._v2storage;
+    final vStorage = v.storage;
     return _m2storage[j * 2] * vStorage[0] +
         _m2storage[(j * 2) + 1] * vStorage[1];
   }
@@ -468,7 +468,7 @@ class Matrix2 {
   /// Transform [arg] of type [Vector2] using the transformation defined by
   /// this.
   Vector2 transform(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     final x = (_m2storage[0] * argStorage[0]) + (_m2storage[2] * argStorage[1]);
     final y = (_m2storage[1] * argStorage[0]) + (_m2storage[3] * argStorage[1]);
     argStorage[0] = x;

@@ -461,73 +461,73 @@ class Vector4 implements Vector {
   }
 
   set xy(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[0] = argStorage[0];
     _v4storage[1] = argStorage[1];
   }
 
   set xz(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[0] = argStorage[0];
     _v4storage[2] = argStorage[1];
   }
 
   set xw(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[0] = argStorage[0];
     _v4storage[3] = argStorage[1];
   }
 
   set yx(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[1] = argStorage[0];
     _v4storage[0] = argStorage[1];
   }
 
   set yz(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[1] = argStorage[0];
     _v4storage[2] = argStorage[1];
   }
 
   set yw(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[1] = argStorage[0];
     _v4storage[3] = argStorage[1];
   }
 
   set zx(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[2] = argStorage[0];
     _v4storage[0] = argStorage[1];
   }
 
   set zy(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[2] = argStorage[0];
     _v4storage[1] = argStorage[1];
   }
 
   set zw(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[2] = argStorage[0];
     _v4storage[3] = argStorage[1];
   }
 
   set wx(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[3] = argStorage[0];
     _v4storage[0] = argStorage[1];
   }
 
   set wy(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[3] = argStorage[0];
     _v4storage[1] = argStorage[1];
   }
 
   set wz(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     _v4storage[3] = argStorage[0];
     _v4storage[2] = argStorage[1];
   }

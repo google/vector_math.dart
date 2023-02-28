@@ -633,7 +633,7 @@ class Matrix3 {
     final m01 = _m3storage[3].abs();
     final m10 = _m3storage[1].abs();
     final m11 = _m3storage[4].abs();
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     final x = argStorage[0];
     final y = argStorage[1];
     argStorage[0] = x * m00 + y * m01;
@@ -643,7 +643,7 @@ class Matrix3 {
 
   /// Transforms [arg] with this.
   Vector2 transform2(Vector2 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg.storage;
     final x_ = (_m3storage[0] * argStorage[0]) +
         (_m3storage[3] * argStorage[1]) +
         _m3storage[6];
