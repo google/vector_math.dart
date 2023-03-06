@@ -212,10 +212,10 @@ class Matrix3 {
 
   /// Sets the upper 2x2 of the matrix to be [arg].
   void setUpper2x2(Matrix2 arg) {
-    _m3storage[0] = arg[0];
-    _m3storage[1] = arg[1];
-    _m3storage[3] = arg[2];
-    _m3storage[4] = arg[3];
+    _m3storage[0] = arg.storage[0];
+    _m3storage[1] = arg.storage[1];
+    _m3storage[3] = arg.storage[2];
+    _m3storage[4] = arg.storage[3];
   }
 
   /// Returns a printable string
