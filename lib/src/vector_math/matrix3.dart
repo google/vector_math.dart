@@ -16,8 +16,8 @@ class Matrix3 {
     final a12 = A.entry(0, 1);
     final a21 = A.entry(1, 0);
     final a22 = A.entry(1, 1);
-    final bx = b.x - A[6];
-    final by = b.y - A[7];
+    final bx = b.x - A.storage[6];
+    final by = b.y - A.storage[7];
     var det = a11 * a22 - a12 * a21;
 
     if (det != 0.0) {
