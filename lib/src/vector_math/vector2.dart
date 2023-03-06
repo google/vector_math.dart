@@ -68,39 +68,36 @@ class Vector2 implements Vector {
 
   /// Set the values of the vector.
   void setValues(double x_, double y_) {
-    storage[0] = x_;
-    storage[1] = y_;
+    this[0] = x_;
+    this[1] = y_;
   }
 
   /// Zero the vector.
   void setZero() {
-    storage[0] = 0.0;
-    storage[1] = 0.0;
+    this[0] = 0.0;
+    this[1] = 0.0;
   }
 
   /// Set the values by copying them from [other].
   void setFrom(Vector2 other) {
-    final otherStorage = other.storage;
-    storage[1] = otherStorage[1];
-    storage[0] = otherStorage[0];
+    this[0] = other[0];
+    this[1] = other[1];
   }
 
   /// Splat [arg] into all lanes of the vector.
   void splat(double arg) {
-    storage[0] = arg;
-    storage[1] = arg;
+    this[0] = arg;
+    this[1] = arg;
   }
 
   /// Returns a printable string
   @override
-  String toString() => '[${storage[0]},${storage[1]}]';
+  String toString() => '[${this[0]},${this[1]}]';
 
   /// Check if two vectors are the same.
   @override
   bool operator ==(Object other) =>
-      (other is Vector2) &&
-      (storage[0] == other.storage[0]) &&
-      (storage[1] == other.storage[1]);
+      other is Vector2 && this[0] == other[0] && this[1] == other[1];
 
   @override
   int get hashCode => Object.hashAll(storage);
@@ -139,8 +136,8 @@ class Vector2 implements Vector {
         return;
       }
       l = value / l;
-      storage[0] *= l;
-      storage[1] *= l;
+      this[0] *= l;
+      this[1] *= l;
     }
   }
 
@@ -148,12 +145,7 @@ class Vector2 implements Vector {
   double get length => math.sqrt(length2);
 
   /// Length squared.
-  double get length2 {
-    double sum;
-    sum = storage[0] * storage[0];
-    sum += storage[1] * storage[1];
-    return sum;
-  }
+  double get length2 => this[0] * this[0] + this[1] * this[1];
 
   /// Normalize this.
   double normalize() {
@@ -162,8 +154,8 @@ class Vector2 implements Vector {
       return 0.0;
     }
     final d = 1.0 / l;
-    storage[0] *= d;
-    storage[1] *= d;
+    this[0] *= d;
+    this[1] *= d;
     return l;
   }
 
@@ -196,8 +188,7 @@ class Vector2 implements Vector {
 
   /// Returns the angle between this vector and [other] in radians.
   double angleTo(Vector2 other) {
-    final otherStorage = other.storage;
-    if (storage[0] == otherStorage[0] && storage[1] == otherStorage[1]) {
+    if (this[0] == other[0] && this[1] == other[1]) {
       return 0.0;
     }
 
@@ -208,8 +199,7 @@ class Vector2 implements Vector {
 
   /// Returns the signed angle between this and [other] in radians.
   double angleToSigned(Vector2 other) {
-    final otherStorage = other.storage;
-    if (storage[0] == otherStorage[0] && storage[1] == otherStorage[1]) {
+    if (this[0] == other[0] && this[1] == other[1]) {
       return 0.0;
     }
 
@@ -220,39 +210,26 @@ class Vector2 implements Vector {
   }
 
   /// Inner product.
-  double dot(Vector2 other) {
-    final otherStorage = other.storage;
-    double sum;
-    sum = storage[0] * otherStorage[0];
-    sum += storage[1] * otherStorage[1];
-    return sum;
-  }
+  double dot(Vector2 other) => this[0] * other[0] + this[1] * other[1];
 
-  ///
   /// Transforms this into the product of this as a row vector,
   /// postmultiplied by matrix, [arg].
   /// If [arg] is a rotation matrix, this is a computational shortcut for
   /// applying, the inverse of the transformation.
   ///
   void postmultiply(Matrix2 arg) {
-    final argStorage = arg.storage;
-    final v0 = storage[0];
-    final v1 = storage[1];
-    storage[0] = v0 * argStorage[0] + v1 * argStorage[1];
-    storage[1] = v0 * argStorage[2] + v1 * argStorage[3];
+    this[0] = this[0] * arg[0] + this[1] * arg[1];
+    this[1] = this[0] * arg[2] + this[1] * arg[3];
   }
 
   /// Cross product.
-  double cross(Vector2 other) {
-    final otherStorage = other.storage;
-    return storage[0] * otherStorage[1] - storage[1] * otherStorage[0];
-  }
+  double cross(Vector2 other) => this[0] * other[1] - this[1] * other[0];
 
   /// Rotate this by 90 degrees then scale it.
   ///
   /// Store result in [out]. Return [out].
   Vector2 scaleOrthogonalInto(double scale, Vector2 out) {
-    out.setValues(-scale * storage[1], scale * storage[0]);
+    out.setValues(-scale * this[1], scale * this[0]);
     return out;
   }
 
@@ -265,70 +242,52 @@ class Vector2 implements Vector {
   Vector2 reflected(Vector2 normal) => clone()..reflect(normal);
 
   /// Relative error between this and [correct]
-  double relativeError(Vector2 correct) {
-    final correct_norm = correct.length;
-    final diff_norm = (this - correct).length;
-    return diff_norm / correct_norm;
-  }
+  double relativeError(Vector2 correct) =>
+      (this - correct).length / correct.length;
 
   /// Absolute error between this and [correct]
   double absoluteError(Vector2 correct) => (this - correct).length;
 
   /// True if any component is infinite.
-  bool get isInfinite {
-    var is_infinite = false;
-    is_infinite = is_infinite || storage[0].isInfinite;
-    is_infinite = is_infinite || storage[1].isInfinite;
-    return is_infinite;
-  }
+  bool get isInfinite => this[0].isInfinite || this[1].isInfinite;
 
   /// True if any component is NaN.
-  bool get isNaN {
-    var is_nan = false;
-    is_nan = is_nan || storage[0].isNaN;
-    is_nan = is_nan || storage[1].isNaN;
-    return is_nan;
-  }
+  bool get isNaN => this[0].isNaN || this[1].isNaN;
 
   /// Add [arg] to this.
   void add(Vector2 arg) {
-    final argStorage = arg.storage;
-    storage[0] = storage[0] + argStorage[0];
-    storage[1] = storage[1] + argStorage[1];
+    this[0] += arg[0];
+    this[1] += arg[1];
   }
 
   /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector2 arg, double factor) {
-    final argStorage = arg.storage;
-    storage[0] = storage[0] + argStorage[0] * factor;
-    storage[1] = storage[1] + argStorage[1] * factor;
+    this[0] += arg[0] * factor;
+    this[1] += arg[1] * factor;
   }
 
   /// Subtract [arg] from this.
   void sub(Vector2 arg) {
-    final argStorage = arg.storage;
-    storage[0] = storage[0] - argStorage[0];
-    storage[1] = storage[1] - argStorage[1];
+    this[0] -= arg[0];
+    this[1] -= arg[1];
   }
 
   /// Multiply entries in this with entries in [arg].
   void multiply(Vector2 arg) {
-    final argStorage = arg.storage;
-    storage[0] = storage[0] * argStorage[0];
-    storage[1] = storage[1] * argStorage[1];
+    this[0] *= arg[0];
+    this[1] *= arg[1];
   }
 
   /// Divide entries in this with entries in [arg].
   void divide(Vector2 arg) {
-    final argStorage = arg.storage;
-    storage[0] = storage[0] / argStorage[0];
-    storage[1] = storage[1] / argStorage[1];
+    this[0] /= arg[0];
+    this[1] /= arg[1];
   }
 
   /// Scale this by [arg].
   void scale(double arg) {
-    storage[1] = storage[1] * arg;
-    storage[0] = storage[0] * arg;
+    this[0] *= arg;
+    this[1] *= arg;
   }
 
   /// Return a copy of this scaled by [arg].
@@ -336,56 +295,50 @@ class Vector2 implements Vector {
 
   /// Negate.
   void negate() {
-    storage[1] = -storage[1];
-    storage[0] = -storage[0];
+    this[0] *= -1;
+    this[1] *= -1;
   }
 
   /// Absolute value.
   void absolute() {
-    storage[1] = storage[1].abs();
-    storage[0] = storage[0].abs();
+    this[0] = this[0].abs();
+    this[1] = this[1].abs();
   }
 
   /// Clamp each entry n in this in the range [min[n]]-[max[n]].
   void clamp(Vector2 min, Vector2 max) {
-    final minStorage = min.storage;
-    final maxStorage = max.storage;
-    storage[0] = storage[0].clamp(minStorage[0], maxStorage[0]).toDouble();
-    storage[1] = storage[1].clamp(minStorage[1], maxStorage[1]).toDouble();
+    this[0] = this[0].clamp(min[0], max[0]).toDouble();
+    this[1] = this[1].clamp(min[1], max[1]).toDouble();
   }
 
   /// Clamp entries this in the range [min]-[max].
   void clampScalar(double min, double max) {
-    storage[0] = storage[0].clamp(min, max).toDouble();
-    storage[1] = storage[1].clamp(min, max).toDouble();
+    this[0] = this[0].clamp(min, max).toDouble();
+    this[1] = this[1].clamp(min, max).toDouble();
   }
 
   /// Floor entries in this.
   void floor() {
-    storage[0] = storage[0].floorToDouble();
-    storage[1] = storage[1].floorToDouble();
+    this[0] = this[0].floorToDouble();
+    this[1] = this[1].floorToDouble();
   }
 
   /// Ceil entries in this.
   void ceil() {
-    storage[0] = storage[0].ceilToDouble();
-    storage[1] = storage[1].ceilToDouble();
+    this[0] = this[0].ceilToDouble();
+    this[1] = this[1].ceilToDouble();
   }
 
   /// Round entries in this.
   void round() {
-    storage[0] = storage[0].roundToDouble();
-    storage[1] = storage[1].roundToDouble();
+    this[0] = this[0].roundToDouble();
+    this[1] = this[1].roundToDouble();
   }
 
   /// Round entries in this towards zero.
   void roundToZero() {
-    storage[0] = storage[0] < 0.0
-        ? storage[0].ceilToDouble()
-        : storage[0].floorToDouble();
-    storage[1] = storage[1] < 0.0
-        ? storage[1].ceilToDouble()
-        : storage[1].floorToDouble();
+    this[0] = this[0] < 0.0 ? this[0].ceilToDouble() : this[0].floorToDouble();
+    this[1] = this[1] < 0.0 ? this[1].ceilToDouble() : this[1].floorToDouble();
   }
 
   /// Clone of this.
@@ -393,80 +346,77 @@ class Vector2 implements Vector {
 
   /// Copy this into [arg]. Returns [arg].
   Vector2 copyInto(Vector2 arg) {
-    final argStorage = arg.storage;
-    argStorage[1] = storage[1];
-    argStorage[0] = storage[0];
+    arg[0] = this[0];
+    arg[1] = this[1];
     return arg;
   }
 
   /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
-    array[offset + 1] = storage[1];
-    array[offset + 0] = storage[0];
+    array[offset + 0] = this[0];
+    array[offset + 1] = this[1];
   }
 
   /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    storage[1] = array[offset + 1];
-    storage[0] = array[offset + 0];
+    this[0] = array[offset + 0];
+    this[1] = array[offset + 1];
   }
 
   set xy(Vector2 arg) {
-    final argStorage = arg.storage;
-    storage[0] = argStorage[0];
-    storage[1] = argStorage[1];
+    this[0] = arg[0];
+    this[1] = arg[1];
   }
 
   set yx(Vector2 arg) {
-    final argStorage = arg.storage;
-    storage[1] = argStorage[0];
-    storage[0] = argStorage[1];
+    this[0] = arg[1];
+    this[1] = arg[0];
   }
 
   set r(double arg) => x = arg;
   set g(double arg) => y = arg;
   set s(double arg) => x = arg;
   set t(double arg) => y = arg;
-  set x(double arg) => storage[0] = arg;
-  set y(double arg) => storage[1] = arg;
+  set x(double arg) => this[0] = arg;
+  set y(double arg) => this[1] = arg;
   set rg(Vector2 arg) => xy = arg;
   set gr(Vector2 arg) => yx = arg;
   set st(Vector2 arg) => xy = arg;
   set ts(Vector2 arg) => yx = arg;
-  Vector2 get xx => Vector2(storage[0], storage[0]);
-  Vector2 get xy => Vector2(storage[0], storage[1]);
-  Vector2 get yx => Vector2(storage[1], storage[0]);
-  Vector2 get yy => Vector2(storage[1], storage[1]);
-  Vector3 get xxx => Vector3(storage[0], storage[0], storage[0]);
-  Vector3 get xxy => Vector3(storage[0], storage[0], storage[1]);
-  Vector3 get xyx => Vector3(storage[0], storage[1], storage[0]);
-  Vector3 get xyy => Vector3(storage[0], storage[1], storage[1]);
-  Vector3 get yxx => Vector3(storage[1], storage[0], storage[0]);
-  Vector3 get yxy => Vector3(storage[1], storage[0], storage[1]);
-  Vector3 get yyx => Vector3(storage[1], storage[1], storage[0]);
-  Vector3 get yyy => Vector3(storage[1], storage[1], storage[1]);
-  Vector4 get xxxx => Vector4(storage[0], storage[0], storage[0], storage[0]);
-  Vector4 get xxxy => Vector4(storage[0], storage[0], storage[0], storage[1]);
-  Vector4 get xxyx => Vector4(storage[0], storage[0], storage[1], storage[0]);
-  Vector4 get xxyy => Vector4(storage[0], storage[0], storage[1], storage[1]);
-  Vector4 get xyxx => Vector4(storage[0], storage[1], storage[0], storage[0]);
-  Vector4 get xyxy => Vector4(storage[0], storage[1], storage[0], storage[1]);
-  Vector4 get xyyx => Vector4(storage[0], storage[1], storage[1], storage[0]);
-  Vector4 get xyyy => Vector4(storage[0], storage[1], storage[1], storage[1]);
-  Vector4 get yxxx => Vector4(storage[1], storage[0], storage[0], storage[0]);
-  Vector4 get yxxy => Vector4(storage[1], storage[0], storage[0], storage[1]);
-  Vector4 get yxyx => Vector4(storage[1], storage[0], storage[1], storage[0]);
-  Vector4 get yxyy => Vector4(storage[1], storage[0], storage[1], storage[1]);
-  Vector4 get yyxx => Vector4(storage[1], storage[1], storage[0], storage[0]);
-  Vector4 get yyxy => Vector4(storage[1], storage[1], storage[0], storage[1]);
-  Vector4 get yyyx => Vector4(storage[1], storage[1], storage[1], storage[0]);
-  Vector4 get yyyy => Vector4(storage[1], storage[1], storage[1], storage[1]);
+  Vector2 get xx => Vector2(this[0], this[0]);
+  Vector2 get xy => Vector2(this[0], this[1]);
+  Vector2 get yx => Vector2(this[1], this[0]);
+  Vector2 get yy => Vector2(this[1], this[1]);
+  Vector3 get xxx => Vector3(this[0], this[0], this[0]);
+  Vector3 get xxy => Vector3(this[0], this[0], this[1]);
+  Vector3 get xyx => Vector3(this[0], this[1], this[0]);
+  Vector3 get xyy => Vector3(this[0], this[1], this[1]);
+  Vector3 get yxx => Vector3(this[1], this[0], this[0]);
+  Vector3 get yxy => Vector3(this[1], this[0], this[1]);
+  Vector3 get yyx => Vector3(this[1], this[1], this[0]);
+  Vector3 get yyy => Vector3(this[1], this[1], this[1]);
+  Vector4 get xxxx => Vector4(this[0], this[0], this[0], this[0]);
+  Vector4 get xxxy => Vector4(this[0], this[0], this[0], this[1]);
+  Vector4 get xxyx => Vector4(this[0], this[0], this[1], this[0]);
+  Vector4 get xxyy => Vector4(this[0], this[0], this[1], this[1]);
+  Vector4 get xyxx => Vector4(this[0], this[1], this[0], this[0]);
+  Vector4 get xyxy => Vector4(this[0], this[1], this[0], this[1]);
+  Vector4 get xyyx => Vector4(this[0], this[1], this[1], this[0]);
+  Vector4 get xyyy => Vector4(this[0], this[1], this[1], this[1]);
+  Vector4 get yxxx => Vector4(this[1], this[0], this[0], this[0]);
+  Vector4 get yxxy => Vector4(this[1], this[0], this[0], this[1]);
+  Vector4 get yxyx => Vector4(this[1], this[0], this[1], this[0]);
+  Vector4 get yxyy => Vector4(this[1], this[0], this[1], this[1]);
+  Vector4 get yyxx => Vector4(this[1], this[1], this[0], this[0]);
+  Vector4 get yyxy => Vector4(this[1], this[1], this[0], this[1]);
+  Vector4 get yyyx => Vector4(this[1], this[1], this[1], this[0]);
+  Vector4 get yyyy => Vector4(this[1], this[1], this[1], this[1]);
   double get r => x;
   double get g => y;
   double get s => x;
   double get t => y;
-  double get x => storage[0];
-  double get y => storage[1];
+  double get x => this[0];
+  double get y => this[1];
   Vector2 get rr => xx;
   Vector2 get rg => xy;
   Vector2 get gr => yx;
