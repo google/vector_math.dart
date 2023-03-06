@@ -466,11 +466,10 @@ class Matrix4 {
 
   /// Sets the upper 2x2 of the matrix to be [arg].
   void setUpper2x2(Matrix2 arg) {
-    final argStorage = arg._m2storage;
-    _m4storage[0] = argStorage[0];
-    _m4storage[1] = argStorage[1];
-    _m4storage[4] = argStorage[2];
-    _m4storage[5] = argStorage[3];
+    _m4storage[0] = arg[0];
+    _m4storage[1] = arg[1];
+    _m4storage[4] = arg[2];
+    _m4storage[5] = arg[3];
   }
 
   /// Sets the diagonal of the matrix to be [arg].
