@@ -81,7 +81,7 @@ class Matrix2 {
     assert((row >= 0) && (row < dimension));
     assert((col >= 0) && (col < dimension));
 
-    return this[index(row, col)];
+    return storage[index(row, col)];
   }
 
   /// Set value at [row], [col] to be [v].
@@ -89,51 +89,51 @@ class Matrix2 {
     assert((row >= 0) && (row < dimension));
     assert((col >= 0) && (col < dimension));
 
-    this[index(row, col)] = v;
+    storage[index(row, col)] = v;
   }
 
   /// Sets the matrix with specified values.
   void setValues(double arg0, double arg1, double arg2, double arg3) {
-    this[0] = arg0;
-    this[1] = arg1;
-    this[2] = arg2;
-    this[3] = arg3;
+    storage[0] = arg0;
+    storage[1] = arg1;
+    storage[2] = arg2;
+    storage[3] = arg3;
   }
 
   /// Sets the entire matrix to the column values.
   void setColumns(Vector2 arg0, Vector2 arg1) {
-    this[0] = arg0[0];
-    this[1] = arg0[1];
-    this[2] = arg1[0];
-    this[3] = arg1[1];
+    storage[0] = arg0[0];
+    storage[1] = arg0[1];
+    storage[2] = arg1[0];
+    storage[3] = arg1[1];
   }
 
   /// Sets the entire matrix to the matrix in [other].
   void setFrom(Matrix2 other) {
-    this[3] = other[3];
-    this[2] = other[2];
-    this[1] = other[1];
-    this[0] = other[0];
+    storage[3] = other[3];
+    storage[2] = other[2];
+    storage[1] = other[1];
+    storage[0] = other[0];
   }
 
   /// Set this to the outer product of [u] and [v].
   void setOuter(Vector2 u, Vector2 v) {
-    this[0] = u[0] * v[0];
-    this[1] = u[0] * v[1];
-    this[2] = u[1] * v[0];
-    this[3] = u[1] * v[1];
+    storage[0] = u[0] * v[0];
+    storage[1] = u[0] * v[1];
+    storage[2] = u[1] * v[0];
+    storage[3] = u[1] * v[1];
   }
 
   /// Sets the diagonal to [arg].
   void splatDiagonal(double arg) {
-    this[0] = arg;
-    this[3] = arg;
+    storage[0] = arg;
+    storage[3] = arg;
   }
 
   /// Sets the diagonal of the matrix to be [arg].
   void setDiagonal(Vector2 arg) {
-    this[0] = arg[0];
-    this[3] = arg[1];
+    storage[0] = arg[0];
+    storage[3] = arg[1];
   }
 
   /// Returns a printable string
@@ -155,10 +155,10 @@ class Matrix2 {
   @override
   bool operator ==(Object other) =>
       (other is Matrix2) &&
-      (this[0] == other[0]) &&
-      (this[1] == other[1]) &&
-      (this[2] == other[2]) &&
-      (this[3] == other[3]);
+      (storage[0] == other[0]) &&
+      (storage[1] == other[1]) &&
+      (storage[2] == other[2]) &&
+      (storage[3] == other[3]);
 
   @override
   int get hashCode => Object.hashAll(storage);
@@ -177,24 +177,25 @@ class Matrix2 {
 
   /// Sets [row] of the matrix to values in [arg]
   void setRow(int row, Vector2 arg) {
-    this[index(row, 0)] = arg[0];
-    this[index(row, 1)] = arg[1];
+    storage[index(row, 0)] = arg[0];
+    storage[index(row, 1)] = arg[1];
   }
 
   /// Gets the [row] of the matrix
-  Vector2 getRow(int row) => Vector2(this[index(row, 0)], this[index(row, 1)]);
+  Vector2 getRow(int row) =>
+      Vector2(storage[index(row, 0)], storage[index(row, 1)]);
 
   /// Assigns the [column] of the matrix [arg]
   void setColumn(int column, Vector2 arg) {
     final entry = column * 2;
-    this[entry + 1] = arg[1];
-    this[entry + 0] = arg[0];
+    storage[entry + 1] = arg[1];
+    storage[entry + 0] = arg[0];
   }
 
   /// Gets the [column] of the matrix
   Vector2 getColumn(int column) {
     final entry = column * 2;
-    return Vector2(this[entry + 0], this[entry + 1]);
+    return Vector2(storage[entry + 0], storage[entry + 1]);
   }
 
   /// Create a copy of this.
@@ -228,53 +229,52 @@ class Matrix2 {
 
   /// Zeros this.
   void setZero() {
-    this[0] = 0.0;
-    this[1] = 0.0;
-    this[2] = 0.0;
-    this[3] = 0.0;
+    storage[0] = 0.0;
+    storage[1] = 0.0;
+    storage[2] = 0.0;
+    storage[3] = 0.0;
   }
 
   /// Makes this into the identity matrix.
   void setIdentity() {
-    this[0] = 1.0;
-    this[1] = 0.0;
-    this[2] = 0.0;
-    this[3] = 1.0;
+    storage[0] = 1.0;
+    storage[1] = 0.0;
+    storage[2] = 0.0;
+    storage[3] = 1.0;
   }
 
   /// Returns the tranpose of this.
   Matrix2 transposed() => clone()..transpose();
 
   void transpose() {
-    final temp = this[2];
-    this[2] = this[1];
-    this[1] = temp;
+    final temp = storage[2];
+    storage[2] = storage[1];
+    storage[1] = temp;
   }
 
   /// Returns the component wise absolute value of this.
-  Matrix2 absolute() =>
-      Matrix2(this[0].abs(), this[1].abs(), this[3].abs(), this[3].abs());
+  Matrix2 absolute() => Matrix2(
+      storage[0].abs(), storage[1].abs(), storage[3].abs(), storage[3].abs());
 
   /// Returns the determinant of this matrix.
-  double determinant() => (this[0] * this[3]) - (this[1] * this[2]);
+  double determinant() => (storage[0] * storage[3]) - (storage[1] * storage[2]);
 
   /// Returns the dot product of row [i] and [v].
-  double dotRow(int i, Vector2 v) => this[i] * v[0] + this[2 + i] * v[1];
+  double dotRow(int i, Vector2 v) => storage[i] * v[0] + storage[2 + i] * v[1];
 
   /// Returns the dot product of column [j] and [v].
   double dotColumn(int j, Vector2 v) =>
-      this[j * 2] * v[0] + this[(j * 2) + 1] * v[1];
+      storage[j * 2] * v[0] + storage[(j * 2) + 1] * v[1];
 
   /// Trace of the matrix.
-  double trace() => this[0] + this[3];
+  double trace() => storage[0] + storage[3];
 
   /// Returns infinity norm of the matrix. Used for numerical analysis.
   double infinityNorm() {
-    final result = math.max(
-      this[0].abs() + this[1].abs(),
-      this[2].abs() + this[3].abs(),
-    );
-    return result > 0 ? result : 0;
+    final row1 = storage[0].abs() + storage[1].abs();
+    final row2 = storage[2].abs() + storage[3].abs();
+    final greatest = row1 > row2 ? row1 : row2;
+    return greatest > 0 ? greatest : 0;
   }
 
   /// Returns relative error between this and [correct]
@@ -296,11 +296,11 @@ class Matrix2 {
       return 0.0;
     }
     final invDet = 1.0 / det;
-    final temp = this[0];
-    this[0] = this[3] * invDet;
-    this[1] = -this[1] * invDet;
-    this[2] = -this[2] * invDet;
-    this[3] = temp * invDet;
+    final temp = storage[0];
+    storage[0] = storage[3] * invDet;
+    storage[1] = -storage[1] * invDet;
+    storage[2] = -storage[2] * invDet;
+    storage[3] = temp * invDet;
     return det;
   }
 
@@ -312,10 +312,10 @@ class Matrix2 {
       return 0.0;
     }
     final invDet = 1.0 / det;
-    this[0] = other[3] * invDet;
-    this[1] = -other[1] * invDet;
-    this[2] = -other[2] * invDet;
-    this[3] = other[0] * invDet;
+    storage[0] = other[3] * invDet;
+    storage[1] = -other[1] * invDet;
+    storage[2] = -other[2] * invDet;
+    storage[3] = other[0] * invDet;
     return det;
   }
 
@@ -323,27 +323,27 @@ class Matrix2 {
   void setRotation(double radians) {
     final c = math.cos(radians);
     final s = math.sin(radians);
-    this[0] = c;
-    this[1] = s;
-    this[2] = -s;
-    this[3] = c;
+    storage[0] = c;
+    storage[1] = s;
+    storage[2] = -s;
+    storage[3] = c;
   }
 
   /// Converts into Adjugate matrix and scales by [scale]
   void scaleAdjoint(double scale) {
-    final temp = this[0];
-    this[0] = this[3] * scale;
-    this[2] = -this[2] * scale;
-    this[1] = -this[1] * scale;
-    this[3] = temp * scale;
+    final temp = storage[0];
+    storage[0] = storage[3] * scale;
+    storage[2] = -storage[2] * scale;
+    storage[1] = -storage[1] * scale;
+    storage[3] = temp * scale;
   }
 
   /// Scale this by [scale].
   void scale(double scale) {
-    this[0] *= scale;
-    this[1] *= scale;
-    this[2] *= scale;
-    this[3] *= scale;
+    storage[0] *= scale;
+    storage[1] *= scale;
+    storage[2] *= scale;
+    storage[3] *= scale;
   }
 
   /// Create a copy of this scaled by [scale].
@@ -351,42 +351,42 @@ class Matrix2 {
 
   /// Add [other] to this.
   void add(Matrix2 other) {
-    this[0] += other[0];
-    this[1] += other[1];
-    this[2] += other[2];
-    this[3] += other[3];
+    storage[0] += other[0];
+    storage[1] += other[1];
+    storage[2] += other[2];
+    storage[3] += other[3];
   }
 
   /// Subtract [other] from this.
   void sub(Matrix2 other) {
-    this[0] -= other[0];
-    this[1] -= other[1];
-    this[2] -= other[2];
-    this[3] -= other[3];
+    storage[0] -= other[0];
+    storage[1] -= other[1];
+    storage[2] -= other[2];
+    storage[3] -= other[3];
   }
 
   /// Negate this.
   void negate() {
-    this[0] *= -1;
-    this[1] *= -1;
-    this[2] *= -1;
-    this[3] *= -1;
+    storage[0] *= -1;
+    storage[1] *= -1;
+    storage[2] *= -1;
+    storage[3] *= -1;
   }
 
   /// Multiply this with [other] and store it in this.
   void multiply(Matrix2 other) {
-    final m00 = this[0];
-    final m01 = this[2];
-    final m10 = this[1];
-    final m11 = this[3];
+    final m00 = storage[0];
+    final m01 = storage[2];
+    final m10 = storage[1];
+    final m11 = storage[3];
     final n00 = other[0];
     final n01 = other[2];
     final n10 = other[1];
     final n11 = other[3];
-    this[0] = (m00 * n00) + (m01 * n10);
-    this[2] = (m00 * n01) + (m01 * n11);
-    this[1] = (m10 * n00) + (m11 * n10);
-    this[3] = (m10 * n01) + (m11 * n11);
+    storage[0] = (m00 * n00) + (m01 * n10);
+    storage[2] = (m00 * n01) + (m01 * n11);
+    storage[1] = (m10 * n00) + (m11 * n10);
+    storage[3] = (m10 * n01) + (m11 * n11);
   }
 
   /// Multiply this with [other] and return the product.
@@ -394,33 +394,33 @@ class Matrix2 {
 
   /// Multiply a transposed this with [other].
   void transposeMultiply(Matrix2 other) {
-    final m00 = this[0];
-    final m01 = this[1];
-    final m10 = this[2];
-    final m11 = this[3];
-    this[0] = (m00 * other[0]) + (m01 * other[1]);
-    this[2] = (m00 * other[2]) + (m01 * other[3]);
-    this[1] = (m10 * other[0]) + (m11 * other[1]);
-    this[3] = (m10 * other[2]) + (m11 * other[3]);
+    final m00 = storage[0];
+    final m01 = storage[1];
+    final m10 = storage[2];
+    final m11 = storage[3];
+    storage[0] = (m00 * other[0]) + (m01 * other[1]);
+    storage[2] = (m00 * other[2]) + (m01 * other[3]);
+    storage[1] = (m10 * other[0]) + (m11 * other[1]);
+    storage[3] = (m10 * other[2]) + (m11 * other[3]);
   }
 
   /// Multiply this with a transposed [other].
   void multiplyTranspose(Matrix2 other) {
-    final m00 = this[0];
-    final m01 = this[2];
-    final m10 = this[1];
-    final m11 = this[3];
-    this[0] = (m00 * other[0]) + (m01 * other[2]);
-    this[2] = (m00 * other[1]) + (m01 * other[3]);
-    this[1] = (m10 * other[0]) + (m11 * other[2]);
-    this[3] = (m10 * other[1]) + (m11 * other[3]);
+    final m00 = storage[0];
+    final m01 = storage[2];
+    final m10 = storage[1];
+    final m11 = storage[3];
+    storage[0] = (m00 * other[0]) + (m01 * other[2]);
+    storage[2] = (m00 * other[1]) + (m01 * other[3]);
+    storage[1] = (m10 * other[0]) + (m11 * other[2]);
+    storage[3] = (m10 * other[1]) + (m11 * other[3]);
   }
 
   /// Transform [arg] of type [Vector2] using the transformation defined by
   /// this.
   Vector2 transform(Vector2 arg) {
-    final x = (this[0] * arg[0]) + (this[2] * arg[1]);
-    final y = (this[1] * arg[0]) + (this[3] * arg[1]);
+    final x = (storage[0] * arg[0]) + (storage[2] * arg[1]);
+    final y = (storage[1] * arg[0]) + (storage[3] * arg[1]);
     return arg..setValues(x, y);
   }
 
@@ -434,17 +434,17 @@ class Matrix2 {
 
   /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<num> array, [int offset = 0]) {
-    array[offset + 3] = this[3];
-    array[offset + 2] = this[2];
-    array[offset + 1] = this[1];
-    array[offset + 0] = this[0];
+    array[offset + 3] = storage[3];
+    array[offset + 2] = storage[2];
+    array[offset + 1] = storage[1];
+    array[offset + 0] = storage[0];
   }
 
   /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    this[0] = array[offset + 0];
-    this[1] = array[offset + 1];
-    this[2] = array[offset + 2];
-    this[3] = array[offset + 3];
+    storage[0] = array[offset + 0];
+    storage[1] = array[offset + 1];
+    storage[2] = array[offset + 2];
+    storage[3] = array[offset + 3];
   }
 }
