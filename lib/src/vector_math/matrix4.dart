@@ -1146,28 +1146,28 @@ class Matrix4 {
   /// Copies the rotation matrix from this homogeneous transformation matrix
   /// into [rotation].
   void copyRotation(Matrix3 rotation) {
-    rotation[0] = _m4storage[0];
-    rotation[1] = _m4storage[1];
-    rotation[2] = _m4storage[2];
-    rotation[3] = _m4storage[4];
-    rotation[4] = _m4storage[5];
-    rotation[5] = _m4storage[6];
-    rotation[6] = _m4storage[8];
-    rotation[7] = _m4storage[9];
-    rotation[8] = _m4storage[10];
+    rotation.storage[0] = _m4storage[0];
+    rotation.storage[1] = _m4storage[1];
+    rotation.storage[2] = _m4storage[2];
+    rotation.storage[3] = _m4storage[4];
+    rotation.storage[4] = _m4storage[5];
+    rotation.storage[5] = _m4storage[6];
+    rotation.storage[6] = _m4storage[8];
+    rotation.storage[7] = _m4storage[9];
+    rotation.storage[8] = _m4storage[10];
   }
 
   /// Sets the rotation matrix in this homogeneous transformation matrix.
   void setRotation(Matrix3 rotation) {
-    _m4storage[0] = rotation[0];
-    _m4storage[1] = rotation[1];
-    _m4storage[2] = rotation[2];
-    _m4storage[4] = rotation[3];
-    _m4storage[5] = rotation[4];
-    _m4storage[6] = rotation[5];
-    _m4storage[8] = rotation[6];
-    _m4storage[9] = rotation[7];
-    _m4storage[10] = rotation[8];
+    _m4storage[0] = rotation.storage[0];
+    _m4storage[1] = rotation.storage[1];
+    _m4storage[2] = rotation.storage[2];
+    _m4storage[4] = rotation.storage[3];
+    _m4storage[5] = rotation.storage[4];
+    _m4storage[6] = rotation.storage[5];
+    _m4storage[8] = rotation.storage[6];
+    _m4storage[9] = rotation.storage[7];
+    _m4storage[10] = rotation.storage[8];
   }
 
   /// Returns the normal matrix from this homogeneous transformation matrix.
