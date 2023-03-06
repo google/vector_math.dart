@@ -108,7 +108,7 @@ class Matrix2 {
     this[3] = arg1[1];
   }
 
-  /// Sets the entire matrix to the matrix in [arg].
+  /// Sets the entire matrix to the matrix in [other].
   void setFrom(Matrix2 other) {
     this[3] = other[3];
     this[2] = other[2];
@@ -304,7 +304,7 @@ class Matrix2 {
     return det;
   }
 
-  /// Set this matrix to be the inverse of [arg]
+  /// Set this matrix to be the inverse of [other]
   double copyInverse(Matrix2 other) {
     final det = other.determinant();
     if (det == 0.0) {
@@ -389,10 +389,10 @@ class Matrix2 {
     this[3] = (m10 * n01) + (m11 * n11);
   }
 
-  /// Multiply this with [arg] and return the product.
+  /// Multiply this with [other] and return the product.
   Matrix2 multiplied(Matrix2 other) => clone()..multiply(other);
 
-  /// Multiply a transposed this with [arg].
+  /// Multiply a transposed this with [other].
   void transposeMultiply(Matrix2 other) {
     final m00 = this[0];
     final m01 = this[1];
