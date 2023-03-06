@@ -218,8 +218,10 @@ class Vector2 implements Vector {
   /// applying, the inverse of the transformation.
   ///
   void postmultiply(Matrix2 arg) {
-    this[0] = this[0] * arg[0] + this[1] * arg[1];
-    this[1] = this[0] * arg[2] + this[1] * arg[3];
+    final v0 = this[0];
+    final v1 = this[1];
+    this[0] = v0 * arg[0] + v1 * arg[1];
+    this[1] = v0 * arg[2] + v1 * arg[3];
   }
 
   /// Cross product.
