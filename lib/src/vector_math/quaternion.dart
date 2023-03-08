@@ -394,6 +394,18 @@ class Quaternion {
         w * ow - x * ox - y * oy - z * oz);
   }
 
+  /// Check if two quaternions are the same.
+  @override
+  bool operator ==(Object other) =>
+      (other is Quaternion) &&
+      (_qStorage[0] == other._qStorage[0]) &&
+      (_qStorage[1] == other._qStorage[1]) &&
+      (_qStorage[2] == other._qStorage[2]) &&
+      (_qStorage[3] == other._qStorage[3]);
+
+  @override
+  int get hashCode => Object.hashAll(_qStorage);
+
   /// Returns copy of this + [other].
   Quaternion operator +(Quaternion other) => clone()..add(other);
 
