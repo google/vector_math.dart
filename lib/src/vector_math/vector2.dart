@@ -35,20 +35,23 @@ class Vector2 implements Vector {
   }
 
   /// Construct a new vector with the specified values.
-  factory Vector2(double x, double y) => Vector2.zero()..setValues(x, y);
+  Vector2(double x, double y)
+      : _v2storage = Float32List(2)
+          ..[0] = x
+          ..[1] = y;
 
   /// Initialized with values from [array] starting at [offset].
-  factory Vector2.array(List<double> array, [int offset = 0]) =>
-      Vector2.zero()..copyFromArray(array, offset);
+  Vector2.array(List<double> array, [int offset = 0])
+      : this(array[0 + offset], array[1 + offset]);
 
   /// Zero vector.
   Vector2.zero() : _v2storage = Float32List(2);
 
   /// Splat [value] into all lanes of the vector.
-  factory Vector2.all(double value) => Vector2.zero()..splat(value);
+  Vector2.all(double value) : this(value, value);
 
   /// Copy of [other].
-  factory Vector2.copy(Vector2 other) => Vector2.zero()..setFrom(other);
+  Vector2.copy(Vector2 other) : this(other.x, other.y);
 
   /// Constructs Vector2 with a given [Float32List] as [storage].
   Vector2.fromFloat32List(this._v2storage);
@@ -97,9 +100,9 @@ class Vector2 implements Vector {
   /// Check if two vectors are the same.
   @override
   bool operator ==(Object other) =>
-      (other is Vector2) &&
-      (_v2storage[0] == other._v2storage[0]) &&
-      (_v2storage[1] == other._v2storage[1]);
+      other is Vector2 &&
+      _v2storage[0] == other._v2storage[0] &&
+      _v2storage[1] == other._v2storage[1];
 
   @override
   int get hashCode => Object.hashAll(_v2storage);
@@ -143,16 +146,12 @@ class Vector2 implements Vector {
     }
   }
 
-  /// Length.
+  /// The length of the vector.
   double get length => math.sqrt(length2);
 
-  /// Length squared.
-  double get length2 {
-    double sum;
-    sum = _v2storage[0] * _v2storage[0];
-    sum += _v2storage[1] * _v2storage[1];
-    return sum;
-  }
+  /// The squared length of the vector.
+  double get length2 =>
+      _v2storage[0] * _v2storage[0] + _v2storage[1] * _v2storage[1];
 
   /// Normalize this.
   double normalize() {
@@ -167,8 +166,7 @@ class Vector2 implements Vector {
   }
 
   /// Normalize this. Returns length of vector before normalization.
-  /// DEPRECATED: Use [normalize].
-  @Deprecated('Use normalize() insteaed.')
+  @Deprecated('Use normalize() instead.')
   double normalizeLength() => normalize();
 
   /// Normalized copy of this.
@@ -221,13 +219,9 @@ class Vector2 implements Vector {
   /// Inner product.
   double dot(Vector2 other) {
     final otherStorage = other._v2storage;
-    double sum;
-    sum = _v2storage[0] * otherStorage[0];
-    sum += _v2storage[1] * otherStorage[1];
-    return sum;
+    return _v2storage[0] * otherStorage[0] + _v2storage[1] * otherStorage[1];
   }
 
-  ///
   /// Transforms this into the product of this as a row vector,
   /// postmultiplied by matrix, [arg].
   /// If [arg] is a rotation matrix, this is a computational shortcut for
@@ -257,77 +251,65 @@ class Vector2 implements Vector {
 
   /// Reflect this.
   void reflect(Vector2 normal) {
-    sub(normal.scaled(2.0 * normal.dot(this)));
+    final dotProduct = normal.dot(this) * 2;
+    _v2storage[0] -= normal._v2storage[0] * dotProduct;
+    _v2storage[1] -= normal._v2storage[1] * dotProduct;
   }
 
   /// Reflected copy of this.
   Vector2 reflected(Vector2 normal) => clone()..reflect(normal);
 
   /// Relative error between this and [correct]
-  double relativeError(Vector2 correct) {
-    final correct_norm = correct.length;
-    final diff_norm = (this - correct).length;
-    return diff_norm / correct_norm;
-  }
+  double relativeError(Vector2 correct) =>
+      absoluteError(correct) / correct.length;
 
   /// Absolute error between this and [correct]
-  double absoluteError(Vector2 correct) => (this - correct).length;
+  double absoluteError(Vector2 correct) {
+    final xDiff = _v2storage[0] - correct._v2storage[0];
+    final yDiff = _v2storage[1] - correct._v2storage[1];
+    return math.sqrt(xDiff * xDiff + yDiff * yDiff);
+  }
 
   /// True if any component is infinite.
-  bool get isInfinite {
-    var is_infinite = false;
-    is_infinite = is_infinite || _v2storage[0].isInfinite;
-    is_infinite = is_infinite || _v2storage[1].isInfinite;
-    return is_infinite;
-  }
+  bool get isInfinite => _v2storage[0].isInfinite || _v2storage[1].isInfinite;
 
   /// True if any component is NaN.
-  bool get isNaN {
-    var is_nan = false;
-    is_nan = is_nan || _v2storage[0].isNaN;
-    is_nan = is_nan || _v2storage[1].isNaN;
-    return is_nan;
-  }
+  bool get isNaN => _v2storage[0].isNaN || _v2storage[1].isNaN;
 
   /// Add [arg] to this.
   void add(Vector2 arg) {
-    final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] + argStorage[0];
-    _v2storage[1] = _v2storage[1] + argStorage[1];
+    _v2storage[0] += arg[0];
+    _v2storage[1] += arg[1];
   }
 
   /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector2 arg, double factor) {
-    final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] + argStorage[0] * factor;
-    _v2storage[1] = _v2storage[1] + argStorage[1] * factor;
+    _v2storage[0] += arg[0] * factor;
+    _v2storage[1] += arg[1] * factor;
   }
 
   /// Subtract [arg] from this.
   void sub(Vector2 arg) {
-    final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] - argStorage[0];
-    _v2storage[1] = _v2storage[1] - argStorage[1];
+    _v2storage[0] -= arg[0];
+    _v2storage[1] -= arg[1];
   }
 
   /// Multiply entries in this with entries in [arg].
   void multiply(Vector2 arg) {
-    final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] * argStorage[0];
-    _v2storage[1] = _v2storage[1] * argStorage[1];
+    _v2storage[0] *= arg[0];
+    _v2storage[1] *= arg[1];
   }
 
   /// Divide entries in this with entries in [arg].
   void divide(Vector2 arg) {
-    final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] / argStorage[0];
-    _v2storage[1] = _v2storage[1] / argStorage[1];
+    _v2storage[0] /= arg[0];
+    _v2storage[1] /= arg[1];
   }
 
   /// Scale this by [arg].
   void scale(double arg) {
-    _v2storage[1] = _v2storage[1] * arg;
-    _v2storage[0] = _v2storage[0] * arg;
+    _v2storage[0] *= arg;
+    _v2storage[1] *= arg;
   }
 
   /// Return a copy of this scaled by [arg].
@@ -335,20 +317,20 @@ class Vector2 implements Vector {
 
   /// Negate.
   void negate() {
-    _v2storage[1] = -_v2storage[1];
-    _v2storage[0] = -_v2storage[0];
+    _v2storage[0] *= -1;
+    _v2storage[1] *= -1;
   }
 
   /// Absolute value.
   void absolute() {
-    _v2storage[1] = _v2storage[1].abs();
     _v2storage[0] = _v2storage[0].abs();
+    _v2storage[1] = _v2storage[1].abs();
   }
 
   /// Clamp each entry n in this in the range [min[n]]-[max[n]].
   void clamp(Vector2 min, Vector2 max) {
-    final minStorage = min.storage;
-    final maxStorage = max.storage;
+    final minStorage = min._v2storage;
+    final maxStorage = max._v2storage;
     _v2storage[0] =
         _v2storage[0].clamp(minStorage[0], maxStorage[0]).toDouble();
     _v2storage[1] =
@@ -395,21 +377,21 @@ class Vector2 implements Vector {
   /// Copy this into [arg]. Returns [arg].
   Vector2 copyInto(Vector2 arg) {
     final argStorage = arg._v2storage;
-    argStorage[1] = _v2storage[1];
     argStorage[0] = _v2storage[0];
+    argStorage[1] = _v2storage[1];
     return arg;
   }
 
   /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
-    array[offset + 1] = _v2storage[1];
     array[offset + 0] = _v2storage[0];
+    array[offset + 1] = _v2storage[1];
   }
 
   /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    _v2storage[1] = array[offset + 1];
     _v2storage[0] = array[offset + 0];
+    _v2storage[1] = array[offset + 1];
   }
 
   set xy(Vector2 arg) {
