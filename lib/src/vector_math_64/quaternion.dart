@@ -398,10 +398,10 @@ class Quaternion {
   @override
   bool operator ==(Object other) =>
       (other is Quaternion) &&
-      (_qStorage[0] == other._qStorage[0]) &&
-      (_qStorage[1] == other._qStorage[1]) &&
+      (_qStorage[3] == other._qStorage[3]) &&
       (_qStorage[2] == other._qStorage[2]) &&
-      (_qStorage[3] == other._qStorage[3]);
+      (_qStorage[1] == other._qStorage[1]) &&
+      (_qStorage[0] == other._qStorage[0]);
 
   @override
   int get hashCode => Object.hashAll(_qStorage);
