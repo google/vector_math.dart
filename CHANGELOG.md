@@ -1,5 +1,7 @@
-## 2.1.5
+## 2.1.5-dev
 
+- Added an operator== to Quaternion so that two instances of quaternions can
+  be evaluated for equality.
 - Require Dart 2.19
 
 ## 2.1.4
