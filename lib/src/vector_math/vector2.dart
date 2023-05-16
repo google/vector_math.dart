@@ -42,7 +42,9 @@ class Vector2 implements Vector {
 
   /// Initialized with values from [array] starting at [offset].
   Vector2.array(List<double> array, [int offset = 0])
-      : this(array[0 + offset], array[1 + offset]);
+      : _v2storage = Float32List(2)
+          ..[1] = array[1 + offset]
+          ..[0] = array[0 + offset];
 
   /// Zero vector.
   Vector2.zero() : _v2storage = Float32List(2);
@@ -384,14 +386,14 @@ class Vector2 implements Vector {
 
   /// Copies this into [array] starting at [offset].
   void copyIntoArray(List<double> array, [int offset = 0]) {
-    array[offset + 0] = _v2storage[0];
     array[offset + 1] = _v2storage[1];
+    array[offset + 0] = _v2storage[0];
   }
 
   /// Copies elements from [array] into this starting at [offset].
   void copyFromArray(List<double> array, [int offset = 0]) {
-    _v2storage[0] = array[offset + 0];
     _v2storage[1] = array[offset + 1];
+    _v2storage[0] = array[offset + 0];
   }
 
   set xy(Vector2 arg) {
