@@ -292,42 +292,42 @@ class Vector2 implements Vector {
   /// Add [arg] to this.
   void add(Vector2 arg) {
     final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] + argStorage[0];
-    _v2storage[1] = _v2storage[1] + argStorage[1];
+    _v2storage[1] += argStorage[1];
+    _v2storage[0] += argStorage[0];
   }
 
   /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector2 arg, double factor) {
     final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] + argStorage[0] * factor;
-    _v2storage[1] = _v2storage[1] + argStorage[1] * factor;
+    _v2storage[1] += argStorage[1] * factor;
+    _v2storage[0] += argStorage[0] * factor;
   }
 
   /// Subtract [arg] from this.
   void sub(Vector2 arg) {
     final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] - argStorage[0];
-    _v2storage[1] = _v2storage[1] - argStorage[1];
+    _v2storage[1] -= argStorage[1];
+    _v2storage[0] -= argStorage[0];
   }
 
   /// Multiply entries in this with entries in [arg].
   void multiply(Vector2 arg) {
     final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] * argStorage[0];
-    _v2storage[1] = _v2storage[1] * argStorage[1];
+    _v2storage[1] *= argStorage[1];
+    _v2storage[0] *= argStorage[0];
   }
 
   /// Divide entries in this with entries in [arg].
   void divide(Vector2 arg) {
     final argStorage = arg._v2storage;
-    _v2storage[0] = _v2storage[0] / argStorage[0];
-    _v2storage[1] = _v2storage[1] / argStorage[1];
+    _v2storage[1] /= argStorage[1];
+    _v2storage[0] /= argStorage[0];
   }
 
   /// Scale this by [arg].
   void scale(double arg) {
-    _v2storage[1] = _v2storage[1] * arg;
-    _v2storage[0] = _v2storage[0] * arg;
+    _v2storage[1] *= arg;
+    _v2storage[0] *= arg;
   }
 
   /// Return a copy of this scaled by [arg].
@@ -335,8 +335,8 @@ class Vector2 implements Vector {
 
   /// Negate.
   void negate() {
-    _v2storage[1] = -_v2storage[1];
-    _v2storage[0] = -_v2storage[0];
+    _v2storage[1] *= -1;
+    _v2storage[0] *= -1;
   }
 
   /// Absolute value.
@@ -347,46 +347,46 @@ class Vector2 implements Vector {
 
   /// Clamp each entry n in this in the range [min[n]]-[max[n]].
   void clamp(Vector2 min, Vector2 max) {
-    final minStorage = min.storage;
-    final maxStorage = max.storage;
-    _v2storage[0] =
-        _v2storage[0].clamp(minStorage[0], maxStorage[0]).toDouble();
+    final minStorage = min._v2storage;
+    final maxStorage = max._v2storage;
     _v2storage[1] =
         _v2storage[1].clamp(minStorage[1], maxStorage[1]).toDouble();
+    _v2storage[0] =
+        _v2storage[0].clamp(minStorage[0], maxStorage[0]).toDouble();
   }
 
   /// Clamp entries this in the range [min]-[max].
   void clampScalar(double min, double max) {
-    _v2storage[0] = _v2storage[0].clamp(min, max).toDouble();
     _v2storage[1] = _v2storage[1].clamp(min, max).toDouble();
+    _v2storage[0] = _v2storage[0].clamp(min, max).toDouble();
   }
 
   /// Floor entries in this.
   void floor() {
-    _v2storage[0] = _v2storage[0].floorToDouble();
     _v2storage[1] = _v2storage[1].floorToDouble();
+    _v2storage[0] = _v2storage[0].floorToDouble();
   }
 
   /// Ceil entries in this.
   void ceil() {
-    _v2storage[0] = _v2storage[0].ceilToDouble();
     _v2storage[1] = _v2storage[1].ceilToDouble();
+    _v2storage[0] = _v2storage[0].ceilToDouble();
   }
 
   /// Round entries in this.
   void round() {
-    _v2storage[0] = _v2storage[0].roundToDouble();
     _v2storage[1] = _v2storage[1].roundToDouble();
+    _v2storage[0] = _v2storage[0].roundToDouble();
   }
 
   /// Round entries in this towards zero.
   void roundToZero() {
-    _v2storage[0] = _v2storage[0] < 0.0
-        ? _v2storage[0].ceilToDouble()
-        : _v2storage[0].floorToDouble();
     _v2storage[1] = _v2storage[1] < 0.0
         ? _v2storage[1].ceilToDouble()
         : _v2storage[1].floorToDouble();
+    _v2storage[0] = _v2storage[0] < 0.0
+        ? _v2storage[0].ceilToDouble()
+        : _v2storage[0].floorToDouble();
   }
 
   /// Clone of this.
@@ -414,8 +414,8 @@ class Vector2 implements Vector {
 
   set xy(Vector2 arg) {
     final argStorage = arg._v2storage;
-    _v2storage[0] = argStorage[0];
     _v2storage[1] = argStorage[1];
+    _v2storage[0] = argStorage[0];
   }
 
   set yx(Vector2 arg) {

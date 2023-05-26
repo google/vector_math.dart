@@ -280,32 +280,37 @@ class Vector2 implements Vector {
 
   /// Add [arg] to this.
   void add(Vector2 arg) {
-    _v2storage[1] += arg[1];
-    _v2storage[0] += arg[0];
+    final argStorage = arg._v2storage;
+    _v2storage[1] += argStorage[1];
+    _v2storage[0] += argStorage[0];
   }
 
   /// Add [arg] scaled by [factor] to this.
   void addScaled(Vector2 arg, double factor) {
-    _v2storage[1] += arg[1] * factor;
-    _v2storage[0] += arg[0] * factor;
+    final argStorage = arg._v2storage;
+    _v2storage[1] += argStorage[1] * factor;
+    _v2storage[0] += argStorage[0] * factor;
   }
 
   /// Subtract [arg] from this.
   void sub(Vector2 arg) {
-    _v2storage[1] -= arg[1];
-    _v2storage[0] -= arg[0];
+    final argStorage = arg._v2storage;
+    _v2storage[1] -= argStorage[1];
+    _v2storage[0] -= argStorage[0];
   }
 
   /// Multiply entries in this with entries in [arg].
   void multiply(Vector2 arg) {
-    _v2storage[1] *= arg[1];
-    _v2storage[0] *= arg[0];
+    final argStorage = arg._v2storage;
+    _v2storage[1] *= argStorage[1];
+    _v2storage[0] *= argStorage[0];
   }
 
   /// Divide entries in this with entries in [arg].
   void divide(Vector2 arg) {
-    _v2storage[1] /= arg[1];
-    _v2storage[0] /= arg[0];
+    final argStorage = arg._v2storage;
+    _v2storage[1] /= argStorage[1];
+    _v2storage[0] /= argStorage[0];
   }
 
   /// Scale this by [arg].
