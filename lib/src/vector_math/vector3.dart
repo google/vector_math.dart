@@ -250,7 +250,7 @@ class Vector3 implements Vector {
   /// If [arg] is a rotation matrix, this is a computational shortcut for
   /// applying, the inverse of the transformation.
   void postmultiply(Matrix3 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg._m3storage;
     final v2 = _v3storage[2];
     final v1 = _v3storage[1];
     final v0 = _v3storage[0];
@@ -304,7 +304,7 @@ class Vector3 implements Vector {
 
   /// Projects this using the projection matrix [arg]
   void applyProjection(Matrix4 arg) {
-    final argStorage = arg._v2storage;
+    final argStorage = arg._m4storage;
     final z = _v3storage[2];
     final y = _v3storage[1];
     final x = _v3storage[0];
