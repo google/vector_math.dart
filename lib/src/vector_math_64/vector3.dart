@@ -463,9 +463,9 @@ class Vector3 implements Vector {
 
   /// Negate this.
   void negate() {
-    _v3storage[2] *= -1;
-    _v3storage[1] *= -1;
-    _v3storage[0] *= -1;
+    _v3storage[2] = -_v3storage[2];
+    _v3storage[1] = -_v3storage[1];
+    _v3storage[0] = -_v3storage[0];
   }
 
   /// Absolute value.
