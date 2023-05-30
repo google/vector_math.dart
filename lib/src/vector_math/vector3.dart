@@ -250,7 +250,7 @@ class Vector3 implements Vector {
   /// If [arg] is a rotation matrix, this is a computational shortcut for
   /// applying, the inverse of the transformation.
   void postmultiply(Matrix3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     final v2 = _v3storage[2];
     final v1 = _v3storage[1];
     final v0 = _v3storage[0];
@@ -304,7 +304,7 @@ class Vector3 implements Vector {
 
   /// Projects this using the projection matrix [arg]
   void applyProjection(Matrix4 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     final z = _v3storage[2];
     final y = _v3storage[1];
     final x = _v3storage[0];
@@ -356,7 +356,7 @@ class Vector3 implements Vector {
 
   /// Multiplies this by [arg].
   void applyMatrix3(Matrix3 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._m3storage;
     final v2 = _v3storage[2];
     final v1 = _v3storage[1];
     final v0 = _v3storage[0];
@@ -371,7 +371,7 @@ class Vector3 implements Vector {
   /// Multiplies this by a 4x3 subset of [arg]. Expects [arg] to be an affine
   /// transformation matrix.
   void applyMatrix4(Matrix4 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._m4storage;
     final v2 = _v3storage[2];
     final v1 = _v3storage[1];
     final v0 = _v3storage[0];
@@ -555,37 +555,37 @@ class Vector3 implements Vector {
   }
 
   set xy(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     _v3storage[1] = argStorage[1];
     _v3storage[0] = argStorage[0];
   }
 
   set xz(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     _v3storage[2] = argStorage[1];
     _v3storage[0] = argStorage[0];
   }
 
   set yx(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     _v3storage[1] = argStorage[0];
     _v3storage[0] = argStorage[1];
   }
 
   set yz(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     _v3storage[2] = argStorage[1];
     _v3storage[1] = argStorage[0];
   }
 
   set zx(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     _v3storage[2] = argStorage[0];
     _v3storage[0] = argStorage[1];
   }
 
   set zy(Vector2 arg) {
-    final argStorage = arg.storage;
+    final argStorage = arg._v2storage;
     _v3storage[2] = argStorage[0];
     _v3storage[1] = argStorage[1];
   }
