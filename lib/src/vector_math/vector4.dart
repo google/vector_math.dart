@@ -251,7 +251,7 @@ class Vector4 implements Vector {
     final v3 = _v4storage[2];
     final v2 = _v4storage[1];
     final v1 = _v4storage[0];
-    final argStorage = arg.storage;
+    final argStorage = arg._m4storage;
     _v4storage[3] = argStorage[3] * v1 +
         argStorage[7] * v2 +
         argStorage[11] * v3 +
