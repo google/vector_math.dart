@@ -356,10 +356,10 @@ class Vector4 implements Vector {
 
   /// Negate this.
   void negate() {
-    _v4storage[3] *= -1;
-    _v4storage[2] *= -1;
-    _v4storage[1] *= -1;
-    _v4storage[0] *= -1;
+    _v4storage[3] = -_v4storage[3];
+    _v4storage[2] = -_v4storage[2];
+    _v4storage[1] = -_v4storage[1];
+    _v4storage[0] = -_v4storage[0];
   }
 
   /// Set this to the absolute.
