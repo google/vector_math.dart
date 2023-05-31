@@ -335,8 +335,8 @@ class Vector2 implements Vector {
 
   /// Negate.
   void negate() {
-    _v2storage[1] *= -1;
-    _v2storage[0] *= -1;
+    _v2storage[1] = -_v2storage[1];
+    _v2storage[0] = -_v2storage[0];
   }
 
   /// Absolute value.
