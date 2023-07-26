@@ -556,11 +556,11 @@ class Matrix3 {
     final s = math.sin(radians);
     _m3storage[0] = c;
     _m3storage[1] = 0.0;
-    _m3storage[2] = -s;
+    _m3storage[2] = s;
     _m3storage[3] = 0.0;
     _m3storage[4] = 1.0;
     _m3storage[5] = 0.0;
-    _m3storage[6] = s;
+    _m3storage[6] = -s;
     _m3storage[7] = 0.0;
     _m3storage[8] = c;
   }
