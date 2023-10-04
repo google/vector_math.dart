@@ -41,38 +41,30 @@ class Vector4 implements Vector {
   Float64List get storage => _v4storage;
 
   /// Construct a new vector with the specified values.
-  Vector4(double x, double y, double z, double w)
-      : _v4storage = Float64List(4)
-          ..[3] = w
-          ..[2] = z
-          ..[1] = y
-          ..[0] = x;
+  factory Vector4(double x, double y, double z, double w) =>
+      Vector4.zero()..setValues(x, y, z, w);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector4.array(List<double> array, [int offset = 0])
-      : _v4storage = Float64List(4)
-          ..[3] = array[3 + offset]
-          ..[2] = array[2 + offset]
-          ..[1] = array[1 + offset]
-          ..[0] = array[0 + offset];
+  factory Vector4.array(List<double> array, [int offset = 0]) =>
+      Vector4.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector4.zero() : _v4storage = Float64List(4);
 
   /// Constructs the identity vector.
-  Vector4.identity() : this(0, 0, 0, 1);
+  factory Vector4.identity() => Vector4.zero()..setIdentity();
 
   /// Splat [value] into all lanes of the vector.
-  Vector4.all(double value) : this(value, value, value, value);
+  factory Vector4.all(double value) => Vector4.zero()..splat(value);
 
   /// Copy of [other].
-  Vector4.copy(Vector4 other) : this(other.x, other.y, other.z, other.w);
+  factory Vector4.copy(Vector4 other) => Vector4.zero()..setFrom(other);
 
   /// Constructs Vector4 with given Float64List as [storage].
   Vector4.fromFloat64List(this._v4storage);
 
   /// Constructs Vector4 with a [storage] that views given [buffer] starting at
-  /// [offset]. [offset] has to be multiple of [Float32List.bytesPerElement].
+  /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Vector4.fromBuffer(ByteBuffer buffer, int offset)
       : _v4storage = Float64List.view(buffer, offset, 4);
 
@@ -251,7 +243,7 @@ class Vector4 implements Vector {
     final v3 = _v4storage[2];
     final v2 = _v4storage[1];
     final v1 = _v4storage[0];
-    final argStorage = arg.storage;
+    final argStorage = arg._m4storage;
     _v4storage[3] = argStorage[3] * v1 +
         argStorage[7] * v2 +
         argStorage[11] * v3 +
