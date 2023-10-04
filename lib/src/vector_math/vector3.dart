@@ -38,27 +38,21 @@ class Vector3 implements Vector {
   }
 
   /// Construct a new vector with the specified values.
-  Vector3(double x, double y, double z)
-      : _v3storage = Float32List(3)
-          ..[2] = z
-          ..[1] = y
-          ..[0] = x;
+  factory Vector3(double x, double y, double z) =>
+      Vector3.zero()..setValues(x, y, z);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector3.array(List<double> array, [int offset = 0])
-      : _v3storage = Float32List(3)
-          ..[2] = array[2 + offset]
-          ..[1] = array[1 + offset]
-          ..[0] = array[0 + offset];
+  factory Vector3.array(List<double> array, [int offset = 0]) =>
+      Vector3.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector3.zero() : _v3storage = Float32List(3);
 
   /// Splat [value] into all lanes of the vector.
-  Vector3.all(double value) : this(value, value, value);
+  factory Vector3.all(double value) => Vector3.zero()..splat(value);
 
   /// Copy of [other].
-  Vector3.copy(Vector3 other) : this(other.x, other.y, other.z);
+  factory Vector3.copy(Vector3 other) => Vector3.zero()..setFrom(other);
 
   /// Constructs Vector3 with given Float32List as [storage].
   Vector3.fromFloat32List(this._v3storage);
