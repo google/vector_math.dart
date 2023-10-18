@@ -31,8 +31,8 @@ A Vector math library for 2D and 3D applications.
 import 'package:vector_math/vector_math.dart';
 
 void main() {
-  Vector3 x = new Vector3.zero(); // Zero vector
-  Vector4 y = new Vector4.all(4.0); // Vector with 4.0 in all lanes
+  Vector3 x = Vector3.zero(); // Zero vector
+  Vector4 y = Vector4.all(4.0); // Vector with 4.0 in all lanes
   x.zyx = y.xzz; // Sets z,y,x the values in x,z,z
 }
 ```
@@ -47,9 +47,9 @@ import 'package:vector_math/vector_math.dart';
 void main() {
   // Rotation of PI/2 degrees around the Y axis followed by a
   // translation of (5.0, 2.0, 3.0).
-  Matrix4 T = new Matrix4.rotationY(PI * 0.5)..translate(5.0, 2.0, 3.0);
+  Matrix4 T = Matrix4.rotationY(PI * 0.5)..translate(5.0, 2.0, 3.0);
   // A point.
-  Vector3 position = new Vector3(1.0, 1.0, 1.0);
+  Vector3 position = Vector3(1.0, 1.0, 1.0);
   // Transform position by T.
   T.transform3(position);
 }
@@ -64,7 +64,7 @@ import 'package:vector_math/vector_math.dart';
 void main() {
   // Rotation of 90 degrees around the Y axis followed by a
   // translation of (5.0, 2.0, 3.0).
-  Matrix4 T = new Matrix4.rotationY(PI * 0.5)..translate(5.0, 2.0, 3.0);
+  Matrix4 T = Matrix4.rotationY(PI * 0.5)..translate(5.0, 2.0, 3.0);
   // Invert T.
   T.invert();
   // Invert just the rotation in T.
@@ -80,13 +80,13 @@ import 'package:vector_math/vector_math.dart';
 
 void main() {
   // The X axis.
-  Vector3 axis = new Vector3(1.0, 0.0, 0.0);
+  Vector3 axis = Vector3(1.0, 0.0, 0.0);
   // 90 degrees.
   double angle = PI / 2.0;
   // Quaternion encoding a 90 degree rotation along the X axis.
-  Quaternion q = new Quaternion.axisAngle(axis, angle);
+  Quaternion q = Quaternion.axisAngle(axis, angle);
   // A point.
-  Vector3 point = new Vector3(1.0, 1.0, 1.0);
+  Vector3 point = Vector3(1.0, 1.0, 1.0);
   // Rotate point by q.
   q.rotate(point);
 }
@@ -99,12 +99,11 @@ import 'package:vector_math/vector_math.dart';
 
 void main() {
   // Define the first box with a minimum and a maximum.
-  Aabb2 aabbOne = new Aabb2.minMax(new Vector2.zero(), new Vector2(4.0, 4.0));
+  Aabb2 aabbOne = Aabb2.minMax(Vector2.zero(), Vector2(4.0, 4.0));
   // Define the second box
-  Aabb2 aabbTwo =
-      new Aabb2.minMax(new Vector2(5.0, 5.0), new Vector2(6.0, 6.0));
+  Aabb2 aabbTwo = Aabb2.minMax(Vector2(5.0, 5.0), Vector2(6.0, 6.0));
   // Extend the second box to contain a point
-  aabbTwo.hullPoint(new Vector2(3.0, 3.0));
+  aabbTwo.hullPoint(Vector2(3.0, 3.0));
   // Check if the two boxes intersect, returns true in this case.
   bool intersect = aabbOne.intersectsWithAabb2(aabbTwo);
 }
@@ -117,9 +116,9 @@ import 'package:vector_math/vector_math.dart';
 
 void main() {
   // Define a ray starting at the origin and going into positive x-direction.
-  Ray ray = new Ray.originDirection(new Vector3.zero(), new Vector3(1.0, 0.0, 0.0));
+  Ray ray = Ray.originDirection(Vector3.zero(), Vector3(1.0, 0.0, 0.0));
   // Defines a sphere with the center (5.0 0.0 0.0) and a radius of 2.
-  Sphere sphere = new Sphere.centerRadius(new Vector3(5.0, 0.0, 0.0), 2.0);
+  Sphere sphere = Sphere.centerRadius(Vector3(5.0, 0.0, 0.0), 2.0);
   // Checks if the ray intersect with the sphere and returns the distance of the
   // intersection from the origin of the ray. Would return null if no intersection
   // is found.
@@ -137,11 +136,11 @@ import 'package:vector_math/vector_math.dart';
 void main() {
   // Access a build-in color, colors are stored in 4-dimensional vectors.
   Vector4 red = Colors.red;
-  Vector4 gray = new Vector4.zero();
+  Vector4 gray = Vector4.zero();
   // Convert the red color to a grayscaled color.
   Colors.toGrayscale(red, gray);
   // Parse a blue color from a hex string.
-  Vector4 blue = new Vector4.zero();
+  Vector4 blue = Vector4.zero();
   Colors.fromHexString('#0000FF', blue);
   // Convert the blue color from RGB to HSL.
   Colors.rgbToHsl(blue, blue);
