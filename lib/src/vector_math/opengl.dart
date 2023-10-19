@@ -19,10 +19,10 @@ part of '../../vector_math.dart';
 /// a context.
 ///
 ///     class Model {
-///       Vector3 _center = new Vector3.zero();        // per-model translation
-///       Vector3 _scale = new Vector3(1.0, 1.0, 1.0); // per-model scaling
-///       Matrix4 _rotation = new Matrix4.identity();  // per-model rotation
-///       Matrix4 _MV = new Matrix4.identity();        // per-model model-view
+///       Vector3 _center = Vector3.zero();            // per-model translation
+///       Vector3 _scale = Vector3(1.0, 1.0, 1.0);     // per-model scaling
+///       Matrix4 _rotation = Matrix4.identity();      // per-model rotation
+///       Matrix4 _MV = Matrix4.identity();            // per-model model-view
 ///
 ///       void updateModelViewUniform(RenderingContext gl, UniformLocation u_MV,
 ///         Vector3 camPosition, camFocusPosition, camUpDirection) {
