@@ -5,7 +5,6 @@
 import 'dart:math' as math;
 
 import 'package:test/test.dart';
-
 import 'package:vector_math/vector_math.dart';
 
 import 'test_utils.dart';
@@ -301,7 +300,7 @@ void testIntersectionObb3() {
 }
 
 void testIntersectionVector3() {
-  //final parent = new Aabb3.minMax(_v(1.0,1.0,1.0), _v(8.0,8.0,8.0));
+  //final parent = Aabb3.minMax(_v(1.0,1.0,1.0), _v(8.0,8.0,8.0));
   final parent = Obb3()
     ..center.setValues(4.5, 4.5, 4.5)
     ..halfExtents.setValues(3.5, 3.5, 3.5);
