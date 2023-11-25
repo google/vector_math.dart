@@ -35,25 +35,20 @@ class Vector2 implements Vector {
   }
 
   /// Construct a new vector with the specified values.
-  Vector2(double x, double y)
-      : _v2storage = Float32List(2)
-          ..[1] = y
-          ..[0] = x;
+  factory Vector2(double x, double y) => Vector2.zero()..setValues(x, y);
 
   /// Initialized with values from [array] starting at [offset].
-  Vector2.array(List<double> array, [int offset = 0])
-      : _v2storage = Float32List(2)
-          ..[1] = array[1 + offset]
-          ..[0] = array[0 + offset];
+  factory Vector2.array(List<double> array, [int offset = 0]) =>
+      Vector2.zero()..copyFromArray(array, offset);
 
   /// Zero vector.
   Vector2.zero() : _v2storage = Float32List(2);
 
   /// Splat [value] into all lanes of the vector.
-  Vector2.all(double value) : this(value, value);
+  factory Vector2.all(double value) => Vector2.zero()..splat(value);
 
   /// Copy of [other].
-  Vector2.copy(Vector2 other) : this(other.x, other.y);
+  factory Vector2.copy(Vector2 other) => Vector2.zero()..setFrom(other);
 
   /// Constructs Vector2 with a given [Float32List] as [storage].
   Vector2.fromFloat32List(this._v2storage);
