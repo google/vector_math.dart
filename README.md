@@ -1,4 +1,4 @@
-[![Dart](https://github.com/google/vector_math.dart/workflows/ci/badge.svg?branch=master)](https://github.com/google/vector_math.dart/actions?query=workflow%3Aci+branch%3Amaster)
+[![Dart](https://github.com/google/vector_math.dart/actions/workflows/ci.yml/badge.svg)](https://github.com/google/vector_math.dart/actions/workflows/ci.yml)
 [![pub package](https://img.shields.io/pub/v/vector_math.svg)](https://pub.dev/packages/vector_math)
 [![package publisher](https://img.shields.io/pub/publisher/vector_math.svg)](https://pub.dev/packages/vector_math/publisher)
 [![Coverage Status](https://coveralls.io/repos/google/vector_math.dart/badge.svg?branch=master)](https://coveralls.io/r/google/vector_math.dart?branch=master)
