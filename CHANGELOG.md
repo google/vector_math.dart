@@ -1,4 +1,4 @@
-## 2.1.5-dev
+## 2.1.5-wip
 
 - Added an operator== to Quaternion so that two instances of quaternions can
   be evaluated for equality.
