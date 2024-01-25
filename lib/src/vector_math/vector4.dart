@@ -119,8 +119,8 @@ class Vector4 implements Vector {
 
   /// Returns a printable string
   @override
-  String toString() => '${_v4storage[0]},${_v4storage[1]},'
-      '${_v4storage[2]},${_v4storage[3]}';
+  String toString() => '[${_v4storage[0]},${_v4storage[1]},'
+      '${_v4storage[2]},${_v4storage[3]}]';
 
   /// Check if two vectors are the same.
   @override

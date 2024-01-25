@@ -48,10 +48,29 @@ void testQuadCopyTriangles() {
   relativeTest(t2Normal, normal);
 }
 
+void testQuadEquals() {
+  final v1 = Vector3(1.0, 0.0, 1.0);
+  final v2 = Vector3(0.0, 2.0, 1.0);
+  final v3 = Vector3(1.0, 0.0, 0.0);
+  final v4 = Vector3(0.0, 2.0, 0.0);
+  final quad = Quad.points(v1, v2, v3, v4);
+
+  expect(quad, Quad.points(v1, v2, v3, v4));
+
+  expect(quad, isNot(Quad.points(Vector3.zero(), v2, v3, v4)));
+  expect(quad, isNot(Quad.points(v1, Vector3.zero(), v3, v4)));
+  expect(quad, isNot(Quad.points(v1, v2, Vector3.zero(), v4)));
+  expect(quad, isNot(Quad.points(v1, v2, v3, Vector3.zero())));
+
+  expect(Quad.points(v1, v2, v3, v4).hashCode,
+      equals(Quad.points(v1, v2, v3, v4).hashCode));
+}
+
 void main() {
   group('Quad', () {
     test('Copy', testQuadCopy);
     test('CopyNormalInto', testQuadCopyNormalInto);
     test('CopyTriangles', testQuadCopyTriangles);
+    test('equals', testQuadEquals);
   });
 }
