@@ -88,4 +88,21 @@ class Quad {
     _point2.add(offset);
     _point3.add(offset);
   }
+
+  /// Returns a printable string
+  @override
+  String toString() => '[0] $_point0\n[1] $_point1\n'
+      '[2] $_point2\n[3] $_point3\n';
+
+  /// Check if two vectors are the same.
+  @override
+  bool operator ==(Object other) =>
+      (other is Quad) &&
+      (_point3 == other._point3) &&
+      (_point2 == other._point2) &&
+      (_point1 == other._point1) &&
+      (_point0 == other._point0);
+
+  @override
+  int get hashCode => Object.hash(_point0, _point1, _point2, _point3);
 }
