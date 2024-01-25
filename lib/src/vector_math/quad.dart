@@ -94,7 +94,7 @@ class Quad {
   String toString() => '[0] $_point0\n[1] $_point1\n'
       '[2] $_point2\n[3] $_point3\n';
 
-  /// Check if two vectors are the same.
+  /// Check if two quad are the same.
   @override
   bool operator ==(Object other) =>
       (other is Quad) &&
