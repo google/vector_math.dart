@@ -151,6 +151,19 @@ void main() {
 }
 ```
 
+8\. Use 64bit float precision (instead of 32bit)
+
+```dart
+// Use different import statement.
+// Which is a drop-in replacement for 'package:vector_math/vector_math.dart'
+import 'package:vector_math/vector_math_64.dart';
+void main() {
+  // Types work the same, but using 64 bit storage.
+  Vector3 x = Vector3.zero(); 
+  Matrix4 m = Matrix4.identity();
+}
+```
+
 ## Development
 
 To run the unit tests:
