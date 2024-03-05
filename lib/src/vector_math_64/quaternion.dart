@@ -262,6 +262,12 @@ class Quaternion {
     return l;
   }
 
+  /// Negate this.
+  void negate() {
+    _qStorage[3] = -_qStorage[3];
+    conjugate();
+  }
+
   /// Conjugate this.
   void conjugate() {
     _qStorage[2] = -_qStorage[2];
@@ -280,6 +286,9 @@ class Quaternion {
 
   /// Normalized copy of this.
   Quaternion normalized() => clone()..normalize();
+
+  /// Negated copy of this.
+  Quaternion negated() => clone()..negate();
 
   /// Conjugated copy of this.
   Quaternion conjugated() => clone()..conjugate();
@@ -413,7 +422,7 @@ class Quaternion {
   Quaternion operator -(Quaternion other) => clone()..sub(other);
 
   /// Returns negated copy of this.
-  Quaternion operator -() => conjugated();
+  Quaternion operator -() => negated();
 
   /// Access the component of the quaternion at the index [i].
   double operator [](int i) => _qStorage[i];

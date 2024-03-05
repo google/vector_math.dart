@@ -39,6 +39,16 @@ void testQuaternionInstacingFromByteBuffer() {
   expect(offsetVector.w, equals(5.0));
 }
 
+void testNegate(List<Quaternion> input, List<Quaternion> expectedOutput) {
+  assert(input.length == expectedOutput.length);
+  for (var i = 0; i < input.length; i++) {
+    final output1 = -input[i];
+    final output2 = input[i]..negate();
+    relativeTest(output1, expectedOutput[i]);
+    relativeTest(output2, expectedOutput[i]);
+  }
+}
+
 void testConjugate(List<Quaternion> input, List<Quaternion> expectedOutput) {
   assert(input.length == expectedOutput.length);
   for (var i = 0; i < input.length; i++) {
@@ -71,6 +81,18 @@ void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB,
     final output = inputA[i].rotate(inputB[i]);
     relativeTest(output, expectedOutput[i]);
   }
+}
+
+void testQuaternionNegate() {
+  final input = <Quaternion>[];
+  input.add(Quaternion.identity());
+  input.add(Quaternion(0.18260, 0.54770, 0.73030, 0.36510));
+  input.add(Quaternion(0.9889, 0.0, 0.0, 0.14834));
+  final expectedOutput = <Quaternion>[];
+  expectedOutput.add(Quaternion(-0.0, -0.0, -0.0, -1.0));
+  expectedOutput.add(Quaternion(-0.18260, -0.54770, -0.73030, -0.36510));
+  expectedOutput.add(Quaternion(-0.9889, -0.0, -0.0, -0.1483));
+  testNegate(input, expectedOutput);
 }
 
 void testQuaternionConjugate() {
@@ -229,6 +251,7 @@ void main() {
   group('Quaternion', () {
     test('Float32List instacing', testQuaternionInstacinfFromFloat32List);
     test('ByteBuffer instacing', testQuaternionInstacingFromByteBuffer);
+    test('Negate', testQuaternionNegate);
     test('Conjugate', testQuaternionConjugate);
     test('Matrix Quaternion Round Trip',
         testQuaternionMatrixQuaternionRoundTrip);
