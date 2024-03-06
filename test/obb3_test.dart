@@ -79,7 +79,7 @@ void testRotate() {
     ..center.setValues(0.0, 0.0, 0.0)
     ..halfExtents.setValues(5.0, 5.0, 5.0);
   final corner = Vector3.zero();
-  final matrix = Matrix3.rotationY(radians(45.0));
+  final matrix = Matrix3.rotationY(radians(-45.0));
 
   a.rotate(matrix);
 
