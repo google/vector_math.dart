@@ -20,7 +20,7 @@ class Quad {
   /// The third point of the quad.
   Vector3 get point2 => _point2;
 
-  /// The third point of the quad.
+  /// The fourth point of the quad.
   Vector3 get point3 => _point3;
 
   /// Create a new, uninitialized quad.
