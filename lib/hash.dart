@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 @Deprecated('Use Object.hashAll instead')
-library hash;
+library;
 
 ///
 /// Generates a hash code for multiple [objects].
