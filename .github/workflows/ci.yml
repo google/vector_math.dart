@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [3.0.0, dev]
+        sdk: [3.1, dev]
 
     steps:
       # These are the latest versions of the github actions; dependabot will
