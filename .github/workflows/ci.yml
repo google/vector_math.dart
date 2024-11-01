@@ -19,7 +19,7 @@ jobs:
     steps:
       # These are the latest versions of the github actions; dependabot will
       # send PRs to keep these up-to-date.
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
         with:
           sdk: ${{ matrix.sdk }}
@@ -39,7 +39,7 @@ jobs:
       - run: dart pub global run coverage:test_with_coverage
         if: matrix.sdk == 'dev' && steps.install_pkg_coverage.outcome == 'success'
         id: test_with_coverage
-      - uses: coverallsapp/github-action@43f11c4e058174f808ee9cd63701b6c42fe3f5e3
+      - uses: coverallsapp/github-action@cfd0633edbd2411b532b808ba7a8b5e04f76d2c8
         if: matrix.sdk == 'dev' && steps.test_with_coverage.outcome == 'success'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
