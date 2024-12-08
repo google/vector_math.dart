@@ -52,10 +52,6 @@ class ConstructorArrayBenchmark extends BenchmarkBase {
 class ConstructorAllBenchmark extends BenchmarkBase {
   ConstructorAllBenchmark() : super('Vector2.all()');
 
-  static void main() {
-    ConstructorAllBenchmark().report();
-  }
-
   @override
   void run() {
     Vector2? v;
@@ -68,10 +64,6 @@ class ConstructorAllBenchmark extends BenchmarkBase {
 
 class ConstructorCopyBenchmark extends BenchmarkBase {
   ConstructorCopyBenchmark() : super('Vector2.copy()');
-
-  static void main() {
-    ConstructorCopyBenchmark().report();
-  }
 
   @override
   void run() {
