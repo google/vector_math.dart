@@ -39,7 +39,7 @@ jobs:
       - run: dart pub global run coverage:test_with_coverage
         if: matrix.sdk == 'dev' && steps.install_pkg_coverage.outcome == 'success'
         id: test_with_coverage
-      - uses: coverallsapp/github-action@cfd0633edbd2411b532b808ba7a8b5e04f76d2c8
+      - uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b
         if: matrix.sdk == 'dev' && steps.test_with_coverage.outcome == 'success'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
