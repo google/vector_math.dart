@@ -1,4 +1,4 @@
-## 2.1.5-wip
+## 2.1.5
 
 - Fixed `operator -()` of Quaternion (Contributed by tlserver)
 - Fixed `Matrix3.rotationY` direction (Contributed by tlserver, moritzblume)
