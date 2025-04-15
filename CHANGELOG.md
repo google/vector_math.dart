@@ -1,3 +1,7 @@
+## 2.1.6-wip
+
+- Remove the deprecated `SimplexNoise` class.
+
 ## 2.1.5
 
 - Fixed `operator -()` of Quaternion (Contributed by tlserver)
@@ -5,7 +9,6 @@
 - Added an operator== to Quaternion so that two instances of quaternions can
   be evaluated for equality.
 - Require Dart 3.1
-- Remove the deprecated `SimplexNoise` class.
 
 ## 2.1.4
 
