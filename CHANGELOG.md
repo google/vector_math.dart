@@ -1,3 +1,7 @@
+## 2.1.6-wip
+
+- Remove the deprecated `SimplexNoise` class.
+
 ## 2.1.5
 
 - Fixed `operator -()` of Quaternion (Contributed by tlserver)
