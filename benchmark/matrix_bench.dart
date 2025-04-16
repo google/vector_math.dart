@@ -321,6 +321,148 @@ class Matrix3TransposeMultiplyBenchmark extends BenchmarkBase {
   }
 }
 
+class Matrix4TranslateByDoubleGenericBenchmark extends BenchmarkBase {
+  Matrix4TranslateByDoubleGenericBenchmark()
+      : super('Matrix4.translateByDoubleGeneric');
+
+  final temp = Matrix4.zero()..setIdentity();
+
+  static void main() {
+    Matrix4TranslateByDoubleGenericBenchmark().report();
+  }
+
+  @override
+  void run() {
+    for (var i = 0; i < 100; i++) {
+      temp.translate(10.0, 20.0, 30.0);
+    }
+  }
+}
+
+class Matrix4TranslateByVector3GenericBenchmark extends BenchmarkBase {
+  Matrix4TranslateByVector3GenericBenchmark()
+      : super('Matrix4.translateByVector3Generic');
+
+  final temp = Matrix4.zero()..setIdentity();
+  final vec = Vector3(10.0, 20.0, 30.0);
+
+  static void main() {
+    Matrix4TranslateByVector3GenericBenchmark().report();
+  }
+
+  @override
+  void run() {
+    for (var i = 0; i < 100; i++) {
+      temp.translate(vec);
+    }
+  }
+}
+
+class Matrix4TranslateByVector4GenericBenchmark extends BenchmarkBase {
+  Matrix4TranslateByVector4GenericBenchmark()
+      : super('Matrix4.translateByVector4Generic');
+
+  final temp = Matrix4.zero()..setIdentity();
+  final vec = Vector4(10.0, 20.0, 30.0, 40.0);
+
+  static void main() {
+    Matrix4TranslateByVector4GenericBenchmark().report();
+  }
+
+  @override
+  void run() {
+    for (var i = 0; i < 100; i++) {
+      temp.translate(vec);
+    }
+  }
+}
+
+class Matrix4TranslateByDoubleBenchmark extends BenchmarkBase {
+  Matrix4TranslateByDoubleBenchmark() : super('Matrix4.translateByDouble');
+
+  final temp = Matrix4.zero()..setIdentity();
+
+  static void main() {
+    Matrix4TranslateByDoubleBenchmark().report();
+  }
+
+  // Call the benchmarked method with random arguments to make sure TFA won't
+  // specialize it based on the arguments passed and wasm-opt won't inline it,
+  // for fair comparison with the generic case.
+  @override
+  void setup() {
+    for (var i = 0; i < 10; i++) {
+      temp.translateByDouble(
+          i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble());
+    }
+  }
+
+  @override
+  void run() {
+    for (var i = 0; i < 100; i++) {
+      temp.translateByDouble(10.0, 20.0, 30.0);
+    }
+  }
+}
+
+class Matrix4TranslateByVector3Benchmark extends BenchmarkBase {
+  Matrix4TranslateByVector3Benchmark() : super('Matrix4.translateByVector3');
+
+  final temp = Matrix4.zero()..setIdentity();
+  final vec = Vector3(10.0, 20.0, 30.0);
+
+  static void main() {
+    Matrix4TranslateByVector3Benchmark().report();
+  }
+
+  // Call the benchmarked method with random arguments to make sure TFA won't
+  // specialize it based on the arguments passed and wasm-opt won't inline it,
+  // for fair comparison with the generic case.
+  @override
+  void setup() {
+    for (var i = 0; i < 10; i++) {
+      temp.translateByVector3(
+          Vector3(i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble()));
+    }
+  }
+
+  @override
+  void run() {
+    for (var i = 0; i < 100; i++) {
+      temp.translateByVector3(vec);
+    }
+  }
+}
+
+class Matrix4TranslateByVector4Benchmark extends BenchmarkBase {
+  Matrix4TranslateByVector4Benchmark() : super('Matrix4.translateByVector4');
+
+  final temp = Matrix4.zero()..setIdentity();
+  final vec = Vector4(10.0, 20.0, 30.0, 40.0);
+
+  static void main() {
+    Matrix4TranslateByVector4Benchmark().report();
+  }
+
+  // Call the benchmarked method with random arguments to make sure TFA won't
+  // specialize it based on the arguments passed and wasm-opt won't inline it,
+  // for fair comparison with the generic case.
+  @override
+  void setup() {
+    for (var i = 0; i < 10; i++) {
+      temp.translateByVector4(Vector4(i.toDouble(), (i * 10).toDouble(),
+          (i * 5).toDouble(), (i * 20).toDouble()));
+    }
+  }
+
+  @override
+  void run() {
+    for (var i = 0; i < 100; i++) {
+      temp.translateByVector4(vec);
+    }
+  }
+}
+
 void main() {
   MatrixMultiplyBenchmark.main();
   SIMDMatrixMultiplyBenchmark.main();
@@ -335,4 +477,10 @@ void main() {
   Matrix3TransformVector3Benchmark.main();
   Matrix3TransformVector2Benchmark.main();
   Matrix3TransposeMultiplyBenchmark.main();
+  Matrix4TranslateByDoubleGenericBenchmark.main();
+  Matrix4TranslateByVector3GenericBenchmark.main();
+  Matrix4TranslateByVector4GenericBenchmark.main();
+  Matrix4TranslateByDoubleBenchmark.main();
+  Matrix4TranslateByVector3Benchmark.main();
+  Matrix4TranslateByVector4Benchmark.main();
 }
