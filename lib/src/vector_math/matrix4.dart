@@ -661,6 +661,9 @@ class Matrix4 {
   Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
 
   /// Translate this matrix by a [Vector3], [Vector4], or x,y,z
+  ///
+  /// If you know the argument types in a call site, prefer [translateByDouble],
+  /// [translateByVector3], or [translateByVector4] for performance.
   void translate(dynamic x, [double y = 0.0, double z = 0.0]) {
     double tx;
     double ty;
@@ -703,7 +706,8 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
-  void translateByDouble(double tx, [double ty = 0.0, double tz = 0.0]) {
+  /// Translate this matrix by x, y, z.
+  void translateByDouble(double tx, double ty, double tz) {
     final tw = 1.0;
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
@@ -727,6 +731,7 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
+  /// Translate this matrix by a [Vector3].
   void translateByVector3(Vector3 v3) {
     final tx = v3.x;
     final ty = v3.y;
@@ -754,6 +759,7 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
+  /// Translate this matrix by a [Vector4].
   void translateByVector4(Vector4 v4) {
     final tx = v4.x;
     final ty = v4.y;
