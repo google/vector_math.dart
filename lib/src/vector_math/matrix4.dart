@@ -703,6 +703,84 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
+  void translateByDouble(double tx, [double ty = 0.0, double tz = 0.0]) {
+    final tw = 1.0;
+    final t1 = _m4storage[0] * tx +
+        _m4storage[4] * ty +
+        _m4storage[8] * tz +
+        _m4storage[12] * tw;
+    final t2 = _m4storage[1] * tx +
+        _m4storage[5] * ty +
+        _m4storage[9] * tz +
+        _m4storage[13] * tw;
+    final t3 = _m4storage[2] * tx +
+        _m4storage[6] * ty +
+        _m4storage[10] * tz +
+        _m4storage[14] * tw;
+    final t4 = _m4storage[3] * tx +
+        _m4storage[7] * ty +
+        _m4storage[11] * tz +
+        _m4storage[15] * tw;
+    _m4storage[12] = t1;
+    _m4storage[13] = t2;
+    _m4storage[14] = t3;
+    _m4storage[15] = t4;
+  }
+
+  void translateByVector3(Vector3 v3) {
+    final tx = v3.x;
+    final ty = v3.y;
+    final tz = v3.z;
+    final tw = 1.0;
+    final t1 = _m4storage[0] * tx +
+        _m4storage[4] * ty +
+        _m4storage[8] * tz +
+        _m4storage[12] * tw;
+    final t2 = _m4storage[1] * tx +
+        _m4storage[5] * ty +
+        _m4storage[9] * tz +
+        _m4storage[13] * tw;
+    final t3 = _m4storage[2] * tx +
+        _m4storage[6] * ty +
+        _m4storage[10] * tz +
+        _m4storage[14] * tw;
+    final t4 = _m4storage[3] * tx +
+        _m4storage[7] * ty +
+        _m4storage[11] * tz +
+        _m4storage[15] * tw;
+    _m4storage[12] = t1;
+    _m4storage[13] = t2;
+    _m4storage[14] = t3;
+    _m4storage[15] = t4;
+  }
+
+  void translateByVector4(Vector4 v4) {
+    final tx = v4.x;
+    final ty = v4.y;
+    final tz = v4.z;
+    final tw = v4.w;
+    final t1 = _m4storage[0] * tx +
+        _m4storage[4] * ty +
+        _m4storage[8] * tz +
+        _m4storage[12] * tw;
+    final t2 = _m4storage[1] * tx +
+        _m4storage[5] * ty +
+        _m4storage[9] * tz +
+        _m4storage[13] * tw;
+    final t3 = _m4storage[2] * tx +
+        _m4storage[6] * ty +
+        _m4storage[10] * tz +
+        _m4storage[14] * tw;
+    final t4 = _m4storage[3] * tx +
+        _m4storage[7] * ty +
+        _m4storage[11] * tz +
+        _m4storage[15] * tw;
+    _m4storage[12] = t1;
+    _m4storage[13] = t2;
+    _m4storage[14] = t3;
+    _m4storage[15] = t4;
+  }
+
   /// Multiply this by a translation from the left.
   /// The translation can be specified with a  [Vector3], [Vector4], or x, y, z.
   void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0]) {
