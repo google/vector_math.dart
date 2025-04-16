@@ -787,7 +787,6 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
-
   /// Multiply this by a translation from the left.
   /// The translation can be specified with a  [Vector3], [Vector4], or x, y, z.
   void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0]) {
