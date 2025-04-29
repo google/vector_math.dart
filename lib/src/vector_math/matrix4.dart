@@ -664,46 +664,18 @@ class Matrix4 {
   ///
   /// If you know the argument types in a call site, prefer [translateByDouble],
   /// [translateByVector3], or [translateByVector4] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
   void translate(dynamic x, [double y = 0.0, double z = 0.0]) {
-    double tx;
-    double ty;
-    double tz;
-    final tw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      return translateByVector3(x);
     } else if (x is Vector4) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      return translateByVector4(x);
     } else if (x is double) {
-      tx = x;
-      ty = y;
-      tz = z;
+      return translateByDouble(x, y, z);
     } else {
       throw UnimplementedError();
     }
-    final t1 = _m4storage[0] * tx +
-        _m4storage[4] * ty +
-        _m4storage[8] * tz +
-        _m4storage[12] * tw;
-    final t2 = _m4storage[1] * tx +
-        _m4storage[5] * ty +
-        _m4storage[9] * tz +
-        _m4storage[13] * tw;
-    final t3 = _m4storage[2] * tx +
-        _m4storage[6] * ty +
-        _m4storage[10] * tz +
-        _m4storage[14] * tw;
-    final t4 = _m4storage[3] * tx +
-        _m4storage[7] * ty +
-        _m4storage[11] * tz +
-        _m4storage[15] * tw;
-    _m4storage[12] = t1;
-    _m4storage[13] = t2;
-    _m4storage[14] = t3;
-    _m4storage[15] = t4;
   }
 
   /// Translate this matrix by x, y, z.
