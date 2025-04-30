@@ -1,3 +1,17 @@
+## 2.2.0-wip
+
+- Performance of functions that take `dynamic` arguments improved.
+- New `Matrix4` members added with precise argument types (instead of
+  `dynamic`), with better performance:
+  - `Matrix4.scaleByDouble`, `Matrix4.scaleByVector3`, `Matrix4.scaleByVector4`
+    as faster `Matrix4.scale`.
+  - `Matrix4.translateByDouble`, `Matrix4.translateByVector3`,
+    `Matrix4.translateByVector4` as faster `Matrix4.translate`.
+  - `Matrix4.leftTranslateByDouble`, `Matrix4.leftTranslateByVector3`,
+    `Matrix4.leftTranslateByVector4` as faster `Matrix4.leftTranslate`.
+  These new functions should be preferred over the old ones when the argument
+  type is known at a call site.
+
 ## 2.1.5
 
 - Fixed `operator -()` of Quaternion (Contributed by tlserver)
