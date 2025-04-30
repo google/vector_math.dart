@@ -982,27 +982,63 @@ class Matrix4 {
     _m4storage[7] = t8;
   }
 
-  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
+  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z as [double]s.
+  ///
+  /// If you know the argument types in a call site, prefer [scaleByDouble],
+  /// [scaleByVector3], or [scaleByVector4] for performance.
   void scale(dynamic x, [double? y, double? z]) {
-    double sx;
-    double sy;
-    double sz;
-    final sw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
-      sx = x.x;
-      sy = x.y;
-      sz = x.z;
+      scaleByVector3(x);
     } else if (x is Vector4) {
-      sx = x.x;
-      sy = x.y;
-      sz = x.z;
+      scaleByVector4(x);
     } else if (x is double) {
-      sx = x;
-      sy = y ?? x;
-      sz = z ?? x;
+      scaleByDouble(x, y ?? x, z ?? x);
     } else {
       throw UnimplementedError();
     }
+  }
+
+  /// Scale this matrix.
+  void scaleByDouble(double sx, double sy, double sz) {
+    _m4storage[0] *= sx;
+    _m4storage[1] *= sx;
+    _m4storage[2] *= sx;
+    _m4storage[3] *= sx;
+    _m4storage[4] *= sy;
+    _m4storage[5] *= sy;
+    _m4storage[6] *= sy;
+    _m4storage[7] *= sy;
+    _m4storage[8] *= sz;
+    _m4storage[9] *= sz;
+    _m4storage[10] *= sz;
+    _m4storage[11] *= sz;
+  }
+
+  /// Scale this matrix.
+  void scaleByVector3(Vector3 v3) {
+    final sx = v3.x;
+    final sy = v3.y;
+    final sz = v3.z;
+    _m4storage[0] *= sx;
+    _m4storage[1] *= sx;
+    _m4storage[2] *= sx;
+    _m4storage[3] *= sx;
+    _m4storage[4] *= sy;
+    _m4storage[5] *= sy;
+    _m4storage[6] *= sy;
+    _m4storage[7] *= sy;
+    _m4storage[8] *= sz;
+    _m4storage[9] *= sz;
+    _m4storage[10] *= sz;
+    _m4storage[11] *= sz;
+  }
+
+  /// Scale this matrix.
+  void scaleByVector4(Vector4 v4) {
+    final sx = v4.x;
+    final sy = v4.y;
+    final sz = v4.z;
+    final sw = v4.w;
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
     _m4storage[2] *= sx;
@@ -1023,6 +1059,8 @@ class Matrix4 {
 
   /// Create a copy of this scaled by a [Vector3], [Vector4] or [x],[y], and
   /// [z].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
   Matrix4 scaled(dynamic x, [double? y, double? z]) => clone()..scale(x, y, z);
 
   /// Zeros this.
