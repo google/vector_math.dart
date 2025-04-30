@@ -803,24 +803,28 @@ class Matrix4 {
   /// Multiply this by a translation from the left.
   void leftTranslateByDouble(double tx, double ty, double tz) {
     // Column 1
-    _m4storage[0] += tx * _m4storage[3];
-    _m4storage[1] += ty * _m4storage[3];
-    _m4storage[2] += tz * _m4storage[3];
+    final r1 = _m4storage[3];
+    _m4storage[0] += tx * r1;
+    _m4storage[1] += ty * r1;
+    _m4storage[2] += tz * r1;
 
     // Column 2
-    _m4storage[4] += tx * _m4storage[7];
-    _m4storage[5] += ty * _m4storage[7];
-    _m4storage[6] += tz * _m4storage[7];
+    final r2 = _m4storage[7];
+    _m4storage[4] += tx * r2;
+    _m4storage[5] += ty * r2;
+    _m4storage[6] += tz * r2;
 
     // Column 3
-    _m4storage[8] += tx * _m4storage[11];
-    _m4storage[9] += ty * _m4storage[11];
-    _m4storage[10] += tz * _m4storage[11];
+    final r3 = _m4storage[11];
+    _m4storage[8] += tx * r3;
+    _m4storage[9] += ty * r3;
+    _m4storage[10] += tz * r3;
 
     // Column 4
-    _m4storage[12] += tx * _m4storage[15];
-    _m4storage[13] += ty * _m4storage[15];
-    _m4storage[14] += tz * _m4storage[15];
+    final r4 = _m4storage[15];
+    _m4storage[12] += tx * r4;
+    _m4storage[13] += ty * r4;
+    _m4storage[14] += tz * r4;
   }
 
   /// Multiply this by a translation from the left.
@@ -830,24 +834,28 @@ class Matrix4 {
     final tz = v3.z;
 
     // Column 1
-    _m4storage[0] += tx * _m4storage[3];
-    _m4storage[1] += ty * _m4storage[3];
-    _m4storage[2] += tz * _m4storage[3];
+    final r1 = _m4storage[3];
+    _m4storage[0] += tx * r1;
+    _m4storage[1] += ty * r1;
+    _m4storage[2] += tz * r1;
 
     // Column 2
-    _m4storage[4] += tx * _m4storage[7];
-    _m4storage[5] += ty * _m4storage[7];
-    _m4storage[6] += tz * _m4storage[7];
+    final r2 = _m4storage[7];
+    _m4storage[4] += tx * r2;
+    _m4storage[5] += ty * r2;
+    _m4storage[6] += tz * r2;
 
     // Column 3
-    _m4storage[8] += tx * _m4storage[11];
-    _m4storage[9] += ty * _m4storage[11];
-    _m4storage[10] += tz * _m4storage[11];
+    final r3 = _m4storage[11];
+    _m4storage[8] += tx * r3;
+    _m4storage[9] += ty * r3;
+    _m4storage[10] += tz * r3;
 
     // Column 4
-    _m4storage[12] += tx * _m4storage[15];
-    _m4storage[13] += ty * _m4storage[15];
-    _m4storage[14] += tz * _m4storage[15];
+    final r4 = _m4storage[15];
+    _m4storage[12] += tx * r4;
+    _m4storage[13] += ty * r4;
+    _m4storage[14] += tz * r4;
   }
 
   /// Multiply this by a translation from the left.
@@ -858,28 +866,32 @@ class Matrix4 {
     final tw = v4.w;
 
     // Column 1
-    _m4storage[0] += tx * _m4storage[3];
-    _m4storage[1] += ty * _m4storage[3];
-    _m4storage[2] += tz * _m4storage[3];
-    _m4storage[3] = tw * _m4storage[3];
+    final r1 = _m4storage[3];
+    _m4storage[0] += tx * r1;
+    _m4storage[1] += ty * r1;
+    _m4storage[2] += tz * r1;
+    _m4storage[3] = tw * r1;
 
     // Column 2
-    _m4storage[4] += tx * _m4storage[7];
-    _m4storage[5] += ty * _m4storage[7];
-    _m4storage[6] += tz * _m4storage[7];
-    _m4storage[7] = tw * _m4storage[7];
+    final r2 = _m4storage[7];
+    _m4storage[4] += tx * r2;
+    _m4storage[5] += ty * r2;
+    _m4storage[6] += tz * r2;
+    _m4storage[7] = tw * r2;
 
     // Column 3
-    _m4storage[8] += tx * _m4storage[11];
-    _m4storage[9] += ty * _m4storage[11];
-    _m4storage[10] += tz * _m4storage[11];
-    _m4storage[11] = tw * _m4storage[11];
+    final r3 = _m4storage[11];
+    _m4storage[8] += tx * r3;
+    _m4storage[9] += ty * r3;
+    _m4storage[10] += tz * r3;
+    _m4storage[11] = tw * r3;
 
     // Column 4
-    _m4storage[12] += tx * _m4storage[15];
-    _m4storage[13] += ty * _m4storage[15];
-    _m4storage[14] += tz * _m4storage[15];
-    _m4storage[15] = tw * _m4storage[15];
+    final r4 = _m4storage[15];
+    _m4storage[12] += tx * r4;
+    _m4storage[13] += ty * r4;
+    _m4storage[14] += tz * r4;
+    _m4storage[15] = tw * r4;
   }
 
   /// Rotate this [angle] radians around [axis]
