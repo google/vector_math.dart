@@ -215,6 +215,8 @@ class Matrix2 {
   }
 
   /// Returns a new vector or matrix by multiplying this with [arg].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
   dynamic operator *(dynamic arg) {
     if (arg is double) {
       return scaled(arg);

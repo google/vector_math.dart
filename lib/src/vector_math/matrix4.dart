@@ -986,6 +986,8 @@ class Matrix4 {
   ///
   /// If you know the argument types in a call site, prefer [scaleByDouble],
   /// [scaleByVector3], or [scaleByVector4] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
   void scale(dynamic x, [double? y, double? z]) {
     if (x is Vector3) {
       scaleByVector3(x);
