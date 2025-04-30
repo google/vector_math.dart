@@ -638,6 +638,14 @@ class Matrix4 {
   Matrix4 operator -() => clone()..negate();
 
   /// Returns a new vector or matrix by multiplying this with [arg].
+  ///
+  /// [arg] should be a [double] (to scale), [Vector4] (to transform), [Vector3]
+  /// (to transform), or [Matrix4] (to multiply).
+  ///
+  /// If you know the argument type in a call site, prefer [scaled],
+  /// [transformed], [transformed3], or [multiplied] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
   dynamic operator *(dynamic arg) {
     if (arg is double) {
       return scaled(arg);
@@ -660,7 +668,7 @@ class Matrix4 {
   /// Returns new matrix after component wise this - [arg]
   Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
 
-  /// Translate this matrix by a [Vector3], [Vector4], or x,y,z
+  /// Translate this matrix by a [Vector3], [Vector4], or x,y,z as [double]s.
   ///
   /// If you know the argument types in a call site, prefer [translateByDouble],
   /// [translateByVector3], or [translateByVector4] for performance.
@@ -680,23 +688,22 @@ class Matrix4 {
 
   /// Translate this matrix by x, y, z.
   void translateByDouble(double tx, double ty, double tz) {
-    final tw = 1.0;
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
-        _m4storage[12] * tw;
+        _m4storage[12];
     final t2 = _m4storage[1] * tx +
         _m4storage[5] * ty +
         _m4storage[9] * tz +
-        _m4storage[13] * tw;
+        _m4storage[13];
     final t3 = _m4storage[2] * tx +
         _m4storage[6] * ty +
         _m4storage[10] * tz +
-        _m4storage[14] * tw;
+        _m4storage[14];
     final t4 = _m4storage[3] * tx +
         _m4storage[7] * ty +
         _m4storage[11] * tz +
-        _m4storage[15] * tw;
+        _m4storage[15];
     _m4storage[12] = t1;
     _m4storage[13] = t2;
     _m4storage[14] = t3;
@@ -708,23 +715,22 @@ class Matrix4 {
     final tx = v3.x;
     final ty = v3.y;
     final tz = v3.z;
-    final tw = 1.0;
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
-        _m4storage[12] * tw;
+        _m4storage[12];
     final t2 = _m4storage[1] * tx +
         _m4storage[5] * ty +
         _m4storage[9] * tz +
-        _m4storage[13] * tw;
+        _m4storage[13];
     final t3 = _m4storage[2] * tx +
         _m4storage[6] * ty +
         _m4storage[10] * tz +
-        _m4storage[14] * tw;
+        _m4storage[14];
     final t4 = _m4storage[3] * tx +
         _m4storage[7] * ty +
         _m4storage[11] * tz +
-        _m4storage[15] * tw;
+        _m4storage[15];
     _m4storage[12] = t1;
     _m4storage[13] = t2;
     _m4storage[14] = t3;
@@ -760,27 +766,83 @@ class Matrix4 {
   }
 
   /// Multiply this by a translation from the left.
-  /// The translation can be specified with a  [Vector3], [Vector4], or x, y, z.
+  ///
+  /// The translation can be specified with a [Vector3], [Vector4], or x, y, z
+  /// as [double]s.
+  ///
+  /// If you know the argument types in a call site, prefer
+  /// [leftTranslateByDouble], [leftTranslateByVector3], or
+  /// [leftTranslateByVector4] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
   void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0]) {
-    double tx;
-    double ty;
-    double tz;
-    final tw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      leftTranslateByVector3(x);
     } else if (x is Vector4) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      leftTranslateByVector4(x);
     } else if (x is double) {
-      tx = x;
-      ty = y;
-      tz = z;
+      leftTranslateByDouble(x, y, z);
     } else {
       throw UnimplementedError();
     }
+  }
+
+  /// Multiply this by a translation from the left.
+  void leftTranslateByDouble(double tx, double ty, double tz) {
+    // Column 1
+    _m4storage[0] += tx * _m4storage[3];
+    _m4storage[1] += ty * _m4storage[3];
+    _m4storage[2] += tz * _m4storage[3];
+
+    // Column 2
+    _m4storage[4] += tx * _m4storage[7];
+    _m4storage[5] += ty * _m4storage[7];
+    _m4storage[6] += tz * _m4storage[7];
+
+    // Column 3
+    _m4storage[8] += tx * _m4storage[11];
+    _m4storage[9] += ty * _m4storage[11];
+    _m4storage[10] += tz * _m4storage[11];
+
+    // Column 4
+    _m4storage[12] += tx * _m4storage[15];
+    _m4storage[13] += ty * _m4storage[15];
+    _m4storage[14] += tz * _m4storage[15];
+  }
+
+  /// Multiply this by a translation from the left.
+  void leftTranslateByVector3(Vector3 v3) {
+    final tx = v3.x;
+    final ty = v3.y;
+    final tz = v3.z;
+
+    // Column 1
+    _m4storage[0] += tx * _m4storage[3];
+    _m4storage[1] += ty * _m4storage[3];
+    _m4storage[2] += tz * _m4storage[3];
+
+    // Column 2
+    _m4storage[4] += tx * _m4storage[7];
+    _m4storage[5] += ty * _m4storage[7];
+    _m4storage[6] += tz * _m4storage[7];
+
+    // Column 3
+    _m4storage[8] += tx * _m4storage[11];
+    _m4storage[9] += ty * _m4storage[11];
+    _m4storage[10] += tz * _m4storage[11];
+
+    // Column 4
+    _m4storage[12] += tx * _m4storage[15];
+    _m4storage[13] += ty * _m4storage[15];
+    _m4storage[14] += tz * _m4storage[15];
+  }
+
+  /// Multiply this by a translation from the left.
+  void leftTranslateByVector4(Vector4 v4) {
+    final tx = v4.x;
+    final ty = v4.y;
+    final tz = v4.z;
+    final tw = v4.w;
 
     // Column 1
     _m4storage[0] += tx * _m4storage[3];
