@@ -393,14 +393,14 @@ class Matrix4TranslateByDoubleBenchmark extends BenchmarkBase {
   void setup() {
     for (var i = 0; i < 10; i++) {
       temp.translateByDouble(
-          i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble());
+          i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble(), 1.0);
     }
   }
 
   @override
   void run() {
     for (var i = 0; i < 100; i++) {
-      temp.translateByDouble(10.0, 20.0, 30.0);
+      temp.translateByDouble(10.0, 20.0, 30.0, 1.0);
     }
   }
 }

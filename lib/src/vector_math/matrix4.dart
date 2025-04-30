@@ -682,76 +682,17 @@ class Matrix4 {
     } else if (x is Vector4) {
       translateByVector4(x);
     } else if (x is double) {
-      translateByDouble(x, y, z);
+      translateByDouble(x, y, z, 1.0);
     } else {
       throw UnimplementedError();
     }
   }
 
   /// Translate this matrix by x, y, z.
-  void translateByDouble(double tx, double ty, double tz) {
-    final t1 = _m4storage[0] * tx +
-        _m4storage[4] * ty +
-        _m4storage[8] * tz +
-        _m4storage[12];
-    _m4storage[12] = t1;
-
-    final t2 = _m4storage[1] * tx +
-        _m4storage[5] * ty +
-        _m4storage[9] * tz +
-        _m4storage[13];
-    _m4storage[13] = t2;
-
-    final t3 = _m4storage[2] * tx +
-        _m4storage[6] * ty +
-        _m4storage[10] * tz +
-        _m4storage[14];
-    _m4storage[14] = t3;
-
-    final t4 = _m4storage[3] * tx +
-        _m4storage[7] * ty +
-        _m4storage[11] * tz +
-        _m4storage[15];
-    _m4storage[15] = t4;
-  }
-
-  /// Translate this matrix by a [Vector3].
-  void translateByVector3(Vector3 v3) {
-    final tx = v3.x;
-    final ty = v3.y;
-    final tz = v3.z;
-    final t1 = _m4storage[0] * tx +
-        _m4storage[4] * ty +
-        _m4storage[8] * tz +
-        _m4storage[12];
-    _m4storage[12] = t1;
-
-    final t2 = _m4storage[1] * tx +
-        _m4storage[5] * ty +
-        _m4storage[9] * tz +
-        _m4storage[13];
-    _m4storage[13] = t2;
-
-    final t3 = _m4storage[2] * tx +
-        _m4storage[6] * ty +
-        _m4storage[10] * tz +
-        _m4storage[14];
-    _m4storage[14] = t3;
-
-    final t4 = _m4storage[3] * tx +
-        _m4storage[7] * ty +
-        _m4storage[11] * tz +
-        _m4storage[15];
-    _m4storage[15] = t4;
-  }
-
-  /// Translate this matrix by a [Vector4].
-  void translateByVector4(Vector4 v4) {
-    final tx = v4.x;
-    final ty = v4.y;
-    final tz = v4.z;
-    final tw = v4.w;
-
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByDouble(double tx, double ty, double tz, double tw) {
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
@@ -777,6 +718,20 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
+  /// Translate this matrix by a [Vector3].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByVector3(Vector3 v3) =>
+      translateByDouble(v3.x, v3.y, v3.z, 1.0);
+
+  /// Translate this matrix by a [Vector4].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByVector4(Vector4 v4) =>
+      translateByDouble(v4.x, v4.y, v4.z, v4.w);
+
   /// Multiply this by a translation from the left.
   ///
   /// The translation can be specified with a [Vector3], [Vector4], or x, y, z
@@ -794,77 +749,17 @@ class Matrix4 {
     } else if (x is Vector4) {
       leftTranslateByVector4(x);
     } else if (x is double) {
-      leftTranslateByDouble(x, y, z);
+      leftTranslateByDouble(x, y, z, 1.0);
     } else {
       throw UnimplementedError();
     }
   }
 
   /// Multiply this by a translation from the left.
-  void leftTranslateByDouble(double tx, double ty, double tz) {
-    // Column 1
-    final r1 = _m4storage[3];
-    _m4storage[0] += tx * r1;
-    _m4storage[1] += ty * r1;
-    _m4storage[2] += tz * r1;
-
-    // Column 2
-    final r2 = _m4storage[7];
-    _m4storage[4] += tx * r2;
-    _m4storage[5] += ty * r2;
-    _m4storage[6] += tz * r2;
-
-    // Column 3
-    final r3 = _m4storage[11];
-    _m4storage[8] += tx * r3;
-    _m4storage[9] += ty * r3;
-    _m4storage[10] += tz * r3;
-
-    // Column 4
-    final r4 = _m4storage[15];
-    _m4storage[12] += tx * r4;
-    _m4storage[13] += ty * r4;
-    _m4storage[14] += tz * r4;
-  }
-
-  /// Multiply this by a translation from the left.
-  void leftTranslateByVector3(Vector3 v3) {
-    final tx = v3.x;
-    final ty = v3.y;
-    final tz = v3.z;
-
-    // Column 1
-    final r1 = _m4storage[3];
-    _m4storage[0] += tx * r1;
-    _m4storage[1] += ty * r1;
-    _m4storage[2] += tz * r1;
-
-    // Column 2
-    final r2 = _m4storage[7];
-    _m4storage[4] += tx * r2;
-    _m4storage[5] += ty * r2;
-    _m4storage[6] += tz * r2;
-
-    // Column 3
-    final r3 = _m4storage[11];
-    _m4storage[8] += tx * r3;
-    _m4storage[9] += ty * r3;
-    _m4storage[10] += tz * r3;
-
-    // Column 4
-    final r4 = _m4storage[15];
-    _m4storage[12] += tx * r4;
-    _m4storage[13] += ty * r4;
-    _m4storage[14] += tz * r4;
-  }
-
-  /// Multiply this by a translation from the left.
-  void leftTranslateByVector4(Vector4 v4) {
-    final tx = v4.x;
-    final ty = v4.y;
-    final tz = v4.z;
-    final tw = v4.w;
-
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void leftTranslateByDouble(double tx, double ty, double tz, double tw) {
     // Column 1
     final r1 = _m4storage[3];
     _m4storage[0] += tx * r1;
@@ -893,6 +788,20 @@ class Matrix4 {
     _m4storage[14] += tz * r4;
     _m4storage[15] = tw * r4;
   }
+
+  /// Multiply this by a translation from the left.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void leftTranslateByVector3(Vector3 v3) =>
+      leftTranslateByDouble(v3.x, v3.y, v3.z, 1.0);
+
+  /// Multiply this by a translation from the left.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void leftTranslateByVector4(Vector4 v4) =>
+      leftTranslateByDouble(v4.x, v4.y, v4.z, v4.w);
 
   /// Rotate this [angle] radians around [axis]
   void rotate(Vector3 axis, double angle) {
