@@ -217,17 +217,19 @@ class Matrix2 {
   /// Returns a new vector or matrix by multiplying this with [arg].
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
   dynamic operator *(dynamic arg) {
+    final dynamic value;
     if (arg is double) {
-      return scaled(arg);
+      value = scaled(arg);
+    } else if (arg is Vector2) {
+      value = transformed(arg);
+    } else if (arg is Matrix2) {
+      value = multiplied(arg);
+    } else {
+      throw ArgumentError(arg);
     }
-    if (arg is Vector2) {
-      return transformed(arg);
-    }
-    if (arg is Matrix2) {
-      return multiplied(arg);
-    }
-    throw ArgumentError(arg);
+    return value;
   }
 
   /// Returns new matrix after component wise this + [arg]
