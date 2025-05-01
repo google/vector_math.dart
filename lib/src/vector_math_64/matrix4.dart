@@ -461,7 +461,7 @@ class Matrix4 {
   void setFromTranslationRotationScale(
       Vector3 translation, Quaternion rotation, Vector3 scale) {
     setFromTranslationRotation(translation, rotation);
-    this.scale(scale);
+    scaleByVector3(scale);
   }
 
   /// Sets the upper 2x2 of the matrix to be [arg].
@@ -642,7 +642,7 @@ class Matrix4 {
   /// [arg] should be a [double] (to scale), [Vector4] (to transform), [Vector3]
   /// (to transform), or [Matrix4] (to multiply).
   ///
-  /// If you know the argument type in a call site, prefer [scaled],
+  /// If you know the argument type in a call site, prefer [scaledByDouble],
   /// [transformed], [transformed3], or [multiplied] for performance.
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
@@ -650,7 +650,7 @@ class Matrix4 {
   dynamic operator *(dynamic arg) {
     final Object result;
     if (arg is double) {
-      result = scaled(arg);
+      result = scaledByDouble(arg, arg, arg, 1.0);
     } else if (arg is Vector4) {
       result = transformed(arg);
     } else if (arg is Vector3) {
@@ -676,6 +676,8 @@ class Matrix4 {
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
+  @Deprecated('Use translateByVector3, translateByVector4, '
+      'or translateByDouble instead')
   void translate(dynamic x, [double y = 0.0, double z = 0.0]) {
     if (x is Vector3) {
       translateByVector3(x);
@@ -743,6 +745,8 @@ class Matrix4 {
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
+  @Deprecated('Use leftTranslateByVector3, leftTranslateByVector4, '
+      'or leftTranslateByDouble instead')
   void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0]) {
     if (x is Vector3) {
       leftTranslateByVector3(x);
@@ -923,59 +927,24 @@ class Matrix4 {
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
+  @Deprecated('Use scaleByVector3, scaleByVector4, or scaleByDouble instead')
   void scale(dynamic x, [double? y, double? z]) {
     if (x is Vector3) {
       scaleByVector3(x);
     } else if (x is Vector4) {
       scaleByVector4(x);
     } else if (x is double) {
-      scaleByDouble(x, y ?? x, z ?? x);
+      scaleByDouble(x, y ?? x, z ?? x, 1.0);
     } else {
       throw UnimplementedError();
     }
   }
 
   /// Scale this matrix.
-  void scaleByDouble(double sx, double sy, double sz) {
-    _m4storage[0] *= sx;
-    _m4storage[1] *= sx;
-    _m4storage[2] *= sx;
-    _m4storage[3] *= sx;
-    _m4storage[4] *= sy;
-    _m4storage[5] *= sy;
-    _m4storage[6] *= sy;
-    _m4storage[7] *= sy;
-    _m4storage[8] *= sz;
-    _m4storage[9] *= sz;
-    _m4storage[10] *= sz;
-    _m4storage[11] *= sz;
-  }
-
-  /// Scale this matrix.
-  void scaleByVector3(Vector3 v3) {
-    final sx = v3.x;
-    final sy = v3.y;
-    final sz = v3.z;
-    _m4storage[0] *= sx;
-    _m4storage[1] *= sx;
-    _m4storage[2] *= sx;
-    _m4storage[3] *= sx;
-    _m4storage[4] *= sy;
-    _m4storage[5] *= sy;
-    _m4storage[6] *= sy;
-    _m4storage[7] *= sy;
-    _m4storage[8] *= sz;
-    _m4storage[9] *= sz;
-    _m4storage[10] *= sz;
-    _m4storage[11] *= sz;
-  }
-
-  /// Scale this matrix.
-  void scaleByVector4(Vector4 v4) {
-    final sx = v4.x;
-    final sy = v4.y;
-    final sz = v4.z;
-    final sw = v4.w;
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void scaleByDouble(double sx, double sy, double sz, double sw) {
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
     _m4storage[2] *= sx;
@@ -994,12 +963,44 @@ class Matrix4 {
     _m4storage[15] *= sw;
   }
 
+  /// Scale this matrix.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void scaleByVector3(Vector3 v3) => scaleByDouble(v3.x, v3.y, v3.z, 1.0);
+
+  /// Scale this matrix.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void scaleByVector4(Vector4 v4) => scaleByDouble(v4.x, v4.y, v4.z, v4.w);
+
   /// Create a copy of this scaled by a [Vector3], [Vector4] or [x],[y], and
   /// [z].
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
+  @Deprecated('Use scaledByVector3, scaledByVector4, or scaledByDouble instead')
   Matrix4 scaled(dynamic x, [double? y, double? z]) => clone()..scale(x, y, z);
+
+  /// Create a copy of this scaled by [x], [y], [z], and [t].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  Matrix4 scaledByDouble(double x, double y, double z, double t) =>
+      clone()..scaleByDouble(x, y, z, t);
+
+  /// Create a copy of this scaled by a [Vector3].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  Matrix4 scaledByVector3(Vector3 v3) => clone()..scaleByVector3(v3);
+
+  /// Create a copy of this scaled by a [Vector4].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  Matrix4 scaledByVector4(Vector4 v4) => clone()..scaleByVector4(v4);
 
   /// Zeros this.
   void setZero() {
