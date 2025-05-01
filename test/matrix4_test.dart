@@ -2,6 +2,8 @@
 // All rights reserved. Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:math' as math;
 import 'dart:typed_data';
 
@@ -372,6 +374,36 @@ void testMatrix4Translation() {
   for (var i = 0; i < inputA.length; i++) {
     relativeTest(output1[i], output2[i]);
   }
+
+  final input = Matrix4.fromList([
+    1, 5, 9, 13, //
+    2, 6, 10, 14, //
+    3, 7, 11, 15, //
+    4, 8, 12, 16, //
+  ]);
+  final output3 = input.clone();
+  output3[12] = input.dotRow(0, Vector4(4, 8, 12, 1));
+  output3[13] = input.dotRow(1, Vector4(4, 8, 12, 1));
+  output3[14] = input.dotRow(2, Vector4(4, 8, 12, 1));
+  output3[15] = input.dotRow(3, Vector4(4, 8, 12, 1));
+  relativeTest(
+    input.clone()..translateByDouble(4.0, 8.0, 12.0, 1.0),
+    output3,
+  );
+  relativeTest(
+    input.clone()..translateByVector3(Vector3(4.0, 8.0, 12.0)),
+    output3,
+  );
+
+  final output4 = input.clone();
+  output4[12] = input.dotRow(0, Vector4(4, 8, 12, 16));
+  output4[13] = input.dotRow(1, Vector4(4, 8, 12, 16));
+  output4[14] = input.dotRow(2, Vector4(4, 8, 12, 16));
+  output4[15] = input.dotRow(3, Vector4(4, 8, 12, 16));
+  relativeTest(
+    input.clone()..translateByVector4(Vector4(4, 8, 12, 16)),
+    output4,
+  );
 }
 
 void testMatrix4Scale() {
