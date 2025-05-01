@@ -1,4 +1,4 @@
-## 3.0.0-wip
+## 2.2.0-wip
 
 - Performance of functions that take `dynamic` arguments improved.
 - Most of the members that take `dynamic` arguments are deprecated. New members
