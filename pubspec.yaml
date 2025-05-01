@@ -1,5 +1,5 @@
 name: vector_math
-version: 2.2.0-wip
+version: 3.0.0-wip
 description: A Vector Math library for 2D and 3D applications.
 repository: https://github.com/google/vector_math.dart
 
