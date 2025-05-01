@@ -690,7 +690,7 @@ class Matrix4 {
     }
   }
 
-  /// Translate this matrix by x, y, z.
+  /// Translate this matrix by x, y, z, w.
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
