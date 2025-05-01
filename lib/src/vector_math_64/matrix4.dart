@@ -648,19 +648,19 @@ class Matrix4 {
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
   dynamic operator *(dynamic arg) {
-    final dynamic value;
+    final Object result;
     if (arg is double) {
-      value = scaled(arg);
+      result = scaled(arg);
     } else if (arg is Vector4) {
-      value = transformed(arg);
+      result = transformed(arg);
     } else if (arg is Vector3) {
-      value = transformed3(arg);
+      result = transformed3(arg);
     } else if (arg is Matrix4) {
-      value = multiplied(arg);
+      result = multiplied(arg);
     } else {
       throw ArgumentError(arg);
     }
-    return value;
+    return result;
   }
 
   /// Returns new matrix after component wise this + [arg]
