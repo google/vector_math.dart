@@ -1,6 +1,26 @@
 ## 2.2.0-wip
 
 - Performance of functions that take `dynamic` arguments improved.
+- Most of the members that take `dynamic` arguments are deprecated. New members
+  with non-`dynamic` arguments added.
+
+  Deprecated members:
+  - `Matrix4.translate`
+    Instead use: `Matrix4.translateByDouble`, `Matrix4.translateByVector3`,
+    `Matrix4.translateByVector4`.
+
+  - `Matrix4.leftTranslate`
+    Instead use: `Matrix4.leftTranslateByDouble`,
+    `Matrix4.leftTranslateByVector3`, `Matrix4.leftTranslateByVector4`.
+
+  - `Matrix4.scale`
+    Instead use: `Matrix4.scaleByDouble`, `Matrix4.scaleByVector3`,
+    `Matrix4.scaleByVector4`.
+
+  - `Matrix4.scaled`
+    Instead use: `Matrix4.scaledByDouble`, `Matrix4.scaledByVector3`,
+    `Matrix4.scaledByVector4`.
+
 - New `Matrix4` members added with precise argument types (instead of
   `dynamic`), with better performance:
   - `Matrix4.scaleByDouble`, `Matrix4.scaleByVector3`, `Matrix4.scaleByVector4`
