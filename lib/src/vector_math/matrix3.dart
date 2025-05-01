@@ -329,19 +329,12 @@ class Matrix3 {
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
-  dynamic operator *(dynamic arg) {
-    final Object result;
-    if (arg is double) {
-      result = scaled(arg);
-    } else if (arg is Vector3) {
-      result = transformed(arg);
-    } else if (arg is Matrix3) {
-      result = multiplied(arg);
-    } else {
-      throw ArgumentError(arg);
-    }
-    return result;
-  }
+  dynamic operator *(dynamic arg) => switch (arg) {
+        double() => scaled(arg),
+        Vector3() => transformed(arg),
+        Matrix3() => multiplied(arg),
+        _ => throw ArgumentError(arg)
+      };
 
   /// Returns new matrix after component wise this + [arg]
   Matrix3 operator +(Matrix3 arg) => clone()..add(arg);

@@ -647,21 +647,13 @@ class Matrix4 {
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
-  dynamic operator *(dynamic arg) {
-    final Object result;
-    if (arg is double) {
-      result = scaledByDouble(arg, arg, arg, 1.0);
-    } else if (arg is Vector4) {
-      result = transformed(arg);
-    } else if (arg is Vector3) {
-      result = transformed3(arg);
-    } else if (arg is Matrix4) {
-      result = multiplied(arg);
-    } else {
-      throw ArgumentError(arg);
-    }
-    return result;
-  }
+  dynamic operator *(dynamic arg) => switch (arg) {
+        double() => scaledByDouble(arg, arg, arg, 1.0),
+        Vector4() => transformed(arg),
+        Vector3() => transformed3(arg),
+        Matrix4() => multiplied(arg),
+        _ => throw ArgumentError(arg)
+      };
 
   /// Returns new matrix after component wise this + [arg]
   Matrix4 operator +(Matrix4 arg) => clone()..add(arg);
