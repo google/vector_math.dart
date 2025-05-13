@@ -691,7 +691,7 @@ class Matrix4 {
   }
 
   /// Translate this matrix by x, y, z, w.
-  void translateByDouble(double tx, double ty, double tz, [double tw = 1.0]) {
+  void translateByDouble(double tx, double ty, double tz, double tw) {
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
