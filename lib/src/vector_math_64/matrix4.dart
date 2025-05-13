@@ -691,10 +691,7 @@ class Matrix4 {
   }
 
   /// Translate this matrix by x, y, z, w.
-  @pragma('wasm:prefer-inline')
-  @pragma('vm:prefer-inline')
-  @pragma('dart2js:prefer-inline')
-  void translateByDouble(double tx, double ty, double tz, double tw) {
+  void translateByDouble(double tx, double ty, double tz, [double tw = 1.0]) {
     final t1 = _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
@@ -760,9 +757,6 @@ class Matrix4 {
   }
 
   /// Multiply this by a translation from the left.
-  @pragma('wasm:prefer-inline')
-  @pragma('vm:prefer-inline')
-  @pragma('dart2js:prefer-inline')
   void leftTranslateByDouble(double tx, double ty, double tz, double tw) {
     // Column 1
     final r1 = _m4storage[3];
@@ -941,9 +935,6 @@ class Matrix4 {
   }
 
   /// Scale this matrix.
-  @pragma('wasm:prefer-inline')
-  @pragma('vm:prefer-inline')
-  @pragma('dart2js:prefer-inline')
   void scaleByDouble(double sx, double sy, double sz, double sw) {
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
