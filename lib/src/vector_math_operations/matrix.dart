@@ -130,8 +130,14 @@ class Matrix44Operations {
       throw UnimplementedError();
 
   /// [out] = [a] * [b]; Starting at [outOffset], [aOffset], and [bOffset].
-  static void multiply(Float32List out, int outOffset, Float32List a,
-      int aOffset, Float32List b, int bOffset) {
+  static void multiply(
+    Float32List out,
+    int outOffset,
+    Float32List a,
+    int aOffset,
+    Float32List b,
+    int bOffset,
+  ) {
     final a00 = a[aOffset++];
     final a01 = a[aOffset++];
     final a02 = a[aOffset++];
@@ -195,8 +201,14 @@ class Matrix44Operations {
 
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
-  static void transform4(Float32List out, int outOffset, Float32List matrix,
-      int matrixOffset, Float32List vector, int vectorOffset) {
+  static void transform4(
+    Float32List out,
+    int outOffset,
+    Float32List matrix,
+    int matrixOffset,
+    Float32List vector,
+    int vectorOffset,
+  ) {
     final x = vector[vectorOffset++];
     final y = vector[vectorOffset++];
     final z = vector[vectorOffset++];
@@ -225,8 +237,14 @@ class Matrix44Operations {
 
   /// Transform the 3D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
-  static void transform3(Float32List out, int outOffset, Float32List matrix,
-      int matrixOffset, Float32List vector, int vectorOffset) {}
+  static void transform3(
+    Float32List out,
+    int outOffset,
+    Float32List matrix,
+    int matrixOffset,
+    Float32List vector,
+    int vectorOffset,
+  ) {}
 
   /// Transpose the 4x4 [matrix] starting at [offset].
   static void transpose(Float32List matrix, int offset) {}
@@ -262,29 +280,39 @@ class Matrix44Operations {
 /// Float32x4List.
 class Matrix44SIMDOperations {
   /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
-  static void multiply(Float32x4List out, int outOffset, Float32x4List A,
-      int aOffset, Float32x4List B, int bOffset) {
+  static void multiply(
+    Float32x4List out,
+    int outOffset,
+    Float32x4List A,
+    int aOffset,
+    Float32x4List B,
+    int bOffset,
+  ) {
     final a0 = A[aOffset++];
     final a1 = A[aOffset++];
     final a2 = A[aOffset++];
     final a3 = A[aOffset++];
     final b0 = B[bOffset++];
-    out[outOffset++] = b0.shuffle(Float32x4.xxxx) * a0 +
+    out[outOffset++] =
+        b0.shuffle(Float32x4.xxxx) * a0 +
         b0.shuffle(Float32x4.yyyy) * a1 +
         b0.shuffle(Float32x4.zzzz) * a2 +
         b0.shuffle(Float32x4.wwww) * a3;
     final b1 = B[bOffset++];
-    out[outOffset++] = b1.shuffle(Float32x4.xxxx) * a0 +
+    out[outOffset++] =
+        b1.shuffle(Float32x4.xxxx) * a0 +
         b1.shuffle(Float32x4.yyyy) * a1 +
         b1.shuffle(Float32x4.zzzz) * a2 +
         b1.shuffle(Float32x4.wwww) * a3;
     final b2 = B[bOffset++];
-    out[outOffset++] = b2.shuffle(Float32x4.xxxx) * a0 +
+    out[outOffset++] =
+        b2.shuffle(Float32x4.xxxx) * a0 +
         b2.shuffle(Float32x4.yyyy) * a1 +
         b2.shuffle(Float32x4.zzzz) * a2 +
         b2.shuffle(Float32x4.wwww) * a3;
     final b3 = B[bOffset++];
-    out[outOffset++] = b3.shuffle(Float32x4.xxxx) * a0 +
+    out[outOffset++] =
+        b3.shuffle(Float32x4.xxxx) * a0 +
         b3.shuffle(Float32x4.yyyy) * a1 +
         b3.shuffle(Float32x4.zzzz) * a2 +
         b3.shuffle(Float32x4.wwww) * a3;
@@ -292,8 +320,14 @@ class Matrix44SIMDOperations {
 
   /// Transform the 4D [vector] starting at [vectorOffset] by the 4x4 [matrix]
   /// starting at [matrixOffset]. Store result in [out] starting at [outOffset].
-  static void transform4(Float32x4List out, int outOffset, Float32x4List matrix,
-      int matrixOffset, Float32x4List vector, int vectorOffset) {
+  static void transform4(
+    Float32x4List out,
+    int outOffset,
+    Float32x4List matrix,
+    int matrixOffset,
+    Float32x4List vector,
+    int vectorOffset,
+  ) {
     final v = vector[vectorOffset];
     final xxxx = v.shuffle(Float32x4.xxxx);
     var z = Float32x4.zero();

@@ -23,8 +23,10 @@ void testSimplexNoise() {
   // Ensure that querying those same coordinates repeats the cached value
   for (var i = 0; i < values2D.length; ++i) {
     expect(values2D[i], equals(noise.noise2D(i.toDouble(), i.toDouble())));
-    expect(values3D[i],
-        equals(noise.noise3D(i.toDouble(), i.toDouble(), i.toDouble())));
+    expect(
+      values3D[i],
+      equals(noise.noise3D(i.toDouble(), i.toDouble(), i.toDouble())),
+    );
   }
 }
 

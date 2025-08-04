@@ -14,15 +14,21 @@ Vector4 $v4(double x, double y, double z, double w) => Vector4(x, y, z, w);
 void relativeTest(dynamic output, dynamic expectedOutput) {
   final errorThreshold = 0.0005;
   final num error = relativeError(output, expectedOutput).abs();
-  expect(error >= errorThreshold, isFalse,
-      reason: '$output != $expectedOutput : relativeError = $error');
+  expect(
+    error >= errorThreshold,
+    isFalse,
+    reason: '$output != $expectedOutput : relativeError = $error',
+  );
 }
 
 void absoluteTest(dynamic output, dynamic expectedOutput) {
   final errorThreshold = 0.0005;
   final num error = absoluteError(output, expectedOutput).abs();
-  expect(error >= errorThreshold, isFalse,
-      reason: '$output != $expectedOutput : absoluteError = $error');
+  expect(
+    error >= errorThreshold,
+    isFalse,
+    reason: '$output != $expectedOutput : absoluteError = $error',
+  );
 }
 
 dynamic makeMatrix(int rows, int cols) {
@@ -79,8 +85,11 @@ T parseMatrix<T>(String input) {
 
 T parseVector<T extends Vector>(String v) {
   v = v.trim();
-  final Pattern pattern =
-      RegExp('[\\s]+', multiLine: true, caseSensitive: false);
+  final Pattern pattern = RegExp(
+    '[\\s]+',
+    multiLine: true,
+    caseSensitive: false,
+  );
   final rows = v.split(pattern);
   final values = <double>[];
   for (var i = 0; i < rows.length; i++) {

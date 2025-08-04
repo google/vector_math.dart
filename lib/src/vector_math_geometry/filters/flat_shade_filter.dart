@@ -6,12 +6,14 @@ part of '../../../vector_math_geometry.dart';
 
 class FlatShadeFilter extends GeometryFilter {
   @override
-  List<VertexAttrib> get requires =>
-      <VertexAttrib>[VertexAttrib('POSITION', 3, 'float')];
+  List<VertexAttrib> get requires => <VertexAttrib>[
+    VertexAttrib('POSITION', 3, 'float'),
+  ];
 
   @override
-  List<VertexAttrib> get generates =>
-      <VertexAttrib>[VertexAttrib('NORMAL', 3, 'float')];
+  List<VertexAttrib> get generates => <VertexAttrib>[
+    VertexAttrib('NORMAL', 3, 'float'),
+  ];
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {

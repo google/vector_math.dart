@@ -1,3 +1,7 @@
+## 2.2.1-wip
+
+- Require `sdk: ^3.7.0`.
+
 ## 2.2.0
 
 - Performance of functions that take `dynamic` arguments improved.

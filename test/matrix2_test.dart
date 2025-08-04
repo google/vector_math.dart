@@ -14,15 +14,22 @@ void testMatrix2Adjoint() {
   final input = <Matrix2>[];
   final expectedOutput = <Matrix2>[];
 
-  input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
-                                    0.585264091152724   0.917193663829810'''));
-  expectedOutput
-      .add(parseMatrix<Matrix2>(''' 0.917193663829810  -0.549723608291140
-                                   -0.585264091152724   0.830828627896291'''));
-  input.add(parseMatrix<Matrix2>(''' 1     0
-                                     0     1'''));
-  expectedOutput.add(parseMatrix<Matrix2>(''' 1     0
-                                              0     1'''));
+  input.add(
+    parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
+                                    0.585264091152724   0.917193663829810'''),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix2>(''' 0.917193663829810  -0.549723608291140
+                                   -0.585264091152724   0.830828627896291'''),
+  );
+  input.add(
+    parseMatrix<Matrix2>(''' 1     0
+                                     0     1'''),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix2>(''' 1     0
+                                              0     1'''),
+  );
 
   assert(input.length == expectedOutput.length);
 
@@ -37,8 +44,10 @@ void testMatrix2Determinant() {
   final input = <Matrix2>[];
   final expectedOutput = <double>[];
 
-  input.add(parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
-                                    0.585264091152724   0.917193663829810'''));
+  input.add(
+    parseMatrix<Matrix2>('''0.830828627896291   0.549723608291140
+                                    0.585264091152724   0.917193663829810'''),
+  );
   expectedOutput.add(0.440297265243183);
 
   assert(input.length == expectedOutput.length);
@@ -55,12 +64,14 @@ void testMatrix2Transform() {
   final input = Vector2(0.234245234259, 0.890723489233);
 
   final expected = Vector2(
-      rot.entry(0, 0) * input.x + rot.entry(0, 1) * input.y,
-      rot.entry(1, 0) * input.x + rot.entry(1, 1) * input.y);
+    rot.entry(0, 0) * input.x + rot.entry(0, 1) * input.y,
+    rot.entry(1, 0) * input.x + rot.entry(1, 1) * input.y,
+  );
 
   final transExpected = Vector2(
-      rot.entry(0, 0) * input.x + rot.entry(1, 0) * input.y,
-      rot.entry(0, 1) * input.x + rot.entry(1, 1) * input.y);
+    rot.entry(0, 0) * input.x + rot.entry(1, 0) * input.y,
+    rot.entry(0, 1) * input.x + rot.entry(1, 1) * input.y,
+  );
 
   relativeTest(rot.transformed(input), expected);
   relativeTest(rot.transposed().transformed(input), transExpected);

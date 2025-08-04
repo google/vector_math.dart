@@ -9,11 +9,13 @@ part of '../../vector_math_64.dart';
 /// for fast prototyping.
 class Colors {
   static final _hexStringFullRegex = RegExp(
-      r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})(?:([0-9a-f]{2}))?',
-      caseSensitive: false);
+    r'\#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})(?:([0-9a-f]{2}))?',
+    caseSensitive: false,
+  );
   static final _hexStringSmallRegex = RegExp(
-      r'\#?([0-9a-f])([0-9a-f])([0-9a-f])(?:([0-9a-f]))?',
-      caseSensitive: false);
+    r'\#?([0-9a-f])([0-9a-f])([0-9a-f])(?:([0-9a-f]))?',
+    caseSensitive: false,
+  );
 
   /// Convert a color with [r], [g], [b] and [a] component between 0 and 255 to
   /// a color with values between 0.0 and 1.0 and store it in [result].
@@ -75,27 +77,33 @@ class Colors {
   /// the alpha channel, set [alpha] to true, it is false by default. If [short]
   /// is true, the resulting hex string might also be a short version, like #ff0
   /// (default false).
-  static String toHexString(Vector4 input,
-      {bool alpha = false, bool short = false}) {
+  static String toHexString(
+    Vector4 input, {
+    bool alpha = false,
+    bool short = false,
+  }) {
     final r = (input.r * 0xFF).floor() & 0xFF;
     final g = (input.g * 0xFF).floor() & 0xFF;
     final b = (input.b * 0xFF).floor() & 0xFF;
     final a = (input.a * 0xFF).floor() & 0xFF;
 
-    final isShort = short &&
+    final isShort =
+        short &&
         ((r >> 4) == (r & 0xF)) &&
         ((g >> 4) == (g & 0xF)) &&
         ((b >> 4) == (b & 0xF)) &&
         (!alpha || (a >> 4) == (a & 0xF));
 
     if (isShort) {
-      final rgb = (r & 0xF).toRadixString(16) +
+      final rgb =
+          (r & 0xF).toRadixString(16) +
           (g & 0xF).toRadixString(16) +
           (b & 0xF).toRadixString(16);
 
       return alpha ? (a & 0xF).toRadixString(16) + rgb : rgb;
     } else {
-      final rgb = r.toRadixString(16).padLeft(2, '0') +
+      final rgb =
+          r.toRadixString(16).padLeft(2, '0') +
           g.toRadixString(16).padLeft(2, '0') +
           b.toRadixString(16).padLeft(2, '0');
 
@@ -106,17 +114,23 @@ class Colors {
   /// Blend the [foreground] color over [background] color and store the color
   /// in [result].
   static void alphaBlend(
-      Vector4 foreground, Vector4 background, Vector4 result) {
+    Vector4 foreground,
+    Vector4 background,
+    Vector4 result,
+  ) {
     final a = foreground.a + (1.0 - foreground.a) * background.a;
     final factor = 1.0 / a;
 
-    final r = factor *
+    final r =
+        factor *
         (foreground.a * foreground.r +
             (1.0 - foreground.a) * background.a * background.r);
-    final g = factor *
+    final g =
+        factor *
         (foreground.a * foreground.g +
             (1.0 - foreground.a) * background.a * background.g);
-    final b = factor *
+    final b =
+        factor *
         (foreground.a * foreground.b +
             (1.0 - foreground.a) * background.a * background.b);
 
@@ -137,8 +151,11 @@ class Colors {
   /// Convert [linearColor] from linear space into gamma color space and store
   /// the result in [gammaColor]. It is possible to specify a optional [gamma],
   /// the default value is 2.2.
-  static void linearToGamma(Vector4 linearColor, Vector4 gammaColor,
-      [double gamma = 2.2]) {
+  static void linearToGamma(
+    Vector4 linearColor,
+    Vector4 gammaColor, [
+    double gamma = 2.2,
+  ]) {
     final exponent = 1.0 / gamma;
 
     gammaColor
@@ -151,8 +168,11 @@ class Colors {
   /// Convert [gammaColor] from gamma space into linear color space and store
   /// the result in [linearColor]. It is possible to specify a optional [gamma],
   /// the default value is 2.2.
-  static void gammaToLinear(Vector4 gammaColor, Vector4 linearColor,
-      [double gamma = 2.2]) {
+  static void gammaToLinear(
+    Vector4 gammaColor,
+    Vector4 linearColor, [
+    double gamma = 2.2,
+  ]) {
     linearColor
       ..r = math.pow(gammaColor.r, gamma).toDouble()
       ..g = math.pow(gammaColor.g, gamma).toDouble()
@@ -172,7 +192,8 @@ class Colors {
 
     if (max != min) {
       if (max == rgbColor.r) {
-        h = (rgbColor.g - rgbColor.b) / d +
+        h =
+            (rgbColor.g - rgbColor.b) / d +
             (rgbColor.g < rgbColor.b ? 6.0 : 0.0);
       } else if (max == rgbColor.g) {
         h = (rgbColor.b - rgbColor.r) / d + 2.0;
@@ -232,7 +253,8 @@ class Colors {
       s = l > 0.5 ? d / (2.0 - max - min) : d / (max + min);
 
       if (max == rgbColor.r) {
-        h = (rgbColor.g - rgbColor.b) / d +
+        h =
+            (rgbColor.g - rgbColor.b) / d +
             (rgbColor.g < rgbColor.b ? 6.0 : 0.0);
       } else if (max == rgbColor.g) {
         h = (rgbColor.b - rgbColor.r) / d + 2.0;
@@ -252,9 +274,10 @@ class Colors {
     if (hslColor.y == 0.0) {
       rgbColor.setValues(hslColor.z, hslColor.z, hslColor.z, hslColor.a);
     } else {
-      final q = hslColor.z < 0.5
-          ? hslColor.z * (1.0 + hslColor.y)
-          : hslColor.z + hslColor.y - hslColor.z * hslColor.y;
+      final q =
+          hslColor.z < 0.5
+              ? hslColor.z * (1.0 + hslColor.y)
+              : hslColor.z + hslColor.y - hslColor.z * hslColor.y;
       final p = 2.0 * hslColor.z - q;
 
       final r = _hueToRgb(p, q, hslColor.x + 1.0 / 3.0);

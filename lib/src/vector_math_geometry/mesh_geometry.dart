@@ -11,24 +11,27 @@ class VertexAttrib {
   final int stride;
   final int offset;
 
-  VertexAttrib(this.name, this.size, this.type)
-      : stride = 0,
-        offset = 0;
+  VertexAttrib(this.name, this.size, this.type) : stride = 0, offset = 0;
 
   VertexAttrib.copy(VertexAttrib attrib)
-      : name = attrib.name,
-        size = attrib.size,
-        type = attrib.type,
-        stride = attrib.stride,
-        offset = attrib.offset;
+    : name = attrib.name,
+      size = attrib.size,
+      type = attrib.type,
+      stride = attrib.stride,
+      offset = attrib.offset;
 
   VertexAttrib._internal(
-      this.name, this.size, this.type, this.stride, this.offset);
+    this.name,
+    this.size,
+    this.type,
+    this.stride,
+    this.offset,
+  );
 
   VertexAttrib._resetStrideOffset(VertexAttrib attrib, this.stride, this.offset)
-      : name = attrib.name,
-        size = attrib.size,
-        type = attrib.type;
+    : name = attrib.name,
+      size = attrib.size,
+      type = attrib.type;
 
   VectorList<Vector> getView(Float32List buffer) {
     final viewOffset = offset ~/ buffer.elementSizeInBytes;
@@ -62,13 +65,13 @@ class VertexAttrib {
   }
 
   Map<String, Object> toJson() => <String, Object>{
-        'format': format,
-        'name': name,
-        'offset': offset,
-        'stride': stride,
-        'size': size,
-        'type': type
-      };
+    'format': format,
+    'name': name,
+    'offset': offset,
+    'stride': stride,
+    'size': size,
+    'type': type,
+  };
 }
 
 class MeshGeometry {
@@ -93,16 +96,21 @@ class MeshGeometry {
     return MeshGeometry._internal(length, stride, attribs);
   }
 
-  MeshGeometry._internal(this.length, this.stride, this.attribs,
-      [Float32List? externBuffer]) {
-    buffer = externBuffer ??
+  MeshGeometry._internal(
+    this.length,
+    this.stride,
+    this.attribs, [
+    Float32List? externBuffer,
+  ]) {
+    buffer =
+        externBuffer ??
         Float32List((length * stride) ~/ Float32List.bytesPerElement);
   }
 
   MeshGeometry.copy(MeshGeometry mesh)
-      : stride = mesh.stride,
-        length = mesh.length,
-        attribs = mesh.attribs {
+    : stride = mesh.stride,
+      length = mesh.length,
+      attribs = mesh.attribs {
     // Copy the buffer
     buffer = Float32List(mesh.buffer.length);
     buffer.setAll(0, mesh.buffer);
@@ -120,7 +128,10 @@ class MeshGeometry {
       buffer = Float32List.fromList(jsonBuffer);
     } else {
       throw ArgumentError.value(
-          jsonBuffer, 'json["buffer"]', 'Value type must be List<double>');
+        jsonBuffer,
+        'json["buffer"]',
+        'Value type must be List<double>',
+      );
     }
 
     final jsonAttribs = json['attribs'];
@@ -128,8 +139,11 @@ class MeshGeometry {
     if (jsonAttribs is Map<String, Object>) {
       jsonAttribsMap = jsonAttribs;
     } else {
-      throw ArgumentError.value(jsonBuffer, 'json["attribs"]',
-          'Value type must be Map<String, Object>');
+      throw ArgumentError.value(
+        jsonBuffer,
+        'json["attribs"]',
+        'Value type must be Map<String, Object>',
+      );
     }
     final attribs = <VertexAttrib>[];
     var stride = 0;
@@ -146,7 +160,11 @@ class MeshGeometry {
     }
 
     final mesh = MeshGeometry._internal(
-        buffer.lengthInBytes ~/ stride, stride, attribs, buffer);
+      buffer.lengthInBytes ~/ stride,
+      stride,
+      attribs,
+      buffer,
+    );
 
     final jsonIndices = json['indices'];
     if (jsonIndices is List<int>) {
@@ -157,7 +175,9 @@ class MeshGeometry {
   }
 
   factory MeshGeometry.resetAttribs(
-      MeshGeometry inputMesh, List<VertexAttrib> attributes) {
+    MeshGeometry inputMesh,
+    List<VertexAttrib> attributes,
+  ) {
     final mesh = MeshGeometry(inputMesh.length, attributes)
       ..indices = inputMesh.indices;
 
@@ -168,7 +188,8 @@ class MeshGeometry {
         if (inputAttrib.size != attrib.size ||
             inputAttrib.type != attrib.type) {
           throw Exception(
-              'Attributes size or type is mismatched: ${attrib.name}');
+            'Attributes size or type is mismatched: ${attrib.name}',
+          );
         }
 
         final inputView = inputAttrib.getView(inputMesh.buffer);
@@ -184,7 +205,8 @@ class MeshGeometry {
   factory MeshGeometry.combine(List<MeshGeometry> meshes) {
     if (meshes.length < 2) {
       throw Exception(
-          'Must provide at least two MeshGeometry instances to combine.');
+        'Must provide at least two MeshGeometry instances to combine.',
+      );
     }
 
     // When combining meshes they must all have a matching set of VertexAttribs
@@ -196,14 +218,18 @@ class MeshGeometry {
       final srcMesh = meshes[i];
       if (!firstMesh.attribsAreCompatible(srcMesh)) {
         throw Exception(
-            'All meshes must have identical attributes to combine.');
+          'All meshes must have identical attributes to combine.',
+        );
       }
       totalVerts += srcMesh.length;
       totalIndices += srcMesh.indices != null ? srcMesh.indices!.length : 0;
     }
 
-    final mesh =
-        MeshGeometry._internal(totalVerts, firstMesh.stride, firstMesh.attribs);
+    final mesh = MeshGeometry._internal(
+      totalVerts,
+      firstMesh.stride,
+      firstMesh.attribs,
+    );
 
     if (totalIndices > 0) {
       mesh.indices = Uint16List(totalIndices);
@@ -251,7 +277,12 @@ class MeshGeometry {
         jsonStride is int &&
         jsonOffset is int) {
       return VertexAttrib._internal(
-          name, jsonSize, jsonType, jsonStride, jsonOffset);
+        name,
+        jsonSize,
+        jsonType,
+        jsonStride,
+        jsonOffset,
+      );
     } else {
       throw UnimplementedError();
     }

@@ -1,16 +1,16 @@
 name: vector_math
-version: 2.2.0
+version: 2.2.1-wip
 description: A Vector Math library for 2D and 3D applications.
 repository: https://github.com/google/vector_math.dart
 
 environment:
-  sdk: ^3.1.0
+  sdk: ^3.7.0
 
 dev_dependencies:
   benchmark_harness: ^2.0.0
-  build_runner: ^2.2.1
-  build_test: ^2.1.2
-  build_web_compilers: ^4.0.3
+  build_runner: ^2.5.0
+  build_test: ^3.0.0
+  build_web_compilers: ^4.1.1
   dart_flutter_team_lints: ^3.0.0
-  path: ^1.8.0
-  test: ^1.21.6
+  path: ^1.9.0
+  test: ^1.25.9

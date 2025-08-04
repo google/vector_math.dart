@@ -10,7 +10,10 @@ import 'test_utils.dart';
 
 void testCopyNormalInto() {
   final triangle = Triangle.points(
-      Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0), Vector3(1.0, 2.0, 0.0));
+    Vector3(1.0, 0.0, 1.0),
+    Vector3(0.0, 2.0, 1.0),
+    Vector3(1.0, 2.0, 0.0),
+  );
   final normal = Vector3.zero();
 
   triangle.copyNormalInto(normal);

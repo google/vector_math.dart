@@ -92,12 +92,16 @@ void testVector3DotProduct() {
   final inputA = <Vector3>[];
   final inputB = <Vector3>[];
   final expectedOutput = <double>[];
-  inputA.add(parseVector<Vector3>('''0.417267069084370
+  inputA.add(
+    parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
-                                     0.902716109915281'''));
-  inputB.add(parseVector<Vector3>('''0.944787189721646
+                                     0.902716109915281'''),
+  );
+  inputB.add(
+    parseVector<Vector3>('''0.944787189721646
                                      0.490864092468080
-                                     0.489252638400019'''));
+                                     0.489252638400019'''),
+  );
   expectedOutput.add(0.860258396944727);
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
@@ -132,25 +136,37 @@ void testVector3CrossProduct() {
   final inputB = <Vector3>[];
   final expectedOutput = <Vector3>[];
 
-  inputA.add(parseVector<Vector3>('''0.417267069084370
+  inputA.add(
+    parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
-                                     0.902716109915281'''));
-  inputB.add(parseVector<Vector3>('''0.944787189721646
+                                     0.902716109915281'''),
+  );
+  inputB.add(
+    parseVector<Vector3>('''0.944787189721646
                                      0.490864092468080
-                                     0.489252638400019'''));
-  expectedOutput.add(parseVector<Vector3>(''' -0.418817363004761
+                                     0.489252638400019'''),
+  );
+  expectedOutput.add(
+    parseVector<Vector3>(''' -0.418817363004761
                                                0.648725602136344
-                                               0.157908551498227'''));
+                                               0.157908551498227'''),
+  );
 
-  inputA.add(parseVector<Vector3>('''0.944787189721646
+  inputA.add(
+    parseVector<Vector3>('''0.944787189721646
                                      0.490864092468080
-                                     0.489252638400019'''));
-  inputB.add(parseVector<Vector3>('''0.417267069084370
+                                     0.489252638400019'''),
+  );
+  inputB.add(
+    parseVector<Vector3>('''0.417267069084370
                                      0.049654430325742
-                                     0.902716109915281'''));
-  expectedOutput.add(parseVector<Vector3>(''' 0.418817363004761
+                                     0.902716109915281'''),
+  );
+  expectedOutput.add(
+    parseVector<Vector3>(''' 0.418817363004761
                                              -0.648725602136344
-                                             -0.157908551498227'''));
+                                             -0.157908551498227'''),
+  );
 
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
@@ -228,12 +244,16 @@ void testVector3SetLength() {
 
   v1.length = 2.0;
   relativeTest(
-      v1, Vector3(1.4552137851715088, -0.9701424837112427, 0.9701424837112427));
+    v1,
+    Vector3(1.4552137851715088, -0.9701424837112427, 0.9701424837112427),
+  );
   relativeTest(v1.length, 2.0);
 
   v2.length = 0.5;
-  relativeTest(v2,
-      Vector3(-0.1666666716337204, 0.3333333432674408, -0.3333333432674408));
+  relativeTest(
+    v2,
+    Vector3(-0.1666666716337204, 0.3333333432674408, -0.3333333432674408),
+  );
   relativeTest(v2.length, 0.5);
 
   v3.length = -1.0;
@@ -257,7 +277,9 @@ void testVector3Equals() {
   expect(v3 == Vector3(1.0, 0.0, 3.0), isFalse);
   expect(v3 == Vector3(1.0, 2.0, 0.0), isFalse);
   expect(
-      Vector3(1.0, 2.0, 3.0).hashCode, equals(Vector3(1.0, 2.0, 3.0).hashCode));
+    Vector3(1.0, 2.0, 3.0).hashCode,
+    equals(Vector3(1.0, 2.0, 3.0).hashCode),
+  );
 }
 
 void testVector3Reflect() {
@@ -320,8 +342,24 @@ void testVector3Projection() {
   final v = Vector3(1.0, 1.0, 1.0);
   final a = 2.0 / 3.0;
   final b = 1.0 / 3.0;
-  final m =
-      Matrix4(a, b, -b, 0.0, b, a, b, 0.0, -b, b, a, 0.0, 0.0, 0.0, 0.0, 1.0);
+  final m = Matrix4(
+    a,
+    b,
+    -b,
+    0.0,
+    b,
+    a,
+    b,
+    0.0,
+    -b,
+    b,
+    a,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+  );
 
   v.applyProjection(m);
   relativeTest(v.x, a);
@@ -437,8 +475,10 @@ void testVector3ApplyQuaternion() {
   final v = Vector3(0.417267069084370, 0.049654430325742, 0.753423475845592)
     ..applyQuaternion(q);
 
-  relativeTest(v,
-      Vector3(0.23769846558570862, 0.04965442791581154, -0.8278031349182129));
+  relativeTest(
+    v,
+    Vector3(0.23769846558570862, 0.04965442791581154, -0.8278031349182129),
+  );
 }
 
 void main() {

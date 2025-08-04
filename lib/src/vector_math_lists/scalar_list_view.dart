@@ -28,21 +28,20 @@ class ScalarListView {
   /// Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
   ScalarListView(int length, [int offset = 0, int stride = 0])
-      : _offset = offset,
-        _stride = stride == 0 ? 1 : stride,
-        _length = length,
-        _buffer = Float32List(_listLength(offset, stride, length));
+    : _offset = offset,
+      _stride = stride == 0 ? 1 : stride,
+      _length = length,
+      _buffer = Float32List(_listLength(offset, stride, length));
 
   /// Create a new vector list from a list of vectors.
   ///
   /// Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
   ScalarListView.fromList(List<double> list, [int offset = 0, int stride = 0])
-      : _offset = offset,
-        _stride = stride == 0 ? 1 : stride,
-        _length = list.length,
-        _buffer =
-            Float32List(offset + list.length * (stride == 0 ? 1 : stride)) {
+    : _offset = offset,
+      _stride = stride == 0 ? 1 : stride,
+      _length = list.length,
+      _buffer = Float32List(offset + list.length * (stride == 0 ? 1 : stride)) {
     for (var i = 0; i < _length; i++) {
       this[i] = list[i];
     }
@@ -51,11 +50,12 @@ class ScalarListView {
   /// Create a new stride list as a view of [buffer]. Optionally it is possible
   /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   ScalarListView.view(Float32List buffer, [int offset = 0, int stride = 0])
-      : _offset = offset,
-        _stride = stride == 0 ? 1 : stride,
-        _length = (buffer.length - math.max(0, offset - stride)) ~/
-            (stride == 0 ? 1 : stride),
-        _buffer = buffer;
+    : _offset = offset,
+      _stride = stride == 0 ? 1 : stride,
+      _length =
+          (buffer.length - math.max(0, offset - stride)) ~/
+          (stride == 0 ? 1 : stride),
+      _buffer = buffer;
 
   int _elementIndexToBufferIndex(int index) => _offset + _stride * index;
 

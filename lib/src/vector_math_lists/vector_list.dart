@@ -28,12 +28,13 @@ abstract class VectorList<T extends Vector> {
   /// [vectorLength]. Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
   VectorList(int length, int vectorLength, [int offset = 0, int stride = 0])
-      : _vectorLength = vectorLength,
-        _offset = offset,
-        _stride = stride == 0 ? vectorLength : stride,
-        _length = length,
-        _buffer = Float32List(
-            VectorList._listLength(offset, stride, vectorLength, length)) {
+    : _vectorLength = vectorLength,
+      _offset = offset,
+      _stride = stride == 0 ? vectorLength : stride,
+      _length = length,
+      _buffer = Float32List(
+        VectorList._listLength(offset, stride, vectorLength, length),
+      ) {
     if (_stride < _vectorLength) {
       throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
@@ -42,14 +43,18 @@ abstract class VectorList<T extends Vector> {
   /// Create a new vector list from a list of vectors that have a size of
   /// [vectorLength]. Optionally it is possible to specify an [offset] in the
   /// [buffer] and a [stride] between each vector.
-  VectorList.fromList(List<T> list, int vectorLength,
-      [int offset = 0, int stride = 0])
-      : _vectorLength = vectorLength,
-        _offset = offset,
-        _stride = stride == 0 ? vectorLength : stride,
-        _length = list.length,
-        _buffer = Float32List(
-            offset + list.length * (stride == 0 ? vectorLength : stride)) {
+  VectorList.fromList(
+    List<T> list,
+    int vectorLength, [
+    int offset = 0,
+    int stride = 0,
+  ]) : _vectorLength = vectorLength,
+       _offset = offset,
+       _stride = stride == 0 ? vectorLength : stride,
+       _length = list.length,
+       _buffer = Float32List(
+         offset + list.length * (stride == 0 ? vectorLength : stride),
+       ) {
     if (_stride < _vectorLength) {
       throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
@@ -61,14 +66,18 @@ abstract class VectorList<T extends Vector> {
   /// Create a new vector list as a view of [buffer] for vectors that have a
   /// size of [vectorLength]. Optionally it is possible to specify an [offset]
   /// in the [buffer] and a [stride] between each vector.
-  VectorList.view(Float32List buffer, int vectorLength,
-      [int offset = 0, int stride = 0])
-      : _vectorLength = vectorLength,
-        _offset = offset,
-        _stride = stride == 0 ? vectorLength : stride,
-        _length = (buffer.length - math.max(0, offset - stride)) ~/
-            (stride == 0 ? vectorLength : stride),
-        _buffer = buffer {
+  VectorList.view(
+    Float32List buffer,
+    int vectorLength, [
+    int offset = 0,
+    int stride = 0,
+  ]) : _vectorLength = vectorLength,
+       _offset = offset,
+       _stride = stride == 0 ? vectorLength : stride,
+       _length =
+           (buffer.length - math.max(0, offset - stride)) ~/
+           (stride == 0 ? vectorLength : stride),
+       _buffer = buffer {
     if (_stride < _vectorLength) {
       throw ArgumentError('Stride cannot be smaller than the vector size.');
     }
@@ -87,8 +96,12 @@ abstract class VectorList<T extends Vector> {
 
   /// Copy a range of [count] vectors beginning at [srcOffset] from [src] into
   /// this list starting at [offset].
-  void copy(VectorList<T> src,
-      {int srcOffset = 0, int offset = 0, int count = 0}) {
+  void copy(
+    VectorList<T> src, {
+    int srcOffset = 0,
+    int offset = 0,
+    int count = 0,
+  }) {
     if (count == 0) {
       count = math.min(length - offset, src.length - srcOffset);
     }

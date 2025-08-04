@@ -16,12 +16,14 @@ class CircleGenerator extends GeometryGenerator {
   @override
   int get indexCount => _segments * 3;
 
-  MeshGeometry createCircle(double radius,
-      {GeometryGeneratorFlags? flags,
-      List<GeometryFilter>? filters,
-      int segments = 64,
-      double thetaStart = 0.0,
-      double thetaLength = math.pi * 2.0}) {
+  MeshGeometry createCircle(
+    double radius, {
+    GeometryGeneratorFlags? flags,
+    List<GeometryFilter>? filters,
+    int segments = 64,
+    double thetaStart = 0.0,
+    double thetaLength = math.pi * 2.0,
+  }) {
     _radius = radius;
     _segments = segments;
     _thetaStart = thetaStart;
@@ -47,7 +49,10 @@ class CircleGenerator extends GeometryGenerator {
 
   @override
   void generateVertexTexCoords(
-      Vector2List texCoords, Vector3List positions, Uint16List indices) {
+    Vector2List texCoords,
+    Vector3List positions,
+    Uint16List indices,
+  ) {
     final v = Vector2(0.5, 0.5);
     texCoords[0] = v;
     var index = 1;

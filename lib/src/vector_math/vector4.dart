@@ -66,14 +66,18 @@ class Vector4 implements Vector {
   /// Constructs Vector4 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float32List.bytesPerElement].
   Vector4.fromBuffer(ByteBuffer buffer, int offset)
-      : _v4storage = Float32List.view(buffer, offset, 4);
+    : _v4storage = Float32List.view(buffer, offset, 4);
 
   /// Generate random vector in the range (0, 0, 0, 0) to (1, 1, 1, 1). You can
   /// optionally pass your own random number generator.
   factory Vector4.random([math.Random? rng]) {
     rng ??= math.Random();
     return Vector4(
-        rng.nextDouble(), rng.nextDouble(), rng.nextDouble(), rng.nextDouble());
+      rng.nextDouble(),
+      rng.nextDouble(),
+      rng.nextDouble(),
+      rng.nextDouble(),
+    );
   }
 
   /// Set the values of the vector.
@@ -119,7 +123,8 @@ class Vector4 implements Vector {
 
   /// Returns a printable string
   @override
-  String toString() => '[${_v4storage[0]},${_v4storage[1]},'
+  String toString() =>
+      '[${_v4storage[0]},${_v4storage[1]},'
       '${_v4storage[2]},${_v4storage[3]}]';
 
   /// Check if two vectors are the same.
@@ -244,19 +249,23 @@ class Vector4 implements Vector {
     final v2 = _v4storage[1];
     final v1 = _v4storage[0];
     final argStorage = arg._m4storage;
-    _v4storage[3] = argStorage[3] * v1 +
+    _v4storage[3] =
+        argStorage[3] * v1 +
         argStorage[7] * v2 +
         argStorage[11] * v3 +
         argStorage[15] * v4;
-    _v4storage[2] = argStorage[2] * v1 +
+    _v4storage[2] =
+        argStorage[2] * v1 +
         argStorage[6] * v2 +
         argStorage[10] * v3 +
         argStorage[14] * v4;
-    _v4storage[1] = argStorage[1] * v1 +
+    _v4storage[1] =
+        argStorage[1] * v1 +
         argStorage[5] * v2 +
         argStorage[9] * v3 +
         argStorage[13] * v4;
-    _v4storage[0] = argStorage[0] * v1 +
+    _v4storage[0] =
+        argStorage[0] * v1 +
         argStorage[4] * v2 +
         argStorage[8] * v3 +
         argStorage[12] * v4;
@@ -410,18 +419,22 @@ class Vector4 implements Vector {
 
   /// Round entries in this towards zero.
   void roundToZero() {
-    _v4storage[3] = _v4storage[3] < 0.0
-        ? _v4storage[3].ceilToDouble()
-        : _v4storage[3].floorToDouble();
-    _v4storage[2] = _v4storage[2] < 0.0
-        ? _v4storage[2].ceilToDouble()
-        : _v4storage[2].floorToDouble();
-    _v4storage[1] = _v4storage[1] < 0.0
-        ? _v4storage[1].ceilToDouble()
-        : _v4storage[1].floorToDouble();
-    _v4storage[0] = _v4storage[0] < 0.0
-        ? _v4storage[0].ceilToDouble()
-        : _v4storage[0].floorToDouble();
+    _v4storage[3] =
+        _v4storage[3] < 0.0
+            ? _v4storage[3].ceilToDouble()
+            : _v4storage[3].floorToDouble();
+    _v4storage[2] =
+        _v4storage[2] < 0.0
+            ? _v4storage[2].ceilToDouble()
+            : _v4storage[2].floorToDouble();
+    _v4storage[1] =
+        _v4storage[1] < 0.0
+            ? _v4storage[1].ceilToDouble()
+            : _v4storage[1].floorToDouble();
+    _v4storage[0] =
+        _v4storage[0] < 0.0
+            ? _v4storage[0].ceilToDouble()
+            : _v4storage[0].floorToDouble();
   }
 
   /// Create a copy of this.

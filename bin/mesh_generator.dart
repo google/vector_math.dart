@@ -62,7 +62,7 @@ Map<String, GenerateFunction> generators = <String, GenerateFunction>{
   'sphere': generateSphere,
   'circle': generateCircle,
   'cylinder': generateCylinder,
-  'ring': generateRing
+  'ring': generateRing,
 };
 
 void main(List<String> args) {

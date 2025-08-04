@@ -56,7 +56,7 @@ class Vector2 implements Vector {
   /// Constructs Vector2 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Vector2.fromBuffer(ByteBuffer buffer, int offset)
-      : _v2storage = Float64List.view(buffer, offset, 2);
+    : _v2storage = Float64List.view(buffer, offset, 2);
 
   /// Generate random vector in the range (0, 0) to (1, 1). You can
   /// optionally pass your own random number generator.
@@ -365,12 +365,14 @@ class Vector2 implements Vector {
 
   /// Round entries in this towards zero.
   void roundToZero() {
-    _v2storage[1] = _v2storage[1] < 0.0
-        ? _v2storage[1].ceilToDouble()
-        : _v2storage[1].floorToDouble();
-    _v2storage[0] = _v2storage[0] < 0.0
-        ? _v2storage[0].ceilToDouble()
-        : _v2storage[0].floorToDouble();
+    _v2storage[1] =
+        _v2storage[1] < 0.0
+            ? _v2storage[1].ceilToDouble()
+            : _v2storage[1].floorToDouble();
+    _v2storage[0] =
+        _v2storage[0] < 0.0
+            ? _v2storage[0].ceilToDouble()
+            : _v2storage[0].floorToDouble();
   }
 
   /// Clone of this.
