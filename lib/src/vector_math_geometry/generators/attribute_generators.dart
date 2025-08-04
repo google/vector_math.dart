@@ -8,7 +8,10 @@ part of '../../../vector_math_geometry.dart';
 /// [normals] is assumed to be zeroed out, and much match [positions] in length.
 /// [indices] is assumed to represent a triangle list.
 void generateNormals(
-    Vector3List normals, Vector3List positions, Uint16List indices) {
+  Vector3List normals,
+  Vector3List positions,
+  Uint16List indices,
+) {
   final p0 = Vector3.zero(),
       p1 = Vector3.zero(),
       p2 = Vector3.zero(),
@@ -58,8 +61,13 @@ void generateNormals(
 /// vec4 bitangent = cross(normal, tangent.xyz) * tangent.w;
 /// Derived from the granddaddy of all tangent generation functions:
 /// http://www.terathon.com/code/tangent.html
-void generateTangents(Vector4List tangents, Vector3List positions,
-    Vector3List normals, Vector2List texCoords, Uint16List indices) {
+void generateTangents(
+  Vector4List tangents,
+  Vector3List positions,
+  Vector3List normals,
+  Vector2List texCoords,
+  Uint16List indices,
+) {
   final p0 = Vector3.zero(),
       p1 = Vector3.zero(),
       p2 = Vector3.zero(),
@@ -95,10 +103,16 @@ void generateTangents(Vector4List tangents, Vector3List positions,
 
     final r = 1.0 / (uv1.x * uv2.y - uv2.x * uv1.y);
 
-    udir.setValues((uv2.y * p1.x - uv1.y * p2.x) * r,
-        (uv2.y * p1.y - uv1.y * p2.y) * r, (uv2.y * p1.z - uv1.y * p2.z) * r);
-    vdir.setValues((uv1.x * p2.x - uv2.x * p1.x) * r,
-        (uv1.x * p2.y - uv2.x * p1.y) * r, (uv1.x * p2.z - uv2.x * p1.z) * r);
+    udir.setValues(
+      (uv2.y * p1.x - uv1.y * p2.x) * r,
+      (uv2.y * p1.y - uv1.y * p2.y) * r,
+      (uv2.y * p1.z - uv1.y * p2.z) * r,
+    );
+    vdir.setValues(
+      (uv1.x * p2.x - uv2.x * p1.x) * r,
+      (uv1.x * p2.y - uv2.x * p1.y) * r,
+      (uv1.x * p2.z - uv2.x * p1.z) * r,
+    );
 
     tan0.load(i0, p0);
     tan0[i0] = p0..add(udir);

@@ -99,15 +99,33 @@ class Matrix3 {
   }
 
   /// New matrix with specified values.
-  factory Matrix3(double arg0, double arg1, double arg2, double arg3,
-          double arg4, double arg5, double arg6, double arg7, double arg8) =>
+  factory Matrix3(
+    double arg0,
+    double arg1,
+    double arg2,
+    double arg3,
+    double arg4,
+    double arg5,
+    double arg6,
+    double arg7,
+    double arg8,
+  ) =>
       Matrix3.zero()
         ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 
   /// New matrix from [values].
-  factory Matrix3.fromList(List<double> values) => Matrix3.zero()
-    ..setValues(values[0], values[1], values[2], values[3], values[4],
-        values[5], values[6], values[7], values[8]);
+  factory Matrix3.fromList(List<double> values) =>
+      Matrix3.zero()..setValues(
+        values[0],
+        values[1],
+        values[2],
+        values[3],
+        values[4],
+        values[5],
+        values[6],
+        values[7],
+        values[8],
+      );
 
   /// Constructs a new [Matrix3] filled with zeros.
   Matrix3.zero() : _m3storage = Float32List(9);
@@ -138,8 +156,17 @@ class Matrix3 {
       Matrix3.zero()..setRotationZ(radians);
 
   /// Sets the matrix with specified values.
-  void setValues(double arg0, double arg1, double arg2, double arg3,
-      double arg4, double arg5, double arg6, double arg7, double arg8) {
+  void setValues(
+    double arg0,
+    double arg1,
+    double arg2,
+    double arg3,
+    double arg4,
+    double arg5,
+    double arg6,
+    double arg7,
+    double arg8,
+  ) {
     _m3storage[8] = arg8;
     _m3storage[7] = arg7;
     _m3storage[6] = arg6;
@@ -413,11 +440,14 @@ class Matrix3 {
 
   /// Returns the determinant of this matrix.
   double determinant() {
-    final x = _m3storage[0] *
+    final x =
+        _m3storage[0] *
         ((_m3storage[4] * _m3storage[8]) - (_m3storage[5] * _m3storage[7]));
-    final y = _m3storage[1] *
+    final y =
+        _m3storage[1] *
         ((_m3storage[3] * _m3storage[8]) - (_m3storage[5] * _m3storage[6]));
-    final z = _m3storage[2] *
+    final z =
+        _m3storage[2] *
         ((_m3storage[3] * _m3storage[7]) - (_m3storage[4] * _m3storage[6]));
     return x - y + z;
   }
@@ -503,23 +533,32 @@ class Matrix3 {
     }
     final invDet = 1.0 / det;
     final argStorage = arg._m3storage;
-    final ix = invDet *
+    final ix =
+        invDet *
         (argStorage[4] * argStorage[8] - argStorage[5] * argStorage[7]);
-    final iy = invDet *
+    final iy =
+        invDet *
         (argStorage[2] * argStorage[7] - argStorage[1] * argStorage[8]);
-    final iz = invDet *
+    final iz =
+        invDet *
         (argStorage[1] * argStorage[5] - argStorage[2] * argStorage[4]);
-    final jx = invDet *
+    final jx =
+        invDet *
         (argStorage[5] * argStorage[6] - argStorage[3] * argStorage[8]);
-    final jy = invDet *
+    final jy =
+        invDet *
         (argStorage[0] * argStorage[8] - argStorage[2] * argStorage[6]);
-    final jz = invDet *
+    final jz =
+        invDet *
         (argStorage[2] * argStorage[3] - argStorage[0] * argStorage[5]);
-    final kx = invDet *
+    final kx =
+        invDet *
         (argStorage[3] * argStorage[7] - argStorage[4] * argStorage[6]);
-    final ky = invDet *
+    final ky =
+        invDet *
         (argStorage[1] * argStorage[6] - argStorage[0] * argStorage[7]);
-    final kz = invDet *
+    final kz =
+        invDet *
         (argStorage[0] * argStorage[4] - argStorage[1] * argStorage[3]);
     _m3storage[0] = ix;
     _m3storage[1] = iy;
@@ -648,10 +687,12 @@ class Matrix3 {
   /// Transforms [arg] with this.
   Vector2 transform2(Vector2 arg) {
     final argStorage = arg._v2storage;
-    final x_ = (_m3storage[0] * argStorage[0]) +
+    final x_ =
+        (_m3storage[0] * argStorage[0]) +
         (_m3storage[3] * argStorage[1]) +
         _m3storage[6];
-    final y_ = (_m3storage[1] * argStorage[0]) +
+    final y_ =
+        (_m3storage[1] * argStorage[0]) +
         (_m3storage[4] * argStorage[1]) +
         _m3storage[7];
     argStorage[0] = x_;
@@ -817,13 +858,16 @@ class Matrix3 {
   /// this.
   Vector3 transform(Vector3 arg) {
     final argStorage = arg._v3storage;
-    final x_ = (_m3storage[0] * argStorage[0]) +
+    final x_ =
+        (_m3storage[0] * argStorage[0]) +
         (_m3storage[3] * argStorage[1]) +
         (_m3storage[6] * argStorage[2]);
-    final y_ = (_m3storage[1] * argStorage[0]) +
+    final y_ =
+        (_m3storage[1] * argStorage[0]) +
         (_m3storage[4] * argStorage[1]) +
         (_m3storage[7] * argStorage[2]);
-    final z_ = (_m3storage[2] * argStorage[0]) +
+    final z_ =
+        (_m3storage[2] * argStorage[0]) +
         (_m3storage[5] * argStorage[1]) +
         (_m3storage[8] * argStorage[2]);
     arg
@@ -908,31 +952,37 @@ class Matrix3 {
 
   /// Is this the identity matrix?
   bool isIdentity() =>
-      _m3storage[0] == 1.0 // col 1
-      &&
+      _m3storage[0] ==
+          1.0 // col 1
+          &&
       _m3storage[1] == 0.0 &&
       _m3storage[2] == 0.0 &&
-      _m3storage[3] == 0.0 // col 2
-      &&
+      _m3storage[3] ==
+          0.0 // col 2
+          &&
       _m3storage[4] == 1.0 &&
       _m3storage[5] == 0.0 &&
-      _m3storage[6] == 0.0 // col 3
-      &&
+      _m3storage[6] ==
+          0.0 // col 3
+          &&
       _m3storage[7] == 0.0 &&
       _m3storage[8] == 1.0;
 
   /// Is this the zero matrix?
   bool isZero() =>
-      _m3storage[0] == 0.0 // col 1
-      &&
+      _m3storage[0] ==
+          0.0 // col 1
+          &&
       _m3storage[1] == 0.0 &&
       _m3storage[2] == 0.0 &&
-      _m3storage[3] == 0.0 // col 2
-      &&
+      _m3storage[3] ==
+          0.0 // col 2
+          &&
       _m3storage[4] == 0.0 &&
       _m3storage[5] == 0.0 &&
-      _m3storage[6] == 0.0 // col 3
-      &&
+      _m3storage[6] ==
+          0.0 // col 3
+          &&
       _m3storage[7] == 0.0 &&
       _m3storage[8] == 0.0;
 }

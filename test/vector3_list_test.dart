@@ -104,8 +104,9 @@ void testVector3ListSetValue() {
 }
 
 void testVector3ListSetZero() {
-  final list =
-      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list = Vector3List.view(
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]),
+  );
 
   list.setZero(1);
 
@@ -118,8 +119,9 @@ void testVector3ListSetZero() {
 }
 
 void testVector3ListAdd() {
-  final list =
-      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list = Vector3List.view(
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]),
+  );
 
   list.add(1, $v3(2.0, 2.0, 2.0));
 
@@ -132,8 +134,9 @@ void testVector3ListAdd() {
 }
 
 void testVector3ListAddScaled() {
-  final list =
-      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list = Vector3List.view(
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]),
+  );
 
   list.addScaled(1, $v3(2.0, 2.0, 2.0), 2.0);
 
@@ -146,8 +149,9 @@ void testVector3ListAddScaled() {
 }
 
 void testVector3ListSub() {
-  final list =
-      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list = Vector3List.view(
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]),
+  );
 
   list.sub(1, $v3(2.0, 2.0, 2.0));
 
@@ -160,8 +164,9 @@ void testVector3ListSub() {
 }
 
 void testVector3ListMultiply() {
-  final list =
-      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list = Vector3List.view(
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]),
+  );
 
   list.multiply(1, $v3(2.0, 3.0, 4.0));
 
@@ -174,8 +179,9 @@ void testVector3ListMultiply() {
 }
 
 void testVector3ListScale() {
-  final list =
-      Vector3List.view(Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]));
+  final list = Vector3List.view(
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]),
+  );
 
   list.scale(1, 2.0);
 

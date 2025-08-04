@@ -17,24 +17,23 @@ class Aabb2 {
   Vector2 get max => _max;
 
   /// The center of the AABB.
-  Vector2 get center => _min.clone()
-    ..add(_max)
-    ..scale(0.5);
+  Vector2 get center =>
+      _min.clone()
+        ..add(_max)
+        ..scale(0.5);
 
   /// Create a new AABB with [min] and [max] set to the origin.
-  Aabb2()
-      : _min = Vector2.zero(),
-        _max = Vector2.zero();
+  Aabb2() : _min = Vector2.zero(), _max = Vector2.zero();
 
   /// Create a new AABB as a copy of [other].
   Aabb2.copy(Aabb2 other)
-      : _min = Vector2.copy(other._min),
-        _max = Vector2.copy(other._max);
+    : _min = Vector2.copy(other._min),
+      _max = Vector2.copy(other._max);
 
   /// Create a new AABB with a [min] and [max].
   Aabb2.minMax(Vector2 min, Vector2 max)
-      : _min = Vector2.copy(min),
-        _max = Vector2.copy(max);
+    : _min = Vector2.copy(min),
+      _max = Vector2.copy(max);
 
   /// Create a new AABB with a [center] and [halfExtents].
   factory Aabb2.centerAndHalfExtents(Vector2 center, Vector2 halfExtents) =>
@@ -44,9 +43,11 @@ class Aabb2 {
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float32List.bytesPerElement].
   Aabb2.fromBuffer(ByteBuffer buffer, int offset)
-      : _min = Vector2.fromBuffer(buffer, offset),
-        _max = Vector2.fromBuffer(
-            buffer, offset + Float32List.bytesPerElement * 2);
+    : _min = Vector2.fromBuffer(buffer, offset),
+      _max = Vector2.fromBuffer(
+        buffer,
+        offset + Float32List.bytesPerElement * 2,
+      );
 
   /// Set the AABB by a [center] and [halfExtents].
   void setCenterAndHalfExtents(Vector2 center, Vector2 halfExtents) {
@@ -109,15 +110,17 @@ class Aabb2 {
 
   /// Create a copy of this that is transformed by the transform [t] and store
   /// it in [out].
-  Aabb2 transformed(Matrix3 t, Aabb2 out) => out
-    ..copyFrom(this)
-    ..transform(t);
+  Aabb2 transformed(Matrix3 t, Aabb2 out) =>
+      out
+        ..copyFrom(this)
+        ..transform(t);
 
   /// Create a copy of this that is rotated by the rotation matrix [t] and
   /// store it in [out].
-  Aabb2 rotated(Matrix3 t, Aabb2 out) => out
-    ..copyFrom(this)
-    ..rotate(t);
+  Aabb2 rotated(Matrix3 t, Aabb2 out) =>
+      out
+        ..copyFrom(this)
+        ..rotate(t);
 
   /// Set the min and max of this so that this is a hull of this and
   /// [other].

@@ -85,7 +85,7 @@ class Quaternion {
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float32List.bytesPerElement].
   Quaternion.fromBuffer(ByteBuffer buffer, int offset)
-      : _qStorage = Float32List.view(buffer, offset, 4);
+    : _qStorage = Float32List.view(buffer, offset, 4);
 
   /// Returns a new copy of this.
   Quaternion clone() => Quaternion.copy(this);
@@ -133,24 +133,30 @@ class Quaternion {
       _qStorage[1] = (rotationMatrixStorage[6] - rotationMatrixStorage[2]) * s;
       _qStorage[2] = (rotationMatrixStorage[1] - rotationMatrixStorage[3]) * s;
     } else {
-      final i = rotationMatrixStorage[0] < rotationMatrixStorage[4]
-          ? (rotationMatrixStorage[4] < rotationMatrixStorage[8] ? 2 : 1)
-          : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
+      final i =
+          rotationMatrixStorage[0] < rotationMatrixStorage[4]
+              ? (rotationMatrixStorage[4] < rotationMatrixStorage[8] ? 2 : 1)
+              : (rotationMatrixStorage[0] < rotationMatrixStorage[8] ? 2 : 0);
       final j = (i + 1) % 3;
       final k = (i + 2) % 3;
-      var s = math.sqrt(rotationMatrixStorage[rotationMatrix.index(i, i)] -
-          rotationMatrixStorage[rotationMatrix.index(j, j)] -
-          rotationMatrixStorage[rotationMatrix.index(k, k)] +
-          1.0);
+      var s = math.sqrt(
+        rotationMatrixStorage[rotationMatrix.index(i, i)] -
+            rotationMatrixStorage[rotationMatrix.index(j, j)] -
+            rotationMatrixStorage[rotationMatrix.index(k, k)] +
+            1.0,
+      );
       _qStorage[i] = s * 0.5;
       s = 0.5 / s;
-      _qStorage[3] = (rotationMatrixStorage[rotationMatrix.index(k, j)] -
+      _qStorage[3] =
+          (rotationMatrixStorage[rotationMatrix.index(k, j)] -
               rotationMatrixStorage[rotationMatrix.index(j, k)]) *
           s;
-      _qStorage[j] = (rotationMatrixStorage[rotationMatrix.index(j, i)] +
+      _qStorage[j] =
+          (rotationMatrixStorage[rotationMatrix.index(j, i)] +
               rotationMatrixStorage[rotationMatrix.index(i, j)]) *
           s;
-      _qStorage[k] = (rotationMatrixStorage[rotationMatrix.index(k, i)] +
+      _qStorage[k] =
+          (rotationMatrixStorage[rotationMatrix.index(k, i)] +
               rotationMatrixStorage[rotationMatrix.index(i, k)]) *
           s;
     }
@@ -309,7 +315,10 @@ class Quaternion {
 
     final scale = 1.0 / math.sqrt(den);
     return Vector3(
-        _qStorage[0] * scale, _qStorage[1] * scale, _qStorage[2] * scale);
+      _qStorage[0] * scale,
+      _qStorage[1] * scale,
+      _qStorage[2] * scale,
+    );
   }
 
   /// Length squared.
@@ -397,10 +406,11 @@ class Quaternion {
     final oy = otherStorage[1];
     final ox = otherStorage[0];
     return Quaternion(
-        w * ox + x * ow + y * oz - z * oy,
-        w * oy + y * ow + z * ox - x * oz,
-        w * oz + z * ow + x * oy - y * ox,
-        w * ow - x * ox - y * oy - z * oz);
+      w * ox + x * ow + y * oz - z * oy,
+      w * oy + y * ow + z * ox - x * oz,
+      w * oz + z * ow + x * oy - y * ox,
+      w * ow - x * ox - y * oy - z * oz,
+    );
   }
 
   /// Check if two quaternions are the same.
@@ -478,7 +488,8 @@ class Quaternion {
 
   /// Printable string.
   @override
-  String toString() => '${_qStorage[0]}, ${_qStorage[1]},'
+  String toString() =>
+      '${_qStorage[0]}, ${_qStorage[1]},'
       ' ${_qStorage[2]} @ ${_qStorage[3]}';
 
   /// Relative error between this and [correct].

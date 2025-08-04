@@ -122,8 +122,10 @@ void testHexString() {
 
   expect(Colors.toHexString(color, alpha: true), equals('00000000'));
 
-  expect(() => Colors.fromHexString('vector_math rules!', color),
-      throwsA(isA<FormatException>()));
+  expect(
+    () => Colors.fromHexString('vector_math rules!', color),
+    throwsA(isA<FormatException>()),
+  );
 }
 
 void testFromRgba() {

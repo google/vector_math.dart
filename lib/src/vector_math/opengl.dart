@@ -41,7 +41,10 @@ part of '../../vector_math.dart';
 ///       }
 ///     }
 void setRotationMatrix(
-    Matrix4 rotationMatrix, Vector3 forwardDirection, Vector3 upDirection) {
+  Matrix4 rotationMatrix,
+  Vector3 forwardDirection,
+  Vector3 upDirection,
+) {
   setModelMatrix(rotationMatrix, forwardDirection, upDirection, 0.0, 0.0, 0.0);
 }
 
@@ -54,14 +57,36 @@ void setRotationMatrix(
 /// [forwardDirection] specifies the direction of the forward vector.
 /// [upDirection] specifies the direction of the up vector.
 /// [tx],[ty],[tz] specifies the position of the object.
-void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
-    Vector3 upDirection, double tx, double ty, double tz) {
+void setModelMatrix(
+  Matrix4 modelMatrix,
+  Vector3 forwardDirection,
+  Vector3 upDirection,
+  double tx,
+  double ty,
+  double tz,
+) {
   final right = forwardDirection.cross(upDirection)..normalize();
   final c1 = right;
   final c2 = upDirection;
   final c3 = -forwardDirection;
-  modelMatrix.setValues(c1[0], c1[1], c1[2], 0.0, c2[0], c2[1], c2[2], 0.0,
-      c3[0], c3[1], c3[2], 0.0, tx, ty, tz, 1.0);
+  modelMatrix.setValues(
+    c1[0],
+    c1[1],
+    c1[2],
+    0.0,
+    c2[0],
+    c2[1],
+    c2[2],
+    0.0,
+    c3[0],
+    c3[1],
+    c3[2],
+    0.0,
+    tx,
+    ty,
+    tz,
+    1.0,
+  );
 }
 
 /// Constructs an OpenGL view matrix in [viewMatrix].
@@ -72,8 +97,12 @@ void setModelMatrix(Matrix4 modelMatrix, Vector3 forwardDirection,
 /// [cameraPosition] specifies the position of the camera.
 /// [cameraFocusPosition] specifies the position the camera is focused on.
 /// [upDirection] specifies the direction of the up vector (usually, +Y).
-void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
-    Vector3 cameraFocusPosition, Vector3 upDirection) {
+void setViewMatrix(
+  Matrix4 viewMatrix,
+  Vector3 cameraPosition,
+  Vector3 cameraFocusPosition,
+  Vector3 upDirection,
+) {
   final z = (cameraPosition - cameraFocusPosition)..normalize();
   final x = upDirection.cross(z)..normalize();
   final y = z.cross(x)..normalize();
@@ -82,8 +111,24 @@ void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
   final rotatedEyeY = -y.dot(cameraPosition);
   final rotatedEyeZ = -z.dot(cameraPosition);
 
-  viewMatrix.setValues(x[0], y[0], z[0], 0.0, x[1], y[1], z[1], 0.0, x[2], y[2],
-      z[2], 0.0, rotatedEyeX, rotatedEyeY, rotatedEyeZ, 1.0);
+  viewMatrix.setValues(
+    x[0],
+    y[0],
+    z[0],
+    0.0,
+    x[1],
+    y[1],
+    z[1],
+    0.0,
+    x[2],
+    y[2],
+    z[2],
+    0.0,
+    rotatedEyeX,
+    rotatedEyeY,
+    rotatedEyeZ,
+    1.0,
+  );
 }
 
 /// Constructs a new OpenGL view matrix.
@@ -92,7 +137,10 @@ void setViewMatrix(Matrix4 viewMatrix, Vector3 cameraPosition,
 /// [cameraFocusPosition] specifies the position the camera is focused on.
 /// [upDirection] specifies the direction of the up vector (usually, +Y).
 Matrix4 makeViewMatrix(
-    Vector3 cameraPosition, Vector3 cameraFocusPosition, Vector3 upDirection) {
+  Vector3 cameraPosition,
+  Vector3 cameraFocusPosition,
+  Vector3 upDirection,
+) {
   final r = Matrix4.zero();
   setViewMatrix(r, cameraPosition, cameraFocusPosition, upDirection);
   return r;
@@ -108,8 +156,13 @@ Matrix4 makeViewMatrix(
 /// (always positive).
 /// [zFar] specifies the distance from the viewer to the far plane
 /// (always positive).
-void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
-    double aspectRatio, double zNear, double zFar) {
+void setPerspectiveMatrix(
+  Matrix4 perspectiveMatrix,
+  double fovYRadians,
+  double aspectRatio,
+  double zNear,
+  double zFar,
+) {
   final height = math.tan(fovYRadians * 0.5);
   final width = height * aspectRatio;
   final near_minus_far = zNear - zFar;
@@ -134,7 +187,11 @@ void setPerspectiveMatrix(Matrix4 perspectiveMatrix, double fovYRadians,
 /// [zFar] specifies the distance from the viewer to the far plane
 /// (always positive).
 Matrix4 makePerspectiveMatrix(
-    double fovYRadians, double aspectRatio, double zNear, double zFar) {
+  double fovYRadians,
+  double aspectRatio,
+  double zNear,
+  double zFar,
+) {
   final r = Matrix4.zero();
   setPerspectiveMatrix(r, fovYRadians, aspectRatio, zNear, zFar);
   return r;
@@ -147,8 +204,12 @@ Matrix4 makePerspectiveMatrix(
 /// in the x direction. The aspect ratio of x (width) to y (height).
 /// [zNear] specifies the distance from the viewer to the near plane
 /// (always positive).
-void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
-    double aspectRatio, double zNear) {
+void setInfiniteMatrix(
+  Matrix4 infiniteMatrix,
+  double fovYRadians,
+  double aspectRatio,
+  double zNear,
+) {
   final height = math.tan(fovYRadians * 0.5);
   final width = height * aspectRatio;
 
@@ -170,7 +231,10 @@ void setInfiniteMatrix(Matrix4 infiniteMatrix, double fovYRadians,
 /// [zNear] specifies the distance from the viewer to the near plane
 /// (always positive).
 Matrix4 makeInfiniteMatrix(
-    double fovYRadians, double aspectRatio, double zNear) {
+  double fovYRadians,
+  double aspectRatio,
+  double zNear,
+) {
   final r = Matrix4.zero();
   setInfiniteMatrix(r, fovYRadians, aspectRatio, zNear);
   return r;
@@ -184,8 +248,15 @@ Matrix4 makeInfiniteMatrix(
 /// clipping planes.
 /// [near], [far] specify the coordinates to the near and far depth clipping
 /// planes.
-void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right,
-    double bottom, double top, double near, double far) {
+void setFrustumMatrix(
+  Matrix4 perspectiveMatrix,
+  double left,
+  double right,
+  double bottom,
+  double top,
+  double near,
+  double far,
+) {
   final two_near = 2.0 * near;
   final right_minus_left = right - left;
   final top_minus_bottom = top - bottom;
@@ -209,8 +280,14 @@ void setFrustumMatrix(Matrix4 perspectiveMatrix, double left, double right,
 /// clipping planes.
 /// [near], [far] specify the coordinates to the near and far depth clipping
 /// planes.
-Matrix4 makeFrustumMatrix(double left, double right, double bottom, double top,
-    double near, double far) {
+Matrix4 makeFrustumMatrix(
+  double left,
+  double right,
+  double bottom,
+  double top,
+  double near,
+  double far,
+) {
   final view = Matrix4.zero();
   setFrustumMatrix(view, left, right, bottom, top, near, far);
   return view;
@@ -224,8 +301,15 @@ Matrix4 makeFrustumMatrix(double left, double right, double bottom, double top,
 /// clipping planes.
 /// [near], [far] specify the coordinates to the near and far depth clipping
 /// planes.
-void setOrthographicMatrix(Matrix4 orthographicMatrix, double left,
-    double right, double bottom, double top, double near, double far) {
+void setOrthographicMatrix(
+  Matrix4 orthographicMatrix,
+  double left,
+  double right,
+  double bottom,
+  double top,
+  double near,
+  double far,
+) {
   final rml = right - left;
   final rpl = right + left;
   final tmb = top - bottom;
@@ -251,8 +335,14 @@ void setOrthographicMatrix(Matrix4 orthographicMatrix, double left,
 /// clipping planes.
 /// [near], [far] specify the coordinates to the near and far depth clipping
 /// planes.
-Matrix4 makeOrthographicMatrix(double left, double right, double bottom,
-    double top, double near, double far) {
+Matrix4 makeOrthographicMatrix(
+  double left,
+  double right,
+  double bottom,
+  double top,
+  double near,
+  double far,
+) {
   final r = Matrix4.zero();
   setOrthographicMatrix(r, left, right, bottom, top, near, far);
   return r;
@@ -261,14 +351,22 @@ Matrix4 makeOrthographicMatrix(double left, double right, double bottom,
 /// Returns a transformation matrix that transforms points onto
 /// the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
-  final v = Vector4(planeNormal.storage[0], planeNormal.storage[1],
-      planeNormal.storage[2], 0.0);
+  final v = Vector4(
+    planeNormal.storage[0],
+    planeNormal.storage[1],
+    planeNormal.storage[2],
+    0.0,
+  );
   final outer = Matrix4.outer(v, v);
   var r = Matrix4.zero();
   r = r - outer;
   final scaledNormal = planeNormal.scaled(dot3(planePoint, planeNormal));
-  final T = Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
-      scaledNormal.storage[2], 1.0);
+  final T = Vector4(
+    scaledNormal.storage[0],
+    scaledNormal.storage[1],
+    scaledNormal.storage[2],
+    1.0,
+  );
   r.setColumn(3, T);
   return r;
 }
@@ -276,15 +374,23 @@ Matrix4 makePlaneProjection(Vector3 planeNormal, Vector3 planePoint) {
 /// Returns a transformation matrix that transforms points by reflecting
 /// them through the plane specified with [planeNormal] and [planePoint].
 Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
-  final v = Vector4(planeNormal.storage[0], planeNormal.storage[1],
-      planeNormal.storage[2], 0.0);
+  final v = Vector4(
+    planeNormal.storage[0],
+    planeNormal.storage[1],
+    planeNormal.storage[2],
+    0.0,
+  );
   final outer = Matrix4.outer(v, v)..scaleByDouble(2.0, 2.0, 2.0, 1.0);
   var r = Matrix4.zero();
   r = r - outer;
   final scale = 2.0 * planePoint.dot(planeNormal);
   final scaledNormal = planeNormal.scaled(scale);
-  final T = Vector4(scaledNormal.storage[0], scaledNormal.storage[1],
-      scaledNormal.storage[2], 1.0);
+  final T = Vector4(
+    scaledNormal.storage[0],
+    scaledNormal.storage[1],
+    scaledNormal.storage[2],
+    1.0,
+  );
   r.setColumn(3, T);
   return r;
 }
@@ -301,15 +407,16 @@ Matrix4 makePlaneReflection(Vector3 planeNormal, Vector3 planePoint) {
 ///
 /// Returns false on error, for example, the mouse is not in the viewport
 bool unproject(
-    Matrix4 cameraMatrix,
-    num viewportX,
-    num viewportWidth,
-    num viewportY,
-    num viewportHeight,
-    num pickX,
-    num pickY,
-    num pickZ,
-    Vector3 pickWorld) {
+  Matrix4 cameraMatrix,
+  num viewportX,
+  num viewportWidth,
+  num viewportY,
+  num viewportHeight,
+  num pickX,
+  num pickY,
+  num pickZ,
+  Vector3 pickWorld,
+) {
   viewportX = viewportX.toDouble();
   viewportWidth = viewportWidth.toDouble();
   viewportY = viewportY.toDouble();
@@ -362,23 +469,42 @@ bool unproject(
 ///
 /// Returns false on error, for example, the mouse is not in the viewport.
 bool pickRay(
-    Matrix4 cameraMatrix,
-    num viewportX,
-    num viewportWidth,
-    num viewportY,
-    num viewportHeight,
-    num pickX,
-    num pickY,
-    Vector3 rayNear,
-    Vector3 rayFar) {
+  Matrix4 cameraMatrix,
+  num viewportX,
+  num viewportWidth,
+  num viewportY,
+  num viewportHeight,
+  num pickX,
+  num pickY,
+  Vector3 rayNear,
+  Vector3 rayFar,
+) {
   bool r;
 
-  r = unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
-      viewportHeight, pickX, viewportHeight - pickY, 0.0, rayNear);
+  r = unproject(
+    cameraMatrix,
+    viewportX,
+    viewportWidth,
+    viewportY,
+    viewportHeight,
+    pickX,
+    viewportHeight - pickY,
+    0.0,
+    rayNear,
+  );
   if (!r) {
     return false;
   }
 
-  return unproject(cameraMatrix, viewportX, viewportWidth, viewportY,
-      viewportHeight, pickX, viewportHeight - pickY, 1.0, rayFar);
+  return unproject(
+    cameraMatrix,
+    viewportX,
+    viewportWidth,
+    viewportY,
+    viewportHeight,
+    pickX,
+    viewportHeight - pickY,
+    1.0,
+    rayFar,
+  );
 }

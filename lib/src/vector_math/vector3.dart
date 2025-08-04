@@ -60,7 +60,7 @@ class Vector3 implements Vector {
   /// Constructs Vector3 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float32List.bytesPerElement].
   Vector3.fromBuffer(ByteBuffer buffer, int offset)
-      : _v3storage = Float32List.view(buffer, offset, 3);
+    : _v3storage = Float32List.view(buffer, offset, 3);
 
   /// Generate random vector in the range (0, 0, 0) to (1, 1, 1). You can
   /// optionally pass your own random number generator.
@@ -302,22 +302,26 @@ class Vector3 implements Vector {
     final z = _v3storage[2];
     final y = _v3storage[1];
     final x = _v3storage[0];
-    final d = 1.0 /
+    final d =
+        1.0 /
         (argStorage[15] +
             argStorage[11] * z +
             argStorage[7] * y +
             argStorage[3] * x);
-    _v3storage[0] = (argStorage[12] +
+    _v3storage[0] =
+        (argStorage[12] +
             argStorage[8] * z +
             argStorage[4] * y +
             argStorage[0] * x) *
         d;
-    _v3storage[1] = (argStorage[13] +
+    _v3storage[1] =
+        (argStorage[13] +
             argStorage[9] * z +
             argStorage[5] * y +
             argStorage[1] * x) *
         d;
-    _v3storage[2] = (argStorage[14] +
+    _v3storage[2] =
+        (argStorage[14] +
             argStorage[10] * z +
             argStorage[6] * y +
             argStorage[2] * x) *
@@ -369,15 +373,18 @@ class Vector3 implements Vector {
     final v2 = _v3storage[2];
     final v1 = _v3storage[1];
     final v0 = _v3storage[0];
-    _v3storage[2] = argStorage[2] * v0 +
+    _v3storage[2] =
+        argStorage[2] * v0 +
         argStorage[6] * v1 +
         argStorage[10] * v2 +
         argStorage[14];
-    _v3storage[1] = argStorage[1] * v0 +
+    _v3storage[1] =
+        argStorage[1] * v0 +
         argStorage[5] * v1 +
         argStorage[9] * v2 +
         argStorage[13];
-    _v3storage[0] = argStorage[0] * v0 +
+    _v3storage[0] =
+        argStorage[0] * v0 +
         argStorage[4] * v1 +
         argStorage[8] * v2 +
         argStorage[12];
@@ -511,15 +518,18 @@ class Vector3 implements Vector {
 
   /// Round entries in this towards zero.
   void roundToZero() {
-    _v3storage[2] = _v3storage[2] < 0.0
-        ? _v3storage[2].ceilToDouble()
-        : _v3storage[2].floorToDouble();
-    _v3storage[1] = _v3storage[1] < 0.0
-        ? _v3storage[1].ceilToDouble()
-        : _v3storage[1].floorToDouble();
-    _v3storage[0] = _v3storage[0] < 0.0
-        ? _v3storage[0].ceilToDouble()
-        : _v3storage[0].floorToDouble();
+    _v3storage[2] =
+        _v3storage[2] < 0.0
+            ? _v3storage[2].ceilToDouble()
+            : _v3storage[2].floorToDouble();
+    _v3storage[1] =
+        _v3storage[1] < 0.0
+            ? _v3storage[1].ceilToDouble()
+            : _v3storage[1].floorToDouble();
+    _v3storage[0] =
+        _v3storage[0] < 0.0
+            ? _v3storage[0].ceilToDouble()
+            : _v3storage[0].floorToDouble();
   }
 
   /// Clone of this.

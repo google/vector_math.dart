@@ -10,8 +10,9 @@ class ColorFilter extends GeometryFilter {
   ColorFilter(this.color);
 
   @override
-  List<VertexAttrib> get generates =>
-      <VertexAttrib>[VertexAttrib('COLOR', 4, 'float')];
+  List<VertexAttrib> get generates => <VertexAttrib>[
+    VertexAttrib('COLOR', 4, 'float'),
+  ];
 
   @override
   MeshGeometry filter(MeshGeometry mesh) {

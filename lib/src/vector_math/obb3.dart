@@ -29,28 +29,32 @@ class Obb3 {
 
   /// Create a new OBB with erverything set to zero.
   Obb3()
-      : _center = Vector3.zero(),
-        _halfExtents = Vector3.zero(),
-        _axis0 = Vector3(1.0, 0.0, 0.0),
-        _axis1 = Vector3(0.0, 1.0, 0.0),
-        _axis2 = Vector3(0.0, 0.0, 1.0);
+    : _center = Vector3.zero(),
+      _halfExtents = Vector3.zero(),
+      _axis0 = Vector3(1.0, 0.0, 0.0),
+      _axis1 = Vector3(0.0, 1.0, 0.0),
+      _axis2 = Vector3(0.0, 0.0, 1.0);
 
   /// Create a new OBB as a copy of [other].
   Obb3.copy(Obb3 other)
-      : _center = Vector3.copy(other._center),
-        _halfExtents = Vector3.copy(other._halfExtents),
-        _axis0 = Vector3.copy(other._axis0),
-        _axis1 = Vector3.copy(other._axis1),
-        _axis2 = Vector3.copy(other._axis2);
+    : _center = Vector3.copy(other._center),
+      _halfExtents = Vector3.copy(other._halfExtents),
+      _axis0 = Vector3.copy(other._axis0),
+      _axis1 = Vector3.copy(other._axis1),
+      _axis2 = Vector3.copy(other._axis2);
 
   /// Create a new OBB using [center], [halfExtents] and axis.
-  Obb3.centerExtentsAxes(Vector3 center, Vector3 halfExtents, Vector3 axis0,
-      Vector3 axis1, Vector3 axis2)
-      : _center = Vector3.copy(center),
-        _halfExtents = Vector3.copy(halfExtents),
-        _axis0 = Vector3.copy(axis0),
-        _axis1 = Vector3.copy(axis1),
-        _axis2 = Vector3.copy(axis2);
+  Obb3.centerExtentsAxes(
+    Vector3 center,
+    Vector3 halfExtents,
+    Vector3 axis0,
+    Vector3 axis1,
+    Vector3 axis2,
+  ) : _center = Vector3.copy(center),
+      _halfExtents = Vector3.copy(halfExtents),
+      _axis0 = Vector3.copy(axis0),
+      _axis1 = Vector3.copy(axis1),
+      _axis2 = Vector3.copy(axis2);
 
   /// Copy from [other] into this.
   void copyFrom(Obb3 other) {
@@ -229,7 +233,8 @@ class Obb3 {
     // Test axes L = A0, L = A1, L = A2
     for (var i = 0; i < 3; i++) {
       ra = _halfExtents[i];
-      rb = other._halfExtents[0] * _absR.entry(i, 0) +
+      rb =
+          other._halfExtents[0] * _absR.entry(i, 0) +
           other._halfExtents[1] * _absR.entry(i, 1) +
           other._halfExtents[2] * _absR.entry(i, 2);
 
@@ -240,7 +245,8 @@ class Obb3 {
 
     // Test axes L = B0, L = B1, L = B2
     for (var i = 0; i < 3; i++) {
-      ra = _halfExtents[0] * _absR.entry(0, i) +
+      ra =
+          _halfExtents[0] * _absR.entry(0, i) +
           _halfExtents[1] * _absR.entry(1, i) +
           _halfExtents[2] * _absR.entry(2, i);
       rb = other._halfExtents[i];
@@ -255,81 +261,99 @@ class Obb3 {
     }
 
     // Test axis L = A0 x B0
-    ra = _halfExtents[1] * _absR.entry(2, 0) +
+    ra =
+        _halfExtents[1] * _absR.entry(2, 0) +
         _halfExtents[2] * _absR.entry(1, 0);
-    rb = other._halfExtents[1] * _absR.entry(0, 2) +
+    rb =
+        other._halfExtents[1] * _absR.entry(0, 2) +
         other._halfExtents[2] * _absR.entry(0, 1);
     if ((_t[2] * _r.entry(1, 0) - _t[1] * _r.entry(2, 0)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A0 x B1
-    ra = _halfExtents[1] * _absR.entry(2, 1) +
+    ra =
+        _halfExtents[1] * _absR.entry(2, 1) +
         _halfExtents[2] * _absR.entry(1, 1);
-    rb = other._halfExtents[0] * _absR.entry(0, 2) +
+    rb =
+        other._halfExtents[0] * _absR.entry(0, 2) +
         other._halfExtents[2] * _absR.entry(0, 0);
     if ((_t[2] * _r.entry(1, 1) - _t[1] * _r.entry(2, 1)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A0 x B2
-    ra = _halfExtents[1] * _absR.entry(2, 2) +
+    ra =
+        _halfExtents[1] * _absR.entry(2, 2) +
         _halfExtents[2] * _absR.entry(1, 2);
-    rb = other._halfExtents[0] * _absR.entry(0, 1) +
+    rb =
+        other._halfExtents[0] * _absR.entry(0, 1) +
         other._halfExtents[1] * _absR.entry(0, 0);
     if ((_t[2] * _r.entry(1, 2) - _t[1] * _r.entry(2, 2)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A1 x B0
-    ra = _halfExtents[0] * _absR.entry(2, 0) +
+    ra =
+        _halfExtents[0] * _absR.entry(2, 0) +
         _halfExtents[2] * _absR.entry(0, 0);
-    rb = other._halfExtents[1] * _absR.entry(1, 2) +
+    rb =
+        other._halfExtents[1] * _absR.entry(1, 2) +
         other._halfExtents[2] * _absR.entry(1, 1);
     if ((_t[0] * _r.entry(2, 0) - _t[2] * _r.entry(0, 0)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A1 x B1
-    ra = _halfExtents[0] * _absR.entry(2, 1) +
+    ra =
+        _halfExtents[0] * _absR.entry(2, 1) +
         _halfExtents[2] * _absR.entry(0, 1);
-    rb = other._halfExtents[0] * _absR.entry(1, 2) +
+    rb =
+        other._halfExtents[0] * _absR.entry(1, 2) +
         other._halfExtents[2] * _absR.entry(1, 0);
     if ((_t[0] * _r.entry(2, 1) - _t[2] * _r.entry(0, 1)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A1 x B2
-    ra = _halfExtents[0] * _absR.entry(2, 2) +
+    ra =
+        _halfExtents[0] * _absR.entry(2, 2) +
         _halfExtents[2] * _absR.entry(0, 2);
-    rb = other._halfExtents[0] * _absR.entry(1, 1) +
+    rb =
+        other._halfExtents[0] * _absR.entry(1, 1) +
         other._halfExtents[1] * _absR.entry(1, 0);
     if ((_t[0] * _r.entry(2, 2) - _t[2] * _r.entry(0, 2)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A2 x B0
-    ra = _halfExtents[0] * _absR.entry(1, 0) +
+    ra =
+        _halfExtents[0] * _absR.entry(1, 0) +
         _halfExtents[1] * _absR.entry(0, 0);
-    rb = other._halfExtents[1] * _absR.entry(2, 2) +
+    rb =
+        other._halfExtents[1] * _absR.entry(2, 2) +
         other._halfExtents[2] * _absR.entry(2, 1);
     if ((_t[1] * _r.entry(0, 0) - _t[0] * _r.entry(1, 0)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A2 x B1
-    ra = _halfExtents[0] * _absR.entry(1, 1) +
+    ra =
+        _halfExtents[0] * _absR.entry(1, 1) +
         _halfExtents[1] * _absR.entry(0, 1);
-    rb = other._halfExtents[0] * _absR.entry(2, 2) +
+    rb =
+        other._halfExtents[0] * _absR.entry(2, 2) +
         other._halfExtents[2] * _absR.entry(2, 0);
     if ((_t[1] * _r.entry(0, 1) - _t[0] * _r.entry(1, 1)).abs() > ra + rb) {
       return false;
     }
 
     // Test axis L = A2 x B2
-    ra = _halfExtents[0] * _absR.entry(1, 2) +
+    ra =
+        _halfExtents[0] * _absR.entry(1, 2) +
         _halfExtents[1] * _absR.entry(0, 2);
-    rb = other._halfExtents[0] * _absR.entry(2, 1) +
+    rb =
+        other._halfExtents[0] * _absR.entry(2, 1) +
         other._halfExtents[1] * _absR.entry(2, 0);
     if ((_t[1] * _r.entry(0, 2) - _t[0] * _r.entry(1, 2)).abs() > ra + rb) {
       return false;
@@ -350,16 +374,25 @@ class Obb3 {
 
     _triangle.point0
       ..sub(_center)
-      ..setValues(_triangle.point0.dot(axis0), _triangle.point0.dot(axis1),
-          _triangle.point0.dot(axis2));
+      ..setValues(
+        _triangle.point0.dot(axis0),
+        _triangle.point0.dot(axis1),
+        _triangle.point0.dot(axis2),
+      );
     _triangle.point1
       ..sub(_center)
-      ..setValues(_triangle.point1.dot(axis0), _triangle.point1.dot(axis1),
-          _triangle.point1.dot(axis2));
+      ..setValues(
+        _triangle.point1.dot(axis0),
+        _triangle.point1.dot(axis1),
+        _triangle.point1.dot(axis2),
+      );
     _triangle.point2
       ..sub(_center)
-      ..setValues(_triangle.point2.dot(axis0), _triangle.point2.dot(axis1),
-          _triangle.point2.dot(axis2));
+      ..setValues(
+        _triangle.point2.dot(axis0),
+        _triangle.point2.dot(axis1),
+        _triangle.point2.dot(axis2),
+      );
 
     _aabb3.setCenterAndHalfExtents(_zeroVector, _halfExtents);
 

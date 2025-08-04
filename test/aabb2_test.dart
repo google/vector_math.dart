@@ -112,10 +112,16 @@ void testAabb2IntersectionAabb2() {
   expect(parent.intersectsWithAabb2(grandParent), isTrue);
   expect(grandParent.intersectsWithAabb2(parent), isTrue);
 
-  expect(siblingOne.intersectsWithAabb2(siblingTwo), isTrue,
-      reason: 'Touching edges are counted as intersection.');
-  expect(siblingOne.intersectsWithAabb2(siblingThree), isTrue,
-      reason: 'Touching corners are counted as intersection.');
+  expect(
+    siblingOne.intersectsWithAabb2(siblingTwo),
+    isTrue,
+    reason: 'Touching edges are counted as intersection.',
+  );
+  expect(
+    siblingOne.intersectsWithAabb2(siblingThree),
+    isTrue,
+    reason: 'Touching corners are counted as intersection.',
+  );
 }
 
 void testAabb2IntersectionVector2() {

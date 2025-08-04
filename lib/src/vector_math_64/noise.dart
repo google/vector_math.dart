@@ -25,8 +25,10 @@ part of '../../vector_math_64.dart';
  * This is based on the implementation of Simplex Noise by Stefan Gustavson
  * found at: http://webstaff.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
  */
-@Deprecated('This API will be removed '
-    '(see https:github.com/google/vector_math.dart/issues/270)')
+@Deprecated(
+  'This API will be removed '
+  '(see https:github.com/google/vector_math.dart/issues/270)',
+)
 class SimplexNoise {
   static final List<List<double>> _grad3 = <List<double>>[
     <double>[1.0, 1.0, 0.0],
@@ -40,7 +42,7 @@ class SimplexNoise {
     <double>[0.0, 1.0, 1.0],
     <double>[0.0, -1.0, 1.0],
     <double>[0.0, 1.0, -1.0],
-    <double>[0.0, -1.0, -1.0]
+    <double>[0.0, -1.0, -1.0],
   ];
 
   static final List<List<double>> _grad4 = <List<double>>[
@@ -75,7 +77,7 @@ class SimplexNoise {
     <double>[-1.0, 1.0, 1.0, 0.0],
     <double>[-1.0, 1.0, -1.0, 0.0],
     <double>[-1.0, -1.0, 1.0, 0.0],
-    <double>[-1.0, -1.0, -1.0, 0.0]
+    <double>[-1.0, -1.0, -1.0, 0.0],
   ];
 
   // To remove the need for index wrapping, double the permutation table length
@@ -101,10 +103,16 @@ class SimplexNoise {
   SimplexNoise([math.Random? r]) {
     r ??= math.Random();
     final p = List<int>.generate(256, (_) => r!.nextInt(256), growable: false);
-    _perm = List<int>.generate(p.length * 2, (int i) => p[i % p.length],
-        growable: false);
-    _permMod12 = List<int>.generate(_perm.length, (int i) => _perm[i] % 12,
-        growable: false);
+    _perm = List<int>.generate(
+      p.length * 2,
+      (int i) => p[i % p.length],
+      growable: false,
+    );
+    _permMod12 = List<int>.generate(
+      _perm.length,
+      (int i) => _perm[i] % 12,
+      growable: false,
+    );
   }
 
   double noise2D(double xin, double yin) {
@@ -135,7 +143,8 @@ class SimplexNoise {
     final x1 =
         x0 - i1 + _G2; // Offsets for middle corner in (x,y) unskewed coords
     final y1 = y0 - j1 + _G2;
-    final x2 = x0 -
+    final x2 =
+        x0 -
         1.0 +
         2.0 * _G2; // Offsets for last corner in (x,y) unskewed coords
     final y2 = y0 - 1.0 + 2.0 * _G2;
@@ -151,7 +160,8 @@ class SimplexNoise {
       n0 = 0.0;
     } else {
       t0 *= t0;
-      n0 = t0 *
+      n0 =
+          t0 *
           t0 *
           _dot2(_grad3[gi0], x0, y0); // (x,y) of grad3 used for 2D gradient
     }

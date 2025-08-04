@@ -33,12 +33,12 @@ class Frustum {
 
   /// Create a new frustum without initializing its bounds.
   Frustum()
-      : _plane0 = Plane(),
-        _plane1 = Plane(),
-        _plane2 = Plane(),
-        _plane3 = Plane(),
-        _plane4 = Plane(),
-        _plane5 = Plane();
+    : _plane0 = Plane(),
+      _plane1 = Plane(),
+      _plane2 = Plane(),
+      _plane3 = Plane(),
+      _plane4 = Plane(),
+      _plane5 = Plane();
 
   /// Create a new frustum as a copy of [other].
   factory Frustum.copy(Frustum other) => Frustum()..copyFrom(other);
@@ -177,14 +177,15 @@ class Frustum {
   /// Calculate the corners of this and write them into [corner0] to
   // [corner7].
   void calculateCorners(
-      Vector3 corner0,
-      Vector3 corner1,
-      Vector3 corner2,
-      Vector3 corner3,
-      Vector3 corner4,
-      Vector3 corner5,
-      Vector3 corner6,
-      Vector3 corner7) {
+    Vector3 corner0,
+    Vector3 corner1,
+    Vector3 corner2,
+    Vector3 corner3,
+    Vector3 corner4,
+    Vector3 corner5,
+    Vector3 corner6,
+    Vector3 corner7,
+  ) {
     Plane.intersection(_plane0, _plane2, _plane4, corner0);
     Plane.intersection(_plane0, _plane3, _plane4, corner1);
     Plane.intersection(_plane0, _plane3, _plane5, corner2);
@@ -222,11 +223,13 @@ class Frustum {
       outNz = aabb.min.z;
     }
 
-    final d1 = plane._normal.x * outPx +
+    final d1 =
+        plane._normal.x * outPx +
         plane._normal.y * outPy +
         plane._normal.z * outPz +
         plane.constant;
-    final d2 = plane._normal.x * outNx +
+    final d2 =
+        plane._normal.x * outNx +
         plane._normal.y * outNy +
         plane._normal.z * outNz +
         plane.constant;

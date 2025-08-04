@@ -325,7 +325,7 @@ class Matrix3TransposeMultiplyBenchmark extends BenchmarkBase {
 
 class Matrix4TranslateByDoubleGenericBenchmark extends BenchmarkBase {
   Matrix4TranslateByDoubleGenericBenchmark()
-      : super('Matrix4.translateByDoubleGeneric');
+    : super('Matrix4.translateByDoubleGeneric');
 
   final temp = Matrix4.zero()..setIdentity();
 
@@ -343,7 +343,7 @@ class Matrix4TranslateByDoubleGenericBenchmark extends BenchmarkBase {
 
 class Matrix4TranslateByVector3GenericBenchmark extends BenchmarkBase {
   Matrix4TranslateByVector3GenericBenchmark()
-      : super('Matrix4.translateByVector3Generic');
+    : super('Matrix4.translateByVector3Generic');
 
   final temp = Matrix4.zero()..setIdentity();
   final vec = Vector3(10.0, 20.0, 30.0);
@@ -362,7 +362,7 @@ class Matrix4TranslateByVector3GenericBenchmark extends BenchmarkBase {
 
 class Matrix4TranslateByVector4GenericBenchmark extends BenchmarkBase {
   Matrix4TranslateByVector4GenericBenchmark()
-      : super('Matrix4.translateByVector4Generic');
+    : super('Matrix4.translateByVector4Generic');
 
   final temp = Matrix4.zero()..setIdentity();
   final vec = Vector4(10.0, 20.0, 30.0, 40.0);
@@ -395,7 +395,11 @@ class Matrix4TranslateByDoubleBenchmark extends BenchmarkBase {
   void setup() {
     for (var i = 0; i < 10; i++) {
       temp.translateByDouble(
-          i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble(), 1.0);
+        i.toDouble(),
+        (i * 10).toDouble(),
+        (i * 5).toDouble(),
+        1.0,
+      );
     }
   }
 
@@ -424,7 +428,8 @@ class Matrix4TranslateByVector3Benchmark extends BenchmarkBase {
   void setup() {
     for (var i = 0; i < 10; i++) {
       temp.translateByVector3(
-          Vector3(i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble()));
+        Vector3(i.toDouble(), (i * 10).toDouble(), (i * 5).toDouble()),
+      );
     }
   }
 
@@ -452,8 +457,14 @@ class Matrix4TranslateByVector4Benchmark extends BenchmarkBase {
   @override
   void setup() {
     for (var i = 0; i < 10; i++) {
-      temp.translateByVector4(Vector4(i.toDouble(), (i * 10).toDouble(),
-          (i * 5).toDouble(), (i * 20).toDouble()));
+      temp.translateByVector4(
+        Vector4(
+          i.toDouble(),
+          (i * 10).toDouble(),
+          (i * 5).toDouble(),
+          (i * 20).toDouble(),
+        ),
+      );
     }
   }
 
