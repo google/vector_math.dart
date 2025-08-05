@@ -431,19 +431,19 @@ void testMatrix4SelfMultiplyTranspose() {
 void testMatrix4Translation() {
   final inputA = <Matrix4>[];
   final inputB = <Matrix4>[];
-  final output1 = <Matrix4>[];
-  final output2 = <Matrix4>[];
+  final outputA = <Matrix4>[];
+  final outputB = <Matrix4>[];
 
   inputA.add(Matrix4.identity());
   inputB.add(Matrix4.translationValues(1.0, 3.0, 5.7));
-  output1.add(inputA[0] * inputB[0] as Matrix4);
-  output2.add((Matrix4.identity())..translate(1.0, 3.0, 5.7));
+  outputA.add(inputA[0] * inputB[0] as Matrix4);
+  outputB.add((Matrix4.identity())..translate(1.0, 3.0, 5.7));
 
   assert(inputA.length == inputB.length);
-  assert(output1.length == output2.length);
+  assert(outputA.length == outputB.length);
 
   for (var i = 0; i < inputA.length; i++) {
-    relativeTest(output1[i], output2[i]);
+    relativeTest(outputA[i], outputB[i]);
   }
 
   final input = Matrix4.fromList([
@@ -452,6 +452,16 @@ void testMatrix4Translation() {
     3, 7, 11, 15, //
     4, 8, 12, 16, //
   ]);
+  final output2 = input.clone();
+  output2[12] = input.dotRow(0, Vector4(4, 8, 0, 1));
+  output2[13] = input.dotRow(1, Vector4(4, 8, 0, 1));
+  output2[14] = input.dotRow(2, Vector4(4, 8, 0, 1));
+  output2[15] = input.dotRow(3, Vector4(4, 8, 0, 1));
+  relativeTest(
+    input.clone()..translateByVector2(Vector2(4.0, 8.0)),
+    output2,
+  );
+
   final output3 = input.clone();
   output3[12] = input.dotRow(0, Vector4(4, 8, 12, 1));
   output3[13] = input.dotRow(1, Vector4(4, 8, 12, 1));
