@@ -457,10 +457,7 @@ void testMatrix4Translation() {
   output2[13] = input.dotRow(1, Vector4(4, 8, 0, 1));
   output2[14] = input.dotRow(2, Vector4(4, 8, 0, 1));
   output2[15] = input.dotRow(3, Vector4(4, 8, 0, 1));
-  relativeTest(
-    input.clone()..translateByVector2(Vector2(4.0, 8.0)),
-    output2,
-  );
+  relativeTest(input.clone()..translateByVector2(Vector2(4.0, 8.0)), output2);
 
   final output3 = input.clone();
   output3[12] = input.dotRow(0, Vector4(4, 8, 12, 1));
