@@ -842,6 +842,13 @@ class Matrix4 {
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
   @pragma('dart2js:prefer-inline')
+  void leftTranslateByVector2(Vector2 v2) =>
+      leftTranslateByDouble(v2.x, v2.y, 0.0, 1.0);
+
+  /// Multiply this by a translation from the left.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
   void leftTranslateByVector3(Vector3 v3) =>
       leftTranslateByDouble(v3.x, v3.y, v3.z, 1.0);
 

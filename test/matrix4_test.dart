@@ -822,6 +822,20 @@ void testLeftTranslate() {
   expect(result.x, equals(3.0));
   expect(result.y, equals(0.0));
   expect(result.z, equals(0.0));
+
+  // Matrix4 alternative methods
+  final m2 = Matrix4.diagonal3Values(2.0, 3.0, 4.0);
+  final result2 = Matrix4.columns(
+    Vector4(2.0, 0.0, 0.0, 0.0),
+    Vector4(0.0, 3.0, 0.0, 0.0),
+    Vector4(0.0, 0.0, 4.0, 0.0),
+    Vector4(1.0, 0.0, 0.0, 1.0),
+  );
+
+  expect(m2.clone()..leftTranslateByDouble(1, 0, 0, 1), result2);
+  expect(m2.clone()..leftTranslateByVector2(Vector2(1, 0)), result2);
+  expect(m2.clone()..leftTranslateByVector3(Vector3(1, 0, 0)), result2);
+  expect(m2.clone()..leftTranslateByVector4(Vector4(1, 0, 0, 1)), result2);
 }
 
 void testMatrixClassifiers() {
