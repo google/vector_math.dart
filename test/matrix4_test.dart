@@ -388,6 +388,46 @@ void testMatrix4SelfMultiply() {
   }
 }
 
+void testMatrix4LeftMultiply() {
+  final inputA = <Matrix4>[];
+  final inputB = <Matrix4>[];
+  final expectedOutput = <Matrix4>[];
+
+  inputA.add(
+    parseMatrix<Matrix4>(
+      '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
+         0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
+         0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
+         0.913337361501670   0.996134716626885   0.961898080855054   0.868694705363510''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix4>(
+      '''0.450541598502498   0.152378018969223   0.078175528753184   0.004634224134067
+         0.083821377996933   0.825816977489547   0.442678269775446   0.774910464711502
+         0.228976968716819   0.538342435260057   0.106652770180584   0.817303220653433
+         0.913337361501670   0.996134716626885   0.961898080855054   0.868694705363510''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix4>(
+      '''0.237893273152584   0.241190507375353   0.115471053480014   0.188086069635435
+         0.916103942227480   1.704973929800637   1.164721763902784   1.675285658272358
+         0.919182849383279   1.351023203753565   1.053750106199745   1.215382950294249
+         1.508657696357159   2.344965008135463   1.450552688877760   2.316940716769603''',
+    ),
+  );
+
+  assert(inputA.length == inputB.length);
+  assert(inputB.length == expectedOutput.length);
+
+  for (var i = 0; i < inputA.length; i++) {
+    final output = inputB[i].clone();
+    output.leftMultiply(inputA[i]);
+    relativeTest(output, expectedOutput[i]);
+  }
+}
+
 void testMatrix4SelfMultiplyTranspose() {
   final inputA = <Matrix4>[];
   final inputB = <Matrix4>[];
@@ -832,6 +872,7 @@ void main() {
     test('Determinant', testMatrix4Determinant);
     test('Adjoint', testMatrix4Adjoint);
     test('Self multiply', testMatrix4SelfMultiply);
+    test('Left Self multiply', testMatrix4LeftMultiply);
     test('Self transpose', testMatrix4SelfTransposeMultiply);
     test('Self multiply tranpose', testMatrix4SelfMultiplyTranspose);
     test('Matrix multiplication', testMatrix4Multiplication);

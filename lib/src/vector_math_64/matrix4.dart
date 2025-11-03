@@ -200,46 +200,46 @@ class Matrix4 {
     double arg13,
     double arg14,
     double arg15,
-  ) =>
-      Matrix4.zero()..setValues(
-        arg0,
-        arg1,
-        arg2,
-        arg3,
-        arg4,
-        arg5,
-        arg6,
-        arg7,
-        arg8,
-        arg9,
-        arg10,
-        arg11,
-        arg12,
-        arg13,
-        arg14,
-        arg15,
-      );
+  ) => Matrix4.zero()
+    ..setValues(
+      arg0,
+      arg1,
+      arg2,
+      arg3,
+      arg4,
+      arg5,
+      arg6,
+      arg7,
+      arg8,
+      arg9,
+      arg10,
+      arg11,
+      arg12,
+      arg13,
+      arg14,
+      arg15,
+    );
 
   /// New matrix from [values].
-  factory Matrix4.fromList(List<double> values) =>
-      Matrix4.zero()..setValues(
-        values[0],
-        values[1],
-        values[2],
-        values[3],
-        values[4],
-        values[5],
-        values[6],
-        values[7],
-        values[8],
-        values[9],
-        values[10],
-        values[11],
-        values[12],
-        values[13],
-        values[14],
-        values[15],
-      );
+  factory Matrix4.fromList(List<double> values) => Matrix4.zero()
+    ..setValues(
+      values[0],
+      values[1],
+      values[2],
+      values[3],
+      values[4],
+      values[5],
+      values[6],
+      values[7],
+      values[8],
+      values[9],
+      values[10],
+      values[11],
+      values[12],
+      values[13],
+      values[14],
+      values[15],
+    );
 
   /// Zero matrix.
   Matrix4.zero() : _m4storage = Float64List(16);
@@ -272,28 +272,24 @@ class Matrix4 {
   factory Matrix4.outer(Vector4 u, Vector4 v) => Matrix4.zero()..setOuter(u, v);
 
   /// Rotation of [radians] around X.
-  factory Matrix4.rotationX(double radians) =>
-      Matrix4.zero()
-        .._m4storage[15] = 1.0
-        ..setRotationX(radians);
+  factory Matrix4.rotationX(double radians) => Matrix4.zero()
+    .._m4storage[15] = 1.0
+    ..setRotationX(radians);
 
   /// Rotation of [radians] around Y.
-  factory Matrix4.rotationY(double radians) =>
-      Matrix4.zero()
-        .._m4storage[15] = 1.0
-        ..setRotationY(radians);
+  factory Matrix4.rotationY(double radians) => Matrix4.zero()
+    .._m4storage[15] = 1.0
+    ..setRotationY(radians);
 
   /// Rotation of [radians] around Z.
-  factory Matrix4.rotationZ(double radians) =>
-      Matrix4.zero()
-        .._m4storage[15] = 1.0
-        ..setRotationZ(radians);
+  factory Matrix4.rotationZ(double radians) => Matrix4.zero()
+    .._m4storage[15] = 1.0
+    ..setRotationZ(radians);
 
   /// Translation matrix.
-  factory Matrix4.translation(Vector3 translation) =>
-      Matrix4.zero()
-        ..setIdentity()
-        ..setTranslation(translation);
+  factory Matrix4.translation(Vector3 translation) => Matrix4.zero()
+    ..setIdentity()
+    ..setTranslation(translation);
 
   /// Translation matrix.
   factory Matrix4.translationValues(double x, double y, double z) =>
@@ -1758,6 +1754,63 @@ class Matrix4 {
     _m4storage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
     _m4storage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
     _m4storage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
+  }
+
+  /// Computes the result of `arg x this` and stores the result in-place in
+  /// [this].
+  ///
+  /// This method does not alter the [Matrix4] in `arg`.
+  void leftMultiply(Matrix4 arg) {
+    final Float64List argStorage = arg._m4storage;
+    final double m00 = argStorage[0];
+    final double m01 = argStorage[4];
+    final double m02 = argStorage[8];
+    final double m03 = argStorage[12];
+    final double m10 = argStorage[1];
+    final double m11 = argStorage[5];
+    final double m12 = argStorage[9];
+    final double m13 = argStorage[13];
+    final double m20 = argStorage[2];
+    final double m21 = argStorage[6];
+    final double m22 = argStorage[10];
+    final double m23 = argStorage[14];
+    final double m30 = argStorage[3];
+    final double m31 = argStorage[7];
+    final double m32 = argStorage[11];
+    final double m33 = argStorage[15];
+    final Float64List bStorage = _m4storage;
+    final double n00 = bStorage[0];
+    final double n01 = bStorage[4];
+    final double n02 = bStorage[8];
+    final double n03 = bStorage[12];
+    final double n10 = bStorage[1];
+    final double n11 = bStorage[5];
+    final double n12 = bStorage[9];
+    final double n13 = bStorage[13];
+    final double n20 = bStorage[2];
+    final double n21 = bStorage[6];
+    final double n22 = bStorage[10];
+    final double n23 = bStorage[14];
+    final double n30 = bStorage[3];
+    final double n31 = bStorage[7];
+    final double n32 = bStorage[11];
+    final double n33 = bStorage[15];
+    bStorage[0] = (m00 * n00) + (m01 * n10) + (m02 * n20) + (m03 * n30);
+    bStorage[4] = (m00 * n01) + (m01 * n11) + (m02 * n21) + (m03 * n31);
+    bStorage[8] = (m00 * n02) + (m01 * n12) + (m02 * n22) + (m03 * n32);
+    bStorage[12] = (m00 * n03) + (m01 * n13) + (m02 * n23) + (m03 * n33);
+    bStorage[1] = (m10 * n00) + (m11 * n10) + (m12 * n20) + (m13 * n30);
+    bStorage[5] = (m10 * n01) + (m11 * n11) + (m12 * n21) + (m13 * n31);
+    bStorage[9] = (m10 * n02) + (m11 * n12) + (m12 * n22) + (m13 * n32);
+    bStorage[13] = (m10 * n03) + (m11 * n13) + (m12 * n23) + (m13 * n33);
+    bStorage[2] = (m20 * n00) + (m21 * n10) + (m22 * n20) + (m23 * n30);
+    bStorage[6] = (m20 * n01) + (m21 * n11) + (m22 * n21) + (m23 * n31);
+    bStorage[10] = (m20 * n02) + (m21 * n12) + (m22 * n22) + (m23 * n32);
+    bStorage[14] = (m20 * n03) + (m21 * n13) + (m22 * n23) + (m23 * n33);
+    bStorage[3] = (m30 * n00) + (m31 * n10) + (m32 * n20) + (m33 * n30);
+    bStorage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
+    bStorage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
+    bStorage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
   }
 
   /// Multiply a copy of this with [arg].
