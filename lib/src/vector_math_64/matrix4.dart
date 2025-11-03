@@ -200,46 +200,46 @@ class Matrix4 {
     double arg13,
     double arg14,
     double arg15,
-  ) => Matrix4.zero()
-    ..setValues(
-      arg0,
-      arg1,
-      arg2,
-      arg3,
-      arg4,
-      arg5,
-      arg6,
-      arg7,
-      arg8,
-      arg9,
-      arg10,
-      arg11,
-      arg12,
-      arg13,
-      arg14,
-      arg15,
-    );
+  ) =>
+      Matrix4.zero()..setValues(
+        arg0,
+        arg1,
+        arg2,
+        arg3,
+        arg4,
+        arg5,
+        arg6,
+        arg7,
+        arg8,
+        arg9,
+        arg10,
+        arg11,
+        arg12,
+        arg13,
+        arg14,
+        arg15,
+      );
 
   /// New matrix from [values].
-  factory Matrix4.fromList(List<double> values) => Matrix4.zero()
-    ..setValues(
-      values[0],
-      values[1],
-      values[2],
-      values[3],
-      values[4],
-      values[5],
-      values[6],
-      values[7],
-      values[8],
-      values[9],
-      values[10],
-      values[11],
-      values[12],
-      values[13],
-      values[14],
-      values[15],
-    );
+  factory Matrix4.fromList(List<double> values) =>
+      Matrix4.zero()..setValues(
+        values[0],
+        values[1],
+        values[2],
+        values[3],
+        values[4],
+        values[5],
+        values[6],
+        values[7],
+        values[8],
+        values[9],
+        values[10],
+        values[11],
+        values[12],
+        values[13],
+        values[14],
+        values[15],
+      );
 
   /// Zero matrix.
   Matrix4.zero() : _m4storage = Float64List(16);
@@ -272,24 +272,28 @@ class Matrix4 {
   factory Matrix4.outer(Vector4 u, Vector4 v) => Matrix4.zero()..setOuter(u, v);
 
   /// Rotation of [radians] around X.
-  factory Matrix4.rotationX(double radians) => Matrix4.zero()
-    .._m4storage[15] = 1.0
-    ..setRotationX(radians);
+  factory Matrix4.rotationX(double radians) =>
+      Matrix4.zero()
+        .._m4storage[15] = 1.0
+        ..setRotationX(radians);
 
   /// Rotation of [radians] around Y.
-  factory Matrix4.rotationY(double radians) => Matrix4.zero()
-    .._m4storage[15] = 1.0
-    ..setRotationY(radians);
+  factory Matrix4.rotationY(double radians) =>
+      Matrix4.zero()
+        .._m4storage[15] = 1.0
+        ..setRotationY(radians);
 
   /// Rotation of [radians] around Z.
-  factory Matrix4.rotationZ(double radians) => Matrix4.zero()
-    .._m4storage[15] = 1.0
-    ..setRotationZ(radians);
+  factory Matrix4.rotationZ(double radians) =>
+      Matrix4.zero()
+        .._m4storage[15] = 1.0
+        ..setRotationZ(radians);
 
   /// Translation matrix.
-  factory Matrix4.translation(Vector3 translation) => Matrix4.zero()
-    ..setIdentity()
-    ..setTranslation(translation);
+  factory Matrix4.translation(Vector3 translation) =>
+      Matrix4.zero()
+        ..setIdentity()
+        ..setTranslation(translation);
 
   /// Translation matrix.
   factory Matrix4.translationValues(double x, double y, double z) =>
