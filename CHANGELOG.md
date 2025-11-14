@@ -1,5 +1,6 @@
 ## 2.3.0-wip
 
+- Add leftTranslateByVector2 method to Matrix4.
 - Add translateByVector2 method to Matrix4.
 - Require `sdk: ^3.7.0`.
 
