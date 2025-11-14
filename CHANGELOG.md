@@ -1,9 +1,6 @@
 ## 2.3.0-wip
 
 - Add translateByVector2 method to Matrix4.
-
-## 2.2.1-wip
-
 - Require `sdk: ^3.7.0`.
 
 ## 2.2.0
