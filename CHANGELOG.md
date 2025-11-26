@@ -1,8 +1,7 @@
 ## 2.3.0-wip
 
-- Add leftTranslateByVector2 method to Matrix4
-  Equivalent to the leftTranslate set of methods, that multiplies this matrix by a translation matrix from the left.
-
+- Add `leftTranslateByVector2` method to `Matrix4`.
+  Equivalent to the `leftTranslate` set of methods, that multiplies this matrix by a translation matrix from the left.
 - Add translateByVector2 method to Matrix4.
 - Require `sdk: ^3.7.0`.
 
