@@ -1761,7 +1761,7 @@ class Matrix4 {
   }
 
   /// Computes the result of `arg x this` and stores the result in-place in
-  /// [this].
+  /// `this`.
   ///
   /// This method does not alter the [Matrix4] in `arg`.
   void leftMultiply(Matrix4 arg) {
