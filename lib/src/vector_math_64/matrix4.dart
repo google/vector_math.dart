@@ -759,6 +759,13 @@ class Matrix4 {
     _m4storage[15] = t4;
   }
 
+  /// Translate this matrix by a [Vector2].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByVector2(Vector2 v2) =>
+      translateByDouble(v2.x, v2.y, 0.0, 1.0);
+
   /// Translate this matrix by a [Vector3].
   @pragma('wasm:prefer-inline')
   @pragma('vm:prefer-inline')
