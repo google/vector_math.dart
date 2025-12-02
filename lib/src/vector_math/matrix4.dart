@@ -1767,6 +1767,63 @@ class Matrix4 {
     _m4storage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
   }
 
+  /// Computes the result of `arg x this` and stores the result in-place in
+  /// `this`.
+  ///
+  /// This method does not alter the [Matrix4] in `arg`.
+  void leftMultiply(Matrix4 arg) {
+    final argStorage = arg._m4storage;
+    final m00 = argStorage[0];
+    final m01 = argStorage[4];
+    final m02 = argStorage[8];
+    final m03 = argStorage[12];
+    final m10 = argStorage[1];
+    final m11 = argStorage[5];
+    final m12 = argStorage[9];
+    final m13 = argStorage[13];
+    final m20 = argStorage[2];
+    final m21 = argStorage[6];
+    final m22 = argStorage[10];
+    final m23 = argStorage[14];
+    final m30 = argStorage[3];
+    final m31 = argStorage[7];
+    final m32 = argStorage[11];
+    final m33 = argStorage[15];
+    final bStorage = _m4storage;
+    final n00 = bStorage[0];
+    final n01 = bStorage[4];
+    final n02 = bStorage[8];
+    final n03 = bStorage[12];
+    final n10 = bStorage[1];
+    final n11 = bStorage[5];
+    final n12 = bStorage[9];
+    final n13 = bStorage[13];
+    final n20 = bStorage[2];
+    final n21 = bStorage[6];
+    final n22 = bStorage[10];
+    final n23 = bStorage[14];
+    final n30 = bStorage[3];
+    final n31 = bStorage[7];
+    final n32 = bStorage[11];
+    final n33 = bStorage[15];
+    bStorage[0] = (m00 * n00) + (m01 * n10) + (m02 * n20) + (m03 * n30);
+    bStorage[4] = (m00 * n01) + (m01 * n11) + (m02 * n21) + (m03 * n31);
+    bStorage[8] = (m00 * n02) + (m01 * n12) + (m02 * n22) + (m03 * n32);
+    bStorage[12] = (m00 * n03) + (m01 * n13) + (m02 * n23) + (m03 * n33);
+    bStorage[1] = (m10 * n00) + (m11 * n10) + (m12 * n20) + (m13 * n30);
+    bStorage[5] = (m10 * n01) + (m11 * n11) + (m12 * n21) + (m13 * n31);
+    bStorage[9] = (m10 * n02) + (m11 * n12) + (m12 * n22) + (m13 * n32);
+    bStorage[13] = (m10 * n03) + (m11 * n13) + (m12 * n23) + (m13 * n33);
+    bStorage[2] = (m20 * n00) + (m21 * n10) + (m22 * n20) + (m23 * n30);
+    bStorage[6] = (m20 * n01) + (m21 * n11) + (m22 * n21) + (m23 * n31);
+    bStorage[10] = (m20 * n02) + (m21 * n12) + (m22 * n22) + (m23 * n32);
+    bStorage[14] = (m20 * n03) + (m21 * n13) + (m22 * n23) + (m23 * n33);
+    bStorage[3] = (m30 * n00) + (m31 * n10) + (m32 * n20) + (m33 * n30);
+    bStorage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
+    bStorage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
+    bStorage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
+  }
+
   /// Multiply a copy of this with [arg].
   Matrix4 multiplied(Matrix4 arg) => clone()..multiply(arg);
 

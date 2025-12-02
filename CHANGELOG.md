@@ -1,5 +1,6 @@
 ## 2.3.0-wip
 
+- Added `Matrix4.leftMultiply` method.
 - Add translateByVector2 method to Matrix4.
 - Require `sdk: ^3.7.0`.
 
