@@ -476,7 +476,7 @@ class Vector3 implements Vector {
     _v3storage[0] = _v3storage[0].abs();
   }
 
-  /// Clamp each entry n in this in the range [min[n]]-[max[n]].
+  /// Clamp each entry `n` in this in the range `[min[n]]-[max[n]]`.
   void clamp(Vector3 min, Vector3 max) {
     final minStorage = min.storage;
     final maxStorage = max.storage;

@@ -371,7 +371,7 @@ class Vector4 implements Vector {
     _v4storage[0] = _v4storage[0].abs();
   }
 
-  /// Clamp each entry n in this in the range [min[n]]-[max[n]].
+  /// Clamp each entry `n` in this in the range `[min[n]]-[max[n]]`.
   void clamp(Vector4 min, Vector4 max) {
     final minStorage = min.storage;
     final maxStorage = max.storage;

@@ -329,7 +329,7 @@ class Vector2 implements Vector {
     _v2storage[0] = _v2storage[0].abs();
   }
 
-  /// Clamp each entry n in this in the range [min[n]]-[max[n]].
+  /// Clamp each entry `n` in this in the range `[min[n]]-[max[n]]`.
   void clamp(Vector2 min, Vector2 max) {
     final minStorage = min._v2storage;
     final maxStorage = max._v2storage;
