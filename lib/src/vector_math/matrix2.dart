@@ -62,7 +62,10 @@ class Matrix2 {
   Matrix2.zero() : _m2storage = Float32List(4);
 
   /// Identity matrix.
-  factory Matrix2.identity() => Matrix2.zero()..setIdentity();
+  factory Matrix2.identity() =>
+      Matrix2.zero()
+        .._m2storage[0] = 1.0
+        .._m2storage[3] = 1.0;
 
   /// Copies values from [other].
   factory Matrix2.copy(Matrix2 other) => Matrix2.zero()..setFrom(other);

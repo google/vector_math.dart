@@ -245,7 +245,12 @@ class Matrix4 {
   Matrix4.zero() : _m4storage = Float64List(16);
 
   /// Identity matrix.
-  factory Matrix4.identity() => Matrix4.zero()..setIdentity();
+  factory Matrix4.identity() =>
+      Matrix4.zero()
+        .._m4storage[0] = 1.0
+        .._m4storage[5] = 1.0
+        .._m4storage[10] = 1.0
+        .._m4storage[15] = 1.0;
 
   /// Copies values from [other].
   factory Matrix4.copy(Matrix4 other) => Matrix4.zero()..setFrom(other);
