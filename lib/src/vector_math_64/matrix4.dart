@@ -649,24 +649,9 @@ class Matrix4 {
   Matrix4 clone() => Matrix4.copy(this);
 
   /// Copy into [arg].
+  @Deprecated('Use setFrom instead')
   Matrix4 copyInto(Matrix4 arg) {
-    final argStorage = arg._m4storage;
-    argStorage[0] = _m4storage[0];
-    argStorage[1] = _m4storage[1];
-    argStorage[2] = _m4storage[2];
-    argStorage[3] = _m4storage[3];
-    argStorage[4] = _m4storage[4];
-    argStorage[5] = _m4storage[5];
-    argStorage[6] = _m4storage[6];
-    argStorage[7] = _m4storage[7];
-    argStorage[8] = _m4storage[8];
-    argStorage[9] = _m4storage[9];
-    argStorage[10] = _m4storage[10];
-    argStorage[11] = _m4storage[11];
-    argStorage[12] = _m4storage[12];
-    argStorage[13] = _m4storage[13];
-    argStorage[14] = _m4storage[14];
-    argStorage[15] = _m4storage[15];
+    arg.setFrom(this);
     return arg;
   }
 

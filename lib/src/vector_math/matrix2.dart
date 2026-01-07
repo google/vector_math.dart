@@ -205,12 +205,9 @@ class Matrix2 {
   Matrix2 clone() => Matrix2.copy(this);
 
   /// Copy this into [arg].
+  @Deprecated('Use setFrom instead')
   Matrix2 copyInto(Matrix2 arg) {
-    final argStorage = arg._m2storage;
-    argStorage[0] = _m2storage[0];
-    argStorage[1] = _m2storage[1];
-    argStorage[2] = _m2storage[2];
-    argStorage[3] = _m2storage[3];
+    arg.setFrom(this);
     return arg;
   }
 

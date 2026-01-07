@@ -1,5 +1,6 @@
 ## 2.4.0-wip
 
+- Deprecate `MatrixX.copyInto` - use `setFrom` instead.
 - Remove the deprecated `SimplexNoise` class.
 
 ## 2.3.0
@@ -8,6 +9,7 @@
   Equivalent to the `leftTranslate` set of methods, that multiplies this matrix by a translation matrix from the left.
 - Added `Matrix4.leftMultiply` method.
 - Add `translateByVector2` method to `Matrix4`.
+- Deprecate `Matrix4.copyInto` - use `setFrom` instead.
 - Require `sdk: ^3.7.0`.
 
 ## 2.2.0

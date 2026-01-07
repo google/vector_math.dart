@@ -338,17 +338,9 @@ class Matrix3 {
   Matrix3 clone() => Matrix3.copy(this);
 
   /// Copy this into [arg].
+  @Deprecated('Use setFrom instead')
   Matrix3 copyInto(Matrix3 arg) {
-    final argStorage = arg._m3storage;
-    argStorage[0] = _m3storage[0];
-    argStorage[1] = _m3storage[1];
-    argStorage[2] = _m3storage[2];
-    argStorage[3] = _m3storage[3];
-    argStorage[4] = _m3storage[4];
-    argStorage[5] = _m3storage[5];
-    argStorage[6] = _m3storage[6];
-    argStorage[7] = _m3storage[7];
-    argStorage[8] = _m3storage[8];
+    arg.setFrom(this);
     return arg;
   }
 
