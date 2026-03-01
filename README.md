@@ -134,7 +134,7 @@ void main() {
 import 'package:vector_math/vector_math.dart';
 
 void main() {
-  // Access a build-in color, colors are stored in 4-dimensional vectors.
+  // Access a built-in color, colors are stored in 4-dimensional vectors.
   Vector4 red = Colors.red;
   Vector4 gray = Vector4.zero();
   // Convert the red color to a grayscaled color.
