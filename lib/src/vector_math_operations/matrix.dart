@@ -7,6 +7,7 @@ part of '../../vector_math_operations.dart';
 // ignore: avoid_classes_with_only_static_members
 /// Static methods operating on 4x4 matrices packed column major into a
 /// Float32List.
+// ignore: avoid_classes_with_only_static_members
 class Matrix44Operations {
   /// Compute the determinant of the 4x4 [matrix] starting at [offset].
   static double determinant(Float32List matrix, int offset) {
@@ -278,6 +279,7 @@ class Matrix44Operations {
 // ignore: avoid_classes_with_only_static_members
 /// Static methods operating on 4x4 matrices packed column major into a
 /// Float32x4List.
+// ignore: avoid_classes_with_only_static_members
 class Matrix44SIMDOperations {
   /// [out] = [A] * [B]; Starting at [outOffset], [aOffset], and [bOffset].
   static void multiply(
