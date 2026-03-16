@@ -4,7 +4,6 @@
 
 part of '../../vector_math_operations.dart';
 
-// ignore: avoid_classes_with_only_static_members
 /// Static methods operating on 4x4 matrices packed column major into a
 /// Float32List.
 // ignore: avoid_classes_with_only_static_members
@@ -276,7 +275,6 @@ class Matrix44Operations {
   }
 }
 
-// ignore: avoid_classes_with_only_static_members
 /// Static methods operating on 4x4 matrices packed column major into a
 /// Float32x4List.
 // ignore: avoid_classes_with_only_static_members

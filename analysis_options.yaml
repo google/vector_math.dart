@@ -26,4 +26,5 @@ linter:
   - prefer_expression_function_bodies
   - prefer_final_locals
   - unnecessary_await_in_return
+  - unnecessary_ignore
   - use_string_buffers
