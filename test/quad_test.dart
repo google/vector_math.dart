@@ -9,8 +9,12 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testQuadCopy() {
-  final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
-      Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
+  final quad = Quad.points(
+    Vector3(1.0, 0.0, 1.0),
+    Vector3(0.0, 2.0, 1.0),
+    Vector3(1.0, 0.0, 0.0),
+    Vector3(0.0, 2.0, 0.0),
+  );
   final quadCopy = Quad.copy(quad);
 
   relativeTest(quadCopy.point0, quad.point0);
@@ -20,8 +24,12 @@ void testQuadCopy() {
 }
 
 void testQuadCopyNormalInto() {
-  final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
-      Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
+  final quad = Quad.points(
+    Vector3(1.0, 0.0, 1.0),
+    Vector3(0.0, 2.0, 1.0),
+    Vector3(1.0, 0.0, 0.0),
+    Vector3(0.0, 2.0, 0.0),
+  );
   final normal = Vector3.zero();
 
   quad.copyNormalInto(normal);
@@ -30,8 +38,12 @@ void testQuadCopyNormalInto() {
 }
 
 void testQuadCopyTriangles() {
-  final quad = Quad.points(Vector3(1.0, 0.0, 1.0), Vector3(0.0, 2.0, 1.0),
-      Vector3(1.0, 0.0, 0.0), Vector3(0.0, 2.0, 0.0));
+  final quad = Quad.points(
+    Vector3(1.0, 0.0, 1.0),
+    Vector3(0.0, 2.0, 1.0),
+    Vector3(1.0, 0.0, 0.0),
+    Vector3(0.0, 2.0, 0.0),
+  );
   final t1 = Triangle();
   final t2 = Triangle();
   final normal = Vector3.zero();
@@ -62,8 +74,10 @@ void testQuadEquals() {
   expect(quad, isNot(Quad.points(v1, v2, Vector3.zero(), v4)));
   expect(quad, isNot(Quad.points(v1, v2, v3, Vector3.zero())));
 
-  expect(Quad.points(v1, v2, v3, v4).hashCode,
-      equals(Quad.points(v1, v2, v3, v4).hashCode));
+  expect(
+    Quad.points(v1, v2, v3, v4).hashCode,
+    equals(Quad.points(v1, v2, v3, v4).hashCode),
+  );
 }
 
 void main() {

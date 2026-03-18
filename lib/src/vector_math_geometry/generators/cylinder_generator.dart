@@ -16,10 +16,14 @@ class CylinderGenerator extends GeometryGenerator {
   @override
   int get indexCount => (_segments * 6) + ((_segments - 2) * 6);
 
-  MeshGeometry createCylinder(num topRadius, num bottomRadius, num height,
-      {int segments = 16,
-      GeometryGeneratorFlags? flags,
-      List<GeometryFilter>? filters}) {
+  MeshGeometry createCylinder(
+    num topRadius,
+    num bottomRadius,
+    num height, {
+    int segments = 16,
+    GeometryGeneratorFlags? flags,
+    List<GeometryFilter>? filters,
+  }) {
     _topRadius = topRadius.toDouble();
     _bottomRadius = bottomRadius.toDouble();
     _height = height.toDouble();
@@ -70,38 +74,53 @@ class CylinderGenerator extends GeometryGenerator {
     for (var x = 0; x <= _segments; ++x) {
       final u = x / _segments;
 
-      positions[i++] = Vector3(_topRadius * math.cos(u * math.pi * 2.0),
-          _height * 0.5, _topRadius * math.sin(u * math.pi * 2.0));
+      positions[i++] = Vector3(
+        _topRadius * math.cos(u * math.pi * 2.0),
+        _height * 0.5,
+        _topRadius * math.sin(u * math.pi * 2.0),
+      );
     }
 
     // Bottom
     for (var x = 0; x <= _segments; ++x) {
       final u = x / _segments;
 
-      positions[i++] = Vector3(_bottomRadius * math.cos(u * math.pi * 2.0),
-          _height * -0.5, _bottomRadius * math.sin(u * math.pi * 2.0));
+      positions[i++] = Vector3(
+        _bottomRadius * math.cos(u * math.pi * 2.0),
+        _height * -0.5,
+        _bottomRadius * math.sin(u * math.pi * 2.0),
+      );
     }
 
     // Top cap
     for (var x = 0; x < _segments; ++x) {
       final u = x / _segments;
 
-      positions[i++] = Vector3(_topRadius * math.cos(u * math.pi * 2.0),
-          _height * 0.5, _topRadius * math.sin(u * math.pi * 2.0));
+      positions[i++] = Vector3(
+        _topRadius * math.cos(u * math.pi * 2.0),
+        _height * 0.5,
+        _topRadius * math.sin(u * math.pi * 2.0),
+      );
     }
 
     // Bottom cap
     for (var x = 0; x < _segments; ++x) {
       final u = x / _segments;
 
-      positions[i++] = Vector3(_bottomRadius * math.cos(u * math.pi * 2.0),
-          _height * -0.5, _bottomRadius * math.sin(u * math.pi * 2.0));
+      positions[i++] = Vector3(
+        _bottomRadius * math.cos(u * math.pi * 2.0),
+        _height * -0.5,
+        _bottomRadius * math.sin(u * math.pi * 2.0),
+      );
     }
   }
 
   @override
   void generateVertexTexCoords(
-      Vector2List texCoords, Vector3List positions, Uint16List indices) {
+    Vector2List texCoords,
+    Vector3List positions,
+    Uint16List indices,
+  ) {
     var i = 0;
 
     // Cylinder top
@@ -119,15 +138,19 @@ class CylinderGenerator extends GeometryGenerator {
     // Top cap
     for (var x = 0; x < _segments; ++x) {
       final r = (x / _segments) * math.pi * 2.0;
-      texCoords[i++] =
-          Vector2(math.cos(r) * 0.5 + 0.5, math.sin(r) * 0.5 + 0.5);
+      texCoords[i++] = Vector2(
+        math.cos(r) * 0.5 + 0.5,
+        math.sin(r) * 0.5 + 0.5,
+      );
     }
 
     // Bottom cap
     for (var x = 0; x < _segments; ++x) {
       final r = (x / _segments) * math.pi * 2.0;
-      texCoords[i++] =
-          Vector2(math.cos(r) * 0.5 + 0.5, math.sin(r) * 0.5 + 0.5);
+      texCoords[i++] = Vector2(
+        math.cos(r) * 0.5 + 0.5,
+        math.sin(r) * 0.5 + 0.5,
+      );
     }
   }
 }

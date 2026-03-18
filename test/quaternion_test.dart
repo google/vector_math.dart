@@ -25,8 +25,10 @@ void testQuaternionInstacingFromByteBuffer() {
   final float32List = Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0]);
   final buffer = float32List.buffer;
   final zeroOffset = Quaternion.fromBuffer(buffer, 0);
-  final offsetVector =
-      Quaternion.fromBuffer(buffer, Float32List.bytesPerElement);
+  final offsetVector = Quaternion.fromBuffer(
+    buffer,
+    Float32List.bytesPerElement,
+  );
 
   expect(zeroOffset.x, equals(1.0));
   expect(zeroOffset.y, equals(2.0));
@@ -65,18 +67,26 @@ void testQuaternionMatrixRoundTrip(List<Quaternion> input) {
   }
 }
 
-void testQuaternionMultiply(List<Quaternion> inputA, List<Quaternion> inputB,
-    List<Quaternion> expectedOutput) {
+void testQuaternionMultiply(
+  List<Quaternion> inputA,
+  List<Quaternion> inputB,
+  List<Quaternion> expectedOutput,
+) {
   for (var i = 0; i < inputA.length; i++) {
     final output = inputA[i] * inputB[i];
     relativeTest(output, expectedOutput[i]);
   }
 }
 
-void testQuaternionVectorRotate(List<Quaternion> inputA, List<Vector3> inputB,
-    List<Vector3> expectedOutput) {
-  assert((inputA.length == inputB.length) &&
-      (inputB.length == expectedOutput.length));
+void testQuaternionVectorRotate(
+  List<Quaternion> inputA,
+  List<Vector3> inputB,
+  List<Vector3> expectedOutput,
+) {
+  assert(
+    (inputA.length == inputB.length) &&
+        (inputB.length == expectedOutput.length),
+  );
   for (var i = 0; i < inputA.length; i++) {
     final output = inputA[i].rotate(inputB[i]);
     relativeTest(output, expectedOutput[i]);
@@ -236,14 +246,20 @@ void testFromTwoVectors() {
 }
 
 void testSmallAngleQuaternionAxis() {
-  final quaternion32 =
-      Quaternion.axisAngle(Vector3(0.0, 0.0, 1.0), 0.6 * degrees2Radians);
+  final quaternion32 = Quaternion.axisAngle(
+    Vector3(0.0, 0.0, 1.0),
+    0.6 * degrees2Radians,
+  );
   relativeTest(quaternion32.axis, Vector3(0.0, 0.0, 1.0));
   relativeTest(quaternion32.radians, 0.6 * degrees2Radians);
-  final quaternion64 =
-      v64.Quaternion.axisAngle(v64.Vector3(0, 0, 1), 0.01 * degrees2Radians);
+  final quaternion64 = v64.Quaternion.axisAngle(
+    v64.Vector3(0, 0, 1),
+    0.01 * degrees2Radians,
+  );
   expect(
-      quaternion64.axis.relativeError(v64.Vector3(0, 0, 1)), closeTo(0, 1e-5));
+    quaternion64.axis.relativeError(v64.Vector3(0, 0, 1)),
+    closeTo(0, 1e-5),
+  );
   expect(quaternion64.radians, closeTo(0.01 * degrees2Radians, 1e-5));
 }
 
@@ -253,8 +269,10 @@ void main() {
     test('ByteBuffer instacing', testQuaternionInstacingFromByteBuffer);
     test('Negate', testQuaternionNegate);
     test('Conjugate', testQuaternionConjugate);
-    test('Matrix Quaternion Round Trip',
-        testQuaternionMatrixQuaternionRoundTrip);
+    test(
+      'Matrix Quaternion Round Trip',
+      testQuaternionMatrixQuaternionRoundTrip,
+    );
     test('Multiply', testQuaternionMultiplying);
     test('Normalize', testQuaternionNormalize);
     test('Axis-Angle', testQuaternionAxisAngle);

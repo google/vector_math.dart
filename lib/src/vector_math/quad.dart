@@ -25,24 +25,24 @@ class Quad {
 
   /// Create a new, uninitialized quad.
   Quad()
-      : _point0 = Vector3.zero(),
-        _point1 = Vector3.zero(),
-        _point2 = Vector3.zero(),
-        _point3 = Vector3.zero();
+    : _point0 = Vector3.zero(),
+      _point1 = Vector3.zero(),
+      _point2 = Vector3.zero(),
+      _point3 = Vector3.zero();
 
   /// Create a quad as a copy of [other].
   Quad.copy(Quad other)
-      : _point0 = Vector3.copy(other._point0),
-        _point1 = Vector3.copy(other._point1),
-        _point2 = Vector3.copy(other._point2),
-        _point3 = Vector3.copy(other._point3);
+    : _point0 = Vector3.copy(other._point0),
+      _point1 = Vector3.copy(other._point1),
+      _point2 = Vector3.copy(other._point2),
+      _point3 = Vector3.copy(other._point3);
 
   /// Create a quad by four points.
   Quad.points(Vector3 point0, Vector3 point1, Vector3 point2, Vector3 point3)
-      : _point0 = Vector3.copy(point0),
-        _point1 = Vector3.copy(point1),
-        _point2 = Vector3.copy(point2),
-        _point3 = Vector3.copy(point3);
+    : _point0 = Vector3.copy(point0),
+      _point1 = Vector3.copy(point1),
+      _point2 = Vector3.copy(point2),
+      _point3 = Vector3.copy(point3);
 
   /// Copy the quad from [other] into this.
   void copyFrom(Quad other) {
@@ -91,7 +91,8 @@ class Quad {
 
   /// Returns a printable string
   @override
-  String toString() => '[0] $_point0\n[1] $_point1\n'
+  String toString() =>
+      '[0] $_point0\n[1] $_point1\n'
       '[2] $_point2\n[3] $_point3\n';
 
   /// Check if two quad are the same.

@@ -14,24 +14,23 @@ class Aabb3 {
   Vector3 get max => _max;
 
   /// The center of the AABB.
-  Vector3 get center => _min.clone()
-    ..add(_max)
-    ..scale(0.5);
+  Vector3 get center =>
+      _min.clone()
+        ..add(_max)
+        ..scale(0.5);
 
   /// Create a new AABB with [min] and [max] set to the origin.
-  Aabb3()
-      : _min = Vector3.zero(),
-        _max = Vector3.zero();
+  Aabb3() : _min = Vector3.zero(), _max = Vector3.zero();
 
   /// Create a new AABB as a copy of [other].
   Aabb3.copy(Aabb3 other)
-      : _min = Vector3.copy(other._min),
-        _max = Vector3.copy(other._max);
+    : _min = Vector3.copy(other._min),
+      _max = Vector3.copy(other._max);
 
   /// Create a new AABB with a [min] and [max].
   Aabb3.minMax(Vector3 min, Vector3 max)
-      : _min = Vector3.copy(min),
-        _max = Vector3.copy(max);
+    : _min = Vector3.copy(min),
+      _max = Vector3.copy(max);
 
   /// Create a new AABB that encloses a [sphere].
   factory Aabb3.fromSphere(Sphere sphere) => Aabb3()..setSphere(sphere);
@@ -59,9 +58,11 @@ class Aabb3 {
   /// starting at [offset]. [offset] has to be multiple of
   /// [Float64List.bytesPerElement].
   Aabb3.fromBuffer(ByteBuffer buffer, int offset)
-      : _min = Vector3.fromBuffer(buffer, offset),
-        _max = Vector3.fromBuffer(
-            buffer, offset + Float64List.bytesPerElement * 3);
+    : _min = Vector3.fromBuffer(buffer, offset),
+      _max = Vector3.fromBuffer(
+        buffer,
+        offset + Float64List.bytesPerElement * 3,
+      );
 
   /// Set the AABB by a [center] and [halfExtents].
   void setCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
@@ -86,41 +87,65 @@ class Aabb3 {
   /// Set the AABB to enclose a [triangle].
   void setTriangle(Triangle triangle) {
     _min.setValues(
-        math.min(triangle._point0.x,
-            math.min(triangle._point1.x, triangle._point2.x)),
-        math.min(triangle._point0.y,
-            math.min(triangle._point1.y, triangle._point2.y)),
-        math.min(triangle._point0.z,
-            math.min(triangle._point1.z, triangle._point2.z)));
+      math.min(
+        triangle._point0.x,
+        math.min(triangle._point1.x, triangle._point2.x),
+      ),
+      math.min(
+        triangle._point0.y,
+        math.min(triangle._point1.y, triangle._point2.y),
+      ),
+      math.min(
+        triangle._point0.z,
+        math.min(triangle._point1.z, triangle._point2.z),
+      ),
+    );
     _max.setValues(
-        math.max(triangle._point0.x,
-            math.max(triangle._point1.x, triangle._point2.x)),
-        math.max(triangle._point0.y,
-            math.max(triangle._point1.y, triangle._point2.y)),
-        math.max(triangle._point0.z,
-            math.max(triangle._point1.z, triangle._point2.z)));
+      math.max(
+        triangle._point0.x,
+        math.max(triangle._point1.x, triangle._point2.x),
+      ),
+      math.max(
+        triangle._point0.y,
+        math.max(triangle._point1.y, triangle._point2.y),
+      ),
+      math.max(
+        triangle._point0.z,
+        math.max(triangle._point1.z, triangle._point2.z),
+      ),
+    );
   }
 
   /// Set the AABB to enclose a [quad].
   void setQuad(Quad quad) {
     _min.setValues(
-        math.min(quad._point0.x,
-            math.min(quad._point1.x, math.min(quad._point2.x, quad._point3.x))),
-        math.min(quad._point0.y,
-            math.min(quad._point1.y, math.min(quad._point2.y, quad._point3.y))),
-        math.min(
-            quad._point0.z,
-            math.min(
-                quad._point1.z, math.min(quad._point2.z, quad._point3.z))));
+      math.min(
+        quad._point0.x,
+        math.min(quad._point1.x, math.min(quad._point2.x, quad._point3.x)),
+      ),
+      math.min(
+        quad._point0.y,
+        math.min(quad._point1.y, math.min(quad._point2.y, quad._point3.y)),
+      ),
+      math.min(
+        quad._point0.z,
+        math.min(quad._point1.z, math.min(quad._point2.z, quad._point3.z)),
+      ),
+    );
     _max.setValues(
-        math.max(quad._point0.x,
-            math.max(quad._point1.x, math.max(quad._point2.x, quad._point3.x))),
-        math.max(quad._point0.y,
-            math.max(quad._point1.y, math.max(quad._point2.y, quad._point3.y))),
-        math.max(
-            quad._point0.z,
-            math.max(
-                quad._point1.z, math.max(quad._point2.z, quad._point3.z))));
+      math.max(
+        quad._point0.x,
+        math.max(quad._point1.x, math.max(quad._point2.x, quad._point3.x)),
+      ),
+      math.max(
+        quad._point0.y,
+        math.max(quad._point1.y, math.max(quad._point2.y, quad._point3.y)),
+      ),
+      math.max(
+        quad._point0.z,
+        math.max(quad._point1.z, math.max(quad._point2.z, quad._point3.z)),
+      ),
+    );
   }
 
   /// Set the AABB to enclose a [obb].
@@ -238,15 +263,17 @@ class Aabb3 {
 
   /// Create a copy of this that is transformed by the transform [t] and store
   /// it in [out].
-  Aabb3 transformed(Matrix4 t, Aabb3 out) => out
-    ..copyFrom(this)
-    ..transform(t);
+  Aabb3 transformed(Matrix4 t, Aabb3 out) =>
+      out
+        ..copyFrom(this)
+        ..transform(t);
 
   /// Create a copy of this that is rotated by the rotation matrix [t] and
   /// store it in [out].
-  Aabb3 rotated(Matrix4 t, Aabb3 out) => out
-    ..copyFrom(this)
-    ..rotate(t);
+  Aabb3 rotated(Matrix4 t, Aabb3 out) =>
+      out
+        ..copyFrom(this)
+        ..rotate(t);
 
   void getPN(Vector3 planeNormal, Vector3 outP, Vector3 outN) {
     if (planeNormal.x < 0.0) {
@@ -393,8 +420,11 @@ class Aabb3 {
   /// be used for the test. If [result] is specified and an intersection is
   /// found, result is modified to contain more details about the type of
   /// intersection.
-  bool intersectsWithTriangle(Triangle other,
-      {double epsilon = 1e-3, IntersectionResult? result}) {
+  bool intersectsWithTriangle(
+    Triangle other, {
+    double epsilon = 1e-3,
+    IntersectionResult? result,
+  }) {
     double p0, p1, p2, r, len;
     double a;
 
@@ -639,7 +669,8 @@ class Aabb3 {
     copyCenterAndHalfExtents(_aabbCenter, _aabbHalfExtents);
 
     // Compute the projection interval radius of b onto L(t) = b.c + t * p.n
-    final r = _aabbHalfExtents[0] * other.normal[0].abs() +
+    final r =
+        _aabbHalfExtents[0] * other.normal[0].abs() +
         _aabbHalfExtents[1] * other.normal[1].abs() +
         _aabbHalfExtents[2] * other.normal[2].abs();
     // Compute distance of box center from plane

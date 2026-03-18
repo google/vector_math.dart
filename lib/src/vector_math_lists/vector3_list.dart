@@ -9,17 +9,17 @@ class Vector3List extends VectorList<Vector3> {
   /// Create a new vector list with [length] elements. Optionally it is possible
   /// to specify an [offset] in the [buffer] and a [stride] between each vector.
   Vector3List(int length, [int offset = 0, int stride = 0])
-      : super(length, 3, offset, stride);
+    : super(length, 3, offset, stride);
 
   /// Create a new vector list from a list of vectors. Optionally it is possible
   /// to specify an [offset] in the [buffer] and a [stride] between each vector.
   Vector3List.fromList(List<Vector3> list, [int offset = 0, int stride = 0])
-      : super.fromList(list, 3, offset, stride);
+    : super.fromList(list, 3, offset, stride);
 
   /// Create a new vector list as a view of [buffer]. Optionally it is possible
   /// to specify a [offset] in the [buffer] and a [stride] between each vector.
   Vector3List.view(Float32List buffer, [int offset = 0, int stride = 0])
-      : super.view(buffer, 3, offset, stride);
+    : super.view(buffer, 3, offset, stride);
 
   @override
   Vector3 newVector() => Vector3.zero();

@@ -15,8 +15,13 @@ class CubeGenerator extends GeometryGenerator {
   @override
   int get indexCount => 36;
 
-  MeshGeometry createCube(num width, num height, num depth,
-      {GeometryGeneratorFlags? flags, List<GeometryFilter>? filters}) {
+  MeshGeometry createCube(
+    num width,
+    num height,
+    num depth, {
+    GeometryGeneratorFlags? flags,
+    List<GeometryFilter>? filters,
+  }) {
     _width = width.toDouble();
     _height = height.toDouble();
     _depth = depth.toDouble();
@@ -62,7 +67,7 @@ class CubeGenerator extends GeometryGenerator {
       22,
       20,
       22,
-      23
+      23,
     ]);
   }
 
@@ -107,7 +112,10 @@ class CubeGenerator extends GeometryGenerator {
 
   @override
   void generateVertexTexCoords(
-      Vector2List texCoords, Vector3List positions, Uint16List indices) {
+    Vector2List texCoords,
+    Vector3List positions,
+    Uint16List indices,
+  ) {
     // Front
     texCoords[0] = Vector2(1.0, 0.0);
     texCoords[1] = Vector2(0.0, 0.0);

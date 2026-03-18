@@ -11,9 +11,10 @@ import 'package:vector_math/vector_math.dart';
 import 'test_utils.dart';
 
 void testCorners() {
-  final a = Obb3()
-    ..center.setValues(0.0, 0.0, 0.0)
-    ..halfExtents.setValues(5.0, 5.0, 5.0);
+  final a =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 0.0)
+        ..halfExtents.setValues(5.0, 5.0, 5.0);
   final corner = Vector3.zero();
 
   a.copyCorner(0, corner);
@@ -42,9 +43,10 @@ void testCorners() {
 }
 
 void testTranslate() {
-  final a = Obb3()
-    ..center.setValues(0.0, 0.0, 0.0)
-    ..halfExtents.setValues(5.0, 5.0, 5.0);
+  final a =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 0.0)
+        ..halfExtents.setValues(5.0, 5.0, 5.0);
   final corner = Vector3.zero();
 
   a.translate(Vector3(-1.0, 2.0, 3.0));
@@ -75,9 +77,10 @@ void testTranslate() {
 }
 
 void testRotate() {
-  final a = Obb3()
-    ..center.setValues(0.0, 0.0, 0.0)
-    ..halfExtents.setValues(5.0, 5.0, 5.0);
+  final a =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 0.0)
+        ..halfExtents.setValues(5.0, 5.0, 5.0);
   final corner = Vector3.zero();
   final matrix = Matrix3.rotationY(radians(-45.0));
 
@@ -109,9 +112,10 @@ void testRotate() {
 }
 
 void testTransform() {
-  final a = Obb3()
-    ..center.setValues(0.0, 0.0, 0.0)
-    ..halfExtents.setValues(5.0, 5.0, 5.0);
+  final a =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 0.0)
+        ..halfExtents.setValues(5.0, 5.0, 5.0);
   final corner = Vector3.zero();
   final matrix = Matrix4.diagonal3Values(3.0, 3.0, 3.0);
 
@@ -143,9 +147,10 @@ void testTransform() {
 }
 
 void testClosestPointTo() {
-  final a = Obb3()
-    ..center.setValues(0.0, 0.0, 0.0)
-    ..halfExtents.setValues(2.0, 2.0, 2.0);
+  final a =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 0.0)
+        ..halfExtents.setValues(2.0, 2.0, 2.0);
   final b = Vector3(3.0, 3.0, 3.0);
   final c = Vector3(3.0, 3.0, -3.0);
   final closestPoint = Vector3.zero();
@@ -170,45 +175,55 @@ void testClosestPointTo() {
 }
 
 void testIntersectionObb3() {
-  final a = Obb3()
-    ..center.setValues(0.0, 0.0, 0.0)
-    ..halfExtents.setValues(2.0, 2.0, 2.0);
+  final a =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 0.0)
+        ..halfExtents.setValues(2.0, 2.0, 2.0);
 
-  final b = Obb3()
-    ..center.setValues(3.0, 0.0, 0.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final b =
+      Obb3()
+        ..center.setValues(3.0, 0.0, 0.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final c = Obb3()
-    ..center.setValues(0.0, 3.0, 0.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final c =
+      Obb3()
+        ..center.setValues(0.0, 3.0, 0.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final d = Obb3()
-    ..center.setValues(0.0, 0.0, 3.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final d =
+      Obb3()
+        ..center.setValues(0.0, 0.0, 3.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final e = Obb3()
-    ..center.setValues(-3.0, 0.0, 0.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final e =
+      Obb3()
+        ..center.setValues(-3.0, 0.0, 0.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final f = Obb3()
-    ..center.setValues(0.0, -3.0, 0.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final f =
+      Obb3()
+        ..center.setValues(0.0, -3.0, 0.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final g = Obb3()
-    ..center.setValues(0.0, 0.0, -3.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final g =
+      Obb3()
+        ..center.setValues(0.0, 0.0, -3.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final u = Obb3()
-    ..center.setValues(1.0, 1.0, 1.0)
-    ..halfExtents.setValues(0.5, 0.5, 0.5);
+  final u =
+      Obb3()
+        ..center.setValues(1.0, 1.0, 1.0)
+        ..halfExtents.setValues(0.5, 0.5, 0.5);
 
-  final v = Obb3()
-    ..center.setValues(10.0, 10.0, -10.0)
-    ..halfExtents.setValues(2.0, 2.0, 2.0);
+  final v =
+      Obb3()
+        ..center.setValues(10.0, 10.0, -10.0)
+        ..halfExtents.setValues(2.0, 2.0, 2.0);
 
-  final w = Obb3()
-    ..center.setValues(10.0, 0.0, 0.0)
-    ..halfExtents.setValues(1.0, 1.0, 1.0);
+  final w =
+      Obb3()
+        ..center.setValues(10.0, 0.0, 0.0)
+        ..halfExtents.setValues(1.0, 1.0, 1.0);
 
   // a - b
   expect(a.intersectsWithObb3(b), isFalse);
@@ -302,9 +317,10 @@ void testIntersectionObb3() {
 
 void testIntersectionVector3() {
   //final parent = new Aabb3.minMax(_v(1.0,1.0,1.0), _v(8.0,8.0,8.0));
-  final parent = Obb3()
-    ..center.setValues(4.5, 4.5, 4.5)
-    ..halfExtents.setValues(3.5, 3.5, 3.5);
+  final parent =
+      Obb3()
+        ..center.setValues(4.5, 4.5, 4.5)
+        ..halfExtents.setValues(3.5, 3.5, 3.5);
   final child = $v3(7.0, 7.0, 7.0);
   final cutting = $v3(1.0, 2.0, 1.0);
   final outside1 = $v3(-10.0, 10.0, 10.0);
@@ -329,19 +345,40 @@ void testIntersectionTriangle() {
   parent.center.setValues(4.5, 4.5, 4.5);
   parent.halfExtents.setValues(3.5, 3.5, 3.5);
   final child = Triangle.points(
-      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+    $v3(2.0, 2.0, 2.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(4.0, 4.0, 4.0),
+  );
   final edge = Triangle.points(
-      $v3(1.0, 1.0, 1.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+    $v3(1.0, 1.0, 1.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(4.0, 4.0, 4.0),
+  );
   final cutting = Triangle.points(
-      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(14.0, 14.0, 14.0));
+    $v3(2.0, 2.0, 2.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(14.0, 14.0, 14.0),
+  );
   final outside = Triangle.points(
-      $v3(0.0, 0.0, 0.0), $v3(-3.0, -3.0, -3.0), $v3(-4.0, -4.0, -4.0));
+    $v3(0.0, 0.0, 0.0),
+    $v3(-3.0, -3.0, -3.0),
+    $v3(-4.0, -4.0, -4.0),
+  );
   final parallel0 = Triangle.points(
-      $v3(1.0, 0.0, 1.0), $v3(1.0, 10.0, 1.0), $v3(1.0, 0.0, 10.0));
+    $v3(1.0, 0.0, 1.0),
+    $v3(1.0, 10.0, 1.0),
+    $v3(1.0, 0.0, 10.0),
+  );
   final parallel1 = Triangle.points(
-      $v3(1.0, 4.5, 0.0), $v3(1.0, -1.0, 9.0), $v3(1.0, 10.0, 9.0));
+    $v3(1.0, 4.5, 0.0),
+    $v3(1.0, -1.0, 9.0),
+    $v3(1.0, 10.0, 9.0),
+  );
   final parallel2 = Triangle.points(
-      $v3(1.0, 10.0, 9.0), $v3(1.0, -1.0, 9.0), $v3(1.0, 4.5, 0.0));
+    $v3(1.0, 10.0, 9.0),
+    $v3(1.0, -1.0, 9.0),
+    $v3(1.0, 4.5, 0.0),
+  );
 
   expect(parent.intersectsWithTriangle(child), isTrue);
   expect(parent.intersectsWithTriangle(edge), isTrue);
@@ -385,58 +422,89 @@ void testIntersectionTriangle() {
   expect(parent.intersectsWithTriangle(parallel2), isTrue);
 
   final obb = Obb3.centerExtentsAxes(
-      $v3(21.0, -36.400001525878906, 2.799999952316284),
-      $v3(0.25, 0.15000000596046448, 0.25),
-      $v3(0.0, 1.0, 0.0),
-      $v3(-1.0, 0.0, 0.0),
-      $v3(0.0, 0.0, 1.0));
+    $v3(21.0, -36.400001525878906, 2.799999952316284),
+    $v3(0.25, 0.15000000596046448, 0.25),
+    $v3(0.0, 1.0, 0.0),
+    $v3(-1.0, 0.0, 0.0),
+    $v3(0.0, 0.0, 1.0),
+  );
   final triangle = Triangle.points(
-      $v3(20.5, -36.5, 3.5), $v3(21.5, -36.5, 2.5), $v3(20.5, -36.5, 2.5));
+    $v3(20.5, -36.5, 3.5),
+    $v3(21.5, -36.5, 2.5),
+    $v3(20.5, -36.5, 2.5),
+  );
 
   expect(obb.intersectsWithTriangle(triangle), isTrue);
 
   final obb2 = Obb3.centerExtentsAxes(
-      $v3(25.15829086303711, -36.27009201049805, 3.0299079418182373),
-      $v3(0.25, 0.15000000596046448, 0.25),
-      $v3(-0.7071067690849304, 0.7071067690849304, 0.0),
-      $v3(-0.7071067690849304, -0.7071067690849304, 0.0),
-      $v3(0.0, 0.0, 1.0));
+    $v3(25.15829086303711, -36.27009201049805, 3.0299079418182373),
+    $v3(0.25, 0.15000000596046448, 0.25),
+    $v3(-0.7071067690849304, 0.7071067690849304, 0.0),
+    $v3(-0.7071067690849304, -0.7071067690849304, 0.0),
+    $v3(0.0, 0.0, 1.0),
+  );
   final triangle2 = Triangle.points(
-      $v3(25.5, -36.5, 2.5), $v3(25.5, -35.5, 3.5), $v3(24.5, -36.5, 2.5));
-  final triangle2_1 = Triangle.points($v3(24.5, -36.5, 2.5),
-      $v3(25.5, -35.5, 3.5), $v3(25.5, -36.5, 2.5)); // reverse normal direction
+    $v3(25.5, -36.5, 2.5),
+    $v3(25.5, -35.5, 3.5),
+    $v3(24.5, -36.5, 2.5),
+  );
+  final triangle2_1 = Triangle.points(
+    $v3(24.5, -36.5, 2.5),
+    $v3(25.5, -35.5, 3.5),
+    $v3(25.5, -36.5, 2.5),
+  ); // reverse normal direction
 
   expect(obb2.intersectsWithTriangle(triangle2), isTrue);
   expect(obb2.intersectsWithTriangle(triangle2_1), isTrue);
 
   final obb3 = Obb3.centerExtentsAxes(
-      $v3(20.937196731567383, -37.599998474121094, 2.799999952316284),
-      $v3(0.25, 0.15000000596046448, 0.25),
-      $v3(0.0, -1.0, 0.0),
-      $v3(1.0, 0.0, 0.0),
-      $v3(0.0, 0.0, 1.0));
+    $v3(20.937196731567383, -37.599998474121094, 2.799999952316284),
+    $v3(0.25, 0.15000000596046448, 0.25),
+    $v3(0.0, -1.0, 0.0),
+    $v3(1.0, 0.0, 0.0),
+    $v3(0.0, 0.0, 1.0),
+  );
   final triangle3 = Triangle.points(
-      $v3(20.5, -37.5, 3.5), $v3(20.5, -37.5, 2.5), $v3(21.5, -37.5, 2.5));
-  final triangle3_1 = Triangle.points($v3(21.5, -37.5, 2.5),
-      $v3(20.5, -37.5, 2.5), $v3(20.5, -37.5, 3.5)); // reverse normal direction
+    $v3(20.5, -37.5, 3.5),
+    $v3(20.5, -37.5, 2.5),
+    $v3(21.5, -37.5, 2.5),
+  );
+  final triangle3_1 = Triangle.points(
+    $v3(21.5, -37.5, 2.5),
+    $v3(20.5, -37.5, 2.5),
+    $v3(20.5, -37.5, 3.5),
+  ); // reverse normal direction
 
   expect(obb3.intersectsWithTriangle(triangle3), isTrue);
   expect(obb3.intersectsWithTriangle(triangle3_1), isTrue);
 
   final obb4 = Obb3.centerExtentsAxes(
-      $v3(19.242143630981445, -39.20925521850586, 2.549999952316284),
-      $v3(0.25, 0.15000000596046448, 0.25),
-      $v3(0.0, 1.0, 0.0),
-      $v3(-1.0, 0.0, 0.0),
-      $v3(0.0, 0.0, 1.0));
+    $v3(19.242143630981445, -39.20925521850586, 2.549999952316284),
+    $v3(0.25, 0.15000000596046448, 0.25),
+    $v3(0.0, 1.0, 0.0),
+    $v3(-1.0, 0.0, 0.0),
+    $v3(0.0, 0.0, 1.0),
+  );
   final triangle4 = Triangle.points(
-      $v3(18.5, -39.5, 2.5), $v3(19.5, -39.5, 2.5), $v3(19.5, -38.5, 2.5));
-  final triangle4_1 = Triangle.points($v3(19.5, -38.5, 2.5),
-      $v3(19.5, -39.5, 2.5), $v3(18.5, -39.5, 2.5)); // reverse normal direction
+    $v3(18.5, -39.5, 2.5),
+    $v3(19.5, -39.5, 2.5),
+    $v3(19.5, -38.5, 2.5),
+  );
+  final triangle4_1 = Triangle.points(
+    $v3(19.5, -38.5, 2.5),
+    $v3(19.5, -39.5, 2.5),
+    $v3(18.5, -39.5, 2.5),
+  ); // reverse normal direction
   final triangle4_2 = Triangle.points(
-      $v3(18.5, -39.5, 2.5), $v3(19.5, -38.5, 2.5), $v3(18.5, -38.5, 2.5));
-  final triangle4_3 = Triangle.points($v3(18.5, -38.5, 2.5),
-      $v3(19.5, -38.5, 2.5), $v3(18.5, -39.5, 2.5)); // reverse normal direction
+    $v3(18.5, -39.5, 2.5),
+    $v3(19.5, -38.5, 2.5),
+    $v3(18.5, -38.5, 2.5),
+  );
+  final triangle4_3 = Triangle.points(
+    $v3(18.5, -38.5, 2.5),
+    $v3(19.5, -38.5, 2.5),
+    $v3(18.5, -39.5, 2.5),
+  ); // reverse normal direction
 
   expect(obb4.intersectsWithTriangle(triangle4), isTrue);
   expect(obb4.intersectsWithTriangle(triangle4_1), isTrue);

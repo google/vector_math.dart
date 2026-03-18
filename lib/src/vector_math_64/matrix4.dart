@@ -126,22 +126,26 @@ class Matrix4 {
     }
 
     x
-      ..x = det *
+      ..x =
+          det *
           ((a11 * b11 - a12 * b10 + a13 * b09) * bX -
               (a10 * b11 - a12 * b08 + a13 * b07) * bY +
               (a10 * b10 - a11 * b08 + a13 * b06) * bZ -
               (a10 * b09 - a11 * b07 + a12 * b06) * bW)
-      ..y = det *
+      ..y =
+          det *
           -((a01 * b11 - a02 * b10 + a03 * b09) * bX -
               (a00 * b11 - a02 * b08 + a03 * b07) * bY +
               (a00 * b10 - a01 * b08 + a03 * b06) * bZ -
               (a00 * b09 - a01 * b07 + a02 * b06) * bW)
-      ..z = det *
+      ..z =
+          det *
           ((a31 * b05 - a32 * b04 + a33 * b03) * bX -
               (a30 * b05 - a32 * b02 + a33 * b01) * bY +
               (a30 * b04 - a31 * b02 + a33 * b00) * bZ -
               (a30 * b03 - a31 * b01 + a32 * b00) * bW)
-      ..w = det *
+      ..w =
+          det *
           -((a21 * b05 - a22 * b04 + a23 * b03) * bX -
               (a20 * b05 - a22 * b02 + a23 * b01) * bY +
               (a20 * b04 - a21 * b02 + a23 * b00) * bZ -
@@ -180,29 +184,45 @@ class Matrix4 {
 
   /// Constructs a new mat4.
   factory Matrix4(
-          double arg0,
-          double arg1,
-          double arg2,
-          double arg3,
-          double arg4,
-          double arg5,
-          double arg6,
-          double arg7,
-          double arg8,
-          double arg9,
-          double arg10,
-          double arg11,
-          double arg12,
-          double arg13,
-          double arg14,
-          double arg15) =>
-      Matrix4.zero()
-        ..setValues(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
-            arg10, arg11, arg12, arg13, arg14, arg15);
+    double arg0,
+    double arg1,
+    double arg2,
+    double arg3,
+    double arg4,
+    double arg5,
+    double arg6,
+    double arg7,
+    double arg8,
+    double arg9,
+    double arg10,
+    double arg11,
+    double arg12,
+    double arg13,
+    double arg14,
+    double arg15,
+  ) =>
+      Matrix4.zero()..setValues(
+        arg0,
+        arg1,
+        arg2,
+        arg3,
+        arg4,
+        arg5,
+        arg6,
+        arg7,
+        arg8,
+        arg9,
+        arg10,
+        arg11,
+        arg12,
+        arg13,
+        arg14,
+        arg15,
+      );
 
   /// New matrix from [values].
-  factory Matrix4.fromList(List<double> values) => Matrix4.zero()
-    ..setValues(
+  factory Matrix4.fromList(List<double> values) =>
+      Matrix4.zero()..setValues(
         values[0],
         values[1],
         values[2],
@@ -218,7 +238,8 @@ class Matrix4 {
         values[12],
         values[13],
         values[14],
-        values[15]);
+        values[15],
+      );
 
   /// Zero matrix.
   Matrix4.zero() : _m4storage = Float64List(16);
@@ -241,31 +262,38 @@ class Matrix4 {
 
   /// Constructs a new mat4 from columns.
   factory Matrix4.columns(
-          Vector4 arg0, Vector4 arg1, Vector4 arg2, Vector4 arg3) =>
-      Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
+    Vector4 arg0,
+    Vector4 arg1,
+    Vector4 arg2,
+    Vector4 arg3,
+  ) => Matrix4.zero()..setColumns(arg0, arg1, arg2, arg3);
 
   /// Outer product of [u] and [v].
   factory Matrix4.outer(Vector4 u, Vector4 v) => Matrix4.zero()..setOuter(u, v);
 
   /// Rotation of [radians] around X.
-  factory Matrix4.rotationX(double radians) => Matrix4.zero()
-    .._m4storage[15] = 1.0
-    ..setRotationX(radians);
+  factory Matrix4.rotationX(double radians) =>
+      Matrix4.zero()
+        .._m4storage[15] = 1.0
+        ..setRotationX(radians);
 
   /// Rotation of [radians] around Y.
-  factory Matrix4.rotationY(double radians) => Matrix4.zero()
-    .._m4storage[15] = 1.0
-    ..setRotationY(radians);
+  factory Matrix4.rotationY(double radians) =>
+      Matrix4.zero()
+        .._m4storage[15] = 1.0
+        ..setRotationY(radians);
 
   /// Rotation of [radians] around Z.
-  factory Matrix4.rotationZ(double radians) => Matrix4.zero()
-    .._m4storage[15] = 1.0
-    ..setRotationZ(radians);
+  factory Matrix4.rotationZ(double radians) =>
+      Matrix4.zero()
+        .._m4storage[15] = 1.0
+        ..setRotationZ(radians);
 
   /// Translation matrix.
-  factory Matrix4.translation(Vector3 translation) => Matrix4.zero()
-    ..setIdentity()
-    ..setTranslation(translation);
+  factory Matrix4.translation(Vector3 translation) =>
+      Matrix4.zero()
+        ..setIdentity()
+        ..setTranslation(translation);
 
   /// Translation matrix.
   factory Matrix4.translationValues(double x, double y, double z) =>
@@ -321,11 +349,14 @@ class Matrix4 {
   /// Constructs Matrix4 with a [storage] that views given [buffer] starting at
   /// [offset]. [offset] has to be multiple of [Float64List.bytesPerElement].
   Matrix4.fromBuffer(ByteBuffer buffer, int offset)
-      : _m4storage = Float64List.view(buffer, offset, 16);
+    : _m4storage = Float64List.view(buffer, offset, 16);
 
   /// Constructs Matrix4 from [translation], [rotation] and [scale].
   factory Matrix4.compose(
-          Vector3 translation, Quaternion rotation, Vector3 scale) =>
+    Vector3 translation,
+    Quaternion rotation,
+    Vector3 scale,
+  ) =>
       Matrix4.zero()
         ..setFromTranslationRotationScale(translation, rotation, scale);
 
@@ -339,22 +370,23 @@ class Matrix4 {
 
   /// Sets the matrix with specified values.
   void setValues(
-      double arg0,
-      double arg1,
-      double arg2,
-      double arg3,
-      double arg4,
-      double arg5,
-      double arg6,
-      double arg7,
-      double arg8,
-      double arg9,
-      double arg10,
-      double arg11,
-      double arg12,
-      double arg13,
-      double arg14,
-      double arg15) {
+    double arg0,
+    double arg1,
+    double arg2,
+    double arg3,
+    double arg4,
+    double arg5,
+    double arg6,
+    double arg7,
+    double arg8,
+    double arg9,
+    double arg10,
+    double arg11,
+    double arg12,
+    double arg13,
+    double arg14,
+    double arg15,
+  ) {
     _m4storage[15] = arg15;
     _m4storage[14] = arg14;
     _m4storage[13] = arg13;
@@ -459,9 +491,12 @@ class Matrix4 {
 
   /// Sets the matrix from [translation], [rotation] and [scale].
   void setFromTranslationRotationScale(
-      Vector3 translation, Quaternion rotation, Vector3 scale) {
+    Vector3 translation,
+    Quaternion rotation,
+    Vector3 scale,
+  ) {
     setFromTranslationRotation(translation, rotation);
-    this.scale(scale);
+    scaleByVector3(scale);
   }
 
   /// Sets the upper 2x2 of the matrix to be [arg].
@@ -505,7 +540,8 @@ class Matrix4 {
 
   /// Returns a printable string
   @override
-  String toString() => '[0] ${getRow(0)}\n[1] ${getRow(1)}\n'
+  String toString() =>
+      '[0] ${getRow(0)}\n[1] ${getRow(1)}\n'
       '[2] ${getRow(2)}\n[3] ${getRow(3)}\n';
 
   /// Dimension of the matrix.
@@ -638,20 +674,29 @@ class Matrix4 {
   Matrix4 operator -() => clone()..negate();
 
   /// Returns a new vector or matrix by multiplying this with [arg].
+  ///
+  /// [arg] should be a [double] (to scale), [Vector4] (to transform), [Vector3]
+  /// (to transform), or [Matrix4] (to multiply).
+  ///
+  /// If you know the argument type in a call site, prefer [scaledByDouble],
+  /// [transformed], [transformed3], or [multiplied] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
   dynamic operator *(dynamic arg) {
+    final Object result;
     if (arg is double) {
-      return scaled(arg);
+      result = scaledByDouble(arg, arg, arg, 1.0);
+    } else if (arg is Vector4) {
+      result = transformed(arg);
+    } else if (arg is Vector3) {
+      result = transformed3(arg);
+    } else if (arg is Matrix4) {
+      result = multiplied(arg);
+    } else {
+      throw ArgumentError(arg);
     }
-    if (arg is Vector4) {
-      return transformed(arg);
-    }
-    if (arg is Vector3) {
-      return transformed3(arg);
-    }
-    if (arg is Matrix4) {
-      return multiplied(arg);
-    }
-    throw ArgumentError(arg);
+    return result;
   }
 
   /// Returns new matrix after component wise this + [arg]
@@ -660,96 +705,159 @@ class Matrix4 {
   /// Returns new matrix after component wise this - [arg]
   Matrix4 operator -(Matrix4 arg) => clone()..sub(arg);
 
-  /// Translate this matrix by a [Vector3], [Vector4], or x,y,z
+  /// Translate this matrix by a [Vector3], [Vector4], or x,y,z as [double]s.
+  ///
+  /// If you know the argument types in a call site, prefer [translateByDouble],
+  /// [translateByVector3], or [translateByVector4] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  @Deprecated(
+    'Use translateByVector3, translateByVector4, '
+    'or translateByDouble instead',
+  )
   void translate(dynamic x, [double y = 0.0, double z = 0.0]) {
-    double tx;
-    double ty;
-    double tz;
-    final tw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      translateByVector3(x);
     } else if (x is Vector4) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      translateByVector4(x);
     } else if (x is double) {
-      tx = x;
-      ty = y;
-      tz = z;
+      translateByDouble(x, y, z, 1.0);
     } else {
       throw UnimplementedError();
     }
-    final t1 = _m4storage[0] * tx +
+  }
+
+  /// Translate this matrix by x, y, z, w.
+  void translateByDouble(double tx, double ty, double tz, double tw) {
+    final t1 =
+        _m4storage[0] * tx +
         _m4storage[4] * ty +
         _m4storage[8] * tz +
         _m4storage[12] * tw;
-    final t2 = _m4storage[1] * tx +
+    _m4storage[12] = t1;
+
+    final t2 =
+        _m4storage[1] * tx +
         _m4storage[5] * ty +
         _m4storage[9] * tz +
         _m4storage[13] * tw;
-    final t3 = _m4storage[2] * tx +
+    _m4storage[13] = t2;
+
+    final t3 =
+        _m4storage[2] * tx +
         _m4storage[6] * ty +
         _m4storage[10] * tz +
         _m4storage[14] * tw;
-    final t4 = _m4storage[3] * tx +
+    _m4storage[14] = t3;
+
+    final t4 =
+        _m4storage[3] * tx +
         _m4storage[7] * ty +
         _m4storage[11] * tz +
         _m4storage[15] * tw;
-    _m4storage[12] = t1;
-    _m4storage[13] = t2;
-    _m4storage[14] = t3;
     _m4storage[15] = t4;
   }
 
+  /// Translate this matrix by a [Vector2].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByVector2(Vector2 v2) =>
+      translateByDouble(v2.x, v2.y, 0.0, 1.0);
+
+  /// Translate this matrix by a [Vector3].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByVector3(Vector3 v3) =>
+      translateByDouble(v3.x, v3.y, v3.z, 1.0);
+
+  /// Translate this matrix by a [Vector4].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void translateByVector4(Vector4 v4) =>
+      translateByDouble(v4.x, v4.y, v4.z, v4.w);
+
   /// Multiply this by a translation from the left.
-  /// The translation can be specified with a  [Vector3], [Vector4], or x, y, z.
+  ///
+  /// The translation can be specified with a [Vector3], [Vector4], or x, y, z
+  /// as [double]s.
+  ///
+  /// If you know the argument types in a call site, prefer
+  /// [leftTranslateByDouble], [leftTranslateByVector3], or
+  /// [leftTranslateByVector4] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  @Deprecated(
+    'Use leftTranslateByVector3, leftTranslateByVector4, '
+    'or leftTranslateByDouble instead',
+  )
   void leftTranslate(dynamic x, [double y = 0.0, double z = 0.0]) {
-    double tx;
-    double ty;
-    double tz;
-    final tw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      leftTranslateByVector3(x);
     } else if (x is Vector4) {
-      tx = x.x;
-      ty = x.y;
-      tz = x.z;
+      leftTranslateByVector4(x);
     } else if (x is double) {
-      tx = x;
-      ty = y;
-      tz = z;
+      leftTranslateByDouble(x, y, z, 1.0);
     } else {
       throw UnimplementedError();
     }
+  }
 
+  /// Multiply this by a translation from the left.
+  void leftTranslateByDouble(double tx, double ty, double tz, double tw) {
     // Column 1
-    _m4storage[0] += tx * _m4storage[3];
-    _m4storage[1] += ty * _m4storage[3];
-    _m4storage[2] += tz * _m4storage[3];
-    _m4storage[3] = tw * _m4storage[3];
+    final r1 = _m4storage[3];
+    _m4storage[0] += tx * r1;
+    _m4storage[1] += ty * r1;
+    _m4storage[2] += tz * r1;
+    _m4storage[3] = tw * r1;
 
     // Column 2
-    _m4storage[4] += tx * _m4storage[7];
-    _m4storage[5] += ty * _m4storage[7];
-    _m4storage[6] += tz * _m4storage[7];
-    _m4storage[7] = tw * _m4storage[7];
+    final r2 = _m4storage[7];
+    _m4storage[4] += tx * r2;
+    _m4storage[5] += ty * r2;
+    _m4storage[6] += tz * r2;
+    _m4storage[7] = tw * r2;
 
     // Column 3
-    _m4storage[8] += tx * _m4storage[11];
-    _m4storage[9] += ty * _m4storage[11];
-    _m4storage[10] += tz * _m4storage[11];
-    _m4storage[11] = tw * _m4storage[11];
+    final r3 = _m4storage[11];
+    _m4storage[8] += tx * r3;
+    _m4storage[9] += ty * r3;
+    _m4storage[10] += tz * r3;
+    _m4storage[11] = tw * r3;
 
     // Column 4
-    _m4storage[12] += tx * _m4storage[15];
-    _m4storage[13] += ty * _m4storage[15];
-    _m4storage[14] += tz * _m4storage[15];
-    _m4storage[15] = tw * _m4storage[15];
+    final r4 = _m4storage[15];
+    _m4storage[12] += tx * r4;
+    _m4storage[13] += ty * r4;
+    _m4storage[14] += tz * r4;
+    _m4storage[15] = tw * r4;
   }
+
+  /// Multiply this by a translation from the left.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void leftTranslateByVector2(Vector2 v2) =>
+      leftTranslateByDouble(v2.x, v2.y, 0.0, 1.0);
+
+  /// Multiply this by a translation from the left.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void leftTranslateByVector3(Vector3 v3) =>
+      leftTranslateByDouble(v3.x, v3.y, v3.z, 1.0);
+
+  /// Multiply this by a translation from the left.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void leftTranslateByVector4(Vector4 v4) =>
+      leftTranslateByDouble(v4.x, v4.y, v4.z, v4.w);
 
   /// Rotate this [angle] radians around [axis]
   void rotate(Vector3 axis, double angle) {
@@ -864,27 +972,28 @@ class Matrix4 {
     _m4storage[7] = t8;
   }
 
-  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z
+  /// Scale this matrix by a [Vector3], [Vector4], or x,y,z as [double]s.
+  ///
+  /// If you know the argument types in a call site, prefer [scaleByDouble],
+  /// [scaleByVector3], or [scaleByVector4] for performance.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  @Deprecated('Use scaleByVector3, scaleByVector4, or scaleByDouble instead')
   void scale(dynamic x, [double? y, double? z]) {
-    double sx;
-    double sy;
-    double sz;
-    final sw = x is Vector4 ? x.w : 1.0;
     if (x is Vector3) {
-      sx = x.x;
-      sy = x.y;
-      sz = x.z;
+      scaleByVector3(x);
     } else if (x is Vector4) {
-      sx = x.x;
-      sy = x.y;
-      sz = x.z;
+      scaleByVector4(x);
     } else if (x is double) {
-      sx = x;
-      sy = y ?? x;
-      sz = z ?? x;
+      scaleByDouble(x, y ?? x, z ?? x, 1.0);
     } else {
       throw UnimplementedError();
     }
+  }
+
+  /// Scale this matrix.
+  void scaleByDouble(double sx, double sy, double sz, double sw) {
     _m4storage[0] *= sx;
     _m4storage[1] *= sx;
     _m4storage[2] *= sx;
@@ -903,9 +1012,44 @@ class Matrix4 {
     _m4storage[15] *= sw;
   }
 
+  /// Scale this matrix.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void scaleByVector3(Vector3 v3) => scaleByDouble(v3.x, v3.y, v3.z, 1.0);
+
+  /// Scale this matrix.
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  void scaleByVector4(Vector4 v4) => scaleByDouble(v4.x, v4.y, v4.z, v4.w);
+
   /// Create a copy of this scaled by a [Vector3], [Vector4] or [x],[y], and
   /// [z].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  @Deprecated('Use scaledByVector3, scaledByVector4, or scaledByDouble instead')
   Matrix4 scaled(dynamic x, [double? y, double? z]) => clone()..scale(x, y, z);
+
+  /// Create a copy of this scaled by [x], [y], [z], and [t].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  Matrix4 scaledByDouble(double x, double y, double z, double t) =>
+      clone()..scaleByDouble(x, y, z, t);
+
+  /// Create a copy of this scaled by a [Vector3].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  Matrix4 scaledByVector3(Vector3 v3) => clone()..scaleByVector3(v3);
+
+  /// Create a copy of this scaled by a [Vector4].
+  @pragma('wasm:prefer-inline')
+  @pragma('vm:prefer-inline')
+  @pragma('dart2js:prefer-inline')
+  Matrix4 scaledByVector4(Vector4 v4) => clone()..scaleByVector4(v4);
 
   /// Zeros this.
   void setZero() {
@@ -1009,16 +1153,20 @@ class Matrix4 {
         _m4storage[1] * _m4storage[7] - _m4storage[3] * _m4storage[5];
     final det2_01_23 =
         _m4storage[2] * _m4storage[7] - _m4storage[3] * _m4storage[6];
-    final det3_201_012 = _m4storage[8] * det2_01_12 -
+    final det3_201_012 =
+        _m4storage[8] * det2_01_12 -
         _m4storage[9] * det2_01_02 +
         _m4storage[10] * det2_01_01;
-    final det3_201_013 = _m4storage[8] * det2_01_13 -
+    final det3_201_013 =
+        _m4storage[8] * det2_01_13 -
         _m4storage[9] * det2_01_03 +
         _m4storage[11] * det2_01_01;
-    final det3_201_023 = _m4storage[8] * det2_01_23 -
+    final det3_201_023 =
+        _m4storage[8] * det2_01_23 -
         _m4storage[10] * det2_01_03 +
         _m4storage[11] * det2_01_02;
-    final det3_201_123 = _m4storage[9] * det2_01_23 -
+    final det3_201_123 =
+        _m4storage[9] * det2_01_23 -
         _m4storage[10] * det2_01_13 +
         _m4storage[11] * det2_01_12;
     return -det3_201_123 * _m4storage[12] +
@@ -1181,13 +1329,16 @@ class Matrix4 {
 
   /// Returns the max scale value of the 3 axes.
   double getMaxScaleOnAxis() {
-    final scaleXSq = _m4storage[0] * _m4storage[0] +
+    final scaleXSq =
+        _m4storage[0] * _m4storage[0] +
         _m4storage[1] * _m4storage[1] +
         _m4storage[2] * _m4storage[2];
-    final scaleYSq = _m4storage[4] * _m4storage[4] +
+    final scaleYSq =
+        _m4storage[4] * _m4storage[4] +
         _m4storage[5] * _m4storage[5] +
         _m4storage[6] * _m4storage[6];
-    final scaleZSq = _m4storage[8] * _m4storage[8] +
+    final scaleZSq =
+        _m4storage[8] * _m4storage[8] +
         _m4storage[9] * _m4storage[9] +
         _m4storage[10] * _m4storage[10];
     return math.sqrt(math.max(scaleXSq, math.max(scaleYSq, scaleZSq)));
@@ -1291,23 +1442,32 @@ class Matrix4 {
     double kx;
     double ky;
     double kz;
-    ix = invDet *
+    ix =
+        invDet *
         (_m4storage[5] * _m4storage[10] - _m4storage[6] * _m4storage[9]);
-    iy = invDet *
+    iy =
+        invDet *
         (_m4storage[2] * _m4storage[9] - _m4storage[1] * _m4storage[10]);
-    iz = invDet *
+    iz =
+        invDet *
         (_m4storage[1] * _m4storage[6] - _m4storage[2] * _m4storage[5]);
-    jx = invDet *
+    jx =
+        invDet *
         (_m4storage[6] * _m4storage[8] - _m4storage[4] * _m4storage[10]);
-    jy = invDet *
+    jy =
+        invDet *
         (_m4storage[0] * _m4storage[10] - _m4storage[2] * _m4storage[8]);
-    jz = invDet *
+    jz =
+        invDet *
         (_m4storage[2] * _m4storage[4] - _m4storage[0] * _m4storage[6]);
-    kx = invDet *
+    kx =
+        invDet *
         (_m4storage[4] * _m4storage[9] - _m4storage[5] * _m4storage[8]);
-    ky = invDet *
+    ky =
+        invDet *
         (_m4storage[1] * _m4storage[8] - _m4storage[0] * _m4storage[9]);
-    kz = invDet *
+    kz =
+        invDet *
         (_m4storage[0] * _m4storage[5] - _m4storage[1] * _m4storage[4]);
     _m4storage[0] = ix;
     _m4storage[1] = iy;
@@ -1394,67 +1554,83 @@ class Matrix4 {
     final b4 = _m4storage[7];
     final c4 = _m4storage[11];
     final d4 = _m4storage[15];
-    _m4storage[0] = (b2 * (c3 * d4 - c4 * d3) -
+    _m4storage[0] =
+        (b2 * (c3 * d4 - c4 * d3) -
             c2 * (b3 * d4 - b4 * d3) +
             d2 * (b3 * c4 - b4 * c3)) *
         scale;
-    _m4storage[1] = -(a2 * (c3 * d4 - c4 * d3) -
+    _m4storage[1] =
+        -(a2 * (c3 * d4 - c4 * d3) -
             c2 * (a3 * d4 - a4 * d3) +
             d2 * (a3 * c4 - a4 * c3)) *
         scale;
-    _m4storage[2] = (a2 * (b3 * d4 - b4 * d3) -
+    _m4storage[2] =
+        (a2 * (b3 * d4 - b4 * d3) -
             b2 * (a3 * d4 - a4 * d3) +
             d2 * (a3 * b4 - a4 * b3)) *
         scale;
-    _m4storage[3] = -(a2 * (b3 * c4 - b4 * c3) -
+    _m4storage[3] =
+        -(a2 * (b3 * c4 - b4 * c3) -
             b2 * (a3 * c4 - a4 * c3) +
             c2 * (a3 * b4 - a4 * b3)) *
         scale;
-    _m4storage[4] = -(b1 * (c3 * d4 - c4 * d3) -
+    _m4storage[4] =
+        -(b1 * (c3 * d4 - c4 * d3) -
             c1 * (b3 * d4 - b4 * d3) +
             d1 * (b3 * c4 - b4 * c3)) *
         scale;
-    _m4storage[5] = (a1 * (c3 * d4 - c4 * d3) -
+    _m4storage[5] =
+        (a1 * (c3 * d4 - c4 * d3) -
             c1 * (a3 * d4 - a4 * d3) +
             d1 * (a3 * c4 - a4 * c3)) *
         scale;
-    _m4storage[6] = -(a1 * (b3 * d4 - b4 * d3) -
+    _m4storage[6] =
+        -(a1 * (b3 * d4 - b4 * d3) -
             b1 * (a3 * d4 - a4 * d3) +
             d1 * (a3 * b4 - a4 * b3)) *
         scale;
-    _m4storage[7] = (a1 * (b3 * c4 - b4 * c3) -
+    _m4storage[7] =
+        (a1 * (b3 * c4 - b4 * c3) -
             b1 * (a3 * c4 - a4 * c3) +
             c1 * (a3 * b4 - a4 * b3)) *
         scale;
-    _m4storage[8] = (b1 * (c2 * d4 - c4 * d2) -
+    _m4storage[8] =
+        (b1 * (c2 * d4 - c4 * d2) -
             c1 * (b2 * d4 - b4 * d2) +
             d1 * (b2 * c4 - b4 * c2)) *
         scale;
-    _m4storage[9] = -(a1 * (c2 * d4 - c4 * d2) -
+    _m4storage[9] =
+        -(a1 * (c2 * d4 - c4 * d2) -
             c1 * (a2 * d4 - a4 * d2) +
             d1 * (a2 * c4 - a4 * c2)) *
         scale;
-    _m4storage[10] = (a1 * (b2 * d4 - b4 * d2) -
+    _m4storage[10] =
+        (a1 * (b2 * d4 - b4 * d2) -
             b1 * (a2 * d4 - a4 * d2) +
             d1 * (a2 * b4 - a4 * b2)) *
         scale;
-    _m4storage[11] = -(a1 * (b2 * c4 - b4 * c2) -
+    _m4storage[11] =
+        -(a1 * (b2 * c4 - b4 * c2) -
             b1 * (a2 * c4 - a4 * c2) +
             c1 * (a2 * b4 - a4 * b2)) *
         scale;
-    _m4storage[12] = -(b1 * (c2 * d3 - c3 * d2) -
+    _m4storage[12] =
+        -(b1 * (c2 * d3 - c3 * d2) -
             c1 * (b2 * d3 - b3 * d2) +
             d1 * (b2 * c3 - b3 * c2)) *
         scale;
-    _m4storage[13] = (a1 * (c2 * d3 - c3 * d2) -
+    _m4storage[13] =
+        (a1 * (c2 * d3 - c3 * d2) -
             c1 * (a2 * d3 - a3 * d2) +
             d1 * (a2 * c3 - a3 * c2)) *
         scale;
-    _m4storage[14] = -(a1 * (b2 * d3 - b3 * d2) -
+    _m4storage[14] =
+        -(a1 * (b2 * d3 - b3 * d2) -
             b1 * (a2 * d3 - a3 * d2) +
             d1 * (a2 * b3 - a3 * b2)) *
         scale;
-    _m4storage[15] = (a1 * (b2 * c3 - b3 * c2) -
+    _m4storage[15] =
+        (a1 * (b2 * c3 - b3 * c2) -
             b1 * (a2 * c3 - a3 * c2) +
             c1 * (a2 * b3 - a3 * b2)) *
         scale;
@@ -1598,6 +1774,63 @@ class Matrix4 {
     _m4storage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
   }
 
+  /// Computes the result of `arg x this` and stores the result in-place in
+  /// `this`.
+  ///
+  /// This method does not alter the [Matrix4] in [arg].
+  void leftMultiply(Matrix4 arg) {
+    final argStorage = arg._m4storage;
+    final m00 = argStorage[0];
+    final m01 = argStorage[4];
+    final m02 = argStorage[8];
+    final m03 = argStorage[12];
+    final m10 = argStorage[1];
+    final m11 = argStorage[5];
+    final m12 = argStorage[9];
+    final m13 = argStorage[13];
+    final m20 = argStorage[2];
+    final m21 = argStorage[6];
+    final m22 = argStorage[10];
+    final m23 = argStorage[14];
+    final m30 = argStorage[3];
+    final m31 = argStorage[7];
+    final m32 = argStorage[11];
+    final m33 = argStorage[15];
+    final bStorage = _m4storage;
+    final n00 = bStorage[0];
+    final n01 = bStorage[4];
+    final n02 = bStorage[8];
+    final n03 = bStorage[12];
+    final n10 = bStorage[1];
+    final n11 = bStorage[5];
+    final n12 = bStorage[9];
+    final n13 = bStorage[13];
+    final n20 = bStorage[2];
+    final n21 = bStorage[6];
+    final n22 = bStorage[10];
+    final n23 = bStorage[14];
+    final n30 = bStorage[3];
+    final n31 = bStorage[7];
+    final n32 = bStorage[11];
+    final n33 = bStorage[15];
+    bStorage[0] = (m00 * n00) + (m01 * n10) + (m02 * n20) + (m03 * n30);
+    bStorage[4] = (m00 * n01) + (m01 * n11) + (m02 * n21) + (m03 * n31);
+    bStorage[8] = (m00 * n02) + (m01 * n12) + (m02 * n22) + (m03 * n32);
+    bStorage[12] = (m00 * n03) + (m01 * n13) + (m02 * n23) + (m03 * n33);
+    bStorage[1] = (m10 * n00) + (m11 * n10) + (m12 * n20) + (m13 * n30);
+    bStorage[5] = (m10 * n01) + (m11 * n11) + (m12 * n21) + (m13 * n31);
+    bStorage[9] = (m10 * n02) + (m11 * n12) + (m12 * n22) + (m13 * n32);
+    bStorage[13] = (m10 * n03) + (m11 * n13) + (m12 * n23) + (m13 * n33);
+    bStorage[2] = (m20 * n00) + (m21 * n10) + (m22 * n20) + (m23 * n30);
+    bStorage[6] = (m20 * n01) + (m21 * n11) + (m22 * n21) + (m23 * n31);
+    bStorage[10] = (m20 * n02) + (m21 * n12) + (m22 * n22) + (m23 * n32);
+    bStorage[14] = (m20 * n03) + (m21 * n13) + (m22 * n23) + (m23 * n33);
+    bStorage[3] = (m30 * n00) + (m31 * n10) + (m32 * n20) + (m33 * n30);
+    bStorage[7] = (m30 * n01) + (m31 * n11) + (m32 * n21) + (m33 * n31);
+    bStorage[11] = (m30 * n02) + (m31 * n12) + (m32 * n22) + (m33 * n32);
+    bStorage[15] = (m30 * n03) + (m31 * n13) + (m32 * n23) + (m33 * n33);
+  }
+
   /// Multiply a copy of this with [arg].
   Matrix4 multiplied(Matrix4 arg) => clone()..multiply(arg);
 
@@ -1620,67 +1853,83 @@ class Matrix4 {
     final m32 = _m4storage[14];
     final m33 = _m4storage[15];
     final argStorage = arg._m4storage;
-    _m4storage[0] = (m00 * argStorage[0]) +
+    _m4storage[0] =
+        (m00 * argStorage[0]) +
         (m01 * argStorage[1]) +
         (m02 * argStorage[2]) +
         (m03 * argStorage[3]);
-    _m4storage[4] = (m00 * argStorage[4]) +
+    _m4storage[4] =
+        (m00 * argStorage[4]) +
         (m01 * argStorage[5]) +
         (m02 * argStorage[6]) +
         (m03 * argStorage[7]);
-    _m4storage[8] = (m00 * argStorage[8]) +
+    _m4storage[8] =
+        (m00 * argStorage[8]) +
         (m01 * argStorage[9]) +
         (m02 * argStorage[10]) +
         (m03 * argStorage[11]);
-    _m4storage[12] = (m00 * argStorage[12]) +
+    _m4storage[12] =
+        (m00 * argStorage[12]) +
         (m01 * argStorage[13]) +
         (m02 * argStorage[14]) +
         (m03 * argStorage[15]);
-    _m4storage[1] = (m10 * argStorage[0]) +
+    _m4storage[1] =
+        (m10 * argStorage[0]) +
         (m11 * argStorage[1]) +
         (m12 * argStorage[2]) +
         (m13 * argStorage[3]);
-    _m4storage[5] = (m10 * argStorage[4]) +
+    _m4storage[5] =
+        (m10 * argStorage[4]) +
         (m11 * argStorage[5]) +
         (m12 * argStorage[6]) +
         (m13 * argStorage[7]);
-    _m4storage[9] = (m10 * argStorage[8]) +
+    _m4storage[9] =
+        (m10 * argStorage[8]) +
         (m11 * argStorage[9]) +
         (m12 * argStorage[10]) +
         (m13 * argStorage[11]);
-    _m4storage[13] = (m10 * argStorage[12]) +
+    _m4storage[13] =
+        (m10 * argStorage[12]) +
         (m11 * argStorage[13]) +
         (m12 * argStorage[14]) +
         (m13 * argStorage[15]);
-    _m4storage[2] = (m20 * argStorage[0]) +
+    _m4storage[2] =
+        (m20 * argStorage[0]) +
         (m21 * argStorage[1]) +
         (m22 * argStorage[2]) +
         (m23 * argStorage[3]);
-    _m4storage[6] = (m20 * argStorage[4]) +
+    _m4storage[6] =
+        (m20 * argStorage[4]) +
         (m21 * argStorage[5]) +
         (m22 * argStorage[6]) +
         (m23 * argStorage[7]);
-    _m4storage[10] = (m20 * argStorage[8]) +
+    _m4storage[10] =
+        (m20 * argStorage[8]) +
         (m21 * argStorage[9]) +
         (m22 * argStorage[10]) +
         (m23 * argStorage[11]);
-    _m4storage[14] = (m20 * argStorage[12]) +
+    _m4storage[14] =
+        (m20 * argStorage[12]) +
         (m21 * argStorage[13]) +
         (m22 * argStorage[14]) +
         (m23 * argStorage[15]);
-    _m4storage[3] = (m30 * argStorage[0]) +
+    _m4storage[3] =
+        (m30 * argStorage[0]) +
         (m31 * argStorage[1]) +
         (m32 * argStorage[2]) +
         (m33 * argStorage[3]);
-    _m4storage[7] = (m30 * argStorage[4]) +
+    _m4storage[7] =
+        (m30 * argStorage[4]) +
         (m31 * argStorage[5]) +
         (m32 * argStorage[6]) +
         (m33 * argStorage[7]);
-    _m4storage[11] = (m30 * argStorage[8]) +
+    _m4storage[11] =
+        (m30 * argStorage[8]) +
         (m31 * argStorage[9]) +
         (m32 * argStorage[10]) +
         (m33 * argStorage[11]);
-    _m4storage[15] = (m30 * argStorage[12]) +
+    _m4storage[15] =
+        (m30 * argStorage[12]) +
         (m31 * argStorage[13]) +
         (m32 * argStorage[14]) +
         (m33 * argStorage[15]);
@@ -1705,67 +1954,83 @@ class Matrix4 {
     final m32 = _m4storage[11];
     final m33 = _m4storage[15];
     final argStorage = arg._m4storage;
-    _m4storage[0] = (m00 * argStorage[0]) +
+    _m4storage[0] =
+        (m00 * argStorage[0]) +
         (m01 * argStorage[4]) +
         (m02 * argStorage[8]) +
         (m03 * argStorage[12]);
-    _m4storage[4] = (m00 * argStorage[1]) +
+    _m4storage[4] =
+        (m00 * argStorage[1]) +
         (m01 * argStorage[5]) +
         (m02 * argStorage[9]) +
         (m03 * argStorage[13]);
-    _m4storage[8] = (m00 * argStorage[2]) +
+    _m4storage[8] =
+        (m00 * argStorage[2]) +
         (m01 * argStorage[6]) +
         (m02 * argStorage[10]) +
         (m03 * argStorage[14]);
-    _m4storage[12] = (m00 * argStorage[3]) +
+    _m4storage[12] =
+        (m00 * argStorage[3]) +
         (m01 * argStorage[7]) +
         (m02 * argStorage[11]) +
         (m03 * argStorage[15]);
-    _m4storage[1] = (m10 * argStorage[0]) +
+    _m4storage[1] =
+        (m10 * argStorage[0]) +
         (m11 * argStorage[4]) +
         (m12 * argStorage[8]) +
         (m13 * argStorage[12]);
-    _m4storage[5] = (m10 * argStorage[1]) +
+    _m4storage[5] =
+        (m10 * argStorage[1]) +
         (m11 * argStorage[5]) +
         (m12 * argStorage[9]) +
         (m13 * argStorage[13]);
-    _m4storage[9] = (m10 * argStorage[2]) +
+    _m4storage[9] =
+        (m10 * argStorage[2]) +
         (m11 * argStorage[6]) +
         (m12 * argStorage[10]) +
         (m13 * argStorage[14]);
-    _m4storage[13] = (m10 * argStorage[3]) +
+    _m4storage[13] =
+        (m10 * argStorage[3]) +
         (m11 * argStorage[7]) +
         (m12 * argStorage[11]) +
         (m13 * argStorage[15]);
-    _m4storage[2] = (m20 * argStorage[0]) +
+    _m4storage[2] =
+        (m20 * argStorage[0]) +
         (m21 * argStorage[4]) +
         (m22 * argStorage[8]) +
         (m23 * argStorage[12]);
-    _m4storage[6] = (m20 * argStorage[1]) +
+    _m4storage[6] =
+        (m20 * argStorage[1]) +
         (m21 * argStorage[5]) +
         (m22 * argStorage[9]) +
         (m23 * argStorage[13]);
-    _m4storage[10] = (m20 * argStorage[2]) +
+    _m4storage[10] =
+        (m20 * argStorage[2]) +
         (m21 * argStorage[6]) +
         (m22 * argStorage[10]) +
         (m23 * argStorage[14]);
-    _m4storage[14] = (m20 * argStorage[3]) +
+    _m4storage[14] =
+        (m20 * argStorage[3]) +
         (m21 * argStorage[7]) +
         (m22 * argStorage[11]) +
         (m23 * argStorage[15]);
-    _m4storage[3] = (m30 * argStorage[0]) +
+    _m4storage[3] =
+        (m30 * argStorage[0]) +
         (m31 * argStorage[4]) +
         (m32 * argStorage[8]) +
         (m33 * argStorage[12]);
-    _m4storage[7] = (m30 * argStorage[1]) +
+    _m4storage[7] =
+        (m30 * argStorage[1]) +
         (m31 * argStorage[5]) +
         (m32 * argStorage[9]) +
         (m33 * argStorage[13]);
-    _m4storage[11] = (m30 * argStorage[2]) +
+    _m4storage[11] =
+        (m30 * argStorage[2]) +
         (m31 * argStorage[6]) +
         (m32 * argStorage[10]) +
         (m33 * argStorage[14]);
-    _m4storage[15] = (m30 * argStorage[3]) +
+    _m4storage[15] =
+        (m30 * argStorage[3]) +
         (m31 * argStorage[7]) +
         (m32 * argStorage[11]) +
         (m33 * argStorage[15]);
@@ -1820,13 +2085,16 @@ class Matrix4 {
   /// Rotate [arg] of type [Vector3] using the rotation defined by this.
   Vector3 rotate3(Vector3 arg) {
     final argStorage = arg._v3storage;
-    final x_ = (_m4storage[0] * argStorage[0]) +
+    final x_ =
+        (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]);
-    final y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ =
+        (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]);
-    final z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ =
+        (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]);
     argStorage[0] = x_;
@@ -1850,15 +2118,18 @@ class Matrix4 {
   /// this.
   Vector3 transform3(Vector3 arg) {
     final argStorage = arg._v3storage;
-    final x_ = (_m4storage[0] * argStorage[0]) +
+    final x_ =
+        (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
         _m4storage[12];
-    final y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ =
+        (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]) +
         _m4storage[13];
-    final z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ =
+        (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]) +
         _m4storage[14];
@@ -1884,19 +2155,23 @@ class Matrix4 {
   /// this.
   Vector4 transform(Vector4 arg) {
     final argStorage = arg._v4storage;
-    final x_ = (_m4storage[0] * argStorage[0]) +
+    final x_ =
+        (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
         (_m4storage[12] * argStorage[3]);
-    final y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ =
+        (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]) +
         (_m4storage[13] * argStorage[3]);
-    final z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ =
+        (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]) +
         (_m4storage[14] * argStorage[3]);
-    final w_ = (_m4storage[3] * argStorage[0]) +
+    final w_ =
+        (_m4storage[3] * argStorage[0]) +
         (_m4storage[7] * argStorage[1]) +
         (_m4storage[11] * argStorage[2]) +
         (_m4storage[15] * argStorage[3]);
@@ -1911,19 +2186,23 @@ class Matrix4 {
   /// defined by this.
   Vector3 perspectiveTransform(Vector3 arg) {
     final argStorage = arg._v3storage;
-    final x_ = (_m4storage[0] * argStorage[0]) +
+    final x_ =
+        (_m4storage[0] * argStorage[0]) +
         (_m4storage[4] * argStorage[1]) +
         (_m4storage[8] * argStorage[2]) +
         _m4storage[12];
-    final y_ = (_m4storage[1] * argStorage[0]) +
+    final y_ =
+        (_m4storage[1] * argStorage[0]) +
         (_m4storage[5] * argStorage[1]) +
         (_m4storage[9] * argStorage[2]) +
         _m4storage[13];
-    final z_ = (_m4storage[2] * argStorage[0]) +
+    final z_ =
+        (_m4storage[2] * argStorage[0]) +
         (_m4storage[6] * argStorage[1]) +
         (_m4storage[10] * argStorage[2]) +
         _m4storage[14];
-    final w_ = 1.0 /
+    final w_ =
+        1.0 /
         ((_m4storage[3] * argStorage[0]) +
             (_m4storage[7] * argStorage[1]) +
             (_m4storage[11] * argStorage[2]) +
@@ -2023,46 +2302,54 @@ class Matrix4 {
 
   /// Is this the identity matrix?
   bool isIdentity() =>
-      _m4storage[0] == 1.0 // col 1
-      &&
+      _m4storage[0] ==
+          1.0 // col 1
+          &&
       _m4storage[1] == 0.0 &&
       _m4storage[2] == 0.0 &&
       _m4storage[3] == 0.0 &&
-      _m4storage[4] == 0.0 // col 2
-      &&
+      _m4storage[4] ==
+          0.0 // col 2
+          &&
       _m4storage[5] == 1.0 &&
       _m4storage[6] == 0.0 &&
       _m4storage[7] == 0.0 &&
-      _m4storage[8] == 0.0 // col 3
-      &&
+      _m4storage[8] ==
+          0.0 // col 3
+          &&
       _m4storage[9] == 0.0 &&
       _m4storage[10] == 1.0 &&
       _m4storage[11] == 0.0 &&
-      _m4storage[12] == 0.0 // col 4
-      &&
+      _m4storage[12] ==
+          0.0 // col 4
+          &&
       _m4storage[13] == 0.0 &&
       _m4storage[14] == 0.0 &&
       _m4storage[15] == 1.0;
 
   /// Is this the zero matrix?
   bool isZero() =>
-      _m4storage[0] == 0.0 // col 1
-      &&
+      _m4storage[0] ==
+          0.0 // col 1
+          &&
       _m4storage[1] == 0.0 &&
       _m4storage[2] == 0.0 &&
       _m4storage[3] == 0.0 &&
-      _m4storage[4] == 0.0 // col 2
-      &&
+      _m4storage[4] ==
+          0.0 // col 2
+          &&
       _m4storage[5] == 0.0 &&
       _m4storage[6] == 0.0 &&
       _m4storage[7] == 0.0 &&
-      _m4storage[8] == 0.0 // col 3
-      &&
+      _m4storage[8] ==
+          0.0 // col 3
+          &&
       _m4storage[9] == 0.0 &&
       _m4storage[10] == 0.0 &&
       _m4storage[11] == 0.0 &&
-      _m4storage[12] == 0.0 // col 4
-      &&
+      _m4storage[12] ==
+          0.0 // col 4
+          &&
       _m4storage[13] == 0.0 &&
       _m4storage[14] == 0.0 &&
       _m4storage[15] == 0.0;

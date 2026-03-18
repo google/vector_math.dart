@@ -21,21 +21,21 @@ class Triangle {
 
   /// Create a new, uninitialized triangle.
   Triangle()
-      : _point0 = Vector3.zero(),
-        _point1 = Vector3.zero(),
-        _point2 = Vector3.zero();
+    : _point0 = Vector3.zero(),
+      _point1 = Vector3.zero(),
+      _point2 = Vector3.zero();
 
   /// Create a triangle as a copy of [other].
   Triangle.copy(Triangle other)
-      : _point0 = Vector3.copy(other._point0),
-        _point1 = Vector3.copy(other._point1),
-        _point2 = Vector3.copy(other._point2);
+    : _point0 = Vector3.copy(other._point0),
+      _point1 = Vector3.copy(other._point1),
+      _point2 = Vector3.copy(other._point2);
 
   /// Create a triangle by three points.
   Triangle.points(Vector3 point0, Vector3 point1, Vector3 point2)
-      : _point0 = Vector3.copy(point0),
-        _point1 = Vector3.copy(point1),
-        _point2 = Vector3.copy(point2);
+    : _point0 = Vector3.copy(point0),
+      _point1 = Vector3.copy(point1),
+      _point2 = Vector3.copy(point2);
 
   /// Copy the triangle from [other] into this.
   void copyFrom(Triangle other) {

@@ -1,6 +1,41 @@
-## 2.1.6-wip
+## 2.4.0-wip
 
 - Remove the deprecated `SimplexNoise` class.
+
+## 2.3.0
+
+- Add `leftTranslateByVector2` method to `Matrix4`.
+  Equivalent to the `leftTranslate` set of methods, that multiplies this matrix by a translation matrix from the left.
+- Added `Matrix4.leftMultiply` method.
+- Add `translateByVector2` method to `Matrix4`.
+- Require `sdk: ^3.7.0`.
+
+## 2.2.0
+
+- Performance of functions that take `dynamic` arguments improved.
+- Most of the members that take `dynamic` arguments are deprecated. New members
+  with non-`dynamic` arguments added.
+
+  Deprecated members:
+  - `Matrix4.translate`
+
+    Instead use: `Matrix4.translateByDouble`, `Matrix4.translateByVector3`,
+    `Matrix4.translateByVector4`.
+
+  - `Matrix4.leftTranslate`
+
+    Instead use: `Matrix4.leftTranslateByDouble`,
+    `Matrix4.leftTranslateByVector3`, `Matrix4.leftTranslateByVector4`.
+
+  - `Matrix4.scale`
+
+    Instead use: `Matrix4.scaleByDouble`, `Matrix4.scaleByVector3`,
+    `Matrix4.scaleByVector4`.
+
+  - `Matrix4.scaled`
+
+    Instead use: `Matrix4.scaledByDouble`, `Matrix4.scaledByVector3`,
+    `Matrix4.scaledByVector4`.
 
 ## 2.1.5
 

@@ -25,8 +25,13 @@ double smoothStep(double edge0, double edge1, double amount) {
 
 /// Do a catmull rom spline interpolation with [edge0], [edge1], [edge2] and
 /// [edge3] by [amount].
-double catmullRom(double edge0, double edge1, double edge2, double edge3,
-        double amount) =>
+double catmullRom(
+  double edge0,
+  double edge1,
+  double edge2,
+  double edge3,
+  double amount,
+) =>
     0.5 *
     ((2.0 * edge1) +
         (-edge0 + edge2) * amount +

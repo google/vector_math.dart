@@ -113,7 +113,8 @@ void testVector4ListSetValue() {
 
 void testVector4ListSetZero() {
   final list = Vector4List.view(
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
+  );
 
   list.setZero(1);
 
@@ -129,7 +130,8 @@ void testVector4ListSetZero() {
 
 void testVector4ListAdd() {
   final list = Vector4List.view(
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
+  );
 
   list.add(1, $v4(2.0, 2.0, 2.0, 2.0));
 
@@ -145,7 +147,8 @@ void testVector4ListAdd() {
 
 void testVector4ListAddScaled() {
   final list = Vector4List.view(
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
+  );
 
   list.addScaled(1, $v4(2.0, 2.0, 2.0, 2.0), 2.0);
 
@@ -161,7 +164,8 @@ void testVector4ListAddScaled() {
 
 void testVector4ListSub() {
   final list = Vector4List.view(
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
+  );
 
   list.sub(1, $v4(2.0, 2.0, 2.0, 2.0));
 
@@ -177,7 +181,8 @@ void testVector4ListSub() {
 
 void testVector4ListMultiply() {
   final list = Vector4List.view(
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
+  );
 
   list.multiply(1, $v4(2.0, 3.0, 4.0, 5.0));
 
@@ -193,7 +198,8 @@ void testVector4ListMultiply() {
 
 void testVector4ListScale() {
   final list = Vector4List.view(
-      Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]));
+    Float32List.fromList([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]),
+  );
 
   list.scale(1, 2.0);
 

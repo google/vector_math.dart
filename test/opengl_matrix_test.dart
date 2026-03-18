@@ -52,10 +52,14 @@ void testFrustumMatrix() {
   final frustum = makeFrustumMatrix(l, r, b, t, n, f);
   relativeTest(frustum.getColumn(0), Vector4(2 * n / (r - l), 0.0, 0.0, 0.0));
   relativeTest(frustum.getColumn(1), Vector4(0.0, 2 * n / (t - b), 0.0, 0.0));
-  relativeTest(frustum.getColumn(2),
-      Vector4((r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0));
   relativeTest(
-      frustum.getColumn(3), Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0));
+    frustum.getColumn(2),
+    Vector4((r + l) / (r - l), (t + b) / (t - b), -(f + n) / (f - n), -1.0),
+  );
+  relativeTest(
+    frustum.getColumn(3),
+    Vector4(0.0, 0.0, -2.0 * f * n / (f - n), 0.0),
+  );
 }
 
 void testPerspectiveMatrix() {
@@ -68,7 +72,9 @@ void testPerspectiveMatrix() {
   relativeTest(perspective.getColumn(0), Vector4(0.5, 0.0, 0.0, 0.0));
   relativeTest(perspective.getColumn(1), Vector4(0.0, 1.0, 0.0, 0.0));
   relativeTest(
-      perspective.getColumn(2), Vector4(0.0, 0.0, -101.0 / 99.0, -1.0));
+    perspective.getColumn(2),
+    Vector4(0.0, 0.0, -101.0 / 99.0, -1.0),
+  );
   relativeTest(perspective.getColumn(3), Vector4(0.0, 0.0, -200.0 / 99.0, 0.0));
 }
 
@@ -95,8 +101,10 @@ void testOrthographicMatrix() {
   relativeTest(ortho.getColumn(0), Vector4(2 / (r - l), 0.0, 0.0, 0.0));
   relativeTest(ortho.getColumn(1), Vector4(0.0, 2 / (t - b), 0.0, 0.0));
   relativeTest(ortho.getColumn(2), Vector4(0.0, 0.0, -2 / (f - n), 0.0));
-  relativeTest(ortho.getColumn(3),
-      Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0));
+  relativeTest(
+    ortho.getColumn(3),
+    Vector4(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0),
+  );
 }
 
 void testModelMatrix() {

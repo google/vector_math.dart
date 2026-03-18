@@ -13,28 +13,42 @@ void testMatrix3Adjoint() {
   final input = <dynamic>[];
   final expectedOutput = <dynamic>[];
 
-  input.add(parseMatrix<Matrix3>(
+  input.add(
+    parseMatrix<Matrix3>(
       ''' 0.285839018820374   0.380445846975357   0.053950118666607
           0.757200229110721   0.567821640725221   0.530797553008973
-          0.753729094278495   0.075854289563064   0.779167230102011'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+          0.753729094278495   0.075854289563064   0.779167230102011''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       ''' 0.402164743710542  -0.292338588868304   0.171305679728352
           -0.189908046274114   0.182052622470548  -0.110871609529434
-          -0.370546805539367   0.265070987960728  -0.125768101844091'''));
-  input.add(parseMatrix<Matrix3>('''1     0     0
+          -0.370546805539367   0.265070987960728  -0.125768101844091''',
+    ),
+  );
+  input.add(
+    parseMatrix<Matrix3>('''1     0     0
                                     0     1     0
-                                    0     0     1'''));
-  expectedOutput.add(parseMatrix<Matrix3>('''1     0     0
+                                    0     0     1'''),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>('''1     0     0
                                              0     1     0
-                                             0     0     1'''));
-  input.add(parseMatrix<Matrix4>('''1     0     0     0
+                                             0     0     1'''),
+  );
+  input.add(
+    parseMatrix<Matrix4>('''1     0     0     0
                                     0     1     0     0
                                     0     0     1     0
-                                    0     0     0     1'''));
-  expectedOutput.add(parseMatrix<Matrix4>('''1     0     0     0
+                                    0     0     0     1'''),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix4>('''1     0     0     0
                                              0     1     0     0
                                              0     0     1     0
-                                             0     0     0     1'''));
+                                             0     0     0     1'''),
+  );
 
   assert(input.length == expectedOutput.length);
 
@@ -51,10 +65,13 @@ void testMatrix3Determinant() {
   final input = <Matrix3>[];
   final expectedOutput = <double>[];
 
-  input.add(parseMatrix<Matrix3>(
+  input.add(
+    parseMatrix<Matrix3>(
       '''0.285839018820374   0.380445846975357   0.053950118666607
          0.757200229110721   0.567821640725221   0.530797553008973
-         0.753729094278495   0.075854289563064   0.779167230102011'''));
+         0.753729094278495   0.075854289563064   0.779167230102011''',
+    ),
+  );
   expectedOutput.add(0.022713604103796);
 
   assert(input.length == expectedOutput.length);
@@ -71,31 +88,49 @@ void testMatrix3SelfTransposeMultiply() {
   final inputB = <Matrix3>[];
   final expectedOutput = <Matrix3>[];
 
-  inputA.add(parseMatrix<Matrix3>(
+  inputA.add(
+    parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
          0.399782649098896   0.431413827463545   0.263802916521990
-         0.259870402850654   0.910647594429523   0.145538980384717'''));
-  inputB.add(parseMatrix<Matrix3>(
+         0.259870402850654   0.910647594429523   0.145538980384717''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix3>(
       '''0.136068558708664   0.549860201836332   0.622055131485066
          0.869292207640089   0.144954798223727   0.350952380892271
-         0.579704587365570   0.853031117721894   0.513249539867053'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+         0.579704587365570   0.853031117721894   0.513249539867053''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       '''0.509665070066463   0.326055864494860   0.326206788210183
          1.011795431418814   1.279272055656899   1.116481872383158
-         0.338435097301446   0.262379221330899   0.280398953455993'''));
+         0.338435097301446   0.262379221330899   0.280398953455993''',
+    ),
+  );
 
-  inputA.add(parseMatrix<Matrix3>(
+  inputA.add(
+    parseMatrix<Matrix3>(
       '''0.136068558708664   0.549860201836332   0.622055131485066
          0.869292207640089   0.144954798223727   0.350952380892271
-         0.579704587365570   0.853031117721894   0.513249539867053'''));
-  inputB.add(parseMatrix<Matrix3>(
+         0.579704587365570   0.853031117721894   0.513249539867053''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
          0.399782649098896   0.431413827463545   0.263802916521990
-         0.259870402850654   0.910647594429523   0.145538980384717'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+         0.259870402850654   0.910647594429523   0.145538980384717''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       '''0.509665070066463   1.011795431418814   0.338435097301446
          0.326055864494860   1.279272055656899   0.262379221330899
-         0.326206788210183   1.116481872383158   0.280398953455993'''));
+         0.326206788210183   1.116481872383158   0.280398953455993''',
+    ),
+  );
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
@@ -111,31 +146,49 @@ void testMatrix3SelfMultiply() {
   final inputB = <Matrix3>[];
   final expectedOutput = <Matrix3>[];
 
-  inputA.add(parseMatrix<Matrix3>(
+  inputA.add(
+    parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
          0.399782649098896   0.431413827463545   0.263802916521990
-         0.259870402850654   0.910647594429523   0.145538980384717'''));
-  inputB.add(parseMatrix<Matrix3>(
+         0.259870402850654   0.910647594429523   0.145538980384717''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix3>(
       '''0.136068558708664   0.549860201836332   0.622055131485066
          0.869292207640089   0.144954798223727   0.350952380892271
-         0.579704587365570   0.853031117721894   0.513249539867053'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+         0.579704587365570   0.853031117721894   0.513249539867053''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       '''0.812399915745417   0.317522849978516   0.426642592595554
          0.582350288210078   0.507392169174135   0.535489283769338
-         0.911348663480233   0.399044409575883   0.555945473748377'''));
+         0.911348663480233   0.399044409575883   0.555945473748377''',
+    ),
+  );
 
-  inputA.add(parseMatrix<Matrix3>(
+  inputA.add(
+    parseMatrix<Matrix3>(
       '''0.136068558708664   0.549860201836332   0.622055131485066
          0.869292207640089   0.144954798223727   0.350952380892271
-         0.579704587365570   0.853031117721894   0.513249539867053'''));
-  inputB.add(parseMatrix<Matrix3>(
+         0.579704587365570   0.853031117721894   0.513249539867053''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
          0.399782649098896   0.431413827463545   0.263802916521990
-         0.259870402850654   0.910647594429523   0.145538980384717'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+         0.259870402850654   0.910647594429523   0.145538980384717''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       '''0.392967349540540   0.912554468305858   0.260331657549835
          0.222551972385485   1.077622741167203   0.247394954900102
-         0.523353251675581   1.299202246456530   0.405147467960185'''));
+         0.523353251675581   1.299202246456530   0.405147467960185''',
+    ),
+  );
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
@@ -151,31 +204,49 @@ void testMatrix3SelfMultiplyTranspose() {
   final inputB = <Matrix3>[];
   final expectedOutput = <Matrix3>[];
 
-  inputA.add(parseMatrix<Matrix3>(
+  inputA.add(
+    parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
          0.399782649098896   0.431413827463545   0.263802916521990
-         0.259870402850654   0.910647594429523   0.145538980384717'''));
-  inputB.add(parseMatrix<Matrix3>(
+         0.259870402850654   0.910647594429523   0.145538980384717''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix3>(
       '''0.136068558708664   0.549860201836332   0.622055131485066
          0.869292207640089   0.144954798223727   0.350952380892271
-         0.579704587365570   0.853031117721894   0.513249539867053'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+         0.579704587365570   0.853031117721894   0.513249539867053''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       '''0.564533756922142   0.253192835205285   0.824764060523193
          0.455715101026938   0.502645707562004   0.735161980594196
-         0.626622330821134   0.408983306176468   1.002156614695209'''));
+         0.626622330821134   0.408983306176468   1.002156614695209''',
+    ),
+  );
 
-  inputA.add(parseMatrix<Matrix3>(
+  inputA.add(
+    parseMatrix<Matrix3>(
       '''0.136068558708664   0.549860201836332   0.622055131485066
          0.869292207640089   0.144954798223727   0.350952380892271
-         0.579704587365570   0.853031117721894   0.513249539867053'''));
-  inputB.add(parseMatrix<Matrix3>(
+         0.579704587365570   0.853031117721894   0.513249539867053''',
+    ),
+  );
+  inputB.add(
+    parseMatrix<Matrix3>(
       '''0.084435845510910   0.800068480224308   0.181847028302852
          0.399782649098896   0.431413827463545   0.263802916521990
-         0.259870402850654   0.910647594429523   0.145538980384717'''));
-  expectedOutput.add(parseMatrix<Matrix3>(
+         0.259870402850654   0.910647594429523   0.145538980384717''',
+    ),
+  );
+  expectedOutput.add(
+    parseMatrix<Matrix3>(
       '''0.564533756922142   0.455715101026938   0.626622330821134
          0.253192835205285   0.502645707562004   0.408983306176468
-         0.824764060523193   0.735161980594196   1.002156614695209'''));
+         0.824764060523193   0.735161980594196   1.002156614695209''',
+    ),
+  );
   assert(inputA.length == inputB.length);
   assert(inputB.length == expectedOutput.length);
 
@@ -193,10 +264,14 @@ void testMatrix3Transform() {
   final input = Vector3(1.0, 0.0, 0.0);
 
   relativeTest(rotX.transformed(input), input);
-  relativeTest(rotY.transformed(input),
-      Vector3(1.0 / math.sqrt(2.0), 0.0, -1.0 / math.sqrt(2.0)));
-  relativeTest(rotZ.transformed(input),
-      Vector3(1.0 / math.sqrt(2.0), 1.0 / math.sqrt(2.0), 0.0));
+  relativeTest(
+    rotY.transformed(input),
+    Vector3(1.0 / math.sqrt(2.0), 0.0, -1.0 / math.sqrt(2.0)),
+  );
+  relativeTest(
+    rotZ.transformed(input),
+    Vector3(1.0 / math.sqrt(2.0), 1.0 / math.sqrt(2.0), 0.0),
+  );
 }
 
 void testMatrix3RotationX() {
@@ -223,14 +298,25 @@ void testMatrix3RotationZ() {
 void testMatrix3Transform2() {
   final rotZ = Matrix3.rotationZ(math.pi / 4);
   final trans = Matrix3(1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0);
-  final transB =
-      Matrix3.fromList([1.0, 0.0, 3.0, 0.0, 1.0, 2.0, 3.0, 2.0, 1.0]);
+  final transB = Matrix3.fromList([
+    1.0,
+    0.0,
+    3.0,
+    0.0,
+    1.0,
+    2.0,
+    3.0,
+    2.0,
+    1.0,
+  ]);
   expect(trans, equals(transB));
 
   final input = Vector2(1.0, 0.0);
 
   relativeTest(
-      rotZ.transform2(input.clone()), Vector2(math.sqrt(0.5), math.sqrt(0.5)));
+    rotZ.transform2(input.clone()),
+    Vector2(math.sqrt(0.5), math.sqrt(0.5)),
+  );
 
   relativeTest(trans.transform2(input.clone()), Vector2(4.0, 2.0));
 }
@@ -244,11 +330,15 @@ void testMatrix3AbsoluteRotate2() {
 
   final input = Vector2(1.0, 0.0);
 
-  relativeTest(rotZ.absoluteRotate2(input.clone()),
-      Vector2(math.sqrt(0.5), math.sqrt(0.5)));
+  relativeTest(
+    rotZ.absoluteRotate2(input.clone()),
+    Vector2(math.sqrt(0.5), math.sqrt(0.5)),
+  );
 
-  relativeTest(rotZcw.absoluteRotate2(input.clone()),
-      Vector2(math.sqrt(0.5), math.sqrt(0.5)));
+  relativeTest(
+    rotZcw.absoluteRotate2(input.clone()),
+    Vector2(math.sqrt(0.5), math.sqrt(0.5)),
+  );
 }
 
 void testMatrix3ConstructorCopy() {

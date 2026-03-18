@@ -15,18 +15,16 @@ class Sphere {
   Vector3 get center => _center;
 
   /// Create a new, uninitialized sphere.
-  Sphere()
-      : _center = Vector3.zero(),
-        radius = 0.0;
+  Sphere() : _center = Vector3.zero(), radius = 0.0;
 
   /// Create a sphere as a copy of [other].
   Sphere.copy(Sphere other)
-      : _center = Vector3.copy(other._center),
-        radius = other.radius;
+    : _center = Vector3.copy(other._center),
+      radius = other.radius;
 
   /// Create a sphere from a [center] and a [radius].
   Sphere.centerRadius(Vector3 center, this.radius)
-      : _center = Vector3.copy(center);
+    : _center = Vector3.copy(center);
 
   /// Copy the sphere from [other] into this.
   void copyFrom(Sphere other) {

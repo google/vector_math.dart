@@ -59,10 +59,14 @@ void testAabb3CopyCenterAndHalfExtents() {
 }
 
 void testAabb3setCenterAndHalfExtents() {
-  final a1 =
-      Aabb3.centerAndHalfExtents($v3(0.0, 0.0, 0.0), $v3(10.0, 20.0, 30.0));
+  final a1 = Aabb3.centerAndHalfExtents(
+    $v3(0.0, 0.0, 0.0),
+    $v3(10.0, 20.0, 30.0),
+  );
   final a2 = Aabb3.centerAndHalfExtents(
-      $v3(-10.0, -20.0, -30.0), $v3(10.0, 20.0, 30.0));
+    $v3(-10.0, -20.0, -30.0),
+    $v3(10.0, 20.0, 30.0),
+  );
 
   relativeTest(a1.min, $v3(-10.0, -20.0, -30.0));
   relativeTest(a1.max, $v3(10.0, 20.0, 30.0));
@@ -80,8 +84,10 @@ void testAabb3setSphere() {
 }
 
 void testAabb3setRay() {
-  final r =
-      Ray.originDirection($v3(1.0, 2.0, 3.0), $v3(1.0, 5.0, -1.0)..normalize());
+  final r = Ray.originDirection(
+    $v3(1.0, 2.0, 3.0),
+    $v3(1.0, 5.0, -1.0)..normalize(),
+  );
   final a = Aabb3.fromRay(r, 0.0, 10.0);
 
   expect(a.intersectsWithVector3(r.at(0.0)), isTrue);
@@ -90,7 +96,10 @@ void testAabb3setRay() {
 
 void testAabb3setTriangle() {
   final t = Triangle.points(
-      $v3(2.0, 0.0, 0.0), $v3(0.0, 2.0, 0.0), $v3(0.0, 0.0, 2.0));
+    $v3(2.0, 0.0, 0.0),
+    $v3(0.0, 2.0, 0.0),
+    $v3(0.0, 0.0, 2.0),
+  );
   final a = Aabb3.fromTriangle(t);
 
   expect(a.intersectsWithVector3(t.point0), isTrue);
@@ -99,8 +108,12 @@ void testAabb3setTriangle() {
 }
 
 void testAabb3setQuad() {
-  final q = Quad.points($v3(2.0, 0.0, 0.0), $v3(0.0, 2.0, 0.0),
-      $v3(0.0, 0.0, 2.0), $v3(0.0, 0.0, -2.0));
+  final q = Quad.points(
+    $v3(2.0, 0.0, 0.0),
+    $v3(0.0, 2.0, 0.0),
+    $v3(0.0, 0.0, 2.0),
+    $v3(0.0, 0.0, -2.0),
+  );
   final a = Aabb3.fromQuad(q);
 
   expect(a.intersectsWithVector3(q.point0), isTrue);
@@ -148,13 +161,25 @@ void testAabb3ContainsVector3() {
 void testAabb3ContainsTriangle() {
   final parent = Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
   final child = Triangle.points(
-      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+    $v3(2.0, 2.0, 2.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(4.0, 4.0, 4.0),
+  );
   final edge = Triangle.points(
-      $v3(1.0, 1.0, 1.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+    $v3(1.0, 1.0, 1.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(4.0, 4.0, 4.0),
+  );
   final cutting = Triangle.points(
-      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(14.0, 14.0, 14.0));
+    $v3(2.0, 2.0, 2.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(14.0, 14.0, 14.0),
+  );
   final outside = Triangle.points(
-      $v3(0.0, 0.0, 0.0), $v3(-3.0, -3.0, -3.0), $v3(-4.0, -4.0, -4.0));
+    $v3(0.0, 0.0, 0.0),
+    $v3(-3.0, -3.0, -3.0),
+    $v3(-4.0, -4.0, -4.0),
+  );
 
   expect(parent.containsTriangle(child), isTrue);
   expect(parent.containsTriangle(edge), isFalse);
@@ -187,10 +212,16 @@ void testAabb3IntersectionAabb3() {
   expect(parent.intersectsWithAabb3(grandParent), isTrue);
   expect(grandParent.intersectsWithAabb3(parent), isTrue);
 
-  expect(siblingOne.intersectsWithAabb3(siblingTwo), isTrue,
-      reason: 'Touching edges are counted as intersection.');
-  expect(siblingOne.intersectsWithAabb3(siblingThree), isTrue,
-      reason: 'Touching corners are counted as intersection.');
+  expect(
+    siblingOne.intersectsWithAabb3(siblingTwo),
+    isTrue,
+    reason: 'Touching edges are counted as intersection.',
+  );
+  expect(
+    siblingOne.intersectsWithAabb3(siblingThree),
+    isTrue,
+    reason: 'Touching corners are counted as intersection.',
+  );
 }
 
 void testAabb3IntersectionSphere() {
@@ -207,13 +238,25 @@ void testAabb3IntersectionSphere() {
 void testIntersectionTriangle() {
   final parent = Aabb3.minMax($v3(1.0, 1.0, 1.0), $v3(8.0, 8.0, 8.0));
   final child = Triangle.points(
-      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+    $v3(2.0, 2.0, 2.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(4.0, 4.0, 4.0),
+  );
   final edge = Triangle.points(
-      $v3(1.0, 1.0, 1.0), $v3(3.0, 3.0, 3.0), $v3(4.0, 4.0, 4.0));
+    $v3(1.0, 1.0, 1.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(4.0, 4.0, 4.0),
+  );
   final cutting = Triangle.points(
-      $v3(2.0, 2.0, 2.0), $v3(3.0, 3.0, 3.0), $v3(14.0, 14.0, 14.0));
+    $v3(2.0, 2.0, 2.0),
+    $v3(3.0, 3.0, 3.0),
+    $v3(14.0, 14.0, 14.0),
+  );
   final outside = Triangle.points(
-      $v3(0.0, 0.0, 0.0), $v3(-3.0, -3.0, -3.0), $v3(-4.0, -4.0, -4.0));
+    $v3(0.0, 0.0, 0.0),
+    $v3(-3.0, -3.0, -3.0),
+    $v3(-4.0, -4.0, -4.0),
+  );
 
   expect(parent.intersectsWithTriangle(child), isTrue);
   expect(parent.intersectsWithTriangle(edge), isTrue);
@@ -222,23 +265,40 @@ void testIntersectionTriangle() {
 
   // Special tests
   final testAabb = Aabb3.minMax(
-      $v3(20.458911895751953, -36.607460021972656, 2.549999952316284),
-      $v3(21.017810821533203, -36.192543029785156, 3.049999952316284));
+    $v3(20.458911895751953, -36.607460021972656, 2.549999952316284),
+    $v3(21.017810821533203, -36.192543029785156, 3.049999952316284),
+  );
   final testTriangle = Triangle.points(
-      $v3(20.5, -36.5, 3.5), $v3(21.5, -36.5, 2.5), $v3(20.5, -36.5, 2.5));
+    $v3(20.5, -36.5, 3.5),
+    $v3(21.5, -36.5, 2.5),
+    $v3(20.5, -36.5, 2.5),
+  );
   expect(testAabb.intersectsWithTriangle(testTriangle), isTrue);
 
   final aabb = Aabb3.minMax(
-      $v3(19.07674217224121, -39.46818161010742, 2.299999952316284),
-      $v3(19.40754508972168, -38.9503288269043, 2.799999952316284));
+    $v3(19.07674217224121, -39.46818161010742, 2.299999952316284),
+    $v3(19.40754508972168, -38.9503288269043, 2.799999952316284),
+  );
   final triangle4 = Triangle.points(
-      $v3(18.5, -39.5, 2.5), $v3(19.5, -39.5, 2.5), $v3(19.5, -38.5, 2.5));
+    $v3(18.5, -39.5, 2.5),
+    $v3(19.5, -39.5, 2.5),
+    $v3(19.5, -38.5, 2.5),
+  );
   final triangle4_1 = Triangle.points(
-      $v3(19.5, -38.5, 2.5), $v3(19.5, -39.5, 2.5), $v3(18.5, -39.5, 2.5));
+    $v3(19.5, -38.5, 2.5),
+    $v3(19.5, -39.5, 2.5),
+    $v3(18.5, -39.5, 2.5),
+  );
   final triangle4_2 = Triangle.points(
-      $v3(18.5, -39.5, 2.5), $v3(19.5, -38.5, 2.5), $v3(18.5, -38.5, 2.5));
+    $v3(18.5, -39.5, 2.5),
+    $v3(19.5, -38.5, 2.5),
+    $v3(18.5, -38.5, 2.5),
+  );
   final triangle4_3 = Triangle.points(
-      $v3(18.5, -38.5, 2.5), $v3(19.5, -38.5, 2.5), $v3(18.5, -39.5, 2.5));
+    $v3(18.5, -38.5, 2.5),
+    $v3(19.5, -38.5, 2.5),
+    $v3(18.5, -39.5, 2.5),
+  );
 
   expect(aabb.intersectsWithTriangle(triangle4), isTrue);
   expect(aabb.intersectsWithTriangle(triangle4_1), isTrue);

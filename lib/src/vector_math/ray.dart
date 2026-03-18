@@ -16,19 +16,17 @@ class Ray {
   Vector3 get direction => _direction;
 
   /// Create a new, uninitialized ray.
-  Ray()
-      : _origin = Vector3.zero(),
-        _direction = Vector3.zero();
+  Ray() : _origin = Vector3.zero(), _direction = Vector3.zero();
 
   /// Create a ray as a copy of [other].
   Ray.copy(Ray other)
-      : _origin = Vector3.copy(other._origin),
-        _direction = Vector3.copy(other._direction);
+    : _origin = Vector3.copy(other._origin),
+      _direction = Vector3.copy(other._direction);
 
   /// Create a ray with an [origin] and a [direction].
   Ray.originDirection(Vector3 origin, Vector3 direction)
-      : _origin = Vector3.copy(origin),
-        _direction = Vector3.copy(direction);
+    : _origin = Vector3.copy(origin),
+      _direction = Vector3.copy(direction);
 
   /// Copy the [origin] and [direction] from [other] into this.
   void copyFrom(Ray other) {
