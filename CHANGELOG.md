@@ -1,4 +1,4 @@
-## 2.3.0-wip
+## 2.3.0
 
 - Add `leftTranslateByVector2` method to `Matrix4`.
   Equivalent to the `leftTranslate` set of methods, that multiplies this matrix by a translation matrix from the left.
