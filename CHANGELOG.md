@@ -1,3 +1,7 @@
+## 2.4.0-wip
+
+- Remove the deprecated `SimplexNoise` class.
+
 ## 2.3.0
 
 - Add `leftTranslateByVector2` method to `Matrix4`.
