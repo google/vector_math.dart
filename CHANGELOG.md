@@ -1,6 +1,7 @@
 ## 2.4.0-wip
 
 - Remove the deprecated `SimplexNoise` class.
+- Optimized the `identity` constructors on the `Matrix` classes.
 
 ## 2.3.0
 
