@@ -131,7 +131,11 @@ class Matrix3 {
   Matrix3.zero() : _m3storage = Float32List(9);
 
   /// Identity matrix.
-  factory Matrix3.identity() => Matrix3.zero()..setIdentity();
+  factory Matrix3.identity() =>
+      Matrix3.zero()
+        .._m3storage[0] = 1.0
+        .._m3storage[4] = 1.0
+        .._m3storage[8] = 1.0;
 
   /// Copes values from [other].
   factory Matrix3.copy(Matrix3 other) => Matrix3.zero()..setFrom(other);
