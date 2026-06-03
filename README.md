@@ -3,6 +3,11 @@
 [![package publisher](https://img.shields.io/pub/publisher/vector_math.svg)](https://pub.dev/packages/vector_math/publisher)
 [![Coverage Status](https://coveralls.io/repos/google/vector_math.dart/badge.svg?branch=master)](https://coveralls.io/r/google/vector_math.dart?branch=master)
 
+# Moved
+
+The source for this package has moved to [flutter/core-packages](https://github.com/flutter/core-packages),
+and issues should now be filed in [flutter/flutter](https://github.com/flutter/flutter).
+
 ## Introduction
 
 A Vector math library for 2D and 3D applications.
